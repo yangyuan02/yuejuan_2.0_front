@@ -1,0 +1,36 @@
+html,body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legend,button,input,textarea,th,td{
+	margin:0;
+	padding:0
+}
+html,body{
+	font-size: 12px;
+	font-family: 'Microsoft Yahei', '微软雅黑';
+}
+img{
+	display: block;
+}
+a{
+	text-decoration: none;
+	color:#666;
+}
+input{
+	outline: none;
+}
+
+
+
+@font-face {
+  font-family: 'iconfont';
+  src: url('iconfont.eot');
+  src: url('iconfont.eot?#iefix') format('embedded-opentype'),
+  url('iconfont.woff') format('woff'),
+  url('iconfont.ttf') format('truetype'),
+  url('iconfont.svg#iconfont') format('svg');
+}
+
+
+.iconfont{
+  font-family:"iconfont";
+  font-size:16px;
+  font-style:normal;
+}
