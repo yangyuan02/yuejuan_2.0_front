@@ -1,0 +1,136 @@
+#header{
+	position: relative;
+	background: #31bc91;
+	height: 50px;
+	width: 100%;
+}
+.logo{
+	position: absolute;
+	top: 9px;
+	left: -130px;
+}
+.navbar{
+	position: relative;
+	margin: 0 auto;
+	width: 1200px;
+}
+.navbar ul li{
+	float: left;
+	width: 150px;
+	height: 100%;
+}
+.navbar ul{
+	display: inline-block;
+	margin-top: 10px;
+	height: 30px;
+	border-right: 1px solid #32af82;
+	border-left: 1px solid #32af82;
+}
+.navbar ul li a{
+	font-size: 18px;
+	line-height: 30px;
+	color: #fff;
+	display: block;
+	width: 100%;
+	height: 30px;
+	text-align: center;
+	border-right: 1px solid #32af82;
+	border-left: 1px solid #32af82;
+}
+
+.nav-right{
+	position: absolute;
+	right: 10px;
+	line-height: 32px;
+	font-size: 16px;
+	top: 9px;
+}
+.nav-right div{
+	float: left;
+}
+
+.news,.supervise{
+	color: #fff;
+	width: 94px;
+}
+.information{
+	position: relative;
+}
+
+.longin-username{
+	background: #fff;
+	color: #333;
+	text-align: center;
+	border-radius: 14px;
+	height: 32px;
+	width: 192px;
+}
+
+.dropdown{
+	display: none;
+	position: absolute;
+	top: 35px;
+	left: 0;
+}
+.dropdown ul{
+	width: 190px;
+	border: 1px solid #ccc;
+	border-radius: 2px;
+	background: #fff;
+}
+.dropdown ul li{
+	padding: 0 10px;
+	font-size: 14px;
+}
+
+.content{
+	width: 1200px;
+	margin: 0 auto;
+	padding-top: 52px;
+}
+.content a{
+	display: inline-block;
+	margin-bottom: 36px;
+	margin-right: 56px;
+	width: 360px;
+	height: 210px;
+}
+
+.test-assembly{
+	background-image: url('../img/test-assembly.png');
+	background-size: 100% 100%;
+}
+.marking{
+	background-image: url('../img/marking.png');
+	background-size: 100% 100%;
+}
+.report-form{
+	background-image: url('../img/report-form.png');
+	background-size: 100% 100%;
+}
+.mistakes-collection{
+	background-image: url('../img/mistakes-collection.png');
+	background-size: 100% 100%;
+}
+.questions{
+	background-image: url('../img/questions.png');
+	background-size: 100% 100%;
+}
+.iconfont-size{
+	font-size: 12px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

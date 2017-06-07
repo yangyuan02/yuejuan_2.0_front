@@ -5,6 +5,7 @@ html,body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,
 html,body{
 	font-size: 12px;
 	font-family: 'Microsoft Yahei', '微软雅黑';
+  height: 100%;
 }
 img{
 	display: block;
@@ -16,16 +17,25 @@ a{
 input{
 	outline: none;
 }
-
-
+ul{
+  list-style: none;
+}
+.clear:after{
+  clear:both;
+  content:'';
+  display:block;
+  width: 0;
+  height: 0;
+  visibility:hidden;
+}
 
 @font-face {
-  font-family: 'iconfont';
-  src: url('iconfont.eot');
-  src: url('iconfont.eot?#iefix') format('embedded-opentype'),
-  url('iconfont.woff') format('woff'),
-  url('iconfont.ttf') format('truetype'),
-  url('iconfont.svg#iconfont') format('svg');
+  font-family: 'iconfont';  /* project id 308672 */
+  src: url('//at.alicdn.com/t/font_snz9pp7pt8hhncdi.eot');
+  src: url('//at.alicdn.com/t/font_snz9pp7pt8hhncdi.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_snz9pp7pt8hhncdi.woff') format('woff'),
+  url('//at.alicdn.com/t/font_snz9pp7pt8hhncdi.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_snz9pp7pt8hhncdi.svg#iconfont') format('svg');
 }
 
 
@@ -34,3 +44,45 @@ input{
   font-size:16px;
   font-style:normal;
 }
+
+.no-margin-right{
+  margin-right: 0 !important;
+}
+
+
+
+#wrap{
+  position: relative;
+  min-width: 1200px;
+  height: 100%;
+  min-height: 800px;
+}
+
+
+#footer{
+  background: #fff;
+  text-align: center;
+  height: 50px;
+  width: 100%;
+  line-height: 50px;
+  border-top: 1px solid #999;
+  color: #999;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
