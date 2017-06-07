@@ -69,6 +69,13 @@ html,body{
 	color:#a7bccc;
 	margin: 0 auto;
 }
+/*#login-remember{
+	width: 16px;
+	height: 16px;
+	margin-right: 10px;
+	position: relative;
+	top: 1px;
+}*/
 .login-btn{
 	display: block;
 	width: 330px;
@@ -81,6 +88,10 @@ html,body{
 	margin: 0 auto;
 	margin-top: 10px;
 }
+
+
+/*#login-remember:checked{ background: red; }*/
+
 #login-remember{
 	position: relative;
 	display:inline-block;
@@ -91,12 +102,17 @@ html,body{
 	margin-right: 10px;
 	top: 3px;
 }
+#login-remember.checked{
+
+}
 #login-remember.checked:after{
 	content:"\e60b";
 	position: absolute;
 	color: #37bc9b;
 	left: -2px;
 	top: 0;
+/*	width: 15px;
+	height: 15px;*/
 	line-height: 14px;
 	font-size: 17px;
 }
