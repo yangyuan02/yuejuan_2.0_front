@@ -12,8 +12,8 @@
       if(event.keyCode ==13){ 
         $(".login-btn").trigger("click"); 
       } 
-  });
-
+  })
+     
   $('.login-btn').on('click', function(){
     save();
     var password = $.base64.encode($("#login-pwd").val())
