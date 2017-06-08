@@ -16,7 +16,7 @@ $(function() {
 	    	headers: {'Authorization': "Bearer " + isLogin},
 	    	success: function(data){
 	    		console.log(data)
-	    		if(!data.user_name){
+	    		if(data.user_name){
 	    			user_name = data.user_name;
 	        		school_name = data.school_name;
 	        		console.log(user_name+'+++'+school_name)
@@ -32,6 +32,6 @@ $(function() {
 	        	localStorage.clear();
 	        	window.location.href = './login.html'
 	        }
-	    });		
+	    });
 	}
 })

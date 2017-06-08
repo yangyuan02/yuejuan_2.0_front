@@ -39,26 +39,39 @@ $(function() {
 	$.ajax({
 	  type: "GET",
 	  url: "http://192.168.1.121:8888/api/v2/exams",
-		data:{'page':1,'limit':4},
+		data:{'page':1,'limit':10},
 	  headers: {'Authorization': "Bearer " + isLogin},
 	  dataType: "JSON",
 
 	  success: function(data){
 	  	exam_list = data;
 	   	console.log(data)
-	   	console.log(exam_list.length)
+	   	console.log(exam_list.length);
+			show_list ();
 	   },
 	   error: function(){
 	      console.log(123123123)
 	  }
 	});
-	   var a = exam_list.length;
-	if (a!= 0) {
-		for (var i = 1; i < a; i++) {
-			console.log(exam_list[i].name)
-			// var arr='<li class="active"><h6 class="name">' + exam_list[i].name + '</h6><p class="time">' + exam_list[i].created_at + '</p></li>'
-			// $('.list_ul').append(arr)
+	function show_list () {
+		var a=exam_list.length;
+		if (a!= 0) {
+			for (var i = 1; i < a; i++) {
+				console.log(exam_list[i].name)
+				var arr='<li class=""><h6 class="name">' + exam_list[i].name + '</h6><p class="time">' + exam_list[i].created_at + '</p></li>'
+				$('.list_ul').append(arr);
+			};
 		};
-	};
-	
+	}
+
+	var height = $(window).height()-$('#header').height()-$('#footer').height()- $('.title_box').height()-200;
+	console.log(height)
+	$('.list_ul').css({
+		'height': height,
+		'max-height': height
+	});
+	// 新建考试
+	$('#new_test').on('click', function(){
+		$('.first_new').show();
+	})
 })
