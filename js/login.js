@@ -1,61 +1,69 @@
- $(document).ready(function () {
-    if ($.cookie("login-remmeber") == "true") {
-        // $("#login-remmeber").attr("checked", true);
-        $("#login-name").val($.cookie("login-name"));
-        // $("#login-pwd").val($.cookie("login-pwd"));
-    }
-	$(document).keyup(function(event){
-	    if(event.keyCode ==13){
-	    	$(".login-btn").trigger("click");
-	    }
-	});
+ $(document).ready(function () {  
+  if ($.cookie("login-remmeber") == "true") {  
+      $("#login-remmeber").attr("checked", true);  
+      $("#login-name").val($.cookie("login-name"));    
+  }  
+  var isLogin = localStorage.getItem("token");
+  if(isLogin){
+    window.location.href = "./index.html";
+  }
 
-
-    $('.login-btn').on('click', function(){
-
-		save();
-		var password = $.base64.encode($("#login-pwd").val())
-    	$.ajax({
-          type: "post",
-          url: "http://127.0.0.1:3000/api/v2/login",
-        	data: {
-        		'username':$("#login-name").val(),
-        		'password': password
-        	},
-        	dataType: "JSON",
-        	success: function(data){
-            alert(data.success);
-        		sessionStorage.setItem("isLogin", data);
-            	save();
-            },
+  $(document).keyup(function(event){ 
+      if(event.keyCode ==13){ 
+        $(".login-btn").trigger("click"); 
+      } 
+  })
+     
+  $('.login-btn').on('click', function(){
+    save();
+    var password = $.base64.encode($("#login-pwd").val())
+      $.ajax({
+          type: "POST",
+          async: "true",
+          url: "http://192.168.1.121:8888/api/v2/login.json",
+          data: {
+            'username':$("#login-name").val(), 
+            'password': password
+          },
+          dataType: "JSON",
+          success: function(data){
+            if (data.token) {
+              $('.login').hide();
+              $('.login-shadow').hide();
+              $('.login-animate').show();
+              localStorage.setItem("token", data.token);
+              setTimeout(function(){
+                window.location.href = "./index.html";
+              },2000)
+              
+            }else{
+              $('.login-propmt').show();
+            } 
+          },
             error: function(){
-            	$('.login-propmt').show();
-            }
-     	});
+              alert('请从新尝试登录或者联系管理员')
+          }
+      });
     });
 
     $('.login-input').focus(function(){
-    	$(this).parent().addClass('login-input-in')
-    	$('.login-propmt').hide();
+      $(this).parent().addClass('login-input-in')
+      $('.login-propmt').hide();
     });
     $('.login-input').blur(function(){
-    	$(this).parent().removeClass('login-input-in')
-    	$('.login-propmt').hide();
-
+      $(this).parent().removeClass('login-input-in')
+      $('.login-propmt').hide();
     });
-
+    
 });
-function save() {
-    if($("#login-remember.checked").length){
-        var loginName = $("#login-name").val();
-        // var loginPwd = $("#login-pwd").val();
-        $.cookie("login-remember", "true", { expires: 7 });
-        $.cookie("login-name", loginName, { expires: 7 });
-        // $.cookie("login-pwd", loginPwd, { expires: 7 });
-        alert(1)
-    }else{
-        $.cookie("login-remember", "false", { expire: -1 });
-        $.cookie("login-name", "", { expires: -1 });
-        // $.cookie("login-pwd", "", { expires: -1 });
-    }
-};
+
+function save() {  
+  if($("#login-remember.checked").length){  
+      var loginName = $("#login-name").val();  
+      $.cookie("login-remember", "true", { expires: 7 });
+      $.cookie("login-name", loginName, { expires: 7 });  
+  }else{  
+      $.cookie("login-remember", "false", { expire: -1 });  
+      $.cookie("login-name", "", { expires: -1 });  
+  }  
+}; 

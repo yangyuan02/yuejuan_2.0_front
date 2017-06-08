@@ -143,7 +143,21 @@ html,body{
 	line-height: 30px;
 }
 
-
+.login-animate{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-top: -125px;
+	margin-left: -125px;
+	width: 200px;
+	height: 250px;
+}
+.login-animate p{
+	line-height: 50px;
+	font-size: 18px;
+	text-align: center;
+	color: #fff;
+}
 
 
 
