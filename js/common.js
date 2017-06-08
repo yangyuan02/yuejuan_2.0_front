@@ -28,7 +28,7 @@ $(function() {
 	    		}
 	        },
 	        error: function(){
-	        	alert('账号已在其他地方登录');
+	        	alert('请稍后从新尝试登录或者联系管理员');
 	        	localStorage.clear();
 	        	window.location.href = './login.html'
 	        }

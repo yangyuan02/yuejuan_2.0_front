@@ -155,7 +155,7 @@ ul{
   display: none;
   position: absolute;
   top: 35px;
-  left: 0;
+  left: 15px;
 }
 .dropdown ul{
   width: 190px;
@@ -163,17 +163,24 @@ ul{
   border-radius: 2px;
   background: #fff;
 }
-.dropdown ul li{
+.dropdown ul li a{
   padding: 0 10px;
   font-size: 14px;
+  color: #999;
 }
-
+.dropdown ul li:hover{
+  background: #f5f5f5;
+}
 .triangle-down{
   display: inline-block;
   margin-bottom: 2px;
 }
-
-
+.displaynone{
+  display: none;
+}
+.displayblock{
+  display: block;
+}
 
 @media screen and (max-width: 1450px) {
   .navbar li{
