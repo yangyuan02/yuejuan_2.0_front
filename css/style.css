@@ -28,16 +28,17 @@ ul{
   height: 0;
   visibility:hidden;
 }
-
+.clear {
+  zoom: 1;
+}
 @font-face {
   font-family: 'iconfont';  /* project id 308672 */
-  src: url('//at.alicdn.com/t/font_snz9pp7pt8hhncdi.eot');
-  src: url('//at.alicdn.com/t/font_snz9pp7pt8hhncdi.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_snz9pp7pt8hhncdi.woff') format('woff'),
-  url('//at.alicdn.com/t/font_snz9pp7pt8hhncdi.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_snz9pp7pt8hhncdi.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_youetln06akedn29.eot');
+  src: url('//at.alicdn.com/t/font_youetln06akedn29.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_youetln06akedn29.woff') format('woff'),
+  url('//at.alicdn.com/t/font_youetln06akedn29.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_youetln06akedn29.svg#iconfont') format('svg');
 }
-
 
 .iconfont{
   font-family:"iconfont";
@@ -157,8 +158,16 @@ ul{
   padding: 0 10px;
   font-size: 14px;
 }
-
-
+.common_width{
+  width: 1200px;
+  margin: 0 auto;
+}
+.left{
+  float: left;
+}
+.right{
+  float: right;
+}
 
 
 
