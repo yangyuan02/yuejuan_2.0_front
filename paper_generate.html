@@ -29,7 +29,7 @@
 			<div class="left test_list">
 				<div class="title">
 					<p class="name">考试列表</p>
-					<p class="new_test"><a href=""><i class="iconfont">&#xe613;</i>新建考试</a></p>
+					<p class="new_test" id="new_test"><a href="javascript:;"><i class="iconfont">&#xe613;</i>新建考试</a></p>
 				</div>
 				<!-- <div class="shadow">11</div> -->
 				<div class="list_cont">
@@ -82,107 +82,157 @@
 				</div>
 			</div>
 			<div class="right main-cont">
-				<div class="title_name">
-					<p>新建考试</p>
-				</div>
-				<div class="test_info">
-					<div class="title"><h6>考试信息</h6></div>
-					<form action="" name="">
-						<div class="rows">
-							<label>考试名称</label>
-							<input type="text" placeholder="请输入考试名称">
-						</div>
-						<div class="rows clear">
-							<div class="rows_left left">
-								<label>考试年级</label>
-								<select>
-									<option value="0">请选择年级</option>
-									<option value="1">六年级</option>
-									<option value="2">七年级</option>
-									<option value="3">八年级</option>
-									<option value="4">九年级</option>
-								</select>
-							</div>
-							<div class="rows_right left">
-								<label>查看范围</label>
-								<select>
-									<option value="0">请选择查看范围</option>
-									<option value="1">学校</option>
-									<option value="2">年级</option>
-								</select>
-							</div>
-						</div>
-						<div class="rows">
-							<label>考试班级</label>
-							<ul class="class">
-								<li class="on">全部<i class="iconfont">&#xe619;</i></li>
-								<li>一班<i class="iconfont">&#xe619;</i></li>
-							</ul>
-						</div>
-						<div class="rows">
-							<label>考试科目</label>
-							<ul class="class">
-								<li class="on">全部<i class="iconfont">&#xe619;</i></li>
-								<li>语文<i class="iconfont">&#xe619;</i></li>
-							</ul>
-						</div>
-					</form>
-				</div>
-				<div class="subject_info test_info">
-					<div class="title">
-						<h6>科目信息</h6>
-						<a href="" class="new_create">
-							<i class="iconfont">&#xe61a;</i>
-							新建科目
-						</a>
+				<div class="first_new hide">
+					<div class="title_name">
+						<p>新建考试</p>
 					</div>
-					<table name="" class="subject_list" cellspacing="0"  border="0" cellpadding="0" >
-						<thead>
-							<tr>
-								<th>考试科目</th>
-								<th>考试人数</th>
-								<th>操作</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td class="subject_name">数学</td>
-								<td class="count">122</td>
-								<td class="operation">
-									<a href="">
-										<i class="iconfont">&#xe60f;</i>
-										试卷设置
-									</a>
-									<a href="">
-										<i class="iconfont">&#xe612;</i>
-										权限分配
-									</a>
-									<a href="">
-										<i class="iconfont">&#xe616;</i>
-										删除考试
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td class="subject_name">数学</td>
-								<td class="count">122</td>
-								<td class="operation">
-									<a href="">
-										<i class="iconfont">&#xe60f;</i>
-										试卷设置
-									</a>
-									<a href="">
-										<i class="iconfont">&#xe612;</i>
-										权限分配
-									</a>
-									<a href="">
-										<i class="iconfont">&#xe616;</i>
-										删除考试
-									</a>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+					<div class="test_info">
+						<div class="title"><h6>考试信息</h6></div>
+						<form action="" name="">
+							<div class="rows">
+								<label>考试名称</label>
+								<input type="text" placeholder="请输入考试名称">
+							</div>
+							<div class="rows clear">
+								<div class="rows_left left">
+									<label>考试年级</label>
+									<select>
+										<option value="0">请选择年级</option>
+										<option value="1">六年级</option>
+										<option value="2">七年级</option>
+										<option value="3">八年级</option>
+										<option value="4">九年级</option>
+									</select>
+								</div>
+								<div class="rows_right left">
+									<label>查看范围</label>
+									<select>
+										<option value="0">请选择查看范围</option>
+										<option value="1">学校</option>
+										<option value="2">年级</option>
+									</select>
+								</div>
+							</div>
+							<div class="rows">
+								<label>考试班级</label>
+								<ul class="class">
+									<li class="on">全部<i class="iconfont">&#xe619;</i></li>
+									<li>一班<i class="iconfont">&#xe619;</i></li>
+								</ul>
+							</div>
+							<div class="rows">
+								<label>考试科目</label>
+								<ul class="class">
+									<li class="on">全部<i class="iconfont">&#xe619;</i></li>
+									<li>语文<i class="iconfont">&#xe619;</i></li>
+								</ul>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="second_new hide">
+					<div class="title_name">
+						<p>新建考试</p>
+					</div>
+					<div class="test_info">
+						<div class="title"><h6>考试信息</h6></div>
+						<form action="" name="">
+							<div class="rows">
+								<label>考试名称</label>
+								<input type="text" placeholder="请输入考试名称">
+							</div>
+							<div class="rows clear">
+								<div class="rows_left left">
+									<label>考试年级</label>
+									<select>
+										<option value="0">请选择年级</option>
+										<option value="1">六年级</option>
+										<option value="2">七年级</option>
+										<option value="3">八年级</option>
+										<option value="4">九年级</option>
+									</select>
+								</div>
+								<div class="rows_right left">
+									<label>查看范围</label>
+									<select>
+										<option value="0">请选择查看范围</option>
+										<option value="1">学校</option>
+										<option value="2">年级</option>
+									</select>
+								</div>
+							</div>
+							<div class="rows">
+								<label>考试班级</label>
+								<ul class="class">
+									<li class="on">全部<i class="iconfont">&#xe619;</i></li>
+									<li>一班<i class="iconfont">&#xe619;</i></li>
+								</ul>
+							</div>
+							<div class="rows">
+								<label>考试科目</label>
+								<ul class="class">
+									<li class="on">全部<i class="iconfont">&#xe619;</i></li>
+									<li>语文<i class="iconfont">&#xe619;</i></li>
+								</ul>
+							</div>
+						</form>
+					</div>
+					<div class="subject_info test_info">
+						<div class="title">
+							<h6>科目信息</h6>
+							<a href="" class="new_create">
+								<i class="iconfont">&#xe61a;</i>
+								新建科目
+							</a>
+						</div>
+						<table name="" class="subject_list" cellspacing="0"  border="0" cellpadding="0" >
+							<thead>
+								<tr>
+									<th>考试科目</th>
+									<th>考试人数</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="subject_name">数学</td>
+									<td class="count">122</td>
+									<td class="operation">
+										<a href="">
+											<i class="iconfont">&#xe60f;</i>
+											试卷设置
+										</a>
+										<a href="">
+											<i class="iconfont">&#xe612;</i>
+											权限分配
+										</a>
+										<a href="">
+											<i class="iconfont">&#xe616;</i>
+											删除考试
+										</a>
+									</td>
+								</tr>
+								<tr>
+									<td class="subject_name">数学</td>
+									<td class="count">122</td>
+									<td class="operation">
+										<a href="">
+											<i class="iconfont">&#xe60f;</i>
+											试卷设置
+										</a>
+										<a href="">
+											<i class="iconfont">&#xe612;</i>
+											权限分配
+										</a>
+										<a href="">
+											<i class="iconfont">&#xe616;</i>
+											删除考试
+										</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
