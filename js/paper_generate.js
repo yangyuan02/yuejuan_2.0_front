@@ -28,6 +28,7 @@ $(function() {
 			for (var i = 0; i < a; i++) {
 				var arr='<li class=""><h6 class="name">' + exam_list[i].name + '</h6><p class="time">' + exam_list[i].created_at + '</p></li>'
 				$('.list_ul').append(arr);
+				$('.list_ul li').eq(0).addClass('active');
 			};
 		};
 		$.ajax({
@@ -61,7 +62,8 @@ $(function() {
 		   	// 		$('.test_grade').val(data[i].name);
 		   	// 	}
 		   	// };
-		   	$('.test_grade').val(data[i].name)
+		   	// grade_info[]
+		   	// $('.test_grade').val(data[i].name)
 		   },
 		   error: function(){
 		      console.log(123123123)
@@ -75,6 +77,7 @@ $(function() {
 		'height': height,
 		'max-height': height
 	});
+	
 	// 新建考试
 	$('#new_test').on('click', function(){
 		$('.first_new').show().siblings().hide();
