@@ -1,4 +1,5 @@
  $(document).ready(function () {  
+ 	console.log(111);
 	$(document).on('click',function(){
 		$('.dropdown').hide();
 	});

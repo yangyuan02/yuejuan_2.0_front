@@ -3,6 +3,10 @@ $(function() {
 	$('#header').load('header.html');
 	$('#footer').load('footer.html');
 
+	$.ajaxSetup ({
+        cache: false
+    });
+
 	var isLogin = localStorage.getItem("token");
 	if(!isLogin){
 		window.location.href = './login.html'
@@ -16,10 +20,9 @@ $(function() {
 	    	headers: {'Authorization': "Bearer " + isLogin},
 	    	success: function(data){
 	    		console.log(data)
-	    		if(!data.user_name){
+	    		if(data.user_name){
 	    			user_name = data.user_name;
 	        		school_name = data.school_name;
-	        		console.log(user_name+'+++'+school_name)
 	        		$('.longin-username span').text(user_name+'('+school_name+')')
 	    		}else{
 	    			alert('账号已在其他地方登录');
@@ -34,4 +37,12 @@ $(function() {
 	        }
 	    });		
 	}
+
+	$('.modal-exit').click(function(){
+		$('.modal-wrap').hide();
+	});
+
+	$('.modal-start').click(function(){
+		$('.modal-wrap').show();
+	});
 })
