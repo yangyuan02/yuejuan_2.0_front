@@ -39,8 +39,8 @@
               $('.login-propmt').show();
             } 
           },
-            error: function(){
-              alert('请稍后从新尝试登录或者联系管理员')
+          error: function(){
+            alert('请稍后从新尝试登录或者联系管理员')
           }
       });
     });
