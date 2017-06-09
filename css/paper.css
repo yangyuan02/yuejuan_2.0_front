@@ -18,7 +18,7 @@ body{
 	color: #999;
 }
 .title_box .title span{
-	color: #28b98c;
+	color: #31bc91;
 }
 /* 中间内容部分 */
 .content{
@@ -127,7 +127,6 @@ body{
 }
 .test_info{
 	padding-bottom: 30px;
-	border-bottom: 1px solid #e6e6e6;
 
 }
 .test_info .title{
@@ -144,53 +143,181 @@ body{
 .test_info .rows{
 	margin-bottom: 20px;
 }
+.test_info .border{
+	padding-bottom: 20px;
+	border-bottom: 1px solid #e6e6e6;
+}
 .rows label{
 	display: inline-block;
 	width: 70px;
 	color: #666;
 	font-size: 14px;
 }
-.rows input {
-	width: 330px;
-	height: 28px;
+.rows input[type="text"]{
 	border: 1px solid #ccc;
 	padding-left: 5px;
+	padding-right: 5px;
 	background: #fafafa;
 	font-size: 14px;
 	color: #666;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-ms-border-radius: 2px;
+	-o-border-radius: 2px;
+	border-radius: 2px;
+}
+.rows input.text_input{
+	width: 500px;
+	height: 28px;
+}
+.rows .test_name{
+	min-width: 330px;
+	height: 28px;
+	width: 500px;
 
 }
 .rows select{
-	width: 200px;
+	width: 200px!important;
 	height: 28px;
 	font-size: 14px;
 	color: #666;
+	outline: none;
+	border: 1px solid #ccc;
+}
+.rows .grade_name{
+	width: 188px!important;
+	height: 28px;
+	font-size: 14px;
+	color: #666;
+	outline: none;
+	border: 1px solid #ccc;
 }
 .rows_right{
 	margin-left: 40px;
 }
 .rows .class{
 	display: inline-block;
+	width: 776px;
 	font-size: 14px;
 	margin-left: -10px;
 }
+.rows .edit{
+	position: relative;
+	left: -35px;
+	top: 1px;
+	color: #5fa3ed;
+	cursor: pointer;
+}
 .rows .class li{
 	display: inline-block;
-	background: #dcdcdc;
 	text-align: center;
 	width: 64px;
 	height: 26px;
 	line-height: 24px;
 	margin-left: 10px;
+	margin-bottom: 10px;
 	color: #fff;
+	background: #dcdcdc;
 	cursor: pointer;
 }
+.finished {
+	opacity: .6;
+}
+/* 复选框 */
+.check_box{
+  display: inline-block;
+  width: 20px;
+  position: relative;
+  z-index: 9;
+}
+.check_box label {
+  cursor: pointer;
+  position: absolute;
+  width: 56px;
+  height: 26px;
+  top: 0;
+  left: -22px;
+  color: #fff;
+  background: #dcdcdc;
+  text-align: left;
+  padding-left: 8px;
+  line-height: 26px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+}
+.check_box label:after {
+  opacity: 1;
+  content: '';
+  position: absolute;
+  width: 11px;
+  height: 5px;
+  background: transparent;
+  top: 7px;
+  right: 8px;
+  border: 3px solid #fff;
+  border-top: none;
+  border-right: none;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+.check_box input[type=checkbox]{
+  visibility: hidden;
+}
+.check_box input[type=checkbox]:checked + label{
+  background: #31bc91;
+  cursor: pointer;
+  -webkit-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
+}
+.check_box input[type=checkbox]:checked + label:after {
+  opacity: 1;
+}
+span.group_name{
+	position: relative;
+  top: 8px;
+  color: #fff;
+  left: -17px;
+  z-index: 9;
+}
+
+
 .rows .class li.on{
 	background: #31bc91;
 }
 .class li i{
 	font-size: 12px;
 	padding-left: 6px;
+}
+.rows button{
+	width: 68px;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	color: #fff;
+	border: none;
+	outline: none;
+	cursor: pointer;
+}
+.rows .submit{
+	background: url('../img/btn-bg.jpg');
+}
+.rows .cancel{
+	background: #fff;
+	color: #31bc91;
+	border: 1px solid #31bc91;
+	margin-left: 15px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-ms-border-radius: 2px;
+	-o-border-radius: 2px;
+	border-radius: 2px;
 }
 .subject_info{
 	font-size: 14px;
@@ -240,6 +367,19 @@ table.subject_list .subject_name{
 }
 table.subject_list .count{
 	color: #999;
+}
+.operation a{
+	margin-right: 20px;
+	cursor: pointer;
+}
+.operation .set{
+	color: #5fa3ed;
+}
+.operation .sign{
+	color: #31bc91;
+}
+.operation .dele{
+	color: #fb7d8a;
 }
 .hide{
 	display: none;

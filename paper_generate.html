@@ -91,7 +91,7 @@
 						<form action="" name="">
 							<div class="rows">
 								<label>考试名称</label>
-								<input type="text" placeholder="请输入考试名称">
+								<input type="text" placeholder="请输入考试名称" class="text_input">
 							</div>
 							<div class="rows clear">
 								<div class="rows_left left">
@@ -115,64 +115,157 @@
 							</div>
 							<div class="rows">
 								<label>考试班级</label>
-								<ul class="class">
-									<li class="on">全部<i class="iconfont">&#xe619;</i></li>
-									<li>一班<i class="iconfont">&#xe619;</i></li>
+								<ul class="class" id="grade">
+									<li class="all">
+										<div class="check_box">
+							        <input type="checkbox" value="0" id="all" class="checkall" name="checkall">
+							        <label for="all">全部</label>
+							      </div>
+									</li>
+							    <li>
+							      <div class="check_box">
+							        <input type="checkbox" value="1" id="check_id_1" class="check" name="check">
+							        <label for="check_id_1">一班</label>
+							      </div>
+							    </li>
+							    <li>
+							      <div class="check_box">
+							        <input type="checkbox" value="2" id="check_id_2" class="check" name="check">
+							        <label for="check_id_2">二班</label>
+							      </div>
+							    </li>
+							    <li>
+							      <div class="check_box">
+							        <input type="checkbox" value="3" id="check_id_3" class="check" name="check">
+							        <label for="check_id_3">三班</label>
+							      </div>
+							    </li>
+							    <li>
+							      <div class="check_box">
+							        <input type="checkbox" value="4" id="check_id_4" class="check" name="check">
+							        <label for="check_id_4">四班</label>
+							      </div>
+							    </li>
+							    <li>
+							      <div class="check_box">
+							        <input type="checkbox" value="5" id="check_id_5" class="check" name="check">
+							        <label for="check_id_5">五班</label>
+							      </div>
+							    </li>
+							    <li>
+							      <div class="check_box">
+							        <input type="checkbox" value="6" id="check_id_6" class="check" name="check">
+							        <label for="check_id_6">六班</label>
+							      </div>
+							    </li>
+								</ul>
+							</div>
+							<div class="rows border">
+								<label>考试科目</label>
+								<ul class="class" id="subject">
+									<li class="all">
+										<div class="check_box">
+							        <input type="checkbox" value="0" id="subject_all" class="checkall" name="checkall">
+							        <label for="subject_all">全部</label>
+							      </div>
+									</li>
+									<li>
+							      <div class="check_box">
+							        <input type="checkbox" value="1" id="subject_id_1" class="check" name="subject_check">
+							        <label for="subject_id_1">语文</label>
+							      </div>
+							    </li>
+									<li>
+							      <div class="check_box">
+							        <input type="checkbox" value="2" id="subject_id_2" class="check" name="subject_check">
+							        <label for="subject_id_2">数学</label>
+							      </div>
+							    </li>
+							    <li>
+							      <div class="check_box">
+							        <input type="checkbox" value="3" id="subject_id_3" class="check" name="subject_check">
+							        <label for="subject_id_3">英语</label>
+							      </div>
+							    </li>
+							    <li>
+							      <div class="check_box">
+							        <input type="checkbox" value="4" id="subject_id_4" class="check" name="subject_check">
+							        <label for="subject_id_4">化学</label>
+							      </div>
+							    </li>
+							    <li>
+							      <div class="check_box">
+							        <input type="checkbox" value="5" id="subject_id_5" class="check" name="subject_check">
+							        <label for="subject_id_5">生物</label>
+							      </div>
+							    </li>
+							    <li>
+							      <div class="check_box">
+							        <input type="checkbox" value="6" id="subject_id_6" class="check" name="subject_check">
+							        <label for="subject_id_6">物理</label>
+							      </div>
+							    </li>
+							    <li>
+							      <div class="check_box">
+							        <input type="checkbox" value="7" id="subject_id_7" class="check" name="subject_check">
+							        <label for="subject_id_7">政治</label>
+							      </div>
+							    </li>
+							    <li>
+							      <div class="check_box">
+							        <input type="checkbox" value="8" id="subject_id_8" class="check" name="subject_check">
+							        <label for="subject_id_8">历史</label>
+							      </div>
+							    </li>
+							    <li>
+							      <div class="check_box">
+							        <input type="checkbox" value="9" id="subject_id_9" class="check" name="subject_check">
+							        <label for="subject_id_9">地理</label>
+							      </div>
+							    </li>
 								</ul>
 							</div>
 							<div class="rows">
-								<label>考试科目</label>
-								<ul class="class">
-									<li class="on">全部<i class="iconfont">&#xe619;</i></li>
-									<li>语文<i class="iconfont">&#xe619;</i></li>
-								</ul>
+								<button class="submit" type="submit">确定</button>
+								<button class="cancel" type="button">取消</button>
 							</div>
 						</form>
 					</div>
 				</div>
-				<div class="second_new hide">
+				<div class="second_new">
 					<div class="title_name">
-						<p>新建考试</p>
+						<p>考试信息</p>
 					</div>
 					<div class="test_info">
 						<div class="title"><h6>考试信息</h6></div>
 						<form action="" name="">
-							<div class="rows">
+							<div class="rows test_rows">
 								<label>考试名称</label>
-								<input type="text" placeholder="请输入考试名称">
+								<input type="text" value="" disabled class="finished test_name">
+								<i class="iconfont edit" id="edit">&#xe614;</i>
 							</div>
 							<div class="rows clear">
 								<div class="rows_left left">
 									<label>考试年级</label>
-									<select>
-										<option value="0">请选择年级</option>
-										<option value="1">六年级</option>
-										<option value="2">七年级</option>
-										<option value="3">八年级</option>
-										<option value="4">九年级</option>
-									</select>
+									<input type="text" disabled class="grade_name finished test_grade">
 								</div>
 								<div class="rows_right left">
 									<label>查看范围</label>
-									<select>
-										<option value="0">请选择查看范围</option>
-										<option value="1">学校</option>
-										<option value="2">年级</option>
-									</select>
+									<input type="text" disabled class="grade_name finished range">
 								</div>
 							</div>
 							<div class="rows">
 								<label>考试班级</label>
-								<ul class="class">
+								<ul class="class finished">
 									<li class="on">全部<i class="iconfont">&#xe619;</i></li>
-									<li>一班<i class="iconfont">&#xe619;</i></li>
+									<li class="on">一班<i class="iconfont">&#xe619;</i></li>
 								</ul>
 							</div>
 							<div class="rows">
 								<label>考试科目</label>
-								<ul class="class">
+								<ul class="class finished">
 									<li class="on">全部<i class="iconfont">&#xe619;</i></li>
-									<li>语文<i class="iconfont">&#xe619;</i></li>
+									<li class="on">语文<i class="iconfont">&#xe619;</i></li>
 								</ul>
 							</div>
 						</form>
@@ -180,7 +273,7 @@
 					<div class="subject_info test_info">
 						<div class="title">
 							<h6>科目信息</h6>
-							<a href="" class="new_create">
+							<a href="javascript:;" class="new_create" id="test1">
 								<i class="iconfont">&#xe61a;</i>
 								新建科目
 							</a>
@@ -198,15 +291,15 @@
 									<td class="subject_name">数学</td>
 									<td class="count">122</td>
 									<td class="operation">
-										<a href="">
+										<a href="javascript:;" class="set">
 											<i class="iconfont">&#xe60f;</i>
 											试卷设置
 										</a>
-										<a href="">
+										<a href="javascript:;" class="sign">
 											<i class="iconfont">&#xe612;</i>
 											权限分配
 										</a>
-										<a href="">
+										<a href="javascript:;" class="dele">
 											<i class="iconfont">&#xe616;</i>
 											删除考试
 										</a>
@@ -216,15 +309,15 @@
 									<td class="subject_name">数学</td>
 									<td class="count">122</td>
 									<td class="operation">
-										<a href="">
+										<a href="javascript:;" class="set">
 											<i class="iconfont">&#xe60f;</i>
 											试卷设置
 										</a>
-										<a href="">
+										<a href="javascript:;" class="sign">
 											<i class="iconfont">&#xe612;</i>
 											权限分配
 										</a>
-										<a href="">
+										<a href="javascript:;" class="dele">
 											<i class="iconfont">&#xe616;</i>
 											删除考试
 										</a>
@@ -233,6 +326,9 @@
 							</tbody>
 						</table>
 					</div>
+				</div>
+				<div class="paper_set">
+					
 				</div>
 			</div>
 		</div>
