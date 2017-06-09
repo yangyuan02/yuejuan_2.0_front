@@ -47,6 +47,7 @@ body{
 }
 .test_list .title .new_test{
 	float: right;
+	cursor: pointer;
 }
 .new_test a{
 	color: #5fa3ed;
@@ -83,7 +84,6 @@ body{
 }
 .list_ul{
 	overflow: auto;
-	max-height: 500px;
 	margin-top: 10px;
 }
 .list_ul li{
@@ -240,4 +240,7 @@ table.subject_list .subject_name{
 }
 table.subject_list .count{
 	color: #999;
+}
+.hide{
+	display: none;
 }

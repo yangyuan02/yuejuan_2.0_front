@@ -35,7 +35,7 @@ $(function() {
 	        	localStorage.clear();
 	        	window.location.href = './login.html'
 	        }
-	    });		
+	    });
 	}
 
 	$('.modal-exit').click(function(){
