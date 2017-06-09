@@ -4,11 +4,8 @@ html,body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,
 }
 html,body{
 	font-size: 12px;
-	font-family: 'arial','Microsoft Yahei', '微软雅黑';
-  /* font-family: -apple-system, BlinkMacSystemFont,
-    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
-    "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;*/
+	font-family: 'Microsoft Yahei', '微软雅黑';
+  /*-webkit-font-smoothing: none;*/
   height: 100%;
 }
 img{
@@ -37,11 +34,11 @@ ul{
 }
 @font-face {
   font-family: 'iconfont';  /* project id 308672 */
-  src: url('//at.alicdn.com/t/font_youetln06akedn29.eot');
-  src: url('//at.alicdn.com/t/font_youetln06akedn29.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_youetln06akedn29.woff') format('woff'),
-  url('//at.alicdn.com/t/font_youetln06akedn29.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_youetln06akedn29.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_ic1p42oqiloywrk9.eot');
+  src: url('//at.alicdn.com/t/font_ic1p42oqiloywrk9.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_ic1p42oqiloywrk9.woff') format('woff'),
+  url('//at.alicdn.com/t/font_ic1p42oqiloywrk9.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_ic1p42oqiloywrk9.svg#iconfont') format('svg');
 }
 
 .iconfont{
@@ -70,7 +67,7 @@ ul{
   height: 50px;
   width: 100%;
   line-height: 50px;
-  border-top: 1px solid #999;
+  border-top: 1px solid #ccc;
   color: #999;
   position: absolute;
   left: 0;
@@ -101,34 +98,35 @@ ul{
 }
 .navbar ul{
   display: inline-block;
-  margin-top: 10px;
-  height: 30px;
-  border-right: 1px solid #32af82;
-  border-left: 1px solid #32af82;
+  margin-top: 0px;
+  height: 50px;
+/*  border-right: 1px solid #32af82;
+  border-left: 1px solid #32af82;*/
 }
 .navbar ul li a{
+  margin-top: 10px;
   font-size: 18px;
   line-height: 30px;
   color: #fff;
   display: block;
-  width: 100%;
+  width: 148px;
   height: 30px;
   text-align: center;
   border-right: 1px solid #32af82;
   border-left: 1px solid #32af82;
 }
 
-.navbar a:hover{
-  color: red;
+.navbar li:hover{
+  background: #2daa82;
 }
 
 
 .nav-right{
   position: absolute;
   right: 10px;
-  line-height: 32px;
+  line-height: 50px;
   font-size: 16px;
-  top: 9px;
+  top: 0px;
 }
 .nav-right div{
   float: left;
@@ -137,11 +135,21 @@ ul{
 .news,.supervise{
   color: #fff;
   width: 94px;
+  text-align: center;
+  height: 100%;
+  cursor: pointer;
+}
+
+.mouseover:hover{
+  background: #2daa82;
 }
 .information{
   position: relative;
+  z-index: 11111;
 }
-
+.supervise{
+  margin-right: 20px;
+}
 .longin-username{
   background: #fff;
   color: #333;
@@ -150,13 +158,15 @@ ul{
   height: 32px;
   padding: 0 15px;
   cursor:pointer;
+  margin-top: 9px;
+  line-height: 32px;
 }
 
 .dropdown{
   display: none;
   position: absolute;
-  top: 35px;
-  left: 0;
+  top: 44px;
+  left: 15px;
 }
 .dropdown ul{
   width: 190px;
@@ -164,9 +174,16 @@ ul{
   border-radius: 2px;
   background: #fff;
 }
-.dropdown ul li{
+.dropdown ul li a{
   padding: 0 10px;
   font-size: 14px;
+  color: #999;
+  line-height: 40px;
+  display: block;
+  height: 40px;
+}
+.dropdown ul li:hover{
+  background: #f5f5f5;
 }
 
 .common_width{
@@ -180,15 +197,21 @@ ul{
   float: right;
 }
 
-
 .triangle-down{
   display: inline-block;
   margin-bottom: 2px;
 }
-
-
+.displaynone{
+  display: none;
+}
+.displayblock{
+  display: block;
+}
 
 @media screen and (max-width: 1450px) {
+  .navbar li a{
+    width: 118px !important;
+  }
   .navbar li{
     width: 120px !important;
   }
@@ -231,6 +254,113 @@ ul{
      transform:rotateY(360deg);
    }
 }
+
+.modal-wrap{
+  position: fixed;
+  z-index: 10000;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+  overflow: auto;
+  text-align: center;
+  -webkit-overflow-scrolling: touch;
+}
+.modal-shadow{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  opacity: 0.3;
+  z-index: 1;
+}
+
+.modal-main{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 582px;
+  background: #fff;
+  z-index: 111;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  border-radius: 2px;
+}
+.modal-content{
+  padding: 21px 38px;
+}
+.modal-title{
+  height: 40px;
+  background: #31bc91;
+  text-align: center;
+  color: #fff;
+  line-height: 40px;
+  font-size: 15px;
+}
+.modal-bottom{
+  height: 33px;
+  border-top: 1px solid #e6e6e6;
+  padding-top: 18px;
+  text-align: right;
+}
+.modal-bottom-button{
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 12px;
+  width: 136px;
+  height: 32px;
+  border:1px solid #31bc91;
+  text-align: center;
+  line-height: 32px;
+}    
+.determine{
+  color: #fff;
+  background-image:linear-gradient(to right,#44d971,#31bc92);
+  background-image:-webkit-linear-gradient(to right,#44d971,#31bc92);
+  background-image:-moz-linear-gradient(to right,#44d971,#31bc92);
+  background-image:-o-linear-gradient(to right,#44d971,#31bc92);
+  background-image:-ms-linear-gradient(to right,#44d971,#31bc92);
+  FILTER: progid:DXImageTransform.Microsoft.Gradient(startColorStr=#44d971, endColorStr=#31bc92);
+}
+.modal-exit{
+  position: absolute;
+  cursor: pointer;
+  color: #31bc91;
+  top: -15px;
+  right: -15px;
+  height: 28px;
+  width: 28px;
+  background: #fff;
+  border-radius: 50%;
+  border: 1px solid #31bc91;
+  text-align: center;
+  line-height: 28px;
+  transform:rotate(45deg);
+  -ms-transform:rotate(45deg); 
+  -moz-transform:rotate(45deg); 
+  -webkit-transform:rotate(45deg);
+  -o-transform:rotate(45deg);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
