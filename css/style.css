@@ -186,7 +186,7 @@ ul{
   background: #f5f5f5;
 }
 
-.common_width{
+.common-width{
   width: 1200px;
   margin: 0 auto;
 }
@@ -217,7 +217,7 @@ ul{
   }
   .navbar{
     left: 75px;
-    max-width:1070px; 
+    max-width:1070px;
   }
 }
 
@@ -274,7 +274,7 @@ ul{
   bottom: 0;
   left: 0;
   background-color: #000;
-  opacity: 0.3;
+  opacity: 0.5;
   z-index: 1;
 }
 
@@ -342,26 +342,10 @@ ul{
   text-align: center;
   line-height: 28px;
   transform:rotate(45deg);
-  -ms-transform:rotate(45deg); 
-  -moz-transform:rotate(45deg); 
+  -ms-transform:rotate(45deg);
+  -moz-transform:rotate(45deg);
   -webkit-transform:rotate(45deg);
   -o-transform:rotate(45deg);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
