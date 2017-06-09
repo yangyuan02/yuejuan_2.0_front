@@ -45,4 +45,10 @@ $(function() {
 	$('.modal-start').click(function(){
 		$('.modal-wrap').show();
 	});
+	$('.cancels').click(function(){
+		$('.modal-wrap').hide();
+	});
+	$('.determine').click(function(){
+		$('.modal-wrap').hide();
+	});
 })
