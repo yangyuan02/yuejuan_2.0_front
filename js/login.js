@@ -19,7 +19,6 @@
     var password = $.base64.encode($("#login-pwd").val())
       $.ajax({
           type: "POST",
-          async: "true",
           url: "http://192.168.1.121:8888/api/v2/login.json",
           data: {
             'username':$("#login-name").val(), 
@@ -40,8 +39,8 @@
               $('.login-propmt').show();
             } 
           },
-            error: function(){
-              alert('请从新尝试登录或者联系管理员')
+          error: function(){
+            alert('请稍后从新尝试登录或者联系管理员')
           }
       });
     });
