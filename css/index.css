@@ -2,6 +2,7 @@
 	width: 1200px;
 	margin: 0 auto;
 	padding-top: 52px;
+	padding-bottom: 50px;
 }
 .content div{
 	display: inline-block;
@@ -17,13 +18,15 @@
 	width: 100%;
 	height: 100%;
 	position: absolute;
+	border-radius: 6px;
 }
 
 .content a:hover{
-	top: -10px;
-	left: -10px;
-	width: 380px;
-	height: 230px;
+	top: -2px;
+	left: -2px;
+	width: 364px;
+	height: 214px;
+	box-shadow: 3px 3px 10px #888
 }
 
 

@@ -56,8 +56,7 @@ ul{
 #wrap{
   position: relative;
   min-width: 1200px;
-  height: 100%;
-  min-height: 800px;
+  min-height: 100%;
 }
 
 
@@ -136,7 +135,7 @@ ul{
   color: #fff;
   width: 94px;
   text-align: center;
-  height: 100%;
+  height: 50px;
   cursor: pointer;
 }
 
@@ -274,23 +273,37 @@ ul{
   bottom: 0;
   left: 0;
   background-color: #000;
-  opacity: 0.3;
+  opacity: 0;
   z-index: 1;
 }
 
 .modal-main{
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 50%;
   width: 582px;
   background: #fff;
   z-index: 111;
+  opacity: .3;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   -o-transform: translate(-50%, -50%);
   border-radius: 2px;
+/*  transition-property:all;
+  -moz-transition-property: all;
+  -webkit-transition-property:all;
+  -o-transition-property:all;
+  transition-duration: 5s;
+  -moz-transition-duration: 5s;
+  -webkit-transition-duration: 5s;
+  -o-transition-duration: 5s; */
+}
+
+.modal-main-ani{
+  top: 50%;
+  opacity: 1;
 }
 .modal-content{
   padding: 21px 38px;
@@ -328,7 +341,7 @@ ul{
   background-image:-ms-linear-gradient(to right,#44d971,#31bc92);
   FILTER: progid:DXImageTransform.Microsoft.Gradient(startColorStr=#44d971, endColorStr=#31bc92);
 }
-.modal-exit{
+.modal-exit-icon{
   position: absolute;
   cursor: pointer;
   color: #31bc91;
@@ -347,7 +360,9 @@ ul{
   -webkit-transform:rotate(45deg);
   -o-transform:rotate(45deg);
 }
-
+.modal-start{
+  cursor: pointer;
+}
 
 
 
