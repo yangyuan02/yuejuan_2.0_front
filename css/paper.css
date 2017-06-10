@@ -130,7 +130,7 @@ body{
 	padding-left: 20px;
 }
 .test-info{
-	padding-bottom: 30px;
+	padding-bottom: 5px;
 
 }
 .test-info .title{
@@ -156,6 +156,9 @@ body{
 	width: 70px;
 	color: #666;
 	font-size: 14px;
+	vertical-align: top;
+	position: relative;
+	top: 4px;
 }
 .rows input[type="text"]{
 	border: 1px solid #ccc;
@@ -388,16 +391,62 @@ table.subject-list .count{
 .hide{
 	display: none;
 }
+
+/* 试卷设置 */
+.set-top{
+	margin-top: 20px;
+	color: #666;
+	font-size: 14px;
+}
+.set-top .total{
+	font-size: 14px;
+}
+.set-top .total em{
+	color: #fb7d8a;
+	font-size: 20px;
+	font-weight: bold;
+	font-style: normal;
+}
+.btn-group a{
+	display: inline-block;
+	width: 80px;
+	height: 28px;
+	text-align: center;
+	line-height: 30px;
+	color: #31bc91;
+	margin-left: 8px;
+	border: 1px solid #31bc91;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-ms-border-radius: 2px;
+	-o-border-radius: 2px;
+	border-radius: 2px;
+}
+.btn-group .answer-card{
+	color: #fff;
+	background-image: -webkit-linear-gradient(left, #44d971, #31bc92);
+	background-image: -o-linear-gradient(left, #44d971, #31bc92);
+	background-image: linear-gradient(to right, #44d971, #31bc92);
+}
 /* 弹窗内容 */
 .mian-cont{
 	text-align: left;
 	font-size: 14px;
 	color: #666;
+	padding-bottom: 18px;
+}
+.h6{
+	font-weight: bold;
+	font-size: 14px;
+	margin-bottom: 10px;
 }
 .modal-subject{
 	padding-top: 20px;
 	padding-bottom: 20px;
 
+}
+.dele-cont a{
+	color: #31bc91;
 }
 .modal-subject .left_name{
 	display: inline-block;
