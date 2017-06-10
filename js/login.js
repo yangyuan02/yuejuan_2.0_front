@@ -19,7 +19,7 @@
     var password = $.base64.encode($("#login-pwd").val())
       $.ajax({
           type: "POST",
-          url: "http://192.168.1.121:8888/api/v2/login.json",
+          url: "http://192.168.1.113:8888/api/v2/login.json",
           data: {
             'username':$("#login-name").val(), 
             'password': password

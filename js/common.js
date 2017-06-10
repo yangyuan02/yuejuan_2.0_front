@@ -15,7 +15,7 @@ $(function() {
 
 		$.ajax({
 	     	type: "GET",
-	     	url: "http://192.168.1.121:8888/api/v2/user_detail",
+	     	url: "http://192.168.1.113:8888/api/v2/user_detail",
 	    	dataType: "JSON",
 	    	headers: {'Authorization': "Bearer " + isLogin},
 	    	success: function(data){

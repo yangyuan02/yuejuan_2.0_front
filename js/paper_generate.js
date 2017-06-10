@@ -6,7 +6,7 @@ $(function() {
 
 	$.ajax({
 	  type: "GET",
-	  url: "http://192.168.1.121:8888/api/v2/exams",
+	  url: "http://192.168.1.113:8888/api/v2/exams",
 		data:{'page':1,'limit':4},
 	  headers: {'Authorization': "Bearer " + isLogin},
 	  dataType: "JSON",
@@ -35,7 +35,7 @@ $(function() {
 	function show_test_cont(exam_list_id){
 		$.ajax({
 		  type: "GET",
-		  url: "http://192.168.1.121:8888/api/v2/exams/"+exam_list_id,
+		  url: "http://192.168.1.113:8888/api/v2/exams/"+exam_list_id,
 		  headers: {'Authorization': "Bearer " + isLogin},
 		  dataType: "JSON",
 		  success: function(data){
@@ -65,16 +65,14 @@ $(function() {
 		for (var i = 0; i < subjects_length; i++) {
 			var class_arr='<li class="on">'+ detail_data.subjects[i] +'<i class="iconfont">&#xe619;</i></li>';
 			$('#show-subject').append(class_arr);
-			var list_tr='<tr><td class="subject-name">'+ detail_data.subjects[i] +'</td><td class="count">'+ detail_data.subjects[i].student_total +'</td><td class="operation"><a href="javascript:;" class="set"><i class="iconfont">&#xe60f;</i>试卷设置</a><a href="javascript:;" class="sign"><i class="iconfont">&#xe612;</i>权限分配</a><a href="javascript:;" class="dele"><i class="iconfont">&#xe616;</i>删除考试</a></td></tr>';
+			// 表格列表信息
+			var list_tr='<tr><td class="subject-name">'+ detail_data.subjects[i] +'</td><td class="count">'+ detail_data.student_total +'</td><td class="operation"><a href="javascript:;" class="set"><i class="iconfont">&#xe60f;</i>试卷设置</a><a href="javascript:;" class="sign"><i class="iconfont">&#xe612;</i>权限分配</a><a href="javascript:;" class="dele"><i class="iconfont">&#xe616;</i>删除考试</a></td></tr>';
 			$('.subject-list tbody').append(list_tr);
 		};
-
-		// 列表信息
-		$('.count').text(detail_data.student_total);
 	}
 
 	var height = $(window).height()-$('#header').height()-$('#footer').height()- $('.title-box').height()-200;
-	console.log(height)
+	console.log(height);
 	$('.list-ul').css({
 		'height': height,
 		'max-height': height
@@ -89,16 +87,32 @@ $(function() {
 		show_test_cont($(this).data('id'));
 	})
 	// 下拉加载
-	$('.list-ul').unbind('scroll').bind('scroll', function(e){
-    var sum = this.scrollHeight;
-    if (sum <= $(this).scrollTop() + $(this).height()) {
-      $('.list-ul').append($('.list-ul li').clone());
-    }
-  });
+	// $('.list-ul').unbind('scroll').bind('scroll', function(e){
+ //    var sum = this.scrollHeight;
+ //    if (sum <= $(this).scrollTop() + $(this).height()) {
+ //      $('.list-ul').append($('.list-ul li').clone());
+ //    }
+ //  });
 	// 新建考试
 	$('#new-test').on('click', function(){
 		$('.first-new').show().siblings().hide();
 	})
+	// 提交新建考试表单
+	$('#submit').on('click', function() {
+	  $.ajax({
+	  	url:"http://192.168.1.113:8888/api/v2/exams",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	data:$("#test-form").serialize(),
+	  	type:"post",
+	  	success:function(data){//ajax返回的数据
+	  		console.log(adta);
+	  	}
+	  });
+	});
+	// 表单重置
+	$('#cancel').on('click', function() {
+		$("#test-form")[0].reset();
+	});
 	// 班级选择
 	$('#all').on('click', function() {
 		$("input[name=check]").prop('checked', this.checked);
@@ -126,5 +140,17 @@ $(function() {
 	// 修改考试名称
 	$('#edit').on('click',function(){
 		$(this).prev().removeAttr("disabled").removeClass('finished');
+	});
+	// 新建科目
+	$('#new-create').on('click', function() {
+		$('#new-modal').show();
+	});
+	// 删除考试
+	$('.dele').on('click', function() {
+		$('#dele-modal').show();
+	});
+	// 试卷设置
+	$('.set').on('click', function() {
+		$('.paper-set').show().siblings().hide();
 	});
 })
