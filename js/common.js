@@ -49,4 +49,10 @@ $(function() {
 		$('.modal-shadow').animate({'opacity': .3},500);
 		$('.modal-wrap').show();
 	});
+	$('.cancels').click(function(){
+		$('.modal-wrap').hide();
+	});
+	$('.determine').click(function(){
+		$('.modal-wrap').hide();
+	});
 })
