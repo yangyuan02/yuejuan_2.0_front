@@ -1,12 +1,10 @@
 $(function() {
-
 	$('#header').load('header.html');
 	$('#footer').load('footer.html');
 
 	$.ajaxSetup ({
         cache: false
     });
-
 	var isLogin = localStorage.getItem("token");
 	if(!isLogin){
 		window.location.href = './login.html'
@@ -15,7 +13,7 @@ $(function() {
 
 		$.ajax({
 	     	type: "GET",
-	     	url: "http://192.168.1.113:8888/api/v2/user_detail",
+	     	url: ajaxIp+"/api/v2/user_detail",
 	    	dataType: "JSON",
 	    	headers: {'Authorization': "Bearer " + isLogin},
 	    	success: function(data){
@@ -39,10 +37,16 @@ $(function() {
 	}
 
 	$('.modal-exit').click(function(){
-		$('.modal-wrap').hide();
+		$('.modal-main').animate({'top': '45%','opacity': 0},500);
+		$('.modal-shadow').animate({'opacity': 0},500);
+		setTimeout(function(){
+			$('.modal-wrap').hide();
+		},500);
 	});
 
 	$('.modal-start').click(function(){
+		$('.modal-main').animate({'top': '50%','opacity': 1},500);
+		$('.modal-shadow').animate({'opacity': .3},500);
 		$('.modal-wrap').show();
 	});
 	$('.cancels').click(function(){

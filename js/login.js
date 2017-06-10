@@ -19,7 +19,7 @@
     var password = $.base64.encode($("#login-pwd").val())
       $.ajax({
           type: "POST",
-          url: "http://192.168.1.113:8888/api/v2/login.json",
+          url: ajaxIp+"/api/v2/login.json",
           data: {
             'username':$("#login-name").val(), 
             'password': password
@@ -33,7 +33,7 @@
               localStorage.setItem("token", data.token);
               setTimeout(function(){
                 window.location.href = "./index.html";
-              },2000)
+              },1000)
               
             }else{
               $('.login-propmt').show();
