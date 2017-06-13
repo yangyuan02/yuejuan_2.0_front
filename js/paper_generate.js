@@ -86,7 +86,6 @@ $(function() {
 			// var class_arr='<li class="on">'+ detail_data.subjects[i] +'<i class="iconfont">&#xe619;</i></li>';
 			// var class_arr = '<li><div class="check-box"><input type="checkbox" data-id="" value="'+ detail_data.subjects[i].name +'" id="modal-check'+ i +'" class="check" name="modal-check"><label for="modal-check'+ i +'">'+ detail_data.subjects[i].name +'</label></div></li>';
 			on_checked[i] = detail_data.subjects[i].id;
-			// $('#modal-list').append(class_arr);
 			// 表格列表信息
 			var list_tr='<tr><td data-id="'+detail_data.subjects[i].id+'" class="subject-name">'+ detail_data.subjects[i].name +'</td><td class="count">'+ detail_data.student_total +'</td><td class="operation"><a href="javascript:;" class="set"><i class="iconfont">&#xe60f;</i>试卷设置</a><a href="javascript:;" class="sign"><i class="iconfont">&#xe612;</i>权限分配</a><a href="javascript:;" class="dele"><i class="iconfont">&#xe616;</i>删除考试</a></td></tr>';
 			$('.subject-list tbody').append(list_tr);
@@ -126,7 +125,9 @@ $(function() {
 	// 新建考试
 	$('#new-test').on('click', function(){
 		$('.first-new').show().siblings().hide();
-		// 获取年级
+	})
+
+// 获取年级
 		$.ajax({
 	  	url:ajaxIp+"/api/v2/commons/school_grades",
 	  	headers: {'Authorization': "Bearer " + isLogin},
@@ -137,15 +138,13 @@ $(function() {
 	  		show_grade(data);//显示所有年级
 	  	}
 	  });
-	})
-
-
 
 
 
 
   // 显示年级信息
   function show_grade (grade_list) {
+  	console.log(grade_list)
   	var grade_length = grade_list.length;
   	for (var i = 0; i < grade_length; i++) {
   		var option_name = '<option data-id="'+ grade_list[i].id +'">'+ grade_list[i].name+'</option>';
@@ -157,6 +156,7 @@ $(function() {
 
 	// 获取班级
 	function show_class(show_grade_id){
+		console.log(show_grade_id)
 		$.ajax({
 	  	url:ajaxIp+"/api/v2/commons/"+ show_grade_id +"/grade_classrooms",
 	  	headers: {'Authorization': "Bearer " + isLogin},
@@ -223,7 +223,7 @@ $(function() {
 	$('body').on('change', '#test-grade', function() {
 		var grade_name = $(this).find("option:selected").val();
 		var grade_data_id = $(this).find("option:selected").data('id');
-		// console.log(grade_name,grade_data_id);
+		console.log(grade_name,grade_data_id);
 		$('#grade').html('');
 		var all_grade = '<li class="all"><div class="check-box"><input type="checkbox" value="0" id="all" class="checkall" name="checkall"><label for="all">全部</label></div></li>' ;
 		$('#grade').append(all_grade);
@@ -237,7 +237,7 @@ $(function() {
 	// 提交新建考试表单
 	$('#submit').on('click', function() {
 		var school_name = $('input[name="school"]').val();
-		var test_grade = $('#test-grade').data('id');
+		var test_grade = $('#test-grade').find("option:selected").data('id');
 		var test_range = $('#test-range').val();
 		var test_class = $('#grade').find("input[type='checkbox']:checked").length;
 		var test_subject = $('#subject').find("input[type='checkbox']:checked").length;
@@ -292,6 +292,7 @@ $(function() {
 		var all_subject = '<li class="all"><div class="check-box"><input type="checkbox" value="0" id="modal-all" class="checkall" name="checkall"><label for="modal-all">全部</label></div></li>' ;
 		$('#modal-list').append(all_subject);
 		var grade_data_id = $('.test-grade').attr('data-id');
+		console.log(grade_data_id)
 		showSubject(grade_data_id);
 	});
 
