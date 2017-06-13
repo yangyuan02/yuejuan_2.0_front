@@ -95,7 +95,7 @@ $(function() {
 
 
 
-	var height = $(window).height()-$('#header').height()-$('#footer').height()- $('.title-box').height()-200;
+	var height = $(window).height()-$('#header').height()-$('#footer').height()- $('.title-box').height()-100;
 	$('.list-ul').css({
 		'height': height,
 		'max-height': height
@@ -126,21 +126,22 @@ $(function() {
 	// 新建考试
 	$('#new-test').on('click', function(){
 		$('.first-new').show().siblings().hide();
+		// 获取年级
+		$.ajax({
+	  	url:ajaxIp+"/api/v2/commons/school_grades",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	type:"get",
+	  	dataType: "JSON",
+	  	success:function(data){
+	  		// console.log(data);
+	  		show_grade(data);//显示所有年级
+	  	}
+	  });
 	})
 
 
 
-	// 获取年级
-	$.ajax({
-  	url:ajaxIp+"/api/v2/commons/school_grades",
-  	headers: {'Authorization': "Bearer " + isLogin},
-  	type:"get",
-  	dataType: "JSON",
-  	success:function(data){
-  		// console.log(data);
-  		show_grade(data);//显示所有年级
-  	}
-  });
+
 
 
   // 显示年级信息

@@ -21,8 +21,12 @@ body{
 	color: #31bc91;
 }
 /* 中间内容部分 */
+.content-box{
+	padding-bottom: 50px;
+}
 .content{
 	margin-top: 24px;
+	margin-bottom: 50px;
 	background: #fff;
 	overflow: hidden;
 	height: auto;
