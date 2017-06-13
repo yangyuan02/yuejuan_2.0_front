@@ -85,7 +85,7 @@ $(function() {
 		var subjects_length = detail_data.subjects.length;
 		for (var i = 0; i < subjects_length; i++) {
 			// 表格列表信息
-			var list_tr='<tr><td data-id="'+detail_data.subjects[i].id+'" class="subject-name">'+ detail_data.subjects[i].name +'</td><td class="count">'+ detail_data.student_total +'</td><td class="operation"><a href="javascript:;" class="set"><i class="iconfont">&#xe60f;</i>试卷设置</a><a href="javascript:;" class="sign"><i class="iconfont">&#xe612;</i>权限分配</a><a href="javascript:;" class="dele"><i class="iconfont">&#xe616;</i>删除考试</a></td></tr>';
+			var list_tr='<tr><td exam_subject_id="'+detail_data.subjects[i].exam_subject_id+'"  data-id="'+detail_data.subjects[i].id+'" class="subject-name">'+ detail_data.subjects[i].name +'</td><td class="count">'+ detail_data.student_total +'</td><td class="operation"><a href="javascript:;" class="set"><i class="iconfont">&#xe60f;</i>试卷设置</a><a href="javascript:;" class="sign"><i class="iconfont">&#xe612;</i>权限分配</a><a href="javascript:;" class="dele"><i class="iconfont">&#xe616;</i>删除考试</a></td></tr>';
 			$('.subject-list tbody').append(list_tr);
 			on_checked[i] = detail_data.subjects[i].id;
 		};
@@ -412,19 +412,20 @@ $(function() {
 		$('#dele-modal').show();
 		var subject_name = $(this).parents('tr').find('.subject-name').text();
 		$('.dele-cont p a').text(subject_name);
-		var subject_id = $(this).parents('tr').find('.subject-name').attr('data-id');
-		$('.dele-cont p a').attr('data-id',subject_id)
-	  $(this).parents('tr').remove();
+		var subject_id = $(this).parents('tr').find('.subject-name').attr('exam_subject_id');
+		$('.dele-cont p a').attr('exam_subject_id',subject_id)
 	});
 	$('body').on('click', '.confirm-dele', function() {
-		var subject_id = $('.dele-cont p a').attr('data-id');
-		console.log(subject_id);
+		var exam_subject_id = $('.dele-cont p a').attr('exam_subject_id');
+		console.log(exam_subject_id);
 		$.ajax({
-	  	url:ajaxIp+"/api/v2/exam_subjects/"+subject_id,
+	  	url:ajaxIp+"/api/v2/exam_subjects/"+exam_subject_id,
 	  	headers: {'Authorization': "Bearer " + isLogin},
 	  	type:"DELETE",
 	  	success:function(data){
 	  		console.log(data);
+	  		var test_id = $('.test-name').attr('data-id');
+	  		show_test_cont(test_id);
 	  	}
 	  });
 	});
