@@ -2,7 +2,7 @@ $(function() {
 
 	var list_page = 1;
 	var exam_list;
-	var on_checked=[];
+	var on_checked =[];
 	var isLogin = localStorage.getItem("token");
 	first_list();
 	function first_list() {
@@ -36,7 +36,7 @@ $(function() {
 				$('.list-ul li').eq(0).addClass('active');
 			};
 		};
-		show_test_cont(exam_list[0].id);
+		show_test_cont($('.list-ul li').eq(0).data('id'));
 	}
 
 
@@ -50,7 +50,7 @@ $(function() {
 		  dataType: "JSON",
 		  success: function(data){
 		   	console.log(data);
-		    show_detail(data);
+		    show_detail(data,exam_list_id);
 		   },
 		   error: function(){
 		    alert('请稍后从新尝试登录或者联系管理员');
@@ -62,9 +62,9 @@ $(function() {
 
 
 
-	function show_detail(detail_data){
-		console.log(detail_data)
+	function show_detail(detail_data,test_id){
 		$('.test-name').val(detail_data.name);//考试名称
+		$('.test-name').attr('data-id',test_id);
 		$('.test-grade').val(detail_data.grade.name);//考试班级
 		$('.test-grade').attr('data-id',detail_data.grade.id);
 		$('.range').val(detail_data.range);//查看范围
@@ -81,14 +81,13 @@ $(function() {
 		// var all_grade = '<li><div class="check-box"><input type="checkbox" value="0" id="modal-all" class="check" name="modal-subject"><label for="modal-all">全部</label></div></li>' ;
 		// $('#modal-list').append(all_grade);
 		$('.subject-list tbody').html('');
+		on_checked =[];
 		var subjects_length = detail_data.subjects.length;
 		for (var i = 0; i < subjects_length; i++) {
-			// var class_arr='<li class="on">'+ detail_data.subjects[i] +'<i class="iconfont">&#xe619;</i></li>';
-			// var class_arr = '<li><div class="check-box"><input type="checkbox" data-id="" value="'+ detail_data.subjects[i].name +'" id="modal-check'+ i +'" class="check" name="modal-check"><label for="modal-check'+ i +'">'+ detail_data.subjects[i].name +'</label></div></li>';
-			on_checked[i] = detail_data.subjects[i].id;
 			// 表格列表信息
 			var list_tr='<tr><td data-id="'+detail_data.subjects[i].id+'" class="subject-name">'+ detail_data.subjects[i].name +'</td><td class="count">'+ detail_data.student_total +'</td><td class="operation"><a href="javascript:;" class="set"><i class="iconfont">&#xe60f;</i>试卷设置</a><a href="javascript:;" class="sign"><i class="iconfont">&#xe612;</i>权限分配</a><a href="javascript:;" class="dele"><i class="iconfont">&#xe616;</i>删除考试</a></td></tr>';
 			$('.subject-list tbody').append(list_tr);
+			on_checked[i] = detail_data.subjects[i].id;
 		};
 	}
 
@@ -111,10 +110,11 @@ $(function() {
 		show_test_cont($(this).data('id'));
 	})
 	// 下拉加载
-	$('.list-ul').unbind('scroll').bind('scroll', function(e){
+	$('.list-ul').unbind('scroll').bind('scroll', function(){
     var sum = this.scrollHeight;
     if (sum <= $(this).scrollTop() + $(this).height()) {
       list_page++;
+      console.log(list_page);
       first_list();
     }
   });
@@ -167,12 +167,27 @@ $(function() {
 	  		show_class_detail(data);//显示所有班级
 	  	}
 	  });
-	  showSubject(show_grade_id)
+	  showSubjectModal(show_grade_id);//新建科目显示modal层的科目方法
+	  showSubjectAll(show_grade_id);//新建考试信息的时候显示对应班级所有科目信息
 	}
 
 
-	//显示科目
-	function showSubject(show_grade_id){
+	//新建科目显示modal层的科目方法
+	function showSubjectModal(show_grade_id){
+		$.ajax({
+	  	url:ajaxIp+"/api/v2/commons/"+ show_grade_id +"/grade_subjects",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	dataType: "JSON",
+	  	type:"get",
+	  	success:function(data){
+	  		// console.log(data)
+	  		show_subject_details(data);
+	  	}
+	  });
+	}
+
+	// 新建考试信息的时候显示对应班级所有科目信息
+	function showSubjectAll(show_grade_id){
 		$.ajax({
 	  	url:ajaxIp+"/api/v2/commons/"+ show_grade_id +"/grade_subjects",
 	  	headers: {'Authorization': "Bearer " + isLogin},
@@ -181,7 +196,6 @@ $(function() {
 	  	success:function(data){
 	  		// console.log(data)
 	  		show_subject_detail(data);
-	  		show_subject_details(data);
 	  	}
 	  });
 	}
@@ -207,6 +221,11 @@ $(function() {
 	}
 	// 显示弹窗科目
 	function show_subject_details(subject_info){
+		// $('#modal-list').html('');
+		console.log(subject_info,on_checked);
+		if(subject_info.length==on_checked.length){
+			$('#modal-list').find('#modal-all').attr('checked', 'true');
+		}
 		for (var i = 0; i < subject_info.length; i++) {
 			for (var j = 0; j < on_checked.length; j++) {
 				if(subject_info[i].id==on_checked[j]){
@@ -285,15 +304,14 @@ $(function() {
 		  });
 		}
 	});
-
 	$('body').on('click', '#new-create', function() {
-		console.log(on_checked)
+		console.log(on_checked);
 		$('#modal-list').html('');
 		var all_subject = '<li class="all"><div class="check-box"><input type="checkbox" value="0" id="modal-all" class="checkall" name="checkall"><label for="modal-all">全部</label></div></li>' ;
 		$('#modal-list').append(all_subject);
 		var grade_data_id = $('.test-grade').attr('data-id');
-		console.log(grade_data_id)
-		showSubject(grade_data_id);
+		console.log(grade_data_id);
+		showSubjectModal(grade_data_id);
 	});
 
 
@@ -310,12 +328,22 @@ $(function() {
 			sub_arr;
 		}
 		console.log(sub_arr);
+		var subject_json={'subjects': sub_arr};
+		console.log(subject_json);
 		var grade_data_id = $('.test-grade').attr('data-id');
-		showSubject(grade_data_id);
-		// $('.subject-list tbody').html('');
-		// var list_tr='<tr><td class="subject-name">'+ detail_data.subjects[i].name +'</td><td class="count">'+ detail_data.student_total +'</td><td class="operation"><a href="javascript:;" class="set"><i class="iconfont">&#xe60f;</i>试卷设置</a><a href="javascript:;" class="sign"><i class="iconfont">&#xe612;</i>权限分配</a><a href="javascript:;" class="dele"><i class="iconfont">&#xe616;</i>删除考试</a></td></tr>';
-		// $('.subject-list tbody').append(list_tr);
+		var test_id = $('.test-name').attr('data-id');
+		$.ajax({
+	  	url:ajaxIp+"/api/v2/exam_subjects",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	data:{'exam_id':test_id,'subject_ids':sub_arr},
+	  	type:"POST",
+	  	success:function(data){
+	  		console.log(data);
+	  		show_test_cont(test_id);
+	  	}
+	  });
 	});
+
 
 
 
@@ -382,6 +410,23 @@ $(function() {
 		$('.modal-main').animate({'top': '50%','opacity': 1},500);
 		$('.modal-shadow').animate({'opacity': .3},500);
 		$('#dele-modal').show();
+		var subject_name = $(this).parents('tr').find('.subject-name').text();
+		$('.dele-cont p a').text(subject_name);
+		var subject_id = $(this).parents('tr').find('.subject-name').attr('data-id');
+		$('.dele-cont p a').attr('data-id',subject_id)
+	  $(this).parents('tr').remove();
+	});
+	$('body').on('click', '.confirm-dele', function() {
+		var subject_id = $('.dele-cont p a').attr('data-id');
+		console.log(subject_id);
+		$.ajax({
+	  	url:ajaxIp+"/api/v2/exam_subjects/"+subject_id,
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	type:"DELETE",
+	  	success:function(data){
+	  		console.log(data);
+	  	}
+	  });
 	});
 
 
