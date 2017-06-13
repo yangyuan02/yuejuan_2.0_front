@@ -2,6 +2,7 @@ $(function() {
 
 	var list_page = 1;
 	var exam_list;
+	var on_checked=[];
 	var isLogin = localStorage.getItem("token");
 	first_list();
 	function first_list() {
@@ -48,7 +49,7 @@ $(function() {
 		  headers: {'Authorization': "Bearer " + isLogin},
 		  dataType: "JSON",
 		  success: function(data){
-		   	// console.log(data);
+		   	console.log(data);
 		    show_detail(data);
 		   },
 		   error: function(){
@@ -62,25 +63,32 @@ $(function() {
 
 
 	function show_detail(detail_data){
+		console.log(detail_data)
 		$('.test-name').val(detail_data.name);//考试名称
-		$('.test-grade').val(detail_data.grade_id);//考试班级
+		$('.test-grade').val(detail_data.grade.name);//考试班级
+		$('.test-grade').attr('data-id',detail_data.grade.id);
 		$('.range').val(detail_data.range);//查看范围
 		// 班级信息
 		$('#show-class').html('');
 		var classrooms_length = detail_data.exam_classrooms.length;
 		for (var i = 0; i < classrooms_length; i++) {
-			var class_arr='<li class="on">'+ detail_data.exam_classrooms[i] +'<i class="iconfont">&#xe619;</i></li>';
+			var class_arr='<li class="on">'+ detail_data.exam_classrooms[i].name +'<i class="iconfont">&#xe619;</i></li>';
 			$('#show-class').append(class_arr);
 		};
 		// 科目信息
-		$('#show-subject').html('');
+		// detail_data.subjects.name;
+		// $('#modal-list').html('');
+		// var all_grade = '<li><div class="check-box"><input type="checkbox" value="0" id="modal-all" class="check" name="modal-subject"><label for="modal-all">全部</label></div></li>' ;
+		// $('#modal-list').append(all_grade);
 		$('.subject-list tbody').html('');
 		var subjects_length = detail_data.subjects.length;
 		for (var i = 0; i < subjects_length; i++) {
-			var class_arr='<li class="on">'+ detail_data.subjects[i] +'<i class="iconfont">&#xe619;</i></li>';
-			$('#show-subject').append(class_arr);
+			// var class_arr='<li class="on">'+ detail_data.subjects[i] +'<i class="iconfont">&#xe619;</i></li>';
+			// var class_arr = '<li><div class="check-box"><input type="checkbox" data-id="" value="'+ detail_data.subjects[i].name +'" id="modal-check'+ i +'" class="check" name="modal-check"><label for="modal-check'+ i +'">'+ detail_data.subjects[i].name +'</label></div></li>';
+			on_checked[i] = detail_data.subjects[i].id;
+			// $('#modal-list').append(class_arr);
 			// 表格列表信息
-			var list_tr='<tr><td class="subject-name">'+ detail_data.subjects[i] +'</td><td class="count">'+ detail_data.student_total +'</td><td class="operation"><a href="javascript:;" class="set"><i class="iconfont">&#xe60f;</i>试卷设置</a><a href="javascript:;" class="sign"><i class="iconfont">&#xe612;</i>权限分配</a><a href="javascript:;" class="dele"><i class="iconfont">&#xe616;</i>删除考试</a></td></tr>';
+			var list_tr='<tr><td data-id="'+detail_data.subjects[i].id+'" class="subject-name">'+ detail_data.subjects[i].name +'</td><td class="count">'+ detail_data.student_total +'</td><td class="operation"><a href="javascript:;" class="set"><i class="iconfont">&#xe60f;</i>试卷设置</a><a href="javascript:;" class="sign"><i class="iconfont">&#xe612;</i>权限分配</a><a href="javascript:;" class="dele"><i class="iconfont">&#xe616;</i>删除考试</a></td></tr>';
 			$('.subject-list tbody').append(list_tr);
 		};
 	}
@@ -158,18 +166,24 @@ $(function() {
 	  		show_class_detail(data);//显示所有班级
 	  	}
 	  });
-	  $.ajax({
+	  showSubject(show_grade_id)
+	}
+
+
+	//显示科目
+	function showSubject(show_grade_id){
+		$.ajax({
 	  	url:ajaxIp+"/api/v2/commons/"+ show_grade_id +"/grade_subjects",
 	  	headers: {'Authorization': "Bearer " + isLogin},
 	  	dataType: "JSON",
 	  	type:"get",
 	  	success:function(data){
-	  		console.log(data)
-	  		show_subject_detail(data);//显示所有班级
+	  		// console.log(data)
+	  		show_subject_detail(data);
+	  		show_subject_details(data);
 	  	}
 	  });
 	}
-
 
 	// 显示班级
 	function show_class_detail(class_info){
@@ -178,15 +192,30 @@ $(function() {
 		for (var i = 0; i < class_info.length; i++) {
 			var class_li ='<li><div class="check-box"><input id= "class-id'+ i +'" type="checkbox" value="'+ class_info[i].name +'" data-id="'+ class_info[i].id +'" class="check" name="check"><label for="class-id'+ i +'">'+ class_info[i].name +'</label></div></li>';
 			$('#grade').append(class_li);
+			// $('#modal-list').append(class_li);
 		};
 	}
 
 
-	// 显示科目
+	// 显示所有科目
 	function show_subject_detail(subject_info){
 		for (var i = 0; i < subject_info.length; i++) {
 			var subject_li ='<li><div class="check-box"><input id= "subject-id'+ i +'" type="checkbox" value="'+ subject_info[i].name +'" data-id="'+ subject_info[i].id +'" class="check" name="subject-check"><label for="subject-id'+ i +'">'+ subject_info[i].name +'</label></div></li>';
 			$('#subject').append(subject_li);
+		};
+	}
+	// 显示弹窗科目
+	function show_subject_details(subject_info){
+		for (var i = 0; i < subject_info.length; i++) {
+			for (var j = 0; j < on_checked.length; j++) {
+				if(subject_info[i].id==on_checked[j]){
+						var subject_arr = '<li><div class="check-box"><input checked type="checkbox" data-id="'+ subject_info[i].id +'" value="'+ subject_info[i].name +'" id="modal-check'+ i +'" class="check" name="modal-check"><label for="modal-check'+ i +'">'+ subject_info[i].name +'</label></div></li>';
+						break;
+				}else{
+					var subject_arr = '<li><div class="check-box"><input type="checkbox" data-id="'+ subject_info[i].id +'" value="'+ subject_info[i].name +'" id="modal-check'+ i +'" class="check" name="modal-check"><label for="modal-check'+ i +'">'+ subject_info[i].name +'</label></div></li>';
+				}
+			};
+			$('#modal-list').append(subject_arr);
 		};
 	}
  // 考试年级选择事件
@@ -256,6 +285,35 @@ $(function() {
 		}
 	});
 
+	$('body').on('click', '#new-create', function() {
+		console.log(on_checked)
+		$('#modal-list').html('');
+		var all_subject = '<li class="all"><div class="check-box"><input type="checkbox" value="0" id="modal-all" class="checkall" name="checkall"><label for="modal-all">全部</label></div></li>' ;
+		$('#modal-list').append(all_subject);
+		var grade_data_id = $('.test-grade').attr('data-id');
+		showSubject(grade_data_id);
+	});
+
+
+
+	 // 新增科目
+	$('body').on('click', '#confirm-sub', function() {
+		var sub_arr = [];
+		var test_subject = $('#modal-list').find("input[type='checkbox']:checked").length;
+		for (var i = 0; i < test_subject; i++) {
+			sub_arr.push($($('#modal-list').find("input[type='checkbox']:checked")[i]).data('id'));
+		};
+		if($('#modal-list').find('#modal-all').is(':checked')){
+			sub_arr.shift();
+			sub_arr;
+		}
+		console.log(sub_arr);
+		var grade_data_id = $('.test-grade').attr('data-id');
+		showSubject(grade_data_id);
+		// $('.subject-list tbody').html('');
+		// var list_tr='<tr><td class="subject-name">'+ detail_data.subjects[i].name +'</td><td class="count">'+ detail_data.student_total +'</td><td class="operation"><a href="javascript:;" class="set"><i class="iconfont">&#xe60f;</i>试卷设置</a><a href="javascript:;" class="sign"><i class="iconfont">&#xe612;</i>权限分配</a><a href="javascript:;" class="dele"><i class="iconfont">&#xe616;</i>删除考试</a></td></tr>';
+		// $('.subject-list tbody').append(list_tr);
+	});
 
 
 
