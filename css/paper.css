@@ -132,6 +132,20 @@ body{
 	line-height: 42px;
 	background: #dcf5f0;
 	padding-left: 20px;
+	position: relative;
+}
+#right-btn{
+	position: absolute;
+	right: 20px;
+	top: 0;
+}
+#right-btn a{
+	color: #31bc91;
+	font-size: 14px;
+	margin-left: 20px;
+}
+#right-btn a i{
+	padding-right: 6px;
 }
 .test-info{
 	padding-bottom: 5px;
@@ -218,6 +232,9 @@ body{
 	top: 1px;
 	color: #5fa3ed;
 	cursor: pointer;
+}
+.border-focus{
+	border: 1px solid #31bc91!important;
 }
 .rows .class li{
 	display: inline-block;
