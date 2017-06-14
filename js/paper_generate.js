@@ -21,7 +21,7 @@ $(function() {
 		   error: function(){
 		      alert('请稍后从新尝试登录或者联系管理员');
 	      	localStorage.clear();
-	      	window.location.href = './login.html'
+	      	window.location.href = './login.html';
 		  }
 		});
 	}
@@ -55,7 +55,7 @@ $(function() {
 		   error: function(){
 		    alert('请稍后从新尝试登录或者联系管理员');
       	localStorage.clear();
-      	window.location.href = './login.html'
+      	window.location.href = './login.html';
 		  }
 		});
 	}
@@ -111,6 +111,30 @@ $(function() {
 		console.log($(this).data('id'));
 		show_test_cont($(this).data('id'));
 	})
+	// 搜索考试
+	$('#search-test').on('change', function() {
+		var str_name = $(this).val();
+		$.ajax({
+		  type: "GET",
+		  url: ajaxIp+"/api/v2/exams",
+			data:{'keyword':str_name },
+		  headers: {'Authorization': "Bearer " + isLogin},
+		  success: function(data){
+		  	console.log(data.id,data);
+		   	// 显示已搜索到的考试信息
+		   	$('.list-ul').html('');
+		  	show_list (data);
+		   },
+		  error: function(){
+	      alert('请稍后从新尝试登录或者联系管理员');
+      	localStorage.clear();
+      	window.location.href = './login.html';
+		  }
+		});
+	});
+	$('#search-btn').on('click',function() {
+		$('#search-test').change();
+	});
 	// 下拉加载
 	$('.list-ul').unbind('scroll').bind('scroll', function(){
     var sum = this.scrollHeight;
@@ -139,7 +163,12 @@ $(function() {
 	  	success:function(data){
 	  		// console.log(data);
 	  		show_grade(data);//显示所有年级
-	  	}
+	  	},
+		  error: function(){
+	      alert('请稍后从新尝试登录或者联系管理员');
+      	localStorage.clear();
+      	window.location.href = './login.html';
+		  }
 	  });
 
 
@@ -168,7 +197,12 @@ $(function() {
 	  	success:function(data){
 	  		console.log(data)
 	  		show_class_detail(data);//显示所有班级
-	  	}
+	  	},
+	  	error: function(){
+	      alert('请稍后从新尝试登录或者联系管理员');
+      	localStorage.clear();
+      	window.location.href = './login.html';
+		  }
 	  });
 	  showSubjectModal(show_grade_id);//新建科目显示modal层的科目方法
 	  showSubjectAll(show_grade_id);//新建考试信息的时候显示对应班级所有科目信息
@@ -185,7 +219,12 @@ $(function() {
 	  	success:function(data){
 	  		// console.log(data)
 	  		show_subject_details(data);
-	  	}
+	  	},
+	  	error: function(){
+	      alert('请稍后从新尝试登录或者联系管理员');
+      	localStorage.clear();
+      	window.location.href = './login.html';
+		  }
 	  });
 	}
 
@@ -199,7 +238,12 @@ $(function() {
 	  	success:function(data){
 	  		// console.log(data)
 	  		show_subject_detail(data);
-	  	}
+	  	},
+	  	error: function(){
+	      alert('请稍后从新尝试登录或者联系管理员');
+      	localStorage.clear();
+      	window.location.href = './login.html';
+		  }
 	  });
 	}
 
@@ -303,7 +347,12 @@ $(function() {
 		  		first_list();
 		  		$('.first-new').hide();
 		  		$('.second-new').show();
-		  	}
+		  	},
+		  	error: function(){
+		      alert('请稍后从新尝试登录或者联系管理员');
+	      	localStorage.clear();
+	      	window.location.href = './login.html';
+			  }
 		  });
 		}
 	});
@@ -343,7 +392,12 @@ $(function() {
 	  	success:function(data){
 	  		console.log(data);
 	  		show_test_cont(test_id);
-	  	}
+	  	},
+	  	error: function(){
+	      alert('请稍后从新尝试登录或者联系管理员');
+      	localStorage.clear();
+      	window.location.href = './login.html';
+		  }
 	  });
 	});
 
@@ -415,7 +469,12 @@ $(function() {
 	  		$('.list-ul').html('');
 	  		list_page = 1;
 	  		first_list();
-	  	}
+	  	},
+	  	error: function(){
+	      alert('请稍后从新尝试登录或者联系管理员');
+      	localStorage.clear();
+      	window.location.href = './login.html';
+		  }
 	  });
 	});
 
@@ -450,7 +509,12 @@ $(function() {
 	  		console.log(data);
 	  		var test_id = $('.test-name').attr('data-id');
 	  		show_test_cont(test_id);
-	  	}
+	  	},
+	  	error: function(){
+	      alert('请稍后从新尝试登录或者联系管理员');
+      	localStorage.clear();
+      	window.location.href = './login.html';
+		  }
 	  });
 	});
 	// 删除考试
@@ -476,7 +540,12 @@ $(function() {
 	  		$('.list-ul').html('');
 	  		list_page = 1;
 	  		first_list();
-	  	}
+	  	},
+	  	error: function(){
+	      alert('请稍后从新尝试登录或者联系管理员');
+      	localStorage.clear();
+      	window.location.href = './login.html';
+		  }
 	  });
 	});
 
