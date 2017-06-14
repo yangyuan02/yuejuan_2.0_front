@@ -234,14 +234,18 @@
 					</div>
 					<div class="second-new">
 						<div class="title-name">
-							<p>考试信息</p>
+							<p id="test-title"></p>
+							<p id="right-btn">
+								<a href=""><i class="iconfont"></i>邀请学校</a>
+								<a href="javascript:;" id="dele-test"><i class="iconfont">&#xe616;</i>删除考试</a>
+							</p>
 						</div>
 						<div class="test-info">
 							<div class="title"><h6>考试信息</h6></div>
 							<form action="" name="">
 								<div class="rows test-rows">
 									<label>考试名称</label>
-									<input type="text" value="" disabled class="finished test-name">
+									<input type="text" value="" disabled class="finished test-name" id="edit-name">
 									<i class="iconfont edit" id="edit">&#xe614;</i>
 								</div>
 								<div class="rows clear">
@@ -371,6 +375,7 @@
 		</div>
 
 	</div>
+	<!-- 新建科目 -->
 	<div class="modal-wrap" id="new-modal">
 		<div class="modal-shadow modal-exit"></div>
 		<div class="modal-main">
@@ -452,11 +457,32 @@
 			</div>
 		</div>
 	</div>
-	<div class="modal-wrap" id="dele-modal">
+	<!-- 删除考试 -->
+	<div class="modal-wrap" id="dele-testmodal">
 		<div class="modal-shadow modal-exit"></div>
 		<div class="modal-main">
 			<div class="modal-exit iconfont modal-exit-icon">&#xe61a;</div>
 			<div class="modal-title">删除考试</div>
+			<div class="modal-content">
+				<div class="mian-cont">
+					<p class="h6">操作提示</p>
+					<div class="dele-cont">
+						<p>您确认要删除 <a href="javascript:;"></a> 的考试信息吗</p>
+					</div>
+				</div>
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine modal-exit confirm-dele-test">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 删除科目 -->
+	<div class="modal-wrap" id="dele-modal">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main">
+			<div class="modal-exit iconfont modal-exit-icon">&#xe61a;</div>
+			<div class="modal-title">删除科目信息</div>
 			<div class="modal-content">
 				<div class="mian-cont">
 					<p class="h6">操作提示</p>
