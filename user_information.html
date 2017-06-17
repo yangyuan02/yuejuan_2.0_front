@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>麦粒</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/user_information.css">
+	<script type="text/javascript" src='js/jquery.min.js'></script>
+	<script type="text/javascript" src='js/common.js'></script>
+	<script type="text/javascript" src='js/jquery.base64.js'></script>
+	<script type="text/javascript" src='js/user_information.js'></script>
+</head>
+<body>
+	<div id="wrap">
+		<div id='header'>
+
+		</div>
+
+		<div class="user-title">
+			<div class="user-title-back">
+				<i class="iconfont">&#xe618;</i>
+				当前位置：
+				<a href="">首页</a>
+				>
+				<span>个人设置</span>
+			</div>
+			
+		</div>
+
+		<div class="content">
+			<div class="user-left">
+				<div class="user-information user-left-button user-on">
+					账户信息
+				</div>
+				<div class="change-password user-left-button">
+					更改密码
+				</div>
+			</div>
+			<div class="user-right user-information-right">
+				<p>账户信息</p>
+				<div class="user-detailed">
+					<div class="user-input-wrap">
+						<label class="user-label" for="user-school">学校</label>
+						<input type="text" id="user-school" class="user-input" value='' disabled/>
+					</div>
+					<div class="user-input-wrap">
+						<label class="user-label" for="user-name">姓名</label>
+						<input type="text" id="user-name" class="user-input" value='' disabled/>
+					</div>
+					<div class="user-input-wrap">
+						<label class="user-label" for="user-grade">年级</label>
+						<input type="text" id="user-grade" class="user-input" value='' disabled/>
+					</div>
+					<div class="user-input-wrap">
+						<label class="user-label" for="user-subject">科目</label>
+						<input type="text" id="user-subject" class="user-input" value='' disabled/>
+					</div>
+					<div class="user-input-wrap">
+						<label class="user-label" for="user-number">电话</label>
+						<input type="text" id="user-number" class="user-input" value='' disabled/>
+					</div>
+					<div class="user-input-wrap">
+						<label class="user-label" for="user-email">邮箱</label>
+						<input type="text" id="user-email" class="user-input" value='' disabled/>
+					</div>
+				</div>
+			</div>
+
+			<div class="user-right user-change-password">
+				<p>更改密码</p>
+				<div class="user-detailed user-change-wrap">
+					<div class="user-input-wrap">
+						<label class="user-label" for="user-school">原密码</label>
+						<input type="password" id="user-password" class="user-input" value=''/>
+					</div>
+					<div class="user-input-wrap">
+						<div class="user-prompt"><i></i><span></span></div>
+						<label class="user-label" for="user-name">新密码</label>
+						<input type="password" id="user-new-password" class="user-input user-password-input" value=''/>
+					</div>
+					<div class="user-input-wrap">
+						<div class="user-prompt"><i></i><span></span></div>
+						<label class="user-label" for="user-grade">重复密码</label>
+						<input type="password" id="user-new-password2" class="user-input user-password-input" value=''/>
+					</div>
+					<div class="user-save determine">
+						保存
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="footer">
+
+		</div>
+
+	</div>
+
+</body>
+
+</html>

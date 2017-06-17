@@ -7,7 +7,7 @@ $(function() {
     });
 	var isLogin = localStorage.getItem("token");
 	if(!isLogin){
-		window.location.href = './login.html'
+		// window.location.href = './login.html'
 	}else{
 		var user_name,school_name;
 
@@ -25,7 +25,7 @@ $(function() {
 	    		}else{
 	    			alert('账号已在其他地方登录');
 	    			localStorage.clear();
-	        		window.location.href = './login.html'
+	        		// window.location.href = './login.html'
 	    		}
 	        },
 	        error: function(){
