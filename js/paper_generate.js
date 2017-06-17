@@ -28,6 +28,7 @@ $(function() {
 
 
 	function show_list (exam_list) {
+		console.log(exam_list)
 		var a = exam_list.length;
 		if (a!= 0) {
 			for (var i = 0; i < a; i++) {
@@ -106,6 +107,7 @@ $(function() {
 	// 考试列表切换
 	$('body').on('click','.list-ul li',function(){
 		$('.first-new').hide();
+		$('.teacher-set').hide();
 		$('.second-new').show();
 		$(this).addClass('active').siblings().removeClass('active');
 		console.log($(this).data('id'));
@@ -138,6 +140,7 @@ $(function() {
 	// 下拉加载
 	$('.list-ul').unbind('scroll').bind('scroll', function(){
     var sum = this.scrollHeight;
+    // console.log(sum,$(this).scrollTop(),$(this).height())
     if (sum <= $(this).scrollTop() + $(this).height()) {
       list_page++;
       console.log(list_page);
@@ -154,22 +157,22 @@ $(function() {
 		$('#test-form')[0].reset();
 	})
 
-// 获取年级
-		$.ajax({
-	  	url:ajaxIp+"/api/v2/commons/school_grades",
-	  	headers: {'Authorization': "Bearer " + isLogin},
-	  	type:"get",
-	  	dataType: "JSON",
-	  	success:function(data){
-	  		// console.log(data);
-	  		show_grade(data);//显示所有年级
-	  	},
-		  error: function(){
-	      alert('请稍后从新尝试登录或者联系管理员');
-      	localStorage.clear();
-      	window.location.href = './login.html';
-		  }
-	  });
+	// 获取年级
+	$.ajax({
+  	url:ajaxIp+"/api/v2/commons/school_grades",
+  	headers: {'Authorization': "Bearer " + isLogin},
+  	type:"get",
+  	dataType: "JSON",
+  	success:function(data){
+  		// console.log(data);
+  		show_grade(data);//显示所有年级
+  	},
+	  error: function(){
+      alert('请稍后从新尝试登录或者联系管理员');
+    	localStorage.clear();
+    	window.location.href = './login.html';
+	  }
+  });
 
 
 
@@ -553,4 +556,266 @@ $(function() {
 	$('body').on('click', '.set', function() {
 		$('.paper-set').show().siblings().hide();
 	});
+	// 权限分配
+	$('body').on('click', '.sign', function() {
+		var subject_name = $(this).parents('tr').find('.subject-name').text();
+		// 考试id
+		var exam_id = $('#test-title').attr('data-id');
+		// 考试科目ID
+		var exam_subject_id = $(this).parents('tr').find('.subject-name').attr('exam_subject_id');
+
+		var subject_id = $(this).parents('tr').find('.subject-name').attr('data-id');
+		$('.teacher-set .title-name').find('#subject-title').text(subject_name);
+		$('.teacher-set .title-name').find('#subject-title').attr('exam-id',exam_id);
+		$('.teacher-set .title-name').find('#subject-title').attr('exam_subject_id',exam_subject_id);
+		$('.teacher-set .title-name').find('#subject-title').attr('data-id',subject_id);
+		$('.teacher-set').show().siblings().hide();
+		show_item_group(exam_subject_id);
+	});
+	var item_groups;
+	// 显示该考试的题组
+	function show_item_group(exam_subject_id){
+		$.ajax({
+	  	url:ajaxIp+"/api/v2/exam_subjects/"+exam_subject_id+"/subjective_item",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	type:"GET",
+	  	success:function(data){
+	  		console.log(data);
+	  		item_groups = data;
+	  		var exam_id = $('#test-title').attr('data-id');
+	  		show_check_teacher(exam_id,exam_subject_id);
+	  		// show_html_item(data);
+	  	},
+	  	error: function(){
+	      alert('请稍后从新尝试登录或者联系管理员');
+      	localStorage.clear();
+      	window.location.href = './login.html';
+		  }
+	  });
+	}
+	function show_html_item(item_group,data_teacher){
+		console.log(item_group);
+		console.log(data_teacher)
+		var item_length = item_group.length;
+		for (var i = 0; i < item_length; i++) {
+			console.log(item_group[i].id);
+		};
+	}
+	// 显示当前科目考试的审核老师
+	function show_check_teacher(exam_id,exam_subject_id){
+		$('.look-table tbody').html('');
+		$.ajax({
+	  	url:ajaxIp+"/api/v2/exam_subjects/relation_teacher",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	type:"GET",
+	  	data:{'exam_id':exam_id,'exam_subject_id':exam_subject_id},
+	  	success:function(data){
+	  		show_item_detail(data);
+	  		var data_teacher = data;
+	  		console.log(data_teacher);
+	  	},
+	  	error: function(){
+	      alert('请稍后从新尝试登录或者联系管理员');
+      	localStorage.clear();
+      	window.location.href = './login.html';
+		  }
+	  });
+	}
+	function show_item_detail(data_teacher){
+ 		var items_length = item_groups.length;
+		var teacher_length = data_teacher.length;
+		for (var i = 0; i < items_length; i++) {
+			var arr_num =[];
+			for (var j = 0; j < teacher_length; j++) {
+				if(item_groups[i].id == data_teacher[j].answer_id){
+					arr_num.push(j);
+					console.log(item_groups[i].id,data_teacher[j].name);
+					var item_li ='<tr><td width="80" data-id="'+item_groups[i].id+'">'+item_groups[i].name +'</td><td width="375"><ul class="teacher-list examination_'+item_groups[i].id +'"></ul><a class="add" href="javascript:;"><i class="iconfont">&#xe61a;</i>添加</a></td><td width="375"><ul class="teacher-list reviewed_'+item_groups[i].id +'"></ul><a class="add" href="javascript:;"><i class="iconfont">&#xe61a;</i>添加</a></td></tr>';
+				}
+			};
+			$('.look-table tbody').append(item_li);
+			console.log(arr_num,i,j);
+			for (var z = 0; z < arr_num.length; z++) {
+				console.log(data_teacher[arr_num[z]].name);
+				console.log(data_teacher[arr_num[z]].type);
+				var li_cont = '<li class="on" anser-id="'+data_teacher[arr_num[z]].answer_id+'"><span data-id="'+data_teacher[arr_num[z]].id+'">' + data_teacher[arr_num[z]].name +'</span> <i class="iconfont">&#xe61b;</i></li>';
+				// 判断是否为阅卷老师
+				if (data_teacher[arr_num[z]].type=='examination') {
+					$('.examination_'+item_groups[i].id +'').append(li_cont);
+				}
+				// 判断是否为审核老师
+				if (data_teacher[arr_num[z]].type=='reviewed') {
+					$('.reviewed_'+item_groups[i].id +'').append(li_cont);
+				}
+			};
+
+		};
+	}
+
+
+	// 权限分配页面功能－－start
+	// 返回功能
+	$('body').on('click', '#sign-subject .back', function() {
+		var exam_id = $('#subject-title').attr('exam-id');
+		show_test_cont(exam_id);
+		$('.teacher-set').hide();
+		$('.second-new').show();
+	});
+	// 添加老师
+	$('body').on('click','.add', function() {
+		$('.modal-main').css('width','765px');
+		$('.modal-main').animate({'top': '50%','opacity': 1},500);
+		$('.modal-shadow').animate({'opacity': .3},500);
+		$('#teacher-modal').show();
+		// 获取年级
+		$.ajax({
+	  	url:ajaxIp+"/api/v2/commons/school_grades",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	type:"get",
+	  	dataType: "JSON",
+	  	success:function(data){
+	  		console.log(data);
+	  		show_modal_grade(data);//显示所有年级
+	  	},
+		  error: function(){
+	      alert('请稍后从新尝试登录或者联系管理员');
+	    	localStorage.clear();
+	    	window.location.href = './login.html';
+		  }
+	  });
+	  request_teacher();
+	});
+
+	var teachr_list_page = 1;
+	function request_teacher(grade_id,subject_id){
+		$.ajax({
+	  	url:ajaxIp+"/api/v2/teachers",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	dataType: "JSON",
+	  	type:"get",
+	  	data:{'page':teachr_list_page,'limit':10,'grade_id':grade_id,'subject_id':subject_id},
+	  	success:function(data){
+	  		console.log(grade_id,data);
+	  		show_modal_teacher_list(data);
+	  	},
+	  	error: function(){
+	      alert('请稍后从新尝试登录或者联系管理员');
+      	localStorage.clear();
+      	window.location.href = './login.html';
+		  }
+	  });
+	}
+	function show_modal_grade(modal_grade){
+		console.log(modal_grade);
+		$('#change-grade').html('');
+  	var grade_length = modal_grade.length;
+  	var option_first = '<option data-id="all-grade" >所有年级</option>';
+  	$('#change-grade').append(option_first);
+  	for (var i = 0; i < grade_length; i++) {
+  		var option_name = '<option data-id="'+ modal_grade[i].id +'">'+ modal_grade[i].name+'</option>';
+  		$('#change-grade').append(option_name);
+  	};
+  	$('#change-grade').attr('data-id','all-grade');
+  	show_modal_subject(modal_grade[0].id);
+	}
+
+	function show_modal_subject(show_grade_id){
+		$.ajax({
+	  	url:ajaxIp+"/api/v2/commons/"+ show_grade_id +"/grade_subjects",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	dataType: "JSON",
+	  	type:"get",
+	  	success:function(data){
+	  		console.log(data)
+	  		show_modal_subject_detail(data);
+	  	},
+	  	error: function(){
+	      alert('请稍后从新尝试登录或者联系管理员');
+      	localStorage.clear();
+      	window.location.href = './login.html';
+		  }
+	  });
+	}
+	function show_modal_subject_detail(subject_detail){
+		var s_length = subject_detail.length;
+		var option_first = '<option data-id="all-subject" >所有科目</option>';
+  	$('#change-subject').append(option_first);
+		for (var i = 0; i < s_length; i++) {
+			var subject_option = '<option data-id='+subject_detail[i].id+'>'+subject_detail[i].name+'</option>';
+			$('#change-subject').append(subject_option);
+		};
+		$('#change-subject').attr('data-id','all-subject');
+	}
+		// 显示教师列表
+	function show_modal_teacher_list(teacher_detail){
+		console.log(teacher_detail)
+		if (teacher_detail.length != 0) {
+			var list_length = teacher_detail.length;
+			for (var i = 0; i < list_length; i++) {
+				var teacher_li = '<li class="clear"><span class="left"><span data-id="'+teacher_detail[i].id+'">'+teacher_detail[i].real_name+'</span>@<span data-id="'+teacher_detail[i].school.id+'">'+teacher_detail[i].school.name+'</span></span><div class="check_box right"><input type="checkbox" value="" id="teacher'+i+'" class="" name="teacher-name"><label for="teacher'+i+'"></label></div></li>';
+				$('.teacher-left-list').append(teacher_li);
+			};
+		};
+		// $('.teacher-left-list').html('');
+	}
+
+	 // 考试年级选择事件
+	$('body').on('change', '#change-grade', function() {
+		var grade_name = $(this).find("option:selected").val();
+		var grade_data_id = $(this).find("option:selected").data('id');
+		if(grade_data_id !== 'all-grade'){
+			$('#change-subject').html('');
+			show_modal_subject(grade_data_id);
+			$('.teacher-left-list').html('');
+			request_teacher(grade_data_id);
+		}else{
+			request_teacher();
+		}
+	});
+	// 考试科目选择事件
+	$('body').on('change', '#change-subject', function() {
+		var subject_name = $(this).find("option:selected").val();
+		var gg_id = $('#change-grade').find("option:selected").data('id');
+		var subject_data_id = $(this).find("option:selected").data('id');
+		console.log(subject_name,subject_data_id);
+		$('.teacher-left-list').html('');
+		request_teacher(gg_id,subject_data_id);
+		if (subject_data_id =='all-subject') {
+			request_teacher(gg_id);
+		};
+	});
+
+	// 教师列表下拉加载
+	$('.teacher-left-list').unbind('scroll').bind('scroll', function(){
+    var sum = this.scrollHeight;
+    if (sum <= $(this).scrollTop() + $(this).height()) {
+      teachr_list_page++;
+      var grade_id = $('#change-grade').find("option:selected").data('id');
+			var subject_id = $('#change-subject').find("option:selected").data('id');
+			console.log(grade_id,subject_id)
+			if(grade_id =='all-grade' && subject_id =='all-subject'){
+				request_teacher();
+			}
+			if(grade_id !=='all-grade' && subject_id =='all-subject'){
+				request_teacher(grade_id);
+			}
+			if(grade_id !=='all-grade' && subject_id !=='all-subject'){
+				request_teacher(grade_id,subject_id);
+			}
+    }
+  });
+	// 教师全选
+	$('body').on('click', '#all-teacher', function() {
+		$("input[name=teacher-name]").prop('checked', this.checked);
+	});
+
+	$('body').on('click', 'input[name="teacher-name"]', function() {
+		var $graBox = $("input[name='teacher-name']");
+		// $graBox.length=$("input[name='teacher-name']").length;
+		console.log($("input[name='teacher-name']:checked").length,$graBox.length);
+		$("#all-teacher").prop("checked",$graBox.length == $("input[name='teacher-name']:checked").length ? true : false);
+	});
+
+
+	// 权限分配页面功能－－end
 })
