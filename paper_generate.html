@@ -289,7 +289,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
+									<!-- <tr>
 										<td class="subject-name">数学</td>
 										<td class="count">122</td>
 										<td class="operation">
@@ -324,7 +324,7 @@
 												删除考试
 											</a>
 										</td>
-									</tr>
+									</tr> -->
 								</tbody>
 							</table>
 						</div>
@@ -365,6 +365,84 @@
 								</div>
 							</li>
 						</ul>
+					</div>
+					<div class="teacher-set hide">
+						<div class="title-name">
+							<p id="sign-subject"><i class="iconfont back">&#xe61c;</i> <span id="subject-title">语文</span>科目－权限分配</p>
+						</div>
+						<div class="test-info look-teacher-info">
+							<div class="title"><h6>审核老师</h6></div>
+							<table class="look-table" cellspacing="0" border="0" cellpadding="0">
+								<thead>
+									<tr>
+										<th>题组名称</th>
+										<th>阅卷老师
+											<a href="javascript:;" class="key-add"><i class="iconfont">&#xe61a;</i>一键添加</a>
+										</th>
+										<th>审核老师
+											<a href="javascript:;" class="key-add"><i class="iconfont">&#xe61a;</i>一键添加</a>
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<!-- <tr>
+										<td>一、填空题</td>
+										<td>
+											<ul class="teacher-list">
+												<li class="on"><span>王二毛</span><i class="iconfont">&#xe61b;</i></li>
+												<li class="on"><span>王二毛</span><i class="iconfont">&#xe61b;</i></li>
+											</ul>
+											<a class="add" href="javascript:;"><i class="iconfont">&#xe61a;</i>添加</a>
+										</td>
+										<td>
+											<ul class="teacher-list">
+												<li class="on"><span>王二毛</span><i class="iconfont">&#xe61b;</i></li>
+												<li class="on"><span>王二毛</span><i class="iconfont">&#xe61b;</i></li>
+											</ul>
+											<a class="add" href="javascript:;"><i class="iconfont">&#xe61a;</i>添加</a>
+										</td>
+									</tr>
+									<tr>
+										<td>二、问答题</td>
+										<td>
+											<ul class="teacher-list">
+												<li class="on"><span>王二毛</span><i class="iconfont">&#xe61b;</i></li>
+												<li class="on"><span>王二毛</span><i class="iconfont">&#xe61b;</i></li>
+											</ul>
+											<a class="add" href="javascript:;"><i class="iconfont">&#xe61a;</i>添加</a>
+										</td>
+										<td>
+											<ul class="teacher-list">
+												<li class="on"><span>王二毛</span><i class="iconfont">&#xe61b;</i></li>
+												<li class="on"><span>王二毛</span><i class="iconfont">&#xe61b;</i></li>
+											</ul>
+											<a class="add" href="javascript:;"><i class="iconfont">&#xe61a;</i>添加</a>
+										</td>
+									</tr>
+									<tr>
+										<td>三、作文题</td>
+										<td>
+											<ul class="teacher-list">
+												<li class="on"><span>王二毛</span><i class="iconfont">&#xe61b;</i></li>
+												<li class="on"><span>王二毛</span><i class="iconfont">&#xe61b;</i></li>
+											</ul>
+											<a class="add" href="javascript:;"><i class="iconfont">&#xe61a;</i>添加</a>
+										</td>
+										<td>
+											<ul class="teacher-list">
+												<li class="on"><span>王二毛</span><i class="iconfont">&#xe61b;</i></li>
+												<li class="on"><span>王二毛</span><i class="iconfont">&#xe61b;</i></li>
+											</ul>
+											<a class="add" href="javascript:;"><i class="iconfont">&#xe61a;</i>添加</a>
+										</td>
+									</tr> -->
+								</tbody>
+							</table>
+						</div>
+						<div class="btns">
+							<button class="submit" type="button" id="submit-confirm">确定</button>
+							<button class="cancel" type="button">取消</button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -488,6 +566,162 @@
 					<p class="h6">操作提示</p>
 					<div class="dele-cont">
 						<p>您确认要删除本场考试的 <a href="javascript:;"></a> 考试吗</p>
+					</div>
+				</div>
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine modal-exit confirm-dele">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 选择添加老师 -->
+	<div class="modal-wrap" id="teacher-modal">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main">
+			<div class="modal-exit iconfont modal-exit-icon">&#xe61a;</div>
+			<div class="modal-title">选择老师</div>
+			<div class="modal-content">
+				<div class="mian-cont">
+					<div class="select-row">
+						<div class="one">
+							<label>考试年级</label>
+							<select id="change-grade">
+								<!-- <option>六年级</option>
+								<option>七年级</option>
+								<option>八年级</option> -->
+							</select>
+						</div>
+						<div class="one two">
+							<label>考试科目</label>
+							<select id="change-subject">
+								<!-- <option>语文</option>
+								<option>数学</option>
+								<option>英语</option> -->
+							</select>
+						</div>
+						<div class="one three">
+							<input type="text" placeholder="请输入老师姓名或手机号">
+							<i class="iconfont search-teacher">&#xe610;</i>
+						</div>
+					</div>
+					<div class="teacher-content clear">
+						<div class="left tecaher-left">
+							<div class="teacher-title">
+								<h6>教师列表</h6>
+								<div class="all-box">
+									<span>全选</span>
+									<div class="check_box">
+				          	<input type="checkbox" value="" id="all-teacher" class="" name="">
+				          	<label for="all-teacher" class="show_school"></label>
+				        	</div>
+								</div>
+							</div>
+							<ul class="teacher-left-list">
+								<!-- <li class="clear">
+									<span class="left">王二@上海师大附中</span>
+									<div class="check_box right">
+				          	<input type="checkbox" value="" id="teacher1" class="" name="teacher-name">
+				          	<label for="teacher1"></label>
+				        	</div>
+								</li>
+								<li class="clear">
+									<span class="left">王二@上海师大附中</span>
+									<div class="check_box right">
+				          	<input type="checkbox" value="" id="teacher2" class="" name="teacher-name">
+				          	<label for="teacher2"></label>
+				        	</div>
+								</li>
+								<li class="clear">
+									<span class="left">王二@上海师大附中</span>
+									<div class="check_box right">
+				          	<input type="checkbox" value="" id="teacher3" class="" name="teacher-name">
+				          	<label for="teacher3"></label>
+				        	</div>
+								</li>
+								<li class="clear">
+									<span class="left">王二@上海师大附中</span>
+									<div class="check_box right">
+				          	<input type="checkbox" value="" id="teacher4" class="" name="teacher-name">
+				          	<label for="teacher4"></label>
+				        	</div>
+								</li>
+								<li class="clear">
+									<span class="left">王二@上海师大附中</span>
+									<div class="check_box right">
+				          	<input type="checkbox" value="" id="teacher5" class="" name="teacher-name">
+				          	<label for="teacher5"></label>
+				        	</div>
+								</li>
+								<li class="clear">
+									<span class="left">王二@上海师大附中</span>
+									<div class="check_box right">
+				          	<input type="checkbox" value="" id="teacher6" class="" name="teacher-name">
+				          	<label for="teacher6"></label>
+				        	</div>
+								</li>
+								<li class="clear">
+									<span class="left">王二@上海师大附中</span>
+									<div class="check_box right">
+				          	<input type="checkbox" value="" id="teacher7" class="" name="teacher-name">
+				          	<label for="teacher7"></label>
+				        	</div>
+								</li>
+								<li class="clear">
+									<span class="left">王二@上海师大附中</span>
+									<div class="check_box right">
+				          	<input type="checkbox" value="" id="teacher8" class="" name="teacher-name">
+				          	<label for="teacher8"></label>
+				        	</div>
+								</li>
+								<li class="clear">
+									<span class="left">王二@上海师大附中</span>
+									<div class="check_box right">
+				          	<input type="checkbox" value="" id="teacher9" class="" name="teacher-name">
+				          	<label for="teacher9"></label>
+				        	</div>
+								</li> -->
+							</ul>
+						</div>
+						<div class="right teacher-right">
+							<div class="teacher-title">
+								<h6>已选择老师</h6>
+							</div>
+							<ul class="teacher-right-list">
+								<li>
+									<span>王二毛</span>
+									<i class="iconfont">&#xe61b;</i>
+								</li>
+								<li>
+									<span>王二毛</span>
+									<i class="iconfont">&#xe61b;</i>
+								</li>
+								<li>
+									<span>王二毛</span>
+									<i class="iconfont">&#xe61b;</i>
+								</li>
+								<li>
+									<span>王二毛</span>
+									<i class="iconfont">&#xe61b;</i>
+								</li>
+								<li>
+									<span>王二毛</span>
+									<i class="iconfont">&#xe61b;</i>
+								</li>
+								<li>
+									<span>王二毛</span>
+									<i class="iconfont">&#xe61b;</i>
+								</li>
+								<li>
+									<span>王二毛</span>
+									<i class="iconfont">&#xe61b;</i>
+								</li>
+								<li>
+									<span>王二毛</span>
+									<i class="iconfont">&#xe61b;</i>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 				<div class="modal-bottom">
