@@ -688,25 +688,45 @@ $(function() {
 
 	var teachr_list_page = 1;
 	function request_teacher(grade_id,subject_id){
-		$.ajax({
-	  	url:ajaxIp+"/api/v2/teachers",
-	  	headers: {'Authorization': "Bearer " + isLogin},
-	  	dataType: "JSON",
-	  	type:"get",
-	  	data:{'page':teachr_list_page,'limit':10,'grade_id':grade_id,'subject_id':subject_id},
-	  	success:function(data){
-	  		console.log(grade_id,data);
-	  		show_modal_teacher_list(data);
-	  	},
-	  	error: function(){
-	      alert('请稍后从新尝试登录或者联系管理员');
-      	localStorage.clear();
-      	window.location.href = './login.html';
-		  }
-	  });
+		if (grade_id == undefined && subject_id == undefined) {
+			$.ajax({
+		  	url:ajaxIp+"/api/v2/teachers",
+		  	headers: {'Authorization': "Bearer " + isLogin},
+		  	dataType: "JSON",
+		  	type:"get",
+		  	data:{'page':teachr_list_page,'limit':10,},
+		  	success:function(data){
+		  		console.log(grade_id,data);
+		  		show_modal_teacher_list(data);
+		  	},
+		  	error: function(){
+		      alert('请稍后从新尝试登录或者联系管理员');
+	      	localStorage.clear();
+	      	window.location.href = './login.html';
+			  }
+		  });
+		}else{
+			console.log(grade_id,subject_id)
+			teachr_list_page=1
+			$.ajax({
+		  	url:ajaxIp+"/api/v2/teachers",
+		  	headers: {'Authorization': "Bearer " + isLogin},
+		  	dataType: "JSON",
+		  	type:"get",
+		  	data:{'page':teachr_list_page,'limit':10,'grade_id':grade_id,'subject_id':subject_id},
+		  	success:function(data){
+		  		console.log(grade_id,data);
+		  		show_modal_teacher_list(data);
+		  	},
+		  	error: function(){
+		      alert('请稍后从新尝试登录或者联系管理员');
+	      	localStorage.clear();
+	      	window.location.href = './login.html';
+			  }
+		  });
+	  }
 	}
 	function show_modal_grade(modal_grade){
-		console.log(modal_grade);
 		$('#change-grade').html('');
   	var grade_length = modal_grade.length;
   	var option_first = '<option data-id="all-grade" >所有年级</option>';
@@ -748,15 +768,21 @@ $(function() {
 	}
 		// 显示教师列表
 	function show_modal_teacher_list(teacher_detail){
-		console.log(teacher_detail)
-		if (teacher_detail.length != 0) {
+		console.log(teacher_detail.length);
+		if (teacher_detail.length != 0 && teacher_detail.length < 10) {
+			$('.teacher-left-list').html('');
 			var list_length = teacher_detail.length;
 			for (var i = 0; i < list_length; i++) {
 				var teacher_li = '<li class="clear"><span class="left"><span data-id="'+teacher_detail[i].id+'">'+teacher_detail[i].real_name+'</span>@<span data-id="'+teacher_detail[i].school.id+'">'+teacher_detail[i].school.name+'</span></span><div class="check_box right"><input type="checkbox" value="" id="teacher'+i+'" class="" name="teacher-name"><label for="teacher'+i+'"></label></div></li>';
 				$('.teacher-left-list').append(teacher_li);
 			};
-		};
-		// $('.teacher-left-list').html('');
+		}else if(teacher_detail.length >= 10){
+			var list_length = teacher_detail.length;
+			for (var i = 0; i < list_length; i++) {
+				var teacher_li = '<li class="clear"><span class="left"><span data-id="'+teacher_detail[i].id+'">'+teacher_detail[i].real_name+'</span>@<span data-id="'+teacher_detail[i].school.id+'">'+teacher_detail[i].school.name+'</span></span><div class="check_box right"><input type="checkbox" value="" id="teacher'+i+'" class="" name="teacher-name"><label for="teacher'+i+'"></label></div></li>';
+				$('.teacher-left-list').append(teacher_li);
+			};
+		}
 	}
 
 	 // 考试年级选择事件
