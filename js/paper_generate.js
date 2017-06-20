@@ -1016,5 +1016,23 @@ $(function() {
 		  }
 	  });
 	});
+
+	// 搜索老师
+	$('#search-teacher').on('change', function() {
+		var str_name = $(this).val();
+		var teacher_list = $('.teacher-left-list li');
+		var teacher_length = teacher_list.length;
+		for (var i = 0; i < teacher_length; i++) {
+			$(teacher_list[i]).addClass('hide');
+			var teacher_name = $(teacher_list[i]).find('.teacher-name').text();
+			if (teacher_name.indexOf(str_name)!=-1) {
+				console.log(i);
+				$(teacher_list[i]).removeClass('hide')
+			};
+		};
+	});
+	$('.search-teacher').on('click',function() {
+		$('#search-teacher').change();
+	});
 	// 权限分配页面功能－－end
 })
