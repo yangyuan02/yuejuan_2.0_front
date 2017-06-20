@@ -376,11 +376,11 @@
 								<thead>
 									<tr>
 										<th>题组名称</th>
-										<th>阅卷老师
-											<a href="javascript:;" class="key-add"><i class="iconfont">&#xe61a;</i>一键添加</a>
+										<th teacher-type="examination">阅卷老师
+											<a href="javascript:;" class="key-add add-one"><i class="iconfont">&#xe61a;</i>一键添加</a>
 										</th>
-										<th>审核老师
-											<a href="javascript:;" class="key-add"><i class="iconfont">&#xe61a;</i>一键添加</a>
+										<th teacher-type="reviewed">审核老师
+											<a href="javascript:;" class="key-add add-one"><i class="iconfont">&#xe61a;</i>一键添加</a>
 										</th>
 									</tr>
 								</thead>
@@ -439,10 +439,10 @@
 								</tbody>
 							</table>
 						</div>
-						<div class="btns">
+						<!-- <div class="btns">
 							<button class="submit" type="button" id="submit-confirm">确定</button>
 							<button class="cancel" type="button">取消</button>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
@@ -601,7 +601,7 @@
 							</select>
 						</div>
 						<div class="one three">
-							<input type="text" placeholder="请输入老师姓名或手机号">
+							<input type="text" placeholder="请输入老师姓名">
 							<i class="iconfont search-teacher">&#xe610;</i>
 						</div>
 					</div>
@@ -610,11 +610,11 @@
 							<div class="teacher-title">
 								<h6>教师列表</h6>
 								<div class="all-box">
-									<span>全选</span>
+									<!-- <span>全选</span>
 									<div class="check_box">
 				          	<input type="checkbox" value="" id="all-teacher" class="" name="">
 				          	<label for="all-teacher" class="show_school"></label>
-				        	</div>
+				        	</div> -->
 								</div>
 							</div>
 							<ul class="teacher-left-list">
@@ -688,7 +688,7 @@
 								<h6>已选择老师</h6>
 							</div>
 							<ul class="teacher-right-list">
-								<li>
+								<!-- <li>
 									<span>王二毛</span>
 									<i class="iconfont">&#xe61b;</i>
 								</li>
@@ -719,14 +719,14 @@
 								<li>
 									<span>王二毛</span>
 									<i class="iconfont">&#xe61b;</i>
-								</li>
+								</li> -->
 							</ul>
 						</div>
 					</div>
 				</div>
 				<div class="modal-bottom">
 					<div class="modal-bottom-button modal-exit">取消</div>
-					<div class="modal-bottom-button determine modal-exit confirm-dele">确认</div>
+					<div class="modal-bottom-button determine modal-exit confirm-teacher">确认</div>
 				</div>
 			</div>
 		</div>
