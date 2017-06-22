@@ -867,7 +867,6 @@ $(function() {
 		var all_length = $("input[name='teacher-name']").length;
 		console.log(checked_length,all_length)
 		if(checked_length == all_length && checked_length >0 && all_length >0){
-			console.log('yes')
 			$('body').find('#all-teacher').prop('checked',true);
 		}else{
 			$('body').find('#all-teacher').prop('checked',false);
@@ -1026,8 +1025,7 @@ $(function() {
 			$(teacher_list[i]).addClass('hide');
 			var teacher_name = $(teacher_list[i]).find('.teacher-name').text();
 			if (teacher_name.indexOf(str_name)!=-1) {
-				console.log(i);
-				$(teacher_list[i]).removeClass('hide')
+				$(teacher_list[i]).removeClass('hide');
 			};
 		};
 	});
@@ -1035,4 +1033,245 @@ $(function() {
 		$('#search-teacher').change();
 	});
 	// 权限分配页面功能－－end
+ 	// 查看邀请学校
+	$('body').on('click', '.look-school', function() {
+	 	$('.modal-main').css('width','765px');
+		$('.modal-main').animate({'top': '50%','opacity': 1},500);
+		$('.modal-shadow').animate({'opacity': .3},500);
+		$('#look-modal').show();
+		var exam_id = $('#test-title').attr('data-id');
+		$.ajax({
+	  	url:ajaxIp+"/api/v2/exams/"+ exam_id +"/invite_schools",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	type:"GET",
+	  	success:function(data){
+	  		console.log(data);
+	  		show_on_school(data);
+	  	},
+	  	error: function(){
+	      alert('请稍后从新尝试登录或者联系管理员');
+      	localStorage.clear();
+      	window.location.href = './login.html';
+		  }
+	  });
+	 });
+	 function show_on_school(on_school){
+		var on_school_length = on_school.length;
+		$('#look-school-list').html('');
+		for (var i = 0; i < on_school_length; i++) {
+			var on_school_tr = '<tr data-id="'+ on_school[i].school_id +'"><td class="school-name">'+on_school[i].school_name+'</td><td>'+on_school[i].created_at+'</td><td>'+on_school[i].reply_date+'</td><td>'+on_school[i].result+'</td></tr>';
+			$('#look-school-list').append(on_school_tr);
+		};
+	 }
+	// 邀请学校
+	$('body').on('click','.request-school', function() {
+		$('.modal-main').css('width','765px');
+		$('.modal-main').animate({'top': '50%','opacity': 1},500);
+		$('.modal-shadow').animate({'opacity': .3},500);
+		$('#school-modal').show();
+		$.ajax({
+	  	url:ajaxIp+"/api/v2/commons/provinces",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	type:"GET",
+	  	success:function(data){
+	  		show_province(data);
+	  	},
+	  	error: function(){
+	      alert('请稍后从新尝试登录或者联系管理员');
+      	localStorage.clear();
+      	window.location.href = './login.html';
+		  }
+	  });
+	});
+	// 显示所有省份
+	function show_province(all_province){
+		var all_length = all_province.length;
+		$('#change-province').html('');
+		for (var i = 0; i < all_length; i++) {
+			var option_province = '<option value="'+ all_province[i] +'">'+all_province[i]+'</option>';
+			$('#change-province').append(option_province);
+		};
+		get_county(all_province[0]);//默认显示第一个省份
+		var first_province = $('#change-province option').eq(0).val();
+		request_school(first_province);//默认显示第一个省份的学校
+
+	}
+	// 获取省份的区县
+	function get_county(province){
+		console.log(province)
+		$.ajax({
+	  	url:ajaxIp+"/api/v2/commons/counties?province="+province +"",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	type:"GET",
+	  	success:function(data){
+	  		show_county(data,province);
+	  	},
+	  	error: function(){
+	      alert('请稍后从新尝试登录或者联系管理员');
+      	localStorage.clear();
+      	window.location.href = './login.html';
+		  }
+	  });
+	}
+	// 显示省份的区县
+	function show_county(counties,province){
+		var counties_length = counties.length;
+		$('#change-county').html('');
+		var option_first = '<option val="所有区域" province-name="'+province+'">所有区域</option>';
+  	$('#change-county').append(option_first);
+		for (var i = 0; i < counties_length; i++) {
+			var option_county = '<option value="'+ counties[i] +'" province-name="'+province+'">'+counties[i]+'</option>';
+			$('#change-county').append(option_county);
+		};
+	}
+	// 获取学校
+	function request_school(province,county){
+		if(county=='所有区域'){
+			$.ajax({
+		  	url:ajaxIp+"/api/v2/invite_schools/get_schools",
+		  	headers: {'Authorization': "Bearer " + isLogin},
+		  	type:"GET",
+		  	data:{'province':province},
+		  	success:function(data){
+		  		show_school_detail(data)
+		  	},
+		  	error: function(){
+		      alert('请稍后从新尝试登录或者联系管理员');
+	      	localStorage.clear();
+	      	window.location.href = './login.html';
+			  }
+		  });
+		}else{
+			$.ajax({
+		  	url:ajaxIp+"/api/v2/invite_schools/get_schools",
+		  	headers: {'Authorization': "Bearer " + isLogin},
+		  	type:"GET",
+		  	data:{'province':province,'county':county},
+		  	success:function(data){
+		  		show_school_detail(data)
+		  	},
+		  	error: function(){
+		      alert('请稍后从新尝试登录或者联系管理员');
+	      	localStorage.clear();
+	      	window.location.href = './login.html';
+			  }
+		  });
+		}
+	}
+	// 显示学校
+	function show_school_detail(schools){
+		console.log(schools)
+		$('.school-title .all-box').html('');
+		var all_check = '<span>全选 </span><div class="check_box"><input type="checkbox" value="" id="all-school" class="all-teacher" name="all-school"><label for="all-school" class="show_school"></label></div>';
+		$('.school-title .all-box').append(all_check);
+		var schools_length = schools.length;
+		$('.school-left-list').html('');
+		for (var i = 0; i < schools_length; i++) {
+			var school_li = '<li class="clear"><span class="left"><span class="school-name" data-id="'+schools[i].id+'">'+schools[i].name+'</span></span><div class="check_box right"><input type="checkbox" value="" id="school'+i+'" class="" name="school-name"><label for="school'+i+'"></label></div></li>';
+			$('.school-left-list').append(school_li);
+		};
+	}
+
+
+	// 省份选择事件
+	$('body').on('change', '#change-province', function() {
+		var province_name = $(this).find("option:selected").val();
+		get_county(province_name);
+		request_school(province_name);
+	});
+
+
+	 // 区县选择事件
+	$('body').on('change', '#change-county', function() {
+		var county_name = $(this).find("option:selected").val();
+		var province_name = $(this).find("option:selected").attr('province-name')
+		request_school(province_name,county_name);
+		if(county_name == '所有区域'){
+			request_school(province_name);
+		}else{
+			request_school(province_name,county_name);
+		}
+	});
+
+	// 学校全选
+	$('body').on('click', '#all-school', function() {
+		$("input[name=school-name]").prop('checked', this.checked);
+		if (this.checked) {
+			var left_all_li = $('.school-left-list li');
+			var left_all_length = left_all_li.length;
+			$('.school-right-list').html('');
+			for (var i = 0; i < left_all_length; i++) {
+				var text_name = $(left_all_li[i]).find('.school-name').text();
+				var text_id = $(left_all_li[i]).find('.school-name').data('id');
+				var rigth_li = '<li><span data-id="'+text_id+'">'+text_name+'</span><i class="iconfont">&#xe61b;</i></li>';
+				$('.school-right-list').append(rigth_li);
+			};
+		}else{
+			$('.school-right-list').html('');
+		};
+	});
+	// 学校列表选择
+	$('body').on('click', 'input[name="school-name"]', function() {
+		var $graBox = $("input[name='school-name']");
+		$("#all-school").prop("checked",$graBox.length == $("input[name='school-name']:checked").length ? true : false);
+		var this_text = $(this).parents('li').find('.school-name').text();
+		var this_id = $(this).parents('li').find('.school-name').data('id');
+		if (this.checked) {
+			var rigth_li = '<li><span data-id="'+this_id+'">'+this_text+'</span><i class="iconfont">&#xe61b;</i></li>';
+			$('.school-right-list').append(rigth_li);
+		}else{
+			var t_li = $('.school-right-list li');
+			var t_length = t_li.length;
+			for (var i = 0; i < t_length; i++) {
+				var t_id = $(t_li[i]).find('span').attr('data-id');
+				if (this_id == t_id) {
+					$(t_li[i]).remove();
+				};
+			};
+		};
+	});
+
+
+	// 删除已经选择的学校
+	$('body').on('click', '.school-right-list li i', function() {
+		var school_id = $(this).prev().attr('data-id');
+		var school_left_li = $('.school-left-list li');
+		var school_left_length = school_left_li.length;
+		for (var i = 0; i < school_left_length; i++) {
+			var left_id = $(school_left_li[i]).find('.school-name').attr('data-id');
+			if (school_id == left_id) {
+				$(school_left_li[i]).find('input').prop('checked',false);
+			};
+		};
+		$('body').find('#all-school').prop('checked',false);
+		$(this).parent().remove();
+	});
+
+
+	// 确认添加学校
+	$('body').on('click', '.confirm-school', function() {
+		var exam_id = parseInt($('#test-title').attr('data-id'));
+		var school_info = $('.school-right-list li');
+		var school_info_length = school_info.length;
+		var school_info_ids =[];
+		for (var i = 0; i < school_info_length; i++) {
+			 school_info_ids.push(parseInt($(school_info[i]).find('span').attr('data-id')));
+		};
+		console.log({'exam_id':exam_id,'terms':school_info_ids,});
+		$.ajax({
+	  	url:ajaxIp+"/api/v2/invite_schools",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	type:"POST",
+	  	data:{'exam_id':exam_id,'terms':school_info_ids,},
+	  	success:function(data){
+	  		console.log(data);
+	  		show_on_school(data);
+	  	},
+	  	error: function(){
+	      alert('请稍后从新尝试登录或者联系管理员');
+      	localStorage.clear();
+      	window.location.href = './login.html';
+		  }
+	  });
+	});
 })
