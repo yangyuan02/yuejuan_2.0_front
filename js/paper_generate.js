@@ -1069,6 +1069,7 @@ $(function() {
 		$('.modal-main').animate({'top': '50%','opacity': 1},500);
 		$('.modal-shadow').animate({'opacity': .3},500);
 		$('#school-modal').show();
+		$('.school-right-list').html('');
 		$.ajax({
 	  	url:ajaxIp+"/api/v2/commons/provinces",
 	  	headers: {'Authorization': "Bearer " + isLogin},
@@ -1126,12 +1127,13 @@ $(function() {
 	}
 	// 获取学校
 	function request_school(province,county){
+		var exam_id = $('#test-title').attr('data-id');
 		if(county=='所有区域'){
 			$.ajax({
 		  	url:ajaxIp+"/api/v2/invite_schools/get_schools",
 		  	headers: {'Authorization': "Bearer " + isLogin},
 		  	type:"GET",
-		  	data:{'province':province},
+		  	data:{'province':province,'exam_id':exam_id},
 		  	success:function(data){
 		  		show_school_detail(data)
 		  	},
@@ -1146,7 +1148,7 @@ $(function() {
 		  	url:ajaxIp+"/api/v2/invite_schools/get_schools",
 		  	headers: {'Authorization': "Bearer " + isLogin},
 		  	type:"GET",
-		  	data:{'province':province,'county':county},
+		  	data:{'province':province,'county':county,'exam_id':exam_id},
 		  	success:function(data){
 		  		show_school_detail(data)
 		  	},
