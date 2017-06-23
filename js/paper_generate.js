@@ -32,7 +32,7 @@ $(function() {
 		var a = exam_list.length;
 		if (a!= 0) {
 			for (var i = 0; i < a; i++) {
-				var arr='<li class="" data-id='+exam_list[i].id+'><h6 class="name">' + exam_list[i].name + '</h6><p class="time">' + exam_list[i].created_at + '</p></li>'
+				var arr='<li class="exam-'+exam_list[i].id+'" data-id='+exam_list[i].id+'><h6 class="name">' + exam_list[i].name + '</h6><p class="time">' + exam_list[i].created_at + '</p></li>'
 				$('.list-ul').append(arr);
 				$('.list-ul li').eq(0).addClass('active');
 			};
@@ -64,7 +64,6 @@ $(function() {
 
 
 	function show_detail(detail_data,test_id){
-		console.log(detail_data)
 		$('#test-title').text(detail_data.name);
 		$('#test-title').attr('data-id',test_id);
 		$('.test-name').val(detail_data.name);//考试名称
@@ -130,10 +129,17 @@ $(function() {
 			data:{'keyword':str_name },
 		  headers: {'Authorization': "Bearer " + isLogin},
 		  success: function(data){
-		  	// console.log(data.id,data);
+		  	console.log(data.id,data);
 		   	// 显示已搜索到的考试信息
-		   	$('.list-ul').html('');
-		  	show_list (data);
+		   	if(data.length){
+		   		$('.list-ul').html('');
+		  		show_list (data);
+		  		$('.second-new').show();
+		   	}else{
+		   		$('.list-ul').html('');
+		   		$('.list-ul').html('<div style="text-align: center;color: #999;margin: 25px;">没有搜到相关考试，请重新搜索...</div>')
+		   		$('.second-new').hide();
+		   	}
 		   },
 		  error: function(){
 	      // alert('请稍后从新尝试登录或者联系管理员');
@@ -467,9 +473,10 @@ $(function() {
 	// 保存修改后的考试名称
 	$('body').on('blur', '#edit-name', function() {
 		var new_name = $(this).val();
-		$(this).removeClass('border-focus');
+		$(this).removeClass('border-focus').attr('disabled',true);
 		// $('#test-title').text(new_name);
 		var test_id = $(this).attr('data-id');
+		$('.exam-'+test_id+'').find('.name').text(new_name);
 		$.ajax({
 	  	url:ajaxIp+"/api/v2/exams/"+test_id,
 	  	headers: {'Authorization': "Bearer " + isLogin},
@@ -477,9 +484,10 @@ $(function() {
 	  	data:{'name': new_name },
 	  	success:function(data){
 	  		// console.log(data);
-	  		$('.list-ul').html('');
-	  		list_page = 1;
-	  		first_list();
+	  		// $('.list-ul').html('');
+	  		// list_page = 1;
+	  		// first_list();
+	  		show_test_cont(test_id);
 	  	},
 	  	error: function(){
 	      // alert('请稍后从新尝试登录或者联系管理员');
@@ -655,8 +663,13 @@ $(function() {
 					$('.reviewed_'+item_groups[i].id +'').append(li_cont);
 				}
 			};
-
 		};
+		if(items_length==0){
+			$('.key-add').removeClass('add-one').css({
+				color: '#999',
+				borderColor: '#999'
+			});
+		}
 	}
 
 
