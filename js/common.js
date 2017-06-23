@@ -30,8 +30,10 @@ $(function() {
 	        		$('.longin-username span').text(user_name+'('+school_name+')')
 
 	        		if(isAction){
-						if(window.location.pathname!='/yuejuan2.0_front/user_information.html')
-						window.location.href = './user_information.html'
+						if(window.location.pathname!='/yuejuan2.0_front/user_information.html'){
+							window.location.href = './user_information.html'
+						}
+						
 					}
 	    		}else{
 	    			alert('账号已在其他地方登录');
