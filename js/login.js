@@ -26,14 +26,27 @@
           },
           dataType: "JSON",
           success: function(data){
-            if (data.token) {
+            console.log(data)
+            if(data.action){
+              console.log(data.action)
               $('.login').hide();
               $('.login-shadow').hide();
               $('.login-animate').show();
               localStorage.setItem("token", data.token);
-              setTimeout(function(){
-                window.location.href = "./index.html";
-              },1000)
+              localStorage.setItem("action", data.action);
+              window.location.href = "./user_information.html";
+              // setTimeout(function(){
+              //   window.location.href = "./index.html";
+              // },1000)
+              
+            }else if (data.token) {
+              $('.login').hide();
+              $('.login-shadow').hide();
+              $('.login-animate').show();
+              localStorage.setItem("token", data.token);
+              // setTimeout(function(){
+              window.location.href = "./index.html";
+              // },1000)
               
             }else{
               $('.login-propmt').show();
@@ -55,7 +68,7 @@
     });
     
 });
-
+// 13761389705 
 function save() {  
   if($("#login-remember.checked").length){  
       var loginName = $("#login-name").val();  

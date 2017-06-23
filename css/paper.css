@@ -21,8 +21,12 @@ body{
 	color: #31bc91;
 }
 /* 中间内容部分 */
+.content-box{
+	padding-bottom: 50px;
+}
 .content{
 	margin-top: 24px;
+	margin-bottom: 50px;
 	background: #fff;
 	overflow: hidden;
 	height: auto;
@@ -83,7 +87,7 @@ body{
 	color: #ccc;
 	position: absolute;
 	right: 3px;
-	bottom: 6px;
+	bottom: 11px;
 	cursor: pointer;
 }
 .list-ul{
@@ -128,9 +132,23 @@ body{
 	line-height: 42px;
 	background: #dcf5f0;
 	padding-left: 20px;
+	position: relative;
+}
+#right-btn{
+	position: absolute;
+	right: 20px;
+	top: 0;
+}
+#right-btn a{
+	color: #31bc91;
+	font-size: 14px;
+	margin-left: 20px;
+}
+#right-btn a i{
+	padding-right: 6px;
 }
 .test-info{
-	padding-bottom: 30px;
+	padding-bottom: 5px;
 
 }
 .test-info .title{
@@ -156,6 +174,9 @@ body{
 	width: 70px;
 	color: #666;
 	font-size: 14px;
+	vertical-align: top;
+	position: relative;
+	top: 4px;
 }
 .rows input[type="text"]{
 	border: 1px solid #ccc;
@@ -211,6 +232,9 @@ body{
 	top: 1px;
 	color: #5fa3ed;
 	cursor: pointer;
+}
+.border-focus{
+	border: 1px solid #31bc91!important;
 }
 .rows .class li{
 	display: inline-block;
@@ -290,7 +314,9 @@ span.group-name{
   left: -17px;
   z-index: 9;
 }
-
+.alert-info{
+	color: red;
+}
 
 .rows .class li.on{
 	background: #31bc91;
@@ -388,16 +414,115 @@ table.subject-list .count{
 .hide{
 	display: none;
 }
+
+/* 试卷设置 */
+.set-top{
+	margin-top: 20px;
+	color: #666;
+	font-size: 14px;
+}
+.set-top .total{
+	font-size: 14px;
+}
+.set-top .total em{
+	color: #fb7d8a;
+	font-size: 20px;
+	font-weight: bold;
+	font-style: normal;
+}
+.btn-group a{
+	display: inline-block;
+	width: 80px;
+	height: 28px;
+	text-align: center;
+	line-height: 30px;
+	color: #31bc91;
+	margin-left: 8px;
+	border: 1px solid #31bc91;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-ms-border-radius: 2px;
+	-o-border-radius: 2px;
+	border-radius: 2px;
+}
+.btn-group .answer-card{
+	color: #fff;
+	background-image: -webkit-linear-gradient(left, #44d971, #31bc92);
+	background-image: -o-linear-gradient(left, #44d971, #31bc92);
+	background-image: linear-gradient(to right, #44d971, #31bc92);
+}
+.item-list{
+	margin-top: 20px;
+
+}
+.item-list .item{
+	border: 1px solid #ccc;
+}
+.item-list .item .item-title{
+	background: #f5f5f5;
+	height: 44px;
+	line-height: 44px;
+	padding-left: 12px;
+	border-bottom: 1px solid #ccc;
+}
+.item-title h6{
+	font-size: 16px;
+	color: #333;
+	font-weight: normal;
+}
+.op-group{
+	margin-right: 15px;
+}
+.op-group > li{
+	font-size: 14px;
+	color: #666;
+	display: inline-block;
+	margin-left: 30px;
+}
+.op-group > li a {
+	font-size: 14px;
+	cursor: pointer;
+}
+.op-group > li a i{
+	padding-right: 6px;
+}
+.edit-info{
+	color: #5fa3ed;
+}
+.insert-group{
+	color: #31bc91;
+}
+.dele-item{
+	color: #fb7d8a;
+}
+.item-label{
+	padding-right: 5px;
+}
+#index{
+	width: 60px;
+	height: 25px;
+	outline: none;
+	background: #fff;
+}
 /* 弹窗内容 */
 .mian-cont{
 	text-align: left;
 	font-size: 14px;
 	color: #666;
+	padding-bottom: 18px;
+}
+.h6{
+	font-weight: bold;
+	font-size: 14px;
+	margin-bottom: 10px;
 }
 .modal-subject{
 	padding-top: 20px;
 	padding-bottom: 20px;
 
+}
+.dele-cont a{
+	color: #31bc91;
 }
 .modal-subject .left_name{
 	display: inline-block;

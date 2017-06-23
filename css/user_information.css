@@ -22,7 +22,7 @@
 }
 .user-right{
 	width: 966px;
-	height: 800px;
+	min-height: 800px;
 	border: 1px solid #ccc;
 	margin-left: 200px;
 	background: #fff;
@@ -50,7 +50,7 @@
 	cursor: pointer;
 	color: #999;
 }
-.user-right p{
+.table-tittle-name{
 	height: 16px;
 	padding: 13px;
 	font-size: 16px;
@@ -165,7 +165,7 @@
 	text-align: left;
 }
 .search-tabble td{
-	padding: 0 24px;
+	padding: 0 20px;
 	height: 40px;
 	line-height: 40px;
 	text-align: left;
@@ -194,14 +194,70 @@
 .search-tabble{
 	border:1px solid #ccc;
 }
-.table-modify{
-
+.pagination-wrap{
+	text-align: center;
 }
-
-
-
-
-
-
-
+.pagination-color{
+	color:#31bc91;
+	/*display: inline-block;*/
+}
+.pagination li{
+	display: inline-block;
+}
+.pagination li a{
+	display: block;
+	height: 15px;
+	/*width: 15px;*/
+	padding: 8px 8px;
+	line-height: 15px;
+	border:1px solid #ddd;
+	margin: 2px;
+	border-radius: 2px;
+}
+.disableClass a{
+	color: #999;
+    background-color: #fff;
+    border-color: #ddd;
+    cursor: not-allowed;
+}
+.page a{
+	width: 18px;
+}
+.activeClass a{
+	background: #31bc91;
+	color: #fff;
+}
+.table-reset-password{
+	color: #31bc91;
+}
+.table-delete{
+	color: #db4a4a;
+}
+.table-modify{
+	color: skyblue;
+}
+.table-span{
+	font-size: 12px;
+	cursor: pointer;
+}
+.title-name-right{
+	float: right;
+}
+.title-name-right span{
+	font-size: 14px;
+	cursor: pointer;
+}
+#upfile{
+	border:1px solid #ccc;
+	width: 406px;
+	margin-left:20px;
+	height: 26px;
+	padding: 1px 10px;
+	display: inline-block;
+	text-align: left;
+	line-height: 28px;
+}
+.modal-main-small{
+	width: 380px;
+}
 

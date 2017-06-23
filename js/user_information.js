@@ -1,6 +1,16 @@
 $(function() {
 	var isLogin = localStorage.getItem("token");
+	var isAction = localStorage.getItem("action");
 
+	if(isAction){
+		$('.change-password').addClass('user-on');
+		$('.user-information').removeClass('user-on');
+		$('.user-information-right').hide();
+		$('.user-change-password').show();
+		$('.prompt-password').show();
+		// alert('密码为默认密码，请进行修改！');
+	}
+	
 	$.ajax({
      	type: "GET",
      	url: ajaxIp+"/api/v2/user_info",
@@ -17,9 +27,10 @@ $(function() {
     		
         },
         error: function(){
-        	alert('请稍后从新尝试登录或者联系管理员');
-        	localStorage.clear();
-        	window.location.href = './login.html'
+        	console.log(11111111111)
+        	// alert('请稍后从新尝试登录或者联系管理员');
+        	// localStorage.clear();
+        	// window.location.href = './login.html'
         }
     });
 
@@ -47,6 +58,8 @@ $(function() {
  			alert('密码长度不能小于8');
  		}else if(newUserPassword != newUserPassword2 && newUserPassword!=''&& newUserPassword2!=''){
  			alert('两次密码不一致');
+ 		}else if (newUserPassword == 88888888) {
+			alert('密码不能为默认密码')
  		}else{
  			changPassword(userPassword, newUserPassword);
  		}
@@ -68,13 +81,15 @@ $(function() {
 	    			$('#user-password').val('');
 			 		$('#user-new-password').val('');
 			 		$('#user-new-password2').val('');
+					localStorage.removeItem('action');
+					$('.prompt-password').hide();
 	    		}else{
 	    			alert('原密码错误！');
 	    		}
 	    		
 	        },
 	        error: function(){
-	        	alert('请稍后从新尝试或者联系管理员');
+	        	// alert('请稍后从新尝试或者联系管理员');
 	        	// localStorage.clear();
 	        	// window.location.href = './login.html'
 	        }

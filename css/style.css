@@ -34,11 +34,11 @@ ul{
 }
 @font-face {
   font-family: 'iconfont';  /* project id 308672 */
-  src: url('//at.alicdn.com/t/font_ic1p42oqiloywrk9.eot');
-  src: url('//at.alicdn.com/t/font_ic1p42oqiloywrk9.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_ic1p42oqiloywrk9.woff') format('woff'),
-  url('//at.alicdn.com/t/font_ic1p42oqiloywrk9.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_ic1p42oqiloywrk9.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_lko5zwjcc6noecdi.eot');
+  src: url('//at.alicdn.com/t/font_lko5zwjcc6noecdi.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_lko5zwjcc6noecdi.woff') format('woff'),
+  url('//at.alicdn.com/t/font_lko5zwjcc6noecdi.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_lko5zwjcc6noecdi.svg#iconfont') format('svg');
 }
 
 .iconfont{
@@ -129,6 +129,9 @@ ul{
   top: 0px;
 }
 .nav-right div{
+  float: left;
+}
+.nav-right>a{
   float: left;
 }
 
@@ -332,7 +335,7 @@ ul{
   border:1px solid #31bc91;
   text-align: center;
   line-height: 32px;
-}    
+}
 .determine{
   color: #fff;
   cursor: pointer;
