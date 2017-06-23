@@ -34,11 +34,11 @@ ul{
 }
 @font-face {
   font-family: 'iconfont';  /* project id 308672 */
-  src: url('//at.alicdn.com/t/font_lko5zwjcc6noecdi.eot');
-  src: url('//at.alicdn.com/t/font_lko5zwjcc6noecdi.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_lko5zwjcc6noecdi.woff') format('woff'),
-  url('//at.alicdn.com/t/font_lko5zwjcc6noecdi.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_lko5zwjcc6noecdi.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_84rioc55dskvgqfr.eot');
+  src: url('//at.alicdn.com/t/font_84rioc55dskvgqfr.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_84rioc55dskvgqfr.woff') format('woff'),
+  url('//at.alicdn.com/t/font_84rioc55dskvgqfr.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_84rioc55dskvgqfr.svg#iconfont') format('svg');
 }
 
 .iconfont{
@@ -367,5 +367,87 @@ ul{
 }
 .modal-start{
   cursor: pointer;
+}
+button {
+  width: 68px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  color: #fff;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.submit {
+  background: url(../img/btn-bg.jpg);
+}
+
+/* 复选框 */
+.check_box{
+  display: inline-block;
+  width: 20px;
+  position: relative;
+  top: -2px;
+  z-index: 9;
+}
+.check_box label {
+  cursor: pointer;
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  top: 3px;
+  left: 0;
+  background: #fff;
+  border:1px solid #31bc91;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+}
+.check_box label:after {
+  opacity: 0;
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 4px;
+  background: transparent;
+  top: 2px;
+  left: 1px;
+  border: 3px solid #31bc91;
+  border-top: none;
+  border-right: none;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+.check_box  input[type=checkbox]{
+    visibility: hidden;
+}
+.check_box input[type=checkbox]:checked + label{
+  /* background: #31bc91; */
+  -webkit-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
+}
+.check_box input[type=checkbox]:checked + label:after {
+  opacity: 1;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color: #999;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color: #999;
+}
+
+input:-ms-input-placeholder{
+  color: #999;
+}
+
+input::-webkit-input-placeholder{
+  color: #999;
 }
 
