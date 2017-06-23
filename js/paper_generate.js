@@ -64,6 +64,7 @@ $(function() {
 
 
 	function show_detail(detail_data,test_id){
+		console.log(detail_data)
 		$('#test-title').text(detail_data.name);
 		$('#test-title').attr('data-id',test_id);
 		$('.test-name').val(detail_data.name);//考试名称
@@ -92,6 +93,13 @@ $(function() {
 			$('.subject-list tbody').append(list_tr);
 			on_checked[i] = detail_data.subjects[i].id;
 		};
+		// 考试角色判断是否有权限修改删除功能
+		console.log(!detail_data.is_modify)
+		if(!detail_data.is_modify){
+			$('.dele').hide();
+			$('#edit').hide();
+			$('#new-create').hide();
+		}
 	}
 
 
@@ -1234,7 +1242,7 @@ $(function() {
 	});
 
 
-	// 删除已经选择的学校
+	// 右侧列表取消已经选择的学校
 	$('body').on('click', '.school-right-list li i', function() {
 		var school_id = $(this).prev().attr('data-id');
 		var school_left_li = $('.school-left-list li');
@@ -1275,5 +1283,34 @@ $(function() {
       	window.location.href = './login.html';
 		  }
 	  });
+	});
+
+	// 搜索学校
+	$('#search-school').on('change', function() {
+		var str_name = $(this).val();
+		var province_name=$('#change-province').find("option:selected").val();
+		var county_name=$('#change-county').find("option:selected").val();
+		var exam_id = $('#test-title').attr('data-id');
+		console.log(str_name,province_name,county_name,exam_id)
+		$.ajax({
+		  type: "GET",
+		  url: ajaxIp+"/api/v2/invite_schools/get_schools",
+			data:{'name':str_name,'exam_id':exam_id,'province':province_name,'county':county_name },
+		  headers: {'Authorization': "Bearer " + isLogin},
+		  success: function(data){
+		  	console.log(data);
+		   	// 显示已搜索到的考试信息
+		   // 	$('.school-left-list').html('');
+		  	// show_school_detail(data);
+		   },
+		  error: function(){
+	      alert('请稍后从新尝试登录或者联系管理员');
+      	localStorage.clear();
+      	window.location.href = './login.html';
+		  }
+		});
+	});
+	$('.search-school').on('click',function() {
+		$('#search-school').change();
 	});
 })
