@@ -6,6 +6,12 @@ $(function() {
         cache: false
     });
 	var isLogin = localStorage.getItem("token");
+	var isAction = localStorage.getItem("action");
+	console.log(window.location.pathname)
+	
+
+	
+
 	if(!isLogin){
 		window.location.href = './login.html'
 	}else{
@@ -22,6 +28,11 @@ $(function() {
 	    			user_name = data.user_name;
 	        		school_name = data.school_name;
 	        		$('.longin-username span').text(user_name+'('+school_name+')')
+
+	        		if(isAction){
+						if(window.location.pathname!='/yuejuan2.0_front/user_information.html')
+						window.location.href = './user_information.html'
+					}
 	    		}else{
 	    			alert('账号已在其他地方登录');
 	    			localStorage.clear();

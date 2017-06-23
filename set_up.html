@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>麦粒</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/user_information.css">
+	<!-- <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.1.1/css/bootstrap.min.css"> -->
+	<script type="text/javascript" src='js/jquery.min.js'></script>
+	<script type="text/javascript" src='js/common.js'></script>
+	<script type="text/javascript" src='js/set_up.js'></script>
+	<script type="text/javascript" src='js/tableExport.js'></script>
+	<script type="text/javascript" src='js/jquery.base64.js'></script>
+	<script type="text/javascript" src='js/jqPaginator.js'></script>
+</head>
+<body>
+	<div id="wrap">
+		<div id='header'>
+
+		</div>
+
+		<div class="user-title">
+			<div class="user-title-back">
+				<i class="iconfont">&#xe618;</i>
+				当前位置：
+				<a href="">首页</a>
+				>
+				<span>人员管理</span>
+			</div>
+			
+		</div>
+
+		<div class="content">
+			<div class="user-left">
+				<div class="user-information user-left-button user-on">
+					教师管理
+				</div>
+				<div class="change-password user-left-button">
+					学生管理
+				</div>
+			</div>
+			<div class="user-right user-information-right">
+				<div class="table-tittle-name">教师列表
+					<div class="title-name-right"> 
+						<span class="batch-import iconfont">批量导入</span>
+						<span class="Lead-in-teacher iconfont">导出老师</span>
+						<span class="add-teacher iconfont">添加老师</span>
+					</div>
+				</div>
+				<div class="set-up-search">
+					<div class="set-select-wrap">
+						<div>考试年级</div>
+						<select name="" id="select-grade">
+							<option value="0">请选择年级</option>
+						</select>
+					</div>
+					<div class="set-select-wrap">
+						<div>考试科目</div>
+						<select name="" id="select-sujects">
+							<option value="0">请选择科目</option>
+						</select>
+					</div>
+					<div class="set-input-wrap">
+						<input class="search-input" type="text" placeholder="请输入考试名称">
+						<div class="search-button">搜索</div>
+					</div>
+				</div>
+				<table class="search-tabble" cellpadding="0" cellspacing="0" style='border-collapse:collapse;margin-bottom: 15px'>
+					<thead>
+						<tr>
+							<th>姓名</th>
+							<th>年级</th>
+							<th>科目</th>
+							<th>邮箱</th>
+							<th>手机号</th>
+							<th>权限</th>
+							<th colspan='3'>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- <tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td class="table-modify iconfont">
+								修改
+							</td>
+							<td class="table-reset-password iconfont">
+								重置密码
+							</td>
+							<td class="table-delete iconfont">
+								删除
+							</td>
+						</tr> -->
+					</tbody>
+				</table>
+
+
+
+				<!-- <a href="#" onClick ="$('#customers').tableExport({type:'excel', separator:';', escape:'false'});" id="buttonExportData" class="ui-btn ui-btn-inline ui-mini ui-shadow ui-corner-all">Export XLS</a> -->
+				<div class="pagination-wrap">
+					<ul class="pagination" id="pagination"></ul>
+				</div>
+				
+				 <!-- <table id="firm_table" class="table table-striped table-bordered table-hover">
+		            <thead>
+		              <tr>
+		                <th>#</th>
+		                <th>First Name</th>
+		                <th>Last Name</th>
+		                <th>E-Mail</th>
+		                <th>Number</th>
+		              </tr>
+		            </thead>
+		            <tbody>
+		              <tr>
+		                <td>1</td>
+		                <td>Delpha</td>
+		                <td>siliciophite</td>
+		                <td>circumflex@masterwork.net</td>
+		                <td>997300858</td>
+		              </tr>
+		              <tr>
+		                <td>2</td>
+		                <td>Paula</td>
+		                <td>Ausiello</td>
+		                <td>bemirrorment@moy.edu</td>
+		                <td>779213455</td>
+		              </tr>
+		              <tr>
+		                <td>3</td>
+		                <td>Gaynell</td>
+		                <td>Salguero</td>
+		                <td>smoothpate@podalgia.edu</td>
+		                <td>999908414</td>
+		              </tr>
+		              <tr>
+		                <td>4</td>
+		                <td>Otelia</td>
+		                <td>Nitta</td>
+		                <td>hispanophile@auditorship.edu</td>
+		                <td>947377435</td>
+		              </tr>
+		              <tr>
+		                <td>5</td>
+		                <td>Darren</td>
+		                <td>Maltez</td>
+		                <td>toxotidae@tut.net</td>
+		                <td>902590424</td>
+		              </tr>
+		              <tr>
+		                <td>6</td>
+		                <td>Larraine</td>
+		                <td>Zelasco</td>
+		                <td>lanciers@unpleasantish.co.uk</td>
+		                <td>668639791</td>
+		              </tr>
+		            </tbody>
+		          </table> -->
+			</div>
+
+			<div class="user-right user-change-password">
+				<p>学生列表</p>
+				
+			</div>
+		</div>
+
+		<div id="footer">
+
+		</div>
+
+	</div>
+
+	<div class="modal-wrap import-wrap">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main">
+			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
+			<div class="modal-title">导入</div>
+			<div class="modal-content" style="">
+					选择文件
+					<div id="upfile" onclick="inPath.click()">
+						未选择任何文件  
+					</div>
+					<input type="file" id="inPath" style="display:none">
+					<p style="color: #db4a4a;line-height: 60px;text-align: center;">请先下载"考生信息表格"模版，填入信息后导入</p>
+				
+				<!-- <input type="file" id="inPath" style="display:none" onchange="upfile.value=this.value"> -->
+				<!-- <input type="file"> -->
+				
+				<div class="modal-bottom">
+					<div class="modal-bottom-button">取消</div>
+					<div class="modal-bottom-button determine">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal-wrap modal-wrap-small">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main modal-main-small">
+			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
+			<div class="modal-title"></div>
+			<div class="modal-content" style="text-align: left;">
+				<p style="text-align: left;font-size: 16px;font-weight: bold;padding-bottom: 10px;">操作提示：</p>
+				<div style="font-size: 16px;line-height: 16px;padding: 5px 0">你确认要<span class="small-type"></span>老师 <span class="reset-password-name" style="color: #31bc91"></span> <span class="small-xxx"></span>吗？</div>
+				<p style="color: #db4a4a;line-height: 30px;text-align: left;" class="small-prompt"></p>
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine modal-exit">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal-wrap teachers-propmt-wrap">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main">
+			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
+			<div class="modal-title">导入</div>
+			<div class="modal-content" style="">
+				<p style="text-align: left;font-size: 16px;font-weight: bold;padding-bottom: 10px;">老师信息</p>
+					
+				<div class="teachers-input-wrap">
+					<label class="teachers-label" for="teachers-name">姓名</label>
+					<input type="text" id="teachers-name" class="teachers-input" value='王二高' disabled/>
+				</div>
+				<div class="teachers-input-wrap">
+					<label class="teachers-label" for="teachers-email">邮箱</label>
+					<input type="text" id="teachers-email" class="teachers-input" value='' disabled/>
+				</div>
+				<div class="teachers-input-wrap">
+					<label class="teachers-label" for="teachers-number">手机号</label>
+					<input type="text" id="teachers-number" class="teachers-input" value='' disabled/>
+				</div>
+
+				<div class="teachers-input-wrap">
+					<label class="teachers-label" for="teachers-name">角色</label>
+					<input type="text" id="teachers-name" class="teachers-input" value='' disabled/>
+				</div>
+
+				<div class="teachers-input-wrap">
+					<label class="teachers-label" for="teachers-subject">科目</label>
+					<input type="text" id="teachers-subject" class="teachers-input" value='' disabled/>
+				</div>
+				
+				<div class="teachers-input-wrap">
+					<label class="teachers-label" for="teachers-grade">年级</label>
+					<input type="text" id="teachers-grade" class="teachers-input" value='' disabled/>
+				</div>
+				
+				
+				
+				
+				<div class="modal-bottom">
+					<div class="modal-bottom-button">取消</div>
+					<div class="modal-bottom-button determine">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+<script>
+	$('.Lead-in-teacher').on('click', function(){
+		$('.search-tabble').tableExport({
+		filename: 'table_%DD%-%MM%-%YY%',
+		format: 'xls',
+		// cols: '1,2,3,4'
+		ignoreCols: '1,2,3'
+	});
+	})
+</script>
+</html>
