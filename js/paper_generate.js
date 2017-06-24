@@ -1097,8 +1097,13 @@ $(function() {
 			if(on_school[i].result==null&&on_school[i].reply_date==null){
 				var on_school_tr = '<tr data-id="'+ on_school[i].school_id +'"><td class="school-name">'+on_school[i].school_name+'</td><td>'+on_school[i].created_at+'</td><td>未答复</td><td>未答复</td></tr>';
 				$('#look-school-list').append(on_school_tr);
-			}else{
-				var on_school_tr = '<tr data-id="'+ on_school[i].school_id +'"><td class="school-name">'+on_school[i].school_name+'</td><td>'+on_school[i].created_at+'</td><td>'+on_school[i].reply_date+'</td><td>'+on_school[i].result+'</td></tr>';
+			}
+			if(on_school[i].result==1){
+				var on_school_tr = '<tr data-id="'+ on_school[i].school_id +'"><td class="school-name">'+on_school[i].school_name+'</td><td>'+on_school[i].created_at+'</td><td>'+on_school[i].reply_date+'</td><td>已同意</td></tr>';
+				$('#look-school-list').append(on_school_tr);
+			}
+			if(on_school[i].result==0){
+				var on_school_tr = '<tr data-id="'+ on_school[i].school_id +'"><td class="school-name">'+on_school[i].school_name+'</td><td>'+on_school[i].created_at+'</td><td>'+on_school[i].reply_date+'</td><td>已拒绝</td></tr>';
 				$('#look-school-list').append(on_school_tr);
 			}
 		};
