@@ -50,7 +50,7 @@ $(function() {
 		  headers: {'Authorization': "Bearer " + isLogin},
 		  dataType: "JSON",
 		  success: function(data){
-		   	// console.log(data);
+		   	console.log(data);
 		    show_detail(data,exam_list_id);
 		   },
 		   error: function(){
@@ -98,6 +98,8 @@ $(function() {
 			$('.dele').hide();
 			$('#edit').hide();
 			$('#new-create').hide();
+			$('#operation-th').hide();
+			$('.operation').hide();
 		}
 	}
 
@@ -221,7 +223,7 @@ $(function() {
       	// window.location.href = './login.html';
 		  }
 	  });
-	  showSubjectModal(show_grade_id);//新建科目显示modal层的科目方法
+	  // showSubjectModal(show_grade_id);//新建科目显示modal层的科目方法
 	  showSubjectAll(show_grade_id);//新建考试信息的时候显示对应班级所有科目信息
 	}
 
@@ -234,7 +236,7 @@ $(function() {
 	  	dataType: "JSON",
 	  	type:"get",
 	  	success:function(data){
-	  		// console.log(data)
+	  		console.log(data)
 	  		show_subject_details(data);
 	  	},
 	  	error: function(){
@@ -285,22 +287,33 @@ $(function() {
 	}
 	// 显示弹窗科目
 	function show_subject_details(subject_info){
+		$('#onchecked-modal-list').html('');
 		// $('#modal-list').html('');
-		// console.log(subject_info,on_checked);
+		console.log(subject_info.length,on_checked.length);
 		if(subject_info.length==on_checked.length){
-			$('#modal-list').find('#modal-all').attr('checked', 'true');
+			$('#modal-list').find('.all').hide();
 		}
+		var subject_list = $('.subject-list').find('.subject-name');
+		var subject_length = subject_list.length;
+		for (var i = 0; i < subject_length; i++) {
+			var subject_arr = '<li class="finished" id="ll-'+i+'" data-id="'+ $(subject_list[i]).attr('data-id') +'">'+ $(subject_list[i]).text() +'<i class="iconfont">&#xe619;</i></li>';
+			$('#onchecked-modal-list').append(subject_arr);
+		};
+		var arr_gg = [];
 		for (var i = 0; i < subject_info.length; i++) {
+			var flag = true;
 			for (var j = 0; j < on_checked.length; j++) {
 				if(subject_info[i].id==on_checked[j]){
-						var subject_arr = '<li><div class="check-box"><input checked type="checkbox" data-id="'+ subject_info[i].id +'" value="'+ subject_info[i].name +'" id="modal-check'+ i +'" class="check" name="modal-check"><label for="modal-check'+ i +'">'+ subject_info[i].name +'</label></div></li>';
-						break;
-				}else{
-					var subject_arr = '<li><div class="check-box"><input type="checkbox" data-id="'+ subject_info[i].id +'" value="'+ subject_info[i].name +'" id="modal-check'+ i +'" class="check" name="modal-check"><label for="modal-check'+ i +'">'+ subject_info[i].name +'</label></div></li>';
+					flag = false;
 				}
 			};
-			$('#modal-list').append(subject_arr);
-		};
+			if(flag){
+		    arr_gg.push(subject_info[i]);
+				console.log(arr_gg);
+				var subject_arr = '<li><div class="check-box"><input type="checkbox" data-id="'+ subject_info[i].id +'" value="'+ subject_info[i].name +'" id="modal-check'+ i +'" class="check" name="modal-check"><label for="modal-check'+ i +'">'+ subject_info[i].name +'</label></div></li>';
+				$('#modal-list').append(subject_arr);
+  		}
+    }
 	}
  // 考试年级选择事件
 	$('body').on('change', '#test-grade', function() {
@@ -373,13 +386,14 @@ $(function() {
 		  });
 		}
 	});
+	// 新建科目点击事件
 	$('body').on('click', '#new-create', function() {
-		// console.log(on_checked);
+		console.log(on_checked);
 		$('#modal-list').html('');
 		var all_subject = '<li class="all"><div class="check-box"><input type="checkbox" value="0" id="modal-all" class="checkall" name="checkall"><label for="modal-all">全部</label></div></li>' ;
 		$('#modal-list').append(all_subject);
 		var grade_data_id = $('.test-grade').attr('data-id');
-		// console.log(grade_data_id);
+		console.log(grade_data_id);
 		showSubjectModal(grade_data_id);
 	});
 
@@ -396,7 +410,7 @@ $(function() {
 			sub_arr.shift();
 			sub_arr;
 		}
-		// console.log(sub_arr);
+		console.log(sub_arr);
 		var subject_json={'subjects': sub_arr};
 		// console.log(subject_json);
 		var grade_data_id = $('.test-grade').attr('data-id');
@@ -407,7 +421,7 @@ $(function() {
 	  	data:{'exam_id':test_id,'subject_ids':sub_arr},
 	  	type:"POST",
 	  	success:function(data){
-	  		// console.log(data);
+	  		console.log(data);
 	  		show_test_cont(test_id);
 	  	},
 	  	error: function(){
@@ -1080,8 +1094,13 @@ $(function() {
 		var on_school_length = on_school.length;
 		$('#look-school-list').html('');
 		for (var i = 0; i < on_school_length; i++) {
-			var on_school_tr = '<tr data-id="'+ on_school[i].school_id +'"><td class="school-name">'+on_school[i].school_name+'</td><td>'+on_school[i].created_at+'</td><td>'+on_school[i].reply_date+'</td><td>'+on_school[i].result+'</td></tr>';
-			$('#look-school-list').append(on_school_tr);
+			if(on_school[i].result==null&&on_school[i].reply_date==null){
+				var on_school_tr = '<tr data-id="'+ on_school[i].school_id +'"><td class="school-name">'+on_school[i].school_name+'</td><td>'+on_school[i].created_at+'</td><td>未答复</td><td>未答复</td></tr>';
+				$('#look-school-list').append(on_school_tr);
+			}else{
+				var on_school_tr = '<tr data-id="'+ on_school[i].school_id +'"><td class="school-name">'+on_school[i].school_name+'</td><td>'+on_school[i].created_at+'</td><td>'+on_school[i].reply_date+'</td><td>'+on_school[i].result+'</td></tr>';
+				$('#look-school-list').append(on_school_tr);
+			}
 		};
 	 }
 	// 邀请学校
@@ -1304,17 +1323,20 @@ $(function() {
 		var province_name=$('#change-province').find("option:selected").val();
 		var county_name=$('#change-county').find("option:selected").val();
 		var exam_id = $('#test-title').attr('data-id');
-		console.log(str_name,province_name,county_name,exam_id)
+		data = {'name':str_name,'exam_id':exam_id,'province':province_name};
+		if(county_name!=="所有区域"){
+			data['county'] =  county_name;
+		}
 		$.ajax({
 		  type: "GET",
 		  url: ajaxIp+"/api/v2/invite_schools/get_schools",
-			data:{'name':str_name,'exam_id':exam_id,'province':province_name,'county':county_name },
+			data:data,
 		  headers: {'Authorization': "Bearer " + isLogin},
 		  success: function(data){
 		  	console.log(data);
 		   	// 显示已搜索到的考试信息
-		   // 	$('.school-left-list').html('');
-		  	// show_school_detail(data);
+		   	$('.school-left-list').html('');
+		  	show_school_detail(data);
 		   },
 		  error: function(){
 	      // alert('请稍后从新尝试登录或者联系管理员');
