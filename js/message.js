@@ -28,9 +28,9 @@ $(function(){
 	// 显示消息
 	function show_info(detail_info){
 		var detail_length = detail_info.length;
-		if (detail_length) {
-			$('.m-count').show();
-		};
+		// if (detail_length) {
+		// 	$('.m-count').show();
+		// };
 		$('.message-list').html('');
 		for (var i = 0; i < detail_length; i++) {
 			if(detail_info[i].result==null){

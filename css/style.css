@@ -450,7 +450,7 @@ input:-ms-input-placeholder{
 input::-webkit-input-placeholder{
   color: #999;
 }
-.m-count{
+/* .m-count{
   position: relative;
   top: -8px;
   left: -4px;
@@ -458,11 +458,11 @@ input::-webkit-input-placeholder{
   display: inline-block;
   width: 10px;
   height: 10px;
-  /* font-size: 12px; */
+  font-size: 12px;
   background: red;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
   border-radius: 50%;
-}
+} */
