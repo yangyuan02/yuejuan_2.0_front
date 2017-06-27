@@ -29,9 +29,9 @@
             console.log(data)
             if(data.action){
               console.log(data.action)
-              $('.login').hide();
-              $('.login-shadow').hide();
-              $('.login-animate').show();
+              // $('.login').hide();
+              // $('.login-shadow').hide();
+              // $('.login-animate').show();
               localStorage.setItem("token", data.token);
               localStorage.setItem("action", data.action);
               window.location.href = "./user_information.html";
@@ -40,9 +40,9 @@
               // },1000)
               
             }else if (data.token) {
-              $('.login').hide();
-              $('.login-shadow').hide();
-              $('.login-animate').show();
+              // $('.login').hide();
+              // $('.login-shadow').hide();
+              // $('.login-animate').show();
               localStorage.setItem("token", data.token);
               // setTimeout(function(){
               window.location.href = "./index.html";

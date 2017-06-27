@@ -24,7 +24,11 @@ $(function() {
 	    	headers: {'Authorization': "Bearer " + isLogin},
 	    	success: function(data){
 	    		console.log(data)
-	    		if(data.user_name){
+	    		if(data.error){
+					alert('登录已过期，请从新登录！');
+	    			localStorage.clear();
+	        		window.location.href = './login.html'
+	    		}else if(data.user_name){
 	    			user_name = data.user_name;
 	        		school_name = data.school_name;
 	        		$('.longin-username span').text(user_name+'('+school_name+')')
@@ -32,8 +36,7 @@ $(function() {
 	        		if(isAction){
 						if(window.location.pathname!='/yuejuan2.0_front/user_information.html'){
 							window.location.href = './user_information.html'
-						}
-						
+						}	
 					}
 	    		}else{
 	    			alert('账号已在其他地方登录');
