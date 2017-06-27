@@ -19,9 +19,9 @@ $(function() {
 		  	}
 		   },
 		   error: function(){
-		      alert('请稍后从新尝试登录或者联系管理员');
-	      	localStorage.clear();
-	      	window.location.href = './login.html';
+		      // alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html';
 		  }
 		});
 	}
@@ -32,12 +32,16 @@ $(function() {
 		var a = exam_list.length;
 		if (a!= 0) {
 			for (var i = 0; i < a; i++) {
-				var arr='<li class="" data-id='+exam_list[i].id+'><h6 class="name">' + exam_list[i].name + '</h6><p class="time">' + exam_list[i].created_at + '</p></li>'
+				var arr='<li class="exam-'+exam_list[i].id+'" data-id='+exam_list[i].id+'><h6 class="name">' + exam_list[i].name + '</h6><p class="time">' + exam_list[i].created_at + '</p></li>'
 				$('.list-ul').append(arr);
-				$('.list-ul li').eq(0).addClass('active');
+				// 判断没有选中的列表，默认第一个选中，并显示详情
+				if(!$('.list-ul li').hasClass('active')){
+					$('.list-ul li').eq(0).addClass('active');
+					show_test_cont($('.list-ul li').eq(0).data('id'));
+				}
 			};
 		};
-		show_test_cont($('.list-ul li').eq(0).data('id'));
+		// show_test_cont($('.list-ul li').eq(0).data('id'));
 	}
 
 
@@ -50,13 +54,13 @@ $(function() {
 		  headers: {'Authorization': "Bearer " + isLogin},
 		  dataType: "JSON",
 		  success: function(data){
-		   	// console.log(data);
+		   	console.log(data);
 		    show_detail(data,exam_list_id);
 		   },
 		   error: function(){
-		    alert('请稍后从新尝试登录或者联系管理员');
-      	localStorage.clear();
-      	window.location.href = './login.html';
+		    // alert('请稍后从新尝试登录或者联系管理员');
+      // 	localStorage.clear();
+      // 	window.location.href = './login.html';
 		  }
 		});
 	}
@@ -64,7 +68,6 @@ $(function() {
 
 
 	function show_detail(detail_data,test_id){
-		console.log(detail_data)
 		$('#test-title').text(detail_data.name);
 		$('#test-title').attr('data-id',test_id);
 		$('.test-name').val(detail_data.name);//考试名称
@@ -99,6 +102,8 @@ $(function() {
 			$('.dele').hide();
 			$('#edit').hide();
 			$('#new-create').hide();
+			$('#operation-th').hide();
+			$('.operation').hide();
 		}
 	}
 
@@ -130,15 +135,22 @@ $(function() {
 			data:{'keyword':str_name },
 		  headers: {'Authorization': "Bearer " + isLogin},
 		  success: function(data){
-		  	// console.log(data.id,data);
+		  	console.log(data.id,data);
 		   	// 显示已搜索到的考试信息
-		   	$('.list-ul').html('');
-		  	show_list (data);
+		   	if(data.length){
+		   		$('.list-ul').html('');
+		  		show_list (data);
+		  		$('.second-new').show();
+		   	}else{
+		   		$('.list-ul').html('');
+		   		$('.list-ul').html('<div style="text-align: center;color: #999;margin: 25px;">没有搜到相关考试，请重新搜索...</div>')
+		   		$('.second-new').hide();
+		   	}
 		   },
 		  error: function(){
-	      alert('请稍后从新尝试登录或者联系管理员');
-      	localStorage.clear();
-      	window.location.href = './login.html';
+	      // alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html';
 		  }
 		});
 	});
@@ -176,9 +188,9 @@ $(function() {
   		show_grade(data);//显示所有年级
   	},
 	  error: function(){
-      alert('请稍后从新尝试登录或者联系管理员');
-    	localStorage.clear();
-    	window.location.href = './login.html';
+     //  alert('请稍后从新尝试登录或者联系管理员');
+    	// localStorage.clear();
+    	// window.location.href = './login.html';
 	  }
   });
 
@@ -210,12 +222,12 @@ $(function() {
 	  		show_class_detail(data);//显示所有班级
 	  	},
 	  	error: function(){
-	      alert('请稍后从新尝试登录或者联系管理员');
-      	localStorage.clear();
-      	window.location.href = './login.html';
+	      // alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html';
 		  }
 	  });
-	  showSubjectModal(show_grade_id);//新建科目显示modal层的科目方法
+	  // showSubjectModal(show_grade_id);//新建科目显示modal层的科目方法
 	  showSubjectAll(show_grade_id);//新建考试信息的时候显示对应班级所有科目信息
 	}
 
@@ -228,13 +240,13 @@ $(function() {
 	  	dataType: "JSON",
 	  	type:"get",
 	  	success:function(data){
-	  		// console.log(data)
+	  		console.log(data)
 	  		show_subject_details(data);
 	  	},
 	  	error: function(){
-	      alert('请稍后从新尝试登录或者联系管理员');
-      	localStorage.clear();
-      	window.location.href = './login.html';
+	      // alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html';
 		  }
 	  });
 	}
@@ -251,9 +263,9 @@ $(function() {
 	  		show_subject_detail(data);
 	  	},
 	  	error: function(){
-	      alert('请稍后从新尝试登录或者联系管理员');
-      	localStorage.clear();
-      	window.location.href = './login.html';
+	      // alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html';
 		  }
 	  });
 	}
@@ -279,22 +291,33 @@ $(function() {
 	}
 	// 显示弹窗科目
 	function show_subject_details(subject_info){
+		$('#onchecked-modal-list').html('');
 		// $('#modal-list').html('');
-		// console.log(subject_info,on_checked);
+		console.log(subject_info.length,on_checked.length);
 		if(subject_info.length==on_checked.length){
-			$('#modal-list').find('#modal-all').attr('checked', 'true');
+			$('#modal-list').find('.all').hide();
 		}
+		var subject_list = $('.subject-list').find('.subject-name');
+		var subject_length = subject_list.length;
+		for (var i = 0; i < subject_length; i++) {
+			var subject_arr = '<li class="finished" id="ll-'+i+'" data-id="'+ $(subject_list[i]).attr('data-id') +'">'+ $(subject_list[i]).text() +'<i class="iconfont">&#xe619;</i></li>';
+			$('#onchecked-modal-list').append(subject_arr);
+		};
+		var arr_gg = [];
 		for (var i = 0; i < subject_info.length; i++) {
+			var flag = true;
 			for (var j = 0; j < on_checked.length; j++) {
 				if(subject_info[i].id==on_checked[j]){
-						var subject_arr = '<li><div class="check-box"><input checked type="checkbox" data-id="'+ subject_info[i].id +'" value="'+ subject_info[i].name +'" id="modal-check'+ i +'" class="check" name="modal-check"><label for="modal-check'+ i +'">'+ subject_info[i].name +'</label></div></li>';
-						break;
-				}else{
-					var subject_arr = '<li><div class="check-box"><input type="checkbox" data-id="'+ subject_info[i].id +'" value="'+ subject_info[i].name +'" id="modal-check'+ i +'" class="check" name="modal-check"><label for="modal-check'+ i +'">'+ subject_info[i].name +'</label></div></li>';
+					flag = false;
 				}
 			};
-			$('#modal-list').append(subject_arr);
-		};
+			if(flag){
+		    arr_gg.push(subject_info[i]);
+				console.log(arr_gg);
+				var subject_arr = '<li><div class="check-box"><input type="checkbox" data-id="'+ subject_info[i].id +'" value="'+ subject_info[i].name +'" id="modal-check'+ i +'" class="check" name="modal-check"><label for="modal-check'+ i +'">'+ subject_info[i].name +'</label></div></li>';
+				$('#modal-list').append(subject_arr);
+  		}
+    }
 	}
  // 考试年级选择事件
 	$('body').on('change', '#test-grade', function() {
@@ -360,20 +383,21 @@ $(function() {
 		  		$('.second-new').show();
 		  	},
 		  	error: function(){
-		      alert('请稍后从新尝试登录或者联系管理员');
-	      	localStorage.clear();
-	      	window.location.href = './login.html';
+		      // alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html';
 			  }
 		  });
 		}
 	});
+	// 新建科目点击事件
 	$('body').on('click', '#new-create', function() {
-		// console.log(on_checked);
+		console.log(on_checked);
 		$('#modal-list').html('');
 		var all_subject = '<li class="all"><div class="check-box"><input type="checkbox" value="0" id="modal-all" class="checkall" name="checkall"><label for="modal-all">全部</label></div></li>' ;
 		$('#modal-list').append(all_subject);
 		var grade_data_id = $('.test-grade').attr('data-id');
-		// console.log(grade_data_id);
+		console.log(grade_data_id);
 		showSubjectModal(grade_data_id);
 	});
 
@@ -390,7 +414,7 @@ $(function() {
 			sub_arr.shift();
 			sub_arr;
 		}
-		// console.log(sub_arr);
+		console.log(sub_arr);
 		var subject_json={'subjects': sub_arr};
 		// console.log(subject_json);
 		var grade_data_id = $('.test-grade').attr('data-id');
@@ -401,13 +425,13 @@ $(function() {
 	  	data:{'exam_id':test_id,'subject_ids':sub_arr},
 	  	type:"POST",
 	  	success:function(data){
-	  		// console.log(data);
+	  		console.log(data);
 	  		show_test_cont(test_id);
 	  	},
 	  	error: function(){
-	      alert('请稍后从新尝试登录或者联系管理员');
-      	localStorage.clear();
-      	window.location.href = './login.html';
+	      // alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html';
 		  }
 	  });
 	});
@@ -467,9 +491,10 @@ $(function() {
 	// 保存修改后的考试名称
 	$('body').on('blur', '#edit-name', function() {
 		var new_name = $(this).val();
-		$(this).removeClass('border-focus');
+		$(this).removeClass('border-focus').attr('disabled',true);
 		// $('#test-title').text(new_name);
 		var test_id = $(this).attr('data-id');
+		$('.exam-'+test_id+'').find('.name').text(new_name);
 		$.ajax({
 	  	url:ajaxIp+"/api/v2/exams/"+test_id,
 	  	headers: {'Authorization': "Bearer " + isLogin},
@@ -477,14 +502,15 @@ $(function() {
 	  	data:{'name': new_name },
 	  	success:function(data){
 	  		// console.log(data);
-	  		$('.list-ul').html('');
-	  		list_page = 1;
-	  		first_list();
+	  		// $('.list-ul').html('');
+	  		// list_page = 1;
+	  		// first_list();
+	  		show_test_cont(test_id);
 	  	},
 	  	error: function(){
-	      alert('请稍后从新尝试登录或者联系管理员');
-      	localStorage.clear();
-      	window.location.href = './login.html';
+	      // alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html';
 		  }
 	  });
 	});
@@ -522,9 +548,9 @@ $(function() {
 	  		show_test_cont(test_id);
 	  	},
 	  	error: function(){
-	      alert('请稍后从新尝试登录或者联系管理员');
-      	localStorage.clear();
-      	window.location.href = './login.html';
+	      // alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html';
 		  }
 	  });
 	});
@@ -553,9 +579,9 @@ $(function() {
 	  		first_list();
 	  	},
 	  	error: function(){
-	      alert('请稍后从新尝试登录或者联系管理员');
-      	localStorage.clear();
-      	window.location.href = './login.html';
+	      // alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html';
 		  }
 	  });
 	});
@@ -594,9 +620,9 @@ $(function() {
 	  		show_check_teacher(exam_id,exam_subject_id);
 	  	},
 	  	error: function(){
-	      alert('请稍后从新尝试登录或者联系管理员');
-      	localStorage.clear();
-      	window.location.href = './login.html';
+	      // alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html';
 		  }
 	  });
 	}
@@ -622,9 +648,9 @@ $(function() {
 	  		console.log(data_teacher);
 	  	},
 	  	error: function(){
-	      alert('请稍后从新尝试登录或者联系管理员');
-      	localStorage.clear();
-      	window.location.href = './login.html';
+	      // alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html';
 		  }
 	  });
 	}
@@ -655,8 +681,18 @@ $(function() {
 					$('.reviewed_'+item_groups[i].id +'').append(li_cont);
 				}
 			};
-
 		};
+		if(items_length==0){
+			$('.key-add').removeClass('add-one').css({
+				color: '#999',
+				borderColor: '#999'
+			});
+		}else{
+			$('.key-add').addClass('add-one').css({
+				color: '#5fa3ed',
+				borderColor: '#5fa3ed'
+			});
+		}
 	}
 
 
@@ -686,9 +722,9 @@ $(function() {
 	  		request_teacher();
 	  	},
 		  error: function(){
-	      alert('请稍后从新尝试登录或者联系管理员');
-	    	localStorage.clear();
-	    	window.location.href = './login.html';
+	     //  alert('请稍后从新尝试登录或者联系管理员');
+	    	// localStorage.clear();
+	    	// window.location.href = './login.html';
 		  }
 	  });
 	  if(!$('.modal-bottom-button').hasClass('confirm-teacher')){
@@ -744,9 +780,9 @@ $(function() {
 		  		show_modal_teacher_list(data);
 		  	},
 		  	error: function(){
-		      alert('请稍后从新尝试登录或者联系管理员');
-	      	localStorage.clear();
-	      	window.location.href = './login.html';
+		      // alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html';
 			  }
 		  });
 		}else{
@@ -764,9 +800,9 @@ $(function() {
 		  		show_modal_teacher_list(data);
 		  	},
 		  	error: function(){
-		      alert('请稍后从新尝试登录或者联系管理员');
-	      	localStorage.clear();
-	      	window.location.href = './login.html';
+		      // alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html';
 			  }
 		  });
 	  }
@@ -795,9 +831,9 @@ $(function() {
 	  		show_modal_subject_detail(data);
 	  	},
 	  	error: function(){
-	      alert('请稍后从新尝试登录或者联系管理员');
-      	localStorage.clear();
-      	window.location.href = './login.html';
+	      // alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html';
 		  }
 	  });
 	}
@@ -983,9 +1019,9 @@ $(function() {
 	  		show_item_group(exam_subject_id);
 	  	},
 	  	error: function(){
-	      alert('请稍后从新尝试登录或者联系管理员');
-      	localStorage.clear();
-      	window.location.href = './login.html';
+	      // alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html';
 		  }
 	  });
 	});
@@ -1017,9 +1053,9 @@ $(function() {
 	  		show_item_group(exam_subject_id);
 	  	},
 	  	error: function(){
-	      alert('请稍后从新尝试登录或者联系管理员');
-      	localStorage.clear();
-      	window.location.href = './login.html';
+	      // alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html';
 		  }
 	  });
 	});
@@ -1057,9 +1093,9 @@ $(function() {
 	  		show_on_school(data);
 	  	},
 	  	error: function(){
-	      alert('请稍后从新尝试登录或者联系管理员');
-      	localStorage.clear();
-      	window.location.href = './login.html';
+	      // alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html';
 		  }
 	  });
 	 });
@@ -1067,8 +1103,18 @@ $(function() {
 		var on_school_length = on_school.length;
 		$('#look-school-list').html('');
 		for (var i = 0; i < on_school_length; i++) {
-			var on_school_tr = '<tr data-id="'+ on_school[i].school_id +'"><td class="school-name">'+on_school[i].school_name+'</td><td>'+on_school[i].created_at+'</td><td>'+on_school[i].reply_date+'</td><td>'+on_school[i].result+'</td></tr>';
-			$('#look-school-list').append(on_school_tr);
+			if(on_school[i].result==null&&on_school[i].reply_date==null){
+				var on_school_tr = '<tr data-id="'+ on_school[i].school_id +'"><td class="school-name">'+on_school[i].school_name+'</td><td>'+on_school[i].created_at+'</td><td>未答复</td><td>未答复</td></tr>';
+				$('#look-school-list').append(on_school_tr);
+			}
+			if(on_school[i].result==1){
+				var on_school_tr = '<tr data-id="'+ on_school[i].school_id +'"><td class="school-name">'+on_school[i].school_name+'</td><td>'+on_school[i].created_at+'</td><td>'+on_school[i].reply_date+'</td><td>已同意</td></tr>';
+				$('#look-school-list').append(on_school_tr);
+			}
+			if(on_school[i].result==0){
+				var on_school_tr = '<tr data-id="'+ on_school[i].school_id +'"><td class="school-name">'+on_school[i].school_name+'</td><td>'+on_school[i].created_at+'</td><td>'+on_school[i].reply_date+'</td><td>已拒绝</td></tr>';
+				$('#look-school-list').append(on_school_tr);
+			}
 		};
 	 }
 	// 邀请学校
@@ -1086,9 +1132,9 @@ $(function() {
 	  		show_province(data);
 	  	},
 	  	error: function(){
-	      alert('请稍后从新尝试登录或者联系管理员');
-      	localStorage.clear();
-      	window.location.href = './login.html';
+	      // alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html';
 		  }
 	  });
 	});
@@ -1116,9 +1162,9 @@ $(function() {
 	  		show_county(data,province);
 	  	},
 	  	error: function(){
-	      alert('请稍后从新尝试登录或者联系管理员');
-      	localStorage.clear();
-      	window.location.href = './login.html';
+	      // alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html';
 		  }
 	  });
 	}
@@ -1146,9 +1192,9 @@ $(function() {
 		  		show_school_detail(data)
 		  	},
 		  	error: function(){
-		      alert('请稍后从新尝试登录或者联系管理员');
-	      	localStorage.clear();
-	      	window.location.href = './login.html';
+		      // alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html';
 			  }
 		  });
 		}else{
@@ -1161,9 +1207,9 @@ $(function() {
 		  		show_school_detail(data)
 		  	},
 		  	error: function(){
-		      alert('请稍后从新尝试登录或者联系管理员');
-	      	localStorage.clear();
-	      	window.location.href = './login.html';
+		      // alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html';
 			  }
 		  });
 		}
@@ -1278,9 +1324,9 @@ $(function() {
 	  		show_on_school(data);
 	  	},
 	  	error: function(){
-	      alert('请稍后从新尝试登录或者联系管理员');
-      	localStorage.clear();
-      	window.location.href = './login.html';
+	      // alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html';
 		  }
 	  });
 	});
@@ -1291,22 +1337,25 @@ $(function() {
 		var province_name=$('#change-province').find("option:selected").val();
 		var county_name=$('#change-county').find("option:selected").val();
 		var exam_id = $('#test-title').attr('data-id');
-		console.log(str_name,province_name,county_name,exam_id)
+		data = {'name':str_name,'exam_id':exam_id,'province':province_name};
+		if(county_name!=="所有区域"){
+			data['county'] =  county_name;
+		}
 		$.ajax({
 		  type: "GET",
 		  url: ajaxIp+"/api/v2/invite_schools/get_schools",
-			data:{'name':str_name,'exam_id':exam_id,'province':province_name,'county':county_name },
+			data:data,
 		  headers: {'Authorization': "Bearer " + isLogin},
 		  success: function(data){
 		  	console.log(data);
 		   	// 显示已搜索到的考试信息
-		   // 	$('.school-left-list').html('');
-		  	// show_school_detail(data);
+		   	$('.school-left-list').html('');
+		  	show_school_detail(data);
 		   },
 		  error: function(){
-	      alert('请稍后从新尝试登录或者联系管理员');
-      	localStorage.clear();
-      	window.location.href = './login.html';
+	      // alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html';
 		  }
 		});
 	});

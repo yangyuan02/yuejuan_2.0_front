@@ -45,9 +45,9 @@ $(function() {
 	    		}
 	        },
 	        error: function(){
-	        	alert('请稍后从新尝试登录或者联系管理员');
-	        	localStorage.clear();
-	        	window.location.href = './login.html'
+	        	// alert('请稍后从新尝试登录或者联系管理员');
+	        	// localStorage.clear();
+	        	// window.location.href = './login.html'
 	        }
 	    });
 	}
@@ -66,3 +66,4 @@ $(function() {
 		$('.modal-wrap').show();
 	});
 })
+
