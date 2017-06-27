@@ -30,7 +30,7 @@ $(function() {
 	        		$('.longin-username span').text(user_name+'('+school_name+')')
 
 	        		if(isAction){
-						if(window.location.pathname!='/yuejuan2.0_front/user_information.html')
+						if(window.location.pathname!='/user_information.html')
 						window.location.href = './user_information.html'
 					}
 	    		}else{
