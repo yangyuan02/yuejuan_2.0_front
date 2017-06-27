@@ -1043,8 +1043,6 @@ $(function() {
 		for (var i = 0; i < teacher_info_length; i++) {
 			 teacher_info_ids.push(parseInt($(teacher_info[i]).find('span').attr('data-id')));
 		};
-		console.log({'exam_id':exam_id,'exam_subject_id':exam_subject_id,'teacher_info_ids':teacher_info_ids,'type':teacher_type},
-)
 		$.ajax({
 	  	url:ajaxIp+"/api/v2/exam_subjects/create_relation_teacher",
 	  	headers: {'Authorization': "Bearer " + isLogin},
