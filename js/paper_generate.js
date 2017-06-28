@@ -34,10 +34,14 @@ $(function() {
 			for (var i = 0; i < a; i++) {
 				var arr='<li class="exam-'+exam_list[i].id+'" data-id='+exam_list[i].id+'><h6 class="name">' + exam_list[i].name + '</h6><p class="time">' + exam_list[i].created_at + '</p></li>'
 				$('.list-ul').append(arr);
-				$('.list-ul li').eq(0).addClass('active');
+				// 判断没有选中的列表，默认第一个选中，并显示详情
+				if(!$('.list-ul li').hasClass('active')){
+					$('.list-ul li').eq(0).addClass('active');
+					show_test_cont($('.list-ul li').eq(0).data('id'));
+				}
 			};
 		};
-		show_test_cont($('.list-ul li').eq(0).data('id'));
+		// show_test_cont($('.list-ul li').eq(0).data('id'));
 	}
 
 
@@ -682,6 +686,11 @@ $(function() {
 			$('.key-add').removeClass('add-one').css({
 				color: '#999',
 				borderColor: '#999'
+			});
+		}else{
+			$('.key-add').addClass('add-one').css({
+				color: '#5fa3ed',
+				borderColor: '#5fa3ed'
 			});
 		}
 	}
