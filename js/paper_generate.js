@@ -96,14 +96,17 @@ $(function() {
 			$('.subject-list tbody').append(list_tr);
 			on_checked[i] = detail_data.subjects[i].id;
 		};
-		// 考试角色判断是否有权限修改删除功能
+		// 考试角色判断是否有权限操作修改删除功能
 		console.log(!detail_data.is_modify)
 		if(!detail_data.is_modify){
-			$('.dele').hide();
-			$('#edit').hide();
-			$('#new-create').hide();
+			// $('.dele').hide();
+			// $('#edit').hide();
+			// $('#new-create').hide();
 			$('#operation-th').hide();
 			$('.operation').hide();
+		}else{
+			$('.operation').show();
+			$('#operation-th').show();
 		}
 	}
 
