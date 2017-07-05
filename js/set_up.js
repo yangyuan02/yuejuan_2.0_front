@@ -144,7 +144,7 @@ $(function() {
 	    });
 		
 		
-		$('.modal-wrap-class-management .clear-students').on('click', function(){
+		$('.modal-wrap-class-management .clear-students').unbind().on('click', function(){
 			var del_grade = $('.modal-wrap-class-management #add-class-grade').val();
 			var del_name = $('.modal-wrap-class-management #del-class-name').val();
 
@@ -161,8 +161,18 @@ $(function() {
 		    		console.log(data)
 		  			if (data.success) {
 		  				alert(data.message)
+		  				$('.modal-main').animate({'top': '45%','opacity': 0},500);
+						$('.modal-shadow').animate({'opacity': 0},500);
+						setTimeout(function(){
+							$('.modal-wrap').hide();
+						},500);
 		  			}else{
 		  				alert(data.message)
+		  				$('.modal-main').animate({'top': '45%','opacity': 0},500);
+						$('.modal-shadow').animate({'opacity': 0},500);
+						setTimeout(function(){
+							$('.modal-wrap').hide();
+						},500);
 		  			}
 		        },
 		        error: function(){
@@ -1328,7 +1338,7 @@ $(function() {
 		var i_grade = $('.current-grade').val();
 		var i_class = $('.current-class').val();
 
-		var i_student_code = $('.stuent-code').val();
+		var i_student_code = $('.student-code').val();
 		var i_exam_no = $('.exam-no').val();
 		var i_student_name = $('.student-name').val();
 		var i_id_number = $('.id-number').val();
@@ -1350,7 +1360,7 @@ $(function() {
 			'is_grade_count':i_is_grade_count,
 			'is_classroom_count':i_is_classroom_count,
 		}
-
+		console.log(i_data)
 		if(i_grade==''||i_class==''||i_exam_no==''||i_student_name==''){
 			alert('所在年级、所在班级、考试编号、学生姓名为必填项！')
 		}else if(isAdd){
