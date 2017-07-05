@@ -144,7 +144,7 @@ $(function() {
 	    });
 		
 		
-		$('.modal-wrap-class-management .clear-students').on('click', function(){
+		$('.modal-wrap-class-management .clear-students').unbind().on('click', function(){
 			var del_grade = $('.modal-wrap-class-management #add-class-grade').val();
 			var del_name = $('.modal-wrap-class-management #del-class-name').val();
 
@@ -161,8 +161,18 @@ $(function() {
 		    		console.log(data)
 		  			if (data.success) {
 		  				alert(data.message)
+		  				$('.modal-main').animate({'top': '45%','opacity': 0},500);
+						$('.modal-shadow').animate({'opacity': 0},500);
+						setTimeout(function(){
+							$('.modal-wrap').hide();
+						},500);
 		  			}else{
 		  				alert(data.message)
+		  				$('.modal-main').animate({'top': '45%','opacity': 0},500);
+						$('.modal-shadow').animate({'opacity': 0},500);
+						setTimeout(function(){
+							$('.modal-wrap').hide();
+						},500);
 		  			}
 		        },
 		        error: function(){
@@ -176,7 +186,7 @@ $(function() {
 
 
 	    $('.modal-wrap-class-management .determine').on('click' , function(){
-	    	var del_grade = $('.modal-wrap-class-management #add-class-grade').val();
+	    	var del_grade = $('.modal-wrap-class-management #del-class-name').val();
 	    	// var class_count = $('#class-name').val();
 
 	    	$.ajax({
@@ -221,6 +231,7 @@ $(function() {
 		// iDiv.data('url',file);
 		iDiv.css({'display':'inline-block','color':'#666','background':'#dcf5f0','padding':'0 10px','height':'26px','border-radius':'2px','margin-right':'5px'});
 		$('#upfile').append(iDiv);
+		
 	}
 
 	
@@ -275,6 +286,11 @@ $(function() {
 		$('.import-wrap .modal-main').animate({'top': '50%','opacity': 1},500);
 		$('.import-wrap .modal-shadow').animate({'opacity': .3},500);
 		$('.import-wrap').show();
+		if(isStudent=='1'){
+			$('.table-template').attr('href', ajaxIp+'/template/学生信息表格.xlsx');
+		}else{
+			$('.table-template').attr('href', ajaxIp+'/template/老师信息表格.xlsx');
+		}
 	});
 
 	$('.search-button').click(function(){
@@ -291,6 +307,7 @@ $(function() {
 
 	$('.user-information-right #select-grade').change(function(){
 		if($(this).val()!=0){
+			$('.user-information-right #select-sujects').html('<option value="0">全部科目</option>');
 			selectSubjects($(this).val());
 			selectALl(["grade_id",$(this).val()])
 		}else{
@@ -302,11 +319,12 @@ $(function() {
 
 	$('.user-change-password #select-grade').change(function(){
 		if($(this).val()!=0){
+			$('.user-change-password #select-sujects').html('<option value="0">全部班级</option>');
 			studentSelectSubjects($(this).val());
 			students_selectALl(["grade_id",$(this).val()])
 		}else{
 			students_selectALl(null,null);
-			$('user-change-password #select-sujects').html('<option value="0">全部班级</option>');
+			$('.user-change-password #select-sujects').html('<option value="0">全部班级</option>');
 		}
 		
 	});
@@ -345,6 +363,7 @@ $(function() {
 	    	headers: {'Authorization': "Bearer " + isLogin},
 	    	data:{'page':1, 'limit': 10},
 	    	success: function(data){
+	    		console.log(data)
 	  			teachersList(data.total_entries, iData)
 	        },
 	        error: function(){
@@ -429,8 +448,16 @@ $(function() {
 	}
 
 	function teachersList(num, iData){
+		var ii_num;
+		if(num==0){
+			return;
+		}else if(num>0 && num<10){
+			ii_num=1;
+		}else{
+			ii_num=Math.ceil(num/10);
+		}
 		$.jqPaginator('#pagination', {
-	        totalPages: Math.ceil(num/10),
+	        totalPages: ii_num,
 	        visiblePages: 5,
 	        currentPage: 1,
 	        disableClass: 'disableClass',
@@ -697,7 +724,7 @@ $(function() {
 					iDataGrades = data.grades;
 					defaultId = data.subject.id;
 					defaultRole = data.role;
-					$('#teachers-grade').text('')
+					$('#teachers-grade').html('')
 					
 					var grade_ids = [];
 					for (var i = 0; i < iDataGrades.length; i++) {
@@ -1054,6 +1081,22 @@ $(function() {
 		    		$('.student-name').val(data.real_name);
 		    		$('.student-name').attr('data-id', data.id);
 		    		$('.id-number').val(data.id_card_no);
+		    		if(data.gender == '男'){
+		    			console.log(data.gender+'=============1')
+						$($('.student-gender option')[1]).attr('selected', 'selected');
+						$($('.student-gender option')[2]).removeAttr('selected');
+						$($('.student-gender option')[0]).removeAttr('selected');
+		    		}else if(data.gender == '女'){
+		    			console.log(data.gender+'=============2')
+						$($('.student-gender option')[2]).attr('selected', 'selected');
+						$($('.student-gender option')[1]).removeAttr('selected');
+						$($('.student-gender option')[0]).removeAttr('selected');
+		    		}else{
+		    			console.log(data.gender+'=============3')
+						$($('.student-gender option')[0]).attr('selected', 'selected');
+						$($('.student-gender option')[1]).removeAttr('selected');
+						$($('.student-gender option')[2]).removeAttr('selected');
+		    		}
 		    		if(data.is_classroom_count){
 						$('.student-radio-grade').attr('checked', true)
 		    		}else{
@@ -1064,49 +1107,49 @@ $(function() {
 		    		}else{
 						$('.student-radio-class').attr('checked', false)
 		    		}
-		        },
-		        error: function(){
-		        	// alert('请稍后从新尝试登录或者联系管理员');
-		        	// localStorage.clear();
-		        	// window.location.href = './login.html'
-		        }
-		    });
-			
-			$.ajax({
-		     	type: "GET",
-		     	url: ajaxIp+"/api/v2/commons/school_grades",
-		    	dataType: "JSON",
-		    	headers: {'Authorization': "Bearer " + isLogin},
-		    	success: function(data){
-		    		$('.modal-wrap-student-info .current-grade').html('');
-		  			for (var i = 0; i < data.length; i++) {
-		  				if(data[i].id == data_student.grade.id){
-							var iOption = '<option value="'+data[i].id+'" selected>'+data[i].name+'</option>'
-		  				}else{
-							var iOption = '<option value="'+data[i].id+'">'+data[i].name+'</option>'
-		  				}
-						$('.modal-wrap-student-info .current-grade').append(iOption);
-					}
 
-					$.ajax({
+		    		$.ajax({
 				     	type: "GET",
-				     	url: ajaxIp+"/api/v2/commons/"+$('.modal-wrap-student-info .current-grade').val()+"/grade_classrooms",
+				     	url: ajaxIp+"/api/v2/commons/school_grades",
 				    	dataType: "JSON",
 				    	headers: {'Authorization': "Bearer " + isLogin},
 				    	success: function(data){
-
-				    		$('.modal-wrap-student-info .current-class').html('');
+				    		$('.modal-wrap-student-info .current-grade').html('');
 				  			for (var i = 0; i < data.length; i++) {
-				  				if(data_student.classroom.id == data[i].id){
+				  				if(data[i].id == data_student.grade.id){
 									var iOption = '<option value="'+data[i].id+'" selected>'+data[i].name+'</option>'
 				  				}else{
 									var iOption = '<option value="'+data[i].id+'">'+data[i].name+'</option>'
 				  				}
-								
-								$('.modal-wrap-student-info .current-class').append(iOption);
+								$('.modal-wrap-student-info .current-grade').append(iOption);
 							}
 
+							$.ajax({
+						     	type: "GET",
+						     	url: ajaxIp+"/api/v2/commons/"+$('.modal-wrap-student-info .current-grade').val()+"/grade_classrooms",
+						    	dataType: "JSON",
+						    	headers: {'Authorization': "Bearer " + isLogin},
+						    	success: function(data){
 
+						    		$('.modal-wrap-student-info .current-class').html('');
+						  			for (var i = 0; i < data.length; i++) {
+						  				if(data_student.classroom.id == data[i].id){
+											var iOption = '<option value="'+data[i].id+'" selected>'+data[i].name+'</option>'
+						  				}else{
+											var iOption = '<option value="'+data[i].id+'">'+data[i].name+'</option>'
+						  				}
+										
+										$('.modal-wrap-student-info .current-class').append(iOption);
+									}
+
+
+						        },
+						        error: function(){
+						        	// alert('请稍后从新尝试登录或者联系管理员');
+						        	// localStorage.clear();
+						        	// window.location.href = './login.html'
+						        }
+						    });
 				        },
 				        error: function(){
 				        	// alert('请稍后从新尝试登录或者联系管理员');
@@ -1121,6 +1164,8 @@ $(function() {
 		        	// window.location.href = './login.html'
 		        }
 		    });
+			
+			
 
 			$('.current-grade').change(function(){
 				$.ajax({
@@ -1293,7 +1338,7 @@ $(function() {
 		var i_grade = $('.current-grade').val();
 		var i_class = $('.current-class').val();
 
-		var i_student_code = $('.stuent-code').val();
+		var i_student_code = $('.student-code').val();
 		var i_exam_no = $('.exam-no').val();
 		var i_student_name = $('.student-name').val();
 		var i_id_number = $('.id-number').val();
@@ -1315,7 +1360,7 @@ $(function() {
 			'is_grade_count':i_is_grade_count,
 			'is_classroom_count':i_is_classroom_count,
 		}
-
+		console.log(i_data)
 		if(i_grade==''||i_class==''||i_exam_no==''||i_student_name==''){
 			alert('所在年级、所在班级、考试编号、学生姓名为必填项！')
 		}else if(isAdd){

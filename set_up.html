@@ -113,7 +113,7 @@
 						</select>
 					</div>
 					<div class="set-input-wrap">
-						<input class="student-search-input" type="text" placeholder="请输入考试名称">
+						<input class="student-search-input" type="text" placeholder="请输入班级名称">
 						<div class="student-search-button iconfont">&#xe610;</div>
 						<div class="student-supervise">班级管理</div>
 						<div class="export-bar-code determine">导出条形码</div>
@@ -161,7 +161,7 @@
 						未选择任何文件  
 					</div>
 					<input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" id="inPath" style="display:none">
-					<p style="color: #db4a4a;line-height: 60px;text-align: center;">请先下载"考生信息表格"模版，填入信息后导入</p>
+					<a class="table-template" style="color: #db4a4a;line-height: 60px;text-align: center;">请先下载"信息表格"模版，填入信息后导入</a>
 				
 				<!-- <input type="file" id="inPath" style="display:none" onchange="upfile.value=this.value"> -->
 				<!-- <input type="file"> -->
@@ -324,6 +324,11 @@
 					</select>
 				</div>
 
+				<div class="teachers-input-wrap" style="position: relative">
+					<label class="teachers-label" style="position: absolute;top: 4px;left: 8px;" for="teachers-grade">年&nbsp;&nbsp;&nbsp;级</label>
+					<div id="teachers-grade" class="" style="margin-left: 46px;display: inline-block;width: 432px;line-height: 26px;text-align: left;"></div>
+				</div>
+
 				<div class="teachers-input-wrap">
 					<label class="teachers-label" for="teachers-subject">科&nbsp;&nbsp;&nbsp;目</label>
 					<!-- <input type="text" id="teachers-subject" class="teachers-input" value=''/> -->
@@ -336,10 +341,7 @@
 					</select>
 				</div>
 				
-				<div class="teachers-input-wrap" style="position: relative">
-					<label class="teachers-label" style="position: absolute;top: 4px;left: 8px;" for="teachers-grade">年&nbsp;&nbsp;&nbsp;级</label>
-					<div id="teachers-grade" class="" style="margin-left: 46px;display: inline-block;width: 432px;line-height: 26px;text-align: left;"></div>
-				</div>
+				
 				
 				
 				
