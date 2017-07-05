@@ -182,6 +182,7 @@
 .set-input-wrap{
 	float: right;
 	height: 30px;
+	position: relative;
 }
 .search-button{
 	margin: 0 20px;
@@ -318,13 +319,106 @@
 	background: #31bc91;
 }
 
-
-
-
-
-
-
-
+.student-search-button{
+	position: absolute;
+	left: 190px;
+	top: 2px;
+	cursor: pointer;
+}
+.set-up-search .student-search-input{
+	width: 200px;
+}
+.student-supervise{
+	width: 68px;
+	height: 28px;
+	border: 1px solid #31bc91;
+	text-align: center;
+	margin-left: 20px;
+	cursor: pointer;
+}
+.export-bar-code{
+	margin-left: 10px;
+	width: 90px;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+}
+.allNew{
+	line-height: 26px;
+	padding-left:10px;
+	color:#fff;
+	text-align:left;
+	background:#dcdcdc;
+	display:inline-block;
+	margin-right:10px;
+	margin-bottom:10px;
+	height:26px;
+	width:62px;
+	position: relative;
+}
+.newBack{
+	background: #31bc91;
+}
+#add-class-grade{
+	margin-bottom: 10px;
+	margin-left: 14px;
+    height: 30px;
+    width: 432px;
+    line-height: 30px;
+    border: 1px solid #ccc;
+    padding: 0 10px;
+    background: #fafafa;
+    color: #666;
+}
+#class-name{
+	margin-bottom: 10px;
+}
+.select-class-i{
+	position: relative;
+	margin-bottom: 10px;
+	margin-left: 12px;
+    height: 30px;
+    width: 432px;
+    line-height: 30px;
+    border: 1px solid #ccc;
+    padding: 0 10px;
+    background: #fafafa;
+    color: #666;
+}
+.clear-students{
+	background: #31bc91;
+	color: #fff;
+}
+.student-radio span{
+	/*line-height: 50px;*/
+	display: inline-block;
+}
+.student-radio{
+	height: 50px;
+	line-height: 50px;
+}
+.input-class-i{
+	position: relative;
+	margin-bottom: 10px;
+	margin-left: 12px;
+    height: 30px;
+    width: 412px;
+    line-height: 30px;
+    border: 1px solid #ccc;
+    padding: 0 10px;
+    background: #fafafa;
+    color: #666;
+}
+.mandatory:before{
+	position: absolute;
+	content:"*";
+	color: red;
+	left: -10px;
+	top: 2px;
+}
+.teachers-label{
+	position: relative;
+}
 
 
 
