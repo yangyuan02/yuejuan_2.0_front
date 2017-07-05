@@ -43,7 +43,7 @@ $(function() {
 	    $('.modal-wrap-class .determine').on('click' , function(){
 	    	var new_grade = $('#add-class-grade').val();
 	    	var class_count = $('#class-name').val();
-
+			
 	    	$.ajax({
 		     	type: "POST",
 		     	url: ajaxIp+"/api/v2/students/add_classroom",
@@ -603,10 +603,18 @@ $(function() {
 
 	function selectSubjectsList(data , name){
 		$('#select-sujects').html('<option value="0">全部科目</option>');
-		for (var i = 0; i < data.length; i++) {
-			var iOption = '<option value="'+data[i].id+'">'+data[i].name+'</option>'
-			$(name+' #select-sujects').append(iOption);
+		if(name == '.user-change-password'){
+			for (var i = 0; i < data.length; i++) {
+				var iOption = '<option value="'+data[i].id+'">'+data[i].name+'('+data[i].count+')</option>'
+				$(name+' #select-sujects').append(iOption);
+			}
+		}else{
+			for (var i = 0; i < data.length; i++) {
+				var iOption = '<option value="'+data[i].id+'">'+data[i].name+'</option>'
+				$(name+' #select-sujects').append(iOption);
+			}
 		}
+		
 	}
 
 
