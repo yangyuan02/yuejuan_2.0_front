@@ -307,7 +307,7 @@ $(function() {
 
 	$('.user-information-right #select-grade').change(function(){
 		if($(this).val()!=0){
-			$('.user-information-right #select-sujects').html('<option value="0">全部科目</option>');
+			// $('.user-information-right #select-sujects').html('<option value="0">全部科目</option>');
 			selectSubjects($(this).val());
 			selectALl(["grade_id",$(this).val()])
 		}else{
@@ -318,6 +318,7 @@ $(function() {
 	});
 
 	$('.user-change-password #select-grade').change(function(){
+		console.log($(this).val()+'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
 		if($(this).val()!=0){
 			$('.user-change-password #select-sujects').html('<option value="0">全部班级</option>');
 			studentSelectSubjects($(this).val());
@@ -337,7 +338,8 @@ $(function() {
 			]
 			selectALl(iData)
 		}else if($(this).val()==0 && $('.user-information-right #select-grade').val()!=0){
-			selectSubjects($(this).val());
+			$('.user-information-right #select-sujects').html('<option value="0">全部科目</option>');
+			selectSubjects($('.user-information-right #select-grade').val());
 			selectALl(["grade_id",$('.user-information-right #select-grade').val()])
 		}
 	});
@@ -350,7 +352,8 @@ $(function() {
 			]
 			students_selectALl(iData)
 		}else if($(this).val()==0 && $('.user-change-password #select-grade').val()!=0){
-			studentSelectSubjects($(this).val());
+			$('.user-change-password #select-sujects').html('<option value="0">全部班级</option>');
+			studentSelectSubjects($('.user-change-password #select-grade').val());
 			students_selectALl(["grade_id",$('.user-change-password #select-grade').val()])
 		}
 	});
@@ -1114,6 +1117,7 @@ $(function() {
 		    		$('.student-name').val(data.real_name);
 		    		$('.student-name').attr('data-id', data.id);
 		    		$('.id-number').val(data.id_card_no);
+		    		$('.student-email').val(data.email);
 		    		if(data.gender == '男'){
 		    			console.log(data.gender+'=============1')
 						$($('.student-gender option')[1]).attr('selected', 'selected');
@@ -1377,6 +1381,7 @@ $(function() {
 		var i_student_name = $('.student-name').val();
 		var i_id_number = $('.id-number').val();
 		var i_student_gender = $('.student-gender').val();
+		var i_student_email = $('.student-email').val();
 
 		var i_is_classroom_count = $('.student-radio-grade').is(':checked');
 		var i_is_grade_count = $('.student-radio-class').is(':checked');
@@ -1384,7 +1389,7 @@ $(function() {
 		var i_data = {
 			'real_name':i_student_name,
 			'phone':'',
-			'email':'',
+			'email':i_student_email,
 			'exam_no':i_exam_no,
 			'gender':i_student_gender,
 			'id_card_no':i_id_number,
