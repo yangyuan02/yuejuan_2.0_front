@@ -27,25 +27,43 @@ $(function() {
 	}
 
 
+	// show_test_cont(local_id);
+	// localStorage.removeItem("test_local_id");
 	function show_list (exam_list) {
 		console.log(exam_list)
 		var a = exam_list.length;
+		console.log(a)
 		if (a!= 0) {
 			for (var i = 0; i < a; i++) {
 				var arr='<li class="exam-'+exam_list[i].id+'" data-id='+exam_list[i].id+'><h6 class="name">' + exam_list[i].name + '</h6><p class="time">' + exam_list[i].created_at + '</p></li>'
 				$('.list-ul').append(arr);
 				// 判断没有选中的列表，默认第一个选中，并显示详情
+				// var first_id = $('.list-ul li').eq(0).data('id');
+				// console.log(first_id)
 				if(!$('.list-ul li').hasClass('active')){
 					$('.list-ul li').eq(0).addClass('active');
 					show_test_cont($('.list-ul li').eq(0).data('id'));
 				}
 			};
 		};
+		var local_id = parseInt(localStorage.test_local_id);
+		console.log(local_id);
+		if(local_id){
+			show_test_cont(local_id);
+			var local_li = $('body').find('.list-ul li');
+			var local_li_length = local_li.length;
+			for (var i = 0; i < local_li_length; i++) {
+				if(local_id==$(local_li[i]).attr('data-id')){
+					$(local_li[i]).addClass('active').siblings().removeClass('active');
+				}
+			};
+		}
+		localStorage.removeItem("test_local_id");
 		// show_test_cont($('.list-ul li').eq(0).data('id'));
 	}
 
 
-
+ 
 	// 显示考试信息
 	function show_test_cont(exam_list_id){
 		$.ajax({
@@ -92,7 +110,7 @@ $(function() {
 		var subjects_length = detail_data.subjects.length;
 		for (var i = 0; i < subjects_length; i++) {
 			// 表格列表信息
-			var list_tr='<tr><td exam_subject_id="'+detail_data.subjects[i].exam_subject_id+'"  data-id="'+detail_data.subjects[i].id+'" class="subject-name">'+ detail_data.subjects[i].name +'</td><td class="count">'+ detail_data.student_total +'</td><td class="operation"><a href="javascript:;" class="set"><i class="iconfont">&#xe60f;</i>试卷设置</a><a href="javascript:;" class="sign"><i class="iconfont">&#xe612;</i>权限分配</a><a href="javascript:;" class="dele"><i class="iconfont">&#xe616;</i>删除科目</a></td></tr>';
+			var list_tr='<tr><td exam_subject_id="'+detail_data.subjects[i].exam_subject_id+'" batch-id="'+detail_data.subjects[i].batch_id+'" data-id="'+detail_data.subjects[i].id+'" class="subject-name">'+ detail_data.subjects[i].name +'</td><td class="count">'+ detail_data.student_total +'</td><td class="operation"><a href="javascript:;" class="set"><i class="iconfont">&#xe60f;</i>试卷设置</a><a href="javascript:;" class="sign"><i class="iconfont">&#xe612;</i>权限分配</a><a href="javascript:;" class="dele"><i class="iconfont">&#xe616;</i>删除科目</a><a class="look-paper"><i class="iconfont">&#xe61e;</i>查看试卷</a></td></tr>';
 			$('.subject-list tbody').append(list_tr);
 			on_checked[i] = detail_data.subjects[i].id;
 		};
@@ -117,8 +135,6 @@ $(function() {
 		'height': height,
 		'max-height': height
 	});
-
-
 
 	// 考试列表切换
 	$('body').on('click','.list-ul li',function(){
@@ -685,6 +701,14 @@ $(function() {
 				}
 			};
 		};
+		// 如果没有老师，只显示题组
+		if(!teacher_length&&items_length){
+			for (var i = 0; i < items_length; i++) {
+				var item_li ='<tr><td width="80"  class="item-name" data-id="'+item_groups[i].id+'">'+item_groups[i].name +'</td><td width="375"><ul class="teacher-list examination" teacher-type="examination"></ul><a class="add add-one" id="examination-add-'+i+'" href="javascript:;"><i class="iconfont">&#xe61a;</i>添加</a></td><td width="375"><ul class="teacher-list reviewed " teacher-type="reviewed"></ul><a class="add add-one" id="reviewed-add-'+i+'" href="javascript:;"><i class="iconfont">&#xe61a;</i>添加</a></td></tr>';
+				$('.look-table tbody').append(item_li);
+			};
+
+		}
 		if(items_length==0){
 			$('.key-add').removeClass('add-one').css({
 				color: '#999',
@@ -1364,5 +1388,15 @@ $(function() {
 	});
 	$('.search-school').on('click',function() {
 		$('#search-school').change();
+	});
+	// 查看试卷
+	// href="'+ajaxIp+'/api/v2/exam_subject_batches/'+detail_data.subjects[i].batch_id+'/scanner_images"
+	$('body').on('click', '.look-paper', function() {
+		var $_this=$(this);
+		var batch_id =$_this.parents('tr').find('.subject-name').attr('batch-id');
+		var test_id = $('#test-title').attr('data-id');
+		var exam_name=$('#test-title').text();
+		var subject_name = $_this.parents('tr').find('.subject-name').text();
+		$_this.attr('href','look_paper.html?id='+batch_id+'&test_local_id='+test_id+'&exam_name='+exam_name+'&subject_name='+subject_name+'');
 	});
 })
