@@ -98,7 +98,7 @@ $(function(){
     });
   });
   // 左侧区域切换
-  $('.left-op ul li').on('click', function() {
+  $('.left-op ul li.opp').on('click', function() {
   	$(this).addClass('active').siblings().removeClass('active');
   });
 })

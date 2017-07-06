@@ -14,6 +14,7 @@ $(function() {
 		  dataType: "JSON",
 
 		  success: function(data){
+		  	console.log(data)
 		  	if(data.length!=0){
 					show_list(data);
 		  	}

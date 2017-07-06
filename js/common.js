@@ -23,6 +23,8 @@ $(function() {
 	    	dataType: "JSON",
 	    	headers: {'Authorization': "Bearer " + isLogin},
 	    	success: function(data){
+	    		console.log(111111111111111111)
+
 	    		console.log(data)
 	    		if(data.error){
 					alert('登录已过期，请从新登录！');
@@ -45,9 +47,9 @@ $(function() {
 	    		}
 	        },
 	        error: function(){
-	        	// alert('请稍后从新尝试登录或者联系管理员');
-	        	// localStorage.clear();
-	        	// window.location.href = './login.html'
+	        	alert('登录已过期，请从新登录！');
+    			localStorage.clear();
+        		window.location.href = './login.html'
 	        }
 	    });
 	}
