@@ -356,12 +356,18 @@ $(function() {
 	});
 
 	function selectALl(iData){
+		var iDataI = {'page':1, 'limit': 10};
+		if(iData!=null){
+			for (var i = 0; i < iData.length; i+=2) {
+				iDataI[iData[i]] = iData[i+1];
+			}
+		}
 		$.ajax({
 	     	type: "GET",
 	     	url: ajaxIp+"/api/v2/teachers",
 	    	dataType: "JSON",
 	    	headers: {'Authorization': "Bearer " + isLogin},
-	    	data:{'page':1, 'limit': 10},
+	    	data:iDataI,
 	    	success: function(data){
 	    		console.log(data)
 	  			teachersList(data.total_entries, iData)
@@ -456,6 +462,7 @@ $(function() {
 
 	function teachersList(num, iData){
 		var ii_num;
+		console.log(num+'2222222222222222222222')
 		if(num==0){
 			return;
 		}else if(num>0 && num<10){
