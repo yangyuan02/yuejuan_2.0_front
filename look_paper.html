@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>阅卷</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/look_paper.css">
+	<script type="text/javascript" src='js/jquery.min.js'></script>
+	<script type="text/javascript" src='js/common.js'></script>
+	<!--<script type="text/javascript" src='js/paper_generate.js'></script>-->
+	<script type="text/javascript" src='js/look_paper.js'></script>
+</head>
+<body>
+	<div id="wrap">
+		<div class="look-box">
+			<div class="common-width look-title">
+				<div class="title-subject con">
+					<i class="iconfont back">&#xe61c;</i>
+					<span id="test-name">sss</span>
+					<span id="sub-name">(<em>的点点滴滴</em>)</span>
+				</div>
+				<div class="page con">
+					<span>查看页码</span>
+					<a href="javascript:;" class="on">1</a>
+					<a href="javascript:;">2</a>
+					<a href="javascript:;">3</a>
+				</div>
+				<div class="total con">
+					<span>共<em id="num"></em>份试卷</span>
+					<a href="javascript:;" class="prev btn">上一份</a>
+					<input type="text" class="jump-input">
+					<a href="javascript:;"><i class="iconfont jump">&#xe61f;</i></a>
+					<a href="javascript:;" class="next btn">下一份</a>
+				</div>
+			</div>
+		</div>
+		<div class="paper-box">
+			<div class="common-width clear paper-cont">
+				<div class="left left-op">
+					<ul>
+						<li class="opp active">检查文件</li>
+						<li class="opp">题组区域</li>
+						<li>
+							<a href="javascript:;" class="big" id="big"><i class="iconfont">&#xe620;</i></a>
+							<a href="javascript:;" class="small" id="small"><i class="iconfont">&#xe621;</i></a>
+						</li>
+					</ul>
+				</div>
+				<div class="right img-box">
+					<img src="http://192.168.1.127:8888/uploads/scanner/20170522151109220OU18T8/1495437095545.jpg">
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

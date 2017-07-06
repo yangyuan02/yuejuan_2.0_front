@@ -411,6 +411,9 @@ table.subject-list .count{
 .operation .dele{
 	color: #fb7d8a;
 }
+.operation .look-paper{
+	color: #eb9754;
+}
 .operation i{
 	padding-right: 6px;
 }
