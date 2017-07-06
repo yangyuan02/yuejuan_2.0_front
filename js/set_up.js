@@ -464,7 +464,7 @@ $(function() {
 		var ii_num;
 		console.log(num+'2222222222222222222222')
 		if(num==0){
-			return;
+			ii_num=1;
 		}else if(num>0 && num<10){
 			ii_num=1;
 		}else{
@@ -511,8 +511,15 @@ $(function() {
 
 
 	function studentsList(num, iData){
+		if(num==0){
+			ii_num=1;
+		}else if(num>0 && num<10){
+			ii_num=1;
+		}else{
+			ii_num=Math.ceil(num/10);
+		}
 		$.jqPaginator('#students-pagination', {
-	        totalPages: Math.ceil(num/10),
+	        totalPages:ii_num,
 	        visiblePages: 5,
 	        currentPage: 1,
 	        disableClass: 'disableClass',
