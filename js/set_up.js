@@ -375,14 +375,21 @@ $(function() {
 	}
 
 	function students_selectALl(iData){
+		var iDataI = {'page':1, 'limit': 10};
+		if(iData!=null){
+			for (var i = 0; i < iData.length; i+=2) {
+				iDataI[iData[i]] = iData[i+1];
+			}
+		}
 		$.ajax({
 	     	type: "GET",
 	     	url: ajaxIp+"/api/v2/students",
 	    	dataType: "JSON",
 	    	headers: {'Authorization': "Bearer " + isLogin},
-	    	data:{'page':1, 'limit': 10},
+	    	data:iDataI,
 	    	success: function(data){
 	    		console.log(data)
+
 	  			studentsList(data.total_entries, iData)
 	        },
 	        error: function(){
@@ -523,6 +530,8 @@ $(function() {
 			    	headers: {'Authorization': "Bearer " + isLogin},
 			    	data: iDataI,
 			    	success: function(data){
+			    		console.log(data)
+			    		console.log(1111111111111111111)
 			  			students_list(data.students);
 			        },
 			        error: function(){
@@ -557,6 +566,7 @@ $(function() {
 
 	function selectGradesList(data, name){
 		console.log(data)
+		$(name+' #select-grade').html('<option value="0">全部班级</option>');
 		for (var i = 0; i < data.length; i++) {
 			var iOption = '<option value="'+data[i].id+'">'+data[i].name+'</option>'
 			console.log(i)
@@ -729,6 +739,7 @@ $(function() {
 					$('.teachers-propmt-wrap #teachers-role').val(data.role);
 					// $('.teachers-propmt-wrap #teachers-subject').val(data.subject.name);
 					$('.teachers-propmt-wrap #teachers-grade').val(data.grades.name);
+					console.log(data.grades.name+'11111111111111111')
 					iDataGrades = data.grades;
 					defaultId = data.subject.id;
 					defaultRole = data.role;
@@ -1063,7 +1074,7 @@ $(function() {
 			// 	iGreads[j] =data[i].grades[j].name
 			// }
 
-			var iTr = '<tr style="border-bottom:1px solid #ccc;"><td>'+data[i].exam_no+'</td><td>'+data[i].real_name+'</td><td style="">'+(data[i].id_card_no==undefined?"":data[i].id_card_no)+'</td><td>'+(data[i].gender==undefined?"":data[i].gender)+'</td><td>'+(data[i].classroom.name==undefined?"":data[i].classroom.name)+'</td><td>'+(data[i].is_classroom_count?"是":"否")+'</td><td>'+(data[i].is_grade_count?"是":"否")+'</td><td class="table-modify"><span class="iconfont table-span" data-id="'+data[i].id+'">&#xe614;&nbsp;修改</span></td><td class="table-delete iconfont"><span class="iconfont table-span" data-id="'+data[i].id+'" data-name="'+data[i].real_name+'">&#xe616;&nbsp;删除</span></td></tr>'
+			var iTr = '<tr style="border-bottom:1px solid #ccc;"><td>'+data[i].exam_no+'</td><td>'+data[i].real_name+'</td><td style="">'+(data[i].id_card_no==undefined?"":data[i].id_card_no)+'</td><td>'+(data[i].gender==undefined?"":data[i].gender)+'</td><td>'+(data[i].classroom==undefined?"":data[i].classroom.name)+'</td><td>'+(data[i].is_classroom_count?"是":"否")+'</td><td>'+(data[i].is_grade_count?"是":"否")+'</td><td class="table-modify"><span class="iconfont table-span" data-id="'+data[i].id+'">&#xe614;&nbsp;修改</span></td><td class="table-delete iconfont"><span class="iconfont table-span" data-id="'+data[i].id+'" data-name="'+data[i].real_name+'">&#xe616;&nbsp;删除</span></td></tr>'
  			$('.students-tabble tbody').append(iTr)
  		}
 		
@@ -1279,6 +1290,7 @@ $(function() {
 		    	headers: {'Authorization': "Bearer " + isLogin},
 		    	success: function(data){
 					console.log(data)
+					$('.teachers-propmt-wrap #teachers-grade').html('');
 					var thisDiv='<div class="allNew">全部<i class="iconfont gradesname" style="position:absolute;right:10px;top:0;">&#xe619;</i></div>';
 		    		for (var i = 0; i < data.length; i++) {
     					thisDiv+='<div class="newTeacher newTea" data-id="'+data[i].id+'">'+data[i].name+'<i class="iconfont gradesname" style="position:absolute;right:10px;top:0;">&#xe619;</i></div>'						
