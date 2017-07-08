@@ -218,7 +218,7 @@ $(function() {
 	function inputFlileName(){
 		var file = $("#inPath").val();
 		var fileName = getFileName(file);
-
+		$("#upfile").html('未选择任何文件');
 		function getFileName(o){
 		    var pos=o.lastIndexOf("\\");
 		    return o.substring(pos+1);  
@@ -239,6 +239,13 @@ $(function() {
 		var formData = new FormData();
 		formData.append("import_student",$("#inPath")[0].files[0]);
 		console.log(isStudent)
+		var i_string = $('#upfile div').html();
+		i_string_i = i_string.lastIndexOf(".");
+		i_string = i_string.substring(i_string_i+1);
+		console.log(i_string+'aaaaaaaaaaaaaaaaaaaa')
+		if(i_string!='xlsx' && i_string!='xls'){
+			alert('文件格式不对，请选择xlsx或者xls文件！')
+		}
 
 		if(isStudent=='1'){
 			$.ajax({ 
@@ -253,6 +260,12 @@ $(function() {
 				},
 				success : function(data) { 
 					console.log(data)
+					alert(data.message)
+					$('.modal-main').animate({'top': '45%','opacity': 0},500);
+					$('.modal-shadow').animate({'opacity': 0},500);
+					setTimeout(function(){
+						$('.modal-wrap').hide();
+					},500);
 				}, 
 				error : function() { 
 					console.log("error");
@@ -318,7 +331,7 @@ $(function() {
 	});
 
 	$('.user-change-password #select-grade').change(function(){
-		console.log($(this).val()+'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+
 		if($(this).val()!=0){
 			$('.user-change-password #select-sujects').html('<option value="0">全部班级</option>');
 			studentSelectSubjects($(this).val());
@@ -352,7 +365,7 @@ $(function() {
 			]
 			students_selectALl(iData)
 		}else if($(this).val()==0 && $('.user-change-password #select-grade').val()!=0){
-			$('.user-change-password #select-sujects').html('<option value="0">全部班级</option>');
+			$('.user-change-password #select-sujects').html('<option value="0">全部年级</option>');
 			studentSelectSubjects($('.user-change-password #select-grade').val());
 			students_selectALl(["grade_id",$('.user-change-password #select-grade').val()])
 		}
@@ -583,7 +596,7 @@ $(function() {
 
 	function selectGradesList(data, name){
 		console.log(data)
-		$(name+' #select-grade').html('<option value="0">全部班级</option>');
+		$(name+' #select-grade').html('<option value="0">全部年级</option>');
 		for (var i = 0; i < data.length; i++) {
 			var iOption = '<option value="'+data[i].id+'">'+data[i].name+'</option>'
 			console.log(i)
@@ -680,9 +693,13 @@ $(function() {
 			    	dataType: "JSON",
 			    	headers: {'Authorization': "Bearer " + isLogin},
 			    	success: function(data){
-			    		console.log(data)
 			  			if(data.success){
-							selectALl(null,null)
+			  				alert(data.message);
+							selectALl(null,null);
+							$('.user-information-right #select-sujects').html('<option value="0">全部科目</option>');
+							$('.user-information-right #select-grade').html('<option value="0">全部年级</option>');
+			    		}else{
+			    			alert(data.message);
 			    		}
 			        },
 			        error: function(){
@@ -714,6 +731,7 @@ $(function() {
 			    	dataType: "JSON",
 			    	headers: {'Authorization': "Bearer " + isLogin},
 			    	success: function(data){
+			    		console.log(data)
 			    		if(data.success){
 							selectALl(null,null)
 			    		}
@@ -1251,6 +1269,10 @@ $(function() {
 			    	headers: {'Authorization': "Bearer " + isLogin},
 			    	success: function(data){
 			    		if(data.success){
+			    			alert(data.message)
+							students_selectALl(null,null);
+			    		}else{
+			    			alert(data.message)
 							students_selectALl(null,null);
 			    		}
 			        },
