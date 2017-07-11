@@ -113,6 +113,7 @@ $(function(){
 			$('.bg-img').show();
 			$(".bg-img").addClass('dd');
       drow_rect(".dd");
+      get_select_info();
 		}
 
 	}
@@ -231,34 +232,9 @@ $(function(){
       $('.bg-img').hide();
     }else{
       $('.bg-img').show();
-			// var arr5=
-			// 	[{
-	  //         "top":277,
-	  //         "left":30,
-	  //         "width":490,
-	  //         "height":200
-	  //     },
-	  //     {
-	  //         "top":485,
-	  //         "left":30,
-	  //         "width":490,
-	  //         "height":124
-	  //     },
-	  //     {
-	  //         "top":614,
-	  //         "left":30,
-	  //         "width":490,
-	  //         "height":102
-	  //     },
-	  //     {
-	  //         "top":63,
-	  //         "left":530,
-	  //         "width":490,
-	  //         "height":570
-	  //     }];
-   //      append_select(4,arr5);
         $(".bg-img").addClass('dd');
         drow_rect(".dd");
+        get_select_info();
     }
   });
 
@@ -305,17 +281,12 @@ $(function(){
     }
   }
 
-
-  // if($('.bg-img').children()){
-		get_select_info();
-  // }
 	// 获取当前区域块信息
 	function get_select_info(){
 		// 获取图片id
 		var scanner_image_id = $('.img-box img').attr('data-id');
 	  // 获取当前页数
 	  var current_page =parseInt($('.page .on').text());
-	  console.log(scanner_image_id,current_page)
 		$.ajax({
 		  type: "GET",
 		  url: ajaxIp+"/api/v2/section_crops",
