@@ -240,7 +240,7 @@ $(function(){
 
  //添加区域块
   function append_select(eg,arr){
-    $('.bg-img').html('');
+    // $('.bg-img').html('');
     for(var i = 0;i < eg; i++){
     	var select_area_a='<div class="select-area"><a href="javascript:;" class="edit-item">编辑</a><i class="iconfont close">&#xe61b;</i></div>';
       $('.bg-img').append(select_area_a);
@@ -309,7 +309,7 @@ $(function(){
 	}
 	// 显示区域块信息
 	function show_select_info(select_info){
-		$('.bg-img').html('');
+		// $('.bg-img').html('');
 		var select_info_length = select_info.length;
 		var select_arr =[];
 		for (var i = 0; i < select_info_length; i++) {
@@ -435,7 +435,8 @@ $(function(){
 	var num_index;
 	// 确认选择
 	$('body').on('click', '#confirm-sub', function() {
-
+		var w = $('.img-box img').width();
+		var h = $('.img-box img').height();
 		// 获取图片id
 		var scanner_image_id = $('.img-box img').attr('data-id');
 	  // 获取当前页数
@@ -463,6 +464,8 @@ $(function(){
 		  url: ajaxIp+"/api/v2/section_crops",
 		  headers: {'Authorization': "Bearer " + isLogin},
 		  data:{
+		  	'w':w,
+		  	'h':h,
 		  	'width':width,
 		  	'height':height,
 		  	'x':x,
