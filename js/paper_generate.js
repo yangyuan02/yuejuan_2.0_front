@@ -1397,7 +1397,8 @@ $(function() {
 		var batch_id =$_this.parents('tr').find('.subject-name').attr('batch-id');
 		var test_id = $('#test-title').attr('data-id');
 		var exam_name=$('#test-title').text();
+		var exam_subject_id = $_this.parents('tr').find('.subject-name').attr('exam_subject_id');
 		var subject_name = $_this.parents('tr').find('.subject-name').text();
-		$_this.attr('href','look_paper.html?id='+batch_id+'&test_local_id='+test_id+'&exam_name='+exam_name+'&subject_name='+subject_name+'');
+		$_this.attr('href','look_paper.html?id='+batch_id+'&test_local_id='+test_id+'&exam_name='+exam_name+'&subject_name='+subject_name+'&exam_subject_id='+exam_subject_id+'');
 	});
 })
