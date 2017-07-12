@@ -240,9 +240,10 @@ $(function(){
 
  //添加区域块
   function append_select(eg,arr){
+  	console.log(arr);
     // $('.bg-img').html('');
     for(var i = 0;i < eg; i++){
-    	var select_area_a='<div class="select-area"><a href="javascript:;" class="edit-item">编辑</a><i class="iconfont close">&#xe61b;</i></div>';
+    	var select_area_a='<div class="select-area" data-id="'+arr[i].id+'"><a href="javascript:;" class="edit-item">编辑</a><i class="iconfont close">&#xe61b;</i></div>';
       $('.bg-img').append(select_area_a);
       //$('.bg-img div').eq(i).addClass('select-area');
       var select_area = $('.select-area');
@@ -256,8 +257,8 @@ $(function(){
       // console.log(arr[i].width)
       var select_width = arr[i]['width'];
       var select_height = arr[i]['height'];//140
-      var select_left = arr[i]['left'];
-      var select_top = arr[i]['top'];
+      var select_left = arr[i]['x'];
+      var select_top = arr[i]['y'];
       //var select_width =  $(select-area[i]).width();//264
       //var select_height =  $(select-area[i]).height();//140
       //var select_left =  $(select-area[i]).position().left;//48
@@ -314,6 +315,7 @@ $(function(){
 		var select_arr =[];
 		for (var i = 0; i < select_info_length; i++) {
 			select_arr.push(select_info[i].position);
+			select_arr[i].id=select_info[i].id;
 		};
 		console.log(select_arr)
 		append_select(select_info_length,select_arr)
@@ -492,6 +494,27 @@ $(function(){
 	});
 
 
+
+
+	// 删除区域块
+	$('body').on('click', '.close', function() {
+	 	var select_id = $(this).parent().attr('data-id');
+	 	console.log(select_id)
+	 	$.ajax({
+		  type: "DELETE",
+		  url: ajaxIp+"/api/v2/section_crops/"+ select_id +"",
+		  headers: {'Authorization': "Bearer " + isLogin},
+		  success: function(data){
+		  	console.log(data);
+		   },
+		   error: function(){
+		      // alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html';
+		  }
+		});
+	 });
+
 	// 画区域块
   function drow_rect(the_id){//theid表示用作画布的层
     var num=1;
@@ -515,12 +538,12 @@ $(function(){
       if(down_flag){//鼠标有移动
         x_down=e.pageX;
         y_down=e.pageY;
-        x_point=x_original-280;
+        x_point=x_original-$('.bg-img').position().left;
         y_point=y_original-100;
         new_width=x_down-x_original;
         if(new_width<0){//鼠标向左运动
             new_width=-new_width;
-            x_point=x_down-280;
+            x_point=x_down-$('.bg-img').position().left;
         }
         new_height=y_down-y_original;
         if(new_height<0){ //鼠标向右运动
