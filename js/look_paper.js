@@ -243,7 +243,7 @@ $(function(){
   	console.log(arr);
     // $('.bg-img').html('');
     for(var i = 0;i < eg; i++){
-    	var select_area_a='<div class="select-area" data-id="'+arr[i].id+'"><a href="javascript:;" class="edit-item">编辑</a><i class="iconfont close">&#xe61b;</i></div>';
+    	var select_area_a='<div class="select-area" answer-id="'+arr[i].answer_id+'" data-id="'+arr[i].id+'"><a href="javascript:;" class="edit-item">编辑</a><i class="iconfont close">&#xe61b;</i></div>';
       $('.bg-img').append(select_area_a);
       //$('.bg-img div').eq(i).addClass('select-area');
       var select_area = $('.select-area');
@@ -259,10 +259,7 @@ $(function(){
       var select_height = arr[i]['height'];//140
       var select_left = arr[i]['x'];
       var select_top = arr[i]['y'];
-      //var select_width =  $(select-area[i]).width();//264
-      //var select_height =  $(select-area[i]).height();//140
-      //var select_left =  $(select-area[i]).position().left;//48
-      //var select_top =  $(select-area[i]).position.top;//76
+
 
       //获取当前试卷的宽度和高度比例
       var l_width=$('.bg-img').width()/1044;
@@ -299,6 +296,7 @@ $(function(){
 		  },
 		  success: function(data){
 		  	console.log(data);
+		  	on_checked_info = data;
 		  	show_select_info(data);
 		   },
 		   error: function(){
@@ -316,11 +314,13 @@ $(function(){
 		for (var i = 0; i < select_info_length; i++) {
 			select_arr.push(select_info[i].position);
 			select_arr[i].id=select_info[i].id;
+			select_arr[i].answer_id=select_info[i].answer_id;
 		};
 		console.log(select_arr)
-		append_select(select_info_length,select_arr)
+		append_select(select_info_length,select_arr);
 	}
-
+	
+	var on_checked_info;
 	// 选择题型
 	$('body').on('click','.edit-item',function() {
 		$('.modal-main').animate({'top': '50%','opacity': 1},500);
@@ -331,12 +331,53 @@ $(function(){
 		var p_left = $(this).parent().position().left;
 		var p_top = $(this).parent().position().top;
 		var span_num = parseInt($(this).siblings('.title').text());
-		console.log(p_width,p_height,p_left,p_top)
 		width = p_width;
 		height = p_height;
 		x = p_left;
 		y = p_top;
 		num_index = span_num;
+
+	// 显示所选择的信息
+		console.log(on_checked_info);
+		var answer_id = $(this).parent().attr('answer-id');
+		var li_op = $('#type-list option');
+		for (var m = 0; m < li_op.length; m++) {
+			var li_op_id = $(li_op[m]).attr('data-id');
+			// 显示已选的题型和小题号
+			if(answer_id==li_op_id){
+				$('#item-list').html('');
+
+				$(li_op[m]).attr('selected', true);
+				get_num_list(answer_id);
+				var on_checked_info_length = on_checked_info.length;
+				var new_arr = [];
+				for (var i = 0; i < on_checked_info_length; i++) {
+					if(answer_id==on_checked_info[i].answer_id){
+						console.log(on_checked_info[i].answer_setting_ids);
+						new_arr=on_checked_info[i].answer_setting_ids;
+					}
+				};
+				console.log(new_arr)
+				console.log(new_arr,new_arr.length,typeof(new_arr));
+				for (var z = 0; z < new_arr.length; z++) {
+					console.log(new_arr[z],typeof(new_arr[z]))
+					var ll_li = $('#item-list li.num_li');
+					var ll_li_length = ll_li.length;
+					console.log(ll_li_length)
+					for (var j = 0; j < ll_li_length; j++) {
+						var li_id = $(ll_li[j]).find('input').attr('data-id');
+						if(new_arr[z] == li_id){
+							$(ll_li[j]).find('input').attr('checked', true);
+						}
+						console.log(new_arr.length,ll_li_length)
+					};
+					if(new_arr.length==ll_li_length){
+							$('#item-list .all').find('input').attr('checked', true);
+						}
+				};
+			}
+		};
+
 	});
 
 
@@ -395,6 +436,7 @@ $(function(){
 	// 小题序号
 		$.ajax({
 		  type: "GET",
+		  async:false,
 		  url: ajaxIp+"/api/v2/section_crops/answer_setting_by_answer",
 		  headers: {'Authorization': "Bearer " + isLogin},
 		  data:{'answer_id':id},
@@ -415,7 +457,7 @@ $(function(){
 		var all_change = '<li class="all"><div class="check-box"><input type="checkbox" id="all-num" class="checkall" name="checkall"><label for="all-num">全部</label></div></li>' ;
 		$('#item-list').append(all_change);
 		for (var i = 0; i < num_info.length; i++) {
-			var all_num = '<li><div class="check-box"><input type="checkbox" data-id="'+num_info[i].id+'" value="'+num_info[i].num+'" id="num-check'+ i +'" class="check" name="num-check"><label for="num-check'+ i +'">'+num_info[i].num+'</label></div></li>';
+			var all_num = '<li class="num_li"><div class="check-box"><input type="checkbox" data-id="'+num_info[i].id+'" value="'+num_info[i].num+'" id="num-check'+ i +'" class="check" name="num-check"><label for="num-check'+ i +'">'+num_info[i].num+'</label></div></li>';
 			$('#item-list').append(all_num);
 		};
 	}
@@ -437,8 +479,8 @@ $(function(){
 	var num_index;
 	// 确认选择
 	$('body').on('click', '#confirm-sub', function() {
-		var w = $('.img-box img').width();
-		var h = $('.img-box img').height();
+		var w = 1044;
+		var h = 734;
 		// 获取图片id
 		var scanner_image_id = $('.img-box img').attr('data-id');
 	  // 获取当前页数
@@ -582,9 +624,32 @@ $(function(){
       });
       //阻止区域块移动时，num也增加的情况（只有新建的时候才会增减num的值）;
       if($("div[name='"+num+"']").width()!=null){
+      	console.log(999)
           num++;
+      }else{
+      	// 更新区域块信息
+      	var update_select_id = $("div[name='"+num+"']").attr('data-id');
+      	console.log(update_select_id);
+      	// update_select_info();
       }
     });
+	}
+
+
+	function update_select_info(){
+		$.ajax({
+		  type: "PUT",
+		  url: ajaxIp+"/api/v2/section_crops/"+ select_id +"",
+		  headers: {'Authorization': "Bearer " + isLogin},
+		  success: function(data){
+		  	console.log(data);
+		   },
+		   error: function(){
+		      // alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html';
+		  }
+		});
 	}
 
 })
