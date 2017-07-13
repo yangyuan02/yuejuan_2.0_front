@@ -112,7 +112,6 @@ $(function(){
 			console.log(777);
 			$('.bg-img').show();
 			$(".bg-img").addClass('dd');
-      drow_rect(".dd");
       get_select_info();
 		}
 
@@ -233,7 +232,6 @@ $(function(){
     }else{
       $('.bg-img').show();
         $(".bg-img").addClass('dd');
-        drow_rect(".dd");
         get_select_info();
     }
   });
@@ -243,7 +241,7 @@ $(function(){
   	console.log(arr);
     // $('.bg-img').html('');
     for(var i = 0;i < eg; i++){
-    	var select_area_a='<div class="select-area" answer-id="'+arr[i].answer_id+'" data-id="'+arr[i].id+'"><a href="javascript:;" class="edit-item">编辑</a><i class="iconfont close">&#xe61b;</i></div>';
+    	var select_area_a='<div class="select-area" name="'+(i+1)+'" answer-id="'+arr[i].answer_id+'" data-id="'+arr[i].id+'"><a href="javascript:;" class="edit-item">编辑</a><i class="iconfont close">&#xe61b;</i></div>';
       $('.bg-img').append(select_area_a);
       //$('.bg-img div').eq(i).addClass('select-area');
       var select_area = $('.select-area');
@@ -287,6 +285,7 @@ $(function(){
 	  var current_page =parseInt($('.page .on').text());
 		$.ajax({
 		  type: "GET",
+		  async:false,
 		  url: ajaxIp+"/api/v2/section_crops",
 		  headers: {'Authorization': "Bearer " + isLogin},
 		  data:{
@@ -298,6 +297,7 @@ $(function(){
 		  	console.log(data);
 		  	on_checked_info = data;
 		  	show_select_info(data);
+		  	drow_rect(".dd");
 		   },
 		   error: function(){
 		      // alert('请稍后从新尝试登录或者联系管理员');
@@ -326,6 +326,9 @@ $(function(){
 		$('.modal-main').animate({'top': '50%','opacity': 1},500);
 		$('.modal-shadow').animate({'opacity': 0},500);
 		$('#change-modal').show();
+		var parent_id = $(this).parent().attr('data-id');
+		console.log(parent_id)
+		$('#change-modal').attr('data-id', parent_id);
 		var p_width = $(this).parent().width();
 		var p_height = $(this).parent().height();
 		var p_left = $(this).parent().position().left;
@@ -501,38 +504,45 @@ $(function(){
 			answer_setting_ids.shift();
 			answer_setting_ids;
 		}
-		console.log(answer_setting_ids)
+		console.log(answer_setting_ids);
+		// 区域id
+		var select_id = $(this).parents('#change-modal').attr('data-id');
+		console.log(select_id);
 	  // 新建区域
-	  $.ajax({
-		  type: "POST",
-		  url: ajaxIp+"/api/v2/section_crops",
-		  headers: {'Authorization': "Bearer " + isLogin},
-		  data:{
-		  	'w':w,
-		  	'h':h,
-		  	'width':width,
-		  	'height':height,
-		  	'x':x,
-		  	'y':y,
-		  	'index':num_index,
-		  	'exam_subject_batch_id':bath_id,
-		  	'crop_type':crop_type,
-		  	'current_page':current_page,
-		  	'scanner_image_id':scanner_image_id,
-		  	'exam_subject_id':exam_subject_id,
-		  	'answer_id':answer_id,
-		  	'answer_setting_ids':answer_setting_ids,
-		  },
-		  success: function(data){
-		  	console.log(data);
-		  	show_select_info(data);
-		   },
-		   error: function(){
-		      // alert('请稍后从新尝试登录或者联系管理员');
-	      	// localStorage.clear();
-	      	// window.location.href = './login.html';
-		  }
-		});
+	  if(select_id){
+			update_select_info(select_id);
+	  }else{
+	  	$.ajax({
+			  type: "POST",
+			  url: ajaxIp+"/api/v2/section_crops",
+			  headers: {'Authorization': "Bearer " + isLogin},
+			  data:{
+			  	'w':w,
+			  	'h':h,
+			  	'width':width,
+			  	'height':height,
+			  	'x':x,
+			  	'y':y,
+			  	'index':num_index,
+			  	'exam_subject_batch_id':bath_id,
+			  	'crop_type':crop_type,
+			  	'current_page':current_page,
+			  	'scanner_image_id':scanner_image_id,
+			  	'exam_subject_id':exam_subject_id,
+			  	'answer_id':answer_id,
+			  	'answer_setting_ids':answer_setting_ids,
+			  },
+			  success: function(data){
+			  	console.log(data);
+			  	show_select_info(data);
+			   },
+			   error: function(){
+			      // alert('请稍后从新尝试登录或者联系管理员');
+		      	// localStorage.clear();
+		      	// window.location.href = './login.html';
+			  }
+			});
+	  }
 	});
 
 
@@ -559,13 +569,15 @@ $(function(){
 
 	// 画区域块
   function drow_rect(the_id){//theid表示用作画布的层
-    var num=1;
+    var num;
     var x_down=0,y_down=0;
     var new_width=0,new_height=0;
     var x_original=0,y_original=0;
     var original_flag=true,down_flag=false;
     var x_point=0,y_point=0;
     var append_string;
+    num=$(".bg-img .select-area").length+1;
+    console.log(num)
     var MouseDown=function(e){
         down_flag=true;
         x_down=e.pageX;
@@ -592,7 +604,8 @@ $(function(){
             new_height=-new_height;
             y_point=y_down-100;
         }
-        $("div[name='"+num+"']").remove();//把前面的层删除，并在后面的代码中生成新的层
+       	 $("div[name='"+num+"']").remove();//把前面的层删除，并在后面的代码中生成新的层
+
         append_string="<div class='select-area' style='position: absolute;left:"+x_point+"px;top:"+y_point+"px;"+"width:"+new_width+"px;height:"
             +new_height+"px' name='"+num+"'><a href='javascript:;' class='edit-item'>编辑</a><i class='iconfont close'>&#xe61b;</i><span class='title' " +
         " style='background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 2px;'>"+num+"</span>'</div>";
@@ -601,8 +614,7 @@ $(function(){
     }
     $(the_id).bind("mousedown",MouseDown);
     $(the_id).bind("mousemove",MouseMove);//事件绑定
-    console.log( $(".select-area").length);
-    num=$(".select-area").length+1;
+
     $(".select-area").mousedown(function(){
         $(the_id).unbind("mousemove",MouseMove);//取消事件绑定
     });
@@ -617,26 +629,31 @@ $(function(){
 
 
       $("div[name='"+num+"']").mousedown(function(){
+      	 	$(the_id).unbind("mousedown",MouseDown);
           $(the_id).unbind("mousemove",MouseMove);//取消事件绑定
+          console.log(11111)
       });
       $("div[name='"+num+"']").mouseup(function(){
-          $(the_id).bind("mousemove",MouseMove);//事件绑定
+      	 $(the_id).bind("mousedown",MouseDown);
+         $(the_id).bind("mousemove",MouseMove);//事件绑定
+         console.log(0000)
       });
+      // num++;
       //阻止区域块移动时，num也增加的情况（只有新建的时候才会增减num的值）;
       if($("div[name='"+num+"']").width()!=null){
       	console.log(999)
           num++;
-      }else{
-      	// 更新区域块信息
-      	var update_select_id = $("div[name='"+num+"']").attr('data-id');
-      	console.log(update_select_id);
-      	// update_select_info();
       }
     });
 	}
+	$('.bg-img').on('mouseup', '.select-area', function() {
+		// 更新区域块信息
+		var update_select_id = $("div[name='"+num+"']").attr('data-id');
+		console.log(update_select_id);
+		update_select_info();
+	});
 
-
-	function update_select_info(){
+	function update_select_info(select_id){
 		$.ajax({
 		  type: "PUT",
 		  url: ajaxIp+"/api/v2/section_crops/"+ select_id +"",
