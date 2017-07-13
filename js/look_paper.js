@@ -78,6 +78,7 @@ $(function(){
 				page_a='<a href="javascript:;" class="on">'+(i+1)+'</a>';
 			}
 			$('.page').append(page_a);
+
 		};
 		requst_ajax();
 	}
@@ -86,6 +87,7 @@ $(function(){
 		var page = $('.page a.on').text();
 		$.ajax({
 		  type: "GET",
+		  async:false,
 		  url: ajaxIp+"/api/v2/exam_subject_batches/"+bath_id+"/scanner_image",
 		  headers: {'Authorization': "Bearer " + isLogin},
 		  data:{'index':index,'page':page},
@@ -109,7 +111,6 @@ $(function(){
 		$('.img-box').append(img_html);
 
 		if($('.has_bg').hasClass('active')){
-			console.log(777);
 			$('.bg-img').show();
 			$(".bg-img").addClass('dd');
       get_select_info();
@@ -166,7 +167,7 @@ $(function(){
     });
     // 区域块放大
     var select_area = $('.bg-img .select-area');
-    for(var i=0;i<= select_area.length;i++){
+    for(var i=0;i<= select_area.length-1;i++){
       var width = $(select_area[i]).width();
       var height = $(select_area[i]).height();
       var left_value = $(select_area[i]).position().left;
@@ -201,7 +202,7 @@ $(function(){
     });
    //区域块缩小
     var select_area = $('.bg-img .select-area');
-    for(var i=0;i<= select_area.length;i++){
+    for(var i=0;i<= select_area.length-1;i++){
       var width = $(select_area[i]).width();
       var height = $(select_area[i]).height();
       var left_value = $(select_area[i]).position().left;
@@ -231,15 +232,15 @@ $(function(){
       $('.bg-img').hide();
     }else{
       $('.bg-img').show();
-        $(".bg-img").addClass('dd');
-        get_select_info();
-    }
+      $(".bg-img").addClass('dd');
+      get_select_info();
+    };
   });
 
  //添加区域块
   function append_select(eg,arr){
   	console.log(arr);
-    // $('.bg-img').html('');
+    $('.bg-img').html('');
     for(var i = 0;i < eg; i++){
     	var select_area_a='<div class="select-area" name="'+(i+1)+'" answer-id="'+arr[i].answer_id+'" data-id="'+arr[i].id+'"><a href="javascript:;" class="edit-item">编辑</a><i class="iconfont close">&#xe61b;</i></div>';
       $('.bg-img').append(select_area_a);
@@ -308,6 +309,7 @@ $(function(){
 	}
 	// 显示区域块信息
 	function show_select_info(select_info){
+		console.log(select_info,select_info.length);
 		// $('.bg-img').html('');
 		var select_info_length = select_info.length;
 		var select_arr =[];
@@ -380,7 +382,10 @@ $(function(){
 				};
 			}
 		};
-
+		if(!parent_id){
+			$('#item-list').html('');
+			get_item_info();
+		}
 	});
 
 
@@ -508,33 +513,35 @@ $(function(){
 		// 区域id
 		var select_id = $(this).parents('#change-modal').attr('data-id');
 		console.log(select_id);
+		var data_arr={
+			'w':w,
+	  	'h':h,
+	  	'width':width,
+	  	'height':height,
+	  	'x':x,
+	  	'y':y,
+	  	'index':num_index,
+	  	'exam_subject_batch_id':bath_id,
+	  	'crop_type':crop_type,
+	  	'current_page':current_page,
+	  	'scanner_image_id':scanner_image_id,
+	  	'exam_subject_id':exam_subject_id,
+	  	'answer_id':answer_id,
+	  	'answer_setting_ids':answer_setting_ids,
+		}
 	  // 新建区域
 	  if(select_id){
-			update_select_info(select_id);
+			// update_select_info(select_id,data_arr);
+			console.log(9090990)
 	  }else{
 	  	$.ajax({
 			  type: "POST",
 			  url: ajaxIp+"/api/v2/section_crops",
 			  headers: {'Authorization': "Bearer " + isLogin},
-			  data:{
-			  	'w':w,
-			  	'h':h,
-			  	'width':width,
-			  	'height':height,
-			  	'x':x,
-			  	'y':y,
-			  	'index':num_index,
-			  	'exam_subject_batch_id':bath_id,
-			  	'crop_type':crop_type,
-			  	'current_page':current_page,
-			  	'scanner_image_id':scanner_image_id,
-			  	'exam_subject_id':exam_subject_id,
-			  	'answer_id':answer_id,
-			  	'answer_setting_ids':answer_setting_ids,
-			  },
+			  data: data_arr,
 			  success: function(data){
 			  	console.log(data);
-			  	show_select_info(data);
+			  	show_select_info_one(data);
 			   },
 			   error: function(){
 			      // alert('请稍后从新尝试登录或者联系管理员');
@@ -544,6 +551,13 @@ $(function(){
 			});
 	  }
 	});
+	function show_select_info_one(one_info){
+
+		var num=one_info.index;
+		$("div[name='"+num+"']").attr('data-id',one_info.id);
+		$("div[name='"+num+"']").attr('answer-id',one_info.answer_id);
+		$("div[name='"+num+"']").attr('id','select-area'+num+'');
+	}
 
 
 
@@ -646,20 +660,60 @@ $(function(){
       }
     });
 	}
-	$('.bg-img').on('mouseup', '.select-area', function() {
-		// 更新区域块信息
-		var update_select_id = $("div[name='"+num+"']").attr('data-id');
-		console.log(update_select_id);
-		update_select_info();
-	});
+	// $(document).on('mouseup', '.select-area', function() {
+	// 	// 更新区域块信息
+	// 	var update_select_id = $(this).attr('data-id');
+	// 	var width = $(this).width();
+	// 	var height = $(this).height();
+	// 	var w = 1044;
+	// 	var h = 734;
+	// 	var x = $(this).position().left;
+	// 	var y = $(this).position().top;
+	// 	var num_index = parseInt($(this).children('.title').text());
+	// 	var current_page =parseInt($('.page .on').text());
+	// 	var answer_id = $(this).attr('answer-id');
+	// 	var scanner_image_id = $('.img-box img').attr('data-id');
+	//   var answer_setting_ids=[];
+	//   var items_all_num = $('#item-list').find("input[type='checkbox']:checked").length;
 
-	function update_select_info(select_id){
+	//   for (var i = 0; i < items_all_num; i++) {
+	// 		answer_setting_ids.push($($('#item-list').find("input[type='checkbox']:checked")[i]).data('id'));
+	// 	};
+	// 	// console.log(class_arr)
+	// 	if($('#item-list').find('#all-num').is(':checked')){
+	// 		answer_setting_ids.shift();
+	// 		answer_setting_ids;
+	// 	}
+	// 	console.log(answer_setting_ids);
+	// 	var data_arr={
+	// 		'w':w,
+	//   	'h':h,
+	//   	'width':width,
+	//   	'height':height,
+	//   	'x':x,
+	//   	'y':y,
+	//   	'index':num_index,
+	//   	'exam_subject_batch_id':bath_id,
+	//   	'crop_type':4,
+	//   	'current_page':current_page,
+	//   	'scanner_image_id':scanner_image_id,
+	//   	'exam_subject_id':exam_subject_id,
+	//   	'answer_id':answer_id,
+	//   	'answer_setting_ids':answer_setting_ids,
+	// 	}
+	// 	if(update_select_id){
+	// 		update_select_info(update_select_id,data_arr);
+	// 	}
+	// });
+
+	function update_select_info(select_id,data_arr){
 		$.ajax({
 		  type: "PUT",
 		  url: ajaxIp+"/api/v2/section_crops/"+ select_id +"",
 		  headers: {'Authorization': "Bearer " + isLogin},
+		  data:data_arr,
 		  success: function(data){
-		  	console.log(data);
+		  	console.log(data)
 		   },
 		   error: function(){
 		      // alert('请稍后从新尝试登录或者联系管理员');
