@@ -329,7 +329,7 @@ $(function(){
 		$('.modal-shadow').animate({'opacity': 0},500);
 		$('#change-modal').show();
 		var parent_id = $(this).parent().attr('data-id');
-		console.log(parent_id)
+		console.log(parent_id);
 		$('#change-modal').attr('data-id', parent_id);
 		var p_width = $(this).parent().width();
 		var p_height = $(this).parent().height();
@@ -345,11 +345,13 @@ $(function(){
 	// 显示所选择的信息
 		console.log(on_checked_info);
 		var answer_id = $(this).parent().attr('answer-id');
+		console.log(answer_id)
 		var li_op = $('#type-list option');
 		for (var m = 0; m < li_op.length; m++) {
 			var li_op_id = $(li_op[m]).attr('data-id');
 			// 显示已选的题型和小题号
 			if(answer_id==li_op_id){
+				console.log(8989)
 				$('#item-list').html('');
 
 				$(li_op[m]).attr('selected', true);
@@ -368,13 +370,11 @@ $(function(){
 					console.log(new_arr[z],typeof(new_arr[z]))
 					var ll_li = $('#item-list li.num_li');
 					var ll_li_length = ll_li.length;
-					console.log(ll_li_length)
 					for (var j = 0; j < ll_li_length; j++) {
 						var li_id = $(ll_li[j]).find('input').attr('data-id');
 						if(new_arr[z] == li_id){
 							$(ll_li[j]).find('input').attr('checked', true);
 						}
-						console.log(new_arr.length,ll_li_length)
 					};
 					if(new_arr.length==ll_li_length){
 							$('#item-list .all').find('input').attr('checked', true);
@@ -536,12 +536,13 @@ $(function(){
 	  }else{
 	  	$.ajax({
 			  type: "POST",
+			  async:false,
 			  url: ajaxIp+"/api/v2/section_crops",
 			  headers: {'Authorization': "Bearer " + isLogin},
 			  data: data_arr,
 			  success: function(data){
 			  	console.log(data);
-			  	show_select_info_one(data);
+			  	get_select_info()
 			   },
 			   error: function(){
 			      // alert('请稍后从新尝试登录或者联系管理员');
@@ -551,13 +552,6 @@ $(function(){
 			});
 	  }
 	});
-	function show_select_info_one(one_info){
-
-		var num=one_info.index;
-		$("div[name='"+num+"']").attr('data-id',one_info.id);
-		$("div[name='"+num+"']").attr('answer-id',one_info.answer_id);
-		$("div[name='"+num+"']").attr('id','select-area'+num+'');
-	}
 
 
 
@@ -565,20 +559,22 @@ $(function(){
 	// 删除区域块
 	$('body').on('click', '.close', function() {
 	 	var select_id = $(this).parent().attr('data-id');
-	 	console.log(select_id)
-	 	$.ajax({
-		  type: "DELETE",
-		  url: ajaxIp+"/api/v2/section_crops/"+ select_id +"",
-		  headers: {'Authorization': "Bearer " + isLogin},
-		  success: function(data){
-		  	console.log(data);
-		   },
-		   error: function(){
-		      // alert('请稍后从新尝试登录或者联系管理员');
-	      	// localStorage.clear();
-	      	// window.location.href = './login.html';
-		  }
-		});
+	 	console.log(select_id);
+	 	if(select_id){
+		 	$.ajax({
+			  type: "DELETE",
+			  url: ajaxIp+"/api/v2/section_crops/"+ select_id +"",
+			  headers: {'Authorization': "Bearer " +  isLogin},
+			  success: function(data){
+			  	console.log(data);
+			   },
+			   error: function(){
+			      // alert('请稍后从新尝试登录或者联系管理员');
+		      	// localStorage.clear();
+		      	// window.location.href = './login.html';
+			  }
+			});
+		}
 	 });
 
 	// 画区域块
@@ -713,7 +709,8 @@ $(function(){
 		  headers: {'Authorization': "Bearer " + isLogin},
 		  data:data_arr,
 		  success: function(data){
-		  	console.log(data)
+		  	console.log(data);
+		  	update_show_info(data);
 		   },
 		   error: function(){
 		      // alert('请稍后从新尝试登录或者联系管理员');
@@ -721,6 +718,10 @@ $(function(){
 	      	// window.location.href = './login.html';
 		  }
 		});
+	}
+
+	function update_show_info(update_info){
+
 	}
 
 })
