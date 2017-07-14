@@ -177,6 +177,24 @@ html{
   background: rgb(0,0,0);
   opacity: .4;
 }
+.crop{
+	background: red;
+	color: #fff;
+	width: 80px;
+	height: 30px;
+	font-size: 14px;
+	line-height: 30px;
+	text-align: center;
+	cursor: pointer;
+	position: absolute;
+	right: 75px;
+	top: 30px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-ms-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+}
 .select-area{
   cursor: move;
   position: absolute;
@@ -190,7 +208,7 @@ html{
 .select-area .edit-item{
 	display: none;
   position: absolute;
-  z-index: 8;
+  z-index: 999;
   right: 30px;
   top: -28px;
   cursor: pointer;
@@ -203,7 +221,7 @@ html{
 .select-area .close{
   display: none;
   position: absolute;
-  z-index: 8;
+  z-index: 999;
   right: -3px;
   top: -28px;
   color: #fff;
