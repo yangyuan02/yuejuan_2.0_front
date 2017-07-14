@@ -107,7 +107,7 @@ $(function(){
 		$('.img-box').html('');
 		var img_url = img_info.image_uri;
 		var img_id = img_info.id;
-		var img_html = '<img data-id="'+img_id+'" id="img-'+img_id+'" src="'+ ajaxIp +''+img_url+'"><div class="bg-img"></div>';
+		var img_html = '<img data-id="'+img_id+'" id="img-'+img_id+'" src="'+ ajaxIp +''+img_url+'"><div class="bg-img"><div class="crop">剪裁试卷</div></div>';
 		$('.img-box').append(img_html);
 
 		if($('.has_bg').hasClass('active')){
@@ -241,8 +241,9 @@ $(function(){
   function append_select(eg,arr){
   	console.log(arr);
     $('.bg-img').html('');
+    $('.bg-img').append('<div class="crop">剪裁试卷</div>');
     for(var i = 0;i < eg; i++){
-    	var select_area_a='<div class="select-area" name="'+(i+1)+'" answer-id="'+arr[i].answer_id+'" data-id="'+arr[i].id+'"><a href="javascript:;" class="edit-item">编辑</a><i class="iconfont close">&#xe61b;</i></div>';
+    	var select_area_a='<div class="select-area" name="'+arr[i].index+'" answer-id="'+arr[i].answer_id+'" data-id="'+arr[i].id+'"><a href="javascript:;" class="edit-item">编辑</a><i class="iconfont close">&#xe61b;</i></div>';
       $('.bg-img').append(select_area_a);
       //$('.bg-img div').eq(i).addClass('select-area');
       var select_area = $('.select-area');
@@ -273,7 +274,7 @@ $(function(){
     }
     //如果区域块的数量大于2，显示区域块的个数，添加span_title
       for(i = 0;i < eg;i++){
-      var span_title="<span class='title' " + " style='background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 20px; top: 0px;'>"+(i+1)+"</span>";
+      var span_title="<span class='title' " + " style='background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 0px;'>"+(i+1)+"</span>";
       $('.select-area').eq(i).append(span_title);
     }
   }
@@ -317,6 +318,8 @@ $(function(){
 			select_arr.push(select_info[i].position);
 			select_arr[i].id=select_info[i].id;
 			select_arr[i].answer_id=select_info[i].answer_id;
+			select_arr[i].answer_setting_ids=select_info[i].answer_setting_ids;
+			select_arr[i].index=select_info[i].index;
 		};
 		console.log(select_arr)
 		append_select(select_info_length,select_arr);
@@ -656,53 +659,60 @@ $(function(){
       }
     });
 	}
-	// $(document).on('mouseup', '.select-area', function() {
-	// 	// 更新区域块信息
-	// 	var update_select_id = $(this).attr('data-id');
-	// 	var width = $(this).width();
-	// 	var height = $(this).height();
-	// 	var w = 1044;
-	// 	var h = 734;
-	// 	var x = $(this).position().left;
-	// 	var y = $(this).position().top;
-	// 	var num_index = parseInt($(this).children('.title').text());
-	// 	var current_page =parseInt($('.page .on').text());
-	// 	var answer_id = $(this).attr('answer-id');
-	// 	var scanner_image_id = $('.img-box img').attr('data-id');
-	//   var answer_setting_ids=[];
-	//   var items_all_num = $('#item-list').find("input[type='checkbox']:checked").length;
+	$(document).on('mouseup', '.select-area', function() {
+		// 更新区域块信息
+		var update_select_id = $(this).attr('data-id');
+				console.log(update_select_id)
 
-	//   for (var i = 0; i < items_all_num; i++) {
-	// 		answer_setting_ids.push($($('#item-list').find("input[type='checkbox']:checked")[i]).data('id'));
-	// 	};
-	// 	// console.log(class_arr)
-	// 	if($('#item-list').find('#all-num').is(':checked')){
-	// 		answer_setting_ids.shift();
-	// 		answer_setting_ids;
-	// 	}
-	// 	console.log(answer_setting_ids);
-	// 	var data_arr={
-	// 		'w':w,
-	//   	'h':h,
-	//   	'width':width,
-	//   	'height':height,
-	//   	'x':x,
-	//   	'y':y,
-	//   	'index':num_index,
-	//   	'exam_subject_batch_id':bath_id,
-	//   	'crop_type':4,
-	//   	'current_page':current_page,
-	//   	'scanner_image_id':scanner_image_id,
-	//   	'exam_subject_id':exam_subject_id,
-	//   	'answer_id':answer_id,
-	//   	'answer_setting_ids':answer_setting_ids,
-	// 	}
-	// 	if(update_select_id){
-	// 		update_select_info(update_select_id,data_arr);
-	// 	}
-	// });
+		var width = $(this).width();
+		var height = $(this).height();
+		var w = 1044;
+		var h = 734;
+		var x = $(this).position().left;
+		var y = $(this).position().top;
+		var num_index = parseInt($(this).children('.title').text());
+		var current_page =parseInt($('.page .on').text());
+		var answer_id = $(this).attr('answer-id');
+		var scanner_image_id = $('.img-box img').attr('data-id');
+	  var answer_setting_ids=[];
+	  var items_all_num = $('#item-list').find("input[type='checkbox']:checked").length;
+		console.log(items_all_num)
+	  for (var i = 0; i < items_all_num; i++) {
+			answer_setting_ids.push($($('#item-list').find("input[type='checkbox']:checked")[i]).data('id'));
+		};
+		// console.log(class_arr)
+		if($('#item-list').find('#all-num').is(':checked')){
+			answer_setting_ids.shift();
+			answer_setting_ids;
+		}
+		console.log(answer_setting_ids);
+		var data_arr={
+			'w':w,
+	  	'h':h,
+	  	'width':width,
+	  	'height':height,
+	  	'x':x,
+	  	'y':y,
+	  	'index':num_index,
+	  	'exam_subject_batch_id':bath_id,
+	  	'crop_type':4,
+	  	'current_page':current_page,
+	  	'scanner_image_id':scanner_image_id,
+	  	'exam_subject_id':exam_subject_id,
+	  	'answer_id':answer_id,
+	  	'answer_setting_ids':answer_setting_ids,
+		}
+				console.log(update_select_id)
+
+		if(update_select_id){
+			console.log(data_arr);
+			update_select_info(update_select_id,data_arr);
+		}
+	});
 
 	function update_select_info(select_id,data_arr){
+		console.log(data_arr)
+		data_arrs=data_arr;
 		$.ajax({
 		  type: "PUT",
 		  url: ajaxIp+"/api/v2/section_crops/"+ select_id +"",
@@ -710,7 +720,7 @@ $(function(){
 		  data:data_arr,
 		  success: function(data){
 		  	console.log(data);
-		  	update_show_info(data);
+		  	update_show_info(data,select_id);
 		   },
 		   error: function(){
 		      // alert('请稍后从新尝试登录或者联系管理员');
@@ -719,9 +729,39 @@ $(function(){
 		  }
 		});
 	}
-
-	function update_show_info(update_info){
-
+	var data_arrs;
+	function update_show_info(update_info,select_id,data_arrs){
+		console.log(data_arrs)
+		$.ajax({
+		  type: "GET",
+		  url: ajaxIp+"/api/v2/section_crops/"+ select_id +"",
+		  headers: {'Authorization': "Bearer " + isLogin},
+		  data:data_arrs,
+		  success: function(data){
+		  	console.log(data);
+		   },
+		   error: function(){
+		      // alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html';
+		  }
+		});
 	}
+	$('body').on('click', '.crop', function() {
+		$.ajax({
+		  type: "PUT",
+		  url: ajaxIp+"/api/v2/section_crops/cut_images",
+		  headers: {'Authorization': "Bearer " + isLogin},
+		  data:{'exam_subject_id':exam_subject_id},
+		  success: function(data){
+		  	console.log(data);
+		   },
+		   error: function(){
+		      // alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html';
+		  }
+		});
+	});
 
 })
