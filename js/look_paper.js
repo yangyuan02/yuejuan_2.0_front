@@ -243,7 +243,7 @@ $(function(){
     $('.bg-img').html('');
     $('.bg-img').append('<div class="crop">剪裁试卷</div>');
     for(var i = 0;i < eg; i++){
-    	var select_area_a='<div class="select-area" name="'+arr[i].index+'" answer-id="'+arr[i].answer_id+'" data-id="'+arr[i].id+'"><a href="javascript:;" class="edit-item">编辑</a><i class="iconfont close">&#xe61b;</i></div>';
+    	var select_area_a='<div class="select-area" name="'+(i+1)+'" answer-id="'+arr[i].answer_id+'" data-id="'+arr[i].id+'"><a href="javascript:;" class="edit-item">编辑</a><i class="iconfont close">&#xe61b;</i></div>';
       $('.bg-img').append(select_area_a);
       //$('.bg-img div').eq(i).addClass('select-area');
       var select_area = $('.select-area');
