@@ -292,6 +292,51 @@ html{
 #item-list li.on{
 	background: #31bc91;
 }
+
+#num-list{
+	width: 700px;
+  float: left;
+  text-align: left;
+  vertical-align: middle;
+}
+#num-list > li{
+	overflow: hidden;
+	margin-bottom: 25px;
+}
+#num-list > li .current-left{
+	float: left;
+	width: 120px;
+}
+#num-list > li .on-page{
+	display: inline-block;
+	text-align: center;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  margin: 0 10px;
+  margin-bottom: 10px;
+  color: #fff;
+  background: #31bc91;
+  cursor: pointer;
+}
+.section-list{
+	width: 580px;
+  display: inline-block;
+  text-align: left;
+  vertical-align: top;
+}
+.section-list > li{
+	float: left;
+  text-align: center;
+  width: 64px;
+  height: 26px;
+  line-height: 26px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  color: #fff;
+  background: #dcdcdc;
+  cursor: pointer;
+}
 /* 复选框 */
 .check-box{
   display: inline-block;
