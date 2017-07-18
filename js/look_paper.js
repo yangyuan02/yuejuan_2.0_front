@@ -230,6 +230,7 @@ $(function(){
     if(opp_index==0){
     	$(".bg-img").removeClass('dd');
     	$('.bg-img').hide();
+    	requst_ajax();
     }else{
       $('.bg-img').show();
       $(".bg-img").addClass('dd');
@@ -898,7 +899,7 @@ $(function(){
 		  type: "POST",
 		  url: ajaxIp+"/api/v2/section_crops/cut_images",
 		  headers: {'Authorization': "Bearer " + isLogin},
-		  data:{'exam_subject_id':bath_id,'sections':sections},
+		  data:{'exam_subject_batch_id':bath_id,'sections':sections},
 		  success: function(data){
 		  	console.log(data);
 		   },
