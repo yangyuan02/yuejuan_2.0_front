@@ -219,10 +219,9 @@ $(function(){
       });
     }
   });
-  // 删除区域块
-  $('body').on('click','.close',function(){
-     $(this).parent().remove();
-  })
+
+
+
   // 左侧区域切换
   $('.left-op ul li.opp').on('click', function() {
   	$(this).addClass('active').siblings().removeClass('active');
@@ -595,6 +594,8 @@ $(function(){
 
 	// 删除区域块
 	$('body').on('click', '.close', function() {
+		$(this).parent().remove();
+		num--;
 	 	var select_id = $(this).parent().attr('data-id');
 	 	console.log(select_id);
 	 	if(select_id){
@@ -615,9 +616,10 @@ $(function(){
 		return false;
 	 });
 
+
+  var num;
 	// 画区域块
   function drow_rect(the_id){//theid表示用作画布的层
-    var num;
     var x_down=0,y_down=0;
     var new_width=0,new_height=0;
     var x_original=0,y_original=0;
@@ -625,7 +627,6 @@ $(function(){
     var x_point=0,y_point=0;
     var append_string;
     num=$(".bg-img .select-area").length+1;
-    console.log(num)
     var MouseDown=function(e){
         down_flag=true;
         x_down=e.pageX;
@@ -660,6 +661,8 @@ $(function(){
         $(the_id).append(append_string);
       }
     }
+        console.log(num)
+
     $(the_id).bind("mousedown",MouseDown);
     $(the_id).bind("mousemove",MouseMove);//事件绑定
 
@@ -691,6 +694,7 @@ $(function(){
       if($("div[name='"+num+"']").width()!=null){
       	console.log(999)
           num++;
+          console.log(num)
       }
     });
 	}
@@ -764,15 +768,41 @@ $(function(){
 		});
 	}
 	function get_update_show_info(select_id){
+		if(select_id){
+			$.ajax({
+			  type: "GET",
+			  async:false,
+			  url: ajaxIp+"/api/v2/section_crops/"+ select_id +"",
+			  headers: {'Authorization': "Bearer " + isLogin},
+			  success: function(data){
+			  	console.log(data);
+			  	items_all_info = data.answer_setting_ids;
+			  	console.log(items_all_info)
+			   },
+			   error: function(){
+			      // alert('请稍后从新尝试登录或者联系管理员');
+		      	// localStorage.clear();
+		      	// window.location.href = './login.html';
+			  }
+			});
+		}
+	}
+
+	// 点击剪裁试卷
+	$('body').on('click', '.crop', function() {
+		$('.modal-main').animate({'top': '50%','opacity': 1},500);
+		$('.modal-shadow').animate({'opacity': 0},500);
+		$('#section-modal').show();
+		// var sections = $
 		$.ajax({
 		  type: "GET",
 		  async:false,
-		  url: ajaxIp+"/api/v2/section_crops/"+ select_id +"",
+		  url: ajaxIp+"/api/v2/section_crops/page_and_section",
 		  headers: {'Authorization': "Bearer " + isLogin},
+		  data:{'exam_subject_batch_id':bath_id},
 		  success: function(data){
 		  	console.log(data);
-		  	items_all_info = data.answer_setting_ids;
-		  	console.log(items_all_info)
+		  	show_section_list(data);
 		   },
 		   error: function(){
 		      // alert('请稍后从新尝试登录或者联系管理员');
@@ -780,22 +810,95 @@ $(function(){
 	      	// window.location.href = './login.html';
 		  }
 		});
+	});
+
+	function show_section_list(section_info){
+		$('#num-list').html('');
+		var section_info_length = section_info.length;
+		for (var i = 0; i < section_info_length; i++) {
+			var page_num = '<li ><span class="current-left">当前第<a class="on-page">'+section_info[i].current_page+'</a>页：</span><ul class="section-list"></ul></li>'
+			$('#num-list').append(page_num);
+			$('.section-list').eq(i).html('');
+			var num_all = '<li class="all-section"><div class="check-box"><input type="checkbox" id="all-section'+i+'" class="checkall" name="checkall"><label for="all-section'+i+'">全部</label></div></li>';
+			$('.section-list').eq(i).append(num_all);
+			var section_num = section_info[i].index;
+			for (var j = 0; j < section_num.length; j++) {
+				var section_page = '<li class="section-li"><div class="check-box"><input type="checkbox" value="'+section_num[j]+'" id="section-check'+ (i*10+j) +'" class="check" name="section-check"><label for="section-check'+ (i*10+j) +'">'+section_num[j]+'</label></div></li>';
+				$('.section-list').eq(i).append(section_page);
+			};
+		};
+		// 区域块全选
+		$('.section-list li .checkall').click(function() {
+			$(this).parents('.all-section').siblings().find("input[name='section-check']").prop('checked', this.checked);
+		});
+
+		$('.section-list li.section-li input[name="section-check"]').click(function() {
+			var $graBox = $(this).parents('.section-list').find('input[name="section-check"]');
+
+			var checked_length = $(this).parents('.section-list').find("input[name='section-check']:checked").length;
+
+			$(this).parents('.section-li').siblings('.all-section').find('.checkall').prop("checked",$graBox.length == checked_length ? true : false);
+
+
+			if(checked_length){
+				var on_page = $(this).parents('.section-list').parent().find('.on-page').text();
+				console.log(on_page)
+			}
+
+			if($(this).prop('checked')){
+				var label_value = $(this).next().text();
+				console.log(label_value)
+			}
+		
+		});
 	}
-	if($('.select_area').length){
-		$('.crop').show();
-	}
-	$('body').on('click', '.crop', function() {
-		$('.modal-main').animate({'top': '50%','opacity': 1},500);
-		$('.modal-shadow').animate({'opacity': 0},500);
-		$('#section-modal').show();
+
+
+ $("button").click(function(){
+		var name;
+    $("li").each(function(){
+      if($(this).html()){
+        alert($(this).text())
+        name=$(this).text();
+      }
+    });
+    console.log(name,name.length)
+  });
 
 
 
+
+	// 确认剪裁试卷
+	$('body').on('click', '#confirm-section', function() {
+		var on_page;
+		var label_value;
+		var tests = [];
+		var all_test = [];
+		$('.section-list').each(function(i){
+			var obj = new Object();
+			var label_values=[];
+			if($(this).children('li.section-li').find('input[name="section-check"]:checked')){
+				 label_value = $(this).children('li.section-li').find('input[name="section-check"]:checked').next().text();
+				 on_page = parseInt($(this).parent().find('.on-page').text());
+			}
+			label_values=label_value.split("");
+			label_values;
+			console.log(label_values,on_page)
+			obj['current_page']=on_page;
+			obj['index']=label_values;
+			console.log(obj);
+			// tests=obj;
+			// console.log(i)
+			all_test[i]=obj;
+			console.log(all_test)
+		})
+		var sections = all_test;
+		console.log(sections)
 		$.ajax({
-		  type: "PUT",
+		  type: "POST",
 		  url: ajaxIp+"/api/v2/section_crops/cut_images",
 		  headers: {'Authorization': "Bearer " + isLogin},
-		  data:{'exam_subject_id':exam_subject_id},
+		  data:{'exam_subject_id':bath_id,'sections':sections},
 		  success: function(data){
 		  	console.log(data);
 		   },
