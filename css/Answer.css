@@ -1,0 +1,61 @@
+body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inline-block;} select{border: 0;background: #f1f1f1;} .Red{color: red;}
+.fl{float: left;} .fr{float: right;} .cous{cursor: pointer;}
+@font-face {font-family: 'iconfont';
+    src: url('../icon/iconfont.eot');
+    src: url('../icon/iconfont.eot?#iefix') format('embedded-opentype'),
+    url('../icon/iconfont.woff') format('woff'),
+    url('../icon/iconfont.ttf') format('truetype'),
+    url('../icon/iconfont.svg#iconfont') format('svg');
+}
+
+.iconfont{
+    font-family:"iconfont" !important;
+    font-size:16px;font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;}
+
+/*Answer主页面*/
+.Answer{width: 100%;height: 100%;background: #fff;}
+
+/*头部导航*/
+.Answer .A_Nav{max-width:100%;height: 58px;background: #f1f1f1;line-height: 58px;padding-left: 118px;border-bottom: 2px solid #dedede;}
+.Answer .A_Nav .bord{border-right: 1px solid #ccc;}
+.Answer .A_Nav .mL{margin-left: 108px;}
+.Answer .A_Nav .mR{float: right;margin-right: 20px;}
+.Answer .A_Nav span{padding: 0 10px;}
+
+/*主内容区*/
+.Answer .A_B{width: 1512px;margin: 52px auto;}
+
+/*左侧*/
+.Answer .A_L{width: 152px;height: 520px;background: #fff;float: left;}
+.Answer .L_ul{text-align: center;border: 1px solid #ccc;position: relative;}
+.Answer .L_ul h3{border-bottom: 1px solid #ccc;padding: 16px;}
+.Answer .L_ul li a{width: 100%; display: inline-block; padding: 10px 0 ;color: #999;font-size: 16px}
+.Answer .L_ul li a:hover{color: #31bc91;background: #ccc;}
+
+/*添加题组*/
+.Answer .L_ul li .addQ{display:none;position: absolute;left: 100%;top:0;width: 434px;height: 468px;border: 1px solid #31bc91;text-align: center;background: #fff;}
+.Answer .L_ul li .addQ h3{background: #31bc91;color: #fff;font-weight: 300;}
+.Answer .L_ul li .addQ .pd{width:100%;height:100%;margin-top:7px;}
+.Answer .L_ul li .addQ .pd p{margin: 15px 40px;height: 30px;line-height: 30px;}
+.Answer .L_ul li .addQ .pd span{float:left;margin-right: 10px;font-size: 16px;color:#666;}
+.Answer .L_ul li .addQ .pd input{width: 260px;height: 30px;margin-right: -20px;}
+.Answer .L_ul li .addQ .pd .mF{margin-left: -18px;}
+.Answer .L_ul li .addQ .pd .hr{width: 352px;margin:30px auto 10px;padding-right: 10px;}
+.Answer .L_ul li .addQ .pd button{width: 135px;height: 32px;background: #41d576;font-size: 16px;font-weight: 100;}
+
+/*右侧*/
+.Answer .A_R{width:1262px;height:843px ;padding: 60px 45px;border: 4px solid #ededed;float: left;}
+.addQ{display:none;position: absolute;left: 100%;top:0;width: 434px;height: 468px;border: 1px solid #31bc91;text-align: center;background: #fff;}
+.Answer .A_R .addQ h3{background: #31bc91;color: #fff;font-weight: 300;}
+.Answer .A_R .addQ .pd{width:100%;height:100%;margin-top:7px;}
+.Answer .A_R .addQ .pd p{margin: 15px 40px;height: 30px;line-height: 30px;}
+.Answer .A_R .addQ .pd span{float:left;margin-right: 10px;font-size: 16px;color:#666;}
+.Answer .A_R .addQ .pd input{width: 260px;height: 30px;margin-right: -20px;}
+.Answer .A_R .addQ .pd .mF{margin-left: -18px;}
+.Answer .A_R .addQ .pd .hr{width: 352px;margin:30px auto 10px;padding-right: 10px;}
+.Answer .A_R .addQ .pd button{width: 135px;height: 32px;background: #41d576;font-size: 16px;font-weight: 100;}
+
+
