@@ -1,0 +1,23 @@
+/* 阅卷页面 */
+body{
+	background: #f5f5f5;
+}
+/* 当前定位部分 首页－阅卷 */
+.title-box{
+	width: 100%;
+	border-bottom: 1px solid #e6e6e6;
+	background: #fff;
+}
+.title-box .title{
+	height: 39px;
+	line-height: 39px;
+	font-size: 14px;
+	color: #999;
+}
+.title-box .title a{
+	font-size: 14px;
+	color: #999;
+}
+.title-box .title span{
+	color: #31bc91;
+}

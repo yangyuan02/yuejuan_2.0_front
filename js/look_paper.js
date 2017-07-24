@@ -110,7 +110,7 @@ $(function(){
 		var img_html = '<img data-id="'+img_id+'" id="img-'+img_id+'" src="'+ ajaxIp +''+img_url+'"><div class="bg-img"><div class="crop">剪裁试卷</div></div>';
 		$('.img-box').append(img_html);
 
-		if($('.has_bg').hasClass('active')){
+		if($('.has-bg').hasClass('active')){
 			$('.bg-img').show();
 			$(".bg-img").addClass('dd');
       get_select_info();
@@ -328,6 +328,7 @@ $(function(){
 	
 	var on_checked_info;
 	// 选择题型
+
 	$('body').on('click','.edit-item',function() {
 		$('.modal-main').animate({'top': '50%','opacity': 1},500);
 		$('.modal-shadow').animate({'opacity': 0},500);
