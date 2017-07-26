@@ -87,7 +87,31 @@
 						</div>
 						<!--右侧区域-->
 						<div ng-class="{A_R:true}" id="AR" >
-							
+							<div class="A_Rone">
+								<div class="A_Rone_child" id="A_Rone_child">
+									<table ng-repeat="a in listObj" >
+										<thead>
+											<tr>
+												<th>
+													<span >{{a.title}}、</span>
+													{{a.name}}(共{{a.one}}分，每题{{a.two}}分)
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td >
+													<div ng-repeat="item in a.no"><span>{{item}}</span><span ng-repeat="items in a.thr"> <b>{{items}}</b></span></div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						    <div class=" A_Rtwo">
+									
+						    </div>
+					
 						</div>
 				    </div>
 					
