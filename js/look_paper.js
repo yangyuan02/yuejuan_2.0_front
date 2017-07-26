@@ -107,7 +107,7 @@ $(function(){
 		$('.img-box').html('');
 		var img_url = img_info.image_uri;
 		var img_id = img_info.id;
-		var img_html = '<img data-id="'+img_id+'" id="img-'+img_id+'" src="'+ ajaxIp +''+img_url+'"><div class="bg-img"><div class="crop">剪裁试卷</div></div>';
+		var img_html = '<img data-id="'+img_id+'" id="img-'+img_id+'" src="'+ ajaxIp +''+img_url+'"><div class="bg-img"><div class="crop">题组切割</div></div>';
 		$('.img-box').append(img_html);
 
 		if($('.has-bg').hasClass('active')){
@@ -251,7 +251,7 @@ $(function(){
     $('.bg-img').html('');
     if(arr.length && arr[eg-1].crop_type==4){
     	console.log('yes');
-    	// $('.bg-img').append('<div class="crop">剪裁试卷</div>');
+    	// $('.bg-img').append('<div class="crop">题组切割</div>');
     }
     for(var i = 0;i < eg; i++){
     	if(arr[eg-1].crop_type==4){
@@ -333,7 +333,7 @@ $(function(){
 		  		// $('.bg-img').hide();
 		  		// $('.bg-img').show();
 		    	$('.bg-img').addClass('bg-type-sec').removeClass('bg-type-hide');
-					$('.bg-img').append('<div class="crop">剪裁试卷</div>');
+					$('.bg-img').append('<div class="crop">题组切割</div>');
 					// drow_rect(".bg-type-sec");
 
 		  	}
@@ -889,7 +889,7 @@ $(function(){
 		}
 	}
 
-	// 点击剪裁试卷
+	// 点击题组切割
 	$('body').on('click', '.crop', function() {
 		$('.modal-main').animate({'top': '50%','opacity': 1},500);
 		$('.modal-shadow').animate({'opacity': 0},500);
@@ -969,7 +969,7 @@ $(function(){
 
 
 
-	// 确认剪裁试卷
+	// 确认题组切割
 	$('body').on('click', '#confirm-section', function() {
 		var on_page;
 		var label_value;
