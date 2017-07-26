@@ -5,6 +5,7 @@
 	<projects>
 	</projects>
 	<buildSpec>
+<<<<<<< HEAD
 		<buildCommand>
 			<name>com.aptana.ide.core.unifiedBuilder</name>
 			<arguments>
@@ -25,4 +26,9 @@
 			</matcher>
 		</filter>
 	</filteredResources>
+=======
+	</buildSpec>
+	<natures>
+	</natures>
+>>>>>>> upstream/master
 </projectDescription>

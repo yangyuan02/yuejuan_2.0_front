@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>答题卡</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="css/Answer.css"/>
+		<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+	</head>
+	<body ng-app="pro" ng-controller="demo">
+			<div ng-class="{Answer:true}" id="Answer">
+				    <!--头部导航-->
+				    <div ng-class="{A_Nav:true}">
+						<span>总分:<span ng-class="{Red:true}">100</span>分</span>
+						<span ng-class="{bord:true , mL:true}" >
+							<span ng-class="{iconfont:true, cous:true}" ng-click="dayin()">&#xe7d0;</span>
+							<span ng-class="{iconfont:true, cous:true}" ng-click="backs()">&#xe66f;</span>
+							<span ng-class="{iconfont:true, cous:true}" ng-click="backt()">&#xe670;</span>
+						</span>
+						<span ng-class="{bord:true}">
+							<span ng-class="{iconfont:true, cous:true}" ng-click="strons()">&#xe76a;</span>
+							<span ng-class="{iconfont:true, cous:true}" ng-click="slope()">&#xe609;</span>
+							<span ng-class="{iconfont:true, cous:true}" ng-click="unline()">&#xe63f;</span>
+						</span>
+						<span ng-click="fonts()" ng-class="{bord:true, cous:true}">14 <span ng-class="{iconfont:true}">&#xe610;</span></span>
+						<span ng-class="{iconfont:true, cous:true, bord:true}"  ng-click="lineH()">&#xe65b;</span>
+						<span ng-class="{bord:true, cous:true}">
+							<select name="">
+								<option>边框</option>
+								<option>有边框</option>
+								<option>无边框</option>
+							</select>
+						</span>
+						<span ng-class="{bord:true}">
+							<select name="">
+								<option>小 </option>
+								<option>中 </option>
+								<option>大 </option>
+							</select>
+						</span>
+					<span ng-class="{mR:true , clear:true}">
+						<span ng-class="{cous:true}">导入试卷</span>
+						<span ng-class="{cous:true}">导入模版</span>
+						<span ng-class="{cous:true}">存为模版</span>
+						<span ng-class="{Red:true, cous:true}">X</span>
+					</span>		
+				    </div>
+				    <!--主要内容-->
+				    <div ng-class="{A_B:true}" class="clear">
+				    		<!--左侧区域-->
+						<div ng-class="{A_L:true}">
+							<ul ng-class="{L_ul:true}">
+								<h3>添加题组</h3>
+								<li><a ng-click="add1()">选择题</a>
+									<!--添加题组-->
+									<div ng-class="{addQ:true}" id="addQ1"></div>
+								</li>
+								
+								
+								<li><a ng-click="add2()">判断题</a>
+									<!--添加题组-->
+									<div ng-class="{addQ:true}" id="addQ2"></div>
+								</li>
+								
+								
+								<li><a ng-click="add3()">填空题</a>
+									<!--添加题组-->
+									<div ng-class="{addQ:true}" id="addQ3"></div>
+								</li>
+								
+								
+								<li><a ng-click="add4()">作文题</a>
+									<!--添加题组-->
+									<div ng-class="{addQ:true}" id="addQ4">
+										
+									</div>
+								</li>
+								
+								
+								<li><a ng-click="add5()">其他题</a>
+									<!--添加题组-->
+									<div ng-class="{addQ:true}" id="addQ5">
+										
+									</div>
+								</li>
+							</ul>
+						</div>
+						<!--右侧区域-->
+						<div ng-class="{A_R:true}" id="AR" >
+							<div class="A_Rone">
+								<div class="A_Rone_child" id="A_Rone_child">
+									<table ng-repeat="a in listObj" >
+										<thead>
+											<tr>
+												<th>
+													<span >{{a.title}}、</span>
+													{{a.name}}(共{{a.one}}分，每题{{a.two}}分)
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td >
+													<div ng-repeat="item in a.no"><span>{{item}}</span><span ng-repeat="items in a.thr"> <b>{{items}}</b></span></div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						    <div class=" A_Rtwo">
+									
+						    </div>
+					
+						</div>
+				    </div>
+					
+			</div>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>	
+		<script src="js/Answer.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>
