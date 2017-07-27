@@ -47,18 +47,57 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
+							<tr class="parent-tr">
 								<td class="test-name" width="320">2017年第四次测试</td>
 								<td class="test-grade">一年级</td>
 								<td class="test-subject">数学</td>
-								<td class="test-on">数学</td>
+								<td class="test-on">
+								 <p class="num">50%</p>
+									<div class="bar">
+									    <div style="width: 50%;">
+									       
+									    </div>
+									</div>
+								</td>
 								<td class="test-num">165</td>
 								<td class="test-operation">
 									<a href="javascript:;">显示题组<i class="iconfont">&#xe622;</i></a>
 								</td>
 							</tr>
+							<tr class="child-tr none">
+								<td colspan="6">
+									<div class="child-box">
+										<ul class="child-title">
+											<li>题组</li>
+											<li>阅卷进度</li>
+											<li>多评异常</li>
+											<li>问题试卷</li>
+											<li>生成日期</li>
+											<li></li>
+										</ul>
+										<ul class="child-cont">
+											<li>
+												<div class="item-name">一、填空题-1题</div>
+												<div class="item-on">10/10</div>
+												<div class="more-num">2</div>
+												<div class="bug-num">2</div>
+												<div class="item-time">2017-05-23</div>
+												<div class="item-op">
+													<a href="#" class="mark-btn determine">阅卷</a>
+													<a href="#" class="check-btn">审核</a>
+												</div>
+											</li>
+											
+										</ul>
+									</div>
+								</td>
+							</tr>
+
 						</tbody>
 					</table>
+					<div class="pagination-wrap">
+					<ul class="pagination" id="pagination"></ul>
+				</div>
 				</div>
 			</div>
 		</div>

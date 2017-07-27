@@ -900,7 +900,7 @@ $(function(){
 		  async:false,
 		  url: ajaxIp+"/api/v2/section_crops/page_and_section",
 		  headers: {'Authorization': "Bearer " + isLogin},
-		  data:{'exam_subject_batch_id':bath_id},
+		  data:{'exam_subject_batch_id':bath_id,'crop_type':4},
 		  success: function(data){
 		  	console.log(data);
 		  	show_section_list(data);
