@@ -120,3 +120,235 @@ td.test-operation a{
 td.test-operation i{
 	padding-left: 6px;
 }
+td.test-on .num{
+	line-height: 12px;
+}
+td.test-on .bar{
+  position: relative;
+  width: 80px;
+  background: #dcdcdc;
+  margin-top: 6px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+td.test-on .bar > div{
+  position: relative;
+  background: #31bc91;
+  color: #333333;
+  height: 8px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+tr.child-tr{
+	width: 100%;
+	background: #f0fafa;
+}
+.child-title{
+	overflow: hidden;
+}
+.none{
+	display: none;
+	-webkit-transition: all .3s;
+	-o-transition: all .3s;
+	transition: all .3s;
+}
+.block{
+	display: block;
+	-webkit-transition: all .3s;
+	-o-transition: all .3s;
+	transition: all .3s;
+}
+.child-title>li{
+	float: left;
+	width: 16.66%;
+}
+.child-cont{
+	
+}
+.child-cont > li{
+	width: 100%;
+	overflow: hidden;
+	margin-bottom: 15px;
+
+}
+.child-cont > li > div{
+	float: left;
+	width: 16.66%;
+}
+.item-op .mark-btn{
+	display: inline-block;
+	width: 54px;
+	height: 24px;
+	line-height: 24px;
+	text-align: center;
+	margin-right: 5px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-ms-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+}
+.item-op .check-btn{
+	display: inline-block;
+	width: 52px;
+	height: 22px;
+	color: #28b98c;
+	line-height: 24px;
+	text-align: center;
+	border:1px solid #28b98c;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-ms-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+}
+.pagination-wrap{
+	text-align: center;
+	margin-top: 20px;
+}
+.pagination li {
+   display: inline-block;
+}
+.page a {
+	width: 18px;
+}
+.pagination li a {
+  display: block;
+  height: 15px;
+  /* width: 15px; */
+  padding: 8px 8px;
+  line-height: 15px;
+  border: 1px solid #ddd;
+  margin: 2px;
+  border-radius: 2px;
+}
+.pagination-color {
+  color: #31bc91;
+    /* display: inline-block; */
+}
+.activeClass a {
+  background: #31bc91;
+  color: #fff;
+}
+.disableClass a {
+  color: #999;
+  background-color: #fff;
+  border-color: #ddd;
+  cursor: not-allowed;
+}
+
+/* 阅卷监控 */
+.select-list {
+	margin-top: 30px;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+.select-list .one{
+	-webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -ms-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+  text-align: center;
+}
+.select-list .one label {
+   padding-right: 5px;
+   font-size: 14px;
+   color: #666666;
+}
+.select-list .one select {
+  width: 200px;
+  height: 30px;
+  font-size: 14px;
+  color: #666;
+  outline: none;
+  border: 1px solid #ccc;
+  background: #fafafa;
+}
+.select-list .one input {
+  width: 256px;
+  height: 28px;
+  border: 1px solid #ccc;
+  padding-left: 5px;
+  background: #fafafa;
+  font-size: 14px;
+  color: #666;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+.select-list .one .search-test {
+  position: relative;
+  right: -110px;
+  top: -22px;
+  cursor: pointer;
+  color: #ccc;
+}
+.test-list2{
+	margin-top: 15px!important;
+}
+.test2-operation a{
+	color: #28b98c;
+}
+.test-model select {
+  width: 72px;
+  height: 24px;
+  font-size: 12px;
+  color: #666;
+  outline: none;
+  border: 1px solid #ccc;
+  background: #fafafa;
+}
+.test-status .modify-paper{
+	width: 70px;
+	height: 24px;
+	line-height: 24px;
+	cursor: pointer;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	-ms-border-radius: 12px;
+	-o-border-radius: 12px;
+	border-radius: 12px;
+}
+.test-status .modify-paper .text{
+	color: #fff;
+}.test-status .modify-paper .ml13{
+	margin-left: 13px;
+}
+.test-status .modify-paper .cir{
+	width: 18px;
+	height: 18px;
+	background: #fff;
+	margin-right: 3px;
+	margin-top: 3px;
+	vertical-align: middle;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	-ms-border-radius: 50%;
+	-o-border-radius: 50%;
+	border-radius: 50%;
+}
+.test-status .stop-paper{
+	background: #ccc;
+	display: none;
+	-webkit-transition: all .3s;
+	-o-transition: all .3s;
+	transition: all .3s;
+}
+.test-status .stop-paper .cir{
+	margin-left: 3px;
+}
+.test-status .stop-paper .mr13{
+	margin-right: 13px;
+}

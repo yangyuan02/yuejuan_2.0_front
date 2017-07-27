@@ -9,7 +9,8 @@
 	<script type="text/javascript" src='js/jquery.min2.js'></script>
 	<script type="text/javascript" src='js/jquery-ui.min.js'></script>
 	<script type="text/javascript" src='js/common.js'></script>
-	<script type="text/javascript" src='js/marking.js'></script>
+	<script type="text/javascript" src='js/jqPaginator.js'></script>
+	<script type="text/javascript" src='js/marking_control.js'></script>
 </head>
 <body>
 	<div id="wrap">
@@ -31,8 +32,89 @@
 		</div>
 		<div class="content-box">
 			<div class="content common-width">
-				<div class="marking-control-box">
-					
+				<div class="marking-control-box marking-change-box">
+					<div class="marking-change-title">
+						阅卷监控
+					</div>
+					<div class="select-list">
+						<div class="one">
+							<label for="">考试学校</label>
+							<select id="select-school">
+								<!-- <option>请选择学校</option>
+								<option>全部学校</option> -->
+							</select>
+						</div>
+						<div class="one two">
+							<label for="">考试年级</label>
+							<select id="select-grade">
+								<option>请选择年级</option>
+							<!-- 	<option>全部学校</option> -->
+							</select>
+						</div>
+						<div class="one three">
+							<label for="">考试科目</label>
+							<select id="select-sub">
+								<option>请选择科目</option>
+								<!-- <option>全部学校</option> -->
+							</select>
+						</div>
+						<div class="one four">
+							<input type="text" placeholder="请输入考试名称" id="search-test">
+							<i class="iconfont search-test">&#xe610;</i>
+						</div>
+					</div>
+					<table class="test-list test-list2"  id="test-list" cellspacing="0" border="0" cellpadding="0">
+						<thead>
+							<tr>
+								<th>考试名称</th>
+								<th>考试年级</th>
+								<th>考试科目</th>
+								<th>题目总量</th>
+								<th>批阅进度</th>
+								<th>改卷模式</th>
+								<th>状态</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- <tr class="parent-tr">
+								<td class="test-name" width="320">2017年第四次测试</td>
+								<td class="test-grade">一年级</td>
+								<td class="test-subject">数学</td>
+								<td class="test-num">165</td>
+								<td class="test-on">
+								 <p class="num">50%</p>
+									<div class="bar">
+									    <div style="width: 50%;">
+									       
+									    </div>
+									</div>
+								</td>
+								<td class="test-model">
+									<select>
+										<option>得分模式</option>
+										<option>扣分模式</option>
+									</select>
+								</td>
+								<td class="test-status">
+									<div class="modify-paper determine">
+										<span class="text left ml13">改卷</span>
+										<span class="cir right"></span>
+									</div>
+									<div class="modify-paper stop-paper">
+										<span class="cir left"></span>
+										<span class="text right mr13">暂停</span>
+									</div>
+								</td>
+								<td class="test2-operation">
+									<a href="#">查看进度<i class="iconfont">&#xe623;</i></a>
+								</td>
+							</tr> -->
+
+						</tbody>
+					</table>
+					<div class="pagination-wrap">
+					<ul class="pagination" id="pagination"></ul>
 				</div>
 			</div>
 		</div>
