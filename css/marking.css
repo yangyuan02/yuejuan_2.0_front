@@ -75,6 +75,9 @@ body{
 }
 
 /* 阅卷选择 */
+.progress-box{
+	padding-bottom: 50px;
+}
 .marking-change-box{
 	padding: 36px;
 }
@@ -117,9 +120,11 @@ td.test-operation a{
 	color: #28b98c;
 	cursor: pointer;
 }
+
 td.test-operation i{
 	padding-left: 6px;
 }
+
 td.test-on .num{
 	line-height: 12px;
 }
@@ -169,7 +174,7 @@ tr.child-tr{
 	width: 16.66%;
 }
 .child-cont{
-	
+	color: #7395a8;
 }
 .child-cont > li{
 	width: 100%;
@@ -326,6 +331,9 @@ tr.child-tr{
 }.test-status .modify-paper .ml13{
 	margin-left: 13px;
 }
+.test-status .on{
+	display: none;
+}
 .test-status .modify-paper .cir{
 	width: 18px;
 	height: 18px;
@@ -341,7 +349,7 @@ tr.child-tr{
 }
 .test-status .stop-paper{
 	background: #ccc;
-	display: none;
+	/* display: none; */
 	-webkit-transition: all .3s;
 	-o-transition: all .3s;
 	transition: all .3s;
@@ -351,4 +359,236 @@ tr.child-tr{
 }
 .test-status .stop-paper .mr13{
 	margin-right: 13px;
+}
+
+
+/* 阅卷进度 */
+.marking-change-title .back-pre{
+	color: #2daa82;
+}
+.more-count input,.more-error input{
+	width: 40px;
+	height: 30px;
+	text-align: center;
+	background: #fafafa;
+}
+.item-name{
+	line-height: 24px;
+}
+.add {
+  padding: 0 6px;
+  line-height: 25px;
+  font-size: 14px;
+  color: #31bc91;
+  margin-left: 8px;
+  text-align: center;
+  border: 1px solid #31bc91;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+}
+.add i{
+	font-size: 12px;
+  padding-right: 6px;
+}
+
+
+
+
+
+
+
+
+/* 弹窗内容 */
+.mian-cont{
+	text-align: left;
+	font-size: 14px;
+	color: #666;
+	padding-bottom: 18px;
+}
+.h6{
+	font-weight: bold;
+	font-size: 14px;
+	margin-bottom: 10px;
+}
+.modal-subject{
+	padding-top: 20px;
+	padding-bottom: 20px;
+
+}
+.dele-cont a{
+	color: #31bc91;
+}
+.modal-subject .left_name{
+	display: inline-block;
+	width: 60px;
+	text-align: center;
+	vertical-align: top;
+	position: relative;
+	top: 2px;
+}
+.modal-subject ul{
+	/* margin-left: 10px; */
+	display: inline-block;
+	width: 435px;
+	min-height: 40px;
+}
+#onchecked-modal-list{
+	position: relative;
+	left: -5px;
+}
+#onchecked-modal-list li{
+	float: left;
+  text-align: center;
+  width: 64px;
+  height: 26px;
+  line-height: 24px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  color: #fff;
+  background: #31bc91;
+  cursor: pointer;
+}
+#onchecked-modal-list li i{
+	padding-left: 6px;
+	font-size: 12px;
+}
+
+.modal-subject ul li{
+	display: inline-block;
+	width: 42px;
+	height: 26px;
+	margin-left: 27px;
+	margin-bottom: 10px;
+	/* background: #dcdcdc; */
+}
+.modal-subject ul li.on{
+	background: #31bc91;
+}
+/* 添加老师弹框样式 */
+.select-row{
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+}
+.select-row .one{
+	-webkit-box-flex: 1;
+	-moz-box-flex: 1;
+	-ms-flex: 1;
+	-webkit-flex: 1;
+	flex: 1;
+}
+.select-row .one select{
+	width: 128px;
+	height: 28px;
+	font-size: 14px;
+  color: #666;
+  outline: none;
+  border: 1px solid #ccc;
+  background: #fafafa;
+}
+.select-row .one label{
+	padding-right: 5px;
+}
+.select-row .one input{
+	width: 200px;
+	height: 28px;
+	border: 1px solid #ccc;
+  padding-left: 5px;
+  background: #fafafa;
+  font-size: 14px;
+  color: #666;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+}
+.select-row .one .search-teacher{
+	position: relative;
+	right: 30px;
+	cursor: pointer;
+	color: #ccc;
+}
+.select-row .one .search-school{
+	position: relative;
+	right: 30px;
+	cursor: pointer;
+	color: #ccc;
+}
+.teacher-content,.school-content{
+	margin-top: 20px;
+	margin-bottom: 10px;
+
+}
+/* 左边待选老师 */
+.teacher-left,.school-left{
+	width: 318px;
+	border:1px solid #ccc;
+}
+.teacher-title,.school-title{
+	position: relative;
+	border-bottom: 1px solid #ccc;
+	padding: 12px 15px;
+	background: #fafafa;
+}
+.teacher-title h6,.school-title h6{
+	font-size: 14px;
+	font-weight: bold;
+}
+.all-box{
+	position: absolute;
+	top: 14px;
+	right: 15px;
+}
+.teacher-left-list,.school-left-list{
+	padding: 0 15px;
+	height: 294px;
+	overflow: auto;
+}
+.teacher-left-list li,.school-left-list li{
+	margin-bottom: 15px;
+}
+.teacher-left-list li:first-child{
+	margin-top: 15px;
+}
+.school-left-list li:first-child{
+	margin-top: 15px;
+}
+.hide {
+  display: none;
+}
+/* 右边已经选择老师 */
+.teacher-right,.school-right{
+	width: 318px;
+	border:1px solid #ccc;
+}
+.teacher-right-list,.school-right-list{
+	padding: 12px 15px;
+	height: 270px;
+	overflow: auto;
+	margin-left: -10px;
+}
+.teacher-right-list li,.school-right-list li{
+	float: left;
+	/* width: 80px; */
+	height: 26px;
+	line-height: 26px;
+	text-align: center;
+	background: #31bc91;
+	color: #fff;
+	padding: 0 8px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
+.teacher-right-list li i,.school-right-list li i{
+	color: #fff;
+	font-size: 12px;
+	font-weight: normal;
+	margin-left: 5px;
+	cursor: pointer;
 }

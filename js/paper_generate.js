@@ -947,6 +947,7 @@ $(function() {
 	}
 
 	function show_modal_subject_detail(subject_detail) {
+		$('#change-subject').html('');
 		var s_length = subject_detail.length;
 		var option_first = '<option data-id="all-subject" >所有科目</option>';
 		$('#change-subject').append(option_first);
