@@ -998,7 +998,7 @@ $(function(){
 	function show_detail_info(detail_info,parent_info){
 		parent_info.next().find('.child-cont').html('');
 		var detail_info_length = detail_info.length;
-		for (var i = detail_info_length - 1; i >= 0; i--) {
+		for (var i = 0 ; i < detail_info_length; i++) {
 			var child_tr = '<li><div class="teacher-name">'+detail_info[i].teacher_name+'</div><div class="school-name">'+detail_info[i].school_name+'</div><div class="on-num">'+detail_info[i].correct_total_count+'</div><div class="on-speed">'+detail_info[i].speed+'/min</div><div class="on-averge">'+detail_info[i].correct_average_score+'</div></li>';
 			parent_info.next().find('.child-cont').append(child_tr);
 		};
