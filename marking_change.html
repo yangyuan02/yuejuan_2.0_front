@@ -9,6 +9,8 @@
 	<script type="text/javascript" src='js/jquery.min2.js'></script>
 	<script type="text/javascript" src='js/jquery-ui.min.js'></script>
 	<script type="text/javascript" src='js/common.js'></script>
+	<script type="text/javascript" src='js/jqPaginator.js'></script>
+
 	<script type="text/javascript" src='js/marking.js'></script>
 </head>
 <body>
@@ -35,7 +37,7 @@
 					<div class="marking-change-title">
 						阅卷选择
 					</div>
-					<table class="test-list" cellspacing="0" border="0" cellpadding="0">
+					<table class="test-list" id="test-list-change" cellspacing="0" border="0" cellpadding="0">
 						<thead>
 							<tr>
 								<th>考试名称</th>
@@ -76,7 +78,7 @@
 											<li></li>
 										</ul>
 										<ul class="child-cont">
-											<li>
+											<!-- <li>
 												<div class="item-name">一、填空题-1题</div>
 												<div class="item-on">10/10</div>
 												<div class="more-num">2</div>
@@ -86,7 +88,7 @@
 													<a href="#" class="mark-btn determine">阅卷</a>
 													<a href="#" class="check-btn">审核</a>
 												</div>
-											</li>
+											</li> -->
 											
 										</ul>
 									</div>
@@ -106,6 +108,94 @@
 
 		</div>
 
+	</div>
+
+	<div class="marking-paper-box">
+		<div class="paper-head">
+			<div class="paper-head-cont common-width">
+				<ul class="ul-left">
+					<li class="pizhu" id="pizhu">批注</li>
+					<li>数字键盘</li>
+					<li>作文排版</li>
+					<li>评分统计</li>
+					<li class="mark-model">得分模式</li>
+				</ul>
+				<div class="paper-item-name">
+					题组填空
+				</div>
+				<ul class="ul-right">
+					<li>
+						<a href="javascript:;" class="show-pre btn-on">显示原试卷</a>
+					</li>
+					<li>
+						<a href="javascript:;" class="show-error btn-on">提交问题试卷</a>
+					</li>
+					<li>
+						<a href="javascript:;" class="show-first btn-off">第一卷</a>
+					</li>
+					<li>
+						<a href="javascript:;" class="pre" id="pre"><i class="iconfont">&#xe625;</i></a>
+						<span class="on-num">22</span>
+						<a href="javascript:;" class="next" id="next"><i class="iconfont">&#xe61f;</i></a>
+					</li>
+					<li>
+						<a href="javascript:;" class="back-paper btn-off">返回试卷</a>
+					</li>
+				</ul>
+				<div class="close"><i class="iconfont">&#xe61b;</i></div>
+			</div>
+		</div>
+		<div class="paper-all">
+			<div class="paper-all-cont common-width">
+				<div class="paper-operation">
+					<div class="left-box  fl">
+						<ul class="left-operation">
+							<li>
+								<a href="javascript:;" id="big">
+									<i class="iconfont">&#xe620;</i>
+								</a>
+							</li>
+							<li>
+								<a href="javascript:;" id="small">
+									<i class="iconfont">&#xe621;</i>
+								</a>
+							</li>
+							<li>
+								<a href="javascript:;" id="all-screen">
+									<i class="iconfont">&#xe604;</i>
+								</a>
+							</li>
+						</ul>
+						<ul class="popline">
+							<li class="popline-button">
+								<a href="javascript:;" class="popline_hover_0" data-action="ok" title="添加打勾">
+									<i class="iconfont">&#xe619;</i>
+								</a>
+							</li>
+							<li class="popline-button">
+								<a href="javascript:;" class="popline_hover_0" data-action="error" title="添加打叉标注">
+									<i class="iconfont">&#xe61b;</i>
+								</a>
+							</li>
+							<li class="popline-button">
+								<a href="javascript:;" class="popline_hover_0" data-action="text" title="文字">
+									<i class="iconfont">&#xe608;</i>
+								</a>
+							</li>
+							<li class="popline-button">
+								<a href="javascript:;" class="popline_hover_0" data-action="delete" title="删除">
+									<i class="iconfont">&#xe626;</i>
+								</a>
+							</li>
+						</ul>
+						</div>
+					<div class="move-paper fr">
+						<img src="img/btn-bg.jpg">
+						<div id="wyDiv"><div class="popline_text"><input type="" name=""><span></span></div></div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
