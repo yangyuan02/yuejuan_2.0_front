@@ -8,6 +8,11 @@ $(function(){
 	$('.marking-change-box').css({
 		'min-height': height
 	})
+	$('.paper-operation').css({
+		'min-height': height
+	})
+	var all_width = ($(window).width()-1200)/4;
+	$('.close').css('right', all_width);
 
 
 
@@ -138,14 +143,12 @@ $(function(){
 		for (var i = 0; i < item_info_length; i++) {
 			var child_li = '<li class="li-'+i+'"><div style="width:100%"><div class="item-name">'+item_info[i].name+'</div><div class="item-on">'+item_info[i].revise_progress+'</div><div class="more-num">'+item_info[i].multiple_error_count+'</div><div class="bug-num">'+item_info[i].issue_paper_count+'</div><div class="item-time">'+item_info[i].finish_date+'</div><div class="item-op" style="display:none">hhhhhh</div></div><div style="width:100%"><ul class="last-ul"></ul></div></li>'
 			parnt_info.next().find('.child-cont').append(child_li);
-			// console.log(item_info[i].section_crops)
-			// var 
 			$('.li-'+i+'').children('.last-ul').html('');
 			var item_last = item_info[i].section_crops;
 			var item_last_length = item_last.length;
 			console.log(item_last_length)
 			for (var j = 0; j < item_last_length; j++) {
-				var item_li ='<li><div class="item-name" data-id="'+item_last[j].id+'">'+item_last[j].name+'</div><div class="item-on">10/10</div><div class="more-num" style="visibility: hidden;">test</div><div class="bug-num" style="visibility: hidden;">test</div><div class="item-time" style="visibility: hidden;">test</div><div class="item-op"><a href="javascript:;" class="mark-btn determine">阅卷</a><a href="javascript:;" class="check-btn">审核</a></div></li>';
+				var item_li ='<li><div class="item-name" data-id="'+item_last[j].id+'">'+item_last[j].name+'</div><div class="item-on">'+item_last[j].progress+'</div><div class="more-num" style="visibility: hidden;">test</div><div class="bug-num" style="visibility: hidden;">test</div><div class="item-time" style="visibility: hidden;">test</div><div class="item-op"><a href="javascript:;" class="mark-btn determine">阅卷</a><a href="javascript:;" class="check-btn">审核</a></div></li>';
 			  $('.li-'+i+'').find('.last-ul').append(item_li);
 			};
 
@@ -162,8 +165,9 @@ $(function(){
 	$('body').on('click', '.mark-btn', function() {
 		$(this).parents('#wrap').siblings('.marking-paper-box').show();
 		$(this).parents('#wrap').hide();
-
+		// 获取题组信息ID,name
 		var section_crop_id = $(this).parent().parent().find('.item-name').attr('data-id');
+		var section_crop_name = $(this).parent().parent().find('.item-name').text();
 		$.ajax({
 		  type: "GET",
 		  url: ajaxIp+"/api/v2/section_crop_images/get_section_crop_image",
@@ -171,7 +175,7 @@ $(function(){
 		  data:{'section_crop_id':section_crop_id},
 		  success: function(data){
 		  	console.log(data);
-		  	show_img_info(data);
+		  	show_img_info(data,section_crop_name);
 		  },
 		  error: function(){
 		      // alert('请稍后从新尝试登录或者联系管理员');
@@ -184,18 +188,26 @@ $(function(){
 
 
 	// 显示阅卷图片
-	function show_img_info(img_info){
+	function show_img_info(img_info,section_crop_name){
 		$('.move-paper').html('');
 		var img_url = img_info.section_crop_image_uri;
 		var img_id = img_info.section_crop_image_id;
 		var img_html = '<img data-id="'+img_id+'" id="img-'+img_id+'" src="'+ ajaxIp +''+img_url+'">';
 		$('.move-paper').append(img_html);
 		$('.on-num').text(img_info.finished_count+1);
+		$('.paper-item-name').text(section_crop_name);
 	}
 
 
 
 	// 阅卷相关详情
+	var aBigH = 18;//默认输入框高度
+	var bMoveL = false;
+	var paper_height = 810;
+	var coordinateArr =[];
+	var oMoveNum = $('.move-papere input').length;//标志变量，长度取决批注数量
+	var inputDiv = $('.popline_text');//输入框div
+
 	// 关闭试卷
 	$('.close').click(function() {
 		$(this).parents('.marking-paper-box').siblings('#wrap').show();
@@ -208,24 +220,64 @@ $(function(){
   $('#big').click(function(){
     var img_width = $('.move-paper img').width();
     var img_height = $('.move-paper img').height();
-    img_width = img_width * 1.02;
-    img_height = img_height * 1.02;
-    $('.move-paper img').css({
-      "width":img_width + 'px',
-      "height":img_height + 'px'
-    });
+    oMoveNum = $('.move-paper .popline_text').length;
+    // img_width = img_width * 1.02;
+    // img_height = img_height * 1.02;
+    // $('.move-paper img').css({
+    //   "width":img_width + 'px',
+    //   "height":img_height + 'px'
+    // });
+   	zoomIn(img_width,img_height,true);
+
+		console.log(img_height)
+    if(oMoveNum<=0){
+			console.log(oMoveNum);
+			return;
+		}else{
+			console.log(img_height)
+			poplineText2(img_height,true);
+		}
   });
   //缩小
   $('#small').click(function(){
     var img_width = $('.move-paper img').width();
     var img_height = $('.move-paper img').height();
-    img_width = img_width / 1.02;
-    img_height = img_height / 1.02;
-    $('.move-paper img').css({
-      "width":img_width + 'px',
-      "height":img_height + 'px'
-    });
+    oMoveNum = $('.move-paper .popline_text').length;
+    // img_width = img_width / 1.02;
+    // img_height = img_height / 1.02;
+    // $('.move-paper img').css({
+    //   "width":img_width + 'px',
+    //   "height":img_height + 'px'
+    // });
+		zoomIn(img_width,img_height,false);
+
+
+    if(oMoveNum<=0){
+			console.log(oMoveNum);
+			return;
+		}else{
+			poplineText2(img_height,false);
+		}
   });
+
+
+  function zoomIn(img_width,img_height,ch){
+		if(ch){
+			img_width = img_width * 1.02;
+	    img_height = img_height * 1.02;
+	    $('.move-paper img').css({
+	      "width":img_width + 'px',
+	      "height":img_height + 'px'
+	    });
+		}else{
+			img_width = img_width / 1.02;
+	    img_height = img_height / 1.02;
+	    $('.move-paper img').css({
+	      "width":img_width + 'px',
+	      "height":img_height + 'px'
+	    });
+		}
+  }
 
 	// 全屏显示
 	$('#all-screen').click(function(){
@@ -270,10 +322,7 @@ $(function(){
 
 
 	// 点击批注列表
-	var bMoveL = false;
-	var coordinateArr =[];
-	var oMoveNum = $('.oMove input').length;//标志变量，长度取决批注数量
-	var inputDiv = $('.popline_text');//输入框div
+
 
 	$('.popline_hover_0').on('click',function(){
 		$('.popline_hover_0').removeClass('popline_hover');
@@ -305,23 +354,15 @@ $(function(){
 
 				oMoveInDiv = creatInput(iThis,onInputDivX,onInputDivY);
 
-				onInputDivX = onInputDivX/$('.move-paper').width();
-				onInputDivY = onInputDivY/$('.move-paper').height();
+				onInputDivX = onInputDivX/$('.move-paper img').width();
+				onInputDivY = onInputDivY/$('.move-paper img').height();
 				// oMoveInDiv.children('span').html(onInputDivX + ',' + onInputDivY);
 				var inputInp = oMoveInDiv.children('input');
 
 				oMoveInDiv.show();
 				inputInp.focus();
 				poplineText(inputInp,oMoveInDiv);
-				// var bPP = inputInp.on('blur' , function(){
-				// 	if($(this).text() == ''){
-				// 		console.log(1);
-				// 		return true;
-				// 	}
-				// });
-				// if(bPP){
-				// 	return;
-				// }
+				
 
 
 				coordinateArr[oMoveNum] = {'x' : onInputDivX , 'y' : onInputDivY,'type' : 'input'};
@@ -358,8 +399,8 @@ $(function(){
 				}
 
 				oMoveInDiv = creatOkError(iThis,onInputDivX,onInputDivY,ok);
-				onInputDivX = onInputDivX/$('.move-paper').width();
-				onInputDivY = onInputDivY/$('.move-paper').height();
+				onInputDivX = onInputDivX/$('.move-paper img').width();
+				onInputDivY = onInputDivY/$('.move-paper img').height();
 				oMoveInDiv.attr('data-type','ok');
 				oMoveInDiv.show();
 
@@ -391,8 +432,8 @@ $(function(){
 				}
 
 				oMoveInDiv = creatOkError(iThis,onInputDivX,onInputDivY,ok);
-				onInputDivX = onInputDivX/$('.move-paper').width();
-				onInputDivY = onInputDivY/$('.move-paper').height();
+				onInputDivX = onInputDivX/$('.move-paper img').width();
+				onInputDivY = onInputDivY/$('.move-paper img').height();
 				oMoveInDiv.attr('data-type','error');
 				oMoveInDiv.show();
 
@@ -440,7 +481,7 @@ $(function(){
 		var aInputDiv = document.createElement('div');
 		aInputDiv = $(aInputDiv);
 		// aInputDiv.css({'font-size':20,'height':'50px','width':'50px','background':'red'});
-		oMoveNum = $('.move-paper .popline_text').length;
+		// oMoveNum = $('.move-paper .popline_text').length;
 		var oMoveDivNum = 'oMoveInDiv'+oMoveNum;
 		aInputDiv.addClass(oMoveDivNum);
 
@@ -474,17 +515,177 @@ $(function(){
 			if(mNum>0){
 				aBigH = $('.move-paper input').css('fontSize');
 			}
-	        var sensor = $('<pre>1'+ text +'</pre>').css({display: 'none','font-size':aBigH});
-	        iDiv.append(sensor);
-	        var width = sensor.width();
-	        sensor.remove();
-	        return width;
-	    };
-	    iInput.on('input', function(){
-	        $(this).css('width',textWidth($(this).val()));
-	    });
+      var sensor = $('<pre>1'+ text +'</pre>').css({display: 'none','font-size':aBigH});
+      iDiv.append(sensor);
+      var width = sensor.width();
+      	  console.log(width)
+
+      sensor.remove();
+      return width;
+	  };
+    iInput.on('input', function(){
+        $(this).css('width',textWidth($(this).val()));
+    });
 	}
 
+
+	//批注文字放大缩小
+	function poplineText2(img_height,dx){
+		var popIn = $('.move-paper input');
+		aBigH = popIn.height()*($('.move-paper img').height()/img_height);
+		var iiii = $('.popline_text');
+		for(var i=0 ; i <= iiii.length-1 ; i++){
+			var xx = $('.oMoveInDiv'+i).position().left;
+			var yy = $('.oMoveInDiv'+i).position().top;
+			if(dx){
+				xx=xx*1.02;
+				yy=yy*1.02;
+				$('.oMoveInDiv'+i).css({
+					left: xx + 'px',
+					top: yy + 'px'
+				});
+			}else{
+				xx=xx/1.02;
+				yy=yy/1.02;
+				$('.oMoveInDiv'+i).css({
+					left: xx + 'px',
+					top: yy + 'px'
+				});
+			}
+		}
+		// console.log(aBigH)
+
+		popIn.height(aBigH+'px');
+
+		popIn.css({
+			'height': aBigH+'px',
+			'line-height':aBigH+'px',
+			'font-size':aBigH+'px'
+		});
+		var textWidth2 = function(text){
+	  	var sensor2 = $('<pre>1'+ text +'</pre>').css({display: 'none','line-height':aBigH+'px','font-size':aBigH-4+'px'});
+      $('.oMoveInDiv0').append(sensor2);
+      var width2 = sensor2.width();
+      sensor2.remove();
+      return width2;
+	  };
+    for (var i = 0; i < $('.move-paper input').length; i++) {
+    	$('.oMoveInDiv'+i+' input').css('width',textWidth2($('.oMoveInDiv'+i+' input').val()));
+    }
+	}
+
+  
+	// 判分框拖动
+  $('.yuejuan-pop').draggable();
+	$('.pop-key-board').draggable();
+
+  	// 点击批注，列表显示或隐藏
+	$('#keyboard').on('click',function(){
+		if ($(this).hasClass('text-color')) {
+			$(this).removeClass('text-color');
+		}else{
+			$(this).addClass('text-color');
+		}
+		$('.pop-key-board').toggle();
+	});
+	$('.key-close').click(function() {
+		$(this).parents('.pop-key-board').hide();
+		$('#keyboard').removeClass('text-color');
+	});
+
+
+
+
+
+//小键盘
+	var i_on_blur=999;
+	$('.yuejuan_score').blur(function(){
+		console.log(1);
+		i_on_blur = $(this);
+		// i_on_blur.val('');
+	})
+
+
+	$('.key-btn').unbind('click').click(function(){
+		// console.log(111);
+		if(i_on_blur == 999){
+			console.log(i_on_blur);
+
+			return;
+		}
+
+		var iNum = $(this).data('number');
+		var score = i_on_blur.val();
+		if(score != '' && iNum == 0.5){
+			console.log(i_on_blur);
+			score=parseFloat(score)+0.5;
+		}else if(iNum == 'k11' || iNum == 'k22'){
+			return;
+		}else{
+			if(score==0 && iNum==0){
+				score=0;
+			}else if(score==0 && iNum!=0){
+				score=iNum;
+			}else{
+				score+=iNum;
+			}
+			// score+=iNum;
+		}
+
+		i_on_blur.val(score);
+		var fen = i_on_blur.data('fen');
+		var num = i_on_blur.data('num');
+		if(isNaN(score) || score>fen || score < 0 && score!=''){
+			iTwo(prompt_i,prompt_1);
+			i_on_blur.val('');
+
+		}
+	});
+
+	$('.key-btn_1').on('click',function(){
+		var inputs = $(".pop-2").find(".yuejuan_score");
+ 		var idx = inputs.index(i_on_blur);
+ 		if(idx==0){
+ 			return;
+ 		}
+ 		i_on_blur = $(inputs[idx-1]);
+ 		console.log(i_on_blur.val());
+
+ 		i_on_blur.focus();
+ 		i_on_blur.select();
+	});
+	$('.key-btn_2').on('click',function(){
+		var inputs = $(".pop-2").find(".yuejuan_score");
+ 		var idx = inputs.index(i_on_blur);
+ 		if(idx==inputs.length-1){
+ 			return;
+ 		}
+ 		i_on_blur = $(inputs[idx+1]);
+ 		console.log(i_on_blur.val());
+
+ 		i_on_blur.focus();
+ 		i_on_blur.select();
+	});
+
+		//分数判定
+	$('.yuejuan_score').on('input' , function(){
+		var fen = $(this).data('fen');
+		var num = $(this).data('num');
+		var score = $(this).val();
+		if(score>fen || score < 0 && score!=''){
+			iTwo(prompt_i,prompt_1);
+			$(this).val('');
+		}
+	});
+
+	//显示提示框
+	function iTwo(i,k){
+		i.show();
+		$('.prompt').text(k);
+		setTimeout(function(){
+			$('.i_two').hide();
+		},1000);
+	};
 
 
 

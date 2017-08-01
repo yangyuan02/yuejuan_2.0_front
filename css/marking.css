@@ -622,7 +622,9 @@ tr.child-tr{
 	font-size: 14px;
 }
 .paper-head{
-	position: relative;
+	position: fixed;
+	width: 100%;
+	z-index: 999;
 	height: 60px;
 	line-height: 60px;
 	background: #fff;
@@ -633,7 +635,7 @@ tr.child-tr{
 }
 .close{
 	position: absolute;
-	right: 60px;
+	/* right: 30px; */
 	top: -2px;
 	color: #31bc91;
 	font-size: 20px;
@@ -731,10 +733,18 @@ ul.ul-right .back-paper{
 
 /* 试卷内容 */
 .paper-all{
-	margin-top: 30px;
+	position: relative;
+  top: 90px;
 }
 .paper-operation{
 	/* width: 40px; */
+	position: relative;
+	height: 100%;
+}
+.left-box{
+	position: absolute;
+	left: 0;
+	top: 0;
 }
 .left-operation{
 	position: relative;
@@ -775,6 +785,8 @@ ul.ul-right .back-paper{
 	float: right;
 }
 .move-paper{
+	position: absolute;
+	left: 70px;
 	width: 1140px;
 	height: 810px;
 }
@@ -807,4 +819,117 @@ ul.ul-right .back-paper{
   color: red;
   border: 1px solid red;
   background: none;
+}
+.yuejuan-pop{
+	width: 264px;
+  top: 60px;
+  right: 20px;
+  position: fixed;
+  z-index: 111;
+  background: #31bc91;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-ms-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+  padding: 2px;
+  cursor: move;
+}
+.pop-1{
+	height: 45px;
+	line-height: 45px;
+	color: #fff;
+	font-size: 14px;
+	text-align: center;
+}
+.pop-1 h5{
+	font-size: 14px;
+}
+.pop-2{
+	font-size: 14px;
+	background: #fff;
+	padding: 15px 30px;
+	color: #666;
+}
+.p-table{
+	width: 100%;
+	margin-top: 15px;
+	text-align: center;
+}
+.p-table input{
+	width: 90px;
+	height: 20px;
+	line-height: 20px;
+	text-indent: 12px;
+}
+.pop-button{
+	text-align: center;
+	margin-top: 15px;
+}
+a.con-btn{
+	display: block;
+	width: 80px;
+	height: 30px;
+	line-height: 30px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-ms-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+	margin: 0 auto;
+}
+.all-grade{
+	color: #31bc91;
+}
+
+/* 数字键盘 */
+.pop-key-board{
+	width: 146px;
+  position: fixed;
+  z-index: 10000001;
+  background: #fff;
+  border: 2px solid #31bc91;
+  right: 320px;
+  top: 60px;
+  cursor: move;
+  display: none;
+}
+.key-head{
+	position: relative;
+  background: #31bc91;
+  color: #fff;
+  text-align: center;
+  line-height: 36px;
+  height: 36px;
+}
+.key-close{
+	position: absolute;
+  right: 4px;
+  top: 0px;
+  font-size: 16px;
+  color: #fff;
+}
+.key-close i{
+	font-size: 14px;
+}
+.key-btn {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  text-decoration: none;
+  display: inline-block;
+  padding: 3px 3px;
+  margin: 3px 4px;
+  border: 1px solid #dedede;
+  border-radius: 5px;
+  width: 37px;
+  height: 36px;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+  color: #999;
+}
+.key-btn:hover{
+	color: #31bc91;
+	border: 1px inset;
 }
