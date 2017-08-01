@@ -1,0 +1,140 @@
+<DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="renderer" content="webkit">
+	<title>麦粒</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/form.css">
+	<script type="text/javascript" src='js/jquery.min.js'></script>
+	<script type="text/javascript" src='js/common.js'></script>
+	<script type="text/javascript" src='js/index.js'></script>
+</head>
+<body>
+	<div id="wrap">
+		<div id='header'>
+
+		</div>
+		<div class="title-box">
+			<div class="title common-width">
+				<p>
+					<i class="iconfont">&#xe618;</i>
+					当前位置：
+					<a href="index.html">首页</a>
+					>
+					<span>个人设置</span>
+				</p>
+			</div>
+		</div>
+
+		<div class="content">
+
+       <div class="main">
+
+    <div class="main_left">
+<ul>
+	<li><span>成绩生成</span></li>
+	<li><span>考试状况</span></li>
+	<li><span>班级学情追踪</span></li>
+	<li><span>学科追踪分析</span></li>
+	<li><span>考试质量追踪</span></li>
+	<li><span>考试横向分析</span></li>
+	<li><span>跨校对比分析</span></li>
+</ul>
+
+    </div>
+
+<div class="main_right">
+<div class="right_01">	
+</div>
+<div class="right_02" id="right_02">	
+</div>
+<div class="right_03" id="right_03">	
+</div>
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts图表
+        var myChart = echarts.init(document.getElementById('right_03')); 
+        
+        var option = {
+    tooltip : {
+        trigger: 'axis'
+    },
+    grid:{
+                    x:25,
+                    y:23,
+                    x2:23,
+                    y2:25,
+                    borderWidth:1
+                },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'蒸发量',
+            type:'bar',
+            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        {
+  
+            markPoint : {
+                data : [
+                    {name : '年最高', value : 182.2, xAxis: 7, yAxis: 183, symbolSize:18},
+                    {name : '年最低', value : 2.3, xAxis: 11, yAxis: 3}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name : '平均值'}
+                ]
+            }
+        }
+    ]
+};
+        // 为echarts对象加载数据 
+        myChart.setOption(option); 
+
+
+</script>
+</div>
+
+
+
+
+
+
+
+		</div>	
+		</div>
+
+		<div id="footer">
+
+		</div>
+
+	</div>
+
+</body>
+
+</html>
