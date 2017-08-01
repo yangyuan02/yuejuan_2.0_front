@@ -8,8 +8,8 @@
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/form.css">
 	<script type="text/javascript" src='js/jquery.min.js'></script>
-	<script type="text/javascript" src='js/common.js'></script>
-	<script type="text/javascript" src='js/index.js'></script>
+	<script type="text/javascript" src='js/form.js'></script>
+	<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
 </head>
 <body>
 	<div id="wrap">
@@ -22,7 +22,7 @@
 					<i class="iconfont">&#xe618;</i>
 					当前位置：
 					<a href="index.html">首页</a>
-					>
+					
 					<span>个人设置</span>
 				</p>
 			</div>
@@ -46,13 +46,152 @@
     </div>
 
 <div class="main_right">
-<div class="right_01">	
+<div class="right_01">
+<span class="span_1">上师大高二期末考试：2017—06-24<i class="iconfont" style="font-size:10px;margin-left: 10px;">&#xe629;</i></span>
+<span class="span_2">数学<i class="iconfont" style="font-size:10px;margin-left: 10px;">&#xe629;</i></span>	
 </div>
-<div class="right_02" id="right_02">	
+<div class="right_02" >
+<div class="mark_1 ">
+<i class="mark_1_i "></i>
+<span>基本概况</span>	
 </div>
-<div class="right_03" id="right_03">	
+<div class="right_02_l">
+<img src="img/form01.png" alt="">
+<img src="img/form02.png" alt="">
+<div class="r2_02">
+<ul>
+	<li><a>考试人数<span>56%</span></a></li>
+	<li><a>平均分<span>86%</span></a></li>
+
+</ul>	
 </div>
-<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+</div>
+<div class="right_02_r" id="right_02_r">
+</div>
+<script>
+ var myChart = echarts.init(document.getElementById('right_02_r')); 	
+var labelTop = {
+    normal : {
+        label : {
+            show : true,
+            position : 'center',
+            formatter : '{b}',
+            textStyle: {
+                baseline : 'bottom'
+            }
+        },
+        labelLine : {
+            show : false
+        }
+    }
+};
+var labelFromatter = {
+    normal : {
+        label : {
+            formatter : function (params){
+                return 100 - params.value + '%'
+            },
+            textStyle: {
+                baseline : 'top'
+            }
+        }
+    },
+}
+var labelBottom = {
+    normal : {
+        color: '#ccc',
+        label : {
+            show : true,
+            position : 'center'
+        },
+        labelLine : {
+            show : false
+        }
+    },
+    emphasis: {
+        color: 'rgba(0,0,0,0)'
+    }
+};
+var radius = [40, 55];
+option = {
+    legend: {
+        x : 'center',
+        y : 'center',
+        data:[ 
+        ]
+    },  
+    series : [
+        {
+            type : 'pie',
+            center : ['12%', '30%'],
+            radius : radius,
+            x: '0%', // for funnel
+            itemStyle : labelFromatter,
+            data : [
+                {name:'other', value:46, itemStyle : labelBottom},
+                {name:'GoogleMaps', value:54,itemStyle : labelTop}
+            ]
+        },
+        {
+            type : 'pie',
+            center : ['37%', '30%'],
+            radius : radius,
+            x:'20%', // for funnel
+            itemStyle : labelFromatter,
+            data : [
+                {name:'other', value:56, itemStyle : labelBottom},
+                {name:'Facebook', value:44,itemStyle : labelTop}
+            ]
+        },
+        {
+            type : 'pie',
+            center : ['62%', '30%'],
+            radius : radius,
+            x:'40%', // for funnel
+            itemStyle : labelFromatter,
+            data : [
+                {name:'other', value:65, itemStyle : labelBottom},
+                {name:'Youtube', value:35,itemStyle : labelTop}
+            ]
+        },
+        {
+            type : 'pie',
+            center : ['86%', '30%'],
+            radius : radius,
+            y: '55%',   // for funnel
+            x:'80%', // for funnel
+            itemStyle : labelFromatter,
+            data : [
+                {name:'other', value:89, itemStyle : labelBottom},
+                {name:'Instagram', value:11,itemStyle : labelTop}
+            ]
+        }
+    ]
+};
+                    
+
+ myChart.setOption(option); 
+
+
+
+</script>
+
+<div class="r2_1">
+<ul>
+	<li><a>平均得分率<span>56%</span></a></li>
+	<li><a>及格率<span>86%</span></a></li>
+	<li><a>优秀率<span>26%</span></a></li>
+	<li><a>标准差<span>1.2</span></a></li>
+
+</ul>	
+</div>
+</div>
+<div class="mark">
+<i class="mark_i"></i>
+<span>分数段分布</span>	
+</div>
+<div class="right_03" id="right_03">
+<span>比例%</span>
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts图表
         var myChart = echarts.init(document.getElementById('right_03')); 
@@ -62,9 +201,9 @@
         trigger: 'axis'
     },
     grid:{
-                    x:25,
+                    x:28,
                     y:23,
-                    x2:23,
+                    x2:5,
                     y2:25,
                     borderWidth:1
                 },
@@ -121,12 +260,222 @@
 </div>
 
 
+		<div class="tab">
+
+<table cellspacing="0" border="1" style="border-collapse:collapse;width: 901px;height: 94px;border-color:#cccccc"  bordercolor="#cccccc">
+  <tr>
+    <th>80-100分</th>
+     <th>60-80分</th>
+     <th>40-60分</th>
+      <th>20-40分</th>
+     <th>0-20分</th>
+   
+  </tr>
+  <tr>
+    <td>132人</td>
+    <td>32人</td>
+    <td>12人</td>
+    <td>132人</td> 
+    <td>12人</td>
+  </tr>
+  
+</table>
+
+<div class="mark_03">
+<i class="mark_i"></i>
+<span>年纪学科趋势</span>	
+</div>
+<div class="right_04" id="right_04">
+</div>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts图表
+        var myChart = echarts.init(document.getElementById('right_04')); 
+        
+       var option = {
+    tooltip : {
+        trigger: 'axis'
+    },
+    grid:{
+                    x:28,
+                    y:23,
+                    x2:5,
+                    y2:25,
+                    borderWidth:1
+                },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['周一','周二','周三','周四','周五','周六','周日']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            
+        }
+    ],
+    series : [
+        {
+            name:'最高气温',
+            type:'line',
+            data:[11, 11, 15, 13, 12, 13, 10],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        {
+            markLine : {
+                data : [
+                    {type : 'average', name : '平均值'}
+                ]
+            }
+        }
+    ]
+};
+                    
+        // 为echarts对象加载数据 
+        myChart.setOption(option); 
+
+
+</script>
+<div class="mark_03">
+<i class="mark_i"></i>
+<span>年纪成绩大幅变化</span>	
+</div>
+<div class="right_05">
+<div class="r5_1">
+<div class="r5_10">
+<span>年级成绩大幅进步</span>
+</div>
+<div class="r5_11">
+<table cellspacing="0" border="1" style="border-collapse:collapse;width:411px;height: 310px;border-color:#cccccc"  bordercolor="#cccccc">
+  <tr>
+    <th>80-100分</th>
+     <th>60-80分</th>
+     <th>40-60分</th>
+     
+   
+  </tr>
+  <tr>
+    <td>132人</td>
+    <td>32人</td>
+    <td>12人</td>
+  
+  </tr>
+  <tr>
+    <td>132人</td>
+    <td>32人</td>
+    <td>12人</td>
+  
+  </tr>
+  <tr>
+    <td>132人</td>
+    <td>32人</td>
+    <td>12人</td>
+  
+  </tr>
+  <tr>
+    <td>132人</td>
+    <td>32人</td>
+    <td>12人</td>
+  
+  </tr>
+  <tr>
+    <td>132人</td>
+    <td>32人</td>
+    <td>12人</td>
+    <tr>
+    <td>132人</td>
+    <td>32人</td>
+    <td>12人</td>
+  
+  </tr>
+  
+  </tr>
+  
+</table>
+
+
+</div>
+
+</div>
+<div class="r5_2">
+<div class="r5_21">
+<span>年级成绩大幅退步</span>
+</div>
+<table cellspacing="0" border="1" style="border-collapse:collapse;width:411px;height: 310px;border-color:#cccccc"  bordercolor="#cccccc">
+  <tr>
+    <th>80-100分</th>
+     <th>60-80分</th>
+     <th>40-60分</th>
+     
+   
+  </tr>
+  <tr>
+    <td>132人</td>
+    <td>32人</td>
+    <td>12人</td>
+  
+  </tr>
+  <tr>
+    <td>132人</td>
+    <td>32人</td>
+    <td>12人</td>
+  
+  </tr>
+  <tr>
+    <td>132人</td>
+    <td>32人</td>
+    <td>12人</td>
+  
+  </tr>
+  <tr>
+    <td>132人</td>
+    <td>32人</td>
+    <td>12人</td>
+  
+  </tr>
+  <tr>
+    <td>132人</td>
+    <td>32人</td>
+    <td>12人</td>
+    <tr>
+    <td>132人</td>
+    <td>32人</td>
+    <td>12人</td>
+  
+  </tr>
+  
+  </tr>
+  
+</table>
+
+
+</div>
+
+</div>
+
+</div>
 
 
 
 
+</div>
+		
 
-		</div>	
+
+		</div>
+
+
 		</div>
 
 		<div id="footer">
