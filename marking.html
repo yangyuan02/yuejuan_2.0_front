@@ -9,7 +9,6 @@
 	<script type="text/javascript" src='js/jquery.min2.js'></script>
 	<script type="text/javascript" src='js/jquery-ui.min.js'></script>
 	<script type="text/javascript" src='js/common.js'></script>
-	<script type="text/javascript" src='js/marking.js'></script>
 </head>
 <body>
 	<div id="wrap">
@@ -44,5 +43,14 @@
 		</div>
 
 	</div>
+	<script type="text/javascript">
+	$(function(){
+			var height = $(window).height()-$('#header').height()-$('#footer').height()-180;
+		$('.marking-box').css({
+			// 'height': height,
+			'min-height': height
+		});
+	})
+	</script>
 </body>
 </html>
