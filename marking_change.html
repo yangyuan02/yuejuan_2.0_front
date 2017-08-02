@@ -115,7 +115,7 @@
 			<div class="paper-head-cont common-width">
 				<ul class="ul-left">
 					<li class="pizhu" id="pizhu">批注</li>
-					<li>数字键盘</li>
+					<li class="keyboard" id="keyboard">数字键盘</li>
 					<li>作文排版</li>
 					<li>评分统计</li>
 					<li class="mark-model">得分模式</li>
@@ -190,8 +190,66 @@
 						</ul>
 						</div>
 					<div class="move-paper fr">
-						<img src="img/btn-bg.jpg">
+						<!-- <img src="img/btn-bg.jpg"> -->
 						<div id="wyDiv"><div class="popline_text"><input type="" name=""><span></span></div></div>
+					</div>
+					<div class="yuejuan-pop">
+						<div class="pop-1">
+							<h5>
+								阅卷老师：<span>刘老师</span>
+							</h5>
+						</div>
+						<div class="pop-2">
+							<p><span>进度:<a><span class="finished">6</span>/<span class="all-paper">10</span></a></span>   <!-- <span style="padding-left: 20px">速度:<a>1/分钟</a></span> --></p>
+							<table class="p-table">
+								<thead>
+									<tr>
+										<th>题号</th>
+										<th>分值</th>
+										<th>标准</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="item-num">1</td>
+										<td class="input-p"><input type="text" class="yuejuan_score"></td>
+										<td class="all-grade">3分</td>
+									</tr>
+									<tr>
+										<td class="item-num">1</td>
+										<td class="input-p"><input type="text" class="yuejuan_score"></td>
+										<td class="all-grade">3分</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="pop-button">
+								<a class="con-btn determine" href="javascript:;">确认提交</a>
+							</div>
+						</div>
+					</div>
+					<!-- 小键盘 -->
+					<div class="pop-key-board">
+						<div class="key-head">
+							<p>数字键盘</p>
+							<a href="javascript:;" class="key-close"><i class="iconfont">&#xe61b;</i></a>
+						</div>
+						<div>
+							<a class="key-btn" data-number="7">7</a>
+							<a class="key-btn" data-number="8">8</a>
+							<a class="key-btn" data-number="9">9</a>
+							<a class="key-btn" data-number="4">4</a>
+							<a class="key-btn" data-number="5">5</a>
+							<a class="key-btn" data-number="6">6</a>
+							<a class="key-btn" data-number="1">1</a>
+							<a class="key-btn" data-number="2">2</a>
+							<a class="key-btn" data-number="3">3</a>
+							<a class="key-btn" data-number="0">0</a>
+						</div>
+						<div>
+							<a class="key-btn_1 key-btn" data-number="k11" title="上一个打分框">←</a>
+							<a class="key-btn" data-number="0.5">0.5</a>
+							<a class="key-btn_2 key-btn" data-number="k22" title="下一个打分框">→</a>
+						</div>
 					</div>
 				</div>
 			</div>
