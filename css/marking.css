@@ -787,8 +787,8 @@ ul.ul-right .back-paper{
 .move-paper{
 	position: absolute;
 	left: 70px;
-	width: 1140px;
-	height: 810px;
+	width: 697px;
+	height: 445px;
 }
 .move-paper img{
 	width: 100%;
@@ -932,4 +932,7 @@ a.con-btn{
 .key-btn:hover{
 	color: #31bc91;
 	border: 1px inset;
+}
+.alert{
+	color: #fd97a3;
 }
