@@ -267,6 +267,7 @@ $(function(){
 		for (var i = 0; i < answer_settings_length; i++) {
 			var item_tr = '<tr><td class="item-num">'+answer_settings[i].num+'</td><td class="input-p"><input type="text" class="yuejuan_score" data-id="'+answer_settings[i].answer_setting_score_id+'" value="'+answer_settings[i].answer_setting_score+'" data-num = "'+answer_settings[i].num+'" data-fen="'+answer_settings[i].total_score+'"></td><td class="all-grade">'+answer_settings[i].total_score+'分</td></tr>';
 			$('.p-table tbody').append(item_tr);
+			$($('.yuejuan_score')[0]).focus();
 		};
 
 	}
@@ -341,12 +342,48 @@ $(function(){
 			a_settings[i].answer_setting_score=value;
 		};
 		console.log(a_settings);
+
+		var coordinateArr = [];
+		var dataNum = $('.move-paper .popline_text').length
+		var dataInput = $('.move-paper input');
+		var dataMove = $('.move-paper img');
+		console.log($('.move-paper .popline_text').length);
+		
+		for (var j = 0; j < dataNum; j++) {
+			console.log(dataNum)
+			coordinateArr[j] = {};
+			coordinateArr[j]['x'] = $($('.move-paper .popline_text')[j]).position().left;
+			coordinateArr[j]['y'] = $($('.move-paper .popline_text')[j]).position().top;
+			coordinateArr[j]['moveWidth'] = dataMove.width();
+			coordinateArr[j]['moveHeight'] = dataMove.height();
+			if($($('.move-paper .popline_text')[j]).find('input').val()!=undefined){
+				// console.log($('.move-paperInDiv'+i).find('input').val())
+				coordinateArr[j]['inputWidth'] = $($('.move-paper .popline_text')[j]).find('input').width();
+				coordinateArr[j]['inputHeight'] = $($('.move-paper .popline_text')[j]).find('input').height();
+				coordinateArr[j]['text'] = $($('.move-paper .popline_text')[j]).find('input').val();
+				coordinateArr[j]['type'] = 'input';
+			}else if($($('.move-paper .popline_text')[j]).data('type') == 'ok'){
+				coordinateArr[j]['type'] = 'ok';
+			}else if($($('.move-paper .popline_text')[j]).data('type') == 'error'){
+				coordinateArr[j]['type'] = 'error';
+			}
+			
+		}
+		// console.log(coordinateArr);
+		// $('.saveData').val(JSON.stringify(coordinateArr));
+		// oMoveNum = 0;
+		console.log(coordinateArr)
+
+
+
+		// 最终数据
 		var data_value={
 			'section_crop_id': s_c_id,
 			'section_crop_image_id': s_c_i_id,
 			'answer_settings': a_settings,
 			'scanner_image_id': s_i_id,
-			'exam_subject_id': e_s_id
+			'exam_subject_id': e_s_id,
+			'mark':coordinateArr
 		}
 		if(input_value.val() != ""){
 			$.ajax({
@@ -524,6 +561,13 @@ $(function(){
 
 				oMoveInDiv.show();
 				inputInp.focus();
+				inputInp.focus(function(){
+					$('.move-paper').unbind('click');
+				});
+				inputInp.blur(function(){
+					console.log('ioioiioi')
+					$('.move-paper').unbind('click').bind('click');
+				})
 				poplineText(inputInp,oMoveInDiv);
 				
 
@@ -781,7 +825,6 @@ $(function(){
 		console.log(iNum)
 		var score = i_on_blur.val();
 		if(score != '' && iNum == 0.5){
-			console.log(i_on_blur);
 			score=parseFloat(score)+0.5;
 		}else if(iNum == 'k11' || iNum == 'k22'){
 			return;
@@ -791,11 +834,11 @@ $(function(){
 			}else if(score==0 && iNum!=0){
 				score=iNum;
 			}else{
-				score+=iNum;
+				score=iNum;
 			}
 			// score+=iNum;
 		}
-
+		console.log(score)
 		i_on_blur.val(score);
 		var fen = i_on_blur.attr('data-fen');
 		var num = i_on_blur.attr('data-num');
@@ -807,6 +850,7 @@ $(function(){
 	});
 
 	$('.key-btn_1').on('click',function(){
+		console.log(i_on_blur)
 		var inputs = $(".pop-2").find(".yuejuan_score");
  		var idx = inputs.index(i_on_blur);
  		if(idx==0){
