@@ -34,7 +34,7 @@
 
        <div class="main">
 
-    <div class="main_left">
+<div class="main_left">
 <ul class="l_ul">
 	<li>成绩生成</li>
 	<li>考试状况</li>
@@ -46,13 +46,131 @@
 </ul>
     </div>
     <script type="text/javascript">
+    $(function(){
+
+   $(".main_right").children("div").eq(0).show().siblings().hide();
+    
+    })
+
     $(".l_ul").delegate("li", "click", function(){  
        $(this).addClass('li_click').siblings().removeClass("li_click");
-      
-});    
+       $(".main_right").children("div").eq($(this).index()).show().siblings().hide();
+});   
     </script>
 
+
 <div class="main_right" id="main_right">
+<!-- 成绩生成。start -->
+<div style="position: relative;">
+<div class="mark_01">
+	<span class="mark_span_01">成绩生成日志</span>
+	<span style="color: #666666;float: right;line-height: 44px;">科目
+	<select style="width: 125px;height: 30px;margin-left: 15px;font-size: 16px;
+    color: #666666;">
+  <option value ="全部科目">全部科目</option>
+  <option value ="数学">数学</option>
+  <option value="语文">语文</option>
+  <option value="英语">英语</option>
+</select></span>
+</div>	
+<div class="mark_02">
+	<div class="mark_02_01">
+	<ul>
+		<li>考试科目</li>
+		<li>最后分析时间</li>
+		<li>最后分析老师</li>
+	</ul>
+	</div>
+	<div id="mark_02_ul">
+	<ul class="mark_02_ul">
+		<li>2017年高一期末考试<i class="iconfont" style="margin-left:11px;cursor: pointer;">&#xe622;</i></li><div class="mark_li_01">
+			<ul>
+				<li>语文</li>
+				<li>2017-06-26&nbsp;&nbsp;&nbsp;11:28</li>
+				<li>管理员1<button type="">分析</button></li>
+			</ul>
+            <ul>
+				<li>数学</li>
+				<li>2017-06-26&nbsp;&nbsp;&nbsp;11:28</li>
+				<li>管理员2<button type="">分析</button></li>
+			</ul>
+            <ul>
+				<li>英语</li>
+				<li>2017-06-26&nbsp;&nbsp;&nbsp;11:28</li>
+				<li>管理员3<button type="">分析</button></li>
+			</ul>
+
+		</div>
+		<li>2017年高二期末考试<i class="iconfont" style="margin-left:11px;cursor: pointer;" >&#xe622;</i></li><div class="mark_li_01"><ul>
+				<li>语文</li>
+				<li>2017-06-26&nbsp;&nbsp;&nbsp;11:28</li>
+				<li>管理员1<button type="">分析</button></li>
+			</ul></div>
+
+	</ul>
+</div>
+</div>
+
+<div class="mart_set">
+	<div class="mart_set_01">
+	<span>分析参数设置</span>
+</div>
+<div class="mart_set_02">
+	
+	<span style="margin-bottom:10px;font-weight: bold;color: #333333;">定义分数相对于总分的百分比</span>
+	<span>及格分数线%<input type="" name="" value="60"></span>
+	<span>优秀分数线%<input type="" name="" value="90"></span>
+	<input type="checkbox" name="" style="margin-top: 18px;">是否生成错题集
+	
+</div>
+	<div class="mart_set_03">
+
+	<span>定义等级相对于总人数的百分比</span>
+	<ul>
+		<li><input value="A"><input value="15%"></input><button type="">-</button></li>
+		<li><input value="B"></input><input value="30%"></input><button type="">-</button></li>
+		<li><input value="C"></input><input value="30%"></input><button type="">-</button></li>
+		<li><input value="D"></input><input value="20%"></input><button type="">-</button></li>
+		<li><input value="E"></input><input value="5%"></input><button type="">-</button></li>
+		<li><div style="margin:6px 0 0 0; width: 92px;height: 
+	32px;" class="mark_add"><img src="img/form03.png" alt=""></div></li>
+	</ul>
+	
+	</div>
+	<button type="" class="btn_1 determine">分析</button>
+	<div class="mart_set_04" id="set_04">
+	<i class="iconfont">&#xe61b;</i>
+</div>
+</div>
+
+</div>
+<script type="text/javascript">
+
+$("#mark_02_ul i").click(function(event) {
+	/* Act on the event */
+	$(this).parent().next().toggle()=!$(this).parent().next().toggle();
+
+});	
+$(".mark_02 button").click(function(event) {
+	/* Act on the event */
+	$(".mart_set").show();
+});
+$("#set_04").click(function(event) {
+	/* Act on the event */
+	$(".mart_set").hide();
+});
+$(".mart_set_03 button").click(function(event) {
+	/* Act on the event */
+	$(this).parent().hide();;
+});
+$(".mark_add").click(function(event) {
+	/* Act on the event */
+	
+});
+</script>
+<!-- 成绩生成。end -->
+
+<div>
 <div class="right_01">
 <span class="span_1"><i class="i1" style="font-style: normal;"></i><i id="i_1" class="iconfont" style="font-size:10px;margin-left: 10px;">&#xe629;</i></span>
 <span class="span_2"><i class="i2" style="font-style: normal;"></i><i  id="i_2"  class="iconfont" style="font-size:10px;margin-left: 10px;">&#xe629;</i></span>	
@@ -135,7 +253,7 @@ $(".u_1").delegate("li", "click", function(){
 <div class="right_02_r" id="right_02_r">
 </div>
 <script>
- var myChart = echarts.init(document.getElementById('right_02_r')); 	
+ var myChart = echarts.init(document.getElementById('right_02_r')); 
 var labelTop = {
     normal : {
         label : {
@@ -186,7 +304,7 @@ option = {
         data:[ 
         ]
     },  
-    series : [
+    series: [
         {
             type : 'pie',
             center : ['12%', '30%'],
@@ -564,8 +682,12 @@ $("#main_right").css("height","1540px")
 
 
 </div>
-		
-
+<div>3333</div>
+<div>4444</div>
+<div>5555</div>
+<div>6666</div>
+<div>7777</div>
+</div>
 
 		</div>
 
