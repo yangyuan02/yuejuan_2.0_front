@@ -47,6 +47,7 @@ background: #ffffff;
 margin-bottom: 15px;
 color: #adadad;
 border: 1px solid #ccc;
+cursor: pointer;
 
 }
 .main_left .li_click{
@@ -70,7 +71,230 @@ background: #ffffff;
 border: 1px solid #ccc;
 
 
+
 }
+/*成绩生成 start*/
+.mark_01{
+	width:906px;
+   height: 44px;
+   background:#dcf5f0;
+   margin:0 auto;
+  margin-top:20px;
+  padding: 0 15px 0px 15px;
+  position: relative;
+  font-size: 16px;
+  color: #2daa82;
+
+  
+}
+.mark_span_01{
+	line-height: 44px;
+}
+.mark_02{
+	width:901px;
+	
+	border: 1px solid #cccccc;
+	box-sizing: border-box;
+	margin: 0 auto;
+	margin-top: 27px;
+	overflow: hidden;
+	
+}
+.mark_02_01{
+	border-bottom: 1px solid #cccccc;
+	border-right: 1px solid #cccccc;
+	width: 900px;
+	height: 42px;
+	background-color:#f5f5f5;
+	box-sizing: border-box;
+	padding: 0 0 0 76px;
+}
+.mark_02_01 ul li{
+	float: left;
+	color:#666666;
+	font-size: 14px;
+line-height: 44px;
+width: 270px;
+}
+.mark_02_ul li{
+	width:824px;
+	height: 46px;
+	color:#2daa82;
+  
+   font-size: 18px;
+    line-height: 46px;
+    padding-left: 76px;
+    border-bottom: 1px solid #cccccc;
+}
+.mark_li_01{
+	width: 900px;
+	
+	background:#f0fafa;
+	border-bottom: 1px solid #cccccc;
+	border-right: 1px solid #cccccc;
+	box-sizing: border-box;
+	padding-left: 76px;
+	overflow: hidden;
+}
+.mark_li_01 li{
+	float: left;
+	color:#666666;
+	font-size: 14px;
+line-height: 44px;
+width: 270px;
+padding-left: 0px;
+border: none;
+}
+.mark_li_01 li button{
+	width:66px;
+	height: 28px;
+	background: #31bc91;
+	margin-left:130px; 
+
+}
+.mart_set{
+	width: 377px;
+	border: 1px solid #cccccc;
+	margin: 0 auto;
+	margin-top: 40px;
+	box-sizing: border-box;
+	position: absolute;
+	left: 300px;
+	top:0px;
+	background: #ffffff;
+display: none;
+}
+.mart_set_01{
+	width:100%;
+	height: 42px;
+	text-align: center;
+	background: #31bc91;
+	color: #f1fbf8;
+	line-height: 42px;
+	font-size: 16px;
+
+	
+
+}
+.mart_set_02{
+	width:297;
+	height: 166px;
+	margin: 0 auto;
+	border-bottom: 1px solid #cccccc;
+	margin-top: 21px;
+	font-size: 14px;
+	color: #666666;
+}
+.mart_set_02 span{
+	display: block;
+	
+	
+}
+
+.mart_set_02 span input{
+	width:200px;
+	height: 30px;
+	margin-left: 12px;
+margin-top:15px;
+color: #999999;
+border-radius: 2px;
+border: 1px solid #cccccc;
+padding-left: 11px;
+}
+.mart_set_03 {
+	width:300px;
+	margin: 0 auto;
+	margin-top:20px;
+	border-bottom: 1px solid #cccccc;
+	box-sizing: border-box;
+	overflow: hidden;
+	font-size: 14px;
+}
+.mart_set_03 span{
+	display: block;
+	margin-bottom: 20px;
+	font-weight: bold;color: #333333;
+	
+}
+
+.mart_set_03 ul li{
+	float: left;
+	margin-bottom: 14px;
+}
+
+.mart_set_03 ul li input{
+	background: #fafafa;
+	border-radius: 2px;
+border: 1px solid #cccccc;
+display: block;
+text-align: center;
+line-height: 30px;
+float: left;
+height: 30px;
+margin-right: 16px;
+}
+.mart_set_03 ul li input:nth-of-type(1){	
+width: 48px;
+
+}
+
+.mart_set_03 ul li input:nth-of-type(2){	
+width: 142px;
+height: 30px;
+
+}
+.mart_set_03 ul li button{	
+background: #fafafa;
+border-radius: 2px;
+border: 1px solid #cccccc;
+color: #999999;
+font-size: 20px;
+}
+
+.btn_1{
+	display: block;
+	width: 136px;
+	height: 32px;
+	font-size: 16px;
+	font-weight: 200;
+	margin: 0 auto;
+margin-top: 15px;
+margin-bottom: 15px;
+}
+.mart_set_04{
+	width: 25px;
+	height: 25px;
+	border: 1px solid #31bc91;
+	border-radius: 50%;
+	font-size: 9px;
+	text-align: center;
+	line-height: 25px;
+	position: absolute;
+	top:-12px;
+	right:-8px;
+	background: #ffffff;
+	color:#31bc91;
+	cursor: pointer;
+}
+/*成绩生成 end*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .main_right .right_01{
 	width:936px;
    height: 44px;
