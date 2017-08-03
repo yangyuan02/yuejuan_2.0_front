@@ -352,8 +352,8 @@ $(function(){
 		for (var j = 0; j < dataNum; j++) {
 			console.log(dataNum)
 			coordinateArr[j] = {};
-			coordinateArr[j]['x'] = $($('.move-paper .popline_text')[j]).position().left;
-			coordinateArr[j]['y'] = $($('.move-paper .popline_text')[j]).position().top;
+			coordinateArr[j]['x'] = $($('.move-paper .popline_text')[j]).position().left/dataMove.width();
+			coordinateArr[j]['y'] = $($('.move-paper .popline_text')[j]).position().top/dataMove.height();
 			coordinateArr[j]['moveWidth'] = dataMove.width();
 			coordinateArr[j]['moveHeight'] = dataMove.height();
 			if($($('.move-paper .popline_text')[j]).find('input').val()!=undefined){
