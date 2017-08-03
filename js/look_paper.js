@@ -240,8 +240,8 @@ $(function(){
     }else{
     	 requst_ajax();
     	 $('.bg-img').show();
-    	 $(".bg-img").addClass('dd');
-    	 get_select_info();
+    	 // $(".bg-img").addClass('dd');
+    	 // get_select_info();
     }
   });
 
@@ -327,6 +327,9 @@ $(function(){
 		  		// $('.bg-img').hide();
 		  		// $('.bg-img').show();
     			$('.bg-img').addClass('bg-type-hide').removeClass('bg-type-sec');
+    			if(!$('.bg-img').hasClass('dd')){
+						$('.bg-img').addClass('dd');
+    			}
 					// drow_rect(".bg-type-hide");
 		  	}
 		  	if(crop_type==4){
@@ -334,6 +337,9 @@ $(function(){
 		  		// $('.bg-img').show();
 		    	$('.bg-img').addClass('bg-type-sec').removeClass('bg-type-hide');
 					$('.bg-img').append('<div class="crop">题组切割</div>');
+					if(!$('.bg-img').hasClass('dd')){
+						$('.bg-img').addClass('dd');
+    			}
 					// drow_rect(".bg-type-sec");
 
 		  	}
