@@ -8,14 +8,16 @@
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/form.css">
 	<script type="text/javascript" src='js/jquery.min.js'></script>
+	<script type="text/javascript" src='js/form.js'></script>
+	<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
 	<script type="text/javascript" src='js/common.js'></script>
-	<script type="text/javascript" src='js/index.js'></script>
 </head>
 <body>
 	<div id="wrap">
 		<div id='header'>
 
 		</div>
+		
 		<div class="title-box">
 			<div class="title common-width">
 				<p>
@@ -23,36 +25,357 @@
 					当前位置：
 					<a href="index.html">首页</a>
 					>
-					<span>个人设置</span>
+					<span>报表</span>
 				</p>
 			</div>
 		</div>
 
-		<div class="content">
+		<div class="content" style="padding-bottom: 50px;">
 
        <div class="main">
 
-    <div class="main_left">
-<ul>
-	<li><span>成绩生成</span></li>
-	<li><span>考试状况</span></li>
-	<li><span>班级学情追踪</span></li>
-	<li><span>学科追踪分析</span></li>
-	<li><span>考试质量追踪</span></li>
-	<li><span>考试横向分析</span></li>
-	<li><span>跨校对比分析</span></li>
+<div class="main_left">
+<ul class="l_ul">
+	<li>成绩生成</li>
+	<li>考试状况</li>
+	<li>班级学情追踪</li>
+	<li>学科追踪分析</li>
+	<li>考试质量追踪</li>
+	<li>考试横向分析</li>
+	<li>跨校对比分析</li>
 </ul>
-
     </div>
+    <script type="text/javascript">
+    $(function(){
 
-<div class="main_right">
-<div class="right_01">	
+   $(".main_right").children("div").eq(0).show().siblings().hide();
+    
+    })
+
+    $(".l_ul").delegate("li", "click", function(){  
+       $(this).addClass('li_click').siblings().removeClass("li_click");
+       $(".main_right").children("div").eq($(this).index()).show().siblings().hide();
+});   
+    </script>
+
+
+<div class="main_right" id="main_right">
+<!-- 成绩生成。start -->
+<div style="position: relative;">
+<div class="mark_01">
+	<span class="mark_span_01">成绩生成日志</span>
+	<span style="color: #666666;float: right;line-height: 44px;">科目
+	<select style="width: 125px;height: 30px;margin-left: 15px;font-size: 16px;
+    color: #666666;">
+  <option value ="全部科目">全部科目</option>
+  <option value ="数学">数学</option>
+  <option value="语文">语文</option>
+  <option value="英语">英语</option>
+</select></span>
+</div>	
+<div class="mark_02">
+	<div class="mark_02_01">
+	<ul>
+		<li>考试科目</li>
+		<li>最后分析时间</li>
+		<li>最后分析老师</li>
+	</ul>
+	</div>
+	<div id="mark_02_ul">
+	<ul class="mark_02_ul">
+		<li>2017年高一期末考试<i class="iconfont" style="margin-left:11px;cursor: pointer;">&#xe622;</i></li><div class="mark_li_01">
+			<ul>
+				<li>语文</li>
+				<li>2017-06-26&nbsp;&nbsp;&nbsp;11:28</li>
+				<li>管理员1<button type="">分析</button></li>
+			</ul>
+            <ul>
+				<li>数学</li>
+				<li>2017-06-26&nbsp;&nbsp;&nbsp;11:28</li>
+				<li>管理员2<button type="">分析</button></li>
+			</ul>
+            <ul>
+				<li>英语</li>
+				<li>2017-06-26&nbsp;&nbsp;&nbsp;11:28</li>
+				<li>管理员3<button type="">分析</button></li>
+			</ul>
+
+		</div>
+		<li>2017年高二期末考试<i class="iconfont" style="margin-left:11px;cursor: pointer;" >&#xe622;</i></li><div class="mark_li_01"><ul>
+				<li>语文</li>
+				<li>2017-06-26&nbsp;&nbsp;&nbsp;11:28</li>
+				<li>管理员1<button type="">分析</button></li>
+			</ul></div>
+
+	</ul>
 </div>
-<div class="right_02" id="right_02">	
 </div>
-<div class="right_03" id="right_03">	
+
+<div class="mart_set">
+	<div class="mart_set_01">
+	<span>分析参数设置</span>
 </div>
-<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+<div class="mart_set_02">
+	
+	<span style="margin-bottom:10px;font-weight: bold;color: #333333;">定义分数相对于总分的百分比</span>
+	<span>及格分数线%<input type="" name="" value="60"></span>
+	<span>优秀分数线%<input type="" name="" value="90"></span>
+	<input type="checkbox" name="" style="margin-top: 18px;">是否生成错题集
+	
+</div>
+	<div class="mart_set_03">
+
+	<span>定义等级相对于总人数的百分比</span>
+	<ul>
+		<li><input value="A"><input value="15%"></input><button type="">-</button></li>
+		<li><input value="B"></input><input value="30%"></input><button type="">-</button></li>
+		<li><input value="C"></input><input value="30%"></input><button type="">-</button></li>
+		<li><input value="D"></input><input value="20%"></input><button type="">-</button></li>
+		<li><input value="E"></input><input value="5%"></input><button type="">-</button></li>
+		<li><div style="margin:6px 0 0 0; width: 92px;height: 
+	32px;" class="mark_add"><img src="img/form03.png" alt=""></div></li>
+	</ul>
+	
+	</div>
+	<button type="" class="btn_1 determine">分析</button>
+	<div class="mart_set_04" id="set_04">
+	<i class="iconfont">&#xe61b;</i>
+</div>
+</div>
+
+</div>
+<script type="text/javascript">
+
+$("#mark_02_ul i").click(function(event) {
+	/* Act on the event */
+	$(this).parent().next().toggle()=!$(this).parent().next().toggle();
+
+});	
+$(".mark_02 button").click(function(event) {
+	/* Act on the event */
+	$(".mart_set").show();
+});
+$("#set_04").click(function(event) {
+	/* Act on the event */
+	$(".mart_set").hide();
+});
+$(".mart_set_03 button").click(function(event) {
+	/* Act on the event */
+	$(this).parent().hide();;
+});
+$(".mark_add").click(function(event) {
+	/* Act on the event */
+	
+});
+</script>
+<!-- 成绩生成。end -->
+
+<div>
+<div class="right_01">
+<span class="span_1"><i class="i1" style="font-style: normal;"></i><i id="i_1" class="iconfont" style="font-size:10px;margin-left: 10px;">&#xe629;</i></span>
+<span class="span_2"><i class="i2" style="font-style: normal;"></i><i  id="i_2"  class="iconfont" style="font-size:10px;margin-left: 10px;">&#xe629;</i></span>	
+<div class="sn_1">
+<ul class="u_1">
+	<li>上师大高一期末考试</li>
+	<li>上师大高二期末考试</li>
+	<li>上师大高三期末考试</li>
+</ul>
+</div>
+<div class="sn_2">
+<ul class="u_2">
+	<li>数学</li>
+	<li>英语</li>
+	<li>语文</li>
+</ul>
+</div>
+<script>
+$(".i1").html("上师大高二期末考试");
+$(".i2").html("数学");
+$(".sn_1").hide();
+$(".sn_2").hide();
+$(document).ready(function(){
+  $("#i_1").click(function(){
+  $(".sn_1").toggle();
+  $(".sn_2").hide();
+  });
+  $("#i_2").click(function(){
+  $(".sn_2").toggle();
+  $(".sn_1").hide();
+});
+
+//$(".li").click(function(event) {
+	/* Act on the event */	
+//	alert($(".li").html());
+//});
+$(".u_1").delegate("li", "click", function(){  
+        var c = $(this).html();
+         $(".i1").html(c);
+         $(".sn_1").hide();
+      
+});  
+  $(".u_2").delegate("li", "click", function(){  
+        var c = $(this).html();
+         $(".i2").html(c);
+         $(".sn_2").hide();
+      
+});  
+  
+});
+		
+
+</script>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="right_02" >
+<div class="mark_1 ">
+<i class="mark_1_i "></i>
+<span>基本概况</span>	
+</div>
+<div class="right_02_l">
+<img src="img/form01.png" alt="">
+<img src="img/form02.png" alt="">
+<div class="r2_02">
+<ul>
+	<li><a>考试人数<span>56%</span></a></li>
+	<li><a>平均分<span>86%</span></a></li>
+
+</ul>	
+</div>
+</div>
+<div class="right_02_r" id="right_02_r">
+</div>
+<script>
+ var myChart = echarts.init(document.getElementById('right_02_r')); 
+var labelTop = {
+    normal : {
+        label : {
+            show : true,
+            position : 'center',
+            formatter : '{b}',
+            textStyle: {
+                baseline : 'bottom'
+            }
+        },
+        labelLine : {
+            show : false
+        }
+    }
+};
+var labelFromatter = {
+    normal : {
+        label : {
+            formatter : function (params){
+                return 100 - params.value + '%'
+            },
+            textStyle: {
+                baseline : 'top'
+            }
+        }
+    },
+}
+var labelBottom = {
+    normal : {
+        color: '#ccc',
+        label : {
+            show : true,
+            position : 'center'
+        },
+        labelLine : {
+            show : false
+        }
+    },
+    emphasis: {
+        color: 'rgba(0,0,0,0)'
+    }
+};
+var radius = [40, 55];
+option = {
+    legend: {
+        x : 'center',
+        y : 'center',
+        data:[ 
+        ]
+    },  
+    series: [
+        {
+            type : 'pie',
+            center : ['12%', '30%'],
+            radius : radius,
+            x: '0%', // for funnel
+            itemStyle : labelFromatter,
+            data : [
+                {name:'other', value:46, itemStyle : labelBottom},
+                {name:'GoogleMaps', value:54,itemStyle : labelTop}
+            ]
+        },
+        {
+            type : 'pie',
+            center : ['37%', '30%'],
+            radius : radius,
+            x:'20%', // for funnel
+            itemStyle : labelFromatter,
+            data : [
+                {name:'other', value:56, itemStyle : labelBottom},
+                {name:'Facebook', value:44,itemStyle : labelTop}
+            ]
+        },
+        {
+            type : 'pie',
+            center : ['62%', '30%'],
+            radius : radius,
+            x:'40%', // for funnel
+            itemStyle : labelFromatter,
+            data : [
+                {name:'other', value:65, itemStyle : labelBottom},
+                {name:'Youtube', value:35,itemStyle : labelTop}
+            ]
+        },
+        {
+            type : 'pie',
+            center : ['86%', '30%'],
+            radius : radius,
+            y: '55%',   // for funnel
+            x:'80%', // for funnel
+            itemStyle : labelFromatter,
+            data : [
+                {name:'other', value:89, itemStyle : labelBottom},
+                {name:'Instagram', value:11,itemStyle : labelTop}
+            ]
+        }
+    ]
+};
+                    
+
+ myChart.setOption(option); 
+
+
+
+</script>
+
+<div class="r2_1">
+<ul>
+	<li><a>平均得分率<span>56%</span></a></li>
+	<li><a>及格率<span>86%</span></a></li>
+	<li><a>优秀率<span>26%</span></a></li>
+	<li><a>标准差<span>1.2</span></a></li>
+
+</ul>	
+</div>
+</div>
+<div class="mark">
+<i class="mark_i"></i>
+<span>分数段分布</span>	
+</div>
+<div class="right_03" id="right_03">
+<span>比例%</span>
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts图表
         var myChart = echarts.init(document.getElementById('right_03')); 
@@ -62,9 +385,9 @@
         trigger: 'axis'
     },
     grid:{
-                    x:25,
+                    x:28,
                     y:23,
-                    x2:23,
+                    x2:5,
                     y2:25,
                     borderWidth:1
                 },
@@ -121,13 +444,256 @@
 </div>
 
 
+		<div class="tab">
+
+<table cellspacing="0" border="1" style="border-collapse:collapse;width: 901px;height: 94px;border-color:#cccccc"  bordercolor="#cccccc">
+  <tr>
+    <th>80-100分</th>
+     <th>60-80分</th>
+     <th>40-60分</th>
+      <th>20-40分</th>
+     <th>0-20分</th>
+   
+  </tr>
+  <tr>
+    <td>132人</td>
+    <td>32人</td>
+    <td>12人</td>
+    <td>132人</td> 
+    <td>12人</td>
+  </tr>
+  
+</table>
+
+<div class="mark_03">
+<i class="mark_i"></i>
+<span>年纪学科趋势</span>	
+</div>
+<div class="right_04" id="right_04">
+</div>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts图表
+        var myChart = echarts.init(document.getElementById('right_04')); 
+        
+       var option = {
+    tooltip : {
+        trigger: 'axis'
+    },
+    grid:{
+                    x:28,
+                    y:30,
+                    x2:10,
+                    y2:25,
+                    borderWidth:1
+                },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['周一','周二','周三','周四','周五','周六','周日']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+           // --min: 0,
+           //max: 100,
+          // interval:20,
+        }
+    ],
+    series : [
+        {
+            name:'最高气温',
+            type:'line',
+            data:[11, 11, 15, 13, 12, 13, 10],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        {
+            markLine : {
+                data : [
+                    {type : 'average', name : '平均值'}
+                ]
+            }
+        }
+    ]
+};
+                    
+        // 为echarts对象加载数据 
+        myChart.setOption(option); 
+
+
+</script>
+<div class="mark_03">
+<i class="mark_i"></i>
+<span>年级成绩大幅变化</span>
+<select id="myselect">
+
+  <option value="10">10</option>
+  <option value="20">20</option>
+  <option value="30">30</option>
+  <option value="40">40</option>
+   <option value="50">50</option>
+</select>
+<script>
+	
+	$("#myselect").change(function(event) {
+		/* Act on the event */
+		var nub=$("#myselect").find("option:selected").text();
+		console.log(nub);
+		if(nub==20||nub==40){
+$("#right_5").css("height","228px")
+$("#main_right").css("height","1540px")
+		}else{
+			$("#right_5").css("height","387px")
+      $("#main_right").css("height","1650px")
+		}
+		
+	});
+
+</script>
+<span>显示人数</span>	
+</div>
+<div class="right_05" id="right_5">
+<div class="r5_1">
+<div class="r5_10">
+<span>年级成绩大幅进步</span>
+</div>
+<div class="r5_11" id="r5_11">
+<table cellspacing="0" border="1" style="border-collapse:collapse;width:411px;height: 310px;border-color:#cccccc"  bordercolor="#cccccc">
+  <tr>
+    <th>姓名</th>
+     <th>年级排名</th>
+     <th>排名提升</th>
+     
+   
+  </tr>
+  <tr>
+    <td>张三丰</td>
+    <td>20</td>
+    <td>28<i class="iconfont">&#xe627;</i></td>
+  
+  </tr>
+  <tr>
+    <td>132人</td>
+    <td>32人</td>
+    <td>12<i class="iconfont">&#xe627;</i></td>
+  
+  </tr>
+  <tr>
+    <td>132人</td>
+    <td>32人</td>
+    <td>12<i class="iconfont">&#xe627;</i></td>
+  
+  </tr>
+  <tr>
+    <td>132人</td>
+    <td>32人</td>
+    <td>12<i class="iconfont">&#xe627;</i></td>
+  
+  </tr>
+  <tr>
+    <td>132人</td>
+    <td>32人</td>
+    <td>23<i class="iconfont">&#xe627;</i></td>
+    <tr>
+    <td>132人</td>
+    <td>32人</td>
+    <td>23<i class="iconfont">&#xe627;</i></td>
+  
+  </tr>
+  
+  </tr>
+  
+</table>
+
+
+</div>
+
+</div>
+<div class="r5_2">
+<div class="r5_21">
+<span>年级成绩大幅退步</span>
+</div>
+<table cellspacing="0" border="1" style="border-collapse:collapse;width:411px;height: 310px;border-color:#cccccc"  bordercolor="#cccccc">
+  <tr>
+    <th>姓名</th>
+     <th>年级排名</th>
+     <th>排名提升</th>
+     
+   
+  </tr>
+  <tr>
+    <td>王小</td>
+    <td>32人</td>
+    <td>12<i class="iconfont">&#xe628;</i></td>
+  
+  </tr>
+  <tr>
+    <td>132人</td>
+    <td>32人</td>
+    <td>12<i class="iconfont">&#xe628;</i></td>
+  
+  </tr>
+  <tr>
+    <td>132人</td>
+    <td>32人</td>
+    <td>12<i class="iconfont">&#xe628;</i></td>
+  
+  </tr>
+  <tr>
+    <td>132人</td>
+    <td>32人</td>
+    <td>12<i class="iconfont">&#xe628;</i></td>
+  
+  </tr>
+  <tr>
+    <td>132人</td>
+    <td>32人</td>
+    <td>12<i class="iconfont">&#xe628;</i></td>
+    <tr>
+    <td>132人</td>
+    <td>32人</td>
+    <td>12<i class="iconfont">&#xe628;</i></td>
+  
+  </tr>
+  
+  </tr>
+  
+</table>
+
+
+</div>
+
+</div>
+
+</div>
 
 
 
 
+</div>
+<div>3333</div>
+<div>4444</div>
+<div>5555</div>
+<div>6666</div>
+<div>7777</div>
+</div>
 
-		</div>	
 		</div>
+
+
+		</div>
+
 
 		<div id="footer">
 
