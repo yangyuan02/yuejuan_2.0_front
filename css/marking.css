@@ -1072,3 +1072,6 @@ ul.check-num-list .check-on-num {
 .check-teacher-list >a{
 	margin-right: 20px;
 }
+.check-teacher-pop{
+	display: none;
+}
