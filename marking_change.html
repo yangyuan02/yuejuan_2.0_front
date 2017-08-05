@@ -329,8 +329,8 @@
 							<table class="p-table" id="check-table">
 								<thead>
 									<tr>
-										<th>题号</th>
-										<th class="grade-th">分值</th>
+										<th class="num-th">题号</th>
+									<!-- 	<th class="grade-th">分值</th> -->
 										<th>总分</th>
 									</tr>
 								</thead>
@@ -339,8 +339,35 @@
 								</tbody>
 							</table>
 							<div class="pop-button">
-								<a class="check-btn determine" href="javascript:;">审核</a>
-								<a class="check-btn determine" href="javascript:;">确认提交</a>
+								<a class="check-btn determine" href="javascript:;" id="check-btns">审核</a>
+								<a class="check-btn determine" href="javascript:;" id="check-determine">确认提交</a>
+							</div>
+						</div>
+					</div>
+					<div class="yuejuan-pop check-teacher-pop">
+						<div class="pop-1">
+							<h5>
+								问题卷审核
+							</h5>
+						</div>
+						<div class="pop-2">
+							<p class="checked-teacher-list">
+								<a><span>审核老师:</span><span class="checkd-teacher">C</span></a>
+							</p>
+							<table class="p-table" id="check-teacher-table">
+								<thead>
+									<tr>
+										<th>题号</th>
+										<th>分值</th>
+										<th>总分</th>
+									</tr>
+								</thead>
+								<tbody>
+									
+								</tbody>
+							</table>
+							<div class="pop-button">
+								<a class="check-btn determine" href="javascript:;">确认审核</a>
 							</div>
 						</div>
 					</div>
