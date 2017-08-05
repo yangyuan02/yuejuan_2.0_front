@@ -149,7 +149,7 @@ $(function(){
 			var item_last_length = item_last.length;
 			console.log(item_last_length)
 			for (var j = 0; j < item_last_length; j++) {
-				var item_li ='<li><div class="item-name" data-id="'+item_last[j].id+'">'+item_last[j].name+'</div><div class="item-on">'+item_last[j].progress+'</div><div class="more-num" style="visibility: hidden;">test</div><div class="bug-num" style="visibility: hidden;">test</div><div class="item-time" style="visibility: hidden;">test</div><div class="item-op"><a href="javascript:;" class="mark-btn determine">阅卷</a><a href="javascript:;" class="check-btn">审核</a></div></li>';
+				var item_li ='<li><div class="item-name" data-id="'+item_last[j].id+'">'+item_last[j].name+'</div><div class="item-on">'+item_last[j].progress+'</div><div class="more-num" style="visibility: hidden;">test</div><div class="bug-num" style="visibility: hidden;">test</div><div class="item-time" style="visibility: hidden;">test</div><div class="item-op"><a href="javascript:;" class="mark-btn determine">阅卷</a><a href="javascript:;" class="check-btn" id="check-btn">审核</a></div></li>';
 			  $('.li-'+i+'').find('.last-ul').append(item_li);
 			};
 
@@ -1219,7 +1219,7 @@ $(function(){
 
 
 	// 审核页面相关功能
-	$('body').on('click', '.check-btn', function() {
+	$('body').on('click', '#check-btn', function() {
 		$('.check-paper-box').show();
 		$('#wrap').hide();
 		var section_crop_id = $(this).parent().parent().find('.item-name').attr('data-id');
@@ -1233,11 +1233,13 @@ $(function(){
 
 
 	function get_check_info(id){
+		console.log(id)
 		$.ajax({
 		  type: "GET",
 		  url: ajaxIp+"/api/v2/section_crop_images/review_paper",
 		  headers: {'Authorization': "Bearer " + isLogin},
 		  data:{'section_crop_id':id,'type':2},
+		  dataType: "JSON",
 		  success: function(data){
 		  	console.log(data);
 		  	show_check_info(data);
@@ -1250,8 +1252,10 @@ $(function(){
 		});
 	}
 
-
+	var text_list;//第一个老师的阅卷信息
+	var reviewed_teacher_name;
 	function show_check_info(check_info){
+		reviewed_teacher_name = check_info.reviewed_teacher_name;
 		$('.check-paper').html('');
 		var img_id = check_info.section_crop_image_id;
 		var img_url = check_info.section_crop_image_uri;
@@ -1263,27 +1267,68 @@ $(function(){
 		// 未处理数目
 		$('.off-check').text(check_info.untreated);
 
+		$('.check-teacher-list').attr('student_info_id',check_info.student_info_id);
+
 		// 阅卷老师名字
 		var section_crop_info = check_info.section_crop_images;
 		console.log(section_crop_info.length);
 		$('.check-teacher-list').html('');
 		$('#check-table tbody').html('');
+		$('.num-th').after('');
+		var b_input=[];//分值input
+		// 获取每位老师的阅卷分数
 		for (var j = 0; j < section_crop_info.length; j++) {
-			if(section_crop_info.length>1){
-				var grade_th = '<th class="grade-th-'+j+'">分值</th>';
-				$('.grade-th').after(grade_th);
-			}
-			var teacher_name = '<a><span>阅卷老师:</span><span class="check-teacher">'+section_crop_info[j].customer_name+'</span></a>';
+			var grade_th = '<th class="grade-th-'+j+'">分值</th>';
+			$('.num-th').after(grade_th);
+			var teacher_name = '<a><span>阅卷老师:</span><span class="check-teacher" data-id="'+section_crop_info[j].examination_teacher_id+'">'+section_crop_info[j].customer_name+'</span></a>';
 			$('.check-teacher-list').append(teacher_name);
 			// 审核题目信息
+			text_list = section_crop_info[0].answer_setting_scores;
 			var check_item_infos = section_crop_info[j].answer_setting_scores;
-			for (var i = 0; i < check_item_infos.length; i++) {
-				var check_item_info = '<tr><td class="item-num">'+check_item_infos[i].num+'</td><td class="input-p"><input type="text" class="yuejuan_score" value="'+check_item_infos[i].answer_setting_score+'"/></td><td class="all-grade">'+check_item_infos[i].total_score+'</td></tr>'
-				$('#check-table tbody').append(check_item_info);
+			for (var z = 0; z < check_item_infos.length; z++) {
+				var td_input='<td class="input-p"><input disabled style="width:45px" type="text" class="yuejuan_score" value="'+check_item_infos[z].answer_setting_score+'"/></td>';
+				b_input.push(td_input);
 			};
 		};
-
+		// console.log(text_list)
+		// console.log(b_input)
+		// 根据第一个老师获取题号信息和总分值信息
+		for (var m = 0; m < text_list.length; m++) {
+			var text_info = '<tr><td class="item-num">'+text_list[m].num+'</td>'+b_input+'<td class="all-grade">'+text_list[m].total_score+'</td></tr>';
+			$('#check-table tbody').append(text_info);
+		};
 	}
+
+
+
+	// 审核提交
+	$('body').on('click', '#check-btns', function() {
+		$('.check-teacher-pop').show();
+		var height = $(this).parents('.check-pop').height()+100;
+		$('.check-teacher-pop').css({
+			'top': height+'px',
+		});
+		$(this).parents('.check-pop').css({
+			'opacity': .5,
+			'cursor': 'not-allowed'
+		});
+		$(this).css({'cursor': 'not-allowed'});
+		$(this).siblings().css({'cursor': 'not-allowed'});
+
+
+
+		console.log(text_list);
+		$('.checkd-teacher').text(reviewed_teacher_name);
+		$('#check-teacher-table tbody').html('');
+		for (var i = 0; i < text_list.length; i++) {
+			var item_tr = '<tr><td class="item-num">'+text_list[i].num+'</td><td class="input-p"><input type="text" class="yuejuan_score" data-fen="'+text_list[i].total_score+'" /></td><td class="all-grade">'+text_list[i].total_score+'</td></tr>';
+			$('#check-teacher-table').append(item_tr);
+		};
+		// var section_crop_id = $('.check-paper-box').attr('section_crop_id');
+		// var section_crop_image_id = $('.check-paper img').attr('data-id');
+		// var student_info_id = $('.check-teacher-list').attr('student_info_id');
+		// var answer_setting_scores;
+	});
 
 	// 关闭试卷
 	$('.check-paper-box .close').click(function() {
