@@ -178,6 +178,7 @@ $(function(){
 
 
 	// 获取试卷总数信息
+	var total_paper;
 	function get_paper_info(id){
 		$.ajax({
 		  type: "GET",
@@ -186,6 +187,8 @@ $(function(){
 		  data:{'section_crop_id':id},
 		  success: function(data){
 		  	console.log(data);
+		  	total_paper=data.total_count;
+		  	console.log(total_paper)
 		  	$('.all-paper').text(data.total_count);
 		  },
 		  error: function(){
@@ -196,7 +199,6 @@ $(function(){
 		});
 
 	}
-
 
 	// 获取当前试卷所有信息
 	function get_info_request(id,name,index){
@@ -244,14 +246,19 @@ $(function(){
 			var img_url = img_info.section_crop_image_uri;
 			var img_id = img_info.section_crop_image_id;
 			var img_html = '<img data-id="'+img_id+'" id="img-'+img_id+'" src="'+ ajaxIp +''+img_url+'">';
-
 		}
 		$('.move-paper').append(img_html);
-		if(index!=null){
-			$('.on-num').text(index);
-		}else{
-			$('.on-num').text(img_info.finished_count+1);
-		}//当前第几份试卷
+			console.log(total_paper)
+
+	
+			$('.on-num').text(img_info.index);
+		// }else{
+		// 	$('.on-num').text(img_info.finished_count);
+		// }//当前第几份试卷
+		// console.log($('.all-paper').text())
+		// if(img_info.finished_count==parseInt($('.all-paper').text())){
+		// 	$('.on-num').text(img_info.finished_count);
+		// }
 		
 
 		// 显示批注信息
@@ -291,7 +298,12 @@ $(function(){
 		$('.paper-item-name').attr('exam_subject_id',img_info.exam_subject_id);
 		$('.paper-item-name').attr('scanner_image_id',img_info.scanner_image_id);
 		$('.paper-item-name').attr('current_page',img_info.current_page);
-		$('.mark-model').text(img_info.pattern)//改卷模式
+		//改卷模式
+		if(img_info.pattern){
+			$('.mark-model').text('得分模式');
+		}else{
+			$('.mark-model').text('扣分模式');
+		}
 		$('.finished').text(img_info.finished_count);
 		$('.pop-1').find('span').text(img_info.teacher_name);
 		// 显示题号
@@ -361,7 +373,15 @@ $(function(){
 	$('.back-paper').click(function(){
 		var section_crop_id = $('.paper-item-name').attr('section_crop_id');
 		var section_crop_name = $('.paper-item-name').text();
-		get_info_request(section_crop_id,section_crop_name);
+		var finished_count = parseInt($('.finished').text());
+		var all_count = parseInt($('.all-paper').text());
+		console.log(finished_count,all_count)
+		if(finished_count==all_count){
+			alert('试卷已经改完');
+			get_info_request(section_crop_id,section_crop_name,finished_count);
+		}else{
+			get_info_request(section_crop_id,section_crop_name);
+		}
 	})
 
 	// 第一卷
@@ -395,14 +415,15 @@ $(function(){
   	console.log(current_index)
   	var index = parseInt($('.on-num').text())+1;
   	var all_num = parseInt($('.all-paper').text());
-  	if(index < current_index+1){
+  	console.log(index,all_num)
+  	if(index <= current_index){
 			var section_crop_id = $('.paper-item-name').attr('section_crop_id');
 			var section_crop_name = $('.paper-item-name').text();
 			get_info_request(section_crop_id,section_crop_name,index);
-  	}else{
+  	}else if(index-1<all_num){
 			alert("不能选择未批改的试卷，请点击返回试卷");
 		}
-		if(current_index==all_num){
+		if(index-1==all_num){
 			alert('已经是最后一张试卷')
 		}
   })
@@ -502,7 +523,6 @@ $(function(){
 		var dataInput = $('.move-paper input');
 		var dataMove = $('.move-paper img');
 		console.log($('.move-paper .popline_text').length);
-		
 		for (var j = 0; j < dataNum; j++) {
 			console.log(dataNum)
 			coordinateArr[j] = {};
@@ -539,6 +559,9 @@ $(function(){
 			'exam_subject_id': e_s_id,
 			'mark':coordinateArr
 		}
+		var a = parseInt($('.on-num').text());
+		var b = parseInt($('.all-paper').text());
+		console.log(a,b);
 		if(input_value.val() != ""){
 			$.ajax({
 			  type: "POST",
@@ -547,7 +570,22 @@ $(function(){
 			  data:data_value,
 			  success: function(data){
 			  	console.log(data);
-			  	get_info_request(s_c_id,name);
+			  	console.log(a_settings[0].answer_setting_score_id)
+			  	if(a<b &&a_settings[0].answer_setting_score_id==null){
+			  		get_info_request(s_c_id,name);
+			  	}
+			  	if(a_settings[0].answer_setting_score_id){
+			  		alert('修改成功');
+			  	}
+			  	if(a==b){
+			  		if(a_settings[0].answer_setting_score_id){
+			  			alert('修改成功');
+			  			alert('试卷已经批改完毕');
+			  		}else{
+			  			// get_info_request(s_c_id,name);
+			  			alert('试卷已经批改完毕');
+			  		}
+			  	}
 			  },
 			  error: function(){
 			      // alert('请稍后从新尝试登录或者联系管理员');
@@ -1095,7 +1133,7 @@ $(function(){
 			return;
 		}
 
-		var iNum = $(this).attr('data-number');
+		var iNum = parseFloat($(this).attr('data-number'));
 		console.log(iNum)
 		var score = i_on_blur.val();
 		if(score != '' && iNum == 0.5){
@@ -1151,10 +1189,11 @@ $(function(){
 
 		//分数判定
 	$('body').on('input' , '.yuejuan_score', function(){
-		var fen = $(this).attr('data-fen');
-		var score = $(this).val();
-		console.log(score)
-		if(score>fen || score < 0 && score!=''){
+		var fen = parseFloat($(this).attr('data-fen'));
+		var score = parseFloat($(this).val());
+		console.log(score,fen)
+		if(score > fen || score < 0 && score!=''){
+			console.log(9900)
 			iTwo(prompt_i,prompt_1);
 			$(this).val('');
 		}
@@ -1228,25 +1267,21 @@ $(function(){
 		var section_crop_info = check_info.section_crop_images;
 		console.log(section_crop_info.length);
 		$('.check-teacher-list').html('');
+		$('#check-table tbody').html('');
 		for (var j = 0; j < section_crop_info.length; j++) {
+			if(section_crop_info.length>1){
+				var grade_th = '<th class="grade-th-'+j+'">分值</th>';
+				$('.grade-th').after(grade_th);
+			}
 			var teacher_name = '<a><span>阅卷老师:</span><span class="check-teacher">'+section_crop_info[j].customer_name+'</span></a>';
 			$('.check-teacher-list').append(teacher_name);
 			// 审核题目信息
-			$('#check-table tbody').html('');
 			var check_item_infos = section_crop_info[j].answer_setting_scores;
 			for (var i = 0; i < check_item_infos.length; i++) {
 				var check_item_info = '<tr><td class="item-num">'+check_item_infos[i].num+'</td><td class="input-p"><input type="text" class="yuejuan_score" value="'+check_item_infos[i].answer_setting_score+'"/></td><td class="all-grade">'+check_item_infos[i].total_score+'</td></tr>'
 				$('#check-table tbody').append(check_item_info);
 			};
 		};
-
-		// 审核题目信息
-		// $('#check-table tbody').html('');
-		// var check_item_infos = check_info.section_crop_images.answer_setting_scores;
-		// for (var i = 0; i < check_item_infos.length; i++) {
-		// 	var check_item_info = '<tr><td class="item-num">'+check_item_infos[i].num+'</td><td class="input-p"><input type="text" class="yuejuan_score" value="'+check_item_infos[i].answer_setting_score+'"/></td><td class="all-grade">'+check_item_infos[i].total_score+'</td></tr>'
-		// 	$('#check-table tbody').append(check_item_info);
-		// };
 
 	}
 
