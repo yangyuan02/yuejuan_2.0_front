@@ -1069,3 +1069,6 @@ ul.check-num-list .check-on-num {
 	padding-bottom: 8px;
 	border-bottom: 1px solid #31bc91;
 }
+.check-teacher-list >a{
+	margin-right: 20px;
+}
