@@ -121,7 +121,7 @@ width: 270px;
 	height: 46px;
 	color:#2daa82;
   
-   font-size: 18px;
+   font-size:16px;
     line-height: 46px;
     padding-left: 76px;
     border-bottom: 1px solid #cccccc;
@@ -135,6 +135,7 @@ width: 270px;
 	box-sizing: border-box;
 	padding-left: 76px;
 	overflow: hidden;
+	display:none;
 }
 .mark_li_01 li{
 	float: left;
@@ -511,17 +512,6 @@ color: #49b593;
 	height: 90px;
 	margin: 0 auto;
 	margin-top: 37px;
-	
-}
-.tab tr{
-	border-color: #cccccc;
-	color: #707070;
-}
-.tab td{
-	text-align: center;
-}
-.tab th{
-	background:#f5f5f5;
 	
 }
 .main_right .right_04{
