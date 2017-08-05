@@ -741,12 +741,12 @@ ul.ul-right .back-paper{
 	position: relative;
 	height: 100%;
 }
-.left-box{
+.left-box,.check-left{
 	position: absolute;
 	left: 0;
 	top: 0;
 }
-.left-operation{
+.left-operation,.check-left-operation{
 	position: relative;
 	z-index: 9999;
 }
@@ -1049,4 +1049,23 @@ ul.check-num-list .check-on-num {
   color: #31bc91;
   text-align: center;
   border: 1px solid #d8d8d8;
+}
+.check-btn{
+	display: inline-block;
+  width: 80px;
+  height: 30px;
+  line-height: 30px;
+  margin: 0 5px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+}
+.off-check,.on-check{
+	margin-left: 4px;
+}
+.check-teacher-list{
+	padding-bottom: 8px;
+	border-bottom: 1px solid #31bc91;
 }
