@@ -1435,6 +1435,7 @@ $(function(){
 		var section_crop_id = $('.check-paper-box').attr('section_crop_id');
 		get_check_info(section_crop_id,type_id);
 		$('.no-deal').addClass('on').siblings('.on-deal').removeClass('on');
+		$('.check-num-list').hide();
 
 	});
 
@@ -1504,24 +1505,11 @@ $(function(){
 
 
 	// 返回审核
-	// $('.check-back-paper').on('click',function() {
-	// 	var deal_type;
-	// 	var type_id = $('.change-paper-type').val();
-	// 	if(type_id==2){
-	// 		deal_type=3;
-	// 	}
-	// 	if(type_id==4){
-	// 		deal_type=5;
-	// 	}
-	// 	var section_crop_id = $('.check-paper-box').attr('section_crop_id');
-	// 	var index = 1;
-	// 	if($('.check-on-num').text()==1){
-	// 		alert('已经是第一张试卷了')
-	// 	}else{
-	// 		$('.check-on-num').text(index);
-	// 		get_deal_paper(section_crop_id,deal_type,index);
-	// 	}
-	// });
+	$('.check-back-paper').on('click',function() {
+		var type_id = $('.change-paper-type').val();
+		var section_crop_id = $('.check-paper-box').attr('section_crop_id');
+		get_check_info(section_crop_id,type_id);
+	});
 
 
 
