@@ -47,7 +47,7 @@
     </div>
 <div class="main_right" id="main_right">
 <!-- 成绩生成。start -->
-<div style="position: relative;">
+<div style="position: relative;display:none;">
 <div class="mark_01">
 	<span class="mark_span_01">成绩生成日志</span>
 	<span style="color: #666666;float: right;line-height: 44px;">科目
@@ -131,7 +131,7 @@
 
 </div>
 <!-- 成绩生成。end -->
-
+<!--考试状况  start-->
 <div style="display: none;">
 <div class="right_01">
 <span class="span_1"><i class="i1" style="font-style: normal;"></i><i id="i_1" class="iconfont" style="font-size:10px;margin-left: 10px;">&#xe629;</i></span>
@@ -202,18 +202,15 @@
 </div>
 
 
-		<div class="tab">
-
-
-
+<div class="tab">
 <div class="mark_03">
 <i class="mark_i"></i>
-<span>年纪学科趋势</span>	
+<span>年级学科趋势</span>	
 </div>
 <div class="right_04" id="right_04" style="width:900px;
    height: 272px;">
 </div>
-
+</div>
 
 
 
@@ -341,15 +338,471 @@
 
 </div>
 
-</div>
-
-</div>
-
-
 
 
 </div>
-<div style="display: none;">3333</div>
+
+
+
+
+</div>
+<!--考试状况  end-->
+<!--班级学情追踪  start-->
+<div style="" >
+<div id="study_q_ck">
+	<div class="right_01"><span style="">班级概况</span></div>
+	<div class="study_q_01">
+		<ul>
+			<li><span>考试名称</span>
+			<select>
+
+    <option value="">请选择考试</option>
+   <option value="">上师大高一期末考试</option>
+   <option value="">上师大高二期末考试</option>
+   <option value="">上师大高三期末考试</option>
+   
+</select>
+			</li>
+			<li>
+			<span>考试班级</span>
+			<select>
+
+       <option value="">请选择班级</option>
+      <option value="">一班</option>
+      <option value="">二班</option>
+      <option value="">三班</option>
+   
+     </select>
+			</li>
+			<li>
+			<span>考试科目</span>
+			<select>
+
+       <option value="">请选择科目</option>
+      <option value="">语文</option>
+      <option value="">数学</option>
+      <option value="">外语</option>
+   
+     </select>
+			</li>
+
+		</ul>
+	</div>
+	<div class="study_q_02">
+	<div class="study_q_i">
+		<i></i><span>整体概况</span>
+<button type="" class="determine">导出</button>
+	</div>	
+<table cellspacing="0" border="1" bordercolor="#cccccc">
+  <tr>
+     <th>满分</th>
+     <th>平均分</th>
+     <th>最高分</th>
+     <th>最低分</th>
+     <th>及格人数</th>
+     <th>优秀人数</th>
+     <th>班级人数</th>
+     <th>缺考人数</th>
+  </tr>
+  <tr>
+    <td>100</td>
+    <td>70</td>
+    <td>98</td>
+    <td>34</td>
+    <td>30</td>
+    <td>40</td>
+    <td>40</td>
+    <td>0</td>
+
+  
+  </tr>
+  </table>
+	</div>
+<div class="study_q_03">
+<div class="study_q_i">
+		<i></i><span>分数段分布</span>
+<button type="" class="determine">导出</button>
+	</div>
+
+<div class="study_q_03_01">
+<span>比例%</span>	
+<div class="study_q_03_02" id="study_q_03_02">
+</div>	
+<table cellspacing="0" border="1" bordercolor="#cccccc">
+  <tr>
+     <th>80-100分</th>
+     <th>60-80分</th>
+     <th>40-60分</th>
+     <th>20-40分</th>
+     <th>0-20分</th>
+  </tr>
+  <tr>
+    <td>83人</td>
+    <td>70人</td>
+    <td>98人</td>
+    <td>34人</td>
+    <td>30人</td>
+  </tr>
+  </table>
+</div>		
+</div>
+<div class="study_q_04">
+<div class="study_q_i">
+		<i></i><span>班级成绩大幅度变化</span><button type="" class="determine">导出</button>
+		<span style="float: right; ">显示人数
+<select>
+      <option value="">5</option>
+      <option value="">10</option>
+      <option value="">15</option>
+      <option value="">20</option>
+   
+     </select>
+
+
+		</span>
+
+
+
+
+	</div>	
+<div class="study_q_04_01">
+<div class="study_q_04_02">
+<div class="study_q_04_s">
+	<span>年级成绩大幅进步</span>
+</div>
+<table cellspacing="0" border="1" bordercolor="#cccccc" >
+  <tr>
+     <th>次序</th>
+     <th>姓名</th>
+     <th>年级排名</th>
+    <th>排名提升</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>张三丰</td>
+    <td>20</td>
+    <td>28<i class="iconfont">&#xe627;</i></td>
+  </tr>
+ <tr>
+    <td>2</td>
+    <td>赵四</td>
+    <td>12</td>
+    <td>25<i class="iconfont">&#xe627;</i></td>
+  </tr>
+   <tr>
+    <td>3</td>
+    <td>王五</td>
+    <td>18</td>
+    <td>16<i class="iconfont">&#xe627;</i></td>
+  </tr>
+   <tr>
+    <td>4</td>
+    <td>李二</td>
+    <td>68</td>
+    <td>42<i class="iconfont">&#xe627;</i></td>
+  </tr>
+   <tr>
+    <td>5</td>
+    <td>张三</td>
+    <td>124</td>
+    <td>28<i class="iconfont">&#xe627;</i></td>
+  </tr>
+   <tr>
+    <td>6</td>
+    <td>张三十</td>
+    <td>156</td>
+    <td>28<i class="iconfont">&#xe627;</i></td>
+  </tr>
+  </table>
+<div class="study_q_04_s" style="background:#f7c07c; margin-top:34px;">
+	<span>班级前六名</span>
+</div>
+<table cellspacing="0" border="1" bordercolor="#cccccc"  class="study_q_04_01_tab">
+  <tr>
+     <th>次序</th>
+     <th>姓名</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>张三丰</td>
+  </tr>
+ <tr>
+    <td>2</td>
+    <td>赵四</td>
+  </tr>
+   <tr>
+    <td>3</td>
+    <td>王五</td>
+  </tr>
+   <tr>
+    <td>4</td>
+    <td>李二</td>
+  </tr>
+   <tr>
+    <td>5</td>
+    <td>张三</td>
+  </tr>
+   <tr>
+    <td>6</td>
+    <td>张三十</td>
+  </tr>
+  </table>
+</div>
+<span class="study_q_04_line"><span>
+<div class="study_q_04_03">
+<div class="study_q_04_s" style="background:#31bc91">
+	<span>年级成绩大幅退步</span>
+</div>
+	<table cellspacing="0" border="1" bordercolor="#cccccc" >
+  <tr>
+     <th>次序</th>
+     <th>姓名</th>
+     <th>年级排名</th>
+    <th>排名提升</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>张三丰</td>
+    <td>20</td>
+    <td>28<i class="iconfont">&#xe628;</i></td>
+  </tr>
+ <tr>
+    <td>2</td>
+    <td>赵四</td>
+    <td>12</td>
+    <td>25<i class="iconfont">&#xe628;</i></td>
+  </tr>
+   <tr>
+    <td>3</td>
+    <td>王五</td>
+    <td>18</td>
+    <td>16<i class="iconfont">&#xe628;</i></td>
+  </tr>
+   <tr>
+    <td>4</td>
+    <td>李二</td>
+    <td>68</td>
+    <td>42<i class="iconfont">&#xe628;</i></td>
+  </tr>
+   <tr>
+    <td>5</td>
+    <td>张三</td>
+    <td>124</td>
+    <td>28<i class="iconfont">&#xe628;</i></td>
+  </tr>
+   <tr>
+    <td>6</td>
+    <td>张三十</td>
+    <td>156</td>
+    <td>28<i class="iconfont">&#xe628;</i></td>
+  </tr>
+  </table>
+<div class="study_q_04_s" style="background:#5fa3ed; margin-top:34px;">
+	<span>班级后六名</span>
+</div>
+<table cellspacing="0" border="1" bordercolor="#cccccc"  class="study_q_04_01_tab">
+  <tr>
+     <th>次序</th>
+     <th>姓名</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>张三丰</td>
+  </tr>
+ <tr>
+    <td>2</td>
+    <td>赵四</td>
+  </tr>
+   <tr>
+    <td>3</td>
+    <td>王五</td>
+  </tr>
+   <tr>
+    <td>4</td>
+    <td>李二</td>
+  </tr>
+   <tr>
+    <td>5</td>
+    <td>张三</td>
+  </tr>
+   <tr>
+    <td>6</td>
+    <td>张三十</td>
+  </tr>
+  </table>
+</div>
+</div>
+</div>
+<div class="study_q_05">
+<div class="study_q_i">
+		<i></i><span>班级客观题各小题得分分析</span>
+<button type="" class="determine">导出</button>
+	</div>		
+<div class="study_q_05_01">
+<table cellspacing="0" border="1" bordercolor="#cccccc" >
+  <tr>
+     <th>题型</th>
+     <th>平均分</th>
+     <th>题号</th>
+    <th>选项A</th>
+    <th>选项B</th>
+     <th>选项C</th>
+     <th>选项D</th>
+    <th>正确答案</th>
+    <th>正确率</th>
+     <th>详情</th>
+    
+  </tr>
+  <tr>
+  <td></td>
+    <td></td>
+    <td>1</td>
+    <td>5</td>
+    <td style="color:#fb7d8a">9</td>
+     <td>9</td>
+     <td>7</td>
+    <td>B</td>
+    <td>30%</td>
+    <td><span>查看</span></td>
+     
+  </tr>
+  <tr>
+    <td>一、选择题</td>
+    <td >4分</td>
+    <td>1</td>
+    <td>5</td>
+    <td>9</td>
+     <td>9</td>
+     <td style="color:#fb7d8a">7</td>
+    <td>D</td>
+    <td>30%</td>
+    <td><span>查看</span></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td ></td>
+    <td>1</td>
+    <td style="color:#fb7d8a">5</td>
+    <td>9</td>
+     <td>9</td>
+     <td>7</td>
+    <td>A</td>
+    <td>30%</td>
+    <td><span>查看</span></td>
+  </tr>
+  </table>
+
+<table cellspacing="0" border="1" bordercolor="#cccccc"  class="study_q_05_tab">
+  <tr>
+     <th>题型</th>
+     <th>平均分</th>
+     <th>题号</th>
+    <th>T</th>
+     <th>F</th>
+    <th>正确答案</th>
+    <th>正确率</th>
+     <th>详情</th>
+    
+  </tr>
+  <tr>
+  <td></td>
+    <td></td>
+    <td>4</td>
+    <td style="color:#fb7d8a">9</td>
+     <td>7</td>
+    <td>T</td>
+    <td>67%</td>
+    <td><span>查看</span></td>
+     
+  </tr>
+  <tr>
+    <td>二、判断题</td>
+    <td >2分</td>
+    <td>5</td>
+     <td>9</td>
+     <td style="color:#fb7d8a">7</td>
+    <td>F</td>
+    <td>30%</td>
+    <td><span>查看</span></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td ></td>
+    <td>6</td>
+     <td style="color:#fb7d8a">5</td>
+     <td>9</td>
+    <td>T</td>
+    <td>30%</td>
+    <td><span>查看</span></td>
+  </tr>
+  </table>
+</div>
+</div>
+
+<script type="text/javascript">
+	$(".study_q_05_01 td span").click(function(event) {
+		/* Act on the event */
+		$("#study_q_ck").hide();
+	});
+
+</script>
+<!-- 成绩单 -->
+<div class="study_q_06">
+<div class="study_q_i">
+		<i></i><span>成绩单</span>
+<button type="" class="determine">导出</button></div>
+<div class="study_q_06_1">
+<table cellspacing="0" border="1" bordercolor="#cccccc" class="study_q_06_tab">
+  <tr>    
+    <th>姓名</th>
+    <th>数学成绩</th>
+     <th>等级</th>
+     <th>班级排名</th>
+    <th>名次变化</th>
+    <th colspan="3">操作</th>
+  </tr>
+  <tr>
+    <td>张三丰</td>
+    <td>88</td>
+     <td>A</td>
+     <td>1</td>
+    <td style="color:#fb7d8a">3<i class="iconfont">&#xe627;</i></td>
+    <td>查看答题卡</td>
+    <td>点评</td>
+     
+  </tr>
+  <tr>
+    <td>张三丰</td>
+    <td>88</td>
+     <td>A</td>
+     <td>2</td>
+    <td style="color:#5fa3ed">0<i class="iconfont">&#xe621;</i></td>
+    <td>查看答题卡</td>
+    <td>点评</td>
+     
+  </tr>
+  <tr>
+    <td>张三丰</td>
+    <td>88</td>
+     <td>A</td>
+     <td>3</td>
+    <td style="color:#31bc91">-2<i class="iconfont">&#xe628;</i></td>
+    <td>查看答题卡</td>
+    <td>点评</td>
+     
+  </tr>
+ </table>
+</div>	
+</div>
+<div>
+<div class="ck_1">
+<div class="right_01"><span style="font-weight: normal;"><i class="iconfont" style="margin-right:15px; ">&#xe61c;</i>上师大高二期末考试：2017-06-24</span></div>
+
+
+
+
+</div>
+<!--班级学情追踪 end-->
 <div style="display: none;">4444</div>
 <div style="display: none;">5555</div>
 <div style="display: none;">6666</div>

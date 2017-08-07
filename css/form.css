@@ -65,11 +65,12 @@ cursor: pointer;
 
 .main_right{
 	width:1000px;
-height:1650px;
+
 float: right;
 background: #ffffff;
 border: 1px solid #ccc;
-
+overflow: hidden;
+padding-bottom: 30px;
 
 
 }
@@ -297,15 +298,16 @@ margin-bottom: 15px;
 
 
 .main_right .right_01{
-	width:936px;
+	width:886px;
    height: 44px;
    background:#dcf5f0;
    margin:0 auto;
   margin-top:20px;
   padding: 0 35px 0px 15px;
   position: relative;
-  font-size: 20px;
+  font-size: 16px;
   color: #2daa82;
+  line-height: 40px;
 
 }
 .main_right .right_01 .span_1{
@@ -331,7 +333,7 @@ border: 1px solid #cccccc;
     color: #999999;
     cursor: pointer;
     line-height: 40px;text-align: center;
-    font-size: 18px;
+    font-size: 16px;
 }
 .main_right .right_01 i{
 	cursor: pointer;
@@ -349,7 +351,7 @@ border: 1px solid #cccccc;
     color: #999999;
     cursor: pointer;
     line-height: 40px;text-align: center;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 
@@ -509,7 +511,6 @@ color: #49b593;
 
 .tab{
 	width: 903px;
-	height: 90px;
 	margin: 0 auto;
 	margin-top: 37px;
 	
@@ -629,7 +630,360 @@ line-height: 48px;
 margin-left: 20px;
 }
 
+/*<!--班级学情追踪  start-->*/
+.study_q_01{
+	width: 921px;
+	height: 50px;
+	font-size: 14px;
+	color: #666666;
+	margin: 0 auto;
+	padding-left: 15px;
+	margin-top: 20px;
+}
+.study_q_01 li {
+	float: left;
+	margin-right: 30px;
+}
+.study_q_01 select{
+	width: 142px;
+	height: 30px;
+	margin-left: 15px;
+	color: #666666;
+}
 
+.study_q_02{
+	width: 936px;
+	height: 160px;
+	margin: 0 auto;
+	border-bottom: 1px solid #cccccc;
+}
+.study_q_i{
+	width:100%;
+	height: 42px;
+	
+}
+
+.study_q_i span{
+	float: left;
+	line-height: 28px;
+    font-size: 14px;
+    color: #666666;
+    font-weight:bold;
+}
+.study_q_i i{
+  display: block;
+    width: 3px;
+    height: 18px;
+    background: #31bc91;
+    float: left;
+    margin-right: 10px;
+    margin-top: 4px;
+    margin-left: 15px;
+	
+}
+.study_q_i button{
+	float: right;
+	
+}
+.study_q_02 table{
+	
+	border-collapse:collapse;
+	margin:0 auto;
+	color: #666666;
+	
+}
+.study_q_02 tr th{
+	width: 110px;
+	height: 45px;
+	box-sizing: border-box;
+	font-size: 14px;
+	font-weight: normal;
+	background-color: #f5f5f5;
+	
+}
+.study_q_02 tr td{
+	
+	width: 110px;
+	height: 45px;
+	box-sizing: border-box;
+	text-align: center;
+	
+}
+.study_q_03{
+	
+	width: 936px;
+	height:436px;
+	margin: 0 auto;
+	border-bottom: 1px solid #cccccc;
+	margin-top: 30px;
+}
+.study_q_03_01{
+	position: relative;
+	
+}
+.study_q_03_02{
+	
+	width:900px;
+	height:237px;
+	margin:0 auto;
+	
+	
+}
+.study_q_03_01 span{
+	display: block;
+	position: absolute;
+	top:-10px;
+	left: 16px;
+	font-size: 14px;
+	color: #999999;
+}
+.study_q_03_01 table{
+	
+	border-collapse:collapse;
+	margin:0 auto;
+	color: #666666;
+	margin-top:27px;
+	
+}
+.study_q_03_01 tr th{
+	width: 173px;
+	height: 45px;
+	box-sizing: border-box;
+	font-size: 14px;
+	font-weight: normal;
+	background-color: #f5f5f5;
+	
+}
+.study_q_03_01 tr td{
+	
+	width: 173px;
+	height: 45px;
+	box-sizing: border-box;
+	text-align: center;
+	
+}
+
+.study_q_04{
+	
+	width: 936px;
+	height:830px;
+	margin: 0 auto;
+	border-bottom: 1px solid #cccccc;
+	margin-top: 30px;
+}
+
+.study_q_04 select{
+	
+width: 85px;
+	height:30px;
+	margin-left:20px;
+	margin-right:43px;
+	
+}
+
+
+
+
+
+.study_q_04_02{
+	
+	width: 410px;
+	height:790px;
+	float: left;
+	
+}
+.study_q_04_s{
+	
+	width: 410px;
+	height:52px;
+	background:#fb7d8a; 
+	
+}
+.study_q_04_s span{
+	
+	line-height:52px;
+	color: #f5f5f5;
+	font-size: 16px;
+	font-weight: normal;
+	padding-left: 42px;
+}
+.study_q_04_01 {
+	width: 900px;
+}
+.study_q_04_01 table{
+	border-collapse:collapse;
+	text-align: center;
+	color: #666666;
+}
+.study_q_04_01 tr th{
+	
+	width: 102.5px;
+	height: 44px;
+	box-sizing: border-box;
+	font-size: 14px;
+	font-weight: normal;
+	background-color: #f5f5f5;
+	border: 0px;
+    border-bottom: 1px solid #cccccc;
+}
+.study_q_04_01 tr td:nth-of-type(4){
+	
+	color:#fb7d8a; 
+}
+.study_q_04_01 tr td i{
+	
+	margin-left: 10px;
+	font-size: 14px;
+}
+.study_q_04_01 tr td{
+	
+	width: 102.5px;
+	height: 44px;
+	box-sizing: border-box;
+	font-size: 14px;
+	font-weight: normal;
+	border: 0px;
+    border-bottom: 1px solid #cccccc;
+}
+.study_q_04_01_tab  tr th{
+width:205px;
+padding-left: 42px;
+text-align: left;
+}
+.study_q_04_01_tab  tr td{
+width:205px;
+padding-left: 42px;
+text-align: left;
+}
+.study_q_04_line {
+	
+width: 1px;
+height: 758px;
+background:#cccccc;
+float: left;
+margin-left: 38px; 
+
+}
+.study_q_04_03{
+	float: left;
+	margin-left: 38px;
+}
+.study_q_04_03 tr td:nth-of-type(4){
+	
+	color:#31bc91; 
+}
+
+.study_q_05{
+	
+	width: 936px;
+	height: 434px;
+	margin: 0 auto;
+	border-bottom: 1px solid #cccccc;
+	margin-top: 30px;
+}
+.study_q_05_01{
+	
+	width: 936px;
+	height: 374px;
+}
+.study_q_05_01 table{
+	
+	border-collapse:collapse;
+	color: #666666;
+box-sizing: border-box;
+	font-size: 14px;
+	font-weight: normal;
+	
+}
+.study_q_05_01 tr th{
+	width:93.6px;
+	height:44px;
+	
+	background-color: #f5f5f5;
+
+	
+}
+.study_q_05_01 tr td{
+width:93.6px;
+	height:44px;
+	text-align: center;	
+	
+}
+
+.study_q_05_01 tr td:nth-of-type(1){
+border:none;
+	
+}
+.study_q_05_01 tr td:nth-of-type(2){
+border:none;
+border-left: 1px solid #cccccc;
+	
+}
+.study_q_05_01 tr td:nth-of-type(10){
+color:#31bc91;
+cursor: pointer;	
+}
+/*班级客观题表二*/
+.study_q_05_tab{
+	margin-top: 22px;
+}
+.study_q_05_tab tr td:nth-of-type(4){
+width: 187.2px;	
+}
+.study_q_05_tab tr td:nth-of-type(5){
+width: 187.2px;	
+}
+.study_q_05_tab tr td:nth-of-type(8){
+color:#31bc91;
+cursor: pointer;	
+}
+/*成绩单*/
+.study_q_06{
+width: 936px;
+	margin: 0 auto;
+	margin-top: 30px;
+
+}
+.study_q_06_1 table{
+border-collapse:collapse;
+	text-align: center;
+	color: #666666;
+	box-sizing: border-box;
+	font-size: 14px;
+	font-weight: normal;
+}
+
+.study_q_06_1 tr td{
+width:133.7px;
+height:44px;
+
+
+}
+.study_q_06_1 tr th{
+width:133.7px;
+height:44px;
+	background-color: #f5f5f5;
+}
+.study_q_06_tab tr td:nth-of-type(6){
+color:#fb7d8a;
+cursor: pointer;
+}
+.study_q_06_tab tr td:nth-of-type(7){
+cursor: pointer;
+}
+.study_q_06_tab tr td:nth-of-type(5) i{
+margin-left: 10px;
+font-size: 14px;
+}
+/*小题查看详情*/
+.ck_1{
+	height: 828px;
+}
+
+
+
+
+/*<!--班级学情追踪 end-->*/
 
 
 
