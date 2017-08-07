@@ -36,6 +36,7 @@ body{
 	height: 828px;
 	float: left;
 	z-index: 1;
+	position: relative;
 }
 .main_left li {
 display: block;
@@ -712,10 +713,12 @@ margin-left: 20px;
 .study_q_03{
 	
 	width: 936px;
-	height:436px;
+	
 	margin: 0 auto;
 	border-bottom: 1px solid #cccccc;
 	margin-top: 30px;
+	overflow: hidden;
+	padding-bottom: 30px;
 }
 .study_q_03_01{
 	position: relative;
@@ -737,32 +740,6 @@ margin-left: 20px;
 	font-size: 14px;
 	color: #999999;
 }
-.study_q_03_01 table{
-	
-	border-collapse:collapse;
-	margin:0 auto;
-	color: #666666;
-	margin-top:27px;
-	
-}
-.study_q_03_01 tr th{
-	width: 173px;
-	height: 45px;
-	box-sizing: border-box;
-	font-size: 14px;
-	font-weight: normal;
-	background-color: #f5f5f5;
-	
-}
-.study_q_03_01 tr td{
-	
-	width: 173px;
-	height: 45px;
-	box-sizing: border-box;
-	text-align: center;
-	
-}
-
 .study_q_04{
 	
 	width: 936px;
@@ -771,19 +748,6 @@ margin-left: 20px;
 	border-bottom: 1px solid #cccccc;
 	margin-top: 30px;
 }
-
-.study_q_04 select{
-	
-width: 85px;
-	height:30px;
-	margin-left:20px;
-	margin-right:43px;
-	
-}
-
-
-
-
 
 .study_q_04_02{
 	
@@ -978,12 +942,300 @@ font-size: 14px;
 /*小题查看详情*/
 .ck_1{
 	height: 828px;
+	display: none;
+
+}
+.ck_2{
+	width:902px;
+	margin: 0 auto;
+	margin-top: 30px;
+	    margin-bottom: 400px;
+}
+.ck_2 table{
+	width:900px;
+	font-size: 14px;
+	border-collapse:collapse;
+	color: #666666;
+	font-weight: normal;
+	box-sizing: border-box;
+}
+.ck_2 tr th{
+	height: 42px;
+	background-color: #f5f5f5;
+	line-height: 42px;
+
+
+}
+.ck_2 tr td{
+	
+	padding: 0px 0px 8px 0px;
+	vertical-align: middle;
+
+}
+.ck_2 tr td:nth-of-type(1){
+	width: 107px;
+	text-align: center;
+
+}
+.ck_2 tr td a{
+	display:block;
+	width: 62px;
+	
+	margin-left: 13px;
+	background: #31bc91;
+	color: #f5f5f5;
+	padding:5px;
+	margin-top: 10px;
+	float: left;
+	text-align:center;
+
+}
+
+/*<!--班级学情追踪 end-->*/
+
+
+/*<!--学科追踪分析 start-->*/
+.study_k_left{
+width: 190px;
+height: 206px;
+border: 1px solid #cccccc;
+box-sizing: border-box;
+background: #fafafa;
+position: absolute;
+left: 0px;
+top:260px;
+display: none;
+
+
+}
+.study_k_left ul li{
+	width: 101px;
+height: 34px;
+text-align: left;
+margin: 0 auto;
+line-height: 34px;
+color: #999999;
+border: none;
+padding-left: 25px;
+
+}
+.study_k_left ul li:hover{
+	color: #31bc91;
+
+}
+.study_k_101{
+	width: 938px;
+	height: 53px;
+	margin: 0 auto;
+	padding-top: 24px;
+}
+.study_k_101 span{
+	float: left;
+margin: 0px 32px 0px 20px;
+color: #666666;
+}
+.study_k_101 button{
+	float: right;
+}
+.study_k_101 select{
+	width: 145px;
+	height: 30px;
+	margin-left: 15px;
+	color: #666666;
+}
+.study_k table{
+	width:900px;
+	font-size: 14px;
+	border-collapse:collapse;
+	color: #666666;
+	font-weight: normal;
+	box-sizing: border-box;
+	text-align: center;
+	margin:0 auto;
+}
+.study_k tr th{
+	height: 40px;
+	background-color: #f5f5f5;
+	line-height: 40px;
+	font-weight: normal;
+}
+.study_k tr td{
+	padding:13px 0px 13px 0px;
+	
+}
+
+.study_k_102{
+	margin-bottom: 400px
+	
+}
+.study_k_201{
+	display: none;
+	margin-bottom: 400px
+	
+}
+.study_k_301{
+	display: none;
+	margin-bottom: 400px
+	
+}
+.study_k_401{
+	display: none;
+	margin-bottom: 400px
+	
+}
+.study_k_501{
+	display: none;
+	margin-bottom: 400px
+	
+}
+.study_k_601{
+	display: none;
+	margin-bottom: 400px
+	
+}
+/*<!--学科追踪分析 end-->*/
+
+/*<!-- 考试质量追踪  start-->*/
+.exam_z_left{
+width: 190px;
+height: 115px;
+border: 1px solid #cccccc;
+box-sizing: border-box;
+background: #fafafa;
+position: absolute;
+left: 0px;
+top:330px;
+display: none;
+
+
+}
+.exam_z_left ul li{
+	width: 101px;
+height: 34px;
+text-align: left;
+margin: 0 auto;
+line-height: 34px;
+color: #999999;
+border: none;
+padding-left: 25px;
+
+}
+.exam_z_left ul li:hover{
+	color: #31bc91;
+
+}
+.exam_z_101{
+	width: 938px;
+	height: 53px;
+	margin: 0 auto;
+	padding-top: 24px;
+	
+}
+.exam_z_101 span{
+	float: left;
+margin: 0px 32px 0px 20px;
+color: #666666;
+}
+.exam_z_101 button{
+	float: right;
+}
+.exam_z_101 select{
+	width: 145px;
+	height: 30px;
+	margin-left: 15px;
+	color: #666666;
+}
+.exam_z_tab table{
+	width:900px;
+	font-size: 14px;
+	border-collapse:collapse;
+	color: #666666;
+	font-weight: normal;
+	box-sizing: border-box;
+	text-align: center;
+	margin:0 auto;
+}
+.exam_z_tab tr th{
+	height: 40px;
+	background-color: #f5f5f5;
+	line-height: 40px;
+	font-weight: normal;
+	border:none;
+	border-bottom: 1px solid #cccccc;
+	box-sizing: border-box;
+}
+.exam_z_tab tr td{
+	padding:13px 0px 13px 0px;
+	border:none;
+	border-bottom: 1px solid #cccccc;
+	box-sizing: border-box;
+}
+
+.exam_z_102{
+	
+	margin-bottom: 400px;
+	
+}
+.exam_z_201{
+	
+	margin-bottom: 400px;
+	display: none;
+}
+.exam_z_301{
+	width: 936px;
+	margin: 0 auto;
+	overflow:hidden;
+	margin-bottom: 400px;
+	display: none;
+}
+.exam_z_302{
+	width: 936px;
+	height:40px;
+	background:#f5f5f5; 
+	line-height: 40px;
+}
+.exam_z_302 ul li{
+	float: left;
+	width: 200px;
+	text-align: center;
+	font-size: 16px;
+	margin-right: 70px;
+}
+#exam_z_303{
+	width: 900px;
+	height:225px;
+}
+.exam_z_302_s01{
+	display:block;
+	width: 936px;
+	height: 52px;
+	line-height: 52px;
+	font-size: 16px;
+	text-align: center;
+	margin-top: 20px;
+}
+.exam_z_302_s02{
+	display:block;
+	width: 936px;
+	height: 52px;
+	line-height: 52px;
+	font-size: 14px;
+	text-align: center;
 }
 
 
+/*<!-- 考试质量追踪  end-->*/
 
 
-/*<!--班级学情追踪 end-->*/
+
+
+
+
+
+
+
+
+
 
 
 
