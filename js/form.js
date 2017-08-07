@@ -2,15 +2,42 @@
 // 成绩生成
 $(function(){
     // 考试科目下拉
-   $(".main_right").children("div").eq(2).show().siblings().hide();
+   $(".main_right").children("div").eq(4).show().siblings().hide();
 
 
     $(".l_ul").on("click", "li", function(){  
-        
+       
        $(this).addClass('li_click').siblings().removeClass("li_click");
        $(".main_right").children("div").eq($(this).index()).show().siblings().hide();
+       
     
     });
+    // 学科追踪分析下拉
+    $("#study_k_left").click(function(event) {
+        /* Act on the event */
+        $(this).css("margin-bottom","220px");
+        $(".study_k_left").show();
+    });
+$("#study_k_left").siblings("li").click(function(event) {
+        /* Act on the event */
+        $("#study_k_left").css("margin-bottom","15px");
+       $(".study_k_left").hide();
+    });
+// 考试质量追踪下拉
+ $("#exam_z_left").click(function(event) {
+        /* Act on the event */
+        $(this).css("margin-bottom","130px");
+        $(".exam_z_left").show();
+    });
+$("#exam_z_left").siblings("li").click(function(event) {
+        /* Act on the event */
+        $("#exam_z_left").css("margin-bottom","15px");
+       $(".exam_z_left").hide();
+    });
+
+
+
+
 
     $("#mark_02_ul i").click(function(event) {
     /* Act on the event */
@@ -22,10 +49,12 @@ $(function(){
 $(".mark_02 button").click(function(event) {
     /* Act on the event */
     $(".mart_set").show();
+    $(".mark_02").css("margin-bottom","1500px");
 });
 $("#set_04").click(function(event) {
     /* Act on the event */
     $(".mart_set").hide();
+    $(".mark_02").css("margin-bottom","0px");
 });
 $(".mart_set_03 button").click(function(event) {
     /* Act on the event */
@@ -164,18 +193,7 @@ option = {
                 {name:'Youtube', value:35,itemStyle : labelTop}
             ]
         },
-        {
-            type : 'pie',
-            center : ['86%', '30%'],
-            radius : radius,
-            y: '55%',   // for funnel
-            x:'80%', // for funnel
-            itemStyle : labelFromatter,
-            data : [
-                {name:'other', value:89, itemStyle : labelBottom},
-                {name:'Instagram', value:11,itemStyle : labelTop}
-            ]
-        }
+        
     ]
 };
                     
@@ -404,17 +422,114 @@ var myChart = echarts.init(document.getElementById('study_q_03_02'));
 
 
 
-
-
-
-
-
-});   
 // 班级学情追踪  start
+
+// 小题查看
+$(".study_q_05_01 td span").click(function(event) {
+        /* Act on the event */
+        $("#study_q_ck").hide();
+        $(".ck_1").show();
+    });
 
 
 // <!--班级学情追踪 end-->
 
+// <!--学科追踪分析 start-->
+$(".study_k_left li").click(function(event) {
+    /* Act on the event */
+   $(this).css("color","#31bc91").siblings().css("color","#999999");
+   $(".study_k_b").html($(this).html());
+   $(".study_k_tab div").eq($(this).index()).show().siblings().hide();
+
+});
+
+
+
+
+
+/*<!--学科追踪分析 end-->*/
+// <!-- 考试质量追踪  start-->
+
+
+
+
+$(".exam_z_left li").click(function(event) {
+    /* Act on the event */
+   $(this).css("color","#31bc91").siblings().css("color","#999999");
+   $(".exam_z_b").html($(this).html());
+   $(".exam_z_tab div").eq($(this).index()).show().siblings().hide();
+
+});
+
+
+
+
+
+
+// 难度系数变化图
+var myChart = echarts.init(document.getElementById('exam_z_303')); 
+        
+       var option = {
+    
+    grid:{
+                    x:28,
+                    y:30,
+                    x2:10,
+                    y2:25,
+                    borderWidth:1
+                },
+    tooltip : {
+        trigger: 'axis'
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['1','2','3','4','5','6','7','8','9','10','11','12','13','14'
+                   ,'15','16','17','18','19','20','21','22']
+        }
+    ],
+    yAxis : [
+        {   
+          type : 'value',
+            data : ['0','0.2','0.4','0.6','0.8','1'] 
+        }
+    ],
+    series : [
+        {
+            name:'试题难度',
+            type:'line',
+            data:[0.5, 0.6, 0.7,0.4, 0.3, 0.6, 0.3, 0.6, 0.7,0.4, 0.3, 0.6, 0.3
+                 , 0.6, 0.7,0.4, 0.3, 0.6, 0.3, 0.3, 0.6, 0.9],
+            markPoint : {
+                data : [
+                  
+                ]
+            }
+        }
+        
+    ]
+};
+                    
+        // 为echarts对象加载数据 
+        myChart.setOption(option); 
+
+
+
+
+
+
+
+
+
+
+
+
+// <!-- 考试质量追踪  end-->
+
+
+});   
 
 
 
