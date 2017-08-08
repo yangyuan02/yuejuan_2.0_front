@@ -2,7 +2,7 @@
 // 成绩生成
 $(function(){
     // 考试科目下拉
-   $(".main_right").children("div").eq(4).show().siblings().hide();
+   $(".main_right").children("div").eq(5).show().siblings().hide();
 
 
     $(".l_ul").on("click", "li", function(){  
@@ -213,6 +213,7 @@ option = {
  var myChart = echarts.init(document.getElementById('right_03')); 
         
         var option = {
+    
     tooltip : {
         trigger: 'axis'
     },
@@ -223,6 +224,7 @@ option = {
                     y2:25,
                     borderWidth:1
                 },
+    
     calculable : true,
     xAxis : [
         {
@@ -235,7 +237,7 @@ option = {
             type : 'value'
         }
     ],
-    series : [
+    series: [
         {
             name:'蒸发量',
             type:'bar',
@@ -249,20 +251,6 @@ option = {
             markLine : {
                 data : [
                     {type : 'average', name: '平均值'}
-                ]
-            }
-        },
-        {
-  
-            markPoint : {
-                data : [
-                    {name : '年最高', value : 182.2, xAxis: 7, yAxis: 183, symbolSize:18},
-                    {name : '年最低', value : 2.3, xAxis: 11, yAxis: 3}
-                ]
-            },
-            markLine : {
-                data : [
-                    {type : 'average', name : '平均值'}
                 ]
             }
         }
@@ -296,12 +284,15 @@ var myChart = echarts.init(document.getElementById('right_04'));
         {
             type : 'category',
             boundaryGap : false,
-            data : ['周一','周二','周三','周四','周五','周六','周日']
+            data : ['上海一模拟考试','上海一模拟考试','上海一模拟考试','上海一模拟考试','上海一模拟考试','上海一模拟考试','']
         }
     ],
     yAxis : [
         {
-            type : 'value',
+           
+            type : 'category',
+            boundaryGap : false,
+            data : ['0','30','60','90','120','150']
            // --min: 0,
            //max: 100,
           // interval:20,
@@ -309,9 +300,9 @@ var myChart = echarts.init(document.getElementById('right_04'));
     ],
     series : [
         {
-            name:'最高气温',
+            name:'最高分数',
             type:'line',
-            data:[11, 11, 15, 13, 12, 13, 10],
+            data:[60, 90, 110, 120, 130, 150, 140],
             markPoint : {
                 data : [
                     {type : 'max', name: '最大值'}
@@ -322,14 +313,8 @@ var myChart = echarts.init(document.getElementById('right_04'));
                     {type : 'average', name: '平均值'}
                 ]
             }
-        },
-        {
-            markLine : {
-                data : [
-                    {type : 'average', name : '平均值'}
-                ]
-            }
         }
+        
     ]
 };
                     
@@ -357,7 +342,8 @@ $("#main_right").css("height","1540px")
 // 班级学情追踪
 var myChart = echarts.init(document.getElementById('study_q_03_02')); 
         
-        var option = {
+ var option = {
+    
     tooltip : {
         trigger: 'axis'
     },
@@ -368,6 +354,7 @@ var myChart = echarts.init(document.getElementById('study_q_03_02'));
                     y2:25,
                     borderWidth:1
                 },
+    
     calculable : true,
     xAxis : [
         {
@@ -380,7 +367,7 @@ var myChart = echarts.init(document.getElementById('study_q_03_02'));
             type : 'value'
         }
     ],
-    series : [
+    series: [
         {
             name:'蒸发量',
             type:'bar',
@@ -394,20 +381,6 @@ var myChart = echarts.init(document.getElementById('study_q_03_02'));
             markLine : {
                 data : [
                     {type : 'average', name: '平均值'}
-                ]
-            }
-        },
-        {
-  
-            markPoint : {
-                data : [
-                    {name : '年最高', value : 182.2, xAxis: 7, yAxis: 183, symbolSize:18},
-                    {name : '年最低', value : 2.3, xAxis: 11, yAxis: 3}
-                ]
-            },
-            markLine : {
-                data : [
-                    {type : 'average', name : '平均值'}
                 ]
             }
         }
@@ -457,7 +430,7 @@ $(".exam_z_left li").click(function(event) {
     /* Act on the event */
    $(this).css("color","#31bc91").siblings().css("color","#999999");
    $(".exam_z_b").html($(this).html());
-   $(".exam_z_tab div").eq($(this).index()).show().siblings().hide();
+   $(".sexam_z_tab div").eq($(this).index()).show().siblings().hide();
 
 });
 
@@ -527,7 +500,14 @@ var myChart = echarts.init(document.getElementById('exam_z_303'));
 
 
 // <!-- 考试质量追踪  end-->
+// <!-- 考试横向分析 start -->
 
+
+
+
+
+
+// <!-- 考试横向分析 end -->
 
 });   
 
