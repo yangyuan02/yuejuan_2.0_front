@@ -249,7 +249,10 @@ $(function(){
 		}
 		$('.move-paper').append(img_html);
 			console.log(total_paper)
-
+		$('.move-paper img').css({
+			'width': img_info.personal.paper_data_width+'px',
+			'height': img_info.personal.paper_data_height+'px'
+		});
 	
 			$('.on-num').text(img_info.index);
 		// }else{
@@ -548,7 +551,10 @@ $(function(){
 		// oMoveNum = 0;
 		console.log(coordinateArr)
 
+		var paper_data_width = $('.move-paper img').width();
+		var paper_data_height = $('.move-paper img').height();
 
+		console.log(paper_data_width,paper_data_height)
 
 		// 最终数据
 		var data_value={
@@ -557,7 +563,8 @@ $(function(){
 			'answer_settings': a_settings,
 			'scanner_image_id': s_i_id,
 			'exam_subject_id': e_s_id,
-			'mark':coordinateArr
+			'mark':coordinateArr,
+			'personal':{paper_data_width,paper_data_height}
 		}
 		var a = parseInt($('.on-num').text());
 		var b = parseInt($('.all-paper').text());
@@ -666,9 +673,6 @@ $(function(){
 	    });
 
 
-
-
-
 	     // 区域块放大
 	    var select_area = $('.move-paper .section_crop');
 	    for(var i=0;i<= select_area.length-1;i++){
@@ -687,7 +691,6 @@ $(function(){
 	        "top": top_value + 'px'
 	      })
 	    }
-
 
 
 
@@ -1199,6 +1202,21 @@ $(function(){
 			$(this).val('');
 		}
 	});
+
+	// 点击回车键进入下一个input,最后一个点击提交
+	$('body').on('focus','.yuejuan_score', function(){
+		var that= this;
+		$(document).unbind('keydown').keydown(function(event){
+			if(event.keyCode == 13){
+				if(that==$('.yuejuan_score')[$('.yuejuan_score').length-1]){
+					$('.con-btn').click();
+				}else{
+					$(that).blur();
+					$(that).parents('tr').next().find('.yuejuan_score').focus();
+				}
+			}
+		})
+	})
 
 
 	//显示提示框
