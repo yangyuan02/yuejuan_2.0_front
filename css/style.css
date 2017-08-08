@@ -224,8 +224,8 @@ ul{
 }
 
 .login-animation{
-  text-align:'center';
-  line-height:'302px';
+  text-align:center;
+  line-height:302px;
   -moz-animation:rotate 5s infinite linear;
   -webkit-animation:rotate 5s infinite linear;
   animation:rotate 5s infinite linear;
@@ -465,3 +465,14 @@ input::-webkit-input-placeholder{
   -o-border-radius: 50%;
   border-radius: 50%;
 } */
+/*清除浮动*/
+.clearfix:after {
+  content: "\0020";
+  display: block;
+  height: 0;
+  clear: both;
+}
+.clearfix {
+  zoom: 1;
+}
+
