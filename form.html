@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="renderer" content="webkit">
 	<title>麦粒</title>
-	<link rel="stylesheet" href="css/style.css">x
+	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/form.css">
 	<script type="text/javascript" src='js/jquery.min.js'></script>
 	<script type="text/javascript" src='js/form.js'></script>
@@ -25,7 +25,9 @@
 					当前位置：
 					<a href="index.html">首页</a>
 					>
-					<span>报表</span>
+					<span style="color:#999">报表</span>
+                    >
+					<span id="index_span">成绩生成</span>
 				</p>
 			</div>
 		</div>
@@ -36,13 +38,13 @@
 
 <div class="main_left">
 <ul class="l_ul">
-	<li>成绩生成</li>
+	<li class="li_click">成绩生成</li>
 	<li>考试状况</li>
 	<li>班级学情追踪</li>
 	<li id="study_k_left">学科追踪分析</li>
 	<li id="exam_z_left">考试质量追踪</li>
 	<li id="exam_h_left">考试横向分析</li>
-	<li>跨校对比分析</li>
+	<li id="sc_left">跨校对比分析</li>
 </ul>
 <div class="study_k_left">
 	<ul>
@@ -1756,8 +1758,8 @@
 		</span>
 <button type="" class="determine">导出报表</button>
 </div>
-<div class="exam_h_tab">
-<div class="exam_h_102">
+<div class="sc_tab">
+<div class="sc_102">
 <table cellspacing="0" border="1" bordercolor="#cccccc">
   <tr>    
     <th>单位</th>
@@ -1821,8 +1823,49 @@
   </tr>
   	</table>
 </div>
+<div class="sc_201">
+<table cellspacing="0" border="1" bordercolor="#cccccc">
+  <tr>    
+    <th>单位</th>
+    <th>学科</th>
+     <th>等级A</th>
+     <th>等级B</th>
+     <th>等级C</th>
+    <th>等级D</th>
+    <th>等级E</th>
+  </tr>
+  <tr>
+    <td>青浦高中</td> 
+    <td>物理</td>
+    <td>100</td>
+     <td>100</td>
+     <td>100</td>
+     <td>0</td>
+    <td>0</td>
 
+  </tr>
+<tr>
+     <td>青浦高中</td>
+    <td>物理</td>
+     <td>100</td>
+     <td>100</td>
+     <td>100</td>
+     <td>0</td>
+      <td>0</td>
+  </tr>
+<tr>
+    <td>青浦高中</td>
+    <td>物理</td>
+     <td>100</td>
+     <td>100</td>
+     <td>100</td>
+     <td>0</td>
+    <td>0</td>
+  </tr>
+  	</table>
+</div>
 
+</div>
 
 
 
