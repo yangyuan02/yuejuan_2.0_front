@@ -34,11 +34,11 @@ ul{
 }
 @font-face {
   font-family: 'iconfont';  /* project id 308672 */
-  src: url('//at.alicdn.com/t/font_geq08tcb61e2ke29.eot');
-  src: url('//at.alicdn.com/t/font_geq08tcb61e2ke29.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_geq08tcb61e2ke29.woff') format('woff'),
-  url('//at.alicdn.com/t/font_geq08tcb61e2ke29.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_geq08tcb61e2ke29.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_czssl6oou81if6r.eot');
+  src: url('//at.alicdn.com/t/font_czssl6oou81if6r.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_czssl6oou81if6r.woff') format('woff'),
+  url('//at.alicdn.com/t/font_czssl6oou81if6r.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_czssl6oou81if6r.svg#iconfont') format('svg');
 }
 .iconfont{ 
   font-family:"iconfont";
@@ -224,8 +224,8 @@ ul{
 }
 
 .login-animation{
-  text-align:'center';
-  line-height:'302px';
+  text-align:center;
+  line-height:302px;
   -moz-animation:rotate 5s infinite linear;
   -webkit-animation:rotate 5s infinite linear;
   animation:rotate 5s infinite linear;
@@ -465,3 +465,14 @@ input::-webkit-input-placeholder{
   -o-border-radius: 50%;
   border-radius: 50%;
 } */
+/*清除浮动*/
+.clearfix:after {
+  content: "\0020";
+  display: block;
+  height: 0;
+  clear: both;
+}
+.clearfix {
+  zoom: 1;
+}
+

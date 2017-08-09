@@ -19,7 +19,6 @@ m1.controller("demo", ["$scope", function ($scope) {
         $scope.nubarray = nub.slice(0, $scope.result.thr);//选项个数
         var totaltwo = parseInt($scope.result.numbel) * parseInt($scope.result.two)//总分数
         for (var i = 0; i < parseInt($scope.result.numbel); i++) {//多少个小题
-            // console.log(i)
             if (i <= 8) {
                 noarray.push('0' + (i + parseInt($scope.result.no)));
             } else {
@@ -36,10 +35,9 @@ m1.controller("demo", ["$scope", function ($scope) {
             no: noarray,//序号
             one: totaltwo,//总分
             two: $scope.result.two,//提分
-            thr: $scope.index==1?$scope.nubarray:['T','F'] //选项ABCD
+            thr: $scope.index == 1 ? $scope.nubarray : ['T', 'F'] //选项ABCD
         };
         $scope.listObj.push(obj);
-        console.log($scope.listObj)
         //放入添加的题目编号
         var array = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十"];
         for (var i = 0; i < $scope.listObj.length; i++) {
@@ -54,14 +52,14 @@ m1.controller("demo", ["$scope", function ($scope) {
             } else if (40 <= i < 50) {
                 $scope.listObj[i].title = array[3] + array[9] + array[i - 40];
             }
-        };
-        // console.log($scope.listObj)
+        }
+        ;
         clear()
         close()
-        setTimeout(function(){
+        setTimeout(function () {
             var height = document.getElementById("A_Rone_child").offsetHeight;//获取每次生成模版的高度
             console.log(height)
-        },0)
+        }, 0)
     };
 //关闭
     var close = function () {
@@ -71,7 +69,6 @@ m1.controller("demo", ["$scope", function ($scope) {
     $scope.close = close
 //清空选择题的内容
     var clear = function () {
-        console.log(111)
         $scope.result = {
             name: '', numbel: '', isradio: '',
             no: '', one: '', two: '', thr: '',
