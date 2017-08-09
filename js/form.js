@@ -62,13 +62,20 @@ $("#sc_left").siblings("li").click(function(event) {
 
 
 
-
-    $("#mark_02_ul i").click(function(event) {
+$("#mark_02_ul span").click(function(event) {
     /* Act on the event */
     $(this).parent().next().toggle();
-    $(this).hide();
-    $(this).siblings().show();
-}); 
+    $(this).find('i').toggle();
+});
+    
+
+
+//     $("#mark_02_ul i").click(function(event) {
+//     /* Act on the event */
+//     $(this).parent().next().toggle();
+//     $(this).hide();
+//     $(this).siblings().show();
+// }); 
 // 分析
 $(".mark_02 button").click(function(event) {
     /* Act on the event */
@@ -100,11 +107,12 @@ $(".i2").html("数学");
 $(".sn_1").hide();
 $(".sn_2").hide();
 $(document).ready(function(){
-  $("#i_1").click(function(){
+  $(".span_1").click(function(){
+  
   $(".sn_1").toggle();
   $(".sn_2").hide();
   });
-  $("#i_2").click(function(){
+  $(".span_2").click(function(){
   $(".sn_2").toggle();
   $(".sn_1").hide();
 });
@@ -136,7 +144,7 @@ var myChart = echarts.init(document.getElementById('right_02_r'));
 var labelTop = {
     normal : {
         label : {
-            show : true,
+            show : false,
             position : 'center',
             formatter : '{b}',
             textStyle: {
@@ -151,20 +159,17 @@ var labelTop = {
 var labelFromatter = {
     normal : {
         label : {
-            formatter : function (params){
-                return 100 - params.value + '%'
-            },
-            textStyle: {
-                baseline : 'top'
-            }
+            show : false,
+            position : 'center'
         }
+       
     },
 }
 var labelBottom = {
     normal : {
         color: '#ccc',
         label : {
-            show : true,
+            show : false,
             position : 'center'
         },
         labelLine : {
@@ -222,7 +227,7 @@ option = {
 };
                     
 
- myChart.setOption(option);
+ myChart.setOption(option); 
 
 
 
