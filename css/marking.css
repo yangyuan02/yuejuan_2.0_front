@@ -377,12 +377,13 @@ tr.child-tr{
 .item-name{
 	line-height: 24px;
 }
-.item-name .key-answer{
+.child-trs .key-answer{
   display: inline-block;
   padding: 1px 5px;
   border: 1px solid #999;
   background: #fafafa;
   font-size: 12px;
+  line-height: 24px;
   color: #999;
   margin-right: 5px;
   -webkit-border-radius: 3px;
@@ -391,7 +392,7 @@ tr.child-tr{
   -o-border-radius: 3px;
   border-radius: 3px;
 }
-.item-name .key-answer i{
+.child-trs  .key-answer i{
 	padding-right: 5px;
 	font-size: 12px;
 }
