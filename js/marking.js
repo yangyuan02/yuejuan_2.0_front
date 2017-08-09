@@ -47,7 +47,7 @@ $(function(){
 	function page_test_list(nums,data){
 
 		var ii_nums;
-		console.log(nums+'条数据')
+		// console.log(nums+'条数据')
 		if(nums==0){
 			ii_nums=1;
 		}else if(nums>0 && nums<10){
@@ -68,7 +68,7 @@ $(function(){
 		  last: '<li class="next"><a href="javascript:;" class="pagination-color">尾页</a></li>',
 		  page: '<li class="page"><a href="javascript:;" class="pagination-color">{{page}}</a></li>',
 	    onPageChange: function (nums) {
-				var page_data = {'page':nums, 'limit': 10};
+				var page_data = {'page':nums, 'limit': 10, 'choice':true};
 
 				$.ajax({
 				  type: "POST",
@@ -325,11 +325,27 @@ $(function(){
 	}
 
   // 显示原试卷
-  $('.show-pre').click(function(){
+ $('body').on('click','.show-pre',function(){
+  	$(this).addClass('hide-pre').removeClass('show-pre');
+  	$(this).text('隐藏原试卷');
 		var exam_subject_id = $('.paper-item-name').attr('exam_subject_id');
 		var scanner_image_id = $('.paper-item-name').attr('scanner_image_id');
 		var current_page = $('.paper-item-name').attr('current_page');
 		get_pre_info_request(exam_subject_id,scanner_image_id,current_page);
+  })
+  $('body').on('click','.hide-pre',function(){
+  	$(this).addClass('show-pre').removeClass('hide-pre');
+  	$(this).text('显示原试卷');
+		var section_crop_id = $('.paper-item-name').attr('section_crop_id');
+		var section_crop_name = $('.paper-item-name').text();
+		var index = parseInt($('.on-num').text());
+		console.log($('.finished').text())
+		console.log(section_crop_id,section_crop_name,index)
+		if($('.yuejuan_score').val()){
+			get_info_request(section_crop_id,section_crop_name,index);
+		}else{
+			get_info_request(section_crop_id,section_crop_name,null);
+		}
   })
 
   function get_pre_info_request(exam_subject_id,scanner_image_id,current_page){
