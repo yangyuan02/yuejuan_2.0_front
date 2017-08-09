@@ -127,6 +127,7 @@ width: 270px;
     line-height: 46px;
     padding-left: 76px;
     border-bottom: 1px solid #cccccc;
+    cursor: pointer;
 }
 .mark_li_01{
 	width: 900px;
@@ -181,7 +182,7 @@ display: none;
 }
 .mart_set_02{
 	width:297;
-	height: 166px;
+	height: 150px;
 	margin: 0 auto;
 	border-bottom: 1px solid #cccccc;
 	margin-top: 21px;
