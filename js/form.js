@@ -2,14 +2,14 @@
 // 成绩生成
 $(function(){
     // 考试科目下拉
-   $(".main_right").children("div").eq(6).show().siblings().hide();
+   $(".main_right").children("div").eq(0).show().siblings().hide();
 
 
     $(".l_ul").on("click", "li", function(){  
        
        $(this).addClass('li_click').siblings().removeClass("li_click");
        $(".main_right").children("div").eq($(this).index()).show().siblings().hide();
-       
+       $("#index_span").html($(this).html());
     
     });
     // 学科追踪分析下拉
@@ -45,9 +45,18 @@ $("#exam_h_left").siblings("li").click(function(event) {
         $("#exam_h_left").css("margin-bottom","15px");
        $(".exam_h_left").hide();
     });
+// 跨校对比分析下拉
 
-
-
+$("#sc_left").click(function(event) {
+        /* Act on the event */
+        $(this).css("margin-bottom","150px");
+        $(".sc_left").show();
+    });
+$("#sc_left").siblings("li").click(function(event) {
+        /* Act on the event */
+        $("#sc_h_left").css("margin-bottom","15px");
+       $(".sc_left").hide();
+    });
 
 
 
@@ -413,11 +422,11 @@ var myChart = echarts.init(document.getElementById('study_q_03_02'));
 // 班级学情追踪  start
 
 // 小题查看
-$(".study_q_05_01 td span").click(function(event) {
-        /* Act on the event */
-        $("#study_q_ck").hide();
-        $(".ck_1").show();
-    });
+// $(".study_q_05_01 td span").click(function(event) {
+//          Act on the event 
+//         $("#study_q_ck").hide();
+//         $(".ck_1").show();
+//     });
 
 
 // <!--班级学情追踪 end-->
@@ -708,7 +717,21 @@ var myChart = echarts.init(document.getElementById('exam_h_402'));
 
 // <!-- 考试横向分析 end -->
 /*<!-- 跨校对比分析  start-->*/
+$(".sc_left li").click(function(event) {
+    /* Act on the event */
+   $(this).css("color","#31bc91").siblings().css("color","#999999");
+   $(".sc_b").html($(this).html());
+   $(".sc_tab").children("div").eq($(this).index()).show().siblings().hide();
+});
 
+
+
+
+
+
+
+
+/*<!-- 跨校对比分析  end-->*/
 
 
 

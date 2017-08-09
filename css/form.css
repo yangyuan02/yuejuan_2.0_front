@@ -876,8 +876,8 @@ border-left: 1px solid #cccccc;
 	
 }
 .study_q_05_01 tr td:nth-of-type(10){
-color:#31bc91;
-cursor: pointer;	
+/*color:#31bc91;
+*/cursor: pointer;	
 }
 /*班级客观题表二*/
 .study_q_05_tab{
@@ -890,7 +890,7 @@ width: 187.2px;
 width: 187.2px;	
 }
 .study_q_05_tab tr td:nth-of-type(8){
-color:#31bc91;
+/*color:#31bc91;*/
 cursor: pointer;	
 }
 /*成绩单*/
@@ -1389,7 +1389,7 @@ background: #fafafa;
 position: absolute;
 left: 0px;
 top:467px;
-
+display: none;
 
 }
 
@@ -1430,7 +1430,34 @@ color: #666666;
 	margin-left: 15px;
 	color: #666666;
 }
-
+.sc_tab table{
+	width:900px;
+	font-size: 14px;
+	border-collapse:collapse;
+	color: #666666;
+	font-weight: normal;
+	box-sizing: border-box;
+	text-align: center;
+	margin:0 auto;
+}
+.sc_tab tr th{
+	height: 40px;
+	background-color: #f5f5f5;
+	line-height: 40px;
+	font-weight: normal;
+	border:none;
+	border-bottom: 1px solid #cccccc;
+	box-sizing: border-box;
+}
+.sc_tab tr td{
+	padding:13px 0px 13px 0px;
+	border:none;
+	border-bottom: 1px solid #cccccc;
+	box-sizing: border-box;
+}
+.sc_201 {
+	display: none;
+}
 
 
 
