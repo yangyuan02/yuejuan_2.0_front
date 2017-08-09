@@ -111,6 +111,7 @@ $(function(){
 			}
 			// 判断阅卷状态
 			var par_status = test_info.exam_subjects[i].status;
+			console.log(par_status);
 		  var child_status = $('#test-status-'+i+'').children();
 		  for (var z = 0; z < child_status.length; z++) {
 			  if(par_status == $(child_status[z]).attr('value')){
@@ -333,7 +334,7 @@ $(function(){
 			$(this).next().show();
 			$(this).hide();
 			status=0;
-			if(bar_num==100){
+			if(bar_num==0){
 				console.log('yes');
 				status=5;
 				$(this).next().find('.text').text('结束');
