@@ -22,7 +22,7 @@ $(function(){
 	get_test_list();
 
 	function get_test_list(){
-		var page_data = {'page':1, 'limit': 10};
+		var page_data = {'page':1, 'limit': 10, 'choice':true};
 		$.ajax({
 		  type: "POST",
 		  url: ajaxIp+"/api/v2/exam_subjects/school_exam_subjects",
@@ -362,12 +362,13 @@ $(function(){
 		var section_crops = pre_img.section_crops;
 		var paper_width = $('.move-paper img').width();
 		var paper_height = $('.move-paper img').height();
+		console.log(paper_width,paper_height);
 		for (var i = 0; i < section_crops.length; i++) {
-			console.log(section_crops[i].position.width)
 			section_crops[i].position.width =(section_crops[i].position.width/section_crops[i].position.w)*paper_width;
 			section_crops[i].position.height =(section_crops[i].position.height/section_crops[i].position.h)*paper_height;
 			section_crops[i].position.x =(section_crops[i].position.x/section_crops[i].position.w)*paper_width;
 			section_crops[i].position.y =(section_crops[i].position.y/section_crops[i].position.h)*paper_height;
+			console.log(section_crops[i].position.width)
 			var section_info = '<div class="section_crop" style="background:#fff;width:'+section_crops[i].position.width+'px; height:'+section_crops[i].position.height+'px;position:absolute;left:'+section_crops[i].position.x+'px;top:'+section_crops[i].position.y+'px"></div>'
 			$('.move-paper').append(section_info);
 		};
