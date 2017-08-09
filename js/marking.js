@@ -249,10 +249,13 @@ $(function(){
 		}
 		$('.move-paper').append(img_html);
 			console.log(total_paper)
-		$('.move-paper img').css({
-			'width': img_info.personal.paper_data_width+'px',
-			'height': img_info.personal.paper_data_height+'px'
-		});
+			if(img_info.personal){
+				$('.move-paper img').css({
+					'width': img_info.personal.paper_data_width+'px',
+					'height': img_info.personal.paper_data_height+'px'
+				});
+			}
+		
 	
 			$('.on-num').text(img_info.index);
 		// }else{
@@ -1593,6 +1596,35 @@ $(function(){
 		  }
 		});
 	}
+
+
+
+	// 解锁试卷弹出框
+	$('body').on('click', '#article-count', function() {
+		if ($(this).hasClass('text-color')) {
+			$(this).removeClass('text-color');
+		}else{
+			$(this).addClass('text-color');
+		}
+		$('.modal-main').css('width', '765px');
+		$('.modal-main').animate({
+			'top': '50%',
+			'opacity': 1
+		}, 500);
+		$('.modal-shadow').animate({
+			'opacity': .3
+		}, 500);
+		$('#key-paper').show();
+	});
+
+	$('body').on('click', '.key-closed', function() {
+		$('#article-count').removeClass('text-color');
+	});
+
+	$('body').on('click', '.confirm-key', function() {
+		$('#article-count').removeClass('text-color');
+	});
+
 
 
 })
