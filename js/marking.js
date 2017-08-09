@@ -22,7 +22,7 @@ $(function(){
 	get_test_list();
 
 	function get_test_list(){
-		var page_data = {'page':1, 'limit': 10};
+		var page_data = {'page':1, 'limit': 10, 'choice':true};
 		$.ajax({
 		  type: "POST",
 		  url: ajaxIp+"/api/v2/exam_subjects/school_exam_subjects",
@@ -47,7 +47,7 @@ $(function(){
 	function page_test_list(nums,data){
 
 		var ii_nums;
-		console.log(nums+'条数据')
+		// console.log(nums+'条数据')
 		if(nums==0){
 			ii_nums=1;
 		}else if(nums>0 && nums<10){
@@ -68,7 +68,7 @@ $(function(){
 		  last: '<li class="next"><a href="javascript:;" class="pagination-color">尾页</a></li>',
 		  page: '<li class="page"><a href="javascript:;" class="pagination-color">{{page}}</a></li>',
 	    onPageChange: function (nums) {
-				var page_data = {'page':nums, 'limit': 10};
+				var page_data = {'page':nums, 'limit': 10, 'choice':true};
 
 				$.ajax({
 				  type: "POST",
@@ -249,10 +249,13 @@ $(function(){
 		}
 		$('.move-paper').append(img_html);
 			console.log(total_paper)
-		$('.move-paper img').css({
-			'width': img_info.personal.paper_data_width+'px',
-			'height': img_info.personal.paper_data_height+'px'
-		});
+			if(img_info.personal){
+				$('.move-paper img').css({
+					'width': img_info.personal.paper_data_width+'px',
+					'height': img_info.personal.paper_data_height+'px'
+				});
+			}
+		
 	
 			$('.on-num').text(img_info.index);
 		// }else{
@@ -322,11 +325,27 @@ $(function(){
 	}
 
   // 显示原试卷
-  $('.show-pre').click(function(){
+ $('body').on('click','.show-pre',function(){
+  	$(this).addClass('hide-pre').removeClass('show-pre');
+  	$(this).text('隐藏原试卷');
 		var exam_subject_id = $('.paper-item-name').attr('exam_subject_id');
 		var scanner_image_id = $('.paper-item-name').attr('scanner_image_id');
 		var current_page = $('.paper-item-name').attr('current_page');
 		get_pre_info_request(exam_subject_id,scanner_image_id,current_page);
+  })
+  $('body').on('click','.hide-pre',function(){
+  	$(this).addClass('show-pre').removeClass('hide-pre');
+  	$(this).text('显示原试卷');
+		var section_crop_id = $('.paper-item-name').attr('section_crop_id');
+		var section_crop_name = $('.paper-item-name').text();
+		var index = parseInt($('.on-num').text());
+		console.log($('.finished').text())
+		console.log(section_crop_id,section_crop_name,index)
+		if($('.yuejuan_score').val()){
+			get_info_request(section_crop_id,section_crop_name,index);
+		}else{
+			get_info_request(section_crop_id,section_crop_name,null);
+		}
   })
 
   function get_pre_info_request(exam_subject_id,scanner_image_id,current_page){
@@ -359,12 +378,13 @@ $(function(){
 		var section_crops = pre_img.section_crops;
 		var paper_width = $('.move-paper img').width();
 		var paper_height = $('.move-paper img').height();
+		console.log(paper_width,paper_height);
 		for (var i = 0; i < section_crops.length; i++) {
-			console.log(section_crops[i].position.width)
 			section_crops[i].position.width =(section_crops[i].position.width/section_crops[i].position.w)*paper_width;
 			section_crops[i].position.height =(section_crops[i].position.height/section_crops[i].position.h)*paper_height;
 			section_crops[i].position.x =(section_crops[i].position.x/section_crops[i].position.w)*paper_width;
 			section_crops[i].position.y =(section_crops[i].position.y/section_crops[i].position.h)*paper_height;
+			console.log(section_crops[i].position.width)
 			var section_info = '<div class="section_crop" style="background:#fff;width:'+section_crops[i].position.width+'px; height:'+section_crops[i].position.height+'px;position:absolute;left:'+section_crops[i].position.x+'px;top:'+section_crops[i].position.y+'px"></div>'
 			$('.move-paper').append(section_info);
 		};
@@ -1593,6 +1613,35 @@ $(function(){
 		  }
 		});
 	}
+
+
+
+	// 解锁试卷弹出框
+	$('body').on('click', '#article-count', function() {
+		if ($(this).hasClass('text-color')) {
+			$(this).removeClass('text-color');
+		}else{
+			$(this).addClass('text-color');
+		}
+		$('.modal-main').css('width', '765px');
+		$('.modal-main').animate({
+			'top': '50%',
+			'opacity': 1
+		}, 500);
+		$('.modal-shadow').animate({
+			'opacity': .3
+		}, 500);
+		$('#key-paper').show();
+	});
+
+	$('body').on('click', '.key-closed', function() {
+		$('#article-count').removeClass('text-color');
+	});
+
+	$('body').on('click', '.confirm-key', function() {
+		$('#article-count').removeClass('text-color');
+	});
+
 
 
 })

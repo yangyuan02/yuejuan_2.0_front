@@ -55,7 +55,7 @@ $(function() {
 	        }
 	    });
 	}
-
+	// 根据用户身份判断阅卷进入的页面
 	$('#mark-head').click(function(){
 		if(role_name=="老师"){
 			$(this).attr('href','./marking_change.html');
@@ -64,7 +64,6 @@ $(function() {
 		}
 	})
 	$('body').on('click','#mark-top',function(){
-		console.log(900)
 		if(role_name=="老师"){
 			$(this).attr('href','./marking_change.html');
 		}else{
