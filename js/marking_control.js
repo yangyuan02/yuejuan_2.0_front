@@ -92,7 +92,7 @@ $(function(){
 		var test_length = test_info.exam_subjects.length;
 		$('#test-list tbody').html('');
 		for (var i = 0; i < test_length; i++) {
-			var tr_test ='<tr class="parent-tr"><td class="test-name" width="320" exam-id="'+test_info.exam_subjects[i].exam_id+'" data-id="'+test_info.exam_subjects[i].exam_subject_id+'">'+ test_info.exam_subjects[i].name +'</td><td class="test-grade">'+ test_info.exam_subjects[i].grade_name +'</td><td class="test-subject">'+ test_info.exam_subjects[i].subject_name +'</td><td class="test-num">'+ test_info.exam_subjects[i].answers_total_count+'</td><td class="test-on"> <p class="num">'+ test_info.exam_subjects[i].paper_revise_progress+'%</p><div class="bar"><div style="width:'+ test_info.exam_subjects[i].paper_revise_progress+'%;"></div></div></td><td class="test-model"><select id="select-'+i+'" class="grade-model" value="'+test_info.exam_subjects[i].correct_pattern+'"><option value="null">选择模式</option><option value="1">得分模式</option><option value="0">扣分模式</option></select></td><td id="test-status-'+i+'" class="test-status" value="'+test_info.exam_subjects[i].status+'"><div class="modify-paper edit-paper determine on" value="1"><span class="text left ml13">改卷</span><span class="cir right"></span></div><div class="modify-paper edit-paper stop-paper" value="0"><span class="cir left"></span><span class="text right mr13">暂停</span></div></td><td class="test2-operation"><a href="javascript:;">查看进度<i class="iconfont"></i></a></td></tr>';
+			var tr_test ='<tr class="parent-tr"><td class="test-name" width="320" exam-id="'+test_info.exam_subjects[i].exam_id+'" data-id="'+test_info.exam_subjects[i].exam_subject_id+'">'+ test_info.exam_subjects[i].name +'</td><td class="test-grade">'+ test_info.exam_subjects[i].grade_name +'</td><td class="test-subject">'+ test_info.exam_subjects[i].subject_name +'</td><td class="test-num">'+ test_info.exam_subjects[i].answers_total_count+'</td><td class="test-on"> <p class="num">'+ test_info.exam_subjects[i].paper_revise_progress+'%</p><div class="bar"><div style="width:'+ test_info.exam_subjects[i].paper_revise_progress+'%;"></div></div></td><td class="test-model"><select id="select-'+i+'" class="grade-model" value="'+test_info.exam_subjects[i].correct_pattern+'"><option value="null">选择模式</option><option value="1">得分模式</option><option value="0">扣分模式</option></select></td><td id="test-status-'+i+'" class="test-status" value="'+test_info.exam_subjects[i].status+'"><div class="modify-paper edit-paper determine on" value="1"><span class="text left ml13">改卷</span><span class="cir right"></span></div><div class="modify-paper edit-paper stop-paper" value="0"><span class="cir left"></span><span class="text right mr13">暂停</span></div><div class="modify-paper end-paper" value="5" style="cursor: not-allowed; color: rgb(102, 102, 102);"><span class="cir left"></span><span class="text right mr13">结束</span></div></td><td class="test2-operation"><a href="javascript:;">查看进度<i class="iconfont"></i></a></td></tr>';
 			$('#test-list tbody').append(tr_test);
 			// 判断改卷模式
 			var par_value=test_info.exam_subjects[i].correct_pattern;
@@ -496,7 +496,7 @@ $(function(){
 		var progress_info_length = progress_info.answers.length;
 		$('#test-pro-list tbody').html('');
 		for (var i = 0; i < progress_info_length; i++) {
-			var pro_tr = '<tr class="parent-tr pr-'+i+'"><td class="item-name" width="25%" data-id="'+progress_info.answers[i].answer_id+'"><a class="key-answer" href="javascript:;"><i class="iconfont">&#xe62a;</i>解锁试卷</a>'+progress_info.answers[i].name+'</td><td class="item-count">'+progress_info.answers[i].answer_count+'</td><td class="item-people">'+progress_info.answers[i].correct_teacher_count+'</td><td class="item-averge">'+progress_info.answers[i].average+'</td><td class="test-on"> <p class="num">'+progress_info.answers[i].revise_progress+'%</p><div class="bar"><div style="width: '+progress_info.answers[i].revise_progress+';"></div></div></td><td class="test-operation"></td><td class="more-count"><input type="text" value="'+progress_info.answers[i].multiple_people+'"></td><td class="more-error"><input type="text" value="'+progress_info.answers[i].multiple_error+'"></td><td class="look-teacher examination" teacher-type="examination" id="examination-'+i+'"><ul style="display:none"></ul><span class="look-num">'+progress_info.answers[i].correct_teacher_count+'</span>人<a href="javascript:;" class="add add-one" id="examination-add-' + i + '"><i class="iconfont">&#xe61a;</i>添加</a></td><td class="check-teacher reviewed" teacher-type="reviewed" id="reviewed-'+i+'"><ul style="display:none"></ul><span class="check-num">'+progress_info.answers[i].reviewed_teachers_count+'</span>人<a href="javascript:;" class="add add-one" id="reviewed-add-' + i + '"><i class="iconfont">&#xe61a;</i>添加</a></td></tr>';
+			var pro_tr = '<tr class="parent-tr pr-'+i+'"><td class="item-name" width="15%" data-id="'+progress_info.answers[i].answer_id+'">'+progress_info.answers[i].name+'</td><td class="item-count">'+progress_info.answers[i].answer_count+'</td><td class="item-people">'+progress_info.answers[i].correct_teacher_count+'</td><td class="item-averge">'+progress_info.answers[i].average+'</td><td class="test-on"> <p class="num">'+progress_info.answers[i].revise_progress+'%</p><div class="bar"><div style="width: '+progress_info.answers[i].revise_progress+';"></div></div></td><td class="test-operation"></td><td class="more-count"><input type="text" value="'+progress_info.answers[i].multiple_people+'"></td><td class="more-error"><input type="text" value="'+progress_info.answers[i].multiple_error+'"></td><td class="look-teacher examination" teacher-type="examination" id="examination-'+i+'"><ul style="display:none"></ul><span class="look-num">'+progress_info.answers[i].correct_teacher_count+'</span>人<a href="javascript:;" class="add add-one" id="examination-add-' + i + '"><i class="iconfont">&#xe61a;</i>添加</a></td><td class="check-teacher reviewed" teacher-type="reviewed" id="reviewed-'+i+'"><ul style="display:none"></ul><span class="check-num">'+progress_info.answers[i].reviewed_teachers_count+'</span>人<a href="javascript:;" class="add add-one" id="reviewed-add-' + i + '"><i class="iconfont">&#xe61a;</i>添加</a></td></tr>';
 			$('#test-pro-list tbody').append(pro_tr);
 
 			$('#examination-'+i+' ul').html('');
@@ -969,7 +969,7 @@ $(function(){
 		var select_info_length = select_info.length;
 		console.log(select_info_length)
 		for (var i = select_info_length-1; i >= 0; i--) {
-			var child_tr = '<tr class="child-trs child-trs-'+i+'" style="background:#fafafa" answer-id="'+select_info[i].answer_id+'" answers="'+select_info[i].answer_setting_ids+'"><td colspan="5" style="text-indent:48px">'+select_info[i].name+'</td><td colspan="5" class="test-operation"><a href="javascript:;"><span>批阅详情</span><i class="iconfont bottom">&#xe622;</i><i class="iconfont up none">&#xe624;</i></a></td></tr><tr class="child-tr none"><td colspan="10" style="text-align: center"><div class="child-box"><ul class="child-title"><li>阅卷老师</li><li>所在学校</li><li>批改数量</li><li>批阅速度</li><li>平均分</li></ul><ul class="child-cont"></ul></div></td></tr>';
+			var child_tr = '<tr class="child-trs child-trs-'+i+'" style="background:#fafafa" answer-id="'+select_info[i].answer_id+'" answers="'+select_info[i].answer_setting_ids+'"><td colspan="5"><a class="key-answer" href="javascript:;"><i class="iconfont">&#xe62a;</i>解锁试卷</a>'+select_info[i].name+'</td><td colspan="5" class="test-operation"><a href="javascript:;"><span>批阅详情</span><i class="iconfont bottom">&#xe622;</i><i class="iconfont up none">&#xe624;</i></a></td></tr><tr class="child-tr none"><td colspan="10" style="text-align: center"><div class="child-box"><ul class="child-title"><li>阅卷老师</li><li>所在学校</li><li>批改数量</li><li>批阅速度</li><li>平均分</li></ul><ul class="child-cont"></ul></div></td></tr>';
 			$(id).after(child_tr);
 			// var par_id = $('.child-trs-'+i+'');
 			// console.log(par_id)
@@ -1030,5 +1030,29 @@ $(function(){
 			parent_info.next().find('.child-cont').append(child_tr);
 		};
 	}
+
+
+
+
+
+
+
+	// 解锁试卷弹出框
+	$('body').on('click', '.key-answer', function() {
+		$('.modal-main').css('width', '765px');
+		$('.modal-main').animate({
+			'top': '50%',
+			'opacity': 1
+		}, 500);
+		$('.modal-shadow').animate({
+			'opacity': .3
+		}, 500);
+		$('#key-paper').show();
+	});
+
+	$('body').on('click', '.confirm-key', function() {
+	
+	});
+
 
 })
