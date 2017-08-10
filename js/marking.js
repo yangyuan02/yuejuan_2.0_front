@@ -90,14 +90,13 @@ $(function(){
 	  });
 	}
 
-
-
+	// <td class="test-on"> <p class="num">'+ test_info.exam_subjects[i].paper_revise_progress+'%</p><div class="bar"><div style="width:'+ test_info.exam_subjects[i].paper_revise_progress+'%;"></div></div></td><td class="test-num">'+ test_info.exam_subjects[i].answers_total_count+'</td>
   // 显示考试列表
 	function show_test_info(test_info){
 		var test_length = test_info.exam_subjects.length;
 		$('#test-list-change tbody').html('');
 		for (var i = 0; i < test_length; i++) {
-			var tr_test ='<tr class="parent-tr p-'+i+'"><td class="test-name" width="320" exam-id="'+test_info.exam_subjects[i].exam_id+'" data-id="'+test_info.exam_subjects[i].exam_subject_id+'">'+ test_info.exam_subjects[i].name +'</td><td class="test-grade">'+ test_info.exam_subjects[i].grade_name +'</td><td class="test-subject">'+ test_info.exam_subjects[i].subject_name +'</td><td class="test-on"> <p class="num">'+ test_info.exam_subjects[i].paper_revise_progress+'%</p><div class="bar"><div style="width:'+ test_info.exam_subjects[i].paper_revise_progress+'%;"></div></div></td><td class="test-num">'+ test_info.exam_subjects[i].answers_total_count+'</td><td class="test-operation"><a href="javascript:;">显示题组<i class="iconfont bottom">&#xe622;</i><i class="iconfont up none">&#xe624;</i></a></td></tr><tr class="child-tr none"><td colspan="6"><div class="child-box"><ul class="child-title"><li>题组</li><li>阅卷进度</li><li>多评异常</li><li>问题试卷</li><li>生成日期</li><li></li></ul><ul class="child-cont"></ul></div></td></tr>';
+			var tr_test ='<tr class="parent-tr p-'+i+'"><td class="test-name" width="320" exam-id="'+test_info.exam_subjects[i].exam_id+'" data-id="'+test_info.exam_subjects[i].exam_subject_id+'">'+ test_info.exam_subjects[i].name +'</td><td class="test-grade">'+ test_info.exam_subjects[i].grade_name +'</td><td class="test-subject">'+ test_info.exam_subjects[i].subject_name +'</td><td class="test-operation"><a href="javascript:;">显示题组<i class="iconfont bottom">&#xe622;</i><i class="iconfont up none">&#xe624;</i></a></td></tr><tr class="child-tr none"><td colspan="6"><div class="child-box"><ul class="child-title"><li>题组</li><li>阅卷进度</li><li>多评异常</li><li>问题试卷</li><li>生成日期</li><li></li></ul><ul class="child-cont"></ul></div></td></tr>';
 			$('#test-list-change tbody').append(tr_test);
 		};
 	}
@@ -153,8 +152,22 @@ $(function(){
 				parnt_info.next().find('.child-cont .li-'+i+'').children('.last-ul').html('');
 				// $('.child-cont .li-'+i+'').children('.last-ul').html('');
 				for (var j = 0; j < item_last_length; j++) {
-					var item_li ='<li><div class="item-name" data-id="'+item_last[j].id+'">'+item_last[j].name+'</div><div class="item-on">'+item_last[j].progress+'</div><div class="more-num" style="visibility: hidden;">test</div><div class="bug-num" style="visibility: hidden;">test</div><div class="item-time" style="visibility: hidden;">test</div><div class="item-op"><a href="javascript:;" class="mark-btn determine">阅卷</a><a href="javascript:;" class="check-btn" id="check-btn">审核</a></div></li>';
+					var item_li ='<li><div class="item-name" data-id="'+item_last[j].id+'">'+item_last[j].name+'</div><div class="item-on">'+item_last[j].progress+'</div><div class="more-num" style="visibility: hidden;">test</div><div class="bug-num" style="visibility: hidden;">test</div><div class="item-time" style="visibility: hidden;">test</div><div class="item-op"><a href="javascript:;" class="mark-btn determine mark-'+item_last[j].id+'" data-status="'+item_last[j].examination+'">阅卷</a><a href="javascript:;" class="check-btn check-'+item_last[j].id+'" id="check-btn" data-status="'+item_last[j].reviewed+'">审核</a></div></li>';
 				  parnt_info.next().find('.child-cont .li-'+i+'').find('.last-ul').append(item_li);
+					// 判断是否有阅卷权限
+					if(item_last[j].examination){
+						$('.mark-'+item_last[j].id+'').show();
+					}else{
+						// console.log('.mark-'+item_last[j].id+'')
+						$('.mark-'+item_last[j].id+'').hide();
+					}
+					// 判断是否有审核权限
+					if(item_last[j].reviewed){
+						$('.check-'+item_last[j].id+'').show();
+					}else{
+						// console.log('.check-'+item_last[j].id+'')
+						$('.check-'+item_last[j].id+'').hide();
+					}
 				};
 			}
 			
@@ -1638,6 +1651,7 @@ $(function(){
 			'opacity': .3
 		}, 500);
 		$('#key-paper').show();
+
 	});
 
 	$('body').on('click', '.key-closed', function() {
@@ -1646,6 +1660,22 @@ $(function(){
 
 	$('body').on('click', '.confirm-key', function() {
 		$('#article-count').removeClass('text-color');
+		var section_crop_id = $('.paper-item-name').attr('section_crop_id');
+		console.log(section_crop_id)
+		$.ajax({
+		  type: "POST",
+		  url: ajaxIp+"/api/v2/section_crops/"+section_crop_id+"/unlock_paper",
+		  headers: {'Authorization': "Bearer " + isLogin},
+		  dataType: "JSON",
+		  success: function(data){
+		  	console.log(data);
+		  },
+		  error: function(){
+		      // alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html';
+		  }
+		});
 	});
 
 
