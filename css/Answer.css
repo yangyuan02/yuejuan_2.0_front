@@ -49,7 +49,7 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
 .Answer .L_ul li .addQ .pd button{width: 135px;height: 32px;background: #41d576;font-size: 16px;font-weight: 100;}
 
 /*右侧*/
-.Answer .A_R{width:1624px;height:1000px ;padding:38px 38px;border: 4px solid #ededed;float: left;position:relative;}
+.Answer .A_R{width:1624px;height:1140px ;padding:38px 38px;border: 4px solid #ededed;float: left;position:relative;}
 .addQ{display:none;position: absolute;left: 100%;top:0;width: 434px;height: 468px;border: 1px solid #31bc91;text-align: center;background: #fff;}
 .Answer .A_R .addQ h3{background: #31bc91;color: #fff;font-weight: 300;}
 .Answer .A_R .addQ .pd{width:100%;height:100%;margin-top:7px;}
@@ -65,14 +65,17 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     /*border:1px solid black;*/
     padding:0 30px;
 }
-.Answer .A_R .A_Rone {width:48%;height:800px;padding: 10px;border: 1px solid #ddd;border-radius: 10px;float:left;position:relative;/*margin-left:30px;*/}
-.Answer .A_R .A_Rtwo {width:48%;height:800px;padding: 10px;border: 1px solid #ddd;border-radius: 10px;float:right;position:relative;}
+.Answer .A_R .A_Rone:nth-child(2n){
+    float:right;
+}
+.Answer .A_R .A_Rone {width:48%;height:946px;padding: 10px;border: 1px solid #ddd;border-radius: 10px;float:left;position:relative;/*margin-left:30px;*/}
+/*.Answer .A_R .A_Rtwo {width:48%;height:946px;padding: 10px;border: 1px solid #ddd;border-radius: 10px;float:right;position:relative;}*/
 .Answer .A_R .A_Rone .A_Rone_child table{width: 100%;margin-bottom: 10px;border: 1px solid black;}
 .Answer .A_R .A_Rone .A_Rone_child table thead tr th{height: 20px;padding: 10px 5px;font-size: 15px;text-align: left;}
 .Answer .A_R .A_Rone .A_Rone_child table tbody tr td{height: 20px;padding: 5px 5px;font-size: 14px;}
-.Answer .A_R .A_Rone .A_Rone_child table tbody tr td div {width: 25%;display: inline-block;padding: 5px 0;}
-.Answer .A_R .A_Rone .A_Rone_child table tbody tr td div span {margin-right: 5px;}
-.Answer .A_R .A_Rone .A_Rone_child table tbody tr td div span:first-child{
+.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c {width: 25%;display: inline-block;padding: 5px 0;}
+.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span {margin-right: 5px;}
+.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span:first-child{
     width:16.8px;
 }
 .Answer .A_R .A_Rone > .tips,.Answer .A_R .A_Rtwo > .tips{
@@ -83,7 +86,10 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     bottom:0;
     text-align:center;
 }
-.Answer .A_R .A_Rone .A_Rone_child table tbody tr td div span b{border: 1px solid black;display: inline-block;width: 15px;text-align: center;}
+.Answer .A_R .A_Rone:nth-child(2n) .tips_t{
+    top:0;
+}
+.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span b{border: 1px solid black;display: inline-block;width: 15px;text-align: center;font-weight:normal;}
 /*顶部学生信息*/
 .Answer .student_info{
     margin-top:30px;
@@ -223,4 +229,46 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
 }
 .Answer .A_R .A_Rone .school .student .student_R .tips{
     margin-left:20px;
+}
+.Answer .A_R .A_Rone .school .student .student_R .tips p span{
+    width:18px;
+    height:8px;
+    background:black;
+    display:inline-block;
+    line-height:18px;
+}
+.Answer .A_R .A_Rone .school .student .student_R .tips p:last-child span{
+    margin-right:10px;
+}
+.Answer .A_R .A_Rone .school .student .student_R .tips p:last-child span:nth-of-type(1){
+     background:url("../img/tips_error_1.gif") no-repeat;
+ }
+.Answer .A_R .A_Rone .school .student .student_R .tips p:last-child span:nth-of-type(2){
+    background:url("../img/tips_error_2.gif") no-repeat;
+}
+.Answer .A_R .A_Rone .school .student .student_R .tips p:last-child span:nth-of-type(3){
+    background:url("../img/tips_error_3.gif") no-repeat;
+}
+.Answer .A_R .A_Rone .school .student .student_R .tips p:last-child span:nth-of-type(4){
+    background:url("../img/tips_error_4.gif") no-repeat;
+}
+.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span{
+    display:inline-block;
+}
+.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span.fill_line{
+    width:80px;
+    border-bottom:1px solid black;
+}
+/*网络阅卷打分框*/
+.Answer .A_R .A_Rone .A_Rone_child table thead tr .marking a{
+    display: inline-block;
+    width: 30px;
+    height:18px;
+    border:1px solid black;
+    float:left;
+    margin-right:10px;
+}
+/*英语作文*/
+.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span.writing{
+
 }

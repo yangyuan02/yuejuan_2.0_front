@@ -2,12 +2,30 @@ var m1 = angular.module("pro", []);
 //设置控制器
 m1.controller("demo", ["$scope", function ($scope) {
     $scope.listObj = [];//定义全局数组保存所有题目
+    $scope.listObj2 = [];//定义全局数组保存所有题目
     $scope.result = {};//弹出框保存
 //点击显示
     $scope.add = function (index) {
         $scope.index = index
         clear()
     };
+    $scope.setNumber = function (obj,num) {
+        //放入添加的题目编号
+        var array = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十"];
+        for (var i = 0; i < obj.length; i++) {
+            if (i < 10) {
+                obj[i].title = array[i+num];
+            } else if (10 <= i < 20) {
+                obj[i].title = array[9] + array[i+num - 10];
+            } else if (20 <= i < 30) {
+                obj[i].title = array[1] + array[9] + array[i - 20];
+            } else if (30 <= i < 40) {
+                obj[i].title = array[2] + array[9] + array[i - 30];
+            } else if (40 <= i < 50) {
+                obj[i].title = array[3] + array[9] + array[i - 40];
+            }
+        }
+    }
 //确认添加
     $scope.btn1 = function () {
         //添加选择题的存储
@@ -26,7 +44,6 @@ m1.controller("demo", ["$scope", function ($scope) {
             }
         }
         ;
-
         obj = {
             title: '',
             name: $scope.result.name,//题组名称aaaa
@@ -35,31 +52,21 @@ m1.controller("demo", ["$scope", function ($scope) {
             no: noarray,//序号
             one: totaltwo,//总分
             two: $scope.result.two,//提分
-            thr: $scope.index == 1 ? $scope.nubarray : ['T', 'F'] //选项ABCD
+            thr: $scope.index == 1 ? $scope.nubarray : ['T', 'F'], //选项ABCD(选择题和判断题)
+            type:$scope.index//题目类型
         };
-        $scope.listObj.push(obj);
-        //放入添加的题目编号
-        var array = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十"];
-        for (var i = 0; i < $scope.listObj.length; i++) {
-            if (i < 10) {
-                $scope.listObj[i].title = array[i];
-            } else if (10 <= i < 20) {
-                $scope.listObj[i].title = array[9] + array[i - 10];
-            } else if (20 <= i < 30) {
-                $scope.listObj[i].title = array[1] + array[9] + array[i - 20];
-            } else if (30 <= i < 40) {
-                $scope.listObj[i].title = array[2] + array[9] + array[i - 30];
-            } else if (40 <= i < 50) {
-                $scope.listObj[i].title = array[3] + array[9] + array[i - 40];
+        // setTimeout(function () {//第一页620px
+            var height = $(".A_Rone_child").get(0).offsetHeight;//获取每次生成模版的高度
+            if(height>620){
+                $scope.listObj2.push(obj);
+                $scope.setNumber($scope.listObj2,$scope.listObj.length)
+            }else{
+                $scope.listObj.push(obj);
+                $scope.setNumber($scope.listObj,0)
             }
-        }
-        ;
+        // }, 0)
         clear()
         close()
-        setTimeout(function () {
-            var height = document.getElementById("A_Rone_child").offsetHeight;//获取每次生成模版的高度
-            console.log(height)
-        }, 0)
     };
 //关闭
     var close = function () {
