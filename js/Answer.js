@@ -42,7 +42,7 @@ m1.controller("demo", function ($scope, $timeout) {
     $scope.btn1 = function () {
         //添加选择题的存储
         var obj = {};
-        var noarray = []
+        var noarray = []//
         obj.thr = [];
         obj.no = [];
         var nub = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
