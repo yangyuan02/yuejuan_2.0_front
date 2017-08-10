@@ -1,6 +1,7 @@
 
 // 成绩生成
 $(function(){
+    var isLogin = localStorage.getItem("token");
     // 考试科目下拉
    $(".main_right").children("div").eq(0).show().siblings().hide();
 
@@ -60,6 +61,37 @@ $("#sc_left").siblings("li").click(function(event) {
 
 
 
+// 成绩生成
+// $.ajax({
+//     url: ajaxIp+'/api/v2/reports/exams',
+//     type: 'GET',
+//     dataType: 'json',
+//     data: {param1: 'value1'},
+//    success: function(data){
+//            console.log("成功");
+//           },
+//           error: function(){
+           
+//           },
+// });
+
+
+    $.ajax({
+      type: "GET",
+      url: ajaxIp+"/api/v2/reports",
+      headers: {'Authorization': "Bearer " + isLogin},
+      data:"subject_id",
+      success: function(date){
+        console.log(date[0].name);
+        // show_test_info(data);
+       // $("#mark_02_li").html(date[0].name);
+      },
+      error: function(){
+          // alert('请稍后从新尝试登录或者联系管理员');
+        // localStorage.clear();
+        // window.location.href = './login.html';
+      }
+    });
 
 
 $("#mark_02_ul span").click(function(event) {
@@ -432,6 +464,42 @@ var myChart = echarts.init(document.getElementById('study_q_03_02'));
 //         $("#study_q_ck").hide();
 //         $(".ck_1").show();
 //     });
+// 查看答题卡
+$("#img_add").click(function(event) {
+    /* Act on the event */
+var a=$("#ans_img").height();
+var b=$("#ans_img").width();
+a2=a+20;
+b2=b+20;
+$("#ans_img").height(a2);
+$("#ans_img").width(b2);
+
+});
+
+$("#img_up").click(function(event) {
+    /* Act on the event */
+
+var a=$("#ans_img").height();
+var b=$("#ans_img").width();
+a2=a-20;
+b2=b-20;
+
+$("#ans_img").height(a2);
+$("#ans_img").width(b2);
+});
+$(function() {
+    $( "#ans_img" ).draggable();
+  });
+$(".study_q_06_tab span").click(function(event) {
+    /* Act on the event */
+    
+    $(".ans").show();
+});
+$(".ans_01 i").click(function(event) {
+    /* Act on the event */
+    
+    $(".ans").hide();
+});
 
 
 // <!--班级学情追踪 end-->
@@ -737,9 +805,6 @@ $(".sc_left li").click(function(event) {
 
 
 /*<!-- 跨校对比分析  end-->*/
-
-
-
 
 
 
