@@ -1,6 +1,7 @@
 var m1 = angular.module("pro", []);
 //设置控制器
-m1.controller("demo", ["$scope", function ($scope) {
+m1.controller("demo", function ($scope, $timeout) {
+    $scope.page_num = 0 //页数
     $scope.listObj = [];//定义全局数组保存所有题目
     $scope.listObj2 = [];//定义全局数组保存所有题目
     $scope.result = {};//弹出框保存
@@ -9,22 +10,33 @@ m1.controller("demo", ["$scope", function ($scope) {
         $scope.index = index
         clear()
     };
-    $scope.setNumber = function (obj,num) {
-        //放入添加的题目编号
+    $scope.setNumber = function (obj, num) {//设置题目编号
         var array = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十"];
         for (var i = 0; i < obj.length; i++) {
             if (i < 10) {
-                obj[i].title = array[i+num];
+                obj[i].title = array[i + num];
             } else if (10 <= i < 20) {
-                obj[i].title = array[9] + array[i+num - 10];
+                obj[i].title = array[9] + array[i + num - 10];
             } else if (20 <= i < 30) {
-                obj[i].title = array[1] + array[9] + array[i - 20];
+                obj[i].title = array    [1] + array[9] + array[i - 20];
             } else if (30 <= i < 40) {
                 obj[i].title = array[2] + array[9] + array[i - 30];
             } else if (40 <= i < 50) {
                 obj[i].title = array[3] + array[9] + array[i - 40];
             }
         }
+    }
+    $scope.isLine = function (type,num,page_num) {//是否换行
+        var type = parseInt(type)
+        var num =  parseInt(num)
+        var title_h = 40, marking = 40, item = 30, page_top = 290;
+        var page = page_num== 0?946:946-page_top
+        var height = $(".A_Rone_child").get(page_num).offsetHeight;//获取每次生成模版的高度
+        if(type==1||type==2){//没有marking且在第一页
+            var isB = page-page_top-height-title_h-(num%4*item)-200<0?true:false
+        }
+        console.log(type,num,height,page-page_top-height-title_h-(num%4*item)-200)
+        return isB
     }
 //确认添加
     $scope.btn1 = function () {
@@ -37,11 +49,7 @@ m1.controller("demo", ["$scope", function ($scope) {
         $scope.nubarray = nub.slice(0, $scope.result.thr);//选项个数
         var totaltwo = parseInt($scope.result.numbel) * parseInt($scope.result.two)//总分数
         for (var i = 0; i < parseInt($scope.result.numbel); i++) {//多少个小题
-            if (i <= 8) {
-                noarray.push('0' + (i + parseInt($scope.result.no)));
-            } else {
-                noarray.push(i + parseInt($scope.result.no));
-            }
+            noarray.push(i + parseInt($scope.result.no));
         }
         ;
         obj = {
@@ -53,20 +61,22 @@ m1.controller("demo", ["$scope", function ($scope) {
             one: totaltwo,//总分
             two: $scope.result.two,//提分
             thr: $scope.index == 1 ? $scope.nubarray : ['T', 'F'], //选项ABCD(选择题和判断题)
-            type:$scope.index//题目类型
+            type: $scope.index//题目类型
         };
-        // setTimeout(function () {//第一页620px
-            var height = $(".A_Rone_child").get(0).offsetHeight;//获取每次生成模版的高度
-            if(height>620){
-                $scope.listObj2.push(obj);
-                $scope.setNumber($scope.listObj2,$scope.listObj.length)
-            }else{
-                $scope.listObj.push(obj);
-                $scope.setNumber($scope.listObj,0)
-            }
-        // }, 0)
+        if($scope.listObj2.length>0){
+            $scope.page_num = 1
+        }
+        var isB = $scope.isLine($scope.index,$scope.result.numbel,$scope.page_num)
+        if (isB) {
+            $scope.listObj2.push(obj);
+            $scope.setNumber($scope.listObj2, $scope.listObj.length)
+        } else {
+            $scope.listObj.push(obj);
+            $scope.setNumber($scope.listObj, 0)
+        }
         clear()
         close()
+        console.log($scope.listObj)
     };
 //关闭
     var close = function () {
@@ -81,13 +91,6 @@ m1.controller("demo", ["$scope", function ($scope) {
             no: '', one: '', two: '', thr: '',
         };
     };
-}])
-m1.filter("noa", function () {
-    return function (input) {
-        if (Number(input) > 10 && Number(input) % 10 != 0) {
-            return input.substring(1)
-        }
-        return input
-    }
 })
+
 
