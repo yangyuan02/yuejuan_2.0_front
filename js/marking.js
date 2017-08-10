@@ -153,8 +153,22 @@ $(function(){
 				parnt_info.next().find('.child-cont .li-'+i+'').children('.last-ul').html('');
 				// $('.child-cont .li-'+i+'').children('.last-ul').html('');
 				for (var j = 0; j < item_last_length; j++) {
-					var item_li ='<li><div class="item-name" data-id="'+item_last[j].id+'">'+item_last[j].name+'</div><div class="item-on">'+item_last[j].progress+'</div><div class="more-num" style="visibility: hidden;">test</div><div class="bug-num" style="visibility: hidden;">test</div><div class="item-time" style="visibility: hidden;">test</div><div class="item-op"><a href="javascript:;" class="mark-btn determine">阅卷</a><a href="javascript:;" class="check-btn" id="check-btn">审核</a></div></li>';
+					var item_li ='<li><div class="item-name" data-id="'+item_last[j].id+'">'+item_last[j].name+'</div><div class="item-on">'+item_last[j].progress+'</div><div class="more-num" style="visibility: hidden;">test</div><div class="bug-num" style="visibility: hidden;">test</div><div class="item-time" style="visibility: hidden;">test</div><div class="item-op"><a href="javascript:;" class="mark-btn determine mark-'+item_last[j].id+'" data-status="'+item_last[j].examination+'">阅卷</a><a href="javascript:;" class="check-btn check-'+item_last[j].id+'" id="check-btn" data-status="'+item_last[j].reviewed+'">审核</a></div></li>';
 				  parnt_info.next().find('.child-cont .li-'+i+'').find('.last-ul').append(item_li);
+					// 判断是否有阅卷权限
+					if(item_last[j].examination){
+						$('.mark-'+item_last[j].id+'').show();
+					}else{
+						// console.log('.mark-'+item_last[j].id+'')
+						$('.mark-'+item_last[j].id+'').hide();
+					}
+					// 判断是否有审核权限
+					if(item_last[j].reviewed){
+						$('.check-'+item_last[j].id+'').show();
+					}else{
+						// console.log('.check-'+item_last[j].id+'')
+						$('.check-'+item_last[j].id+'').hide();
+					}
 				};
 			}
 			
@@ -1638,6 +1652,7 @@ $(function(){
 			'opacity': .3
 		}, 500);
 		$('#key-paper').show();
+
 	});
 
 	$('body').on('click', '.key-closed', function() {
@@ -1646,6 +1661,22 @@ $(function(){
 
 	$('body').on('click', '.confirm-key', function() {
 		$('#article-count').removeClass('text-color');
+		var section_crop_id = $('.paper-item-name').attr('section_crop_id');
+		console.log(section_crop_id)
+		$.ajax({
+		  type: "POST",
+		  url: ajaxIp+"/api/v2/section_crops/"+section_crop_id+"/unlock_paper",
+		  headers: {'Authorization': "Bearer " + isLogin},
+		  dataType: "JSON",
+		  success: function(data){
+		  	console.log(data);
+		  },
+		  error: function(){
+		      // alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html';
+		  }
+		});
 	});
 
 
