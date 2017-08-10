@@ -22,7 +22,7 @@ $(function(){
 	get_test_list();
 
 	function get_test_list(){
-		var page_data = {'page':1, 'limit': 10};
+		var page_data = {'page':1, 'limit': 10, 'choice':true};
 		$.ajax({
 		  type: "POST",
 		  url: ajaxIp+"/api/v2/exam_subjects/school_exam_subjects",
@@ -47,7 +47,7 @@ $(function(){
 	function page_test_list(nums,data){
 
 		var ii_nums;
-		console.log(nums+'条数据')
+		// console.log(nums+'条数据')
 		if(nums==0){
 			ii_nums=1;
 		}else if(nums>0 && nums<10){
@@ -68,7 +68,7 @@ $(function(){
 		  last: '<li class="next"><a href="javascript:;" class="pagination-color">尾页</a></li>',
 		  page: '<li class="page"><a href="javascript:;" class="pagination-color">{{page}}</a></li>',
 	    onPageChange: function (nums) {
-				var page_data = {'page':nums, 'limit': 10};
+				var page_data = {'page':nums, 'limit': 10, 'choice':true};
 
 				$.ajax({
 				  type: "POST",
@@ -97,7 +97,7 @@ $(function(){
 		var test_length = test_info.exam_subjects.length;
 		$('#test-list-change tbody').html('');
 		for (var i = 0; i < test_length; i++) {
-			var tr_test ='<tr class="parent-tr"><td class="test-name" width="320" exam-id="'+test_info.exam_subjects[i].exam_id+'" data-id="'+test_info.exam_subjects[i].exam_subject_id+'">'+ test_info.exam_subjects[i].name +'</td><td class="test-grade">'+ test_info.exam_subjects[i].grade_name +'</td><td class="test-subject">'+ test_info.exam_subjects[i].subject_name +'</td><td class="test-on"> <p class="num">'+ test_info.exam_subjects[i].paper_revise_progress+'%</p><div class="bar"><div style="width:'+ test_info.exam_subjects[i].paper_revise_progress+'%;"></div></div></td><td class="test-num">'+ test_info.exam_subjects[i].answers_total_count+'</td><td class="test-operation"><a href="javascript:;">显示题组<i class="iconfont bottom">&#xe622;</i><i class="iconfont up none">&#xe624;</i></a></td></tr><tr class="child-tr none"><td colspan="6"><div class="child-box"><ul class="child-title"><li>题组</li><li>阅卷进度</li><li>多评异常</li><li>问题试卷</li><li>生成日期</li><li></li></ul><ul class="child-cont"></ul></div></td></tr>';
+			var tr_test ='<tr class="parent-tr p-'+i+'"><td class="test-name" width="320" exam-id="'+test_info.exam_subjects[i].exam_id+'" data-id="'+test_info.exam_subjects[i].exam_subject_id+'">'+ test_info.exam_subjects[i].name +'</td><td class="test-grade">'+ test_info.exam_subjects[i].grade_name +'</td><td class="test-subject">'+ test_info.exam_subjects[i].subject_name +'</td><td class="test-on"> <p class="num">'+ test_info.exam_subjects[i].paper_revise_progress+'%</p><div class="bar"><div style="width:'+ test_info.exam_subjects[i].paper_revise_progress+'%;"></div></div></td><td class="test-num">'+ test_info.exam_subjects[i].answers_total_count+'</td><td class="test-operation"><a href="javascript:;">显示题组<i class="iconfont bottom">&#xe622;</i><i class="iconfont up none">&#xe624;</i></a></td></tr><tr class="child-tr none"><td colspan="6"><div class="child-box"><ul class="child-title"><li>题组</li><li>阅卷进度</li><li>多评异常</li><li>问题试卷</li><li>生成日期</li><li></li></ul><ul class="child-cont"></ul></div></td></tr>';
 			$('#test-list-change tbody').append(tr_test);
 		};
 	}
@@ -115,6 +115,8 @@ $(function(){
 		}
 		var child_tr = $(this).parents('.parent-tr').next('.child-tr');
 		child_tr.toggle();
+		// child_tr.show();
+		// $(this).parents('.parent-tr').siblings('.parent-tr').next('.child-tr').hide();
 		var parnt_info = $(this).parents('.parent-tr')
 		var id = parnt_info.find('.test-name').attr('data-id');
 		$.ajax({
@@ -144,14 +146,18 @@ $(function(){
 		for (var i = 0; i < item_info_length; i++) {
 			var child_li = '<li class="li-'+i+'"><div style="width:100%"><div class="item-name">'+item_info[i].name+'</div><div class="item-on">'+item_info[i].revise_progress+'</div><div class="more-num">'+item_info[i].multiple_error_count+'</div><div class="bug-num">'+item_info[i].issue_paper_count+'</div><div class="item-time">'+item_info[i].finish_date+'</div><div class="item-op" style="display:none">hhhhhh</div></div><div style="width:100%"><ul class="last-ul"></ul></div></li>'
 			parnt_info.next().find('.child-cont').append(child_li);
-			$('.li-'+i+'').children('.last-ul').html('');
 			var item_last = item_info[i].section_crops;
 			var item_last_length = item_last.length;
 			console.log(item_last_length)
-			for (var j = 0; j < item_last_length; j++) {
-				var item_li ='<li><div class="item-name" data-id="'+item_last[j].id+'">'+item_last[j].name+'</div><div class="item-on">'+item_last[j].progress+'</div><div class="more-num" style="visibility: hidden;">test</div><div class="bug-num" style="visibility: hidden;">test</div><div class="item-time" style="visibility: hidden;">test</div><div class="item-op"><a href="javascript:;" class="mark-btn determine">阅卷</a><a href="javascript:;" class="check-btn" id="check-btn">审核</a></div></li>';
-			  $('.li-'+i+'').find('.last-ul').append(item_li);
-			};
+			if(item_last_length){
+				parnt_info.next().find('.child-cont .li-'+i+'').children('.last-ul').html('');
+				// $('.child-cont .li-'+i+'').children('.last-ul').html('');
+				for (var j = 0; j < item_last_length; j++) {
+					var item_li ='<li><div class="item-name" data-id="'+item_last[j].id+'">'+item_last[j].name+'</div><div class="item-on">'+item_last[j].progress+'</div><div class="more-num" style="visibility: hidden;">test</div><div class="bug-num" style="visibility: hidden;">test</div><div class="item-time" style="visibility: hidden;">test</div><div class="item-op"><a href="javascript:;" class="mark-btn determine">阅卷</a><a href="javascript:;" class="check-btn" id="check-btn">审核</a></div></li>';
+				  parnt_info.next().find('.child-cont .li-'+i+'').find('.last-ul').append(item_li);
+				};
+			}
+			
 
 		};
 	}
@@ -249,10 +255,13 @@ $(function(){
 		}
 		$('.move-paper').append(img_html);
 			console.log(total_paper)
-		$('.move-paper img').css({
-			'width': img_info.personal.paper_data_width+'px',
-			'height': img_info.personal.paper_data_height+'px'
-		});
+			if(img_info.personal){
+				$('.move-paper img').css({
+					'width': img_info.personal.paper_data_width+'px',
+					'height': img_info.personal.paper_data_height+'px'
+				});
+			}
+		
 	
 			$('.on-num').text(img_info.index);
 		// }else{
@@ -322,11 +331,27 @@ $(function(){
 	}
 
   // 显示原试卷
-  $('.show-pre').click(function(){
+ $('body').on('click','.show-pre',function(){
+  	$(this).addClass('hide-pre').removeClass('show-pre');
+  	$(this).text('隐藏原试卷');
 		var exam_subject_id = $('.paper-item-name').attr('exam_subject_id');
 		var scanner_image_id = $('.paper-item-name').attr('scanner_image_id');
 		var current_page = $('.paper-item-name').attr('current_page');
 		get_pre_info_request(exam_subject_id,scanner_image_id,current_page);
+  })
+  $('body').on('click','.hide-pre',function(){
+  	$(this).addClass('show-pre').removeClass('hide-pre');
+  	$(this).text('显示原试卷');
+		var section_crop_id = $('.paper-item-name').attr('section_crop_id');
+		var section_crop_name = $('.paper-item-name').text();
+		var index = parseInt($('.on-num').text());
+		console.log($('.finished').text())
+		console.log(section_crop_id,section_crop_name,index)
+		if($('.yuejuan_score').val()){
+			get_info_request(section_crop_id,section_crop_name,index);
+		}else{
+			get_info_request(section_crop_id,section_crop_name,null);
+		}
   })
 
   function get_pre_info_request(exam_subject_id,scanner_image_id,current_page){
@@ -359,12 +384,13 @@ $(function(){
 		var section_crops = pre_img.section_crops;
 		var paper_width = $('.move-paper img').width();
 		var paper_height = $('.move-paper img').height();
+		console.log(paper_width,paper_height);
 		for (var i = 0; i < section_crops.length; i++) {
-			console.log(section_crops[i].position.width)
 			section_crops[i].position.width =(section_crops[i].position.width/section_crops[i].position.w)*paper_width;
 			section_crops[i].position.height =(section_crops[i].position.height/section_crops[i].position.h)*paper_height;
 			section_crops[i].position.x =(section_crops[i].position.x/section_crops[i].position.w)*paper_width;
 			section_crops[i].position.y =(section_crops[i].position.y/section_crops[i].position.h)*paper_height;
+			console.log(section_crops[i].position.width)
 			var section_info = '<div class="section_crop" style="background:#fff;width:'+section_crops[i].position.width+'px; height:'+section_crops[i].position.height+'px;position:absolute;left:'+section_crops[i].position.x+'px;top:'+section_crops[i].position.y+'px"></div>'
 			$('.move-paper').append(section_info);
 		};
@@ -1593,6 +1619,35 @@ $(function(){
 		  }
 		});
 	}
+
+
+
+	// 解锁试卷弹出框
+	$('body').on('click', '#article-count', function() {
+		if ($(this).hasClass('text-color')) {
+			$(this).removeClass('text-color');
+		}else{
+			$(this).addClass('text-color');
+		}
+		$('.modal-main').css('width', '765px');
+		$('.modal-main').animate({
+			'top': '50%',
+			'opacity': 1
+		}, 500);
+		$('.modal-shadow').animate({
+			'opacity': .3
+		}, 500);
+		$('#key-paper').show();
+	});
+
+	$('body').on('click', '.key-closed', function() {
+		$('#article-count').removeClass('text-color');
+	});
+
+	$('body').on('click', '.confirm-key', function() {
+		$('#article-count').removeClass('text-color');
+	});
+
 
 
 })

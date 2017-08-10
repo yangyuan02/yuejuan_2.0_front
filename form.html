@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="renderer" content="webkit">
 	<title>麦粒</title>
-	<link rel="stylesheet" href="css/style.css">x
+	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/form.css">
 	<script type="text/javascript" src='js/jquery.min.js'></script>
 	<script type="text/javascript" src='js/form.js'></script>
@@ -25,7 +25,9 @@
 					当前位置：
 					<a href="index.html">首页</a>
 					>
-					<span>报表</span>
+					<span style="color:#999">报表</span>
+                    >
+					<span id="index_span">成绩生成</span>
 				</p>
 			</div>
 		</div>
@@ -36,13 +38,13 @@
 
 <div class="main_left">
 <ul class="l_ul">
-	<li>成绩生成</li>
+	<li class="li_click">成绩生成</li>
 	<li>考试状况</li>
 	<li>班级学情追踪</li>
 	<li id="study_k_left">学科追踪分析</li>
 	<li id="exam_z_left">考试质量追踪</li>
-	<li>考试横向分析</li>
-	<li>跨校对比分析</li>
+	<li id="exam_h_left">考试横向分析</li>
+	<li id="sc_left">跨校对比分析</li>
 </ul>
 <div class="study_k_left">
 	<ul>
@@ -56,21 +58,26 @@
 	</div>
 	<div class="exam_z_left">
 	<ul>
-		<li>试卷命题和质量</li>
-		<li>各科逐题质量分析</li>
-		<li>难度系数变化图</li>	
+		<li id="exam_z_left_1l">试卷命题和质量</li>
+		<li id="exam_z_left_2l">各科逐题质量分析</li>
+		<li id="exam_z_left_3l">难度系数变化图</li>	
 	</ul>	
 	</div>
 
 <div class="exam_h_left">
 	<ul>
-		<li>各班成绩整体对比</li>
-		<li>班级等级分布</li>
-		<li>总分分段对比</li>
-		<li>名次各班分布</li>	
+		<li id="exam_h_left_1l">各班成绩整体对比</li>
+		<li id="exam_h_left_2l">班级等级分布</li>
+		<li id="exam_h_left_3l">总分分段对比</li>
+		<li id="exam_h_left_4l">名次各班分布</li>	
 	</ul>	
 	</div>
-
+<div class="sc_left">
+	<ul>
+		<li>区域横向综合对比</li>
+		<li>区域等级人数对比</li>
+	</ul>	
+	</div>
 
 
 
@@ -99,7 +106,8 @@
 	</div>
 	<div id="mark_02_ul">
 	<ul class="mark_02_ul">
-		<li>2017年高一期末考试<i class="iconfont" style="margin-left:11px;cursor: pointer;">&#xe622;</i><i class="iconfont" style="margin-left:11px;cursor: pointer;display:none;">&#xe624;</i></li><div class="mark_li_01">
+		<li><span>2017年高一期末考试<i class="iconfont" style="margin-left:11px;cursor: pointer;">&#xe622;</i><i class="iconfont" style="margin-left:11px;cursor: pointer;display:none;">&#xe624;</i></span></li>
+		<div class="mark_li_01">
 			<ul>
 				<li>语文</li>
 				<li>2017-06-26&nbsp;&nbsp;&nbsp;11:28</li>
@@ -117,7 +125,8 @@
 			</ul>
 
 		</div>
-		<li>2017年高二期末考试<i class="iconfont" style="margin-left:11px;cursor: pointer;" >&#xe622;</i><i class="iconfont" style="margin-left:11px;cursor: pointer;display:none;">&#xe624;</i></li><div class="mark_li_01"><ul>
+		<li><span>2017年高二期末考试<i class="iconfont" style="margin-left:11px;cursor: pointer;" >&#xe622;</i><i class="iconfont" style="margin-left:11px;cursor: pointer;display:none;">&#xe624;</i></span></li>
+		<div class="mark_li_01"><ul>
 				<li>语文</li>
 				<li>2017-06-26&nbsp;&nbsp;&nbsp;11:28</li>
 				<li>管理员1<button type="">分析</button></li>
@@ -136,7 +145,7 @@
 	<span style="margin-bottom:10px;font-weight: bold;color: #333333;">定义分数相对于总分的百分比</span>
 	<span>及格分数线%<input type="" name="" value="60"></span>
 	<span>优秀分数线%<input type="" name="" value="90"></span>
-	<input type="checkbox" name="" style="margin-top: 18px;">是否生成错题集
+	<!-- <input type="checkbox" name="" style="margin-top: 18px;">是否生成错题集 -->
 	
 </div>
 	<div class="mart_set_03">
@@ -1333,12 +1342,18 @@
     <th>物理</th>
     <th>化学</th>
     <th>生物</th>
+    <th>历史</th>
+    <th>地理</th>
+    <th>政治</th>
   </tr>
   <tr>
     <td>试卷难度</td>
     <td>0.5</td>
      <td>0.8</td>
      <td>0.6</td>
+     <td>0.7</td>
+    <td>0.9</td>
+    <td>0.6</td> 
      <td>0.7</td>
     <td>0.9</td>
     <td>0.6</td> 
@@ -1350,7 +1365,10 @@
      <td>0.9</td>
      <td>0.7</td>
     <td>0.8</td>
-    <td>0.5</td>      
+    <td>0.5</td> 
+     <td>0.7</td>
+    <td>0.9</td>
+    <td>0.6</td>      
   </tr>
 <tr>
     <td>试卷信用</td>
@@ -1359,7 +1377,10 @@
      <td>0.5</td>
      <td>0.4</td>
     <td>0.3</td>
-    <td>0.1</td>  
+    <td>0.1</td> 
+     <td>0.7</td>
+    <td>0.9</td>
+    <td>0.6</td>  
   </tr>
 <tr>
     <td>满分人数</td>
@@ -1368,7 +1389,10 @@
      <td>2</td>
      <td>5</td>
     <td>7</td>
-    <td>9</td>  
+    <td>9</td>
+    <td>5</td>
+    <td>7</td>
+    <td>9</td>    
   </tr>
   <tr>
     <td>命题评价</td>
@@ -1377,7 +1401,10 @@
      <td>优秀</td>
      <td>优秀</td>
     <td>良好</td>
-    <td>优秀</td>  
+    <td>优秀</td>
+     <td>优秀</td>
+    <td>良好</td>
+    <td>优秀</td>   
   </tr>
 
   	</table>
@@ -1491,7 +1518,358 @@
 <!-- 考试质量追踪  end-->
 <!-- 考试横向分析 start -->
 <div style="display: none;">
-<div style="height: 800px;">	
+<div class="exam_h_x01">	
+<div class="right_01"><span style="" class="exam_h_b">各班成绩整体对比</span></div>
+<div class="exam_h_101">
+<span style="">年级
+<select>
+<option value="">请选择年级</option>
+      <option value="">一</option>
+      <option value="">二</option>
+      <option value="">三</option>
+     </select>
+		</span>
+<span style="">班级
+<select>
+<option value="">请选择班级</option>
+      <option value="">一</option>
+      <option value="">二</option>
+      <option value="">三</option>
+     </select>
+		</span>
+		<span style="">科目
+<select>
+<option value="">请选择科目</option>
+      <option value="">语文</option>
+      <option value="">数学</option>
+      <option value="">英语</option>
+     </select>
+		</span>
+<button type="" class="determine">导出报表</button>
+</div>
+<div class="exam_h_tab">
+<div class="exam_h_102">
+<table cellspacing="0" border="1" bordercolor="#cccccc">
+  <tr>    
+    <th>序号</th>
+    <th>班级</th>
+     <th>科目</th>
+     <th>班主任</th>
+     <th>班级均分</th>
+    <th>班级均分名次</th>
+    <th>班最高分</th>
+    <th>班最低分</th>
+    <th>班标准差</th>
+    <th>班平均分</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>1班</td>
+    <td>物理</td>
+     <td>陈金城</td>
+     <td>395.5</td>
+     <td>3</td>
+    <td>563.5</td>
+    <td>36</td>
+    <td>114.5</td>
+    <td>-20.8</td>  
+  </tr>
+<tr>
+      <td>2</td>
+    <td>2班</td>
+    <td>物理</td>
+     <td>冯春丽</td>
+     <td>364.1</td>
+     <td>7</td>
+    <td>561</td>
+    <td>23</td> 
+    <td>158.1</td>
+    <td>-47.8</td>      
+  </tr>
+<tr>
+    <td>3</td>
+    <td>3班</td>
+    <td>物理</td>
+     <td>冯丽</td>
+     <td>400.7</td>
+     <td>2</td>
+    <td>569.5</td>
+    <td>59.5</td>
+    <td>102.2</td>
+    <td>-11.2</td>   
+  </tr>
+  	</table>
+</div>
+<div class="exam_h_201">
+<table cellspacing="0" border="1" bordercolor="#cccccc">
+  <tr>    
+    <th>班级</th>
+    <th>学科</th>
+     <th>等级A</th>
+     <th>等级B</th>
+    <th>等级C</th>
+    <th>等级D</th>
+    <th>等级F</th>
+    <th>查看</th>
+  </tr>
+  <tr>
+    <td>高一1班</td>
+    <td>物理</td>
+     <td>4</td>
+     <td>10</td>
+     <td>3</td>
+    <td>6</td>
+    <td>2</td>
+    <td><span>详细</span></td>
+  </tr>
+<tr>
+     <td>高一2班</td>
+    <td>物理</td>
+     <td>4</td>
+     <td>10</td>
+     <td>3</td>
+    <td>6</td>
+    <td>2</td>
+    <td><span>详细</span></td>    
+  </tr>
+<tr>
+    <td>高一3班</td>
+    <td>物理</td>
+     <td>4</td>
+     <td>10</td>
+     <td>3</td>
+    <td>6</td>
+    <td>2</td>
+    <td><span>详细</span></td> 
+  </tr>
+  	</table>
+</div>
+<div class="exam_h_301" id="exam_h_301">
+	
+</div>
+<div class="exam_h_401">
+<div class="study_q_i">
+		<i></i><span>学生名次</span>
+	</div>	
+<div id="exam_h_402"></div>
+<table cellspacing="0" border="1" bordercolor="#cccccc">
+  <tr>    
+    <th>班级</th>
+    <th>所占人数</th>
+     
+  </tr>
+  <tr>
+    <td>高一1班</td>
+    <td>10</td>
+     
+  </tr>
+<tr>
+     <td>高一2班</td>
+    <td>10</td>
+    
+  </tr>
+<tr>
+    <td>高一3班</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>高一4班</td>
+    <td>7</td>
+  </tr>
+  <tr>
+    <td>高一5班</td>
+    <td>70</td>
+  </tr>
+  	</table>	
+</div>
+</div>
+</div>
+<div class="exam_h_201_x">
+<div class="right_01" style="margin-bottom: 30px"><span style="font-weight: normal;"><i class="iconfont" style="margin-right:15px; "
+ id="exam_h_201_x_i"></i>班级等级分布详细</span></div>
+
+
+<div class="study_q_i">
+		<i></i><span>班级等级分布</span>
+<button type="" class="determine">导出</button>
+	</div>	
+<table cellspacing="0" border="1" bordercolor="#cccccc">
+  <tr>    
+    <th colspan="2">高一（1）班&nbsp; &nbsp;物理</th>
+   
+     
+  </tr>
+  <tr>
+    <td>等级A</td>
+    <td><a>张三丰</a><a>张三丰</a><a>张三丰</a><a>张三丰</a><a>张三丰</a>
+    </td>
+     
+  </tr>
+<tr>
+     <td>等级B</td>
+    <td><a>张三丰</a><a>张三丰</a><a>张三丰</a></td>
+    
+  </tr>
+<tr>
+    <td>等级C</td>
+    <td><a>张三丰</a><a>张三丰</a><a>张三丰</a></td>
+  </tr>
+  <tr>
+    <td>等级D</td>
+    <td><a>张三丰</a><a>张三丰</a></td>
+  </tr>
+  <tr>
+    <td>等级E</td>
+    <td><a>张三丰</a></td>
+  </tr>
+  	</table>	
+
+
+
+
+
+</div>
+
+
+
+
+
+
+</div>
+<!-- 考试横向分析 end-->
+<!-- 跨校对比分析  start-->
+<div style="display: none;">
+<div style="height: 800px;">
+<div class="right_01"><span style="" class="sc_b">各班成绩整体对比</span></div>
+<div class="sc_101">
+<span style="">学校
+<select>
+<option value="">请选择学校</option>
+      <option value="">一</option>
+      <option value="">二</option>
+      <option value="">三</option>
+     </select>
+		</span>
+		<span style="">科目
+<select>
+<option value="">请选择科目</option>
+      <option value="">语文</option>
+      <option value="">数学</option>
+      <option value="">英语</option>
+     </select>
+		</span>
+<button type="" class="determine">导出报表</button>
+</div>
+<div class="sc_tab">
+<div class="sc_102">
+<table cellspacing="0" border="1" bordercolor="#cccccc">
+  <tr>    
+    <th>单位</th>
+    <th>学科</th>
+     <th>实考人数</th>
+     <th>最高分</th>
+     <th>最低分</th>
+    <th>全距</th>
+    <th>均分</th>
+    <th>优秀数</th>
+    <th>优秀率</th>
+    <th>及格数</th>
+   <th>及格率</th>
+   <th>标准差</th>
+
+
+  </tr>
+  <tr>
+    <td>青浦高中</td> 
+    <td>物理</td>
+    <td>100</td>
+     <td>100</td>
+     <td>100</td>
+     <td>0</td>
+    <td>0</td>
+    <td>90</td>
+    <td>80</td>
+    <td>70</td>  
+    <td>90%</td> 
+    <td>2</td>
+
+
+  </tr>
+<tr>
+     <td>青浦高中</td>
+    <td>物理</td>
+     <td>100</td>
+     <td>100</td>
+     <td>100</td>
+     <td>0</td>
+      <td>0</td>
+    <td>90</td>
+    <td>80</td>
+    <td>70</td>  
+    <td>90%</td>
+    <td>2</td>    
+  </tr>
+<tr>
+    <td>青浦高中</td>
+    <td>物理</td>
+     <td>100</td>
+     <td>100</td>
+     <td>100</td>
+     <td>0</td>
+    <td>0</td>
+    <td>90</td>
+     <td>90%</td>
+    <td>80</td>
+    <td>70%</td>  
+    <td>2</td>
+  </tr>
+  	</table>
+</div>
+<div class="sc_201">
+<table cellspacing="0" border="1" bordercolor="#cccccc">
+  <tr>    
+    <th>单位</th>
+    <th>学科</th>
+     <th>等级A</th>
+     <th>等级B</th>
+     <th>等级C</th>
+    <th>等级D</th>
+    <th>等级E</th>
+  </tr>
+  <tr>
+    <td>青浦高中</td> 
+    <td>物理</td>
+    <td>100</td>
+     <td>100</td>
+     <td>100</td>
+     <td>0</td>
+    <td>0</td>
+
+  </tr>
+<tr>
+     <td>青浦高中</td>
+    <td>物理</td>
+     <td>100</td>
+     <td>100</td>
+     <td>100</td>
+     <td>0</td>
+      <td>0</td>
+  </tr>
+<tr>
+    <td>青浦高中</td>
+    <td>物理</td>
+     <td>100</td>
+     <td>100</td>
+     <td>100</td>
+     <td>0</td>
+    <td>0</td>
+  </tr>
+  	</table>
+</div>
+
+</div>
+
+
 
 
 
@@ -1503,8 +1881,12 @@
 
 </div>
 </div>
-<!-- 考试横向分析 start -->
-<div style="display: none;">7777</div>
+
+
+
+
+
+<!-- 跨校对比分析  end-->
 </div>
 
 		</div>
