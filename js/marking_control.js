@@ -969,7 +969,7 @@ $(function(){
 		var select_info_length = select_info.length;
 		console.log(select_info_length)
 		for (var i = select_info_length-1; i >= 0; i--) {
-			var child_tr = '<tr class="child-trs child-trs-'+i+'" style="background:#fafafa" answer-id="'+select_info[i].answer_id+'" answers="'+select_info[i].answer_setting_ids+'"><td colspan="5"><a class="key-answer" href="javascript:;"><i class="iconfont">&#xe62a;</i>解锁试卷</a>'+select_info[i].name+'</td><td colspan="5" class="test-operation"><a href="javascript:;"><span>批阅详情</span><i class="iconfont bottom">&#xe622;</i><i class="iconfont up none">&#xe624;</i></a></td></tr><tr class="child-tr none"><td colspan="10" style="text-align: center"><div class="child-box"><ul class="child-title"><li>阅卷老师</li><li>所在学校</li><li>批改数量</li><li>批阅速度</li><li>平均分</li></ul><ul class="child-cont"></ul></div></td></tr>';
+			var child_tr = '<tr class="child-trs child-trs-'+i+'" style="background:#fafafa" answer-id="'+select_info[i].answer_id+'" answers="'+select_info[i].answer_setting_ids+'"><td colspan="5" data-id="'+select_info[i].id+'"><a class="key-answer" href="javascript:;"><i class="iconfont">&#xe62a;</i>解锁试卷</a>'+select_info[i].name+'</td><td colspan="5" class="test-operation"><a href="javascript:;"><span>批阅详情</span><i class="iconfont bottom">&#xe622;</i><i class="iconfont up none">&#xe624;</i></a></td></tr><tr class="child-tr none"><td colspan="10" style="text-align: center"><div class="child-box"><ul class="child-title"><li>阅卷老师</li><li>所在学校</li><li>批改数量</li><li>批阅速度</li><li>平均分</li></ul><ul class="child-cont"></ul></div></td></tr>';
 			$(id).after(child_tr);
 			// var par_id = $('.child-trs-'+i+'');
 			// console.log(par_id)
@@ -994,27 +994,28 @@ $(function(){
 		var answer_setting_ids = $(this).parents('.child-trs').attr('answers');
 		var parent_info = $(this).parents('.child-trs');
 
-
-		$.ajax({
-			url: ajaxIp + "/api/v2/correct_progress/answer_correct_details",
-			headers: {
-				'Authorization': "Bearer " + isLogin
-			},
-			type: "POST",
-			data: {
-				'answer_id': answer_id,
-				'answer_setting_ids': answer_setting_ids,
-			},
-			success: function(data){
-				console.log(data);
-				show_detail_info(data,parent_info);
-			},
-			error: function() {
-				// alert('请稍后从新尝试登录或者联系管理员');
-				// localStorage.clear();
-				// window.location.href = './login.html';
-			}
-		});
+		if($(this).children('.bottom').hasClass('none')){
+			$.ajax({
+				url: ajaxIp + "/api/v2/correct_progress/answer_correct_details",
+				headers: {
+					'Authorization': "Bearer " + isLogin
+				},
+				type: "POST",
+				data: {
+					'answer_id': answer_id,
+					'answer_setting_ids': answer_setting_ids,
+				},
+				success: function(data){
+					console.log(data);
+					show_detail_info(data,parent_info);
+				},
+				error: function() {
+					// alert('请稍后从新尝试登录或者联系管理员');
+					// localStorage.clear();
+					// window.location.href = './login.html';
+				}
+			});
+		}
 	});
 
 
@@ -1048,11 +1049,28 @@ $(function(){
 			'opacity': .3
 		}, 500);
 		$('#key-paper').show();
+
+		var id = $(this).parent().attr('data-id');
+		$('.modal-content').attr('data-id',id);
 	});
 
 	$('body').on('click', '.confirm-key', function() {
-	
+		var section_crop_id = $(this).parents('.modal-content').attr('data-id');
+		console.log(section_crop_id)
+		$.ajax({
+		  type: "POST",
+		  url: ajaxIp+"/api/v2/section_crops/"+section_crop_id+"/unlock_paper",
+		  headers: {'Authorization': "Bearer " + isLogin},
+		  dataType: "JSON",
+		  success: function(data){
+		  	console.log(data);
+		  },
+		  error: function(){
+		      // alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html';
+		  }
+		});
 	});
-
 
 })
