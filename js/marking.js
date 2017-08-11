@@ -237,17 +237,26 @@ $(function(){
 		  data:data_value,
 		  success: function(data){
 		  	console.log(data);
-		  	s_c_id = data.section_crop_id;
-		  	s_c_i_id = data.section_crop_image_id;
-		  	a_settings = [];
-		  	for (var i = 0; i < data.answer_settings.length; i++) {
-		  		a_settings.push(data.answer_settings[i]);
-		  	};
-		  	console.log(a_settings);
-		  	s_i_id = data.scanner_image_id;
-		  	e_s_id = data.exam_subject_id;
-		  	current_index = data.finished_count;
-		  	show_img_info(data,name,index);
+		  	console.log(data.ok=="完成阅卷！")
+		  	if(data.ok=="完成阅卷！"){
+		  		var cur_index = parseInt($('.finished').text());
+		  		get_info_request(id,name,cur_index);
+		  	}else{
+		  		s_c_id = data.section_crop_id;
+			  	s_c_i_id = data.section_crop_image_id;
+			  	a_settings = [];
+			  	if(data.answer_settings){
+			  		for (var i = 0; i < data.answer_settings.length; i++) {
+			  			a_settings.push(data.answer_settings[i]);
+			  		};
+			  	}
+			  	console.log(a_settings);
+			  	s_i_id = data.scanner_image_id;
+			  	e_s_id = data.exam_subject_id;
+			  	current_index = data.finished_count;
+			  	show_img_info(data,name,index);
+		  	}
+		  	
 		  },
 		  error: function(){
 		      // alert('请稍后从新尝试登录或者联系管理员');
@@ -276,7 +285,6 @@ $(function(){
 					'height': img_info.personal.paper_data_height+'px'
 				});
 			}
-		
 	
 			$('.on-num').text(img_info.index);
 		// }else{
@@ -336,12 +344,15 @@ $(function(){
 		// 显示题号
 		$('#p-table tbody').html('');
 		var answer_settings = img_info.answer_settings;
-		var answer_settings_length = answer_settings.length;
-		for (var i = 0; i < answer_settings_length; i++) {
-			var item_tr = '<tr><td class="item-num">'+answer_settings[i].num+'</td><td class="input-p"><input type="text" class="yuejuan_score" data-id="'+answer_settings[i].answer_setting_score_id+'" value="'+answer_settings[i].answer_setting_score+'" data-num = "'+answer_settings[i].num+'" data-fen="'+answer_settings[i].total_score+'"></td><td class="all-grade">'+answer_settings[i].total_score+'分</td></tr>';
-			$('#p-table tbody').append(item_tr);
-			$($('.yuejuan_score')[0]).focus();
-		};
+		if(answer_settings){
+			var answer_settings_length = answer_settings.length;
+			for (var i = 0; i < answer_settings_length; i++) {
+				var item_tr = '<tr><td class="item-num">'+answer_settings[i].num+'</td><td class="input-p"><input type="text" class="yuejuan_score" data-id="'+answer_settings[i].answer_setting_score_id+'" value="'+answer_settings[i].answer_setting_score+'" data-num = "'+answer_settings[i].num+'" data-fen="'+answer_settings[i].total_score+'"></td><td class="all-grade">'+answer_settings[i].total_score+'分</td></tr>';
+				$('#p-table tbody').append(item_tr);
+				$($('.yuejuan_score')[0]).focus();
+			};
+		}
+		
 
 	}
 
@@ -618,7 +629,7 @@ $(function(){
 			  data:data_value,
 			  success: function(data){
 			  	console.log(data);
-			  	console.log(a_settings[0].answer_setting_score_id)
+			  	console.log(a_settings[0].answer_setting_score_id);
 			  	if(a<b &&a_settings[0].answer_setting_score_id==null){
 			  		get_info_request(s_c_id,name);
 			  	}
