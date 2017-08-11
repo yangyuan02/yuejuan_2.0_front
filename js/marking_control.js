@@ -994,27 +994,28 @@ $(function(){
 		var answer_setting_ids = $(this).parents('.child-trs').attr('answers');
 		var parent_info = $(this).parents('.child-trs');
 
-
-		$.ajax({
-			url: ajaxIp + "/api/v2/correct_progress/answer_correct_details",
-			headers: {
-				'Authorization': "Bearer " + isLogin
-			},
-			type: "POST",
-			data: {
-				'answer_id': answer_id,
-				'answer_setting_ids': answer_setting_ids,
-			},
-			success: function(data){
-				console.log(data);
-				show_detail_info(data,parent_info);
-			},
-			error: function() {
-				// alert('请稍后从新尝试登录或者联系管理员');
-				// localStorage.clear();
-				// window.location.href = './login.html';
-			}
-		});
+		if($(this).children('.bottom').hasClass('none')){
+			$.ajax({
+				url: ajaxIp + "/api/v2/correct_progress/answer_correct_details",
+				headers: {
+					'Authorization': "Bearer " + isLogin
+				},
+				type: "POST",
+				data: {
+					'answer_id': answer_id,
+					'answer_setting_ids': answer_setting_ids,
+				},
+				success: function(data){
+					console.log(data);
+					show_detail_info(data,parent_info);
+				},
+				error: function() {
+					// alert('请稍后从新尝试登录或者联系管理员');
+					// localStorage.clear();
+					// window.location.href = './login.html';
+				}
+			});
+		}
 	});
 
 
