@@ -10,33 +10,48 @@ m1.controller("demo", function ($scope, $timeout) {
         $scope.index = index
         clear()
     };
-    $scope.setNumber = function (obj, num) {//设置题目编号
-        var array = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十"];
-        for (var i = 0; i < obj.length; i++) {
-            if (i < 10) {
-                obj[i].title = array[i + num];
-            } else if (10 <= i < 20) {
-                obj[i].title = array[9] + array[i + num - 10];
-            } else if (20 <= i < 30) {
-                obj[i].title = array    [1] + array[9] + array[i - 20];
-            } else if (30 <= i < 40) {
-                obj[i].title = array[2] + array[9] + array[i - 30];
-            } else if (40 <= i < 50) {
-                obj[i].title = array[3] + array[9] + array[i - 40];
-            }
-        }
-    }
+    $scope.Q_number = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十",'十一','十二','十三','十四','十五','十六','十七','十八','十九','二十']
+    // $scope.setNumber = function (obj, num) {//设置题目编号
+    //     var array = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十"];
+    //     for (var i = 0; i < obj.length; i++) {
+    //         if (i < 10) {
+    //             obj[i].title = array[i + num];
+    //         } else if (10 <= i < 20) {
+    //             obj[i].title = array[9] + array[i + num - 10];
+    //         } else if (20 <= i < 30) {
+    //             obj[i].title = array    [1] + array[9] + array[i - 20];
+    //         } else if (30 <= i < 40) {
+    //             obj[i].title = array[2] + array[9] + array[i - 30];
+    //         } else if (40 <= i < 50) {
+    //             obj[i].title = array[3] + array[9] + array[i - 40];
+    //         }
+    //     }
+    // }
     $scope.isLine = function (type,num,page_num) {//是否换行
         var type = parseInt(type)
         var num =  parseInt(num)
-        var title_h = 40, marking = 40, item = 30, page_top = 290;
-        var page = page_num== 0?946:946-page_top
+        var title_h = 40,item = 30;
+        var page_top = page_num==0?290:0
+        var page = 946
+        var marking = (type==1||type==2)?0:40
+        var page_prev = page_num==0?0:page_num*page
         var height = $(".A_Rone_child").get(page_num).offsetHeight;//获取每次生成模版的高度
-        if(type==1||type==2){//没有marking且在第一页
-            var isB = page-page_top-height-title_h-(num%4*item)-200<0?true:false
-        }
-        console.log(type,num,height,page-page_top-height-title_h-(num%4*item)-200)
+        var isB = page-page_top-height-title_h-(Math.ceil(num/4)*item)-60-page_prev<0?true:false
+        console.log(page-page_top-height-title_h-(Math.ceil(num/4)*item)-60-page_prev)
         return isB
+    }
+    $scope.append = function (obj) {//push数据
+        if($scope.listObj2.length>0){
+            $scope.page_num = 1
+        }
+        var isB = $scope.isLine($scope.index,$scope.result.numbel,$scope.page_num)
+        if (isB) {
+            $scope.listObj2.push(obj);
+            // $scope.setNumber($scope.listObj2, $scope.listObj.length)
+        } else {
+            $scope.listObj.push(obj);
+            // $scope.setNumber($scope.listObj, 0)
+        }
     }
 //确认添加
     $scope.btn1 = function () {
@@ -63,17 +78,7 @@ m1.controller("demo", function ($scope, $timeout) {
             thr: $scope.index == 1 ? $scope.nubarray : ['T', 'F'], //选项ABCD(选择题和判断题)
             type: $scope.index//题目类型
         };
-        if($scope.listObj2.length>0){
-            $scope.page_num = 1
-        }
-        var isB = $scope.isLine($scope.index,$scope.result.numbel,$scope.page_num)
-        if (isB) {
-            $scope.listObj2.push(obj);
-            $scope.setNumber($scope.listObj2, $scope.listObj.length)
-        } else {
-            $scope.listObj.push(obj);
-            $scope.setNumber($scope.listObj, 0)
-        }
+        $scope.append(obj)
         clear()
         close()
         console.log($scope.listObj)
@@ -91,6 +96,47 @@ m1.controller("demo", function ($scope, $timeout) {
             no: '', one: '', two: '', thr: '',
         };
     };
+    function getItemLine(num1,num2){//获取多少行列
+        var table = {}
+        if(num2<=7){
+            table.row = Math.ceil(num1/4)
+            table.column = 4
+        }else if(num2>7&&num2<=10){
+            table.row = Math.ceil(num1/2)
+            table.column = 2
+        }else{
+            table.row = num1
+            table.column = 1
+        }
+        return table
+    }
+    function getQuestion(qNumer,answerNumber) {//获取每个题目
+        var question = []
+        var qNumer = parseInt(qNumer)
+        // var getItemLine = getItemLine(qNumer,answerNumber)
+        for(var i = 1;i<=qNumer;i++){//循环每个小题
+            var itme_obj = {}
+            itme_obj.no = i
+            itme_obj.option = []
+            question.push(itme_obj)
+        }
+        for(var i = 0;i<question.length;i++){
+            var answerNumber = parseInt(answerNumber)//选项个数
+            var dot = $(".position_TL span").eq(1).offset()//定标点
+            var item_w = 17,item_h = 22,itemMarginLeft = 5,itemMarginTop = 12;
+            var item = $(".A_Rone_child").eq(0).find("table").eq(0).find("b").eq(0).offset()//item坐标
+            var option_point_x = parseInt(item.left)-parseInt(dot.left)
+            var option_point_y = parseInt(item.top)-parseInt(dot.top)
+            for(var j = 1;j<=answerNumber;j++){
+                var itme_obj = {}
+                itme_obj.no = j
+                itme_obj.option_point_x = option_point_x+(item_w+itemMarginLeft)*j
+                itme_obj.option_point_y = option_point_y//同行option_point_y都是一样的
+                question[i].option.push(itme_obj)
+            }
+        }
+        console.log(question)
+    }
 })
 
 

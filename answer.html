@@ -365,7 +365,7 @@
                             <thead>
                             <tr>
                                 <th>
-                                    <span>{{a.title}}、</span>
+                                    <span>{{Q_number[$index]}}、</span>
                                     {{a.name}}<span ng-show="a.two!=''">(共{{a.one}}分，每题{{a.two}}分)</span>
                                 </th>
 
@@ -435,7 +435,7 @@
                             <thead>
                             <tr>
                                 <th>
-                                    <span>{{a.title}}、</span>
+                                    <span>{{Q_number[$index+listObj.length]}}、</span>
                                     {{a.name}}<span ng-show="a.two!=''">(共{{a.one}}分，每题{{a.two}}分)</span>
                                 </th>
 
