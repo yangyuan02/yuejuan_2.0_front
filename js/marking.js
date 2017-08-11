@@ -22,10 +22,10 @@ $(function(){
 	get_test_list();
 
 	function get_test_list(){
-		var page_data = {'page':1, 'limit': 10, 'choice':true};
+		var page_data = {'page':1, 'limit': 10};
 		$.ajax({
-		  type: "POST",
-		  url: ajaxIp+"/api/v2/exam_subjects/school_exam_subjects",
+		  type: "GET",
+		  url: ajaxIp+"/api/v2/exam_subjects/reading_selection",
 		  headers: {'Authorization': "Bearer " + isLogin},
 		  data:page_data,
 		  success: function(data){
@@ -71,8 +71,8 @@ $(function(){
 				var page_data = {'page':nums, 'limit': 10, 'choice':true};
 
 				$.ajax({
-				  type: "POST",
-				  url: ajaxIp+"/api/v2/exam_subjects/school_exam_subjects",
+				  type: "GET",
+				  url: ajaxIp+"/api/v2/exam_subjects/reading_selection",
 				  headers: {'Authorization': "Bearer " + isLogin},
 				  data:page_data,
 				  success: function(data){
@@ -118,32 +118,34 @@ $(function(){
 		// $(this).parents('.parent-tr').siblings('.parent-tr').next('.child-tr').hide();
 		var parnt_info = $(this).parents('.parent-tr')
 		var id = parnt_info.find('.test-name').attr('data-id');
-		$.ajax({
-		  type: "POST",
-		  url: ajaxIp+"/api/v2/exam_subjects/answer_group_details_for_exam_subject",
-		  headers: {'Authorization': "Bearer " + isLogin},
-		  data:{'id':id},
-		  success: function(data){
-		  	console.log(data);
-		  	show_item_info(data,parnt_info);
-		  },
-		  error: function(){
-		      // alert('请稍后从新尝试登录或者联系管理员');
-	      	// localStorage.clear();
-	      	// window.location.href = './login.html';
-		  }
-		});
+		if($(this).children('.bottom').hasClass('none')){
+			$.ajax({
+			  type: "POST",
+			  url: ajaxIp+"/api/v2/exam_subjects/answer_group_details_for_exam_subject",
+			  headers: {'Authorization': "Bearer " + isLogin},
+			  data:{'id':id},
+			  success: function(data){
+			  	console.log(data);
+			  	show_item_info(data,parnt_info);
+			  },
+			  error: function(){
+			      // alert('请稍后从新尝试登录或者联系管理员');
+		      	// localStorage.clear();
+		      	// window.location.href = './login.html';
+			  }
+			});
+		}
 	});
 
 
 // 显示题组信息
-
+// <div class="item-on">'+item_info[i].revise_progress+'</div><div class="more-num">'+item_info[i].multiple_error_count+'</div><div class="bug-num">'+item_info[i].issue_paper_count+'</div><div class="item-time">'+item_info[i].finish_date+'</div>
 	function show_item_info(item_info,parnt_info){
 		console.log(parnt_info)
 		parnt_info.next().find('.child-cont').html('');
 		var item_info_length = item_info.length;
 		for (var i = 0; i < item_info_length; i++) {
-			var child_li = '<li class="li-'+i+'"><div style="width:100%"><div class="item-name">'+item_info[i].name+'</div><div class="item-on">'+item_info[i].revise_progress+'</div><div class="more-num">'+item_info[i].multiple_error_count+'</div><div class="bug-num">'+item_info[i].issue_paper_count+'</div><div class="item-time">'+item_info[i].finish_date+'</div><div class="item-op" style="display:none">hhhhhh</div></div><div style="width:100%"><ul class="last-ul"></ul></div></li>'
+			var child_li = '<li class="li-'+i+'"><div style="width:100%"><div class="item-name">'+item_info[i].name+'</div><div class="item-op" style="display:none">hhhhhh</div></div><div style="width:100%"><ul class="last-ul"></ul></div></li>'
 			parnt_info.next().find('.child-cont').append(child_li);
 			var item_last = item_info[i].section_crops;
 			var item_last_length = item_last.length;
@@ -152,7 +154,7 @@ $(function(){
 				parnt_info.next().find('.child-cont .li-'+i+'').children('.last-ul').html('');
 				// $('.child-cont .li-'+i+'').children('.last-ul').html('');
 				for (var j = 0; j < item_last_length; j++) {
-					var item_li ='<li><div class="item-name" data-id="'+item_last[j].id+'">'+item_last[j].name+'</div><div class="item-on">'+item_last[j].progress+'</div><div class="more-num" style="visibility: hidden;">test</div><div class="bug-num" style="visibility: hidden;">test</div><div class="item-time" style="visibility: hidden;">test</div><div class="item-op"><a href="javascript:;" class="mark-btn determine mark-'+item_last[j].id+'" data-status="'+item_last[j].examination+'">阅卷</a><a href="javascript:;" class="check-btn check-'+item_last[j].id+'" id="check-btn" data-status="'+item_last[j].reviewed+'">审核</a></div></li>';
+					var item_li ='<li><div class="item-name" data-id="'+item_last[j].id+'">'+item_last[j].name+'</div><div class="item-on">'+item_last[j].revise_progress+'</div><div class="more-num">'+item_last[j].multiple_error_count+'</div><div class="bug-num">'+item_last[j].issue_paper_count+'</div><div class="item-time">'+item_last[j].finish_date+'</div><div class="item-op"><a href="javascript:;" class="mark-btn determine mark-'+item_last[j].id+'" data-status="'+item_last[j].examination+'">阅卷</a><a href="javascript:;" class="check-btn check-'+item_last[j].id+'" id="check-btn" data-status="'+item_last[j].reviewed+'">审核</a></div></li>';
 				  parnt_info.next().find('.child-cont .li-'+i+'').find('.last-ul').append(item_li);
 					// 判断是否有阅卷权限
 					if(item_last[j].examination){
@@ -235,17 +237,26 @@ $(function(){
 		  data:data_value,
 		  success: function(data){
 		  	console.log(data);
-		  	s_c_id = data.section_crop_id;
-		  	s_c_i_id = data.section_crop_image_id;
-		  	a_settings = [];
-		  	for (var i = 0; i < data.answer_settings.length; i++) {
-		  		a_settings.push(data.answer_settings[i]);
-		  	};
-		  	console.log(a_settings);
-		  	s_i_id = data.scanner_image_id;
-		  	e_s_id = data.exam_subject_id;
-		  	current_index = data.finished_count;
-		  	show_img_info(data,name,index);
+		  	console.log(data.ok=="完成阅卷！")
+		  	if(data.ok=="完成阅卷！"){
+		  		var cur_index = parseInt($('.finished').text());
+		  		get_info_request(id,name,cur_index);
+		  	}else{
+		  		s_c_id = data.section_crop_id;
+			  	s_c_i_id = data.section_crop_image_id;
+			  	a_settings = [];
+			  	if(data.answer_settings){
+			  		for (var i = 0; i < data.answer_settings.length; i++) {
+			  			a_settings.push(data.answer_settings[i]);
+			  		};
+			  	}
+			  	console.log(a_settings);
+			  	s_i_id = data.scanner_image_id;
+			  	e_s_id = data.exam_subject_id;
+			  	current_index = data.finished_count;
+			  	show_img_info(data,name,index);
+		  	}
+		  	
 		  },
 		  error: function(){
 		      // alert('请稍后从新尝试登录或者联系管理员');
@@ -274,7 +285,6 @@ $(function(){
 					'height': img_info.personal.paper_data_height+'px'
 				});
 			}
-		
 	
 			$('.on-num').text(img_info.index);
 		// }else{
@@ -334,12 +344,15 @@ $(function(){
 		// 显示题号
 		$('#p-table tbody').html('');
 		var answer_settings = img_info.answer_settings;
-		var answer_settings_length = answer_settings.length;
-		for (var i = 0; i < answer_settings_length; i++) {
-			var item_tr = '<tr><td class="item-num">'+answer_settings[i].num+'</td><td class="input-p"><input type="text" class="yuejuan_score" data-id="'+answer_settings[i].answer_setting_score_id+'" value="'+answer_settings[i].answer_setting_score+'" data-num = "'+answer_settings[i].num+'" data-fen="'+answer_settings[i].total_score+'"></td><td class="all-grade">'+answer_settings[i].total_score+'分</td></tr>';
-			$('#p-table tbody').append(item_tr);
-			$($('.yuejuan_score')[0]).focus();
-		};
+		if(answer_settings){
+			var answer_settings_length = answer_settings.length;
+			for (var i = 0; i < answer_settings_length; i++) {
+				var item_tr = '<tr><td class="item-num">'+answer_settings[i].num+'</td><td class="input-p"><input type="text" class="yuejuan_score" data-id="'+answer_settings[i].answer_setting_score_id+'" value="'+answer_settings[i].answer_setting_score+'" data-num = "'+answer_settings[i].num+'" data-fen="'+answer_settings[i].total_score+'"></td><td class="all-grade">'+answer_settings[i].total_score+'分</td></tr>';
+				$('#p-table tbody').append(item_tr);
+				$($('.yuejuan_score')[0]).focus();
+			};
+		}
+		
 
 	}
 
@@ -616,7 +629,7 @@ $(function(){
 			  data:data_value,
 			  success: function(data){
 			  	console.log(data);
-			  	console.log(a_settings[0].answer_setting_score_id)
+			  	console.log(a_settings[0].answer_setting_score_id);
 			  	if(a<b &&a_settings[0].answer_setting_score_id==null){
 			  		get_info_request(s_c_id,name);
 			  	}
