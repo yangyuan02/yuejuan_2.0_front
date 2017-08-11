@@ -25,7 +25,7 @@ $(function() {
 	    	success: function(data){
 	    		console.log(111111111111111111);
 	    		role_name = data.role_name
-	    		console.log(role_name)
+	    		// console.log(role_name)
 
 	    		console.log(data)
 	    		if(data.error){
