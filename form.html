@@ -107,8 +107,8 @@
 	</div>
 	<div id="mark_02_ul">
 	<ul class="mark_02_ul">
-		<li ><span>2017年高一期末考试<i class="iconfont" style="margin-left:11px;cursor: pointer;">&#xe622;</i><i class="iconfont" style="margin-left:11px;cursor: pointer;display:none;">&#xe624;</i></span></li>
-		<div class="mark_li_01">
+		<!-- <li ><span>2017年高一期末考试<i class="iconfont" style="margin-left:11px;cursor: pointer;">&#xe622;</i><i class="iconfont" style="margin-left:11px;cursor: pointer;display:none;">&#xe624;</i></span></li> -->
+		<!-- <div class="mark_li_01">
 			<ul>
 				<li>语文</li>
 				<li>2017-06-26&nbsp;&nbsp;&nbsp;11:28</li>
@@ -125,14 +125,14 @@
 				<li>管理员3<button type="">分析</button></li>
 			</ul>
 
-		</div>
-		<li><span>2017年高二期末考试<i class="iconfont" style="margin-left:11px;cursor: pointer;" >&#xe622;</i><i class="iconfont" style="margin-left:11px;cursor: pointer;display:none;">&#xe624;</i></span></li>
-		<div class="mark_li_01"><ul>
+		</div> -->
+		<!-- <li><span>2017年高二期末考试<i class="iconfont" style="margin-left:11px;cursor: pointer;" >&#xe622;</i><i class="iconfont" style="margin-left:11px;cursor: pointer;display:none;">&#xe624;</i></span></li> -->
+		<!-- <div class="mark_li_01"><ul>
 				<li>语文</li>
 				<li>2017-06-26&nbsp;&nbsp;&nbsp;11:28</li>
 				<li>管理员1<button type="">分析</button></li>
 			</ul></div>
-
+ -->
 	</ul>
 </div>
 </div>
@@ -144,8 +144,8 @@
 <div class="mart_set_02">
 	
 	<span style="margin-bottom:10px;font-weight: bold;color: #333333;">定义分数相对于总分的百分比</span>
-	<span>及格分数线%<input type="" name="" value="60"></span>
-	<span>优秀分数线%<input type="" name="" value="90"></span>
+	<span>及格分数线%<input type="" name="" value="60" id="jg_mark"></span>
+	<span>优秀分数线%<input type="" name="" value="90" id="yx_mark"></span>
 	<!-- <input type="checkbox" name="" style="margin-top: 18px;">是否生成错题集 -->
 	
 </div>
@@ -153,11 +153,11 @@
 
 	<span>定义等级相对于总人数的百分比</span>
 	<ul id="ul_iLabel">
-		<li><input value="A"><input value="15%"></input><button type="">-</button></li>
-		<li><input value="B"></input><input value="30%"></input><button type="">-</button></li>
-		<li><input value="C"></input><input value="30%"></input><button type="">-</button></li>
-		<li><input value="D"></input><input value="20%"></input><button type="">-</button></li>
-		<li><input value="E"></input><input value="5%"></input><button type="">-</button></li>
+		<li><input value="A" class="level_01"><input value="15%" class="level_02"></input><button type="">-</button></li>
+		<li><input value="B"  class="level_01"></input><input value="30%" class="level_02"></input><button type="">-</button></li>
+		<li><input value="C"  class="level_01"></input><input value="30%" class="level_02"></input><button type="">-</button></li>
+		<li><input value="D"  class="level_01"></input><input value="20%" class="level_02"></input><button type="">-</button></li>
+		<li><input value="E"  class="level_01"></input><input value="5%" class="level_02"></input><button type="">-</button></li>
 		
 	</ul>
 	<div style="margin:6px 0 15px 0; width: 92px;height: 
@@ -174,29 +174,38 @@
 <!--考试状况  start-->
 <div style="display: none;">
 <div class="right_01">
-<span class="span_1"><i class="i1" style="font-style: normal;"></i><i id="i_1" class="iconfont" style="font-size:10px;margin-left: 10px;">&#xe629;</i></span>
-<span class="span_2"><i class="i2" style="font-style: normal;"></i><i  id="i_2"  class="iconfont" style="font-size:10px;margin-left: 10px;">&#xe629;</i></span>	
-<div class="sn_1">
-<ul class="u_1">
-	<li>上师大高一期末考试</li>
-	<li>上师大高二期末考试</li>
-	<li>上师大高三期末考试</li>
-</ul>
+<span class="span_1">考试状况</span>
 </div>
-<div class="sn_2">
-<ul class="u_2">
-	<li>数学</li>
-	<li>英语</li>
-	<li>语文</li>
-</ul>
-</div>
-<script>
+<div class="study_q_01">
+    <ul>
+      <li ><span>考试名称</span>
+      <select class="exam_name">
+
+   <!--  <option value="">请选择考试</option> -->
+   </select>
+      </li>
+      <li >
+      <span>考试科目</span>
+      <select class="exam_sub">
+<>
+       <!-- <option value="">请选择科目</option> -->
+   
+     </select>
+      </li> 
+
+    </ul>
+  </div>
 
 
-</script>
 
 
-</div>
+
+
+
+
+
+
+
 <div class="right_02" >
 <div class="mark_1 ">
 <i class="mark_1_i "></i>
@@ -207,8 +216,8 @@
 <img src="img/form02.png" alt="">
 <div class="r2_02">
 <ul>
-	<li><a>考试人数<span>56%</span></a></li>
-	<li><a>平均分<span>86%</span></a></li>
+	<li><a>考试人数<span class="r2_02_01">56%</span></a></li>
+	<li><a>平均分<span class="r2_02_02">86%</span></a></li>
 
 </ul>	
 </div>
@@ -225,10 +234,10 @@
 
 <div class="r2_1">
 <ul>
-	<li><a>平均得分率<span>56%</span></a></li>
-	<li><a>及格率<span>86%</span></a></li>
-	<li><a>优秀率<span>26%</span></a></li>
-	<li><a>标准差<span>1.2</span></a></li>
+	<li><a class="r2_02_03">平均得分率<span>56%</span></a></li>
+	<li><a class="r2_02_04">及格率<span>86%</span></a></li>
+	<li><a class="r2_02_05">优秀率<span>26%</span></a></li>
+	<li><a class="r2_02_06">标准差<span>1.2</span></a></li>
 
 </ul>	
 </div>
@@ -253,12 +262,6 @@
    height: 272px;">
 </div>
 </div>
-
-
-
-
-
-
 
 <div class="mark_03">
 <i class="mark_i"></i>
