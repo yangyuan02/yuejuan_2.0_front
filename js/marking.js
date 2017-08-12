@@ -340,7 +340,14 @@ $(function(){
 			$('.mark-model').text('扣分模式');
 		}
 		$('.finished').text(img_info.finished_count);
-		$('.pop-1').find('span').text(img_info.teacher_name);
+		console.log(img_info.examination_teacher_name)
+		if(img_info.examination_teacher_name){
+			$('.pop-1').find('span').text(img_info.examination_teacher_name);
+		}else{
+			var user_name = $('#teacher-name').val();
+			$('.pop-1').find('span').text(user_name);
+		}
+		// $('.pop-1').find('span').text(img_info.teacher_name);
 		// 显示题号
 		$('#p-table tbody').html('');
 		var answer_settings = img_info.answer_settings;
