@@ -890,6 +890,9 @@ $(function(){
 			console.log(obj);
 			// tests=obj;
 			// console.log(i)
+            console.log(1111111)
+            console.log(all_test)
+            console.log(i)
 			all_test[i]=obj;
 			console.log(all_test)
 		})
