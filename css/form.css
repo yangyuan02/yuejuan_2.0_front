@@ -138,6 +138,7 @@ width: 270px;
 	box-sizing: border-box;
 	padding-left: 76px;
 	overflow: hidden;
+
 	display:none;
 }
 .mark_li_01 li{
@@ -153,7 +154,8 @@ border: none;
 	width:66px;
 	height: 28px;
 	background: #31bc91;
-	margin-left:130px; 
+	margin-top: 8px;
+	 float: right;
 
 }
 .mart_set{
@@ -164,7 +166,7 @@ border: none;
 	box-sizing: border-box;
 	position: absolute;
 	left: 300px;
-	top:0px;
+	top:-45px;
 	background: #ffffff;
 display: none;
 }
@@ -324,8 +326,7 @@ margin-bottom: 15px;
 }
 
 .main_right .right_01 .sn_1{
-	width: 196px;
-	height: 120px;
+	
 	position:absolute;
 	left: 0px;
 	top:44px;
@@ -336,14 +337,16 @@ border: 1px solid #cccccc;
     cursor: pointer;
     line-height: 40px;text-align: center;
     font-size: 16px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
+
 .main_right .right_01 i{
 	cursor: pointer;
 }
 
 .main_right .right_01 .sn_2{
 	width: 102px;
-	height: 120px;
 	position:absolute;
 	right: 0px;
 	top:44px;
@@ -359,7 +362,7 @@ border: 1px solid #cccccc;
 
 .main_right .right_01 li{
 	height: 40px;
-	
+	list-style-type: none;
 	
 }
 .main_right .right_01 li:hover{

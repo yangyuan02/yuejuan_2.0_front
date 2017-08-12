@@ -3,7 +3,7 @@
 $(function(){
     var isLogin = localStorage.getItem("token");
     // 考试科目下拉
-   $(".main_right").children("div").eq(0).show().siblings().hide();
+   $(".main_right").children("div").eq(1).show().siblings().hide();
 
 
     $(".l_ul").on("click", "li", function(){  
@@ -82,23 +82,43 @@ $("#sc_left").siblings("li").click(function(event) {
       headers: {'Authorization': "Bearer " + isLogin},
       data:"subject_id",
       success: function(date){
-        console.log(date[0].name);
-        // show_test_info(data);
-       // $("#mark_02_li").html(date[0].name);
-      },
-      error: function(){
-          // alert('请稍后从新尝试登录或者联系管理员');
-        // localStorage.clear();
-        // window.location.href = './login.html';
+       // console.log(date[0].name);
+       console.log(date);
+       for(var i=0;i<date.length;i++){
+
+     $(".mark_02_ul").append('<li data-id="'+date[i].exam_id+'"><span>'+date[i].name+'<i class="iconfont" style="margin-left:11px;cursor: pointer;">&#xe622;</i><i class="iconfont" style="margin-left:11px;cursor: pointer;display:none;">&#xe624;</i></span></li><div class="mark_li_01"></div>')
+     var b=date[i].exam_subjects.length;
+     
+     for(var a=0;a<b;a++){
+        // console.log(i);
+   $(".mark_02_ul div").eq(i).append('<ul><li>'+date[i].exam_subjects[a].name+'</li><li>'+date[i].exam_subjects[a].updated_at+'</li><li>'+date[i].exam_subjects[a].operator_id+'<button type="" data-id="'+date[i].exam_subjects[a].exam_subject_id+'" data-status="'+date[i].exam_subjects[a].status+'">分析</button></li></ul>');
+     
+
+var status_btn =$(".mark_li_01 ul").eq(a).find("button").attr("data-status");
+
+ if(status_btn=="finished"||status_btn=="pending"){
+ $(".mark_li_01 ul").eq(a).find("button").show();
+}else{
+$(".mark_li_01 ul").eq(a).find("button").hide();
+}
+
+     }
+}
+   },
+    error: function(){
+          
       }
     });
 
 
-$("#mark_02_ul span").click(function(event) {
-    /* Act on the event */
-    $(this).parent().next().toggle();
+
+
+$(".mark_02_ul").on('click', 'span', function(event) {
+   $(this).parent().next().toggle();
     $(this).find('i').toggle();
 });
+
+
     
 
 
@@ -109,11 +129,70 @@ $("#mark_02_ul span").click(function(event) {
 //     $(this).siblings().show();
 // }); 
 // 分析
-$(".mark_02 button").click(function(event) {
+$(".btn_1").click(function(event) {
+    var ex_id=$(".mart_set_03").data("a1");
+    var sub_id=$(".mart_set_04").data("b1");
+    var sub_id1=parseInt(sub_id);
+    var ex_id1=parseInt(ex_id);
+    var jg_mark=$("#jg_mark").val();
+    var yx_mark=$("#yx_mark").val();
+   var a=$("#ul_iLabel li").length;
+
+var data_value={
+        // 't[column_name_1]':"A",
+        // "t[column_value_1]":"10",
+        "t[exam_subject_id]":sub_id1,
+        "t[exam_id]":ex_id1,
+        "exam_subject_id":sub_id1,
+        "pass":jg_mark,"fine":yx_mark
+    };
+
+
+for(var i=0;i<a;i++){
+var c=i+1;
+console.log($("#ul_iLabel li").eq(i).find('.level_01').val(),$("#ul_iLabel li").eq(i).find('.level_02').val());
+var d="t[column_name_"+c+"]";
+var e=$("#ul_iLabel li").eq(i).find('.level_01').val();
+var f="t[column_value_"+c+"]";
+var g=$("#ul_iLabel li").eq(i).find('.level_02').val();
+data_value[d]=e;
+data_value[f]=g;
+} 
+    console.log(data_value);
+    $.ajax({
+      type: "POST",
+      url: ajaxIp+"/api/v2/reports/save_analysis_params",
+      headers: {'Authorization': "Bearer " + isLogin},
+      data: data_value,
+      success: function(data){
+        console.log(data);
+   },
+    error: function(){
+          
+      }
+    });
+
+
     /* Act on the event */
-    $(".mart_set").show();
-    $(".mark_02").css("margin-bottom","1500px");
 });
+
+$(".mark_02").on('click', ' button', function(event) {
+    // $(this).parent().parent().prev().html();
+   console.log($(this).parent().parent().parent().prev().attr("data-id"));
+   console.log($(this).attr("data-id"));
+   var a=$(this).parent().parent().parent().prev().attr("data-id");
+   var b=$(this).attr("data-id");
+
+$(".mart_set_03").data("a1",a);
+$(".mart_set_04").data("b1",b);
+$(".mart_set").show();
+$(".mark_02").css("margin-bottom","500px");
+});
+
+
+
+
+
 $("#set_04").click(function(event) {
     /* Act on the event */
     $(".mart_set").hide();
@@ -121,11 +200,11 @@ $("#set_04").click(function(event) {
 });
 $(".mart_set_03 button").click(function(event) {
     /* Act on the event */
-    $(this).parent().hide();
+    $(this).parent().remove();
 });
 $(".mark_add").click(function(event) {
     /* Act on the event */
-    $('.mart_set_03 ul').append('<li><input></input><input></input><button type="" class="iLabel">-</button></li>');
+    $('.mart_set_03 ul').append('<li><input class="level_01"></input><input class="level_02"></input><button type="" class="iLabel">-</button></li>');
 });
 
 $(document).on('click','.iLabel',function(){
@@ -134,34 +213,30 @@ $(document).on('click','.iLabel',function(){
    
 //考时状况
 // 选择考试下拉
-$(".i1").html("上师大高二期末考试");
-$(".i2").html("数学");
-$(".sn_1").hide();
-$(".sn_2").hide();
-$(document).ready(function(){
-  $(".span_1").click(function(){
-  
-  $(".sn_1").toggle();
-  $(".sn_2").hide();
-  });
-  $(".span_2").click(function(){
-  $(".sn_2").toggle();
-  $(".sn_1").hide();
-});
-$(".u_1").on("click","li",  function(){  
-        var c = $(this).html();
-         $(".i1").html(c);
-         $(".sn_1").hide();
-      
-});  
-  $(".u_2").on( "click","li", function(){  
-        var c = $(this).html();
-         $(".i2").html(c);
-         $(".sn_2").hide();
-      
-});  
-  
-});
+$.ajax({
+      type: "GET",
+      url: ajaxIp+"/api/v2/reports/exams",
+      async:false,
+      headers: {'Authorization': "Bearer " + isLogin},
+      success: function(data){
+        console.log(data);
+        for(var i=0;i<data.length;i++){  
+        $(".exam_name").append('<option value="">'+data[i].name+'</option>');
+        var b=data[0].subjects.length;
+        $(".exam_sub").html('');
+        for(var a=0;a<b;a++){
+        $(".exam_sub").append('<option value="">'+data[0].subjects[a].name+'</option>');
+         }
+
+
+
+    }
+        },
+        error: function(){
+          
+      }
+    
+    });
         
 
 
@@ -171,7 +246,68 @@ $(".u_1").on("click","li",  function(){
 
 
 
-// 基本情况插件
+
+
+
+
+
+
+
+
+
+// $(".i1").html($(".u_1 li").eq(0).html());
+// $(".i2").html("数学");
+$(".sn_1").hide();
+$(".sn_2").hide();
+// $(document).ready(function(){
+  $(".span_1").click(function(){
+  
+  $(".sn_1").toggle();
+  $(".sn_2").hide();
+  });
+  $(".span_2").click(function(){
+  $(".sn_2").toggle();
+  $(".sn_1").hide();
+});
+
+  
+$(".u_1").on("click","li",  function(){
+        var c = $(this).html();
+         $(".i1").html(c);
+         $(".sn_1").hide();
+         $(".sn_2 ul").eq($(this).index()).show().siblings().hide();
+          $(".i2").html($(".sn_2 ul").eq($(this).index()).find('li').eq(0).html());
+
+       $(".span_1").attr('data-id',$(this).attr("data-id"));
+       
+
+    var exam=parseInt($(".span_1").attr('data-id'));
+    var sub_id=parseInt($(".span_2").attr("data-id"));
+
+
+
+
+
+
+});  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 基本情况
 var myChart = echarts.init(document.getElementById('right_02_r')); 
 var labelTop = {
     normal : {
@@ -806,7 +942,7 @@ $(".sc_left li").click(function(event) {
 
 /*<!-- 跨校对比分析  end-->*/
 
-
+                 
 
 });   
 
