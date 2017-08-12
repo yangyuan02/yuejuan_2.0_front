@@ -110,10 +110,20 @@ m1.controller("demo", function ($scope, $timeout) {
         }
         return table
     }
+    function getItemPost() {//第一个选项坐标
+        var fristPost = []
+        var dom = $(".A_Rone_child").eq(0).find("table").eq(0).find(".q_c")
+        dom.each(function (i) {
+            fristPost.push($(this).find("b").eq(0).offset())
+        })
+        return fristPost
+    }
     function getQuestion(qNumer,answerNumber) {//获取每个题目
         var question = []
         var qNumer = parseInt(qNumer)
-        // var getItemLine = getItemLine(qNumer,answerNumber)
+        var answerNumber = parseInt(answerNumber)//选项个数
+        var dot = $(".position_TL span").eq(1).offset()//定标点
+        var item_w = 17,item_h = 22,itemMarginLeft = 5,itemMarginTop = 12;
         for(var i = 1;i<=qNumer;i++){//循环每个小题
             var itme_obj = {}
             itme_obj.no = i
@@ -121,17 +131,11 @@ m1.controller("demo", function ($scope, $timeout) {
             question.push(itme_obj)
         }
         for(var i = 0;i<question.length;i++){
-            var answerNumber = parseInt(answerNumber)//选项个数
-            var dot = $(".position_TL span").eq(1).offset()//定标点
-            var item_w = 17,item_h = 22,itemMarginLeft = 5,itemMarginTop = 12;
-            var item = $(".A_Rone_child").eq(0).find("table").eq(0).find("b").eq(0).offset()//item坐标
-            var option_point_x = parseInt(item.left)-parseInt(dot.left)
-            var option_point_y = parseInt(item.top)-parseInt(dot.top)
             for(var j = 1;j<=answerNumber;j++){
                 var itme_obj = {}
                 itme_obj.no = j
-                itme_obj.option_point_x = option_point_x+(item_w+itemMarginLeft)*j
-                itme_obj.option_point_y = option_point_y//同行option_point_y都是一样的
+                itme_obj.option_point_x = parseInt(getItemPost()[i].left)+(item_w+itemMarginLeft)*j-parseInt(dot.left)
+                itme_obj.option_point_y = parseInt(getItemPost()[i].top)-parseInt(dot.top)//同行option_point_y都是一样的
                 question[i].option.push(itme_obj)
             }
         }
