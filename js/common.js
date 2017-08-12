@@ -34,6 +34,7 @@ $(function() {
 	        		window.location.href = './login.html'
 	    		}else if(data.user_name){
 	    			user_name = data.user_name;
+	    			$('#teacher-name').val(user_name);
 	        		school_name = data.school_name;
 	        		$('.longin-username span').text(user_name+'('+school_name+')')
 
@@ -55,6 +56,7 @@ $(function() {
 	        }
 	    });
 	}
+
 	// 根据用户身份判断阅卷进入的页面
 	$('#mark-head').click(function(){
 		if(role_name=="老师"){
