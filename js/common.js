@@ -10,7 +10,7 @@ $(function() {
 	console.log(window.location.pathname)
 	
 
-	
+	var role_name;
 
 	if(!isLogin){
 		window.location.href = './login.html'
@@ -23,7 +23,9 @@ $(function() {
 	    	dataType: "JSON",
 	    	headers: {'Authorization': "Bearer " + isLogin},
 	    	success: function(data){
-	    		console.log(111111111111111111)
+	    		console.log(111111111111111111);
+	    		role_name = data.role_name
+	    		// console.log(role_name)
 
 	    		console.log(data)
 	    		if(data.error){
@@ -32,6 +34,7 @@ $(function() {
 	        		window.location.href = './login.html'
 	    		}else if(data.user_name){
 	    			user_name = data.user_name;
+	    			$('#teacher-name').val(user_name);
 	        		school_name = data.school_name;
 	        		$('.longin-username span').text(user_name+'('+school_name+')')
 
@@ -53,6 +56,23 @@ $(function() {
 	        }
 	    });
 	}
+
+	// 根据用户身份判断阅卷进入的页面
+	$('#mark-head').click(function(){
+		if(role_name=="老师"){
+			$(this).attr('href','./marking_change.html');
+		}else{
+			$(this).attr('href','./marking.html');
+		}
+	})
+	$('body').on('click','#mark-top',function(){
+		if(role_name=="老师"){
+			$(this).attr('href','./marking_change.html');
+		}else{
+			$(this).attr('href','./marking.html');
+		}
+	})
+
 
 	$('.modal-exit').click(function(){
 		$('.modal-main').animate({'top': '45%','opacity': 0},500);

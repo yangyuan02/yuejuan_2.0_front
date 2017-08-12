@@ -43,7 +43,7 @@ $(function() {
 	    $('.modal-wrap-class .determine').on('click' , function(){
 	    	var new_grade = $('#add-class-grade').val();
 	    	var class_count = $('#class-name').val();
-			
+
 	    	$.ajax({
 		     	type: "POST",
 		     	url: ajaxIp+"/api/v2/students/add_classroom",
@@ -71,7 +71,7 @@ $(function() {
 
 	})
 
-	
+
 
 	$('.student-supervise').click(function(){
 		$('.modal-wrap-class-management .modal-main').animate({'top': '50%','opacity': 1},500);
@@ -80,7 +80,7 @@ $(function() {
 
 		$('.modal-wrap-class-management .modal-title').text('班级管理');
 		$('#add-class-grade').html('');
-	
+
 		$.ajax({
 	     	type: "GET",
 	     	url: ajaxIp+"/api/v2/commons/school_grades",
@@ -142,8 +142,8 @@ $(function() {
 		        }
 		    });
 	    });
-		
-		
+
+
 		$('.modal-wrap-class-management .clear-students').unbind().on('click', function(){
 			var del_grade = $('.modal-wrap-class-management #add-class-grade').val();
 			var del_name = $('.modal-wrap-class-management #del-class-name').val();
@@ -221,7 +221,7 @@ $(function() {
 		$("#upfile").html('未选择任何文件');
 		function getFileName(o){
 		    var pos=o.lastIndexOf("\\");
-		    return o.substring(pos+1);  
+		    return o.substring(pos+1);
 		}
 		if(($("#upfile div").length)==0){
 			$("#upfile").html('');
@@ -231,10 +231,10 @@ $(function() {
 		// iDiv.data('url',file);
 		iDiv.css({'display':'inline-block','color':'#666','background':'#dcf5f0','padding':'0 10px','height':'26px','border-radius':'2px','margin-right':'5px'});
 		$('#upfile').append(iDiv);
-		
+
 	}
 
-	
+
 	$('.import-wrap .determine').click(function(){
 		var formData = new FormData();
 		formData.append("import_student",$("#inPath")[0].files[0]);
@@ -248,17 +248,17 @@ $(function() {
 		}
 
 		if(isStudent=='1'){
-			$.ajax({ 
+			$.ajax({
 				url : ajaxIp+"/api/v2/students/batch_import",
-				type : 'POST', 
-				data : formData, 
+				type : 'POST',
+				data : formData,
 				headers: {'Authorization': "Bearer " + isLogin},
-				processData : false, 
+				processData : false,
 				contentType : false,
 				beforeSend:function(){
 					console.log("正在进行，请稍候");
 				},
-				success : function(data) { 
+				success : function(data) {
 					console.log(data)
 					alert(data.message)
 					$('.modal-main').animate({'top': '45%','opacity': 0},500);
@@ -266,31 +266,31 @@ $(function() {
 					setTimeout(function(){
 						$('.modal-wrap').hide();
 					},500);
-				}, 
-				error : function() { 
+				},
+				error : function() {
 					console.log("error");
-				} 
+				}
 			});
 		}else{
-			$.ajax({ 
+			$.ajax({
 				url : ajaxIp+"/api/v2/teachers/batch_import",
-				type : 'POST', 
-				data : formData, 
+				type : 'POST',
+				data : formData,
 				headers: {'Authorization': "Bearer " + isLogin},
-				processData : false, 
+				processData : false,
 				contentType : false,
 				beforeSend:function(){
 					console.log("正在进行，请稍候");
 				},
-				success : function(data) { 
+				success : function(data) {
 					console.log(data)
-				}, 
-				error : function() { 
+				},
+				error : function() {
 					console.log("error");
-				} 
+				}
 			});
 		}
-		
+
 	})
 
 	$('.batch-import').click(function(){
@@ -327,7 +327,7 @@ $(function() {
 			selectALl(null,null);
 			$('.user-information-right #select-sujects').html('<option value="0">全部科目</option>');
 		}
-		
+
 	});
 
 	$('.user-change-password #select-grade').change(function(){
@@ -340,7 +340,7 @@ $(function() {
 			students_selectALl(null,null);
 			$('.user-change-password #select-sujects').html('<option value="0">全部班级</option>');
 		}
-		
+
 	});
 
 	$('.user-information-right #select-sujects').change(function(){
@@ -573,7 +573,7 @@ $(function() {
 	        }
 	    });
 	}
-	
+
 
 	function selectGrades(name){
 		console.log(1)
@@ -654,7 +654,7 @@ $(function() {
 				$(name+' #select-sujects').append(iOption);
 			}
 		}
-		
+
 	}
 
 
@@ -672,7 +672,7 @@ $(function() {
 			var iTr = '<tr style="border-bottom:1px solid #ccc;"><td>'+data[i].real_name+'</td><td style="width:140px">'+iGreads+'</td><td>'+(data[i].subject==undefined?"":data[i].subject.name)+'</td><td>'+data[i].email+'</td><td>'+data[i].phone+'</td><td>'+data[i].role+'</td><td class="table-modify"><span class="iconfont table-span" data-id="'+data[i].id+'">&#xe614;&nbsp;修改</span></td><td class="table-reset-password"><span class="iconfont table-span" data-id="'+data[i].id+'" data-name="'+data[i].real_name+'">&#xe60d;&nbsp;重置密码</span></td><td class="table-delete iconfont"><span class="iconfont table-span" data-id="'+data[i].id+'" data-name="'+data[i].real_name+'">&#xe616;&nbsp;删除</span></td></tr>'
  			$('.teachers-tabble tbody').append(iTr)
  		}
-		
+
 		$('.table-reset-password span').click(function(){
 			$('.modal-wrap-small .modal-main').animate({'top': '50%','opacity': 1},500);
 			$('.modal-wrap-small .modal-shadow').animate({'opacity': .3},500);
@@ -684,7 +684,7 @@ $(function() {
 			$('.modal-wrap-small .small-prompt').text('重置后密码将恢复为88888888');
 			$('.reset-password-name').text($(this).data('name'));
 
-			
+
 			var thisId = $(this).data('id')
 			$('.modal-wrap-small .determine').on('click', function(){
 				$.ajax({
@@ -722,7 +722,7 @@ $(function() {
 			$('.modal-wrap-small .small-xxx').text('');
 			$('.reset-password-name').text($(this).data('name'));
 
-			
+
 			var thisId = $(this).data('id')
 			$('.modal-wrap-small .determine').on('click', function(){
 				$.ajax({
@@ -745,7 +745,7 @@ $(function() {
 			})
 		})
 
-		
+
 		$('.user-information-right .table-modify span').click(function(){
 			isTrueFalse = true;
 			$('.teachers-propmt-wrap .modal-main').animate({'top': '50%','opacity': 1},500);
@@ -779,7 +779,7 @@ $(function() {
 					defaultId = data.subject.id;
 					defaultRole = data.role;
 					$('#teachers-grade').html('')
-					
+
 					var grade_ids = [];
 					for (var i = 0; i < iDataGrades.length; i++) {
 						grade_ids[i] = iDataGrades[i].id;
@@ -802,7 +802,7 @@ $(function() {
 				  				}else{
 				  					iOption_s+= '<option value="'+data[i].id+'">'+data[i].name+'</option>';
 				  				}
-				  				
+
 				  				// $(iOption_s).attr('id', data.id);
 				  				// $(iOption_s).attr('value', data.name);
 				  				// $(iOption_s).text(data.name);
@@ -830,7 +830,7 @@ $(function() {
 				  				}else{
 				  					iOption_s+= '<option value="'+data[i]+'">'+data[i]+'</option>';
 				  				}
-				  				
+
 				  				// $(iOption_s).attr('id', data.id);
 				  				// $(iOption_s).attr('value', data.name);
 				  				// $(iOption_s).text(data.name);
@@ -843,7 +843,7 @@ $(function() {
 				        	// window.location.href = './login.html'
 				        }
 				    });
-					
+
 					$.ajax({
 				     	type: "GET",
 				     	url: ajaxIp+"/api/v2/commons/school_grades",
@@ -856,7 +856,7 @@ $(function() {
 							}else{
 								var thisDiv='<div class="allNew">全部<i class="iconfont gradesname" style="position:absolute;right:10px;top:0;">&#xe619;</i></div>';
 							}
-				    		
+
 				    		console.log(iDataGrades)
 				    		var isTrue=true;
 				    		for (var i = 0; i < data.length; i++) {
@@ -873,7 +873,7 @@ $(function() {
 			    				}else{
 			    					thisDiv+='<div class="newTeacher newTea" data-id="'+data[i].id+'">'+data[i].name+'<i class="iconfont gradesname" style="position:absolute;right:10px;top:0;">&#xe619;</i></div>'
 			    				}
-								
+
 				    		}
 				    		$('#teachers-grade').append(thisDiv);
 				    		$('.newTeacher').on('click' , function(){
@@ -916,7 +916,7 @@ $(function() {
 							  				}else{
 							  					iOption_s+= '<option value="'+data[i].id+'">'+data[i].name+'</option>';
 							  				}
-							  				
+
 							  				// $(iOption_s).attr('id', data.id);
 							  				// $(iOption_s).attr('value', data.name);
 							  				// $(iOption_s).text(data.name);
@@ -970,7 +970,7 @@ $(function() {
 							  				}else{
 							  					iOption_s+= '<option value="'+data[i].id+'">'+data[i].name+'</option>';
 							  				}
-							  				
+
 							  				// $(iOption_s).attr('id', data.id);
 							  				// $(iOption_s).attr('value', data.name);
 							  				// $(iOption_s).text(data.name);
@@ -991,7 +991,7 @@ $(function() {
 		        },
 		    });
 
-			
+
 		})
 
 		$('.teachers-propmt-wrap .determine').unbind().on('click' , function(){
@@ -1047,7 +1047,7 @@ $(function() {
 			    		setTimeout(function(){
 							alert('修改成功！')
 						},500);
-			    		
+
 			    		selectALl(null,null);
 			        },
 			        error: function(){
@@ -1080,7 +1080,7 @@ $(function() {
 			    		setTimeout(function(){
 							alert('添加成功！')
 						},500);
-			    		
+
 			    		selectALl(null,null);
 			        },
 			        error: function(){
@@ -1090,10 +1090,10 @@ $(function() {
 			        }
 			    });
 			}
-			
 
 
-			
+
+
 
 		});
  	}
@@ -1112,7 +1112,7 @@ $(function() {
 			var iTr = '<tr style="border-bottom:1px solid #ccc;"><td>'+data[i].exam_no+'</td><td>'+data[i].real_name+'</td><td style="">'+(data[i].id_card_no==undefined?"":data[i].id_card_no)+'</td><td>'+(data[i].gender==undefined?"":data[i].gender)+'</td><td>'+(data[i].classroom==undefined?"":data[i].classroom.name)+'</td><td>'+(data[i].is_classroom_count?"是":"否")+'</td><td>'+(data[i].is_grade_count?"是":"否")+'</td><td class="table-modify"><span class="iconfont table-span" data-id="'+data[i].id+'">&#xe614;&nbsp;修改</span></td><td class="table-delete iconfont"><span class="iconfont table-span" data-id="'+data[i].id+'" data-name="'+data[i].real_name+'">&#xe616;&nbsp;删除</span></td></tr>'
  			$('.students-tabble tbody').append(iTr)
  		}
-		
+
 		$('.user-change-password .table-modify span').click(function(){
 			$('.modal-wrap-student-info .modal-main').animate({'top': '50%','opacity': 1},500);
 			$('.modal-wrap-student-info .modal-shadow').animate({'opacity': .3},500);
@@ -1193,7 +1193,7 @@ $(function() {
 						  				}else{
 											var iOption = '<option value="'+data[i].id+'">'+data[i].name+'</option>'
 						  				}
-										
+
 										$('.modal-wrap-student-info .current-class').append(iOption);
 									}
 
@@ -1219,8 +1219,8 @@ $(function() {
 		        	// window.location.href = './login.html'
 		        }
 		    });
-			
-			
+
+
 
 			$('.current-grade').change(function(){
 				$.ajax({
@@ -1242,7 +1242,7 @@ $(function() {
 			        	// localStorage.clear();
 			        	// window.location.href = './login.html'
 			        }
-			    });			
+			    });
 			});
 
 
@@ -1259,7 +1259,7 @@ $(function() {
 			$('.modal-wrap-small .small-xxx').text('');
 			$('.reset-password-name').text($(this).data('name'));
 
-			
+
 			var thisId = $(this).data('id')
 			$('.modal-wrap-small .determine').on('click', function(){
 				$.ajax({
@@ -1298,7 +1298,7 @@ $(function() {
 			$('.teachers-propmt-wrap #teachers-role').val('');
 			$('.teachers-propmt-wrap #teachers-subject').html('');
 			$('.teachers-propmt-wrap #teachers-grade').html('');
-			
+
 			$.ajax({
 				type: "GET",
 				url: ajaxIp+"/api/v2/commons/roles",
@@ -1309,7 +1309,7 @@ $(function() {
 					var iOption_s;
 						for (var i = 0; i < data.length; i++) {
 							iOption_s+= '<option value="'+data[i]+'">'+data[i]+'</option>';
-							
+
 							// $(iOption_s).attr('id', data.id);
 							// $(iOption_s).attr('value', data.name);
 							// $(iOption_s).text(data.name);
@@ -1333,7 +1333,7 @@ $(function() {
 					$('.teachers-propmt-wrap #teachers-grade').html('');
 					var thisDiv='<div class="allNew">全部<i class="iconfont gradesname" style="position:absolute;right:10px;top:0;">&#xe619;</i></div>';
 		    		for (var i = 0; i < data.length; i++) {
-    					thisDiv+='<div class="newTeacher newTea" data-id="'+data[i].id+'">'+data[i].name+'<i class="iconfont gradesname" style="position:absolute;right:10px;top:0;">&#xe619;</i></div>'						
+    					thisDiv+='<div class="newTeacher newTea" data-id="'+data[i].id+'">'+data[i].name+'<i class="iconfont gradesname" style="position:absolute;right:10px;top:0;">&#xe619;</i></div>'
 		    		}
 		    		$('#teachers-grade').append(thisDiv);
 
@@ -1373,7 +1373,7 @@ $(function() {
 					    		var iOption_s;
 					  			for (var i = 0; i < data.length; i++) {
 					  					iOption_s+= '<option value="'+data[i].id+'">'+data[i].name+'</option>';
-					  				
+
 					  				// $(iOption_s).attr('id', data.id);
 					  				// $(iOption_s).attr('value', data.name);
 					  				// $(iOption_s).text(data.name);
@@ -1393,7 +1393,7 @@ $(function() {
 		})
  	}
 
- 	
+
  	$('.modal-wrap-student-info .determine').on('click', function(){
 		var i_grade = $('.current-grade').val();
 		var i_class = $('.current-class').val();
@@ -1552,7 +1552,7 @@ $(function() {
 		        	// localStorage.clear();
 		        	// window.location.href = './login.html'
 		        }
-		    });			
+		    });
 		});
 
 		$('.stuent-code').val('');
@@ -1563,7 +1563,7 @@ $(function() {
 		$('.student-radio-grade').attr('checked', false)
 		$('.student-radio-class').attr('checked', false)
 
-		
+
  	});
 
 	$('.user-information').on('click', function(){
@@ -1689,7 +1689,7 @@ $(function() {
 	        text.innerText = str + ' ';
 	        text.style['white-space']='nowrap';
 	        barCode.appendChild(text);
-	        var rowDIV=document.createElement('div');   
+	        var rowDIV=document.createElement('div');
 	        rowDIV.style['margin-left']="auto";
 	        rowDIV.style['margin-right']="auto";
 	        rowDIV.style.width=(colNum*blockW)+'px';
@@ -1715,7 +1715,7 @@ $(function() {
 	        for(var k=1;k<colNum;k++){
 	          rowDIV.appendChild(barCode.cloneNode(true));
 	        }
-	        for (var j=1;j<rowNum;j++){     
+	        for (var j=1;j<rowNum;j++){
 	          pageDIV.appendChild(rowDIV.cloneNode(true));
 	        }
 	        createCode(i+1, list);

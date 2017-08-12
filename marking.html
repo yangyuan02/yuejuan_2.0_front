@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>阅卷</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/jquery-ui.css">
+	<link rel="stylesheet" href="css/marking.css">
+	<script type="text/javascript" src='js/jquery.min2.js'></script>
+	<script type="text/javascript" src='js/jquery-ui.min.js'></script>
+	<script type="text/javascript" src='js/common.js'></script>
+</head>
+<body>
+	<div id="wrap">
+		<div id='header'>
+
+		</div>
+		<div class="title-box">
+			<div class="title common-width">
+				<p>
+					<i class="iconfont">&#xe618;</i>
+					当前位置：
+					<a href="index.html">首页</a>
+					>
+					<span>阅卷</span>
+				</p>
+			</div>
+		</div>
+		<div class="content-box">
+			<div class="content common-width">
+				<div class="marking-box">
+					<ul>
+						<li class="one"><a href="marking_change.html">阅卷选择</a></li>
+						<li class="two"><a href="marking_control.html">阅卷监控</a></li>
+						<li class="three"><a href="#">待加内容</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div id="footer">
+
+		</div>
+
+	</div>
+	<script type="text/javascript">
+	$(function(){
+			var height = $(window).height()-$('#header').height()-$('#footer').height()-180;
+		$('.marking-box').css({
+			// 'height': height,
+			'min-height': height
+		});
+	})
+	</script>
+</body>
+</html>

@@ -1,0 +1,1525 @@
+body{
+	background: #f5f5f5;
+}
+/* 当前定位部分 */
+.title-box{
+	width: 100%;
+	border-bottom: 1px solid #e6e6e6;
+	background: #fff;
+}
+.title-box .title{
+	height: 39px;
+	line-height: 39px;
+	font-size: 14px;
+	color: #999;
+}
+.title-box .title a{
+	font-size: 14px;
+	color: #999;
+}
+.title-box .title span{
+	color: #31bc91;
+}
+/* 内容部分 */
+
+.main{
+	width:1202px;
+	
+	margin:0 auto;
+	margin-top: 22px;
+	overflow: hidden;
+	padding-bottom: 50px;
+
+}
+.main_left{
+	width:188px;
+	height: 828px;
+	float: left;
+	z-index: 1;
+	position: relative;
+}
+.main_left li {
+display: block;
+width: 188px;
+height: 52px;
+text-align: center;
+line-height: 48px;
+background: #ffffff;
+margin-bottom: 15px;
+color: #adadad;
+border: 1px solid #ccc;
+cursor: pointer;
+
+}
+.main_left .li_click{
+     padding-right: 11px;
+      border-right: 1px solid #fff;
+      color:#000;
+      position: relative;
+}
+.main_left li:hover{
+ color:#000;
+}
+
+
+
+
+.main_right{
+	width:1000px;
+
+float: right;
+background: #ffffff;
+border: 1px solid #ccc;
+overflow: hidden;
+padding-bottom: 30px;
+
+
+}
+/*成绩生成 start*/
+.mark_01{
+	width:906px;
+   height: 44px;
+   background:#dcf5f0;
+   margin:0 auto;
+  margin-top:20px;
+  padding: 0 15px 0px 15px;
+  position: relative;
+  font-size: 16px;
+  color: #2daa82;
+
+  
+}
+.mark_span_01{
+	line-height: 44px;
+}
+.mark_02{
+	width:901px;
+	
+	border: 1px solid #cccccc;
+	box-sizing: border-box;
+	margin: 0 auto;
+	margin-top: 27px;
+	overflow: hidden;
+	
+}
+.mark_02_01{
+	border-bottom: 1px solid #cccccc;
+	border-right: 1px solid #cccccc;
+	width: 900px;
+	height: 42px;
+	background-color:#f5f5f5;
+	box-sizing: border-box;
+	padding: 0 0 0 76px;
+}
+.mark_02_01 ul li{
+	float: left;
+	color:#666666;
+	font-size: 14px;
+line-height: 44px;
+width: 270px;
+}
+.mark_02_ul li{
+	width:824px;
+	height: 46px;
+	color:#2daa82;
+  
+   font-size:16px;
+    line-height: 46px;
+    padding-left: 76px;
+    border-bottom: 1px solid #cccccc;
+    cursor: pointer;
+}
+.mark_li_01{
+	width: 900px;
+	
+	background:#f0fafa;
+	border-bottom: 1px solid #cccccc;
+	border-right: 1px solid #cccccc;
+	box-sizing: border-box;
+	padding-left: 76px;
+	overflow: hidden;
+
+	display:none;
+}
+.mark_li_01 li{
+	float: left;
+	color:#666666;
+	font-size: 14px;
+line-height: 44px;
+width: 270px;
+padding-left: 0px;
+border: none;
+}
+.mark_li_01 li button{
+	width:66px;
+	height: 28px;
+	background: #31bc91;
+	margin-top: 8px;
+	 float: right;
+
+}
+.mart_set{
+	width: 377px;
+	border: 1px solid #cccccc;
+	margin: 0 auto;
+	margin-top: 40px;
+	box-sizing: border-box;
+	position: absolute;
+	left: 300px;
+	top:-45px;
+	background: #ffffff;
+display: none;
+}
+.mart_set_01{
+	width:100%;
+	height: 42px;
+	text-align: center;
+	background: #31bc91;
+	color: #f1fbf8;
+	line-height: 42px;
+	font-size: 16px;
+
+	
+
+}
+.mart_set_02{
+	width:297;
+	height: 150px;
+	margin: 0 auto;
+	border-bottom: 1px solid #cccccc;
+	margin-top: 21px;
+	font-size: 14px;
+	color: #666666;
+}
+.mart_set_02 span{
+	display: block;
+	
+	
+}
+
+.mart_set_02 span input{
+	width:200px;
+	height: 30px;
+	margin-left: 12px;
+margin-top:15px;
+color: #999999;
+border-radius: 2px;
+border: 1px solid #cccccc;
+padding-left: 11px;
+}
+.mart_set_03 {
+	width:300px;
+	margin: 0 auto;
+	margin-top:20px;
+	border-bottom: 1px solid #cccccc;
+	box-sizing: border-box;
+	overflow: hidden;
+	font-size: 14px;
+}
+.mart_set_03 span{
+	display: block;
+	margin-bottom: 20px;
+	font-weight: bold;color: #333333;
+	
+}
+
+.mart_set_03 ul li{
+	float: left;
+	margin-bottom: 14px;
+}
+
+.mart_set_03 ul li input{
+	background: #fafafa;
+	border-radius: 2px;
+border: 1px solid #cccccc;
+display: block;
+text-align: center;
+line-height: 30px;
+float: left;
+height: 30px;
+margin-right: 16px;
+}
+.mart_set_03 ul li input:nth-of-type(1){	
+width: 48px;
+
+}
+
+.mart_set_03 ul li input:nth-of-type(2){	
+width: 142px;
+height: 30px;
+
+}
+.mart_set_03 ul li button{	
+background: #fafafa;
+border-radius: 2px;
+border: 1px solid #cccccc;
+color: #999999;
+font-size: 20px;
+}
+
+.btn_1{
+	display: block;
+	width: 136px;
+	height: 32px;
+	font-size: 16px;
+	font-weight: 200;
+	margin: 0 auto;
+margin-top: 15px;
+margin-bottom: 15px;
+}
+.mart_set_04{
+	width: 25px;
+	height: 25px;
+	border: 1px solid #31bc91;
+	border-radius: 50%;
+	font-size: 9px;
+	text-align: center;
+	line-height: 25px;
+	position: absolute;
+	top:-12px;
+	right:-8px;
+	background: #ffffff;
+	color:#31bc91;
+	cursor: pointer;
+}
+/*成绩生成 end*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.main_right .right_01{
+	width:886px;
+   height: 44px;
+   background:#dcf5f0;
+   margin:0 auto;
+  margin-top:20px;
+  padding: 0 35px 0px 15px;
+  position: relative;
+  font-size: 16px;
+  color: #2daa82;
+  line-height: 40px;
+
+}
+.main_right .right_01 .span_1{
+	
+	float: left;
+	line-height: 48px;
+}
+.main_right .right_01 .span_2{
+	float: right;
+	line-height: 48px;
+
+}
+
+.main_right .right_01 .sn_1{
+	
+	position:absolute;
+	left: 0px;
+	top:44px;
+border: 1px solid #cccccc;
+    z-index: 1;
+    background: #ffffff;
+    color: #999999;
+    cursor: pointer;
+    line-height: 40px;text-align: center;
+    font-size: 16px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.main_right .right_01 i{
+	cursor: pointer;
+}
+
+.main_right .right_01 .sn_2{
+	width: 102px;
+	position:absolute;
+	right: 0px;
+	top:44px;
+border: 1px solid #cccccc;
+    z-index: 1;
+    background: #ffffff;
+    color: #999999;
+    cursor: pointer;
+    line-height: 40px;text-align: center;
+    font-size: 16px;
+}
+
+
+.main_right .right_01 li{
+	height: 40px;
+	list-style-type: none;
+	
+}
+.main_right .right_01 li:hover{
+	background: #f5f5f5;
+	color: #666666;
+	
+	
+}
+
+
+
+
+
+
+
+.main_right .right_02{
+	width:922px;
+   height: 236px;
+   margin:0 auto;
+  margin-top:20px;
+  position: relative;
+
+}
+
+.mark_1{
+	width:924px;
+   height:34px;
+   margin:0 auto;
+   font-size: 18px;
+  color: #666666;
+
+
+}
+.mark_1 .mark_1_i{
+	display: block;
+	width: 3px;
+	height: 18px;
+	background: #31bc91;
+	float: left;
+    margin-right: 10px;
+    margin-top: 4px;
+}
+.mark_1 span{
+	float: left;
+
+}
+
+
+
+
+.main_right .right_02 .right_02_r{
+	width:588px;
+   height: 200px;
+   position: absolute;
+  right: 0px;
+  bottom: 0px;
+
+}
+.main_right .right_02 .right_02_l{
+	width:338px;
+   height: 200px;
+position: relative;
+}
+
+.right_02_l img{
+
+float: left;
+margin: 5px 32px 0px 25px;
+}
+.r2_02 {
+ width:338px;
+   height: 76px;
+position:absolute;
+bottom: 0;
+font-size: 14px;
+}
+
+.r2_02 ul li{
+ float: left;
+ width:165px;
+ text-align: center;
+	
+}
+.r2_02 ul li span{
+ display: block;
+color: #49b593;
+	
+}
+
+
+.r2_1{
+    width:588px;
+   height: 76px;
+   position: absolute;
+bottom: 0px;
+right: 0px;
+font-family:"微软雅黑";
+font-size: 14px;
+font-weight: normal;
+	
+}
+.r2_1 ul li{
+ float: left;
+ display: block;
+ width: 145px;
+ text-align: center;
+	
+}
+.r2_1 ul li span{
+ display: block;
+color: #49b593;
+	
+}
+
+.main_right .right_03{
+	width:900px;
+   height: 235px;
+   margin:0 auto;
+}
+
+
+
+ .mark{
+	width:924px;
+   height:50px;
+   margin:0 auto;
+   font-size: 18px;
+  color: #666666;
+ line-height: 48px;
+  border-top:1px solid #e6e6e6;
+
+}
+.mark_i{
+	display: block;
+	width: 3px;
+	height: 18px;
+	background: #31bc91;
+	float: left;
+    margin-top: 15px;
+    margin-right: 10px;
+}
+.mark span{
+	float: left;
+
+}
+
+
+
+
+
+
+.tab{
+	width: 903px;
+	margin: 0 auto;
+	margin-top: 37px;
+	
+}
+.main_right .right_04{
+	width:900px;
+   height: 272px;
+   margin:0 auto;
+}
+
+.mark_03{
+	width:924px;
+   height:50px;
+   margin:0 auto;
+   margin-top: 40px;
+   font-size: 18px;
+  color: #666666;
+ line-height: 48px;
+  border-top:1px solid #e6e6e6;
+  padding-top: 20px
+}
+.mark_03 select{
+	float: right;
+	width: 84px;
+	height: 30px;
+	margin-right: 25px;
+
+}
+.mark_03 span:nth-of-type(2){
+	float: right;
+	margin-right: 20px;
+    line-height: 32px;
+}
+
+.main_right .right_05{
+	width:900px;
+   height:387px;
+   margin:0 auto;
+   }
+.r5_1{
+
+	width:410px;
+   height:362px;
+   float: left;
+ 
+   
+}
+.r5_10{
+
+	width:410px;
+   height:50px;
+   background: #fb7d89;
+   color: #ffffff;
+   font-size: 20px; 
+line-height: 48px;
+}
+.r5_10 span{
+
+	margin-left:30px;
+}
+.r5_11{
+
+	width:410px;
+   height:312px;
+   
+   
+}
+
+
+.r5_2{
+	width:410px;
+   height:362px;
+   float: right;margin-right: 5px;
+  
+}
+
+
+.r5_21{
+
+	width:410px;
+   height:50px;
+   background:#31bc92;
+   color: #ffffff;
+   font-size: 20px; 
+line-height: 48px;
+   
+}
+.r5_21 span{
+
+	margin-left:30px;
+}
+.right_05 tr{
+	border-color: #cccccc;
+	color: #707070;
+
+}
+.right_05 {
+	overflow:hidden;
+
+}
+.right_05 td{
+	text-align: center;border: 0px;border-bottom:1px solid #cccccc;
+}
+.r5_2 td:nth-of-type(3){
+	color:#31bc92;
+}
+.r5_1 td:nth-of-type(3){
+	color:#fb7d89;
+}
+
+.right_05 th{
+	background:#f5f5f5;border: 0px;border-bottom:1px solid #cccccc;
+
+}
+.right_05 td i{
+	
+margin-left: 20px;
+}
+
+/*<!--班级学情追踪  start-->*/
+.study_q_01{
+	width: 921px;
+	height: 50px;
+	font-size: 14px;
+	color: #666666;
+	margin: 0 auto;
+	padding-left: 15px;
+	margin-top: 20px;
+}
+.study_q_01 li {
+	float: left;
+	margin-right: 30px;
+}
+.study_q_01 select{
+	width: 142px;
+	height: 30px;
+	margin-left: 15px;
+	color: #666666;
+}
+
+.study_q_02{
+	width: 936px;
+	height: 160px;
+	margin: 0 auto;
+	border-bottom: 1px solid #cccccc;
+}
+.study_q_i{
+	width:100%;
+	height: 42px;
+	
+}
+
+.study_q_i span{
+	float: left;
+	line-height: 28px;
+    font-size: 14px;
+    color: #666666;
+    font-weight:bold;
+}
+.study_q_i i{
+  display: block;
+    width: 3px;
+    height: 18px;
+    background: #31bc91;
+    float: left;
+    margin-right: 10px;
+    margin-top: 4px;
+    margin-left: 15px;
+	
+}
+.study_q_i button{
+	float: right;
+	
+}
+.study_q_02 table{
+	
+	border-collapse:collapse;
+	margin:0 auto;
+	color: #666666;
+	
+}
+.study_q_02 tr th{
+	width: 110px;
+	height: 45px;
+	box-sizing: border-box;
+	font-size: 14px;
+	font-weight: normal;
+	background-color: #f5f5f5;
+	
+}
+.study_q_02 tr td{
+	
+	width: 110px;
+	height: 45px;
+	box-sizing: border-box;
+	text-align: center;
+	
+}
+.study_q_03{
+	
+	width: 936px;
+	
+	margin: 0 auto;
+	border-bottom: 1px solid #cccccc;
+	margin-top: 30px;
+	overflow: hidden;
+	padding-bottom: 30px;
+}
+.study_q_03_01{
+	position: relative;
+	
+}
+.study_q_03_02{
+	
+	width:900px;
+	height:237px;
+	margin:0 auto;
+	
+	
+}
+.study_q_04{
+	
+	width: 936px;
+	height:830px;
+	margin: 0 auto;
+	border-bottom: 1px solid #cccccc;
+	margin-top: 30px;
+}
+
+.study_q_04_02{
+	
+	width: 410px;
+	height:790px;
+	float: left;
+	margin-top: 20px;
+	
+}
+.study_q_04_s{
+	
+	width: 410px;
+	height:52px;
+	background:#fb7d8a; 
+	
+}
+.study_q_04_s span{
+	
+	line-height:52px;
+	color: #f5f5f5;
+	font-size: 16px;
+	font-weight: normal;
+	padding-left: 42px;
+}
+.study_q_04_01 {
+	width: 900px;
+}
+.study_q_04_01 table{
+	border-collapse:collapse;
+	text-align: center;
+	color: #666666;
+}
+.study_q_04_01 tr th{
+	
+	width: 102.5px;
+	height: 44px;
+	box-sizing: border-box;
+	font-size: 14px;
+	font-weight: normal;
+	background-color: #f5f5f5;
+	border: 0px;
+    border-bottom: 1px solid #cccccc;
+}
+.study_q_04_01 tr td:nth-of-type(4){
+	
+	color:#fb7d8a; 
+}
+.study_q_04_01 tr td i{
+	
+	margin-left: 10px;
+	font-size: 14px;
+}
+.study_q_04_01 tr td{
+	
+	width: 102.5px;
+	height: 44px;
+	box-sizing: border-box;
+	font-size: 14px;
+	font-weight: normal;
+	border: 0px;
+    border-bottom: 1px solid #cccccc;
+}
+.study_q_04_01_tab  tr th{
+width:205px;
+padding-left: 42px;
+text-align: left;
+}
+.study_q_04_01_tab  tr td{
+width:205px;
+padding-left: 42px;
+text-align: left;
+}
+.study_q_04_line {
+	
+width: 1px;
+height: 738px;
+background:#cccccc;
+float: left;
+margin-left: 38px; 
+
+}
+.study_q_04_03{
+	float: left;
+	margin-left: 38px;
+	margin-top: 20px;
+}
+.study_q_04_03 tr td:nth-of-type(4){
+	
+	color:#31bc91; 
+}
+
+.study_q_05{
+	
+	width: 936px;
+	height: 434px;
+	margin: 0 auto;
+	border-bottom: 1px solid #cccccc;
+	margin-top: 30px;
+}
+.study_q_05_01{
+	
+	width: 936px;
+	height: 374px;
+}
+.study_q_05_01 table{
+	
+	border-collapse:collapse;
+	color: #666666;
+box-sizing: border-box;
+	font-size: 14px;
+	font-weight: normal;
+	
+}
+.study_q_05_01 tr th{
+	width:93.6px;
+	height:44px;
+	
+	background-color: #f5f5f5;
+
+	
+}
+.study_q_05_01 tr td{
+width:93.6px;
+	height:44px;
+	text-align: center;	
+	
+}
+
+.study_q_05_01 tr td:nth-of-type(1){
+border:none;
+	
+}
+.study_q_05_01 tr td:nth-of-type(2){
+border:none;
+border-left: 1px solid #cccccc;
+	
+}
+.study_q_05_01 tr td:nth-of-type(10){
+/*color:#31bc91;
+*/cursor: pointer;	
+}
+/*班级客观题表二*/
+.study_q_05_tab{
+	margin-top: 22px;
+}
+.study_q_05_tab tr td:nth-of-type(4){
+width: 187.2px;	
+}
+.study_q_05_tab tr td:nth-of-type(5){
+width: 187.2px;	
+}
+.study_q_05_tab tr td:nth-of-type(8){
+/*color:#31bc91;*/
+cursor: pointer;	
+}
+/*成绩单*/
+.study_q_06{
+width: 936px;
+	margin: 0 auto;
+	margin-top: 30px;
+
+}
+.study_q_06_1 table{
+border-collapse:collapse;
+	text-align: center;
+	color: #666666;
+	box-sizing: border-box;
+	font-size: 14px;
+	font-weight: normal;
+}
+
+.study_q_06_1 tr td{
+width:133.7px;
+height:44px;
+
+
+}
+.study_q_06_1 tr th{
+width:133.7px;
+height:44px;
+	background-color: #f5f5f5;
+}
+.study_q_06_tab tr td:nth-of-type(6){
+color:#fb7d8a;
+cursor: pointer;
+}
+.study_q_06_tab tr td:nth-of-type(7){
+cursor: pointer;
+}
+.study_q_06_tab tr td:nth-of-type(5) i{
+margin-left: 10px;
+font-size: 14px;
+}
+/*答题卡*/
+.ans{
+	width: 765px;
+	height: 567px;
+	margin:0 auto;
+	border: 1px solid #999999;
+	box-sizing: border-box;
+	position: absolute;
+bottom:205px;
+left: 330px;
+background: #f5f5f5;
+display: none;
+}
+.ans_01{
+	width:100%;
+	height: 38px;
+	background: #31bc91;
+	text-align: center;
+	color: #f5f5f5;
+	line-height: 38px;
+	font-size: 18px;
+	font-weight: normal;
+
+}
+.ans_01 i{
+	float: right;
+	margin-right:20px; 
+	cursor: pointer;
+
+}
+.ans_02{
+	width:100%;
+	height: 50px;
+	text-align: center;
+	color: #666666; 
+	line-height: 50px;
+	font-size: 16px;
+	font-weight: normal;
+
+}
+.ans_02 span{
+	margin-left: 300px;
+}
+.ans_02 a{
+	display:block;
+	width:27px;
+	height: 27px;
+	text-align:center;
+	line-height: 27px;
+	color: #666666; 
+	border: 1px solid #999999;
+	box-sizing: border-box;
+	float: left;
+	margin-top: 12px;
+    margin-left: 10px;
+    cursor: pointer;
+
+}
+.ans_img{
+	width: 615px;
+	height: 434px;
+	margin:0 auto;
+	border: 1px solid #999999;
+	box-sizing: border-box;
+	float:left;
+	position: relative;
+	overflow: hidden;
+}
+.ans_img img{
+	width:615px;
+	height: 434px;
+	position: absolute;
+	top:0px;
+	left:0px;
+	
+}
+.ans_03{
+	width: 36px;
+	height: 100px;
+	float: left;
+	padding-left: 58px;
+	
+}
+.ans_03 a{
+	display:block;
+	width:26px;
+	height: 26px;
+	border: 1px solid #31bc91;
+	box-sizing: border-box;
+	line-height: 20px;
+    text-align: center;
+	font-size: 20px;
+	color:#31bc91;
+	margin-bottom: 10px;
+	cursor: pointer; 
+}
+
+/*<!--班级学情追踪 end-->*/
+
+
+/*<!--学科追踪分析 start-->*/
+.study_k_left{
+width: 190px;
+height: 206px;
+border: 1px solid #cccccc;
+box-sizing: border-box;
+background: #fafafa;
+position: absolute;
+left: 0px;
+top:260px;
+display: none;
+
+
+}
+.study_k_left ul li{
+	width: 101px;
+height: 34px;
+text-align: left;
+margin: 0 auto;
+line-height: 34px;
+color: #999999;
+border: none;
+padding-left: 25px;
+
+}
+.study_k_left ul li:hover{
+	color: #31bc91;
+
+}
+.study_k_101{
+	width: 938px;
+	height: 53px;
+	margin: 0 auto;
+	padding-top: 24px;
+}
+.study_k_101 span{
+	float: left;
+margin: 0px 32px 0px 20px;
+color: #666666;
+}
+.study_k_101 button{
+	float: right;
+}
+.study_k_101 select{
+	width: 145px;
+	height: 30px;
+	margin-left: 15px;
+	color: #666666;
+}
+.study_k table{
+	width:900px;
+	font-size: 14px;
+	border-collapse:collapse;
+	color: #666666;
+	font-weight: normal;
+	box-sizing: border-box;
+	text-align: center;
+	margin:0 auto;
+}
+.study_k tr th{
+	height: 40px;
+	background-color: #f5f5f5;
+	line-height: 40px;
+	font-weight: normal;
+}
+.study_k tr td{
+	padding:13px 0px 13px 0px;
+	
+}
+
+.study_k_102{
+	margin-bottom: 400px
+	
+}
+.study_k_201{
+	display: none;
+	margin-bottom: 400px
+	
+}
+.study_k_301{
+	display: none;
+	margin-bottom: 400px
+	
+}
+.study_k_401{
+	display: none;
+	margin-bottom: 400px
+	
+}
+.study_k_501{
+	display: none;
+	margin-bottom: 400px
+	
+}
+.study_k_601{
+	display: none;
+	margin-bottom: 400px
+	
+}
+/*<!--学科追踪分析 end-->*/
+
+/*<!-- 考试质量追踪  start-->*/
+.exam_z_left{
+width: 190px;
+height: 115px;
+border: 1px solid #cccccc;
+box-sizing: border-box;
+background: #fafafa;
+position: absolute;
+left: 0px;
+top:330px;
+display: none;
+
+
+}
+.exam_z_left ul li{
+	width: 101px;
+height: 34px;
+text-align: left;
+margin: 0 auto;
+line-height: 34px;
+color: #999999;
+border: none;
+padding-left: 25px;
+
+}
+.exam_z_left ul li:hover{
+	color: #31bc91;
+
+}
+.exam_z_101{
+	width: 938px;
+	height: 53px;
+	margin: 0 auto;
+	padding-top: 24px;
+	
+}
+.exam_z_101 span{
+	float: left;
+margin: 0px 32px 0px 20px;
+color: #666666;
+}
+.exam_z_101 button{
+	float: right;
+}
+.exam_z_101 select{
+	width: 145px;
+	height: 30px;
+	margin-left: 15px;
+	color: #666666;
+}
+.exam_z_tab table{
+	width:900px;
+	font-size: 14px;
+	border-collapse:collapse;
+	color: #666666;
+	font-weight: normal;
+	box-sizing: border-box;
+	text-align: center;
+	margin:0 auto;
+}
+.exam_z_tab tr th{
+	height: 40px;
+	background-color: #f5f5f5;
+	line-height: 40px;
+	font-weight: normal;
+	border:none;
+	border-bottom: 1px solid #cccccc;
+	box-sizing: border-box;
+}
+.exam_z_tab tr td{
+	padding:13px 0px 13px 0px;
+	border:none;
+	border-bottom: 1px solid #cccccc;
+	box-sizing: border-box;
+}
+
+.exam_z_102{
+	
+	margin-bottom: 400px;
+	
+}
+.exam_z_201{
+	
+	margin-bottom: 400px;
+	display: none;
+}
+.exam_z_301{
+	width: 936px;
+	margin: 0 auto;
+	overflow:hidden;
+	margin-bottom: 400px;
+	display: none;
+}
+.exam_z_302{
+	width: 916px;
+	height:40px;
+	background:#f5f5f5; 
+	line-height: 40px;
+	padding-left: 20px
+}
+.exam_z_302 ul li{
+	float: left;
+	text-align: center;
+	font-size: 16px;
+	margin-right: 70px;
+}
+#exam_z_303{
+	width: 900px;
+	height:225px;
+}
+.exam_z_302_s01{
+	display:block;
+	width: 936px;
+	height: 52px;
+	line-height: 52px;
+	font-size: 16px;
+	text-align: center;
+	margin-top: 20px;
+}
+.exam_z_302_s02{
+	display:block;
+	width: 936px;
+	height: 52px;
+	line-height: 52px;
+	font-size: 14px;
+	text-align: center;
+}
+
+
+/*<!-- 考试质量追踪  end-->*/
+/*<!-- 考试横向分析 start -->*/
+.exam_h_left{
+width: 190px;
+height: 140px;
+border: 1px solid #cccccc;
+box-sizing: border-box;
+background: #fafafa;
+position: absolute;
+left: 0px;
+top:398px;
+display: none;
+
+
+}
+
+.exam_h_left ul li{
+	width: 101px;
+height: 34px;
+text-align: left;
+margin: 0 auto;
+line-height: 34px;
+color: #999999;
+border: none;
+padding-left: 25px;
+
+}
+.exam_h_left ul li:hover{
+	color: #31bc91;
+
+}
+.exam_h_101{
+	width: 938px;
+	height: 53px;
+	margin: 0 auto;
+	padding-top: 24px;
+
+	
+}
+.exam_h_101 span{
+	float: left;
+margin: 0px 32px 0px 20px;
+color: #666666;
+}
+.exam_h_101 button{
+	float: right;
+}
+.exam_h_101 select{
+	width: 145px;
+	height: 30px;
+	margin-left: 15px;
+	color: #666666;
+}
+.exam_h_tab table{
+	width:900px;
+	font-size: 14px;
+	border-collapse:collapse;
+	color: #666666;
+	font-weight: normal;
+	box-sizing: border-box;
+	text-align: center;
+	margin:0 auto;
+}
+.exam_h_tab tr th{
+	height: 40px;
+	background-color: #f5f5f5;
+	line-height: 40px;
+	font-weight: normal;
+	border:none;
+	border-bottom: 1px solid #cccccc;
+	box-sizing: border-box;
+}
+.exam_h_tab tr td{
+	padding:13px 0px 13px 0px;
+	border:none;
+	border-bottom: 1px solid #cccccc;
+	box-sizing: border-box;
+}
+.exam_h_102{
+	margin-bottom: 400px;
+	
+
+}
+.exam_h_201{
+	margin-bottom: 400px;
+	display: none;
+	
+}
+.exam_h_201 tr td:nth-of-type(8){
+	color:#31bc91;
+	cursor: pointer;
+
+}
+
+.exam_h_301{
+	width: 900px;
+	height: 405px;
+	margin: 0 auto;
+	margin-bottom: 400px;
+	display: none;
+}
+.exam_h_401{
+	width: 900px;
+	margin: 0 auto;
+	margin-bottom: 400px;
+	display: none;
+}
+#exam_h_402{
+	width: 900px;
+	height: 250px;
+
+	
+}
+.exam_h_201_x{
+	width:936px;
+	margin: 0 auto;
+	margin-top: 30px;
+	margin-bottom: 400px;
+	display: none;
+}
+
+.exam_h_201_x tr td{
+	text-align: left;
+	padding: 0px 0px 8px 0px;
+	border-right:1px solid #cccccc;
+}
+.exam_h_201_x tr th{
+	width: 900px;
+	height: 40px;
+    background-color: #f5f5f5;
+    line-height: 40px;
+    font-weight: normal;
+    border: none;
+    border-bottom: 1px solid #cccccc;
+    box-sizing: border-box;
+     border-right: 1px solid #cccccc;
+	
+}
+.exam_h_201_x tr td:nth-of-type(1){
+	width:107px;
+	text-align: center;
+
+}
+.exam_h_201_x tr td a {
+    display: block;
+    width: 62px;
+    margin-left: 13px;
+    background: #31bc91;
+    color: #f5f5f5;
+    padding: 5px;
+    margin-top: 10px;
+    float: left;
+    text-align: center;
+}
+.exam_h_201_x table {
+    width: 900px;
+    font-size: 14px;
+    border-collapse: collapse;
+    color: #666666;
+    font-weight: normal;
+    box-sizing: border-box;
+}
+/*<!-- 考试横向分析 end -->*/
+/*<!-- 跨校对比分析  start-->*/
+.sc_left{
+width: 190px;
+height: 75px;
+border: 1px solid #cccccc;
+box-sizing: border-box;
+background: #fafafa;
+position: absolute;
+left: 0px;
+top:467px;
+display: none;
+
+}
+
+.sc_left ul li{
+	width: 101px;
+height: 34px;
+text-align: left;
+margin: 0 auto;
+line-height: 34px;
+color: #999999;
+border: none;
+padding-left: 25px;
+
+}
+.sc_left ul li:hover{
+	color: #31bc91;
+
+}
+.sc_101{
+	width: 938px;
+	height: 53px;
+	margin: 0 auto;
+	padding-top: 24px;
+
+	
+}
+.sc_101 span{
+	float: left;
+margin: 0px 32px 0px 20px;
+color: #666666;
+}
+.sc_101 button{
+	float: right;
+}
+.sc_101 select{
+	width: 145px;
+	height: 30px;
+	margin-left: 15px;
+	color: #666666;
+}
+.sc_tab table{
+	width:900px;
+	font-size: 14px;
+	border-collapse:collapse;
+	color: #666666;
+	font-weight: normal;
+	box-sizing: border-box;
+	text-align: center;
+	margin:0 auto;
+}
+.sc_tab tr th{
+	height: 40px;
+	background-color: #f5f5f5;
+	line-height: 40px;
+	font-weight: normal;
+	border:none;
+	border-bottom: 1px solid #cccccc;
+	box-sizing: border-box;
+}
+.sc_tab tr td{
+	padding:13px 0px 13px 0px;
+	border:none;
+	border-bottom: 1px solid #cccccc;
+	box-sizing: border-box;
+}
+.sc_201 {
+	display: none;
+}
+
+
+
+/*<!-- 跨校对比分析  end-->*/
+
+
+
+
+
+
+
+
+
+
