@@ -208,7 +208,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 },
                 dataType: "JSON",
                 success: function (data) {
-                    console.log(data)
+                    
                 }
             }
         )
