@@ -246,6 +246,16 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         console.log(ajaxIp)
         save()
     })
+    $scope.dayin = function () {
+        $(".A_Nav").css({"display":"none"})
+        $(".Answer .A_L").css({"display":"none"})
+        $(".Answer .A_B").css({"margin-top":0,"margin-bottom":0})
+        window.print()
+        $(".A_Nav").css({"display":"block"})
+        $(".Answer .A_L").css({"display":"block"})
+        $(".Answer .A_B").css({"margin-top":52,"margin-bottom":52})
+        // return false;
+    }
 })
 
 
