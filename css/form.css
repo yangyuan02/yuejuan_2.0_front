@@ -183,18 +183,22 @@ display: none;
 
 }
 .mart_set_02{
-	width:297;
-	height: 150px;
+	width:297px;
+	
 	margin: 0 auto;
 	border-bottom: 1px solid #cccccc;
 	margin-top: 21px;
 	font-size: 14px;
 	color: #666666;
+padding-bottom: 30px;
 }
 .mart_set_02 span{
 	display: block;
 	
 	
+}
+#z_mark{
+	margin-left: 68px;
 }
 
 .mart_set_02 span input{
@@ -552,13 +556,11 @@ color: #49b593;
 
 .main_right .right_05{
 	width:900px;
-   height:387px;
    margin:0 auto;
    }
 .r5_1{
 
 	width:410px;
-   height:362px;
    float: left;
  
    
@@ -579,7 +581,6 @@ line-height: 48px;
 .r5_11{
 
 	width:410px;
-   height:312px;
    
    
 }
@@ -587,7 +588,7 @@ line-height: 48px;
 
 .r5_2{
 	width:410px;
-   height:362px;
+   
    float: right;margin-right: 5px;
   
 }
@@ -628,6 +629,11 @@ line-height: 48px;
 
 .right_05 th{
 	background:#f5f5f5;border: 0px;border-bottom:1px solid #cccccc;
+	height: 44px;
+
+}
+.right_05 td{
+	height: 44px;
 
 }
 .right_05 td i{
@@ -975,7 +981,8 @@ display: none;
 	line-height: 50px;
 	font-size: 16px;
 	font-weight: normal;
-
+	position: absolute;
+z-index:111;
 }
 .ans_02 span{
 	margin-left: 300px;
@@ -993,17 +1000,19 @@ display: none;
 	margin-top: 12px;
     margin-left: 10px;
     cursor: pointer;
+    background: #f5f5f5;
 
 }
 .ans_img{
-	width: 615px;
-	height: 434px;
+	width: 765px;
+	height:530px;
 	margin:0 auto;
 	border: 1px solid #999999;
 	box-sizing: border-box;
 	float:left;
 	position: relative;
 	overflow: hidden;
+	z-index: 0;
 }
 .ans_img img{
 	width:615px;
@@ -1018,6 +1027,8 @@ display: none;
 	height: 100px;
 	float: left;
 	padding-left: 58px;
+	position: absolute;
+	z-index: 111;
 	
 }
 .ans_03 a{
@@ -1032,6 +1043,7 @@ display: none;
 	color:#31bc91;
 	margin-bottom: 10px;
 	cursor: pointer; 
+	background: #f5f5f5;
 }
 
 /*<!--班级学情追踪 end-->*/
@@ -1356,9 +1368,9 @@ color: #666666;
 	
 }
 .exam_h_201 tr td:nth-of-type(8){
-	color:#31bc91;
+	/*color:#31bc91;*/
 	cursor: pointer;
-
+    color: #666666;
 }
 
 .exam_h_301{
