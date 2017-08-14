@@ -520,29 +520,47 @@ $(function(){
 	}
 
 	// 多评人数
-	$('body').on('change', '.more-count input', function() {
+	$('body').on('input', '.more-count input', function() {
 		var multiple_people = $(this).val();
 		console.log(multiple_people)
-		var answer_id =$(this).parents('.parent-tr').find('.item-name').attr('data-id');
-		var data_value ={'answer_id':answer_id,'multiple_people':multiple_people}
-		$.ajax({
-		  type: "POST",
-		  url: ajaxIp+"/api/v2/correct_progress/change_multiple_people",
-		  headers: {'Authorization': "Bearer " + isLogin},
-			data:data_value,
-		  success: function(data){
-		  	console.log(data);
-		  },
-		  error: function(){
-		      // alert('请稍后从新尝试登录或者联系管理员');
-	      	// localStorage.clear();
-	      	// window.location.href = './login.html';
-		  }
-		});
+		if(multiple_people < 0 ||multiple_people==0){
+			var prompt_1 = '提示：请输入大于零的数！';
+			var prompt_i = $('#i_two');//提示框元素
+			iTwo(prompt_i,prompt_1);
+			$(this).val('');
+		}else{
+			var answer_id =$(this).parents('.parent-tr').find('.item-name').attr('data-id');
+			var data_value ={'answer_id':answer_id,'multiple_people':multiple_people}
+			$.ajax({
+			  type: "POST",
+			  url: ajaxIp+"/api/v2/correct_progress/change_multiple_people",
+			  headers: {'Authorization': "Bearer " + isLogin},
+				data:data_value,
+			  success: function(data){
+			  	console.log(data);
+			  },
+			  error: function(){
+			      // alert('请稍后从新尝试登录或者联系管理员');
+		      	// localStorage.clear();
+		      	// window.location.href = './login.html';
+			  }
+			});
+		}
 	});
 
+	function iTwo(i,k){
+		$('.modal-main').animate({'top': '30%','opacity': 1},500);
+		$('.modal-shadow').animate({'opacity': 0},500);
+		i.show();
+		$('.prompt').text(k);
+		setTimeout(function(){
+			$('#i_two').hide();
+		},1000);
+	};
+
+
 	// 多评误差
-	$('body').on('change', '.more-error input', function() {
+	$('body').on('input', '.more-error input', function() {
 		var multiple_error = $(this).val();
 		console.log(multiple_error)
 		var answer_id =$(this).parents('.parent-tr').find('.item-name').attr('data-id');
