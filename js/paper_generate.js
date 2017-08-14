@@ -106,7 +106,7 @@ $(function() {
 		$('#show-class').html('');
 		var classrooms_length = detail_data.exam_classrooms.length;
 		for (var i = 0; i < classrooms_length; i++) {
-			var class_arr = '<li class="on">' + detail_data.exam_classrooms[i].name + '<i class="iconfont">&#xe619;</i></li>';
+			var class_arr = '<li class="on">' + detail_data.exam_classrooms[i].name + '</li>';
 			$('#show-class').append(class_arr);
 		};
 		// 科目信息
@@ -338,7 +338,7 @@ $(function() {
 		var subject_list = $('.subject-list').find('.subject-name');
 		var subject_length = subject_list.length;
 		for (var i = 0; i < subject_length; i++) {
-			var subject_arr = '<li class="finished" id="ll-' + i + '" data-id="' + $(subject_list[i]).attr('data-id') + '">' + $(subject_list[i]).text() + '<i class="iconfont">&#xe619;</i></li>';
+			var subject_arr = '<li class="finished" id="ll-' + i + '" data-id="' + $(subject_list[i]).attr('data-id') + '">' + $(subject_list[i]).text() + '</li>';
 			$('#onchecked-modal-list').append(subject_arr);
 		};
 		var arr_gg = [];
