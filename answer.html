@@ -63,16 +63,13 @@
                             </p>
                             <p><span>试题数量</span><input type="text" ng-model="result.numbel" placeholder="请输入试题数量"/></p>
                             <p><span>试题类型</span>
-                                <input type="radio" ng-model="result.isradio" value="'0'"
-                                       style="width: 20px;height: 20px;float: left;margin: 7px 10px 0 20px;" name="ra"
-                                       ／>
+                                <input type="radio" ng-checked="result.isradio==1" ng-click="checkbox(1)"/>
                                 <span style="float: left;margin-right: 20px;">单选题</span>
-                                <input type="radio" ng-model="result.isradio" value="'1'"
-                                       style="width: 20px;height: 20px;float: left;margin: 7px 10px 0 ;" name="ra" ／>
+                                <input type="radio" ng-checked="result.isradio==2" ng-click="checkbox(2)"／>
                                 <span style="float: left;">多选题</span>
                             </p>
                             <p><span>起始序号</span><input type="text" ng-model="result.no" placeholder="请输入起始序号"/></p>
-                            <p><span>每题分值</span><input type="text" ng-model="result.two" placeholder="请输入每题分值"/></p>
+                            <p><span>每题分值</span><input type="text" ng-model="result.itemcoreS" placeholder="请输入每题分值"/></p>
                             <p><span>选项个数</span><input type="text" ng-model="result.thr" placeholder="请输入选项个数"/></p>
 
                             <hr class="hr"/>
@@ -95,7 +92,7 @@
                             <p><span>试题数量</span><input type="text" placeholder="请输入试题数量" ng-model="result.numbel"/></p>
                             <p><span>起始序号</span><input type="text" placeholder="请输入起始序号" ng-model="result.no"/></p>
                             <p><span>所在页码</span><input type="text" placeholder="请输入所在页码" ng-model="result.page"/></p>
-                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.score"/></p>
+                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/></p>
                             <hr class="hr"/>
                             <p>
                                 <button ng-click="btn1()">确认添加</button>
@@ -115,9 +112,7 @@
                             <p><span>试题数量</span><input type="text" placeholder="请输入试题数量" ng-model="result.numbel"/></p>
                             <p><span>起始序号</span><input type="text" placeholder="请输入起始序号" ng-model="result.no"/></p>
                             <p><span>所在页码</span><input type="text" placeholder="请输入所在页码" ng-model="result.page"/></p>
-                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.score"/></p>
-                            <p><span>多评人数</span><input type="text" placeholder="请输入多评人数" ng-model="result.error_p"/></p>
-                            <p><span>多评误差</span><input type="text" placeholder="请输入多评误差" ng-model="result.error_s"/></p>
+                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/></p>
                             <hr class="hr"/>
                             <p>
                                 <button ng-click="btn1()">确认添加</button>
@@ -140,8 +135,6 @@
                             <p><span>作文格数</span><input type="text"/></p>
                             <p><span>起始序号</span><input type="text" placeholder="请输入起始序号"/></p>
                             <p><span>所在页码</span><input type="text" placeholder="请输入所在页码"/></p>
-                            <p><span>多评人数</span><input type="text" placeholder="请输入多评人数"/></p>
-                            <p><span>多评误差</span><input type="text" placeholder="请输入多评误差"/></p>
                             <hr class="hr"/>
                             <p>
                                 <button ng-click="btn3()">确认添加</button>
@@ -162,8 +155,6 @@
                             <p><span>起始序号</span><input type="text" placeholder="请输入起始序号"/></p>
                             <p><span>所在页码</span><input type="text" placeholder="请输入所在页码"/></p>
                             <p><span>每题分值</span><input type="text" placeholder="请输入每题分值"/></p>
-                            <p><span>多评人数</span><input type="text" placeholder="请输入多评人数"/></p>
-                            <p><span>多评误差</span><input type="text" placeholder="请输入多评误差"/></p>
                             <hr class="hr"/>
                             <p>
                                 <button ng-click="btn3()">确认添加</button>
@@ -366,7 +357,7 @@
                             <tr>
                                 <th>
                                     <span>{{Q_number[$index]}}、</span>
-                                    {{a.name}}<span ng-show="a.two!=''">(共{{a.one}}分，每题{{a.two}}分)</span>
+                                    {{a.name}}(共{{a.totalCores}}分，每题{{a.itemCores}}分)
                                 </th>
 
                             </tr>
@@ -436,7 +427,7 @@
                             <tr>
                                 <th>
                                     <span>{{Q_number[$index+listObj.length]}}、</span>
-                                    {{a.name}}<span ng-show="a.two!=''">(共{{a.one}}分，每题{{a.two}}分)</span>
+                                    {{a.name}}(共{{a.totalCores}}分，每题{{a.itemCores}}分)
                                 </th>
 
                             </tr>
