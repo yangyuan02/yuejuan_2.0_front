@@ -19,6 +19,7 @@ $(function(){
 
 
 
+
 	get_test_list();
 
 	function get_test_list(){
@@ -99,6 +100,13 @@ $(function(){
 			var tr_test ='<tr class="parent-tr p-'+i+'"><td class="test-name" width="320" exam-id="'+test_info.exam_subjects[i].exam_id+'" data-id="'+test_info.exam_subjects[i].exam_subject_id+'">'+ test_info.exam_subjects[i].name +'</td><td class="test-grade">'+ test_info.exam_subjects[i].grade_name +'</td><td class="test-subject">'+ test_info.exam_subjects[i].subject_name +'</td><td class="test-operation"><a href="javascript:;">显示题组<i class="iconfont bottom">&#xe622;</i><i class="iconfont up none">&#xe624;</i></a></td></tr><tr class="child-tr none"><td colspan="6"><div class="child-box"><ul class="child-title"><li>题组</li><li>阅卷进度</li><li>多评异常</li><li>问题试卷</li><li>生成日期</li><li></li></ul><ul class="child-cont"></ul></div></td></tr>';
 			$('#test-list-change tbody').append(tr_test);
 		};
+		// 判断是老师时候，不显示阅卷
+		console.log($('#role-name').val());
+		var role_name = $('#role-name').val();
+		if(role_name=="教师"){
+			$('#yuejuan-link').next().hide();
+			$('#yuejuan-link').hide();
+		}
 	}
 
 
