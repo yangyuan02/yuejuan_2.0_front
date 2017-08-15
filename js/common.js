@@ -8,7 +8,7 @@ $(function() {
 	var isLogin = localStorage.getItem("token");
 	var isAction = localStorage.getItem("action");
 	console.log(window.location.pathname)
-	
+
 
 	var role_name;
 
@@ -25,7 +25,7 @@ $(function() {
 	    	success: function(data){
 	    		console.log(111111111111111111);
 	    		role_name = data.role_name
-	    		console.log(role_name)
+	    		// console.log(role_name)
 
 	    		console.log(data)
 	    		if(data.error){
@@ -34,13 +34,14 @@ $(function() {
 	        		window.location.href = './login.html'
 	    		}else if(data.user_name){
 	    			user_name = data.user_name;
+	    			$('#teacher-name').val(user_name);
 	        		school_name = data.school_name;
 	        		$('.longin-username span').text(user_name+'('+school_name+')')
 
 	        		if(isAction){
 						if(window.location.pathname!='/yuejuan2.0_front/user_information.html'){
 							window.location.href = './user_information.html'
-						}	
+						}
 					}
 	    		}else{
 	    			alert('账号已在其他地方登录');
@@ -55,6 +56,7 @@ $(function() {
 	        }
 	    });
 	}
+
 	// 根据用户身份判断阅卷进入的页面
 	$('#mark-head').click(function(){
 		if(role_name=="老师"){

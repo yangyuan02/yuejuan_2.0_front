@@ -92,7 +92,7 @@ $(function(){
 		var test_length = test_info.exam_subjects.length;
 		$('#test-list tbody').html('');
 		for (var i = 0; i < test_length; i++) {
-			var tr_test ='<tr class="parent-tr"><td class="test-name" width="320" exam-id="'+test_info.exam_subjects[i].exam_id+'" data-id="'+test_info.exam_subjects[i].exam_subject_id+'">'+ test_info.exam_subjects[i].name +'</td><td class="test-grade">'+ test_info.exam_subjects[i].grade_name +'</td><td class="test-subject">'+ test_info.exam_subjects[i].subject_name +'</td><td class="test-num">'+ test_info.exam_subjects[i].answers_total_count+'</td><td class="test-on"> <p class="num">'+ test_info.exam_subjects[i].paper_revise_progress+'%</p><div class="bar"><div style="width:'+ test_info.exam_subjects[i].paper_revise_progress+'%;"></div></div></td><td class="test-model"><select id="select-'+i+'" class="grade-model" value="'+test_info.exam_subjects[i].correct_pattern+'"><option value="null">选择模式</option><option value="1">得分模式</option><option value="0">扣分模式</option></select></td><td id="test-status-'+i+'" class="test-status" value="'+test_info.exam_subjects[i].status+'"><div class="modify-paper edit-paper determine on" value="1"><span class="text left ml13">改卷</span><span class="cir right"></span></div><div class="modify-paper edit-paper stop-paper" value="0"><span class="cir left"></span><span class="text right mr13">暂停</span></div></td><td class="test2-operation"><a href="javascript:;">查看进度<i class="iconfont"></i></a></td></tr>';
+			var tr_test ='<tr class="parent-tr"><td class="test-name" width="320" exam-id="'+test_info.exam_subjects[i].exam_id+'" data-id="'+test_info.exam_subjects[i].exam_subject_id+'">'+ test_info.exam_subjects[i].name +'</td><td class="test-grade">'+ test_info.exam_subjects[i].grade_name +'</td><td class="test-subject">'+ test_info.exam_subjects[i].subject_name +'</td><td class="test-num">'+ test_info.exam_subjects[i].answers_total_count+'</td><td class="test-on"> <p class="num">'+ test_info.exam_subjects[i].paper_revise_progress+'%</p><div class="bar"><div style="width:'+ test_info.exam_subjects[i].paper_revise_progress+'%;"></div></div></td><td class="test-model"><select id="select-'+i+'" class="grade-model" value="'+test_info.exam_subjects[i].correct_pattern+'"><option value="null">选择模式</option><option value="1">得分模式</option><option value="0">扣分模式</option></select></td><td id="test-status-'+i+'" class="test-status" value="'+test_info.exam_subjects[i].status+'"><div class="modify-paper edit-paper determine on" value="1"><span class="text left ml13">改卷</span><span class="cir right"></span></div><div class="modify-paper edit-paper stop-paper" value="0"><span class="cir left"></span><span class="text right mr13">暂停</span></div><div class="modify-paper end-paper" value="5" style="cursor: not-allowed; color: rgb(102, 102, 102);"><span class="cir left"></span><span class="text right mr13">结束</span></div></td><td class="test2-operation"><a href="javascript:;">查看进度<i class="iconfont"></i></a></td></tr>';
 			$('#test-list tbody').append(tr_test);
 			// 判断改卷模式
 			var par_value=test_info.exam_subjects[i].correct_pattern;
@@ -111,7 +111,6 @@ $(function(){
 			}
 			// 判断阅卷状态
 			var par_status = test_info.exam_subjects[i].status;
-			console.log(par_status);
 		  var child_status = $('#test-status-'+i+'').children();
 		  for (var z = 0; z < child_status.length; z++) {
 			  if(par_status == $(child_status[z]).attr('value')){
@@ -334,7 +333,7 @@ $(function(){
 			$(this).next().show();
 			$(this).hide();
 			status=0;
-			if(bar_num==0){
+			if(bar_num==100){
 				console.log('yes');
 				status=5;
 				$(this).next().find('.text').text('结束');
@@ -521,29 +520,47 @@ $(function(){
 	}
 
 	// 多评人数
-	$('body').on('change', '.more-count input', function() {
+	$('body').on('input', '.more-count input', function() {
 		var multiple_people = $(this).val();
 		console.log(multiple_people)
-		var answer_id =$(this).parents('.parent-tr').find('.item-name').attr('data-id');
-		var data_value ={'answer_id':answer_id,'multiple_people':multiple_people}
-		$.ajax({
-		  type: "POST",
-		  url: ajaxIp+"/api/v2/correct_progress/change_multiple_people",
-		  headers: {'Authorization': "Bearer " + isLogin},
-			data:data_value,
-		  success: function(data){
-		  	console.log(data);
-		  },
-		  error: function(){
-		      // alert('请稍后从新尝试登录或者联系管理员');
-	      	// localStorage.clear();
-	      	// window.location.href = './login.html';
-		  }
-		});
+		if(multiple_people < 0 ||multiple_people==0){
+			var prompt_1 = '提示：请输入大于零的数！';
+			var prompt_i = $('#i_two');//提示框元素
+			iTwo(prompt_i,prompt_1);
+			$(this).val('');
+		}else{
+			var answer_id =$(this).parents('.parent-tr').find('.item-name').attr('data-id');
+			var data_value ={'answer_id':answer_id,'multiple_people':multiple_people}
+			$.ajax({
+			  type: "POST",
+			  url: ajaxIp+"/api/v2/correct_progress/change_multiple_people",
+			  headers: {'Authorization': "Bearer " + isLogin},
+				data:data_value,
+			  success: function(data){
+			  	console.log(data);
+			  },
+			  error: function(){
+			      // alert('请稍后从新尝试登录或者联系管理员');
+		      	// localStorage.clear();
+		      	// window.location.href = './login.html';
+			  }
+			});
+		}
 	});
 
+	function iTwo(i,k){
+		$('.modal-main').animate({'top': '30%','opacity': 1},500);
+		$('.modal-shadow').animate({'opacity': 0},500);
+		i.show();
+		$('.prompt').text(k);
+		setTimeout(function(){
+			$('#i_two').hide();
+		},1000);
+	};
+
+
 	// 多评误差
-	$('body').on('change', '.more-error input', function() {
+	$('body').on('input', '.more-error input', function() {
 		var multiple_error = $(this).val();
 		console.log(multiple_error)
 		var answer_id =$(this).parents('.parent-tr').find('.item-name').attr('data-id');
@@ -970,7 +987,7 @@ $(function(){
 		var select_info_length = select_info.length;
 		console.log(select_info_length)
 		for (var i = select_info_length-1; i >= 0; i--) {
-			var child_tr = '<tr class="child-trs child-trs-'+i+'" style="background:#fafafa" answer-id="'+select_info[i].answer_id+'" answers="'+select_info[i].answer_setting_ids+'"><td colspan="5"><a class="key-answer" href="javascript:;"><i class="iconfont">&#xe62a;</i>解锁试卷</a>'+select_info[i].name+'</td><td colspan="5" class="test-operation"><a href="javascript:;"><span>批阅详情</span><i class="iconfont bottom">&#xe622;</i><i class="iconfont up none">&#xe624;</i></a></td></tr><tr class="child-tr none"><td colspan="10" style="text-align: center"><div class="child-box"><ul class="child-title"><li>阅卷老师</li><li>所在学校</li><li>批改数量</li><li>批阅速度</li><li>平均分</li></ul><ul class="child-cont"></ul></div></td></tr>';
+			var child_tr = '<tr class="child-trs child-trs-'+i+'" style="background:#fafafa" answer-id="'+select_info[i].answer_id+'" answers="'+select_info[i].answer_setting_ids+'"><td colspan="5" data-id="'+select_info[i].id+'"><a class="key-answer" href="javascript:;"><i class="iconfont">&#xe62a;</i>解锁试卷</a>'+select_info[i].name+'</td><td colspan="5" class="test-operation"><a href="javascript:;"><span>批阅详情</span><i class="iconfont bottom">&#xe622;</i><i class="iconfont up none">&#xe624;</i></a></td></tr><tr class="child-tr none"><td colspan="10" style="text-align: center"><div class="child-box"><ul class="child-title"><li>阅卷老师</li><li>所在学校</li><li>批改数量</li><li>批阅速度</li><li>平均分</li></ul><ul class="child-cont"></ul></div></td></tr>';
 			$(id).after(child_tr);
 			// var par_id = $('.child-trs-'+i+'');
 			// console.log(par_id)
@@ -995,27 +1012,28 @@ $(function(){
 		var answer_setting_ids = $(this).parents('.child-trs').attr('answers');
 		var parent_info = $(this).parents('.child-trs');
 
-
-		$.ajax({
-			url: ajaxIp + "/api/v2/correct_progress/answer_correct_details",
-			headers: {
-				'Authorization': "Bearer " + isLogin
-			},
-			type: "POST",
-			data: {
-				'answer_id': answer_id,
-				'answer_setting_ids': answer_setting_ids,
-			},
-			success: function(data){
-				console.log(data);
-				show_detail_info(data,parent_info);
-			},
-			error: function() {
-				// alert('请稍后从新尝试登录或者联系管理员');
-				// localStorage.clear();
-				// window.location.href = './login.html';
-			}
-		});
+		if($(this).children('.bottom').hasClass('none')){
+			$.ajax({
+				url: ajaxIp + "/api/v2/correct_progress/answer_correct_details",
+				headers: {
+					'Authorization': "Bearer " + isLogin
+				},
+				type: "POST",
+				data: {
+					'answer_id': answer_id,
+					'answer_setting_ids': answer_setting_ids,
+				},
+				success: function(data){
+					console.log(data);
+					show_detail_info(data,parent_info);
+				},
+				error: function() {
+					// alert('请稍后从新尝试登录或者联系管理员');
+					// localStorage.clear();
+					// window.location.href = './login.html';
+				}
+			});
+		}
 	});
 
 
@@ -1049,11 +1067,28 @@ $(function(){
 			'opacity': .3
 		}, 500);
 		$('#key-paper').show();
+
+		var id = $(this).parent().attr('data-id');
+		$('.modal-content').attr('data-id',id);
 	});
 
 	$('body').on('click', '.confirm-key', function() {
-	
+		var section_crop_id = $(this).parents('.modal-content').attr('data-id');
+		console.log(section_crop_id)
+		$.ajax({
+		  type: "POST",
+		  url: ajaxIp+"/api/v2/section_crops/"+section_crop_id+"/unlock_paper",
+		  headers: {'Authorization': "Bearer " + isLogin},
+		  dataType: "JSON",
+		  success: function(data){
+		  	console.log(data);
+		  },
+		  error: function(){
+		      // alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html';
+		  }
+		});
 	});
-
 
 })

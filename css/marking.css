@@ -356,6 +356,18 @@ tr.child-tr{
 	-o-transition: all .3s;
 	transition: all .3s;
 }
+.test-status .end-paper{
+	background: #ccc;
+	-webkit-transition: all .3s;
+	-o-transition: all .3s;
+	transition: all .3s;
+}
+.test-status .end-paper .cir{
+	margin-left: 3px;
+}
+.test-status .end-paper .mr13{
+	margin-right: 13px;
+}
 .test-status .stop-paper .cir{
 	margin-left: 3px;
 }

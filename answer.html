@@ -5,13 +5,14 @@
     <title>答题卡</title>
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <link rel="stylesheet" type="text/css" href="css/Answer.css"/>
+    <script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
 </head>
 <body ng-app="pro" ng-controller="demo">
 <div ng-class="{Answer:true}" id="Answer">
     <!--头部导航-->
     <div ng-class="{A_Nav:true}">
-        <span>总分:<span ng-class="{Red:true}">100</span>分</span>
+        <span id="qweqqqq">总分:<span ng-class="{Red:true}">100</span>分</span>
         <span ng-class="{bord:true , mL:true}">
 							<span ng-class="{iconfont:true, cous:true}" ng-click="dayin()">&#xe7d0;</span>
 							<span ng-class="{iconfont:true, cous:true}" ng-click="backs()">&#xe66f;</span>
@@ -62,16 +63,13 @@
                             </p>
                             <p><span>试题数量</span><input type="text" ng-model="result.numbel" placeholder="请输入试题数量"/></p>
                             <p><span>试题类型</span>
-                                <input type="radio" ng-model="result.isradio" value="'0'"
-                                       style="width: 20px;height: 20px;float: left;margin: 7px 10px 0 20px;" name="ra"
-                                       ／>
+                                <input type="radio" ng-checked="result.isradio==1" ng-click="checkbox(1)"/>
                                 <span style="float: left;margin-right: 20px;">单选题</span>
-                                <input type="radio" ng-model="result.isradio" value="'1'"
-                                       style="width: 20px;height: 20px;float: left;margin: 7px 10px 0 ;" name="ra" ／>
+                                <input type="radio" ng-checked="result.isradio==2" ng-click="checkbox(2)"／>
                                 <span style="float: left;">多选题</span>
                             </p>
                             <p><span>起始序号</span><input type="text" ng-model="result.no" placeholder="请输入起始序号"/></p>
-                            <p><span>每题分值</span><input type="text" ng-model="result.two" placeholder="请输入每题分值"/></p>
+                            <p><span>每题分值</span><input type="text" ng-model="result.itemcoreS" placeholder="请输入每题分值"/></p>
                             <p><span>选项个数</span><input type="text" ng-model="result.thr" placeholder="请输入选项个数"/></p>
 
                             <hr class="hr"/>
@@ -94,7 +92,7 @@
                             <p><span>试题数量</span><input type="text" placeholder="请输入试题数量" ng-model="result.numbel"/></p>
                             <p><span>起始序号</span><input type="text" placeholder="请输入起始序号" ng-model="result.no"/></p>
                             <p><span>所在页码</span><input type="text" placeholder="请输入所在页码" ng-model="result.page"/></p>
-                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.score"/></p>
+                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/></p>
                             <hr class="hr"/>
                             <p>
                                 <button ng-click="btn1()">确认添加</button>
@@ -110,16 +108,14 @@
                         <h3>添加题组<span class="fr cous" ng-click="close()">X</span></h3>
                         <div class="pd">
                             <p><span>题组名称</span><span class="Red">*</span><input class="mF" type="text"
-                                                                                 placeholder="请输入题组名称"/></p>
-                            <p><span>试题数量</span><input type="text" placeholder="请输入试题数量"/></p>
-                            <p><span>起始序号</span><input type="text" placeholder="请输入起始序号"/></p>
-                            <p><span>所在页码</span><input type="text" placeholder="请输入所在页码"/></p>
-                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值"/></p>
-                            <p><span>多评人数</span><input type="text" placeholder="请输入多评人数"/></p>
-                            <p><span>多评误差</span><input type="text" placeholder="请输入多评误差"/></p>
+                                                                                 placeholder="请输入题组名称" ng-model="result.name"/></p>
+                            <p><span>试题数量</span><input type="text" placeholder="请输入试题数量" ng-model="result.numbel"/></p>
+                            <p><span>起始序号</span><input type="text" placeholder="请输入起始序号" ng-model="result.no"/></p>
+                            <p><span>所在页码</span><input type="text" placeholder="请输入所在页码" ng-model="result.page"/></p>
+                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/></p>
                             <hr class="hr"/>
                             <p>
-                                <button ng-click="btn3()">确认添加</button>
+                                <button ng-click="btn1()">确认添加</button>
                             </p>
                         </div>
                     </div>
@@ -139,8 +135,6 @@
                             <p><span>作文格数</span><input type="text"/></p>
                             <p><span>起始序号</span><input type="text" placeholder="请输入起始序号"/></p>
                             <p><span>所在页码</span><input type="text" placeholder="请输入所在页码"/></p>
-                            <p><span>多评人数</span><input type="text" placeholder="请输入多评人数"/></p>
-                            <p><span>多评误差</span><input type="text" placeholder="请输入多评误差"/></p>
                             <hr class="hr"/>
                             <p>
                                 <button ng-click="btn3()">确认添加</button>
@@ -161,8 +155,6 @@
                             <p><span>起始序号</span><input type="text" placeholder="请输入起始序号"/></p>
                             <p><span>所在页码</span><input type="text" placeholder="请输入所在页码"/></p>
                             <p><span>每题分值</span><input type="text" placeholder="请输入每题分值"/></p>
-                            <p><span>多评人数</span><input type="text" placeholder="请输入多评人数"/></p>
-                            <p><span>多评误差</span><input type="text" placeholder="请输入多评误差"/></p>
                             <hr class="hr"/>
                             <p>
                                 <button ng-click="btn3()">确认添加</button>
@@ -352,44 +344,145 @@
                                         <li>2.请使用标准的2B铅笔填涂，避免无法识和修改</li>
                                         <li>3.请将正确选择框填满</li>
                                     </ul>
-                                    <p>正确填涂方法</p>
-                                    <p>错误填涂方法</p>
+                                    <p>正确填涂方法<span></span></p>
+                                    <p>错误填涂方法<span></span><span></span><span></span><span></span></p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!--考试个人信息结束-->
-                    <div class="A_Rone_child" id="A_Rone_child">
-                        <!--选择题模版start-->
+                    <div class="A_Rone_child">
                         <table ng-repeat="a in listObj">
                             <thead>
                             <tr>
                                 <th>
-                                    <span>{{a.title}}、</span>
-                                    {{a.name}}<span ng-show="a.two!=''">(共{{a.one}}分，每题{{a.two}}分)</span>
+                                    <span>{{Q_number[$index]}}、</span>
+                                    {{a.name}}(共{{a.totalCores}}分，每题{{a.itemCores}}分)
+                                </th>
+
+                            </tr>
+                            <tr ng-hide="a.type==1||a.type==2">
+                                <th>
+                                    <!--网络阅卷打分框start-->
+                                    <div class="marking">
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                    </div>
+                                    <!--网络阅卷打分框end-->
                                 </th>
                             </tr>
                             </thead>
+
                             <tbody>
                             <tr>
                                 <td>
-                                    <div ng-repeat="item in a.no">
-                                        <span>{{item|noa}}</span>
-                                        <span ng-repeat="items in a.thr">
-															<b>{{items}}</b>
-														</span>
+                                    <div ng-repeat="item in a.no" class="q_c">
+                                        <!--序号start-->
+                                        <span>{{item<10?'0'+item:item}}</span>
+                                        <!--序号end-->
+                                        <!--选择题模版start-->
+                                        <span ng-show="a.type==1||a.type==2" ng-repeat="items in a.thr">
+                                            <b>{{items}}</b>
+                                        </span>
+                                        <!--选择题模版end-->
+                                        <!--填空题模板start-->
+                                        <span class="fill_line" ng-show="a.type==3"></span>
+                                        <!--填空题模版end-->
+                                        <!--英语作文题模板start-->
+                                        <span class="writing" ng-show="a.type==4">
+                                            <b></b>
+                                        </span>
+                                        <!--英语作文题模板end-->
                                     </div>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-                        <!--选择题模版end-->
                     </div>
                     <div class="tips">
                         <p>请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效</p>
                     </div>
                 </div>
-                <div class=" A_Rtwo clearfix">
+                <div class="A_Rone clearfix">
+                    <div class="tips tips_t">
+                        <p>请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效</p>
+                    </div>
+                    <div class="A_Rone_child">
+                        <table ng-repeat="a in listObj2">
+                            <thead>
+                            <tr>
+                                <th>
+                                    <span>{{Q_number[$index+listObj.length]}}、</span>
+                                    {{a.name}}(共{{a.totalCores}}分，每题{{a.itemCores}}分)
+                                </th>
+
+                            </tr>
+                            <tr ng-hide="a.type==1||a.type==2">
+                                <th>
+                                    <!--网络阅卷打分框start-->
+                                    <div class="marking">
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                    </div>
+                                    <!--网络阅卷打分框end-->
+                                </th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <div ng-repeat="item in a.no" class="q_c">
+                                        <!--序号start-->
+                                        <span>{{item<10?'0'+item:item}}</span>
+                                        <!--序号end-->
+                                        <!--选择题模版start-->
+                                        <span ng-show="a.type==1||a.type==2" ng-repeat="items in a.thr">
+                                            <b>{{items}}</b>
+                                        </span>
+                                        <!--选择题模版end-->
+                                        <!--填空题模板start-->
+                                        <span class="fill_line" ng-show="a.type==3"></span>
+                                        <!--填空题模版end-->
+                                        <!--英语作文题模板start-->
+                                        <span class="writing" ng-show="a.type==4">
+                                            <b></b>
+                                        </span>
+                                        <!--英语作文题模板end-->
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <div class="tips">
                         <p>请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效</p>
                     </div>
@@ -400,8 +493,6 @@
 
 </div>
 
-
-<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/Answer.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>
