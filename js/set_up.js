@@ -15,6 +15,7 @@ $(function() {
 		inputFlileName()
 	})
 
+
 	$('.create-class').click(function(){
 		$('.modal-wrap-class .modal-main').animate({'top': '50%','opacity': 1},500);
 		$('.modal-wrap-class .modal-shadow').animate({'opacity': .3},500);
@@ -577,6 +578,7 @@ $(function() {
 
 	function selectGrades(name){
 		console.log(1)
+
 		$.ajax({
 	     	type: "GET",
 	     	url: ajaxIp+"/api/v2/commons/school_grades",
@@ -607,7 +609,8 @@ $(function() {
 	function selectSubjects(id){
 		$.ajax({
 	     	type: "GET",
-	     	url: ajaxIp+"/api/v2/commons/"+id+"/grade_subjects",
+	     	url: ajaxIp+"/api/v2/commons/grade_subjects",
+	     	data:{'grade_id':id},
 	    	dataType: "JSON",
 	    	headers: {'Authorization': "Bearer " + isLogin},
 	    	success: function(data){
@@ -672,6 +675,12 @@ $(function() {
 			var iTr = '<tr style="border-bottom:1px solid #ccc;"><td>'+data[i].real_name+'</td><td style="width:140px">'+iGreads+'</td><td>'+(data[i].subject==undefined?"":data[i].subject.name)+'</td><td>'+data[i].email+'</td><td>'+data[i].phone+'</td><td>'+data[i].role+'</td><td class="table-modify"><span class="iconfont table-span" data-id="'+data[i].id+'">&#xe614;&nbsp;修改</span></td><td class="table-reset-password"><span class="iconfont table-span" data-id="'+data[i].id+'" data-name="'+data[i].real_name+'">&#xe60d;&nbsp;重置密码</span></td><td class="table-delete iconfont"><span class="iconfont table-span" data-id="'+data[i].id+'" data-name="'+data[i].real_name+'">&#xe616;&nbsp;删除</span></td></tr>'
  			$('.teachers-tabble tbody').append(iTr)
  		}
+ 		// 根据用户身份判断是否可以修改密码
+			var role_name = $('#role-name').val();
+			console.log(role_name)
+			if(role_name=="超级管理员"){
+				$('body').find('.table-span').css('visibility', 'hidden');
+			}
 
 		$('.table-reset-password span').click(function(){
 			$('.modal-wrap-small .modal-main').animate({'top': '50%','opacity': 1},500);

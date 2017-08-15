@@ -269,10 +269,11 @@ $(function() {
 	//新建科目显示modal层的科目方法
 	function showSubjectModal(show_grade_id) {
 		$.ajax({
-			url: ajaxIp + "/api/v2/commons/" + show_grade_id + "/grade_subjects",
+			url: ajaxIp + "/api/v2/commons/grade_subjects",
 			headers: {
 				'Authorization': "Bearer " + isLogin
 			},
+			data:{'grade_id':show_grade_id},
 			dataType: "JSON",
 			type: "get",
 			success: function(data) {
@@ -290,10 +291,11 @@ $(function() {
 	// 新建考试信息的时候显示对应班级所有科目信息
 	function showSubjectAll(show_grade_id) {
 		$.ajax({
-			url: ajaxIp + "/api/v2/commons/" + show_grade_id + "/grade_subjects",
+			url: ajaxIp + "/api/v2/commons/grade_subjects",
 			headers: {
 				'Authorization': "Bearer " + isLogin
 			},
+			data:{'grade_id':show_grade_id},
 			dataType: "JSON",
 			type: "get",
 			success: function(data) {
@@ -928,10 +930,11 @@ $(function() {
 
 	function show_modal_subject(show_grade_id) {
 		$.ajax({
-			url: ajaxIp + "/api/v2/commons/" + show_grade_id + "/grade_subjects",
+			url: ajaxIp + "/api/v2/commons/grade_subjects",
 			headers: {
 				'Authorization': "Bearer " + isLogin
 			},
+			data:{'grade_id':show_grade_id},
 			dataType: "JSON",
 			type: "get",
 			success: function(data) {
