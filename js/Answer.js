@@ -61,11 +61,11 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var isB = $scope.isLine($scope.index, $scope.result.numbel, $scope.page_num)
         if (isB) {
             $scope.listObj2.push(obj);
-            window.localStorage.setItem("answer2",JSON.stringify($scope.listObj2))
+            window.localStorage.setItem("answer2", JSON.stringify($scope.listObj2))
             // $scope.setNumber($scope.listObj2, $scope.listObj.length)
         } else {
             $scope.listObj.push(obj);
-            window.localStorage.setItem("answer",JSON.stringify($scope.listObj))
+            window.localStorage.setItem("answer", JSON.stringify($scope.listObj))
             // $scope.setNumber($scope.listObj, 0)
         }
     }
@@ -132,13 +132,14 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         console.log($scope.listObj)
     };
     function getAnswer() {//获取
-        if(window.localStorage.getItem("answer")){
+        if (window.localStorage.getItem("answer")) {
             $scope.listObj = JSON.parse(window.localStorage.getItem("answer"))
         }
-        if(window.localStorage.getItem("answer2")){
+        if (window.localStorage.getItem("answer2")) {
             $scope.listObj2 = JSON.parse(window.localStorage.getItem("answer2"))
         }
     }
+
     getAnswer()
 //关闭
     var close = function () {
@@ -259,9 +260,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 headers: {'Authorization': "Bearer " + isLogin},
                 contentType: 'application/json;charset=UTF-8',
                 data: {
-                    'exam_subject_id': getUrlParam(url, 'examubjeId'),
-                    'anchor': JSON.stringify(getPostDot()),
-                    'region_info': JSON.stringify(getBigQuestion(4))
+                    'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),
+                    'answer_region[anchor]': JSON.stringify(getPostDot()),
+                    'answer_region[region_info]': JSON.stringify(getBigQuestion(4))
                 },
                 dataType: "JSON",
                 success: function (data) {
@@ -280,11 +281,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.dayin = function () {//打印
         $(".A_Nav").css({"display": "none"})
         $(".Answer .A_L").css({"display": "none"})
-        $(".Answer .A_B").css({"margin-top": 0, "margin-bottom": 0})
+        $(".Answer .A_B").css({"margin-top": 0, "margin-bottom": 0, "width": "auto"})
+        $(".Answer .A_R .A_Rone").css({"border-color": "black"})
         window.print()
         $(".A_Nav").css({"display": "block"})
         $(".Answer .A_L").css({"display": "block"})
-        $(".Answer .A_B").css({"margin-top": 52, "margin-bottom": 52})
+        $(".Answer .A_B").css({"margin-top": 52, "margin-bottom": 52, "width": 1882})
+        $(".Answer .A_R .A_Rone").css({"border-color": "#ddd"})
         // return false;
     }
 })

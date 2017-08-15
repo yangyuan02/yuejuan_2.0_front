@@ -390,9 +390,10 @@
                             <tbody>
                             <tr>
                                 <td>
-                                    <div ng-repeat="item in a.no" class="q_c" ng-style="{'width':'{{a.type==3?'35%':'25%'}}'}">
+                                    <div ng-repeat="item in a.no" class="q_c" ng-style="{'width':'{{a.type==3?'40%':'25%'}}'}">
+                                        <a class="numberNo" ng-show="a.type==3"></a>
                                         <!--序号start-->
-                                        <span>{{item<10?'0'+item:item}}</span>
+                                        <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
                                         <!--序号end-->
                                         <!--选择题模版start-->
                                         <span ng-show="a.type==1||a.type==2" ng-repeat="items in a.thr">
@@ -418,6 +419,7 @@
                     </div>
                 </div>
                 <div class="A_Rone clearfix">
+                    <div style="height:20px;width:100%"></div>
                     <div class="tips tips_t">
                         <p>请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效</p>
                     </div>
@@ -435,22 +437,22 @@
                                 <th>
                                     <!--网络阅卷打分框start-->
                                     <div class="marking">
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
+                                        <a href="">1</a>
+                                        <a href="">2</a>
+                                        <a href="">3</a>
+                                        <a href="">4</a>
+                                        <a href="">5</a>
+                                        <a href="">6</a>
+                                        <a href="">7</a>
+                                        <a href="">8</a>
+                                        <a href="">9</a>
+                                        <a href="">0</a>
+                                        <a href="">1</a>
+                                        <a href="">2</a>
+                                        <a href="">3</a>
+                                        <a href="">4</a>
+                                        <a href="">5</a>
+                                        <a href="">.5</a>
                                     </div>
                                     <!--网络阅卷打分框end-->
                                 </th>
@@ -460,9 +462,10 @@
                             <tbody>
                             <tr>
                                 <td>
-                                    <div ng-repeat="item in a.no" class="q_c">
+                                    <div ng-repeat="item in a.no" class="q_c" ng-style="{'width':'{{a.type==3?'40%':'25%'}}'}">
                                         <!--序号start-->
-                                        <span>{{item<10?'0'+item:item}}</span>
+                                        <a class="numberNo" ng-show="a.type==3"></a>
+                                        <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
                                         <!--序号end-->
                                         <!--选择题模版start-->
                                         <span ng-show="a.type==1||a.type==2" ng-repeat="items in a.thr">
