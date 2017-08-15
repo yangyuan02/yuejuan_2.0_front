@@ -25,7 +25,6 @@ $(function() {
 	    	success: function(data){
 	    		console.log(111111111111111111);
 	    		role_name = data.role_name
-<<<<<<< HEAD
 	    		// console.log(role_name)
                 // 成绩生成控制代码 start
              if(role_name=="教师"){
@@ -38,11 +37,8 @@ $(function() {
                 $(".exam_h_left").css("top","328px");
                 $(".sc_left").css("top","397px");
                }
-=======
 	    		console.log(role_name);
 	    		$('#role-name').val(role_name);
->>>>>>> upstream/master
-
               // 成绩生成控制代码 end
 	    		console.log(data)
 	    		if(data.error){
