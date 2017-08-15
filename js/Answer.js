@@ -273,7 +273,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
                     'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
                     'answer_region[region_info]': JSON.stringify(getBigQuestion($scope.listObj)),//所有坐标信息
-                    // 'answer_region[basic_info_region]':''//保存的题目内容
+                    'answer_region[basic_info_region]':''//保存的题目内容
                 },
                 dataType: "JSON",
                 success: function (data) {
