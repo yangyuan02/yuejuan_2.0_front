@@ -62,18 +62,6 @@ $("#sc_left").siblings("li").click(function(event) {
 
 
 // 成绩生成
-// $.ajax({
-//     url: ajaxIp+'/api/v2/reports/exams',
-//     type: 'GET',
-//     dataType: 'json',
-//     data: {param1: 'value1'},
-//    success: function(data){
-//            console.log("成功");
-//           },
-//           error: function(){
-           
-//           },
-// });
 // 全部科目
 $.ajax({
       type: "GET",
@@ -85,10 +73,6 @@ $.ajax({
         for(var i=0;i<data.length;i++){
            $(".mark_01_select").append('<option value ="'+data[i].name+'" data-id="'+data[i].id+'">'+data[i].name+'</option>')
         }
-   
-    
-    
-
    },
     error: function(){
           
