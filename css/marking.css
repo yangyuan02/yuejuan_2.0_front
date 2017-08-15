@@ -389,7 +389,7 @@ tr.child-tr{
 .item-name{
 	line-height: 24px;
 }
-.child-trs .key-answer{
+.child-trs .key-answer,.child-trs .clear-items{
   display: inline-block;
   padding: 1px 5px;
   border: 1px solid #999;
@@ -404,7 +404,7 @@ tr.child-tr{
   -o-border-radius: 3px;
   border-radius: 3px;
 }
-.child-trs  .key-answer i{
+.child-trs  .key-answer i, .child-trs .clear-items i{
 	padding-right: 5px;
 	font-size: 12px;
 }
