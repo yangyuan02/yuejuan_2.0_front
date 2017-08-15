@@ -51,7 +51,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var page_prev = page_num == 0 ? 0 : page_num * page
         var height = $(".A_Rone_child").get(page_num).offsetHeight;//获取每次生成模版的高度
         var isB = page - page_top - height - title_h - (Math.ceil(num / 4) * item) - 60 - page_prev < 0 ? true : false
-        console.log(page - page_top - height - title_h - (Math.ceil(num / 4) * item) - 60 - page_prev)
         return isB
     }
     $scope.append = function (obj) {//push数据
@@ -71,13 +70,11 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
     var answer_id = []//大题answer_id
     $scope.createAsswer = function (data) {//添加题组
-        console.log(data)
         var data = data
         var isLogin = localStorage.getItem("token");
         if (data.isradio == 2) {
             data.type = 6
         }
-        console.log(data)
         var Q_type = ['单选题', '是非题', '填空题', '作文题', '其他题', '多选题']
         $.ajax({
                 type: "POST",
@@ -131,7 +128,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.createAsswer(obj)
         clear()
         close()
-        console.log($scope.listObj)
     };
     function getAnswer() {//获取
         if (window.localStorage.getItem("answer")) {
@@ -180,8 +176,19 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         })
         return fristPost
     }
+    function regionRect(index) {//获取题组区域坐标和高度
+        var regionRect = {}
+        var dot = $(".position_TL span").eq(1).offset();
+        dot.left = dot.left + 7.5, dot.top = dot.top + 7.5//定标点
+        var dom = $(".A_Rone_child").eq(0).find("table").eq(index).offset()
+        regionRect.region_rect_x = parseInt(dom.left)-parseInt(dot.left)
+        regionRect.region_rect_y = parseInt(dom.top)-parseInt(dot.top)
+        regionRect.region_rect_height = $(".A_Rone_child").eq(0).find("table").eq(index).height()
+        return regionRect
+    }
 
-    function getQuestion(qNumer, answerNumber) {//获取每个小题目
+    function getQuestion(qNumer, answerNumber,Answerindex) {//获取每个小题目
+        console.log(Answerindex+'Answerindex')
         var question = []
         var qNumer = parseInt(qNumer)
         var answerNumber = parseInt(answerNumber)//选项个数
@@ -191,7 +198,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for (var i = 1; i <= qNumer; i++) {//循环每个小题
             var itme_obj = {}
             itme_obj.no = i
-            // itme_obj.answer_setting_id = answer_id[i].settings//小题id
+            itme_obj.answer_setting_id = answer_id[Answerindex].answers.settings[i-1].setting_id//小题id
             itme_obj.option = []
             question.push(itme_obj)
         }
@@ -217,22 +224,22 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             itme_obj.score = obj[i-1].totalCores//答题总分
             itme_obj.string = answer_id[i-1].answers.answer_name//大题标题
             itme_obj.answer_id = answer_id[i-1].answers.answer_id//题组ID
-            itme_obj.answer_mode = obj[i-1].type//题目类型
+            itme_obj.answer_mode = obj[i-1].type//题目类型    有问题
             itme_obj.answer_count = 1//答案个数
             itme_obj.block_width = 16//选项宽度
             itme_obj.block_height = 13//选项高度
             itme_obj.current_page = 1//当前页面
             itme_obj.num_question = obj[i-1].numbel//题目数量
-            itme_obj.num_of_option = obj[i-1].itemNumber//选项个数
-            itme_obj.region_rect_x = //题组区域的X坐标
-            itme_obj.region_rect_y = //题组区域的Y坐标
+            itme_obj.num_of_option = obj[i-1].itemNumber//选项个数   选择题的时候为空
+            itme_obj.region_rect_x = regionRect(i-1).region_rect_x//题组区域的X坐标
+            itme_obj.region_rect_y = regionRect(i-1).region_rect_y//题组区域的Y坐标
             itme_obj.region_rect_width = 698//题组区域的宽度
-            itme_obj.region_rect_height = //题组区域的高度
+            itme_obj.region_rect_height = regionRect(i-1).region_rect_height//题组区域的高度
             itme_obj.question = []//
             BigQuestion.push(itme_obj)
         }
         for (var i = 0; i < BigQuestion.length; i++) {
-            BigQuestion[i].question = getQuestion(obj[i].numbel, obj[i].itemNumber)
+            BigQuestion[i].question = getQuestion(obj[i].numbel, obj[i].itemNumber,i)
         }
         return BigQuestion
     }
@@ -256,8 +263,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
 
      $scope.save = function () {//保存模板
-        var isLogin = localStorage.getItem("token");
          console.log(getBigQuestion($scope.listObj))
+        var isLogin = localStorage.getItem("token");
         $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/answer_regions",
