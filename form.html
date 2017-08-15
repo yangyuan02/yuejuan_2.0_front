@@ -89,12 +89,8 @@
 <div class="mark_01">
 	<span class="mark_span_01">成绩生成日志</span>
 	<span style="color: #666666;float: right;line-height: 44px;">科目
-	<select style="width: 125px;height: 30px;margin-left: 15px;font-size: 16px;
-    color: #666666;">
+	<select class="mark_01_select">
   <option value ="全部科目">全部科目</option>
-  <option value ="数学">数学</option>
-  <option value="语文">语文</option>
-  <option value="英语">英语</option>
 </select></span>
 </div>	
 <div class="mark_02">
@@ -107,32 +103,6 @@
 	</div>
 	<div id="mark_02_ul">
 	<ul class="mark_02_ul">
-		<!-- <li ><span>2017年高一期末考试<i class="iconfont" style="margin-left:11px;cursor: pointer;">&#xe622;</i><i class="iconfont" style="margin-left:11px;cursor: pointer;display:none;">&#xe624;</i></span></li> -->
-		<!-- <div class="mark_li_01">
-			<ul>
-				<li>语文</li>
-				<li>2017-06-26&nbsp;&nbsp;&nbsp;11:28</li>
-				<li>管理员1<button type="">分析</button></li>
-			</ul>
-            <ul>
-				<li>数学</li>
-				<li>2017-06-26&nbsp;&nbsp;&nbsp;11:28</li>
-				<li>管理员2<button type="">分析</button></li>
-			</ul>
-            <ul>
-				<li>英语</li>
-				<li>2017-06-26&nbsp;&nbsp;&nbsp;11:28</li>
-				<li>管理员3<button type="">分析</button></li>
-			</ul>
-
-		</div> -->
-		<!-- <li><span>2017年高二期末考试<i class="iconfont" style="margin-left:11px;cursor: pointer;" >&#xe622;</i><i class="iconfont" style="margin-left:11px;cursor: pointer;display:none;">&#xe624;</i></span></li> -->
-		<!-- <div class="mark_li_01"><ul>
-				<li>语文</li>
-				<li>2017-06-26&nbsp;&nbsp;&nbsp;11:28</li>
-				<li>管理员1<button type="">分析</button></li>
-			</ul></div>
- -->
 	</ul>
 </div>
 </div>
@@ -1267,7 +1237,7 @@
     <td>0.6</td>      
   </tr>
 <tr>
-    <td>试卷信用</td>
+    <td>试卷信度</td>
     <td>0.8</td>
      <td>0.8</td>
      <td>0.5</td>
@@ -1290,19 +1260,6 @@
     <td>7</td>
     <td>9</td>    
   </tr>
-  <tr>
-    <td>命题评价</td>
-    <td>较差</td>
-     <td>良好</td>
-     <td>优秀</td>
-     <td>优秀</td>
-    <td>良好</td>
-    <td>优秀</td>
-     <td>优秀</td>
-    <td>良好</td>
-    <td>优秀</td>   
-  </tr>
-
   	</table>
 </div>
 <!-- 各科逐题质量分析 -->
@@ -1318,6 +1275,7 @@
     <th>班级得分率</th>
     <th>年级平均分</th>
     <th>年级得分率</th>
+     <th>得分率差</th>
     <th>难度</th>
     <th>区分度</th>
   </tr>
@@ -1332,7 +1290,8 @@
      <td>3</td>
      <td>50%</td>
     <td>0.6</td>
-    <td>0.4</td>  
+    <td>0.4</td>
+    <td>0.4</td>    
   </tr>
 <tr>
       <td>一、填空题</td>
@@ -1345,7 +1304,8 @@
      <td>3</td>
      <td>50%</td>
     <td>0.6</td>
-    <td>0.4</td>  
+    <td>0.4</td>
+    <td>0.4</td>    
   </tr>
   </tr>
 <tr>
@@ -1359,7 +1319,8 @@
      <td>3</td>
      <td>50%</td>
     <td>0.6</td>
-    <td>0.4</td>  
+    <td>0.4</td> 
+    <td>0.4</td>   
   </tr>
   </tr>
 <tr>
@@ -1373,7 +1334,8 @@
      <td>3</td>
      <td>50%</td>
     <td>0.6</td>
-    <td>0.4</td>  
+    <td>0.4</td>
+    <td>0.4</td>    
   </tr>
   </tr>
   	</table>
@@ -1456,7 +1418,7 @@
     <th>班最高分</th>
     <th>班最低分</th>
     <th>班标准差</th>
-    <th>班平均分</th>
+    <th>班-级平均分差</th>
   </tr>
   <tr>
     <td>1</td>
