@@ -3,7 +3,7 @@
 $(function(){
     var isLogin = localStorage.getItem("token");
     // 考试科目下拉
-   $(".main_right").children("div").eq(1).show().siblings().hide();
+   $(".main_right").children("div").eq(0).show().siblings().hide();
 
 
     $(".l_ul").on("click", "li", function(){  
@@ -74,13 +74,54 @@ $("#sc_left").siblings("li").click(function(event) {
            
 //           },
 // });
+// 全部科目
+$.ajax({
+      type: "GET",
+      url: ajaxIp+"/api/v2/commons/grade_subjects",
+      headers: {'Authorization': "Bearer " + isLogin},
+      // data:,
+      success: function(data){
+        console.log(data);
+        for(var i=0;i<data.length;i++){
+           $(".mark_01_select").append('<option value ="'+data[i].name+'" data-id="'+data[i].id+'">'+data[i].name+'</option>')
+        }
+   
+    
+    
+
+   },
+    error: function(){
+          
+      }
+    });
 
 
+$(".mark_01_select").change(function(event) {
+        /* Act on the event */
+$("#mark_02_ul ul li").remove();
+$("#mark_02_ul div").remove();
+
+var mark_01_select_a=$(this).children('option:selected').attr("data-id");
+// $(this).attr('a', mark_01_select_a);
+ markxl(mark_01_select_a);
+
+});
+
+// $(".mark_01_select option").eq(0).click(function(event) {
+//     /* Act on the event */
+//     alert();
+// });
+ 
+
+
+// 成绩生成下拉函数
+markxl(null);
+ function markxl(c){
     $.ajax({
       type: "GET",
       url: ajaxIp+"/api/v2/reports",
       headers: {'Authorization': "Bearer " + isLogin},
-      data:"subject_id",
+      data:{"subject_id":c},
       success: function(date){
        // console.log(date[0].name);
        console.log(date);
@@ -109,6 +150,13 @@ $(".mark_li_01 ul").eq(a).find("button").hide();
           
       }
     });
+} 
+
+
+
+
+
+
 
 
 
@@ -119,7 +167,7 @@ $(".mark_02_ul").on('click', 'span', function(event) {
 });
 
 
-    
+   
 
 
 //     $("#mark_02_ul i").click(function(event) {
@@ -254,7 +302,7 @@ $.ajax({
 
        }
         kaoshizk();
-        chengjifd(10);
+        
         },
         error: function(){
       }
@@ -264,6 +312,7 @@ $.ajax({
 // 考试状况的选择事件
 $(".study_q_01_mark select").change(function(event) {
    kaoshizk();
+   chengjifd(10);
 });
 // 考试状况的函数
  function kaoshizk(){
@@ -361,33 +410,7 @@ $(".u_1").on("click","li",  function(){
 // 年级成绩大幅变化
 $("#myselect").change(function(event) {
     /* Act on the event */
-    
-//    var exam_id =parseInt($(".exam_name").children('option:selected').attr("data-id"));
-//    var sub_id= parseInt($(".exam_sub").children('option:selected').attr("data-id"));
-//    var num_r=parseInt($(this).val());
-//    $.ajax({
-//       type: "GET",
-//       url: ajaxIp+"/api/v2/reports/grade_ranking_range",
-//       headers: {'Authorization': "Bearer " + isLogin},
-//       data: {"exam_id":exam_id,
-//        "subject_id":sub_id,
-//        "number":num_r
-//       },
-//       success:function(data){
-//        console.log(data);
-//         $("#r5_11_tbody").html(' ');
-//         $("#r5_11_tbody02").html(' ');
-//        for(var i=0;i<data.rise.length;i++){
-         
-//         $("#r5_11_tbody").append(' <tr><td>'+data.rise[i].name+'</td><td>'+data.rise[i].grade_rank+'</td><td>'+data.rise[i].grade_ranking_change+'<i class="iconfont">&#xe627;</i></td></tr>');
-//          $("#r5_11_tbody02").append(' <tr><td>'+data.decline[i].name+'</td><td>'+data.decline[i].grade_rank+'</td><td>'+data.decline[i].grade_ranking_change+'<i class="iconfont">&#xe628;</i></td></tr>');
-//        }
-//       },
-//       error:function(){
-
-//       }
-// });
-chengjifd($("#myselect").val());
+   chengjifd($("#myselect").val());
     });
 
 function chengjifd(a){

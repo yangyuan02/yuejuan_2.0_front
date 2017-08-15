@@ -89,6 +89,13 @@ padding-bottom: 30px;
 
   
 }
+.mark_01_select{
+	width: 125px;
+	height: 30px;
+	margin-left: 15px;
+	font-size: 16px;
+    color: #666666;
+}
 .mark_span_01{
 	line-height: 44px;
 }
@@ -945,14 +952,14 @@ font-size: 14px;
 }
 /*答题卡*/
 .ans{
-	width: 765px;
-	height: 567px;
+	width: 1000px;
+	height: 700px;
 	margin:0 auto;
 	border: 1px solid #999999;
 	box-sizing: border-box;
 	position: absolute;
 bottom:205px;
-left: 330px;
+left: 240px;
 background: #f5f5f5;
 display: none;
 }
@@ -1006,8 +1013,6 @@ z-index:111;
 .ans_img{
 	width: 765px;
 	height:530px;
-	margin:0 auto;
-	border: 1px solid #999999;
 	box-sizing: border-box;
 	float:left;
 	position: relative;
