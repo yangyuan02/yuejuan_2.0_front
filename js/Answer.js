@@ -61,37 +61,39 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var isB = $scope.isLine($scope.index, $scope.result.numbel, $scope.page_num)
         if (isB) {
             $scope.listObj2.push(obj);
+            window.localStorage.setItem("answer2",JSON.stringify($scope.listObj2))
             // $scope.setNumber($scope.listObj2, $scope.listObj.length)
         } else {
             $scope.listObj.push(obj);
+            window.localStorage.setItem("answer",JSON.stringify($scope.listObj))
             // $scope.setNumber($scope.listObj, 0)
         }
     }
     $scope.createAsswer = function (data) {//添加题组
         console.log(data)
-        var data= data
+        var data = data
         var isLogin = localStorage.getItem("token");
-        if(data.isradio==2){
+        if (data.isradio == 2) {
             data.type = 6
         }
         console.log(data)
-        var Q_type = ['单选题','是非题','填空题','作文题','其他题','多选题']
+        var Q_type = ['单选题', '是非题', '填空题', '作文题', '其他题', '多选题']
         $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/answers",
                 headers: {'Authorization': "Bearer " + isLogin},
                 data: {
-                    'answer[exam_subject_id]':getUrlParam(url,'examubjeId'),
-                    'answer[item]':Q_type[data.type-1],
-                    'answer[name]':data.name,
-                    'answer_setting[count]':data.numbel,
-                    'answer_setting[num]':data.startNo,
-                    'answer_setting[page]':data.currentPage==undefined?1:data.currentPage,
-                    'answer_setting[score]':data.itemCores,
-                    'answer_setting[type_count]':data.itemNumber
+                    'answer[exam_subject_id]': getUrlParam(url, 'examubjeId'),
+                    'answer[item]': Q_type[data.type - 1],
+                    'answer[name]': data.name,
+                    'answer_setting[count]': data.numbel,
+                    'answer_setting[num]': data.startNo,
+                    'answer_setting[page]': data.currentPage == undefined ? 1 : data.currentPage,
+                    'answer_setting[score]': data.itemCores,
+                    'answer_setting[type_count]': data.itemNumber
                 },
                 success: function (data) {
-                    
+
                 }
             }
         )
@@ -114,10 +116,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             name: $scope.result.name,//题组名称
             numbel: $scope.result.numbel,//试题数量
             isradio: $scope.result.isradio,//单选多选
-            startNo:$scope.result.no,//起始序号
-            currentPage:$scope.result.page,//所在页码
+            startNo: $scope.result.no,//起始序号
+            currentPage: $scope.result.page,//所在页码
             no: noarray,//选项个数数组,
-            itemNumber:$scope.result.thr,//选项个数
+            itemNumber: $scope.result.thr,//选项个数
             totalCores: totaltwo,//总分
             itemCores: $scope.result.itemcoreS,//每小题分
             thr: $scope.index == 1 ? $scope.nubarray : ['T', 'F'], //选项ABCD(选择题和判断题)
@@ -129,6 +131,15 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         close()
         console.log($scope.listObj)
     };
+    function getAnswer() {//获取
+        if(window.localStorage.getItem("answer")){
+            $scope.listObj = JSON.parse(window.localStorage.getItem("answer"))
+        }
+        if(window.localStorage.getItem("answer2")){
+            $scope.listObj2 = JSON.parse(window.localStorage.getItem("answer2"))
+        }
+    }
+    getAnswer()
 //关闭
     var close = function () {
         clear();
@@ -222,6 +233,24 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         return BigQuestion
     }
 
+    function getPostDot() {//获取四个大点左边位置
+        var anchor = {}
+        var relativePost = $(".A_R").offset()
+        var dot1 = $(".position_TL span").eq(1).offset();
+        var dot2 = $(".position_TR span").eq(1).offset();
+        var dot3 = $(".position_BL span").eq(1).offset();
+        var dot4 = $(".position_BR span").eq(1).offset();
+        anchor.LeftTopX = parseInt(dot1.left + 7.5) - parseInt(relativePost.left)
+        anchor.LeftTopY = parseInt(dot1.top + 7.5) - parseInt(relativePost.top)
+        anchor.RightTopX = parseInt(dot2.left + 7.5) - parseInt(relativePost.left)
+        anchor.RightTopY = parseInt(dot2.top + 7.5) - parseInt(relativePost.top)
+        anchor.LeftBottomX = parseInt(dot3.left + 7.5) - parseInt(relativePost.left)
+        anchor.LeftBottomY = parseInt(dot3.top + 7.5) - parseInt(relativePost.top)
+        anchor.RightBottomX = parseInt(dot4.left + 7.5) - parseInt(relativePost.left)
+        anchor.RightBottomY = parseInt(dot4.top + 7.5) - parseInt(relativePost.top)
+        return anchor
+    }
+
     function save() {
         var isLogin = localStorage.getItem("token");
         $.ajax({
@@ -230,6 +259,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 headers: {'Authorization': "Bearer " + isLogin},
                 contentType: 'application/json;charset=UTF-8',
                 data: {
+                    'exam_subject_id': getUrlParam(url, 'examubjeId'),
+                    'anchor': JSON.stringify(getPostDot()),
                     'region_info': JSON.stringify(getBigQuestion(4))
                 },
                 dataType: "JSON",
@@ -246,14 +277,14 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         console.log(ajaxIp)
         save()
     })
-    $scope.dayin = function () {
-        $(".A_Nav").css({"display":"none"})
-        $(".Answer .A_L").css({"display":"none"})
-        $(".Answer .A_B").css({"margin-top":0,"margin-bottom":0})
+    $scope.dayin = function () {//打印
+        $(".A_Nav").css({"display": "none"})
+        $(".Answer .A_L").css({"display": "none"})
+        $(".Answer .A_B").css({"margin-top": 0, "margin-bottom": 0})
         window.print()
-        $(".A_Nav").css({"display":"block"})
-        $(".Answer .A_L").css({"display":"block"})
-        $(".Answer .A_B").css({"margin-top":52,"margin-bottom":52})
+        $(".A_Nav").css({"display": "block"})
+        $(".Answer .A_L").css({"display": "block"})
+        $(".Answer .A_B").css({"margin-top": 52, "margin-bottom": 52})
         // return false;
     }
 })

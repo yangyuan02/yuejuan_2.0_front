@@ -65,7 +65,7 @@
                             <p><span>试题类型</span>
                                 <input type="radio" ng-checked="result.isradio==1" ng-click="checkbox(1)"/>
                                 <span style="float: left;margin-right: 20px;">单选题</span>
-                                <input type="radio" ng-checked="result.isradio==2" ng-click="checkbox(2)"／>
+                                <input type="radio" ng-checkisradio==2" ng-click="checkbox(2)"／>
                                 <span style="float: left;">多选题</span>
                             </p>
                             <p><span>起始序号</span><input type="text" ng-model="result.no" placeholder="请输入起始序号"/></p>
@@ -365,22 +365,22 @@
                                 <th>
                                     <!--网络阅卷打分框start-->
                                     <div class="marking">
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
+                                        <a href="">1</a>
+                                        <a href="">2</a>
+                                        <a href="">3</a>
+                                        <a href="">4</a>
+                                        <a href="">5</a>
+                                        <a href="">6</a>
+                                        <a href="">7</a>
+                                        <a href="">8</a>
+                                        <a href="">9</a>
+                                        <a href="">0</a>
+                                        <a href="">1</a>
+                                        <a href="">2</a>
+                                        <a href="">3</a>
+                                        <a href="">4</a>
+                                        <a href="">5</a>
+                                        <a href="">.5</a>
                                     </div>
                                     <!--网络阅卷打分框end-->
                                 </th>
@@ -390,7 +390,7 @@
                             <tbody>
                             <tr>
                                 <td>
-                                    <div ng-repeat="item in a.no" class="q_c">
+                                    <div ng-repeat="item in a.no" class="q_c" ng-style="{'width':'{{a.type==3?'35%':'25%'}}'}">
                                         <!--序号start-->
                                         <span>{{item<10?'0'+item:item}}</span>
                                         <!--序号end-->
