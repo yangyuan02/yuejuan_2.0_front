@@ -26,7 +26,19 @@ $(function() {
 	    		console.log(111111111111111111);
 	    		role_name = data.role_name
 	    		// console.log(role_name)
+                // 成绩生成控制代码 start
+             if(role_name=="教师"){
+                $(".l_ul li").eq(0).hide();
+                $(".l_ul li").eq(1).addClass('li_click');
+                $("#index_span").html($(".l_ul li").eq(1).html());
+                $(".main_right").children("div").eq(1).show().siblings().hide();
+                $(".study_k_left").css("top","190px");
+                $(".exam_z_left").css("top","260px");
+                $(".exam_h_left").css("top","328px");
+                $(".sc_left").css("top","397px");
+               }
 
+              // 成绩生成控制代码 end
 	    		console.log(data)
 	    		if(data.error){
 					alert('登录已过期，请从新登录！');
