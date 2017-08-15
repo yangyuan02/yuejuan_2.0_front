@@ -69,6 +69,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             // $scope.setNumber($scope.listObj, 0)
         }
     }
+    var answer_id = []//大题answer_id
     $scope.createAsswer = function (data) {//添加题组
         console.log(data)
         var data = data
@@ -93,10 +94,11 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     'answer_setting[type_count]': data.itemNumber
                 },
                 success: function (data) {
-
+                    answer_id.push(data)
                 }
             }
         )
+        console.log(answer_id)
     }
 //确认添加
     $scope.btn1 = function () {
@@ -140,7 +142,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
     }
 
-    getAnswer()
+    // getAnswer()
 //关闭
     var close = function () {
         clear();
@@ -185,51 +187,52 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var answerNumber = parseInt(answerNumber)//选项个数
         var dot = $(".position_TL span").eq(1).offset();
         dot.left = dot.left + 7.5, dot.top = dot.top + 7.5//定标点
-        var item_w = 14, item_h = 22, itemMarginLeft = 5, itemMarginTop = 12;
+        var item_w = 16,itemMarginLeft = 14;
         for (var i = 1; i <= qNumer; i++) {//循环每个小题
             var itme_obj = {}
             itme_obj.no = i
+            // itme_obj.answer_setting_id = answer_id[i].settings//小题id
             itme_obj.option = []
             question.push(itme_obj)
         }
         for (var i = 0; i < question.length; i++) {
             for (var j = 1; j <= answerNumber; j++) {
                 var itme_obj = {}
-                itme_obj.no = j
-                itme_obj.is_right = 1
-                itme_obj.option_point_x = parseInt(getItemPost()[i].left + 7) + (item_w + itemMarginLeft) * j - parseInt(dot.left)
-                itme_obj.option_point_y = parseInt(getItemPost()[i].top + 11) - parseInt(dot.top)//同行option_point_y都是一样的
+                itme_obj.no = j//小题序号
+                itme_obj.option_point_x = parseInt(getItemPost()[i].left + 8) + (item_w + itemMarginLeft) * j - parseInt(dot.left)//选项框中心点x坐标
+                itme_obj.option_point_y = parseInt(getItemPost()[i].top + 6) - parseInt(dot.top)//同行option_point_y都是一样的 选项框中心点y坐标
                 question[i].option.push(itme_obj)
             }
         }
         return question
     }
 
-    function getBigQuestion(bigNumber) {//获取大题
+    function getBigQuestion(obj) {//获取大题
+        console.log(obj)
+        console.log(answer_id[0])
         var BigQuestion = []
-        for (var i = 1; i <= bigNumber; i++) {
+        for (var i = 1; i <= obj.length; i++) {
             var itme_obj = {}
-            itme_obj.no = i
-            itme_obj.score = 40
-            itme_obj.string = "一、选择(共40分,每题2分)"
-            itme_obj.question = []
-            itme_obj.answer_id = 11
-            itme_obj.one_score = 1
-            itme_obj.answer_mode = 1
-            itme_obj.block_width = 14
-            itme_obj.total_score = 2
-            itme_obj.block_height = 11
-            itme_obj.current_page = 1
-            itme_obj.num_question = 20
-            itme_obj.num_of_option = 4
-            itme_obj.region_rect_x = 54
-            itme_obj.region_rect_y = 413
-            itme_obj.region_rect_width = 591
-            itme_obj.region_rect_height = 161
+            itme_obj.no = i//大题编号
+            itme_obj.score = obj[i-1].totalCores//答题总分
+            itme_obj.string = answer_id[i-1].answers.answer_name//大题标题
+            itme_obj.answer_id = answer_id[i-1].answers.answer_id//题组ID
+            itme_obj.answer_mode = obj[i-1].type//题目类型
+            itme_obj.answer_count = 1//答案个数
+            itme_obj.block_width = 16//选项宽度
+            itme_obj.block_height = 13//选项高度
+            itme_obj.current_page = 1//当前页面
+            itme_obj.num_question = obj[i-1].numbel//题目数量
+            itme_obj.num_of_option = obj[i-1].itemNumber//选项个数
+            itme_obj.region_rect_x = //题组区域的X坐标
+            itme_obj.region_rect_y = //题组区域的Y坐标
+            itme_obj.region_rect_width = 698//题组区域的宽度
+            itme_obj.region_rect_height = //题组区域的高度
+            itme_obj.question = []//
             BigQuestion.push(itme_obj)
         }
         for (var i = 0; i < BigQuestion.length; i++) {
-            BigQuestion[i].question = getQuestion(10, 4)
+            BigQuestion[i].question = getQuestion(obj[i].numbel, obj[i].itemNumber)
         }
         return BigQuestion
     }
@@ -252,41 +255,39 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         return anchor
     }
 
-    function save() {
+     $scope.save = function () {//保存模板
         var isLogin = localStorage.getItem("token");
+         console.log(getBigQuestion($scope.listObj))
         $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/answer_regions",
                 headers: {'Authorization': "Bearer " + isLogin},
-                contentType: 'application/json;charset=UTF-8',
                 data: {
-                    'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),
-                    'answer_region[anchor]': JSON.stringify(getPostDot()),
-                    'answer_region[region_info]': JSON.stringify(getBigQuestion(4))
+                    'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
+                    'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
+                    'answer_region[region_info]': JSON.stringify(getBigQuestion($scope.listObj)),//所有坐标信息
+                    // 'answer_region[basic_info_region]':''//保存的题目内容
                 },
                 dataType: "JSON",
                 success: function (data) {
-
+                    console.log(data)
                 }
             }
         )
 
 
     }
-
-    $("#qweqqqq").click(function () {
-        console.log(ajaxIp)
-        save()
-    })
     $scope.dayin = function () {//打印
         $(".A_Nav").css({"display": "none"})
         $(".Answer .A_L").css({"display": "none"})
-        $(".Answer .A_B").css({"margin-top": 0, "margin-bottom": 0, "width": "auto"})
+        $(".Answer .A_B").css({"margin-top": 0, "margin-bottom": 0, "width": 1596})
+        $(".Answer .A_R").css({"border-width":0})
         $(".Answer .A_R .A_Rone").css({"border-color": "black"})
         window.print()
         $(".A_Nav").css({"display": "block"})
         $(".Answer .A_L").css({"display": "block"})
         $(".Answer .A_B").css({"margin-top": 52, "margin-bottom": 52, "width": 1882})
+        $(".Answer .A_R").css({"border-width":4})
         $(".Answer .A_R .A_Rone").css({"border-color": "#ddd"})
         // return false;
     }
