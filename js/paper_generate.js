@@ -151,7 +151,7 @@ $(function() {
 
 	// 考试列表切换
 	$('body').on('click', '.list-ul li', function() {
-			$('.first-new').hide();
+		$('.first-new').hide();
 			$('.teacher-set').hide();
 			$('.second-new').show();
 			$(this).addClass('active').siblings().removeClass('active');
