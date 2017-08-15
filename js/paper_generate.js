@@ -131,9 +131,13 @@ $(function() {
 			// $('#new-create').hide();
 			$('#operation-th').hide();
 			$('.operation').hide();
+			$('.request-school').hide();
+			$('#dele-test').hide();
 		} else {
 			$('.operation').show();
 			$('#operation-th').show();
+			$('.request-school').show();
+			$('#dele-test').show();
 		}
 	}
 
