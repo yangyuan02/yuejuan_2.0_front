@@ -1,6 +1,22 @@
 html{
 	background: #f5f5f5;
 }
+.load-animate {
+	display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -125px;
+  margin-left: -125px;
+  width: 200px;
+  height: 250px;
+}
+.load-animate p {
+  line-height: 50px;
+  font-size: 18px;
+  text-align: center;
+  color: #fff;
+}
 .look-box{
 	position: fixed;
 	top: 0;

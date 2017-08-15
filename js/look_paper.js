@@ -19,6 +19,7 @@ $(function(){
     }
     return items;
   }
+
   // console.log(getUrlParam(url,'id')); // bath_id
   // console.log(getUrlParam(url,'test_id')); // bath_id
   // console.log(getUrlParam(url,'exam_name')); // exam_name
@@ -1008,6 +1009,17 @@ $(function(){
 		  data:{'exam_subject_batch_id':bath_id,'sections':sections,'crop_type':4},
 		  success: function(data){
 		  	console.log(data);
+		  	$('.load-animate').show();
+		  	var customer_id = $('#wrap').attr('customer_id');
+		  	console.log(customer_id)
+	  	  var faye = new Faye.Client('http://192.168.1.127:9292/api/v2/events');
+		    faye.subscribe("/cut_images/"+ customer_id +"" , function (data) {
+	        console.log(222222)
+	        console.log(data)
+	        if(data.message=='ok'){
+						$('.load-animate').hide();
+	        }
+		    });
 		   },
 		   error: function(){
 		      // alert('请稍后从新尝试登录或者联系管理员');

@@ -25,6 +25,7 @@ $(function() {
 	    	success: function(data){
 	    		console.log(111111111111111111);
 	    		role_name = data.role_name
+<<<<<<< HEAD
 	    		// console.log(role_name)
                 // 成绩生成控制代码 start
              if(role_name=="教师"){
@@ -37,6 +38,10 @@ $(function() {
                 $(".exam_h_left").css("top","328px");
                 $(".sc_left").css("top","397px");
                }
+=======
+	    		console.log(role_name);
+	    		$('#role-name').val(role_name);
+>>>>>>> upstream/master
 
               // 成绩生成控制代码 end
 	    		console.log(data)
@@ -48,7 +53,9 @@ $(function() {
 	    			user_name = data.user_name;
 	    			$('#teacher-name').val(user_name);
 	        		school_name = data.school_name;
-	        		$('.longin-username span').text(user_name+'('+school_name+')')
+	        		$('.longin-username span').text(user_name+'('+school_name+')');
+	        		$('.longin-username').attr('customer_id',data.customer_id);
+	        		$('#wrap').attr('customer_id',data.customer_id);
 
 	        		if(isAction){
 						if(window.location.pathname!='/yuejuan2.0_front/user_information.html'){
@@ -71,19 +78,22 @@ $(function() {
 
 	// 根据用户身份判断阅卷进入的页面
 	$('#mark-head').click(function(){
-		if(role_name=="老师"){
+		if(role_name=="教师"){
 			$(this).attr('href','./marking_change.html');
 		}else{
 			$(this).attr('href','./marking.html');
 		}
 	})
 	$('body').on('click','#mark-top',function(){
-		if(role_name=="老师"){
+		if(role_name=="教师"){
 			$(this).attr('href','./marking_change.html');
 		}else{
 			$(this).attr('href','./marking.html');
 		}
 	})
+
+	
+
 
 
 	$('.modal-exit').click(function(){
