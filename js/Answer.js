@@ -90,7 +90,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 }
             }
         )
-        console.log(answer_id)
     }
     //确认添加
     $scope.btn1 = function () {
@@ -105,22 +104,23 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for (var i = 0; i < parseInt($scope.result.numbel); i++) {//多少个小题
             noarray.push(i + parseInt($scope.result.no));
         }
-        ;
+        console.log($scope.result.page)
         obj = {
             name: $scope.result.name,//题组名称
             numbel: $scope.result.numbel,//试题数量
             isradio: $scope.result.isradio,//单选多选
             startNo: $scope.result.no,//起始序号
-            currentPage: $scope.result.page,//所在页码
+            currentPage: $scope.result.page==undefined?1:$scope.result.page,//所在页码
             no: noarray,//选项个数数组,
-            itemNumber: $scope.result.thr,//选项个数
+            itemNumber: $scope.index==2?2:$scope.result.thr,//选项个数
             totalCores: totaltwo,//总分
             itemCores: $scope.result.itemcoreS,//每小题分
             thr: $scope.index == 1 ? $scope.nubarray : ['T', 'F'], //选项ABCD(选择题和判断题)
-            type: $scope.index//题目类型
+            type: $scope.result.isradio==2?6:$scope.index//题目类型
         };
         $scope.append(obj)
         $scope.createAsswer(obj)
+        console.log($scope.listObj)
         clear()
         close()
     };
@@ -236,9 +236,27 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         return question
     }
-
+    function answerModeType(type) {//题目类型
+        var answerModeType;
+        if(type==1){//单选题
+            answerModeType = 0
+        }
+        if(type==6){//多选题
+            answerModeType = 1
+        }
+        if(type==2){//是非题
+            answerModeType = 2
+        }
+        if(type==3){//分数框-填空题
+            answerModeType = 5
+        }
+        if(type==4||type==5){//分数框（解答题写作题,其他题）
+            answerModeType = 4
+        }
+        return answerModeType
+    }
     function getBigQuestion(obj) {//获取大题
-        console.log(obj)
+        console.log(obj+'大题')
         var BigQuestion = []
         for (var i = 1; i <= obj.length; i++) {
             var itme_obj = {}
@@ -246,7 +264,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             itme_obj.score = obj[i - 1].totalCores//答题总分
             itme_obj.string = answer_id[i - 1].answers.answer_name//大题标题
             itme_obj.answer_id = answer_id[i - 1].answers.answer_id//题组ID
-            itme_obj.answer_mode = obj[i - 1].type//题目类型    有问题
+            itme_obj.answer_mode = answerModeType(obj[i - 1].type)//题目类型    有问题
             itme_obj.answer_count = 1//答案个数
             itme_obj.block_width = 16//选项宽度
             itme_obj.block_height = 13//选项高度
@@ -300,7 +318,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 },
                 dataType: "JSON",
                 success: function (data) {
-                    console.log(data)
                 }
             }
         )
