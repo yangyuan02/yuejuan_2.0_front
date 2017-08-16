@@ -1009,7 +1009,7 @@ $(function(){
 		  data:{'exam_subject_batch_id':bath_id,'sections':sections,'crop_type':4},
 		  success: function(data){
 		  	console.log(data);
-		  	$('.load-animate').show();
+		  	$('.load-bg').show();
 		  	var customer_id = $('#wrap').attr('customer_id');
 		  	console.log(customer_id)
 	  	  var faye = new Faye.Client('http://192.168.1.127:9292/api/v2/events');
@@ -1017,7 +1017,7 @@ $(function(){
 	        console.log(222222)
 	        console.log(data)
 	        if(data.message=='ok'){
-						$('.load-animate').hide();
+						$('.load-bg').hide();
 	        }
 		    });
 		   },
