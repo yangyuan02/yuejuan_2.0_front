@@ -264,18 +264,22 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             itme_obj.score = obj[i - 1].totalCores//答题总分
             itme_obj.string = answer_id[i - 1].answers.answer_name//大题标题
             itme_obj.answer_id = answer_id[i - 1].answers.answer_id//题组ID
-            itme_obj.answer_mode = answerModeType(obj[i - 1].type)//题目类型    有问题
-            itme_obj.answer_count = 1//答案个数
+            itme_obj.answer_mode = answerModeType(obj[i - 1].type)//题目类型
+
             itme_obj.block_width = 16//选项宽度
             itme_obj.block_height = 13//选项高度
             itme_obj.current_page = 1//当前页面
             itme_obj.num_question = obj[i - 1].numbel//题目数量
-            itme_obj.num_of_option = obj[i - 1].itemNumber//选项个数   选择题的时候为空
+
             itme_obj.region_rect_x = regionRect(i - 1).region_rect_x//题组区域的X坐标
             itme_obj.region_rect_y = regionRect(i - 1).region_rect_y//题组区域的Y坐标
             itme_obj.region_rect_width = 698//题组区域的宽度
             itme_obj.region_rect_height = regionRect(i - 1).region_rect_height//题组区域的高度
-            itme_obj.question = []//
+            itme_obj.question = []
+            if(obj[i - 1].type==1||obj[i - 1].type==6||obj[i - 1].type==2){//单选题/多选题/判断题
+                itme_obj.answer_count = 1//答案个数
+                itme_obj.num_of_option = obj[i - 1].itemNumber//选项个数
+            }
             BigQuestion.push(itme_obj)
         }
         for (var i = 0; i < BigQuestion.length; i++) {
@@ -304,7 +308,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
 
     $scope.save = function () {//保存模板
-        console.log(getBigQuestion($scope.listObj))
         var isLogin = localStorage.getItem("token");
         $.ajax({
                 type: "POST",
