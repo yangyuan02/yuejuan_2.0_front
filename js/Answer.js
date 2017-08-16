@@ -1,9 +1,4 @@
 var m1 = angular.module("pro", []);
-m1.config(function ($httpProvider) {
-    // 跨域
-    $httpProvider.defaults.useXDomain = true;
-    delete $httpProvider.defaults.headers.common['X-Requested-With'];
-})
 //设置控制器
 m1.controller("demo", function ($scope, $timeout, $http) {
     var url = window.location;
@@ -97,7 +92,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         )
         console.log(answer_id)
     }
-//确认添加
+    //确认添加
     $scope.btn1 = function () {
         //添加选择题的存储
         var obj = {};
@@ -139,13 +134,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
 
     // getAnswer()
-//关闭
+    //关闭
     var close = function () {
         clear();
         $scope.index = -1
     }
     $scope.close = close
-//清空选择题的内容
+    //清空选择题的内容
     var clear = function () {
         $scope.result = {
             name: '', numbel: '', isradio: '',
@@ -153,24 +148,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         };
     };
 
-    function getItemLine(num1, num2) {//获取多少行列
-        var table = {}
-        if (num2 <= 7) {
-            table.row = Math.ceil(num1 / 4)
-            table.column = 4
-        } else if (num2 > 7 && num2 <= 10) {
-            table.row = Math.ceil(num1 / 2)
-            table.column = 2
-        } else {
-            table.row = num1
-            table.column = 1
-        }
-        return table
-    }
-
-    function getItemPost() {//第一个选项坐标
+    function getItemPost(index) {//第一个选项坐标
         var fristPost = []
-        var dom = $(".A_Rone_child").eq(0).find("table").eq(0).find(".q_c")
+        var dom = $(".A_Rone_child").eq(0).find("table").eq(index).find(".q_c")
         dom.each(function (i) {
             fristPost.push($(this).find("b").eq(0).offset())
         })
@@ -206,8 +186,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             for (var j = 1; j <= answerNumber; j++) {
                 var itme_obj = {}
                 itme_obj.no = j//小题序号
-                itme_obj.option_point_x = parseInt(getItemPost()[i].left + 8) + (item_w + itemMarginLeft) * j - parseInt(dot.left)//选项框中心点x坐标
-                itme_obj.option_point_y = parseInt(getItemPost()[i].top + 6) - parseInt(dot.top)//同行option_point_y都是一样的 选项框中心点y坐标
+                itme_obj.option_point_x = parseInt(getItemPost(Answerindex)[i].left + 8) + (item_w + itemMarginLeft) * j - parseInt(dot.left)//选项框中心点x坐标
+                itme_obj.option_point_y = parseInt(getItemPost(Answerindex)[i].top + 6) - parseInt(dot.top)//同行option_point_y都是一样的 选项框中心点y坐标
                 question[i].option.push(itme_obj)
             }
         }
@@ -262,25 +242,25 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         return anchor
     }
 
-     $scope.save = function () {//保存模板
+    $scope.save = function () {//保存模板
          console.log(getBigQuestion($scope.listObj))
         var isLogin = localStorage.getItem("token");
-        $.ajax({
-                type: "POST",
-                url: ajaxIp + "/api/v2/answer_regions",
-                headers: {'Authorization': "Bearer " + isLogin},
-                data: {
-                    'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
-                    'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
-                    'answer_region[region_info]': JSON.stringify(getBigQuestion($scope.listObj)),//所有坐标信息
-                    'answer_region[basic_info_region]':''//保存的题目内容
-                },
-                dataType: "JSON",
-                success: function (data) {
-                    console.log(data)
-                }
-            }
-        )
+        // $.ajax({
+        //         type: "POST",
+        //         url: ajaxIp + "/api/v2/answer_regions",
+        //         headers: {'Authorization': "Bearer " + isLogin},
+        //         data: {
+        //             'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
+        //             'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
+        //             'answer_region[region_info]': JSON.stringify(getBigQuestion($scope.listObj)),//所有坐标信息
+        //             'answer_region[basic_info_region]':''//保存的题目内容
+        //         },
+        //         dataType: "JSON",
+        //         success: function (data) {
+        //             console.log(data)
+        //         }
+        //     }
+        // )
 
 
     }
