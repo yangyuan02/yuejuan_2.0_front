@@ -1113,12 +1113,23 @@ $(function(){
 
 		var id = $(this).parent().attr('data-id');
 		$('.modal-content').attr('data-id',id);
+		console.log(id)
+		// var exam_name = $('.test-pro-name').text();
+		// var exam_subject_id = $('.test-pro-name').attr('data-id');
+		// var exam_id = $('.test-pro-name').attr('exam-id');
+		// $('#text-name').val(exam_name);
+		// $('#text-id').val(exam_id);
+		// $('#text-s-id').val(exam_subject_id);
 	});
 
 
 	$('body').on('click', '.clear-key', function() {
 		var section_crop_id = $(this).parents('.modal-content').attr('data-id');
-		console.log(section_crop_id)
+		console.log(section_crop_id);
+		var exam_name = $('.test-pro-name').text();
+		var exam_subject_id = $('.test-pro-name').attr('data-id');
+		var exam_id = $('.test-pro-name').attr('exam-id');
+		// console.log(exam_name,exam_subject_id,exam_id)
 		$.ajax({
 		  type: "POST",
 		  url: ajaxIp+"/api/v2/section_crops/"+section_crop_id+"/redis_clear",
@@ -1126,6 +1137,7 @@ $(function(){
 		  dataType: "JSON",
 		  success: function(data){
 		  	console.log(data);
+		  	get_progress_info(exam_name,exam_subject_id,exam_id);
 		  },
 		  error: function(){
 		      // alert('请稍后从新尝试登录或者联系管理员');
