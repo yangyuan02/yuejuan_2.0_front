@@ -263,6 +263,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for (var i = 0; i < BigQuestion.length; i++) {
             BigQuestion[i].question = getQuestion(obj[i].numbel, obj[i].itemNumber, i)
         }
+        BigQuestion.push(getStudentInfo())//添加考生信息
         return BigQuestion
     }
 
@@ -287,22 +288,22 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.save = function () {//保存模板
         console.log(getBigQuestion($scope.listObj))
         var isLogin = localStorage.getItem("token");
-        // $.ajax({
-        //         type: "POST",
-        //         url: ajaxIp + "/api/v2/answer_regions",
-        //         headers: {'Authorization': "Bearer " + isLogin},
-        //         data: {
-        //             'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
-        //             'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
-        //             'answer_region[region_info]': JSON.stringify(getBigQuestion($scope.listObj)),//所有坐标信息
-        //             'answer_region[basic_info_region]':''//保存的题目内容
-        //         },
-        //         dataType: "JSON",
-        //         success: function (data) {
-        //             console.log(data)
-        //         }
-        //     }
-        // )
+        $.ajax({
+                type: "POST",
+                url: ajaxIp + "/api/v2/answer_regions",
+                headers: {'Authorization': "Bearer " + isLogin},
+                data: {
+                    'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
+                    'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
+                    'answer_region[region_info]': JSON.stringify(getBigQuestion($scope.listObj)),//所有坐标信息
+                    'answer_region[basic_info_region]':''//保存的题目内容
+                },
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data)
+                }
+            }
+        )
 
 
     }
