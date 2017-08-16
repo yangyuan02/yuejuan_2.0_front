@@ -116,6 +116,11 @@ $(function(){
 			  if(par_status == $(child_status[z]).attr('value')){
 			  	$(child_status[z]).show().siblings().hide();
 			  }
+			  // 判断不是 0,1,2,5,的时候都为结束状态
+			  if(par_status!=0&&par_status!=1&par_status!=2&&par_status!=5){
+					$('#test-status-'+i+'').find('.end-paper').show();
+					$('#test-status-'+i+'').find('.end-paper').siblings().hide();
+			  }
 		  };
 		};
 	}

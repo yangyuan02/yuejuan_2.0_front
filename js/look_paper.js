@@ -248,7 +248,7 @@ $(function(){
 
  //添加区域块
   function append_select(eg,arr){
-  	console.log(arr);
+  	console.log(eg,arr);
     $('.bg-img').html('');
     if(arr.length && arr[eg-1].crop_type==4){
     	console.log('yes');
@@ -256,10 +256,10 @@ $(function(){
     }
     for(var i = 0;i < eg; i++){
     	if(arr[eg-1].crop_type==4){
-    		var select_area_a='<div class="select-area" name="'+(i+1)+'" answer-id="'+arr[i].answer_id+'" data-id="'+arr[i].id+'"><a href="javascript:;" class="edit-item">编辑</a><i class="iconfont close">&#xe61b;</i></div>';
+    		var select_area_a='<div class="select-area" name="'+(i+1)+'" answer-id="'+arr[i].answer_id+'" data-id="'+arr[i].id+'"><a href="javascript:;" class="edit-item">编辑</a><i class="iconfont close">&#xe61b;</i><span class="title" style="background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 0px;">'+arr[i].index+'</span></div>';
     	}
     	if(arr[eg-1].crop_type==1){
-    		var select_area_a='<div class="select-area" name="'+(i+1)+'" answer-id="'+arr[i].answer_id+'" data-id="'+arr[i].id+'"><i class="iconfont close">&#xe61b;</i></div>';
+    		var select_area_a='<div class="select-area" name="'+(i+1)+'" answer-id="'+arr[i].answer_id+'" data-id="'+arr[i].id+'"><i class="iconfont close">&#xe61b;</i><span class="title" style="background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 0px;">'+arr[i].index+'</span></div>';
     	}
       $('.bg-img').append(select_area_a);
       //$('.bg-img div').eq(i).addClass('select-area');
@@ -290,10 +290,10 @@ $(function(){
       });
     }
     //如果区域块的数量大于2，显示区域块的个数，添加span_title
-      for(i = 0;i < eg;i++){
-      var span_title="<span class='title' " + " style='background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 0px;'>"+(i+1)+"</span>";
-      $('.select-area').eq(i).append(span_title);
-    }
+    // for(i = 0;i < eg;i++){
+    //   var span_title="<span class='title' " + " style='background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 0px;'>"+(i+1)+"</span>";
+    //   $('.select-area').eq(i).append(span_title);
+    // }
   }
 
 	// 获取当前区域块信息
@@ -642,6 +642,7 @@ $(function(){
 	$('body').on('click', '.close', function() {
 		$(this).parent().remove();
 		num--;
+		console.log('select-num',num)
 	 	var select_id = $(this).parent().attr('data-id');
 	 	console.log(select_id);
 	 	if(select_id){
@@ -651,6 +652,7 @@ $(function(){
 			  headers: {'Authorization': "Bearer " +  isLogin},
 			  success: function(data){
 			  	console.log(data);
+			  	get_select_info();
 			   },
 			   error: function(){
 			      // alert('请稍后从新尝试登录或者联系管理员');
@@ -758,7 +760,7 @@ $(function(){
       	var h = 734;
       	var x = $("div[name='"+(num-1)+"']").position().left;
       	var y = $("div[name='"+(num-1)+"']").position().top;
-      	var num_index = parseInt($("div[name='"+(num-1)+"']").children('.title').text());
+      	// var num_index = parseInt($("div[name='"+(num-1)+"']").children('.title').text());
       	var current_page =parseInt($('.page .on').text());
       	var crop_type = 1;
       	var data_arr={
@@ -768,7 +770,7 @@ $(function(){
         	'height':height,
         	'x':x,
         	'y':y,
-        	'index':num_index,
+        	// 'index':num_index,
         	'exam_subject_batch_id':bath_id,
         	'crop_type':crop_type,
         	'current_page':current_page,
@@ -1009,7 +1011,7 @@ $(function(){
 		  data:{'exam_subject_batch_id':bath_id,'sections':sections,'crop_type':4},
 		  success: function(data){
 		  	console.log(data);
-		  	$('.load-animate').show();
+		  	$('.load-bg').show();
 		  	var customer_id = $('#wrap').attr('customer_id');
 		  	console.log(customer_id)
 	  	  var faye = new Faye.Client('http://192.168.1.127:9292/api/v2/events');
@@ -1017,7 +1019,7 @@ $(function(){
 	        console.log(222222)
 	        console.log(data)
 	        if(data.message=='ok'){
-						$('.load-animate').hide();
+						$('.load-bg').hide();
 	        }
 		    });
 		   },
