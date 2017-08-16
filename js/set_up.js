@@ -678,7 +678,7 @@ $(function() {
  		// 根据用户身份判断是否可以修改密码
 			var role_name = $('#role-name').val();
 			console.log(role_name)
-			if(role_name=="超级管理员"){
+			if(role_name=="教师"){
 				$('body').find('.table-span').css('visibility', 'hidden');
 			}
 

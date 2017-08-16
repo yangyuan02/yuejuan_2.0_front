@@ -63,6 +63,7 @@ $(function() {
 
 	// 根据用户身份判断阅卷进入的页面
 	$('#mark-head').click(function(){
+		console.log(role_name)
 		if(role_name=="教师"){
 			$(this).attr('href','./marking_change.html');
 		}else{
