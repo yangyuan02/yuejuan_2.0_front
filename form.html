@@ -140,6 +140,9 @@
 </div>
 </div>
 
+
+
+
 </div>
 <!-- 成绩生成。end -->
 <!--考试状况  start-->
@@ -508,11 +511,12 @@
 </div>
 <div class="study_q_05">
 <div class="study_q_i">
-		<i></i><span>班级客观题各小题得分分析</span>
-<button type="" class="determine">导出</button>
+		<i></i><span>班级客观题各小题得分分析</span>s
+<button type="" class="study_q_i_btn_04 determine">导出</button>
 	</div>		
 <div class="study_q_05_01">
 <table cellspacing="0" border="1" bordercolor="#cccccc" >
+  <thead>
   <tr>
      <th>题型</th>
      <th>平均分</th>
@@ -523,48 +527,17 @@
      <th>选项D</th>
     <th>正确答案</th>
     <th>正确率</th>
-     <th>详情</th>
-    
+     <th>详情</th>  
   </tr>
-  <tr>
-  <td></td>
-    <td></td>
-    <td>1</td>
-    <td>5</td>
-    <td style="color:#fb7d8a">9</td>
-     <td>9</td>
-     <td>7</td>
-    <td>B</td>
-    <td>30%</td>
-    <td><span>查看</span></td>
-     
-  </tr>
-  <tr>
-    <td>一、选择题</td>
-    <td >4分</td>
-    <td>1</td>
-    <td>5</td>
-    <td>9</td>
-     <td>9</td>
-     <td style="color:#fb7d8a">7</td>
-    <td>D</td>
-    <td>30%</td>
-    <td><span>查看</span></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td ></td>
-    <td>1</td>
-    <td style="color:#fb7d8a">5</td>
-    <td>9</td>
-     <td>9</td>
-     <td>7</td>
-    <td>A</td>
-    <td>30%</td>
-    <td><span>查看</span></td>
-  </tr>
-  </table>
+  </thead>
+ </table>
+<div class="study_q_05_tb_div">
+  <table cellspacing="0" border="1" bordercolor="#cccccc" >
+  <tbody class="study_q_05_tb">
+  </tbody>
 
+  </table>
+</div>
 <table cellspacing="0" border="1" bordercolor="#cccccc"  class="study_q_05_tab">
   <tr>
      <th>题型</th>
@@ -578,18 +551,16 @@
     
   </tr>
   <tr>
-  <td></td>
-    <td></td>
+  <td rowspan="3">二、判断题</td>
+    <td>2分</td>
     <td>4</td>
     <td style="color:#fb7d8a">9</td>
      <td>7</td>
     <td>T</td>
     <td>67%</td>
-    <td><span>查看</span></td>
-     
+    <td><span>查看</span></td>   
   </tr>
   <tr>
-    <td>二、判断题</td>
     <td >2分</td>
     <td>5</td>
      <td>9</td>
@@ -599,8 +570,7 @@
     <td><span>查看</span></td>
   </tr>
   <tr>
-    <td></td>
-    <td ></td>
+    <td >2分</td>
     <td>6</td>
      <td style="color:#fb7d8a">5</td>
      <td>9</td>
@@ -649,11 +619,59 @@
 </div>
 <!-- 答题卡 -->
 
-
-
-
-
 </div>
+<div class="study_q_ck">
+<div class="right_01" style="margin-bottom: 30px"><span style="font-weight: normal;"><i class="iconfont" style="margin-right:15px; "
+ id="study_q_ck_i"></i><a class="study_q_ck_biao"></a></span></div>
+
+
+<div class="study_q_i">
+    <i></i><span>小题得分</span>
+  </div>  
+<table cellspacing="0" border="1" bordercolor="#cccccc">
+  <thead>
+ 
+  
+  <tr>    
+    <th colspan="2">第<a  class="study_q_ck_a1">1</a>题&nbsp;&nbsp;答案分布(<a  class="study_q_ck_a2">正确答案A</a>)</th>
+   
+     
+  </tr>
+  </thead>
+  <tbody class="xiaoti_mark">
+   
+  
+  <tr>
+    <td>选项A</td>
+    <td class="study_q_xuan_a"></td>
+     
+  </tr>
+  <tr>
+     <td>选项B</td>
+    <td class="study_q_xuan_b"></td>
+    
+  </tr>
+  <tr>
+    <td >选项C</td>
+    <td class="study_q_xuan_c"></td>
+  </tr>
+  <tr>
+    <td>选项D</td>
+    <td class="study_q_xuan_d"></td>
+  </tr>
+  </tbody>
+    </table>  
+</div>
+
+
+
+
+
+
+
+
+
+
 </div>
 <!--班级学情追踪 end-->
 <!-- /*学科追踪分析 start*/ -->
@@ -1758,7 +1776,10 @@
 		</div>
 
 	</div>
-
+<!-- 遮罩层 -->
+<div class="mask_layer">
+  
+</div>
 </body>
 
 </html>
