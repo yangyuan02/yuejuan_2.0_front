@@ -20,7 +20,7 @@ $(function() {
 			dataType: "JSON",
 
 			success: function(data) {
-				console.log(data)
+				console.log(data,list_page)
 				if (data.length != 0) {
 					show_list(data);
 				}
@@ -152,12 +152,12 @@ $(function() {
 	// 考试列表切换
 	$('body').on('click', '.list-ul li', function() {
 		$('.first-new').hide();
-			$('.teacher-set').hide();
-			$('.second-new').show();
-			$(this).addClass('active').siblings().removeClass('active');
-			// console.log($(this).data('id'));
-			show_test_cont($(this).data('id'));
-		})
+		$('.teacher-set').hide();
+		$('.second-new').show();
+		$(this).addClass('active').siblings().removeClass('active');
+		// console.log($(this).data('id'));
+		show_test_cont($(this).data('id'));
+	})
 		// 搜索考试
 	$('#search-test').on('change', function() {
 		var str_name = $(this).val();
