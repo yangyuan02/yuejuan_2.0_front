@@ -150,7 +150,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var itme_obj = {}
         var studentRegionRect = {}//学号区域信息
         var dot = $(".position_TL span").eq(1).offset();
-        dot.left = dot.left + 7.5, dot.top = dot.top + 7.5//定标点
+        dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
         var studentInfo = $(".student_number3")
         studentRegionRect.region_rect_x = parseInt(studentInfo.offset().left) - parseInt(dot.left)
         studentRegionRect.region_rect_y = parseInt(studentInfo.offset().top) - parseInt(dot.top)
@@ -164,26 +164,29 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             len = $(this).find("li").length
         })
         itme_obj.answer_mode = 3
+        itme_obj.no = 0
+        itme_obj.score = 0
+        itme_obj.string = "学号"
         itme_obj.block_width = 18
         itme_obj.block_height = 12
-        itme_obj.num_question = ulLen
-        itme_obj.num_of_option = len
+        itme_obj.num_question = parseInt(ulLen)
+        itme_obj.num_of_option = parseInt(len)
         itme_obj.region_rect_x = studentRegionRect.region_rect_x
         itme_obj.region_rect_y = studentRegionRect.region_rect_y
         itme_obj.region_rect_width = studentRegionRect.region_rect_width
         itme_obj.region_rect_height = studentRegionRect.region_rect_height
-        itme_obj.questions = []
+        itme_obj.question = []
         for(var i = 1;i<=ulLen;i++){
             var a = {}
             a.no = i
             a.option = []
-            itme_obj.questions.push(a)
+            itme_obj.question.push(a)
             for(var j = 1;j<=len;j++){
                 var b = {}
                 b.no = j
                 b.option_point_x = parseInt(fristPost[i-1].left+9)-parseInt(dot.left)
-                b.option_point_y = parseInt(fristPost[i-1].top+6)+(12+8)*j-parseInt(dot.top)
-                itme_obj.questions[i-1].option.push(b)
+                b.option_point_y = parseInt(fristPost[i-1].top+6)+(12+8)*(j-1)-parseInt(dot.top)
+                itme_obj.question[i-1].option.push(b)
             }
         }
         return itme_obj
@@ -201,7 +204,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     function regionRect(index) {//获取题组区域坐标和高度
         var regionRect = {}
         var dot = $(".position_TL span").eq(1).offset();
-        dot.left = dot.left + 7.5, dot.top = dot.top + 7.5//定标点
+        dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
         var dom = $(".A_Rone_child").eq(0).find("table").eq(index).offset()
         regionRect.region_rect_x = parseInt(dom.left) - parseInt(dot.left)
         regionRect.region_rect_y = parseInt(dom.top) - parseInt(dot.top)
@@ -211,7 +214,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     function fillScoreRect(index) {//获得填空题打分区域坐标
         var scoreRect = {}
         var dot = $(".position_TL span").eq(1).offset();
-        dot.left = dot.left + 7.5, dot.top = dot.top + 7.5//定标点
+        dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
         var dom = $(".A_Rone_child").eq(0).find("table").eq(index).find("thead").find("tr").eq(1).offset()
         scoreRect.score_rect_width = 698
         scoreRect.score_rect_height = 40
@@ -222,7 +225,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     function getFillPost(index) {//获得填空题小题坐标
         var fillItemPost = []
         var dot = $(".position_TL span").eq(1).offset();
-        dot.left = dot.left + 7.5, dot.top = dot.top + 7.5//定标点
+        dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
         var dom = $(".A_Rone_child").eq(0).find("table").eq(index).find(".q_c")
         dom.each(function () {
             fillItemPost.push($(this).find("a").eq(0).offset())
@@ -233,7 +236,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var fillScoreOptions = []
         var makrin = []
         var dot = $(".position_TL span").eq(1).offset();
-        dot.left = dot.left + 7.5, dot.top = dot.top + 7.5//定标点
+        dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
         var dom = $(".A_Rone_child").eq(0).find("table").eq(index).find("thead").find("tr").eq(1).find("a")
         dom.each(function () {
             fillScoreOptions.push($(this).offset())
@@ -252,7 +255,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var qNumer = parseInt(qNumer)
         var answerNumber = parseInt(answerNumber)//选项个数
         var dot = $(".position_TL span").eq(1).offset();
-        dot.left = dot.left + 7.5, dot.top = dot.top + 7.5//定标点
+        dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
         var item_w = 16, itemMarginLeft = 14;
         for (var i = 1; i <= qNumer; i++) {//循环每个小题
             var itme_obj = {}
@@ -306,7 +309,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             itme_obj.answer_id = answer_id[i - 1].answers.answer_id//题组ID
             itme_obj.answer_mode = answerModeType(obj[i - 1].type)//题目类型
             itme_obj.current_page = 1//当前页面
-            itme_obj.num_question = obj[i - 1].numbel//题目数量
+            itme_obj.num_question = parseInt(obj[i - 1].numbel)//题目数量
             itme_obj.region_rect_x = regionRect(i - 1).region_rect_x//题组区域的X坐标
             itme_obj.region_rect_y = regionRect(i - 1).region_rect_y//题组区域的Y坐标
             itme_obj.region_rect_width = 698//题组区域的宽度
@@ -316,7 +319,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 itme_obj.block_width = 16//选项宽度
                 itme_obj.block_height = 13//选项高度
                 itme_obj.answer_count = 1//答案个数
-                itme_obj.num_of_option = obj[i - 1].itemNumber//选项个数
+                itme_obj.num_of_option = parseInt(obj[i - 1].itemNumber)//选项个数
             }else{//填空题
                 itme_obj.block_width = 25//选项宽度
                 itme_obj.block_height = 14//选项高度
@@ -342,20 +345,20 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var dot2 = $(".position_TR span").eq(1).offset();
         var dot3 = $(".position_BL span").eq(1).offset();
         var dot4 = $(".position_BR span").eq(1).offset();
-        anchor.LeftTopX = parseInt(dot1.left + 7.5) - parseInt(relativePost.left)
-        anchor.LeftTopY = parseInt(dot1.top + 7.5) - parseInt(relativePost.top)
-        anchor.RightTopX = parseInt(dot2.left + 7.5) - parseInt(relativePost.left)
-        anchor.RightTopY = parseInt(dot2.top + 7.5) - parseInt(relativePost.top)
-        anchor.LeftBottomX = parseInt(dot3.left + 7.5) - parseInt(relativePost.left)
-        anchor.LeftBottomY = parseInt(dot3.top + 7.5) - parseInt(relativePost.top)
-        anchor.RightBottomX = parseInt(dot4.left + 7.5) - parseInt(relativePost.left)
-        anchor.RightBottomY = parseInt(dot4.top + 7.5) - parseInt(relativePost.top)
+        anchor.LeftTopX = parseInt(dot1.left + 15) - parseInt(relativePost.left)
+        anchor.LeftTopY = parseInt(dot1.top + 15) - parseInt(relativePost.top)
+        anchor.RightTopX = parseInt(dot2.left + 15) - parseInt(relativePost.left)
+        anchor.RightTopY = parseInt(dot2.top + 15) - parseInt(relativePost.top)
+        anchor.LeftBottomX = parseInt(dot3.left + 15) - parseInt(relativePost.left)
+        anchor.LeftBottomY = parseInt(dot3.top + 15) - parseInt(relativePost.top)
+        anchor.RightBottomX = parseInt(dot4.left + 15) - parseInt(relativePost.left)
+        anchor.RightBottomY = parseInt(dot4.top + 15) - parseInt(relativePost.top)
         return anchor
     }
 
     $scope.save = function () {//保存模板
         var isLogin = localStorage.getItem("token");
-        console.log(getBigQuestion($scope.listObj))
+        console.log(JSON.stringify(getBigQuestion($scope.listObj)))
         $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/answer_regions",
