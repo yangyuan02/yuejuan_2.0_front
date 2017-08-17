@@ -131,7 +131,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
     }
 
-    // getAnswer()
+    getAnswer()
     //关闭
     var close = function () {
         clear();
