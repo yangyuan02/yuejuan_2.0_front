@@ -152,8 +152,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var dot = $(".position_TL span").eq(1).offset();
         dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
         var studentInfo = $(".student_number3")
-        studentRegionRect.region_rect_x = parseInt(studentInfo.offset().left) - parseInt(dot.left)
-        studentRegionRect.region_rect_y = parseInt(studentInfo.offset().top) - parseInt(dot.top)
+        studentRegionRect.region_rect_x = parseInt(studentInfo.offset().left - dot.left)
+        studentRegionRect.region_rect_y = parseInt(studentInfo.offset().top - dot.top)
         studentRegionRect.region_rect_width = studentInfo.width()
         studentRegionRect.region_rect_height = studentInfo.height()
         var ulItem = studentInfo.find("ul"),ulLen = ulItem.length
@@ -184,8 +184,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             for(var j = 1;j<=len;j++){
                 var b = {}
                 b.no = j
-                b.option_point_x = parseInt(fristPost[i-1].left+9)-parseInt(dot.left)
-                b.option_point_y = parseInt(fristPost[i-1].top+6)+(12+9)*(j-1)-parseInt(dot.top)
+                b.option_point_x = parseInt(fristPost[i-1].left+9-dot.left)
+                b.option_point_y = parseInt(fristPost[i-1].top+6+(12+9)*(j-1)-dot.top)
                 itme_obj.question[i-1].option.push(b)
             }
         }
@@ -206,8 +206,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var dot = $(".position_TL span").eq(1).offset();
         dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
         var dom = $(".A_Rone_child").eq(0).find("table").eq(index).offset()
-        regionRect.region_rect_x = parseInt(dom.left) - parseInt(dot.left)
-        regionRect.region_rect_y = parseInt(dom.top) - parseInt(dot.top)
+        regionRect.region_rect_x = parseInt(dom.left - dot.left)
+        regionRect.region_rect_y = parseInt(dom.top - dot.top)
         regionRect.region_rect_height = $(".A_Rone_child").eq(0).find("table").eq(index).height()
         return regionRect
     }
@@ -218,8 +218,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var dom = $(".A_Rone_child").eq(0).find("table").eq(index).find("thead").find("tr").eq(1).offset()
         scoreRect.score_rect_width = 698
         scoreRect.score_rect_height = 40
-        scoreRect.score_rect_x = parseInt(dom.left)-parseInt(dot.left)
-        scoreRect.score_rect_y = parseInt(dom.top)-parseInt(dot.top)
+        scoreRect.score_rect_x = parseInt(dom.left-dot.left)
+        scoreRect.score_rect_y = parseInt(dom.top-dot.top)
         return scoreRect
     }
     function getFillPost(index) {//获得填空题小题坐标
@@ -244,8 +244,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for(var i = 1 ;i<=fillScoreOptions.length;i++){
             var obj = {}
             obj.no = i
-            obj.option_point_x = parseInt(fillScoreOptions[i-1].left+12)-parseInt(dot.left)
-            obj.option_point_y = parseInt(fillScoreOptions[i-1].top+7)-parseInt(dot.left)
+            obj.option_point_x = parseInt(fillScoreOptions[i-1].left+12-dot.left)
+            obj.option_point_y = parseInt(fillScoreOptions[i-1].top+7-dot.left)
             makrin.push(obj)
         }
         return makrin
@@ -264,8 +264,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             if(answerModeType==1||answerModeType==2||answerModeType==6){//单选题/多选题/判断题
                 itme_obj.option = []
             }else{//填空题
-                itme_obj.option_point_x = parseInt(getFillPost(Answerindex)[i-1].left+12)-parseInt(dot.left)
-                itme_obj.option_point_y = parseInt(getFillPost(Answerindex)[i-1].top+7)-parseInt(dot.top)
+                itme_obj.option_point_x = parseInt(getFillPost(Answerindex)[i-1].left+12-dot.left)
+                itme_obj.option_point_y = parseInt(getFillPost(Answerindex)[i-1].top+7-dot.top)
             }
             question.push(itme_obj)
         }
@@ -273,8 +273,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             for (var j = 1; j <= answerNumber; j++) {
                 var itme_obj = {}
                 itme_obj.no = j//小题序号
-                itme_obj.option_point_x = parseInt(getItemPost(Answerindex)[i].left + 8) + (item_w + itemMarginLeft) * (j-1) - parseInt(dot.left)//选项框中心点x坐标
-                itme_obj.option_point_y = parseInt(getItemPost(Answerindex)[i].top + 6) - parseInt(dot.top)//同行option_point_y都是一样的 选项框中心点y坐标
+                itme_obj.option_point_x = parseInt(getItemPost(Answerindex)[i].left + 8 + (item_w + itemMarginLeft) * (j-1) - dot.left)//选项框中心点x坐标
+                itme_obj.option_point_y = parseInt(getItemPost(Answerindex)[i].top + 6 - dot.top)//同行option_point_y都是一样的 选项框中心点y坐标
                 question[i].option.push(itme_obj)
             }
         }
@@ -301,7 +301,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
     function getBigQuestion(obj) {//获取大题
         var BigQuestion = []
-        for (var i = 1; i <= obj.length; i++) {
+        for (var i = 1; i <= obj.length; i++) { //标题有问题,最后一个选题只存了一个选项
             var itme_obj = {}
             itme_obj.no = i//大题编号
             itme_obj.score = obj[i - 1].totalCores//答题总分
@@ -345,35 +345,35 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var dot2 = $(".position_TR span").eq(1).offset();
         var dot3 = $(".position_BL span").eq(1).offset();
         var dot4 = $(".position_BR span").eq(1).offset();
-        anchor.LeftTopX = parseInt(dot1.left + 15) - parseInt(relativePost.left)
-        anchor.LeftTopY = parseInt(dot1.top + 15) - parseInt(relativePost.top)
-        anchor.RightTopX = parseInt(dot2.left + 15) - parseInt(relativePost.left)
-        anchor.RightTopY = parseInt(dot2.top + 15) - parseInt(relativePost.top)
-        anchor.LeftBottomX = parseInt(dot3.left + 15) - parseInt(relativePost.left)
-        anchor.LeftBottomY = parseInt(dot3.top + 15) - parseInt(relativePost.top)
-        anchor.RightBottomX = parseInt(dot4.left + 15) - parseInt(relativePost.left)
-        anchor.RightBottomY = parseInt(dot4.top + 15) - parseInt(relativePost.top)
+        anchor.LeftTopX = parseInt(dot1.left + 15 -relativePost.left)
+        anchor.LeftTopY = parseInt(dot1.top + 15 - relativePost.top)
+        anchor.RightTopX = parseInt(dot2.left + 15 - relativePost.left)
+        anchor.RightTopY = parseInt(dot2.top + 15- relativePost.top)
+        anchor.LeftBottomX = parseInt(dot3.left + 15 - relativePost.left)
+        anchor.LeftBottomY = parseInt(dot3.top + 15 - relativePost.top)
+        anchor.RightBottomX = parseInt(dot4.left + 15 - relativePost.left)
+        anchor.RightBottomY = parseInt(dot4.top + 15 - relativePost.top)
         return anchor
     }
 
     $scope.save = function () {//保存模板
         var isLogin = localStorage.getItem("token");
         console.log(JSON.stringify(getBigQuestion($scope.listObj)))
-        $.ajax({
-                type: "POST",
-                url: ajaxIp + "/api/v2/answer_regions",
-                headers: {'Authorization': "Bearer " + isLogin},
-                data: {
-                    'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
-                    'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
-                    'answer_region[region_info]': JSON.stringify(getBigQuestion($scope.listObj)),//所有坐标信息
-                    'answer_region[basic_info_region]':''//保存的题目内容
-                },
-                dataType: "JSON",
-                success: function (data) {
-                }
-            }
-        )
+        // $.ajax({
+        //         type: "POST",
+        //         url: ajaxIp + "/api/v2/answer_regions",
+        //         headers: {'Authorization': "Bearer " + isLogin},
+        //         data: {
+        //             'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
+        //             'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
+        //             'answer_region[region_info]': JSON.stringify(getBigQuestion($scope.listObj)),//所有坐标信息
+        //             'answer_region[basic_info_region]':''//保存的题目内容
+        //         },
+        //         dataType: "JSON",
+        //         success: function (data) {
+        //         }
+        //     }
+        // )
 
 
     }
