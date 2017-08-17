@@ -26,7 +26,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.listObj2 = [];//定义全局数组保存所有题目
     $scope.result = {};//弹出框保存
     $scope.result.isradio = 1
-//点击显示
+    //点击显示
     $scope.add = function (index) {
         $scope.index = index
         clear()
@@ -270,7 +270,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             for (var j = 1; j <= answerNumber; j++) {
                 var itme_obj = {}
                 itme_obj.no = j//小题序号
-                itme_obj.option_point_x = parseInt(getItemPost(Answerindex)[i].left + 8) + (item_w + itemMarginLeft) * j - parseInt(dot.left)//选项框中心点x坐标
+                itme_obj.option_point_x = parseInt(getItemPost(Answerindex)[i].left + 8) + (item_w + itemMarginLeft) * (j-1) - parseInt(dot.left)//选项框中心点x坐标
                 itme_obj.option_point_y = parseInt(getItemPost(Answerindex)[i].top + 6) - parseInt(dot.top)//同行option_point_y都是一样的 选项框中心点y坐标
                 question[i].option.push(itme_obj)
             }
