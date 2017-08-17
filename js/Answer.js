@@ -185,7 +185,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 var b = {}
                 b.no = j
                 b.option_point_x = parseInt(fristPost[i-1].left+9)-parseInt(dot.left)
-                b.option_point_y = parseInt(fristPost[i-1].top+6)+(12+8)*(j-1)-parseInt(dot.top)
+                b.option_point_y = parseInt(fristPost[i-1].top+6)+(12+9)*(j-1)-parseInt(dot.top)
                 itme_obj.question[i-1].option.push(b)
             }
         }
