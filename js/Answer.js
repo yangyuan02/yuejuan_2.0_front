@@ -104,6 +104,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for (var i = 0; i < parseInt($scope.result.numbel); i++) {//多少个小题
             noarray.push(i + parseInt($scope.result.no));
         }
+        if($scope.index==2){
+            var itemNumber = 2
+        }else if($scope.index==3){
+            var itemNumber = 1
+        }else {
+            var itemNumber = $scope.result.thr
+        }
         obj = {
             name: $scope.result.name,//题组名称
             numbel: $scope.result.numbel,//试题数量
@@ -111,7 +118,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             startNo: $scope.result.no,//起始序号
             currentPage: $scope.result.page==undefined?1:$scope.result.page,//所在页码
             no: noarray,//选项个数数组,
-            itemNumber: $scope.index==2?2:$scope.result.thr,//选项个数
+            itemNumber: itemNumber,//选项个数
             totalCores: totaltwo,//总分
             itemCores: $scope.result.itemcoreS,//每小题分
             thr: $scope.index == 1 ? $scope.nubarray : ['T', 'F'], //选项ABCD(选择题和判断题)
@@ -131,7 +138,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
     }
 
-    getAnswer()
+    // getAnswer()
     //关闭
     var close = function () {
         clear();
@@ -145,7 +152,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             no: '', one: '', two: '', thr: '',
         };
     };
-
     function getStudentInfo() {//获取学号学生信息
         var itme_obj = {}
         var studentRegionRect = {}//学号区域信息
@@ -191,7 +197,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         return itme_obj
     }
-
     function getItemPost(index) {//第一个选项坐标
         var fristPost = []
         var dom = $(".A_Rone_child").eq(0).find("table").eq(index).find(".q_c")
@@ -245,11 +250,19 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             var obj = {}
             obj.no = i
             obj.option_point_x = parseInt(fillScoreOptions[i-1].left+12-dot.left)
-            obj.option_point_y = parseInt(fillScoreOptions[i-1].top+7-dot.left)
+            obj.option_point_y = parseInt(fillScoreOptions[i-1].top+7-dot.top)
             makrin.push(obj)
         }
         return makrin
     }
+
+    /**
+     * @param qNumer  小题个数
+     * @param answerNumber 小题选项个数
+     * @param Answerindex  $scope.listObj的索引
+     * @param answerModeType 题目类型
+     * @returns {Array}
+     */
     function getQuestion(qNumer, answerNumber, Answerindex,answerModeType) {//获取每个小题目
         var question = []
         var qNumer = parseInt(qNumer)
@@ -261,20 +274,20 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             var itme_obj = {}
             itme_obj.no = i
             itme_obj.answer_setting_id = answer_id[Answerindex].answers.settings[i - 1].setting_id//小题id
-            if(answerModeType==1||answerModeType==2||answerModeType==6){//单选题/多选题/判断题
-                itme_obj.option = []
-            }else{//填空题
-                itme_obj.option_point_x = parseInt(getFillPost(Answerindex)[i-1].left+12-dot.left)
-                itme_obj.option_point_y = parseInt(getFillPost(Answerindex)[i-1].top+7-dot.top)
-            }
+            itme_obj.option = []
             question.push(itme_obj)
         }
         for (var i = 0; i < question.length; i++) {
             for (var j = 1; j <= answerNumber; j++) {
                 var itme_obj = {}
                 itme_obj.no = j//小题序号
-                itme_obj.option_point_x = parseInt(getItemPost(Answerindex)[i].left + 8 + (item_w + itemMarginLeft) * (j-1) - dot.left)//选项框中心点x坐标
-                itme_obj.option_point_y = parseInt(getItemPost(Answerindex)[i].top + 6 - dot.top)//同行option_point_y都是一样的 选项框中心点y坐标
+                if(answerModeType==1||answerModeType==2||answerModeType==6){//单选题/多选题/判断题
+                    itme_obj.option_point_x = parseInt(getItemPost(Answerindex)[i].left + 8 + (item_w + itemMarginLeft) * (j-1) - dot.left)//选项框中心点x坐标
+                    itme_obj.option_point_y = parseInt(getItemPost(Answerindex)[i].top + 6 - dot.top)//同行option_point_y都是一样的 选项框中心点y坐标
+                }else{
+                    itme_obj.option_point_x = parseInt(getFillPost(Answerindex)[i].left+12-dot.left)
+                    itme_obj.option_point_y = parseInt(getFillPost(Answerindex)[i].top+7-dot.top)
+                }
                 question[i].option.push(itme_obj)
             }
         }
@@ -301,7 +314,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
     function getBigQuestion(obj) {//获取大题
         var BigQuestion = []
-        for (var i = 1; i <= obj.length; i++) { //标题有问题,最后一个选题只存了一个选项
+        for (var i = 1; i <= obj.length; i++) { //标题有问题,最后一个选题只存了一个选项,16个打分框及坐标不对
             var itme_obj = {}
             itme_obj.no = i//大题编号
             itme_obj.score = obj[i - 1].totalCores//答题总分
@@ -358,7 +371,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
 
     $scope.save = function () {//保存模板
         var isLogin = localStorage.getItem("token");
-        console.log(JSON.stringify(getBigQuestion($scope.listObj)))
+        console.log(getBigQuestion($scope.listObj))
         // $.ajax({
         //         type: "POST",
         //         url: ajaxIp + "/api/v2/answer_regions",
