@@ -199,7 +199,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
     function getItemPost(index) {//第一个选项坐标
         var fristPost = []
-        var dom = $(".A_Rone_child").eq(0).find("table").eq(index).find(".q_c")
+        var dom = $(".conten").find("table").eq(index).find(".q_c")
         dom.each(function (i) {
             fristPost.push($(this).find("b").eq(0).offset())
         })
@@ -210,17 +210,17 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var regionRect = {}
         var dot = $(".position_TL span").eq(1).offset();
         dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
-        var dom = $(".A_Rone_child").eq(0).find("table").eq(index).offset()
+        var dom = $(".conten").find("table").eq(index).offset()
         regionRect.region_rect_x = parseInt(dom.left - dot.left)
         regionRect.region_rect_y = parseInt(dom.top - dot.top)
-        regionRect.region_rect_height = $(".A_Rone_child").eq(0).find("table").eq(index).height()
+        regionRect.region_rect_height = $(".conten").find("table").eq(index).height()
         return regionRect
     }
     function fillScoreRect(index) {//获得填空题打分区域坐标
         var scoreRect = {}
         var dot = $(".position_TL span").eq(1).offset();
         dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
-        var dom = $(".A_Rone_child").eq(0).find("table").eq(index).find("thead").find("tr").eq(1).offset()
+        var dom = $(".conten").find("table").eq(index).find("thead").find("tr").eq(1).offset()
         scoreRect.score_rect_width = 698
         scoreRect.score_rect_height = 40
         scoreRect.score_rect_x = parseInt(dom.left-dot.left)
@@ -231,7 +231,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var fillItemPost = []
         var dot = $(".position_TL span").eq(1).offset();
         dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
-        var dom = $(".A_Rone_child").eq(0).find("table").eq(index).find(".q_c")
+        var dom = $(".conten").find("table").eq(index).find(".q_c")
         dom.each(function () {
             fillItemPost.push($(this).find("a").eq(0).offset())
         })
@@ -242,7 +242,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var makrin = []
         var dot = $(".position_TL span").eq(1).offset();
         dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
-        var dom = $(".A_Rone_child").eq(0).find("table").eq(index).find("thead").find("tr").eq(1).find("a")
+        var dom = $(".conten").find("table").eq(index).find("thead").find("tr").eq(1).find("a")
         dom.each(function () {
             fillScoreOptions.push($(this).offset())
         })
@@ -368,10 +368,20 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         anchor.RightBottomY = parseInt(dot4.top + 15 - relativePost.top)
         return anchor
     }
-
+    function allPagePost() {//获取页面所有坐标点
+        var allPagePost = []
+        var allList;
+        if($scope.listObj2.length>0){
+            allList = $scope.listObj.concat($scope.listObj2)
+            allPagePost = getBigQuestion(allList)
+        }else {
+            allPagePost = getBigQuestion($scope.listObj)
+        }
+        return allPagePost
+    }
     $scope.save = function () {//保存模板
         var isLogin = localStorage.getItem("token");
-        console.log(getBigQuestion($scope.listObj))
+        console.log(JSON.stringify(allPagePost()))
         // $.ajax({
         //         type: "POST",
         //         url: ajaxIp + "/api/v2/answer_regions",
