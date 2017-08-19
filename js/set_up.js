@@ -1574,20 +1574,25 @@ $(function() {
 
 
  	});
+  $('.user-left .user-left-button').on('click', function() {
+  	$(this).addClass('user-on').siblings().removeClass('user-on');
+  	var index = $(this).index();
+  	$('.user-right').eq(index).show().siblings('.user-right').hide();
+  });
 
-	$('.user-information').on('click', function(){
-		$('.change-password').removeClass('user-on');
-		$('.user-information').addClass('user-on');
-		$('.user-information-right').show();
-		$('.user-change-password').hide();
-	})
+	// $('.user-information').on('click', function(){
+	// 	$('.change-password').removeClass('user-on');
+	// 	$('.user-information').addClass('user-on');
+	// 	$('.user-information-right').show();
+	// 	$('.user-change-password').hide();
+	// })
 
-	$('.change-password').on('click', function(){
-		$('.change-password').addClass('user-on');
-		$('.user-information').removeClass('user-on');
-		$('.user-information-right').hide();
-		$('.user-change-password').show();
-	})
+	// $('.change-password').on('click', function(){
+	// 	$('.change-password').addClass('user-on');
+	// 	$('.user-information').removeClass('user-on');
+	// 	$('.user-information-right').hide();
+	// 	$('.user-change-password').show();
+	// })
 
 
 	$('.export-bar-code').on('click' , function(){
@@ -1731,6 +1736,42 @@ $(function() {
 	      },20);
 	    }
 	  }
+
+
+
+
+
+	// 删除分数
+  $('.dele-button').on('click', function() {
+  	$('.modal-main').animate({'top': '50%','opacity': 1},500);
+		$('.modal-shadow').animate({'opacity': 0},500);
+		$('.modal-wrap-dele').show();
+  });
+
+
+
+
+  // 修改分数
+	$('.edit-btn').on('click', function() {
+		$('.modal-main').animate({'top': '50%','opacity': 1},500);
+		$('.modal-shadow').animate({'opacity': 0},500);
+		$('.edit-score-wrap').show();
+	});
+
+  // 导入成绩
+  $('.import-button').on('click', function() {
+		$('.modal-main').animate({'top': '50%','opacity': 1},500);
+		$('.modal-shadow').animate({'opacity': 0},500);
+		$('.import-wrap').show();
+  });
+ // 设置分值
+  $('.set').on('click', function() {
+		$('.modal-main').animate({'top': '50%','opacity': 1},500);
+		$('.modal-shadow').animate({'opacity': 0},500);
+		$('.set-score-wrap').show();
+  });
+
+
 })
 
 
