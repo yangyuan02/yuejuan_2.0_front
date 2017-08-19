@@ -26,7 +26,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.listObj2 = [];//定义全局数组保存所有题目
     $scope.result = {};//弹出框保存
     $scope.result.isradio = 1
-//点击显示
+    //点击显示
     $scope.add = function (index) {
         $scope.index = index
         clear()
@@ -104,7 +104,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for (var i = 0; i < parseInt($scope.result.numbel); i++) {//多少个小题
             noarray.push(i + parseInt($scope.result.no));
         }
-        console.log($scope.result.page)
+        if($scope.index==2){
+            var itemNumber = 2
+        }else if($scope.index==3){
+            var itemNumber = 1
+        }else {
+            var itemNumber = $scope.result.thr
+        }
         obj = {
             name: $scope.result.name,//题组名称
             numbel: $scope.result.numbel,//试题数量
@@ -112,7 +118,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             startNo: $scope.result.no,//起始序号
             currentPage: $scope.result.page==undefined?1:$scope.result.page,//所在页码
             no: noarray,//选项个数数组,
-            itemNumber: $scope.index==2?2:$scope.result.thr,//选项个数
+            itemNumber: itemNumber,//选项个数
             totalCores: totaltwo,//总分
             itemCores: $scope.result.itemcoreS,//每小题分
             thr: $scope.index == 1 ? $scope.nubarray : ['T', 'F'], //选项ABCD(选择题和判断题)
@@ -120,7 +126,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         };
         $scope.append(obj)
         $scope.createAsswer(obj)
-        console.log($scope.listObj)
         clear()
         close()
     };
@@ -147,15 +152,14 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             no: '', one: '', two: '', thr: '',
         };
     };
-
     function getStudentInfo() {//获取学号学生信息
         var itme_obj = {}
         var studentRegionRect = {}//学号区域信息
         var dot = $(".position_TL span").eq(1).offset();
-        dot.left = dot.left + 7.5, dot.top = dot.top + 7.5//定标点
+        dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
         var studentInfo = $(".student_number3")
-        studentRegionRect.region_rect_x = parseInt(studentInfo.offset().left) - parseInt(dot.left)
-        studentRegionRect.region_rect_y = parseInt(studentInfo.offset().top) - parseInt(dot.top)
+        studentRegionRect.region_rect_x = parseInt(studentInfo.offset().left - dot.left)
+        studentRegionRect.region_rect_y = parseInt(studentInfo.offset().top - dot.top)
         studentRegionRect.region_rect_width = studentInfo.width()
         studentRegionRect.region_rect_height = studentInfo.height()
         var ulItem = studentInfo.find("ul"),ulLen = ulItem.length
@@ -166,34 +170,36 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             len = $(this).find("li").length
         })
         itme_obj.answer_mode = 3
+        itme_obj.no = 0
+        itme_obj.score = 0
+        itme_obj.string = "学号"
         itme_obj.block_width = 18
         itme_obj.block_height = 12
-        itme_obj.num_question = ulLen
-        itme_obj.num_of_option = len
+        itme_obj.num_question = parseInt(ulLen)
+        itme_obj.num_of_option = parseInt(len)
         itme_obj.region_rect_x = studentRegionRect.region_rect_x
         itme_obj.region_rect_y = studentRegionRect.region_rect_y
         itme_obj.region_rect_width = studentRegionRect.region_rect_width
         itme_obj.region_rect_height = studentRegionRect.region_rect_height
-        itme_obj.questions = []
+        itme_obj.question = []
         for(var i = 1;i<=ulLen;i++){
             var a = {}
             a.no = i
             a.option = []
-            itme_obj.questions.push(a)
+            itme_obj.question.push(a)
             for(var j = 1;j<=len;j++){
                 var b = {}
                 b.no = j
-                b.option_point_x = parseInt(fristPost[i-1].left+9)-parseInt(dot.left)
-                b.option_point_y = parseInt(fristPost[i-1].top+6)+(12+8)*j-parseInt(dot.top)
-                itme_obj.questions[i-1].option.push(b)
+                b.option_point_x = parseInt(fristPost[i-1].left+9-dot.left)
+                b.option_point_y = parseInt(fristPost[i-1].top+6+(12+9)*(j-1)-dot.top)
+                itme_obj.question[i-1].option.push(b)
             }
         }
         return itme_obj
     }
-
     function getItemPost(index) {//第一个选项坐标
         var fristPost = []
-        var dom = $(".A_Rone_child").eq(0).find("table").eq(index).find(".q_c")
+        var dom = $(".conten").find("table").eq(index).find(".q_c")
         dom.each(function (i) {
             fristPost.push($(this).find("b").eq(0).offset())
         })
@@ -203,20 +209,66 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     function regionRect(index) {//获取题组区域坐标和高度
         var regionRect = {}
         var dot = $(".position_TL span").eq(1).offset();
-        dot.left = dot.left + 7.5, dot.top = dot.top + 7.5//定标点
-        var dom = $(".A_Rone_child").eq(0).find("table").eq(index).offset()
-        regionRect.region_rect_x = parseInt(dom.left) - parseInt(dot.left)
-        regionRect.region_rect_y = parseInt(dom.top) - parseInt(dot.top)
-        regionRect.region_rect_height = $(".A_Rone_child").eq(0).find("table").eq(index).height()
+        dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
+        var dom = $(".conten").find("table").eq(index).offset()
+        regionRect.region_rect_x = parseInt(dom.left - dot.left)
+        regionRect.region_rect_y = parseInt(dom.top - dot.top)
+        regionRect.region_rect_height = $(".conten").find("table").eq(index).height()
         return regionRect
     }
+    function fillScoreRect(index) {//获得填空题打分区域坐标
+        var scoreRect = {}
+        var dot = $(".position_TL span").eq(1).offset();
+        dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
+        var dom = $(".conten").find("table").eq(index).find("thead").find("tr").eq(1).offset()
+        scoreRect.score_rect_width = 698
+        scoreRect.score_rect_height = 40
+        scoreRect.score_rect_x = parseInt(dom.left-dot.left)
+        scoreRect.score_rect_y = parseInt(dom.top-dot.top)
+        return scoreRect
+    }
+    function getFillPost(index) {//获得填空题小题坐标
+        var fillItemPost = []
+        var dot = $(".position_TL span").eq(1).offset();
+        dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
+        var dom = $(".conten").find("table").eq(index).find(".q_c")
+        dom.each(function () {
+            fillItemPost.push($(this).find("a").eq(0).offset())
+        })
+        return fillItemPost
+    }
+    function fillScoreOptions(index) {//获得17个打分框坐标
+        var fillScoreOptions = []
+        var makrin = []
+        var dot = $(".position_TL span").eq(1).offset();
+        dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
+        var dom = $(".conten").find("table").eq(index).find("thead").find("tr").eq(1).find("a")
+        dom.each(function () {
+            fillScoreOptions.push($(this).offset())
+        })
+        for(var i = 1 ;i<=fillScoreOptions.length;i++){
+            var obj = {}
+            obj.no = i
+            obj.option_point_x = parseInt(fillScoreOptions[i-1].left+12-dot.left)
+            obj.option_point_y = parseInt(fillScoreOptions[i-1].top+7-dot.top)
+            makrin.push(obj)
+        }
+        return makrin
+    }
 
-    function getQuestion(qNumer, answerNumber, Answerindex) {//获取每个小题目
+    /**
+     * @param qNumer  小题个数
+     * @param answerNumber 小题选项个数
+     * @param Answerindex  $scope.listObj的索引
+     * @param answerModeType 题目类型
+     * @returns {Array}
+     */
+    function getQuestion(qNumer, answerNumber, Answerindex,answerModeType) {//获取每个小题目
         var question = []
         var qNumer = parseInt(qNumer)
         var answerNumber = parseInt(answerNumber)//选项个数
         var dot = $(".position_TL span").eq(1).offset();
-        dot.left = dot.left + 7.5, dot.top = dot.top + 7.5//定标点
+        dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
         var item_w = 16, itemMarginLeft = 14;
         for (var i = 1; i <= qNumer; i++) {//循环每个小题
             var itme_obj = {}
@@ -229,8 +281,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             for (var j = 1; j <= answerNumber; j++) {
                 var itme_obj = {}
                 itme_obj.no = j//小题序号
-                itme_obj.option_point_x = parseInt(getItemPost(Answerindex)[i].left + 8) + (item_w + itemMarginLeft) * j - parseInt(dot.left)//选项框中心点x坐标
-                itme_obj.option_point_y = parseInt(getItemPost(Answerindex)[i].top + 6) - parseInt(dot.top)//同行option_point_y都是一样的 选项框中心点y坐标
+                if(answerModeType==1||answerModeType==2||answerModeType==6){//单选题/多选题/判断题
+                    itme_obj.option_point_x = parseInt(getItemPost(Answerindex)[i].left + 8 + (item_w + itemMarginLeft) * (j-1) - dot.left)//选项框中心点x坐标
+                    itme_obj.option_point_y = parseInt(getItemPost(Answerindex)[i].top + 6 - dot.top)//同行option_point_y都是一样的 选项框中心点y坐标
+                }else{
+                    itme_obj.option_point_x = parseInt(getFillPost(Answerindex)[i].left+12-dot.left)
+                    itme_obj.option_point_y = parseInt(getFillPost(Answerindex)[i].top+7-dot.top)
+                }
                 question[i].option.push(itme_obj)
             }
         }
@@ -256,34 +313,39 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         return answerModeType
     }
     function getBigQuestion(obj) {//获取大题
-        console.log(obj+'大题')
         var BigQuestion = []
-        for (var i = 1; i <= obj.length; i++) {
+        for (var i = 1; i <= obj.length; i++) { //标题有问题,最后一个选题只存了一个选项,16个打分框及坐标不对
             var itme_obj = {}
             itme_obj.no = i//大题编号
             itme_obj.score = obj[i - 1].totalCores//答题总分
             itme_obj.string = answer_id[i - 1].answers.answer_name//大题标题
             itme_obj.answer_id = answer_id[i - 1].answers.answer_id//题组ID
             itme_obj.answer_mode = answerModeType(obj[i - 1].type)//题目类型
-
-            itme_obj.block_width = 16//选项宽度
-            itme_obj.block_height = 13//选项高度
             itme_obj.current_page = 1//当前页面
-            itme_obj.num_question = obj[i - 1].numbel//题目数量
-
+            itme_obj.num_question = parseInt(obj[i - 1].numbel)//题目数量
             itme_obj.region_rect_x = regionRect(i - 1).region_rect_x//题组区域的X坐标
             itme_obj.region_rect_y = regionRect(i - 1).region_rect_y//题组区域的Y坐标
             itme_obj.region_rect_width = 698//题组区域的宽度
             itme_obj.region_rect_height = regionRect(i - 1).region_rect_height//题组区域的高度
             itme_obj.question = []
             if(obj[i - 1].type==1||obj[i - 1].type==6||obj[i - 1].type==2){//单选题/多选题/判断题
+                itme_obj.block_width = 16//选项宽度
+                itme_obj.block_height = 13//选项高度
                 itme_obj.answer_count = 1//答案个数
-                itme_obj.num_of_option = obj[i - 1].itemNumber//选项个数
+                itme_obj.num_of_option = parseInt(obj[i - 1].itemNumber)//选项个数
+            }else{//填空题
+                itme_obj.block_width = 25//选项宽度
+                itme_obj.block_height = 14//选项高度
+                itme_obj.score_rect_x = fillScoreRect(i - 1).score_rect_x//打分框区域的x坐标
+                itme_obj.score_rect_y = fillScoreRect(i - 1).score_rect_y//打分框区域的y坐标
+                itme_obj.score_rect_width = fillScoreRect(i - 1).score_rect_width//打分框区域的宽度
+                itme_obj.score_rect_height = fillScoreRect(i - 1).score_rect_height//打分框区域的高度
+                itme_obj.score_options = fillScoreOptions(i-1)
             }
             BigQuestion.push(itme_obj)
         }
         for (var i = 0; i < BigQuestion.length; i++) {
-            BigQuestion[i].question = getQuestion(obj[i].numbel, obj[i].itemNumber, i)
+            BigQuestion[i].question = getQuestion(obj[i].numbel, obj[i].itemNumber,i,obj[i].type)
         }
         BigQuestion.push(getStudentInfo())//添加考生信息
         return BigQuestion
@@ -296,34 +358,45 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var dot2 = $(".position_TR span").eq(1).offset();
         var dot3 = $(".position_BL span").eq(1).offset();
         var dot4 = $(".position_BR span").eq(1).offset();
-        anchor.LeftTopX = parseInt(dot1.left + 7.5) - parseInt(relativePost.left)
-        anchor.LeftTopY = parseInt(dot1.top + 7.5) - parseInt(relativePost.top)
-        anchor.RightTopX = parseInt(dot2.left + 7.5) - parseInt(relativePost.left)
-        anchor.RightTopY = parseInt(dot2.top + 7.5) - parseInt(relativePost.top)
-        anchor.LeftBottomX = parseInt(dot3.left + 7.5) - parseInt(relativePost.left)
-        anchor.LeftBottomY = parseInt(dot3.top + 7.5) - parseInt(relativePost.top)
-        anchor.RightBottomX = parseInt(dot4.left + 7.5) - parseInt(relativePost.left)
-        anchor.RightBottomY = parseInt(dot4.top + 7.5) - parseInt(relativePost.top)
+        anchor.LeftTopX = parseInt(dot1.left + 15 -relativePost.left)
+        anchor.LeftTopY = parseInt(dot1.top + 15 - relativePost.top)
+        anchor.RightTopX = parseInt(dot2.left + 15 - relativePost.left)
+        anchor.RightTopY = parseInt(dot2.top + 15- relativePost.top)
+        anchor.LeftBottomX = parseInt(dot3.left + 15 - relativePost.left)
+        anchor.LeftBottomY = parseInt(dot3.top + 15 - relativePost.top)
+        anchor.RightBottomX = parseInt(dot4.left + 15 - relativePost.left)
+        anchor.RightBottomY = parseInt(dot4.top + 15 - relativePost.top)
         return anchor
     }
-
+    function allPagePost() {//获取页面所有坐标点
+        var allPagePost = []
+        var allList;
+        if($scope.listObj2.length>0){
+            allList = $scope.listObj.concat($scope.listObj2)
+            allPagePost = getBigQuestion(allList)
+        }else {
+            allPagePost = getBigQuestion($scope.listObj)
+        }
+        return allPagePost
+    }
     $scope.save = function () {//保存模板
         var isLogin = localStorage.getItem("token");
-        $.ajax({
-                type: "POST",
-                url: ajaxIp + "/api/v2/answer_regions",
-                headers: {'Authorization': "Bearer " + isLogin},
-                data: {
-                    'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
-                    'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
-                    'answer_region[region_info]': JSON.stringify(getBigQuestion($scope.listObj)),//所有坐标信息
-                    'answer_region[basic_info_region]':''//保存的题目内容
-                },
-                dataType: "JSON",
-                success: function (data) {
-                }
-            }
-        )
+        console.log(JSON.stringify(allPagePost()))
+        // $.ajax({
+        //         type: "POST",
+        //         url: ajaxIp + "/api/v2/answer_regions",
+        //         headers: {'Authorization': "Bearer " + isLogin},
+        //         data: {
+        //             'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
+        //             'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
+        //             'answer_region[region_info]': JSON.stringify(getBigQuestion($scope.listObj)),//所有坐标信息
+        //             'answer_region[basic_info_region]':''//保存的题目内容
+        //         },
+        //         dataType: "JSON",
+        //         success: function (data) {
+        //         }
+        //     }
+        // )
 
 
     }
