@@ -1068,7 +1068,6 @@ $(function() {
     });
 
 // 小题查看结束
-
     };
 
     // 分数段分布插件
@@ -1167,19 +1166,373 @@ $(function() {
 
 
 
-    // <!--学科追踪分析 start-->
+    // <!--最新学科追踪分析 start-->
     $(".study_k_left li").click(function(event) {
         /* Act on the event */
         $(this).css("color", "#31bc91").siblings().css("color", "#999999");
         $(".study_k_b").html($(this).html());
         $(".study_k_tab div").eq($(this).index()).show().siblings().hide();
+        if($(this).index()=="2"||$(this).index()=="3"||$(this).index()=="4"){
+          $(".study_k_101 span").eq(2).hide();
+        }else{
+
+             $(".study_k_101 span").eq(2).show();
+        }
+  // 导出按钮ID不同的值
+      $(".study_k_101 button").attr("data-id",$(this).index());
+    });
+// 导出button点击 
+    var ajaxUrl = "http://192.168.1.117:3000"
+    $(".study_k_101").on('click', 'button', function(event) {
+
+        var btn_id = $(this).attr("data-id");
+        console.log(btn_id);
+        switch (btn_id) {
+            case "0":
+
+                $.ajax({
+                    type: "POST",
+                    url: ajaxUrl + "/api/v2/reports/export_subject_integrated",
+                    headers: {
+                        'Authorization': "Bearer " + isLogin,
+                    },
+                    data: {
+                        "exam_id":"134",
+                        "subject_id":"13",
+                        "classroom_id":"96",
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        console.log(data.file_path);
+                        $(".study_k_101 button").parent().attr("herf", ajaxIp+data.file_path);
+
+                    },
+                    error: function() {}
+
+                });
+
+
+
+                break;
+            case "1":
+                alert("1");
+                break;
+            case "2":
+                // $.ajax({
+                //     type: "POST",
+                //     url: ajaxUrl + "/api/v2/reports/export_subject_integrated",
+                //     headers: {
+                //         'Authorization': "Bearer " + isLogin,
+                //     },
+                //     data: {
+                //         "exam_id":"134",
+                //         "subject_id":"13",
+                //         "classroom_id":"96",
+                //     },
+                //     success: function(data) {
+                //         console.log(data);
+                //         console.log(data.file_path);
+                //         $(".study_k_101 button").parent().attr("herf",' ');
+                //         $(".study_k_101 button").parent().attr("herf", ajaxIp+data.file_path);
+
+                //     },
+                //     error: function() {}
+
+                // });
+                break;
+            case "3":
+                alert("3");
+                break;
+            case "4":
+                alert("4");
+                break;
+            case "5":
+                alert("5");
+                break;
+
+        }
+
+
 
     });
 
 
 
-    /*<!--学科追踪分析 end-->*/
-    // <!-- 考试质量追踪  start-->
+
+
+    // 最新学科综合分析
+    // 科目
+ $.ajax({
+        type: "GET",
+        // analyse:false,
+        url: ajaxIp + "/api/v2/reports/exams",
+        headers: {
+            'Authorization': "Bearer " + isLogin
+        },
+        success: function(data) {
+            console.log(data);
+            for (var i = 0; i < data.length; i++) {
+                $(".study_k_km01").append('<option value="' + data[i].name +'" data-id=' + data[i].id + '>' + data[i].name + '</option>')
+            };
+            for (var i = 0; i < data[0].classrooms.length; i++) {
+                $(".study_k_km02").append('<option value="" data-id=' + data[0].classrooms[i].classroom_id + '>' + data[0].classrooms[i].classroom_name + '</option>')
+
+            };
+            for (var i = 0; i < data[0].subjects.length; i++) {
+                $(".study_k_km03").append('<option value="" data-id=' + data[0].subjects[i].subject_id + '>' + data[0].subjects[i].name + '</option>')
+
+            };
+            study_k();
+            $(".study_k_km01").change(function(event) {
+                /* Act on the event */
+                var index01 = $(".study_k_km01").children('option:selected').index()
+                var index02 = index01;
+                // $(".study_q_km01 option").eq(0).remove();
+                $(".study_k_km02 option").remove();
+                $(".study_k_km03 option").remove();
+                for (var i = 0; i < data[index02].classrooms.length; i++) {
+                    $(".study_k_km02").append('<option value="" data-id=' + data[index02].classrooms[i].classroom_id + '>' + data[index02].classrooms[i].classroom_name + '</option>')
+
+                }
+                for (var i = 0; i < data[index02].subjects.length; i++) {
+                    $(".study_k_km03").append('<option value="" data-id=' + data[index02].subjects[i].subject_id + '>' + data[index02].subjects[i].name + '</option>')
+
+                }
+                study_k();
+            });
+        },
+
+        error: function() {
+
+        }
+    });
+   
+// 科目 end
+// 学科综合分析
+
+    function study_k() {
+        var exam_id = $(".study_k_km01").children('option:selected').attr("data-id");
+        var sub_id = $(".study_k_km03").children('option:selected').attr("data-id");
+        var class_id = $(".study_k_km02").children('option:selected').attr("data-id");
+        $.ajax({
+            type: "POST",
+            url:  ajaxIp  + "/api/v2/reports/subject_integrated",
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            data: {
+                "exam_id": exam_id,
+                "subject_id": sub_id,
+                "classroom_id": class_id,
+            },
+            success: function(data) {
+                console.log(data);
+                for (var i = 0; i < data.length; i++) {
+                    $(".study_k_102_bo").append('<tr><td>' + data[i].id + '</td><td>' + data[i].class_name + '</td><td>' + data[i].subject_name + '</td><td>' + data[i].id + '</td><td>' + data[i].average + '</td><td>' + data[i].highest_score + '</td><td>' + data[i].lowest_score + '</td><td>' + data[i].range + '</td><td>' + data[i].fine_number + '</td><td>' + data[i].fine_rate + '</td><td>' + data[i].pass_number + '</td><td>' + data[i].pass_rate + '</td><td>' + data[i].fail_number + '</td><td>' + data[i].standard_deviation + '</td></tr>');
+                }
+
+
+            },
+            error: function() {}
+
+        });
+        // 导出
+
+
+
+        // 总分排名
+
+        $.ajax({
+            type: "POST",
+            url:  ajaxIp + "/api/v2/reports/total_points_and_ranking",
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            data: {
+                "exam_id": exam_id,
+                "subject_id": sub_id,
+                "classroom_id": class_id,
+            },
+            success: function(data) {
+                console.log(data);
+                for (var i = 0; i < data.titile.length; i++) {
+
+                    $(".study_k_201_he").append('<th>' + data.titile[i] + '</th>');
+                };
+
+
+                for (var i = 0; i < data.data.length; i++) {
+                    var a = data.data[i];
+                    $(".study_k_201_bo").append('<tr></tr>');
+
+                    for (var c = 0; c < a.length; c++) {
+                        $(".study_k_201_bo tr").eq(i).append('<td>' + a[c] + '</td>');
+                    }
+
+                }
+
+            },
+            error: function() {
+
+            }
+
+        });
+
+
+
+        // 单科等级
+        $.ajax({
+            type: "POST",
+            url:  ajaxIp  + "/api/v2/reports/single_and_level",
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            data: {
+                "exam_id": exam_id,
+                "classroom_id": class_id,
+            },
+            success: function(data) {
+                console.log(data);
+                for (var i = 0; i < data.titile.length; i++) {
+
+                    $(".study_k_301_he").append('<th>' + data.titile[i] + '</th>');
+                };
+
+
+                for (var i = 0; i < data.data.length; i++) {
+                    var a = data.data[i];
+                    $(".study_k_301_bo").append('<tr></tr>');
+
+                    for (var c = 0; c < a.length; c++) {
+                        $(".study_k_301_bo tr").eq(i).append('<td>' + a[c] + '</td>');
+                    }
+
+                }
+
+
+            },
+            error: function() {}
+
+        });
+        // 各科成绩名次
+
+        $.ajax({
+            type: "POST",
+            url:  ajaxIp + "/api/v2/reports/all_subjects_ranking",
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            data: {
+                "exam_id": exam_id,
+                "classroom_id": class_id,
+            },
+            success: function(data) {
+                console.log(data);
+                for (var i = 0; i < data.titile.length; i++) {
+
+                    $(".study_k_401_he").append('<th>' + data.titile[i] + '</th>');
+                };
+
+
+                for (var i = 0; i < data.data.length; i++) {
+                    var a = data.data[i];
+                    $(".study_k_401_bo").append('<tr></tr>');
+
+                    for (var c = 0; c < a.length; c++) {
+                        $(".study_k_401_bo tr").eq(i).append('<td>' + a[c] + '</td>');
+                    }
+
+                }
+
+
+            },
+            error: function() {}
+
+        });
+        // 语数外综合名次
+
+        $.ajax({
+            type: "POST",
+            url:  ajaxIp  + "/api/v2/reports/chinese_math_english_ranking",
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            data: {
+                "exam_id": exam_id,
+                "classroom_id": class_id,
+            },
+            success: function(data) {
+                console.log(data);
+                for (var i = 0; i < data.titile.length; i++) {
+
+                    $(".study_k_501_he").append('<th>' + data.titile[i] + '</th>');
+                };
+
+
+                for (var i = 0; i < data.data.length; i++) {
+                    var a = data.data[i];
+                    $(".study_k_501_bo").append('<tr></tr>');
+
+                    for (var c = 0; c < a.length; c++) {
+                        $(".study_k_501_bo tr").eq(i).append('<td>' + a[c] + '</td>');
+                    }
+
+                }
+
+
+            },
+            error: function() {
+
+            }
+
+        });
+        // 学生详细成绩单
+
+        $.ajax({
+            type: "POST",
+            url:  ajaxIp  + "/api/v2/reports/student_details",
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            data: {
+                "exam_id": exam_id,
+                "subject_id": sub_id,
+                "classroom_id": class_id,
+            },
+            success: function(data) {
+                console.log(data);
+                for (var i = 0; i < data.titile.length; i++) {
+
+                    $(".study_k_601_he").append('<th>' + data.titile[i] + '</th>');
+                };
+
+
+                for (var i = 0; i < data.data.length; i++) {
+                    var a = data.data[i];
+                    $(".study_k_601_bo").append('<tr></tr>');
+
+                    for (var c = 0; c < a.length; c++) {
+                        $(".study_k_601_bo tr").eq(i).append('<td>' + a[c] + '</td>');
+                    }
+
+                }
+
+
+            },
+            error: function() {
+
+            }
+
+        });
+
+    }
+
+
+
+
+
+    /*<!--最新学科追踪分析 end-->*/
+    // <!-- 最新考试质量追踪  start-->
 
 
 
@@ -1189,6 +1542,10 @@ $(function() {
         $(this).css("color", "#31bc91").siblings().css("color", "#999999");
         $(".exam_z_b").html($(this).html());
         $(".exam_z_tab div").eq($(this).index()).show().siblings().hide();
+        if($(this).index()==0){
+           $(".exam_z_101 span").eq(1).hide();
+        $(".exam_z_101 span").eq(2).hide(); 
+        }
 
     });
 
@@ -1208,6 +1565,36 @@ $(function() {
         /* Act on the event */
         $(".exam_z_101 span").eq(1).hide();
     });
+// 试卷质量
+// var ajaxUrl="http://192.168.1.117:3000"
+    // $(".exam_z_101 button").click(function(event) {
+    //     /* Act on the event */
+    //     alert();
+    //     $.ajax({
+    //         type: "POST",
+    //         url: ajaxIp + "/api/v2/reports/paper_quality",
+    //         headers: {
+    //             'Authorization': "Bearer " + isLogin
+    //         },
+    //         data: {
+    //             "exam_id":"187",
+    //         },
+    //         success: function(data) {
+    //             console.log(data);
+
+    //         },
+    //         error: function() {
+
+    //         }
+
+    //     });
+
+    // });
+
+
+
+
+
 
 
 
