@@ -380,23 +380,25 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         return allPagePost
     }
     $scope.save = function () {//保存模板
+        console.log($scope.listObj)
         var isLogin = localStorage.getItem("token");
-        console.log(JSON.stringify(allPagePost()))
-        // $.ajax({
-        //         type: "POST",
-        //         url: ajaxIp + "/api/v2/answer_regions",
-        //         headers: {'Authorization': "Bearer " + isLogin},
-        //         data: {
-        //             'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
-        //             'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
-        //             'answer_region[region_info]': JSON.stringify(getBigQuestion($scope.listObj)),//所有坐标信息
-        //             'answer_region[basic_info_region]':''//保存的题目内容
-        //         },
-        //         dataType: "JSON",
-        //         success: function (data) {
-        //         }
-        //     }
-        // )
+        console.log(allPagePost())
+        $.ajax({
+                type: "POST",
+                url: ajaxIp + "/api/v2/answer_regions",
+                headers: {'Authorization': "Bearer " + isLogin},
+                data: {
+                    'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
+                    'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
+                    'answer_region[region_info]': JSON.stringify(allPagePost()),//所有坐标信息
+                    'answer_region[basic_info_region]':''//保存的题目内容
+                },
+                // dataType: "JSON",
+                success: function (data) {
+                    console.log(data)
+                }
+            }
+        )
 
 
     }
