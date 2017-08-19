@@ -1,0 +1,748 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"dat",
+				"data-id"
+			],
+			[
+				"su",
+				"subject_id"
+			],
+			[
+				"co",
+				"console"
+			],
+			[
+				"span",
+				"span"
+			],
+			[
+				"max",
+				"max-height"
+			],
+			[
+				"a",
+				"auto"
+			],
+			[
+				"ov",
+				"ovy\toverflow-y: ${1:hidden};"
+			],
+			[
+				"ch",
+				"children\t.children()"
+			],
+			[
+				"dta",
+				"data_ans"
+			],
+			[
+				"data",
+				"data_ans"
+			],
+			[
+				"pa",
+				"parents\t.parents()"
+			],
+			[
+				"z",
+				"z-index"
+			],
+			[
+				"t",
+				"tbody\t<tbody>"
+			],
+			[
+				"cl",
+				"click\t.click()"
+			],
+			[
+				"rem",
+				"remove\t.remove()"
+			],
+			[
+				"fa",
+				"false"
+			],
+			[
+				"al",
+				"analyse"
+			],
+			[
+				"th",
+				"thead\t<thead>"
+			],
+			[
+				"m",
+				"mark_d"
+			],
+			[
+				"val",
+				"value"
+			],
+			[
+				"margin",
+				"margin-left"
+			],
+			[
+				"par",
+				"parseInt"
+			],
+			[
+				"re",
+				"removeAttr\t.removeAttr()"
+			],
+			[
+				"span_",
+				"span_1"
+			],
+			[
+				"exam",
+				"exam_id"
+			],
+			[
+				"x",
+				"x1"
+			],
+			[
+				"sn",
+				"sn_2"
+			],
+			[
+				"li",
+				"list-style"
+			],
+			[
+				"da",
+				"data-id"
+			],
+			[
+				"ma",
+				"margin-top"
+			],
+			[
+				"mark",
+				"mark_02_ul"
+			],
+			[
+				"bo",
+				"bottom"
+			],
+			[
+				"mou",
+				"mousemove\t.mousemove()"
+			],
+			[
+				"w",
+				"width\t.width()"
+			],
+			[
+				"mar",
+				"margin-bottom"
+			],
+			[
+				"fon",
+				"font-size"
+			],
+			[
+				"marg",
+				"margin-left"
+			],
+			[
+				"margi",
+				"margin-right"
+			],
+			[
+				"de",
+				"delegate\t.delegate()"
+			],
+			[
+				"id",
+				"id\tAttr"
+			],
+			[
+				"sty",
+				"study_k_left"
+			],
+			[
+				"padd",
+				"padding-bottom"
+			],
+			[
+				"ab",
+				"absolute"
+			],
+			[
+				"te",
+				"text-align"
+			],
+			[
+				"styl",
+				"style\tAttr"
+			],
+			[
+				"di",
+				"display"
+			],
+			[
+				"tes",
+				"text-align-last"
+			],
+			[
+				"font-",
+				"font-weight"
+			],
+			[
+				"font",
+				"font-weight"
+			],
+			[
+				"cur",
+				"cursor"
+			],
+			[
+				"bor",
+				"border-left"
+			],
+			[
+				"wid",
+				"width"
+			],
+			[
+				"magi",
+				"margin-right"
+			],
+			[
+				"ba",
+				"background"
+			],
+			[
+				"i",
+				"i\t<i>"
+			],
+			[
+				"box",
+				"box-sizing"
+			],
+			[
+				"si",
+				"siblings\t.siblings()"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"f",
+				"float"
+			],
+			[
+				"sc",
+				"script\tTag"
+			],
+			[
+				"tei",
+				"text-align"
+			],
+			[
+				"fla",
+				"float"
+			],
+			[
+				"c",
+				"center"
+			],
+			[
+				"ra",
+				"border-radius"
+			],
+			[
+				"va",
+				"value\tAttr"
+			],
+			[
+				"b",
+				"bold"
+			],
+			[
+				"p",
+				"padding-left"
+			],
+			[
+				"ul",
+				"ul\t<ul>"
+			],
+			[
+				"div",
+				"div\tTag"
+			],
+			[
+				"bos",
+				"box-sizing"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"sli",
+				"siblings\t.siblings()"
+			],
+			[
+				"bl",
+				"block"
+			],
+			[
+				"u_",
+				"u_1"
+			],
+			[
+				"in",
+				"index\t.index()"
+			],
+			[
+				"n",
+				"normal"
+			],
+			[
+				"i_",
+				"i_1"
+			],
+			[
+				"main",
+				"main_right"
+			],
+			[
+				"o",
+				"overflow"
+			],
+			[
+				"style",
+				"style\tAttr"
+			],
+			[
+				"cha",
+				"change\t.change()"
+			],
+			[
+				"fo",
+				"font-size"
+			],
+			[
+				"tex",
+				"text-align"
+			],
+			[
+				"he",
+				"height"
+			],
+			[
+				"h",
+				"height"
+			],
+			[
+				"fl",
+				"float"
+			],
+			[
+				"s",
+				"solid"
+			],
+			[
+				"html",
+				"html5\tSimple HTML5 Boilerplate"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "index.html",
+			"settings":
+			{
+				"buffer_size": 992,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "in",
+		"selected_items":
+		[
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"package control:in",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Install Package Control"
+			]
+		],
+		"width": 521.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"# npm install vue-router --save-dev",
+			"npm install vue-router --save",
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.NET/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/zhaozhengguang/work/yuejuan2.0_front"
+	],
+	"file_history":
+	[
+		"/Users/zhaozhengguang/work/yuejuan2.0_front/js/common.js",
+		"/Users/zhaozhengguang/work/yuejuan2.0_front/js/marking_control.js",
+		"/Users/zhaozhengguang/work/yuejuan2.0_front/js/marking.js",
+		"/Users/zhaozhengguang/work/yuejuan2.0_front/css/style.css",
+		"/Users/zhaozhengguang/work/yuejuan2.0_front/js/form.js",
+		"/Users/zhaozhengguang/work/yuejuan2.0_front/css/form.css",
+		"/Users/zhaozhengguang/work/yuejuan2.0_front/form.html",
+		"/Users/zhaozhengguang/work/yuejuan2.0_front/header.html",
+		"/Users/zhaozhengguang/work/yuejuan2.0_front/img/btn-bg.jpg",
+		"/Users/zhaozhengguang/Downloads/添加-02.png",
+		"/Users/zhaozhengguang/Downloads/未标题-1-01.png",
+		"/Users/zhaozhengguang/work/yuejuan2.0_front/index.html",
+		"/Users/zhaozhengguang/work/yuejuan2.0_front/css/index.css",
+		"/Users/zhaozhengguang/work/form.html",
+		"/Users/zhaozhengguang/Desktop/￼.textClipping"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"study_k_301_he",
+			"study_k_101",
+			"study_q_km01",
+			"考试",
+			"set_04",
+			"mart_set",
+			"mark_set",
+			"mark_set ",
+			".mark_set ",
+			".mark_li_01 ",
+			".mark_li_01 button",
+			"mark_li_01",
+			"mart_set",
+			"study_q_ck",
+			"study_q_05_01",
+			"_ck",
+			"ck",
+			"data_ans",
+			"finished",
+			"study_q_km01",
+			"班级学情",
+			"study",
+			"exam_h_201_x",
+			"exam_h",
+			"exam",
+			"study_q_i_btn_05",
+			"exam_h_201",
+			"exam_h_201\n",
+			"exam\n",
+			"exam_h\n",
+			"exam_h_201\n",
+			"exam_h_201_\n",
+			"exam_h_201_x\n",
+			"\",\n",
+			"ck_",
+			"小",
+			"ck",
+			"班级客观题各小题得分分析",
+			"/api/v2/reports/basic_situation",
+			"main_left",
+			".l_ul",
+			"exam_h_102",
+			"exam_z_102",
+			"考试状",
+			"班",
+			"f5",
+			"exam_h_201",
+			"mark",
+			"ans",
+			"selec",
+			"select",
+			"tab",
+			"mark_set",
+			"r2_02",
+			"},\n",
+			"ul_iLabel",
+			"appen",
+			"study_k_03",
+			"img",
+			"img-4421",
+			".big",
+			"left-operation",
+			"mark_02",
+			"mark_",
+			"main_left\n",
+			">\n"
+		],
+		"highlight": false,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 992,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+									"1":
+									[
+										14,
+										15
+									]
+								},
+								"icon":
+								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/angle_bracket.png",
+										"brackethighlighter.default"
+									]
+								},
+								"open":
+								{
+									"1":
+									[
+										0,
+										1
+									]
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
+							],
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 46.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 100.0
+	},
+	"pinned_build_system": "",
+	"project": "untitled.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 271.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

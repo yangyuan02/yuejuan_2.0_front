@@ -20,7 +20,7 @@ $(function() {
 			dataType: "JSON",
 
 			success: function(data) {
-				console.log(data)
+				console.log(data,list_page)
 				if (data.length != 0) {
 					show_list(data);
 				}
@@ -131,9 +131,13 @@ $(function() {
 			// $('#new-create').hide();
 			$('#operation-th').hide();
 			$('.operation').hide();
+			$('.request-school').hide();
+			$('#dele-test').hide();
 		} else {
 			$('.operation').show();
 			$('#operation-th').show();
+			$('.request-school').show();
+			$('#dele-test').show();
 		}
 	}
 
@@ -147,13 +151,13 @@ $(function() {
 
 	// 考试列表切换
 	$('body').on('click', '.list-ul li', function() {
-			$('.first-new').hide();
-			$('.teacher-set').hide();
-			$('.second-new').show();
-			$(this).addClass('active').siblings().removeClass('active');
-			// console.log($(this).data('id'));
-			show_test_cont($(this).data('id'));
-		})
+		$('.first-new').hide();
+		$('.teacher-set').hide();
+		$('.second-new').show();
+		$(this).addClass('active').siblings().removeClass('active');
+		// console.log($(this).data('id'));
+		show_test_cont($(this).data('id'));
+	})
 		// 搜索考试
 	$('#search-test').on('change', function() {
 		var str_name = $(this).val();
@@ -269,10 +273,11 @@ $(function() {
 	//新建科目显示modal层的科目方法
 	function showSubjectModal(show_grade_id) {
 		$.ajax({
-			url: ajaxIp + "/api/v2/commons/" + show_grade_id + "/grade_subjects",
+			url: ajaxIp + "/api/v2/commons/grade_subjects",
 			headers: {
 				'Authorization': "Bearer " + isLogin
 			},
+			data:{'grade_id':show_grade_id},
 			dataType: "JSON",
 			type: "get",
 			success: function(data) {
@@ -290,10 +295,11 @@ $(function() {
 	// 新建考试信息的时候显示对应班级所有科目信息
 	function showSubjectAll(show_grade_id) {
 		$.ajax({
-			url: ajaxIp + "/api/v2/commons/" + show_grade_id + "/grade_subjects",
+			url: ajaxIp + "/api/v2/commons/grade_subjects",
 			headers: {
 				'Authorization': "Bearer " + isLogin
 			},
+			data:{'grade_id':show_grade_id},
 			dataType: "JSON",
 			type: "get",
 			success: function(data) {
@@ -928,10 +934,11 @@ $(function() {
 
 	function show_modal_subject(show_grade_id) {
 		$.ajax({
-			url: ajaxIp + "/api/v2/commons/" + show_grade_id + "/grade_subjects",
+			url: ajaxIp + "/api/v2/commons/grade_subjects",
 			headers: {
 				'Authorization': "Bearer " + isLogin
 			},
+			data:{'grade_id':show_grade_id},
 			dataType: "JSON",
 			type: "get",
 			success: function(data) {
