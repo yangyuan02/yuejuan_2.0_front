@@ -361,7 +361,7 @@
                                 </th>
 
                             </tr>
-                            <tr ng-hide="a.type==1||a.type==2">
+                            <tr ng-hide="a.type==1||a.type==2||a.type==6">
                                 <th>
                                     <!--网络阅卷打分框start-->
                                     <div class="marking">
@@ -381,6 +381,7 @@
                                         <a href="">4</a>
                                         <a href="">5</a>
                                         <a href="">.5</a>
+                                        <a href=""></a>
                                     </div>
                                     <!--网络阅卷打分框end-->
                                 </th>
@@ -396,7 +397,7 @@
                                         <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
                                         <!--序号end-->
                                         <!--选择题模版start-->
-                                        <span ng-show="a.type==1||a.type==2" ng-repeat="items in a.thr">
+                                        <span ng-show="a.type==1||a.type==2||a.type==6" ng-repeat="items in a.thr">
                                             <b>{{items}}</b>
                                         </span>
                                         <!--选择题模版end-->
@@ -453,6 +454,7 @@
                                         <a href="">4</a>
                                         <a href="">5</a>
                                         <a href="">.5</a>
+                                        <a href=""></a>
                                     </div>
                                     <!--网络阅卷打分框end-->
                                 </th>
