@@ -30,7 +30,7 @@ angular.module("myApp", ["ui.router","myApp.controller"])
                 // }
 
             }else{
-               $urlRouterProvider.otherwise("/form01.html");
+               $urlRouterProvider.otherwise("/form01");
             }
         },
         error: function() {
