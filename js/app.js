@@ -45,32 +45,32 @@ angular.module("myApp", ["ui.router","myApp.controller"])
             })
             .state("form02", {
                 url: "/form02",
-                templateUrl: "views/form02",
+                templateUrl: "views/form02.html",
                 controller:"form02Controller"
             })
             .state("form03", {
                 url: "/form03",
-                templateUrl: "views/form03",
+                templateUrl: "views/form03.html",
                 controller:"form03Controller"
             })
             .state("form04", {
                 url: "/form04",
-                templateUrl: "views/form04",
+                templateUrl: "views/form04.html",
                 controller:"form04Controller"
             })
             .state("form05", {
                 url: "/form05",
-                templateUrl: "views/form05",
+                templateUrl: "views/form05.html",
                 controller:"form05Controller"
             })
             .state("form06", {
                 url: "/form06",
-                templateUrl: "views/form06",
+                templateUrl: "views/form06.html",
                 controller:"form06Controller"
             })
             .state("form07", {
                 url: "/form07",
-                templateUrl: "views/form07",
+                templateUrl: "views/form07.html",
                 controller:"form07Controller"
             })
     });
