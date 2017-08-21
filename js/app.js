@@ -30,7 +30,7 @@ angular.module("myApp", ["ui.router","myApp.controller"])
                 // }
 
             }else{
-               $urlRouterProvider.otherwise("/form01");
+               $urlRouterProvider.otherwise("/form01.html");
             }
         },
         error: function() {
@@ -39,7 +39,7 @@ angular.module("myApp", ["ui.router","myApp.controller"])
     });
         $stateProvider
             .state("form01", {
-                url: "/form01",
+                url: "/form01.html",
                 templateUrl: "./views/form01.html",
                 controller:"form01Controller"
             })
