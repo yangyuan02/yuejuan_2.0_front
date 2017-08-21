@@ -38,7 +38,7 @@ body{
 	z-index: 1;
 	position: relative;
 }
-.main_left li {
+.main_left a{
 display: block;
 width: 188px;
 height: 52px;
@@ -57,7 +57,7 @@ cursor: pointer;
       color:#000;
       position: relative;
 }
-.main_left li:hover{
+.main_left a:hover{
  color:#000;
 }
 
@@ -172,8 +172,8 @@ border: none;
 	margin-top: 40px;
 	box-sizing: border-box;
 	position: absolute;
-	left: 300px;
-	top:-45px;
+	left: 450px;
+	top:55px;
 	background: #ffffff;
 display: none;
 z-index: 1111111111;
@@ -1026,13 +1026,14 @@ z-index:111;
 
 }
 .ans_img{
-	width: 765px;
-	height:530px;
-	box-sizing: border-box;
+	width:998px;
+	height:662px;
+	box-sizing:border-box;
 	float:left;
 	position: relative;
 	overflow: hidden;
 	z-index: 0;
+
 }
 .ans_img img{
 	width:615px;
@@ -1040,7 +1041,6 @@ z-index:111;
 	position: absolute;
 	top:0px;
 	left:0px;
-	
 }
 .ans_03{
 	width: 36px;
