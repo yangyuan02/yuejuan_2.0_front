@@ -1296,7 +1296,7 @@ color: #666666;
 	border-bottom: 1px solid #cccccc;
 	box-sizing: border-box;
 }
-.exam_z_tab tr td{
+.exam_z_tab tbody td{
 	padding:13px 0px 13px 0px;
 	border:none;
 	border-bottom: 1px solid #cccccc;
