@@ -1,50 +1,50 @@
 // 成绩生成
 $(function() {
     // 学科追踪分析下拉
-    $("#study_k_left").click(function(event) {
-        /* Act on the event */
-        $(this).css("margin-bottom", "220px");
-        $(".study_k_left").show();
-    });
-    $("#study_k_left").siblings("a").click(function(event) {
-        /* Act on the event */
-        $("#study_k_left").css("margin-bottom", "15px");
-        $(".study_k_left").hide();
-    });
-    // 考试质量追踪下拉
-    $("#exam_z_left").click(function(event) {
-        /* Act on the event */
-        $(this).css("margin-bottom", "130px");
-        $(".exam_z_left").show();
-    });
-    $("#exam_z_left").siblings("a").click(function(event) {
-        /* Act on the event */
-        $("#exam_z_left").css("margin-bottom", "15px");
-        $(".exam_z_left").hide();
-    });
-    // 考试横向分析下拉
-    $("#exam_h_left").click(function(event) {
-        /* Act on the event */
-        $(this).css("margin-bottom", "150px");
-        $(".exam_h_left").show();
-    });
-    $("#exam_h_left").siblings("a").click(function(event) {
-        /* Act on the event */
-        $("#exam_h_left").css("margin-bottom", "15px");
-        $(".exam_h_left").hide();
-    });
+    // $("#study_k_left").click(function(event) {
+    //     /* Act on the event */
+    //     $("#study_k_left").css("margin-bottom", "220px");
+    //     $(".study_k_left").show();
+    // });
+    // $("#study_k_left").siblings("a").click(function(event) {
+    //     /* Act on the event */
+    //     $("#study_k_left").css("margin-bottom", "15px");
+    //     $(".study_k_left").hide();
+    // });
+    // // 考试质量追踪下拉
+    // $("#exam_z_left").click(function(event) {
+    //     /* Act on the event */
+    //     $("#exam_z_left").css("margin-bottom", "130px");
+    //     $(".exam_z_left").show();
+    // });
+    // $("#exam_z_left").siblings("a").click(function(event) {
+    //     /* Act on the event */
+    //     $("#exam_z_left").css("margin-bottom", "15px");
+    //     $(".exam_z_left").hide();
+    // });
+    // // 考试横向分析下拉
+    // $("#exam_h_left").click(function(event) {
+    //     /* Act on the event */
+    //     $("#exam_h_left").css("margin-bottom", "150px");
+    //     $(".exam_h_left").show();
+    // });
+    // $("#exam_h_left").siblings("a").click(function(event) {
+    //     /* Act on the event */
+    //     $("#exam_h_left").css("margin-bottom", "15px");
+    //     $(".exam_h_left").hide();
+    // });
     // 跨校对比分析下拉
 
-    $("#sc_left").click(function(event) {
-        /* Act on the event */
-        $(this).css("margin-bottom", "150px");
-        $(".sc_left").show();
-    });1
-    $("#sc_left").siblings("a").click(function(event) {
-        /* Act on the event */
-        $("#sc_h_left").css("margin-bottom", "15px");
-        $(".sc_left").hide();
-    });
+    // $("#sc_left").click(function(event) {
+    //     /* Act on the event */
+    //     $("#sc_left").css("margin-bottom", "150px");
+    //     $(".sc_left").show();
+    // });
+    // $("#sc_left").siblings("a").click(function(event) {
+    //     /* Act on the event */
+    //     $("#sc_h_left").css("margin-bottom", "15px");
+    //     $(".sc_left").hide();
+    // });
 
 
 
