@@ -1772,6 +1772,178 @@ $(function() {
   });
 
 
+
+	// 成绩修改主要功能
+	// 1,获取考试列表
+	$('.score-edit').click(function(){
+		// 获取考试列表
+		get_exam_list();
+		get_subject_list();
+
+	})
+
+	// 获取考试列表--函数
+	function get_exam_list(){
+		$.ajax({
+	   	type: "GET",
+	   	url: ajaxIp+"/api/v2/exams",
+	  	dataType: "JSON",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	success: function(data){
+	  		console.log(data)
+				show_exam_list(data);
+	      },
+	      error: function(){
+	      	// alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html'
+	      }
+	  });
+	}
+	// 显示考试列表
+	function show_exam_list(exam){
+		var exam_length = exam.length;
+		$('.score-edit-right #select-exam').html('');
+		for (var i = 0; i < exam_length; i++) {
+			var exam_option = '<option data-id="'+exam[i].id+'">'+exam[i].name+'</option>';
+			$('.score-edit-right #select-exam').append(exam_option);
+		};
+		$('.score-edit-right #select-exam').attr('data-id',exam[0].id);
+
+	}
+
+
+	// 获取科目列表
+	function get_subject_list(){
+		$.ajax({
+	   	type: "GET",
+	   	url: ajaxIp+"/api/v2/commons/grade_subjects",
+	  	dataType: "JSON",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	success: function(data){
+	  		console.log(data)
+				show_subject_list(data);
+	      },
+	      error: function(){
+	      	// alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html'
+	      }
+	  });
+	}
+	// 显示科目列表
+	function show_subject_list(subject){
+		var subject_length = subject.length;
+		$('.score-edit-right #select-sujects').html('');
+		$('.score-edit-right #select-sujects').append('<option data-id="0">所有科目</option>');
+		for (var i = 0; i < subject_length; i++) {
+			var subject_option = '<option data-id="'+subject[i].id+'">'+subject[i].name+'</option>';
+			$('.score-edit-right #select-sujects').append(subject_option);
+		};
+		var first_id = $('.score-edit-right #select-sujects option').eq(0).attr('data-id');
+		$('.score-edit-right #select-sujects').attr('data-id',first_id);
+	}
+
+	$('.score-edit-right #select-exam').change(function(){
+		var exam_id = $(this).find("option:selected").data('id');
+		$(this).attr('data-id',exam_id);
+	})
+	$('.score-edit-right #select-sujects').change(function(){
+		var sub_id = $(this).find("option:selected").data('id');
+		$(this).attr('data-id',sub_id);
+	})
+
+	// 获取考生区域列表
+	$('.score-edit-right #search-num').on('change', function() {
+		var exam_no = $(this).val();
+		var exam_id = $('.score-edit-right #select-exam').attr('data-id');
+		var subject_id = $('.score-edit-right #select-sujects').attr('data-id');
+		if(subject_id!=0){
+			get_person_info(exam_id,subject_id,exam_no);
+		}
+	});
+	$('.score-edit-right .student-search-button').click(function(){
+		$('.score-edit-right #search-num').change();
+	})
+
+	// 获取考生区域列表－－函数
+	function get_person_info(e_id,s_id,e_no){
+	 	$.ajax({
+	   	type: "GET",
+	   	url: ajaxIp+"/api/v2/modify_score_infos",
+	  	dataType: "JSON",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	data:{'exam_id':e_id,'subject_id':s_id,'exam_no':e_no},
+	  	success: function(data){
+	  		console.log(data)
+				show_person_info(data);
+	      },
+	      error: function(){
+	      	// alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html'
+	      }
+	  });
+	}
+
+  // 显示考生区域列表
+  function show_person_info(person){
+		var person_length = person.length;
+		$('.scores-tabble tbody').html('');
+		for (var i = 0; i < person_length; i++) {
+			var person_tr = '<tr class="p-tr'+i+'"style="border-bottom:1px solid #ccc;" data-type="'+person[i].type+'"><td>'+person[i].exam_no+'</td><td style="width:250px;word-wrap:break-word; word-break:break-all;">'+person[i].section_crop_name+'</td><td>'+person[i].creator+'</td><td class="pre-score" style="width:80px;word-wrap:break-word; word-break:break-all;"></td><td class="cur-score" style="width:80px;word-wrap:break-word; word-break:break-all;"></td><td>'+person[i].modifier+'</td><td><a href="javascript:;" class="edit-btn"><i class="iconfont">&#xe614;</i>修改成绩</a></td></tr>';
+			$('.scores-tabble tbody').append(person_tr);
+			var pre_score = person[i].answer_setting_scores;
+			$('.p-tr'+i+'').find('.pre-score').html('');
+			$('.p-tr'+i+'').find('.cur-score').html('');
+			for (var j = 0; j < pre_score.length; j++) {
+				var pre_list ='<i data-id="'+pre_score[j].id+'" style="font-style:normal">'+pre_score[j].score+',</i>';
+				$('.p-tr'+i+'').find('.pre-score').append(pre_list);
+			};
+			for (var z = 0; z < pre_score.length; z++) {
+				var cur_list ='<i data-id="'+pre_score[z].id+'" style="font-style:normal">'+pre_score[z].final_score+',</i>';
+				$('.p-tr'+i+'').find('.cur-score').append(cur_list);
+			};
+		};
+  }
+
+
+  // 删除考试成绩
+  $('.dele-button').click(function(){
+  	var exam_no = $('.score-edit-right #search-num').val();
+		var exam_id = $('.score-edit-right #select-exam').attr('data-id');
+		var subject_id = $('.score-edit-right #select-sujects').attr('data-id');
+		$('#dele-exam-id').val(exam_id);
+		$('#dele-sub-id').val(subject_id);
+		$('#dele-exam-no').val(exam_no);
+  })
+  $('body').on('click', '.modal-wrap-dele .dele-gade', function() {
+  	var exam_no = $('#dele-exam-no').val();
+  	var exam_id = $('#dele-exam-id').val();
+  	var subject_id = $('#dele-sub-id').val();
+  	console.log(exam_no,exam_id,subject_id)
+  	if(subject_id!=0){
+			dele_person_info(exam_id,subject_id,exam_no);
+		}
+  });
+	// 删除考试成绩--函数
+  function dele_person_info(e_id,s_id,e_no){
+		$.ajax({
+	   	type: "DELETE",
+	   	url: ajaxIp+"/api/v2/modify_score_infos/destroy_score",
+	  	dataType: "JSON",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	data:{'exam_id':e_id,'subject_id':s_id,'exam_no':e_no},
+	  	success: function(data){
+	  		console.log(data)
+	      },
+	      error: function(){
+	      	// alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html'
+	      }
+	  });
+  }
 })
 
 
