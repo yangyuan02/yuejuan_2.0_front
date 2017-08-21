@@ -1,5 +1,5 @@
 <DOCTYPE html>
-<html>
+<html ng-app="myApp">
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
@@ -7,11 +7,15 @@
 	<title>阅卷</title>
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/form.css">
+  <script src="js/angular.js"></script>
+  <script src="js/angular-ui-router.js"></script>
+  <script src="js/app.js"></script>
 	<script type="text/javascript" src='js/jquery.min2.js'></script>
 	<script type="text/javascript" src='js/form.js'></script>
 	<script type="text/javascript"  src="js/echarts-all.js"></script>
 	<script type="text/javascript" src='js/common.js'></script>
 	<script type="text/javascript" src='js/jquery-ui.min.js'></script>
+  <script src="js/controller.js"></script>
 </head>
 <body>
 	<div id="wrap">
@@ -38,15 +42,15 @@
        <div class="main">
 
 <div class="main_left">
-<ul class="l_ul">
-	<li class="li_click">成绩生成</li>
-	<li>考试状况</li>
-	<li>班级学情追踪</li>
-	<li id="study_k_left">学科追踪分析</li>
-	<li id="exam_z_left">考试质量追踪</li>
-	<li id="exam_h_left">考试横向分析</li>
-	<li id="sc_left">跨校对比分析</li>
-</ul>
+
+	<a ui-sref="form01" data-id="1">成绩生成</a>
+	<a ui-sref="form02">考试状况</a>
+	<a ui-sref="form03">班级学情追踪</a>
+	<a ui-sref="form04" id="study_k_left">学科追踪分析</a>
+	<a ui-sref="form05" id="exam_z_left">考试质量追踪</a>
+	<a ui-sref="form06" id="exam_h_left">考试横向分析</a>
+	<a ui-sref="form07" id="sc_left">跨校对比分析</a>
+
 <div class="study_k_left">
 	<ul>
 		<li>学科综合分析</li>
@@ -83,9 +87,9 @@
 
 
     </div>
-<div class="main_right" id="main_right">
+<div class="main_right" id="main_right" ui-view="">
 <!-- 成绩生成。start -->
-<div style="position: relative;display:none;">
+<!-- <div style="position: relative;display:none;">
 <div class="mark_01">
 	<span class="mark_span_01">成绩生成日志</span>
 	<span style="color: #666666;float: right;line-height: 44px;">科目
@@ -142,10 +146,10 @@
 
 
 
-</div>
+</div> -->
 <!-- 成绩生成。end -->
 <!--考试状况  start-->
-<div style="display: none;">
+<!-- <div style="display: none;">
 <div class="right_01">
 <span class="span_1">考试状况</span>
 </div>
@@ -154,13 +158,11 @@
       <li><span>考试名称</span>
       <select class="exam_name">
 
-   <!--  <option value="">请选择考试</option> -->
    </select>
       </li>
       <li >
       <span>考试科目</span>
       <select class="exam_sub">
-       <!-- <option value="">请选择科目</option> -->
    
      </select>
       </li> 
@@ -297,10 +299,10 @@
 
 
 
-</div>
+</div> -->
 <!--考试状况  end-->
 <!--班级学情追踪  start-->
-<div style="display:none;" >
+<!-- <div style="display:none;" >
 <div id="study_q_ck">
 	<div class="right_01"><span style="">班级概况</span></div>
 	<div class="study_q_01">
@@ -579,8 +581,8 @@
   </tr>
   </table>
 </div>
-</div>
-<!-- 成绩单 -->
+</div> -->
+<!-- 成绩单
 <div class="study_q_06">
 <div class="study_q_i">
 		<i></i><span>成绩单</span>
@@ -604,7 +606,7 @@
  </table>
 </div>	
 </div>
-<!-- 答题卡 -->
+<!-- 答题卡
 <div class="ans">
 <div class="ans_01">查看答题卡<i class="iconfont">&#xe61b;</i></div>
 <div class="ans_02"><span style="float: left;">查看页码</span><a>1</a><a>2</a><a>3</a></div>
@@ -616,7 +618,7 @@
 
 </div>
 </div>
-<!-- 答题卡 -->
+<!-- 答题卡
 
 </div>
 <div class="study_q_ck">
@@ -671,13 +673,13 @@
 
 
 
-</div>
+</div> --> 
 <!--班级学情追踪 end-->
 <!-- /*学科追踪分析 start*/ -->
 
 
 
-<div style="display: none;position: relative;">
+<!-- <div style="display: none;position: relative;">
 <div class="study_k">
 <div class="right_01"><span style="" class="study_k_b">学科综合分析</span></div>
 <div class="study_k_101">
@@ -696,9 +698,9 @@
      </select>
 		</span><a><button type="" class="determine" data-id="0">导出报表</button></a>
 
-</div>
+</div> -->
 <!-- 学科综合分析 -->
-<div class="study_k_tab">
+<!-- <div class="study_k_tab">
 <div class="study_k_102">
 <table cellspacing="0" border="1" bordercolor="#cccccc">
   <thead>
@@ -725,9 +727,9 @@
 </table>
 </div>
 
-
+ -->
 <!-- 总分和总分排名 -->
-<div class="study_k_201">
+<!-- <div class="study_k_201">
 <table cellspacing="0" border="1" bordercolor="#cccccc">
   <thead >
   <tr class="study_k_201_he"></tr>
@@ -735,9 +737,9 @@
   <tbody class="study_k_201_bo">
   </tbody>
   </table>
-</div>
+</div> -->
 <!-- 单科和单科等级 -->
-<div class="study_k_301">
+<!-- <div class="study_k_301">
 <table cellspacing="0" border="1" bordercolor="#cccccc">
   <thead >
   <tr class="study_k_301_he"></tr>
@@ -745,9 +747,9 @@
   <tbody class="study_k_301_bo">
   </tbody>
 </table>
-</div>
+</div> -->
 <!-- 各科成绩名次 -->
-<div class="study_k_401">
+<!-- <div class="study_k_401">
 <table cellspacing="0" border="1" bordercolor="#cccccc">
   <thead>
     <tr class="study_k_401_he"></tr>
@@ -755,9 +757,9 @@
   <tbody class="study_k_401_bo">  
   </tbody>
   </table>
-</div>
+</div> -->
 <!-- 语数外综合名次 -->
-<div class="study_k_501">
+<!-- <div class="study_k_501">
 <table cellspacing="0" border="1" bordercolor="#cccccc">
 
 <thead>
@@ -766,9 +768,9 @@
   <tbody class="study_k_501_bo">  
   </tbody>
   </table>
-</div>
+</div> -->
 <!-- 学生详细成绩单 -->
-<div class="study_k_601">
+<!-- <div class="study_k_601">
 <table cellspacing="0" border="1" bordercolor="#cccccc">
 <thead>
     <tr class="study_k_601_he"></tr>
@@ -781,10 +783,10 @@
 
 
 </div>
-</div>
+</div> -->
 <!-- /*学科追踪分析 end*/ -->
 <!-- 考试质量追踪  start-->
-<div style="display: none;">
+<!-- <div style="display: none;">
 	<div style="">
 <div class="right_01"><span style="" class="exam_z_b">试卷命题和质量</span></div>
 <div class="exam_z_101">
@@ -880,7 +882,7 @@
   	</table>
 </div>
 <!-- 各科逐题质量分析 -->
-<div class="exam_z_201">
+<!-- <div class="exam_z_201">
 <table cellspacing="0" border="1" bordercolor="#cccccc">
   <tr>    
     <th>题目</th>
@@ -956,9 +958,9 @@
   </tr>
   </tr>
   	</table>
-</div>
+</div> -->
 <!-- 难度系数变化图 -->
-<div class="exam_z_301">
+<!-- <div class="exam_z_301">
 <div class="exam_z_302">
 <ul>
 	<li>难题：难度系数≤0.4</li>
@@ -989,10 +991,10 @@
 
 
 </div>
-</div>
+</div> -->
 <!-- 考试质量追踪  end-->
 <!-- 考试横向分析 start -->
-<div style="display: none;">
+<!-- <div style="display: none;">
 <div class="exam_h_x01">	
 <div class="right_01"><span style="" class="exam_h_b">各班成绩整体对比</span></div>
 <div class="exam_h_101">
@@ -1210,10 +1212,10 @@
 
 
 
-</div>
+</div> -->
 <!-- 考试横向分析 end-->
 <!-- 跨校对比分析  start-->
-<div style="display: none;">
+<!-- <div style="display: none;">
 <div style="height: 800px;">
 <div class="right_01"><span style="" class="sc_b">各班成绩整体对比</span></div>
 <div class="sc_101">
@@ -1355,7 +1357,7 @@
 
 
 </div>
-</div>
+</div> -->
 
 
 
