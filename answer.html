@@ -150,14 +150,14 @@
                         <h3>添加题组<span class="fr cous" ng-click="close()">X</span></h3>
                         <div class="pd">
                             <p><span>题组名称</span><span class="Red">*</span><input class="mF" type="text"
-                                                                                 placeholder="请输入题组名称"/></p>
-                            <p><span>试题数量</span><input type="text" placeholder="请输入试题数量"/></p>
-                            <p><span>起始序号</span><input type="text" placeholder="请输入起始序号"/></p>
-                            <p><span>所在页码</span><input type="text" placeholder="请输入所在页码"/></p>
-                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值"/></p>
+                                                                                 placeholder="请输入题组名称" ng-model="result.name"/></p>
+                            <p><span>试题数量</span><input type="text" placeholder="请输入试题数量" ng-model="result.numbel"/></p>
+                            <p><span>起始序号</span><input type="text" placeholder="请输入起始序号" ng-model="result.no"/></p>
+                            <p><span>所在页码</span><input type="text" placeholder="请输入所在页码" ng-model="result.page"/></p>
+                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/></p>
                             <hr class="hr"/>
                             <p>
-                                <button ng-click="btn3()">确认添加</button>
+                                <button ng-click="btn1()">确认添加</button>
                             </p>
                         </div>
                     </div>
