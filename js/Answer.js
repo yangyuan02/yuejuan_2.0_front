@@ -26,6 +26,30 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.listObj2 = [];//定义全局数组保存所有题目
     $scope.result = {};//弹出框保存
     $scope.result.isradio = 1
+    var answer_id = []//大题answer_id
+    function getAnswer() {//获取题目模板
+        console.log(111)
+        var isLogin = localStorage.getItem("token");
+        $.ajax({
+            type: "GET",
+            url: ajaxIp+"/api/v2/answer_regions/basic_info_region",
+            headers: {'Authorization': "Bearer " + isLogin},
+            data:{'exam_subject_id':getUrlParam(url, 'examubjeId')},
+            async: false,
+            success: function(data){
+                if(data.code==200){
+                    console.log(data)
+                    $scope.listObj = data.message.page1
+                    $scope.listObj2 = data.message.page2
+                    answer_id = data.message.answer_id
+                }
+            },
+            error: function(){
+
+            }
+        });
+    }
+    getAnswer()
     //点击显示
     $scope.add = function (index) {
         $scope.index = index
@@ -55,15 +79,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var isB = $scope.isLine($scope.index, $scope.result.numbel, $scope.page_num)
         if (isB) {
             $scope.listObj2.push(obj);
-            window.localStorage.setItem("answer2", JSON.stringify($scope.listObj2))
-            // $scope.setNumber($scope.listObj2, $scope.listObj.length)
         } else {
             $scope.listObj.push(obj);
-            window.localStorage.setItem("answer", JSON.stringify($scope.listObj))
-            // $scope.setNumber($scope.listObj, 0)
         }
     }
-    var answer_id = []//大题answer_id
     $scope.createAsswer = function (data) {//添加题组
         var data = data
         var isLogin = localStorage.getItem("token");
@@ -129,16 +148,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         clear()
         close()
     };
-    function getAnswer() {//获取
-        if (window.localStorage.getItem("answer")) {
-            $scope.listObj = JSON.parse(window.localStorage.getItem("answer"))
-        }
-        if (window.localStorage.getItem("answer2")) {
-            $scope.listObj2 = JSON.parse(window.localStorage.getItem("answer2"))
-        }
-    }
-
-    // getAnswer()
     //关闭
     var close = function () {
         clear();
@@ -313,6 +322,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         return answerModeType
     }
     function getBigQuestion(obj) {//获取大题
+        console.log(answer_id)
         var BigQuestion = []
         for (var i = 1; i <= obj.length; i++) { //标题有问题,最后一个选题只存了一个选项,16个打分框及坐标不对
             var itme_obj = {}
@@ -379,6 +389,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         return allPagePost
     }
+    function allList() {//获取所有题目
+        var allList = {}
+        allList.page1 = $scope.listObj
+        allList.page2 = $scope.listObj2
+        allList.answer_id = answer_id
+        return allList
+    }
     $scope.save = function () {//保存模板
         console.log($scope.listObj)
         var isLogin = localStorage.getItem("token");
@@ -391,7 +408,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
                     'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
                     'answer_region[region_info]': JSON.stringify(allPagePost()),//所有坐标信息
-                    'answer_region[basic_info_region]':''//保存的题目内容
+                    'answer_region[basic_info_region]':JSON.stringify(allList())//存储页面题目
                 },
                 // dataType: "JSON",
                 success: function (data) {
