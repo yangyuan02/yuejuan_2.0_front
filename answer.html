@@ -359,9 +359,8 @@
                                     <span>{{Q_number[$index]}}、</span>
                                     {{a.name}}(共{{a.totalCores}}分，每题{{a.itemCores}}分)
                                 </th>
-
                             </tr>
-                            <tr ng-hide="a.type==1||a.type==2||a.type==6">
+                            <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5">
                                 <th>
                                     <!--网络阅卷打分框start-->
                                     <div class="marking">
@@ -389,7 +388,7 @@
                             </thead>
 
                             <tbody>
-                            <tr>
+                            <tr ng-if="a.type!=5">
                                 <td>
                                     <div ng-repeat="item in a.no" class="q_c" ng-style="{'width':'{{a.type==3?'40%':'25%'}}'}">
                                         <a class="numberNo" ng-show="a.type==3"></a>
@@ -412,6 +411,40 @@
                                     </div>
                                 </td>
                             </tr>
+                            <!--其他题模板开始-->
+                            <tr ng-if="a.type==5">
+                                <td>
+                                    <div ng-repeat="item in a.no">
+                                        <!--其他题头部-->
+                                        <div class="other_h">
+                                            <div class="other_number">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}</div>
+                                            <!--网络阅卷打分框start-->
+                                            <div class="marking clearfix">
+                                                <a href="">1</a>
+                                                <a href="">2</a>
+                                                <a href="">3</a>
+                                                <a href="">4</a>
+                                                <a href="">5</a>
+                                                <a href="">6</a>
+                                                <a href="">7</a>
+                                                <a href="">8</a>
+                                                <a href="">9</a>
+                                                <a href="">0</a>
+                                                <a href="">1</a>
+                                                <a href="">2</a>
+                                                <a href="">3</a>
+                                                <a href="">4</a>
+                                                <a href="">5</a>
+                                                <a href="">.5</a>
+                                                <a href=""></a>
+                                            </div>
+                                            <!--网络阅卷打分框end-->
+                                        </div>
+                                        <div class="other_c"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!--其他题模板结束-->
                             </tbody>
                         </table>
                     </div>
@@ -432,9 +465,8 @@
                                     <span>{{Q_number[$index+listObj.length]}}、</span>
                                     {{a.name}}(共{{a.totalCores}}分，每题{{a.itemCores}}分)
                                 </th>
-
                             </tr>
-                            <tr ng-hide="a.type==1||a.type==2">
+                            <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5">
                                 <th>
                                     <!--网络阅卷打分框start-->
                                     <div class="marking">
@@ -462,15 +494,15 @@
                             </thead>
 
                             <tbody>
-                            <tr>
+                            <tr ng-if="a.type!=5">
                                 <td>
                                     <div ng-repeat="item in a.no" class="q_c" ng-style="{'width':'{{a.type==3?'40%':'25%'}}'}">
-                                        <!--序号start-->
                                         <a class="numberNo" ng-show="a.type==3"></a>
+                                        <!--序号start-->
                                         <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
                                         <!--序号end-->
                                         <!--选择题模版start-->
-                                        <span ng-show="a.type==1||a.type==2" ng-repeat="items in a.thr">
+                                        <span ng-show="a.type==1||a.type==2||a.type==6" ng-repeat="items in a.thr">
                                             <b>{{items}}</b>
                                         </span>
                                         <!--选择题模版end-->
@@ -485,6 +517,40 @@
                                     </div>
                                 </td>
                             </tr>
+                            <!--其他题模板开始-->
+                            <tr ng-if="a.type==5">
+                                <td>
+                                    <div ng-repeat="item in a.no">
+                                        <!--其他题头部-->
+                                        <div class="other_h">
+                                            <div class="other_number">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}</div>
+                                            <!--网络阅卷打分框start-->
+                                            <div class="marking clearfix">
+                                                <a href="">1</a>
+                                                <a href="">2</a>
+                                                <a href="">3</a>
+                                                <a href="">4</a>
+                                                <a href="">5</a>
+                                                <a href="">6</a>
+                                                <a href="">7</a>
+                                                <a href="">8</a>
+                                                <a href="">9</a>
+                                                <a href="">0</a>
+                                                <a href="">1</a>
+                                                <a href="">2</a>
+                                                <a href="">3</a>
+                                                <a href="">4</a>
+                                                <a href="">5</a>
+                                                <a href="">.5</a>
+                                                <a href=""></a>
+                                            </div>
+                                            <!--网络阅卷打分框end-->
+                                        </div>
+                                        <div class="other_c"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!--其他题模板结束-->
                             </tbody>
                         </table>
                     </div>

@@ -28,7 +28,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.result.isradio = 1
     var answer_id = []//大题answer_id
     function getAnswer() {//获取题目模板
-        console.log(111)
         var isLogin = localStorage.getItem("token");
         $.ajax({
             type: "GET",
@@ -38,7 +37,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             async: false,
             success: function(data){
                 if(data.code==200){
-                    console.log(data)
                     $scope.listObj = data.message.page1
                     $scope.listObj2 = data.message.page2
                     answer_id = data.message.answer_id
@@ -322,7 +320,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         return answerModeType
     }
     function getBigQuestion(obj) {//获取大题
-        console.log(answer_id)
         var BigQuestion = []
         for (var i = 1; i <= obj.length; i++) { //标题有问题,最后一个选题只存了一个选项,16个打分框及坐标不对
             var itme_obj = {}
