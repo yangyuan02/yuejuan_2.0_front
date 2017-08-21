@@ -685,6 +685,7 @@ $(function(){
 	var inputDiv = $('.popline_text');//输入框div
 	var prompt_1 = '提示：您所给的分数不在规定范围内，请看清分值给分！';
 	var prompt_i = $('#i_two');//提示框元素
+	var prompt_2 = '提示：您所给的分数不合法，请输入合法分数！';
 
 
 	// 关闭试卷
@@ -1260,9 +1261,28 @@ $(function(){
 
 		//分数判定
 	$('body').on('input' , '.yuejuan_score', function(){
+		var str_score = $(this).val();
+
 		var fen = parseFloat($(this).attr('data-fen'));
 		var score = parseFloat($(this).val());
 		console.log(score,fen)
+
+		if(String(str_score).length>1&&String(str_score)[0]=='0'&&String(str_score)[1]!='.'){
+			iTwo(prompt_i,prompt_2);
+			$(this).val('');
+		}
+		if(String(str_score)[0]=='.'){
+			iTwo(prompt_i,prompt_2);
+			$(this).val('');
+		}
+
+		console.log(String(str_score).split('.').length-1);
+		var str_score_length = String(str_score).split('.').length-1;
+		if(str_score_length>1){
+			iTwo(prompt_i,prompt_2);
+			$(this).val('');
+		}
+
 		if(score > fen || score < 0 && score!=''){
 			console.log(9900)
 			iTwo(prompt_i,prompt_1);
