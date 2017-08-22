@@ -1744,7 +1744,7 @@ $(function() {
 	// 删除分数
   $('.dele-button').on('click', function() {
   	$('.modal-main').animate({'top': '50%','opacity': 1},500);
-		$('.modal-shadow').animate({'opacity': 0},500);
+		$('.modal-shadow').animate({'opacity': 0.3},500);
 		$('.modal-wrap-dele').show();
   });
 
@@ -1752,22 +1752,22 @@ $(function() {
 
 
   // 修改分数
-	$('.edit-btn').on('click', function() {
+	$('body').on('click', '.edit-btn',function() {
 		$('.modal-main').animate({'top': '50%','opacity': 1},500);
-		$('.modal-shadow').animate({'opacity': 0},500);
+		$('.modal-shadow').animate({'opacity': 0.3},500);
 		$('.edit-score-wrap').show();
 	});
 
   // 导入成绩
   $('.import-button').on('click', function() {
 		$('.modal-main').animate({'top': '50%','opacity': 1},500);
-		$('.modal-shadow').animate({'opacity': 0},500);
+		$('.modal-shadow').animate({'opacity': 0.3},500);
 		$('.import-wrap').show();
   });
  // 设置分值
   $('.set').on('click', function() {
 		$('.modal-main').animate({'top': '50%','opacity': 1},500);
-		$('.modal-shadow').animate({'opacity': 0},500);
+		$('.modal-shadow').animate({'opacity': 0.3},500);
 		$('.set-score-wrap').show();
   });
 
@@ -1792,12 +1792,12 @@ $(function() {
 	  	success: function(data){
 	  		console.log(data)
 				show_exam_list(data);
-	      },
-	      error: function(){
-	      	// alert('请稍后从新尝试登录或者联系管理员');
-	      	// localStorage.clear();
-	      	// window.location.href = './login.html'
-	      }
+      },
+      error: function(){
+      	// alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html'
+      }
 	  });
 	}
 	// 显示考试列表
@@ -1823,12 +1823,12 @@ $(function() {
 	  	success: function(data){
 	  		console.log(data)
 				show_subject_list(data);
-	      },
-	      error: function(){
-	      	// alert('请稍后从新尝试登录或者联系管理员');
-	      	// localStorage.clear();
-	      	// window.location.href = './login.html'
-	      }
+      },
+      error: function(){
+      	// alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html'
+      }
 	  });
 	}
 	// 显示科目列表
@@ -1877,12 +1877,12 @@ $(function() {
 	  	success: function(data){
 	  		console.log(data)
 				show_person_info(data);
-	      },
-	      error: function(){
-	      	// alert('请稍后从新尝试登录或者联系管理员');
-	      	// localStorage.clear();
-	      	// window.location.href = './login.html'
-	      }
+      },
+      error: function(){
+      	// alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html'
+      }
 	  });
 	}
 
@@ -1891,7 +1891,7 @@ $(function() {
 		var person_length = person.length;
 		$('.scores-tabble tbody').html('');
 		for (var i = 0; i < person_length; i++) {
-			var person_tr = '<tr class="p-tr'+i+'"style="border-bottom:1px solid #ccc;" data-type="'+person[i].type+'"><td>'+person[i].exam_no+'</td><td style="width:250px;word-wrap:break-word; word-break:break-all;">'+person[i].section_crop_name+'</td><td>'+person[i].creator+'</td><td class="pre-score" style="width:80px;word-wrap:break-word; word-break:break-all;"></td><td class="cur-score" style="width:80px;word-wrap:break-word; word-break:break-all;"></td><td>'+person[i].modifier+'</td><td><a href="javascript:;" class="edit-btn"><i class="iconfont">&#xe614;</i>修改成绩</a></td></tr>';
+			var person_tr = '<tr section_crop_image_id="'+person[i].section_crop_image_id+'" class="p-tr'+i+'"style="border-bottom:1px solid #ccc;" data-type="'+person[i].type+'"><td class="exam-no">'+person[i].exam_no+'</td><td style="width:250px;word-wrap:break-word; word-break:break-all;">'+person[i].section_crop_name+'</td><td class="creator">'+person[i].creator+'</td><td class="pre-score" style="width:80px;word-wrap:break-word; word-break:break-all;"></td><td class="cur-score" style="width:80px;word-wrap:break-word; word-break:break-all;"></td><td class="modifier">'+person[i].modifier+'</td><td><a href="javascript:;" class="edit-btn"><i class="iconfont">&#xe614;</i>修改成绩</a></td></tr>';
 			$('.scores-tabble tbody').append(person_tr);
 			var pre_score = person[i].answer_setting_scores;
 			$('.p-tr'+i+'').find('.pre-score').html('');
@@ -1904,6 +1904,16 @@ $(function() {
 				var cur_list ='<i data-id="'+pre_score[z].id+'" style="font-style:normal">'+pre_score[z].final_score+',</i>';
 				$('.p-tr'+i+'').find('.cur-score').append(cur_list);
 			};
+			var e_creator = person[i].creator;
+			if(!e_creator){
+				$('.p-tr'+i+'').find('.creator').text('---');
+				$('.p-tr'+i+'').find('.pre-score').text('---');
+			}
+			var e_modifier = person[i].modifier;
+			if(!e_modifier){
+				$('.p-tr'+i+'').find('.modifier').text('---');
+				$('.p-tr'+i+'').find('.cur-score').text('---');
+			}
 		};
   }
 
@@ -1936,6 +1946,10 @@ $(function() {
 	  	data:{'exam_id':e_id,'subject_id':s_id,'exam_no':e_no},
 	  	success: function(data){
 	  		console.log(data)
+	  		var exam_no = $('.score-edit-right #search-num').val();
+				var exam_id = $('.score-edit-right #select-exam').attr('data-id');
+				var subject_id = $('.score-edit-right #select-sujects').attr('data-id');
+	  		get_person_info(exam_id,subject_id,exam_no);
 	      },
 	      error: function(){
 	      	// alert('请稍后从新尝试登录或者联系管理员');
@@ -1944,6 +1958,204 @@ $(function() {
 	      }
 	  });
   }
+
+	// 修改分数
+  $('body').on('click', '.edit-btn',function() {
+		var s_image_id = $(this).parents('tr').attr('section_crop_image_id');
+		var exam_no = $(this).parents('tr').find('.exam-no').text();
+		var type = $(this).parents('tr').attr('data-type');
+		get_every_info(s_image_id,exam_no,type);
+  })
+
+  // 获取单个区域信息
+  function get_every_info(s_i_id,e_no,e_type){
+		$.ajax({
+	   	type: "GET",
+	   	url: ajaxIp+"/api/v2/modify_score_infos/edit_score",
+	  	dataType: "JSON",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	data:{'section_crop_image_id':s_i_id,'exam_no':e_no,'type':e_type},
+	  	success: function(data){
+	  		console.log(data)
+	  		show_every_info(data,e_no,e_type);
+      },
+      error: function(){
+      	// alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html'
+      }
+	  });
+  }
+
+  // 显示单个区域信息
+  function show_every_info(every,no,type){
+  	$('.edit-score-wrap').attr('data-type',type);
+  	$('.edit-score-wrap .edit-stu-num span').text(no);
+		$('.edit-score-wrap .edit-item-name span').text(every.answer_name);
+		if(every.answer_settings[0].result){
+			$('.edit-score-wrap .modal-title').find('span').text('客观题');
+		}else{
+			$('.edit-score-wrap .modal-title').find('span').text('主观题');
+		}
+		if(every.pattern){
+			$('.edit-score-wrap .modal-title').find('em').text('得分模式');
+		}else{
+			$('.edit-score-wrap .modal-title').find('em').text('扣分模式');
+		}
+		$('.edit-score-wrap .edit-item-img').html('');
+		var img_url = '<img data-id="'+every.scanner_image_id+'" src="'+ ajaxIp +''+every.image_uri+'" />';
+		$('.edit-score-wrap .edit-item-img').append(img_url);
+
+		$('.edit-score-wrap .edit-ul').html('');
+		var item_list = every.answer_settings;
+		for (var i = 0; i <item_list.length; i++) {
+			var item_li = '<li><span>'+item_list[i].num+'</span><span class="change-answer none">'+item_list[i].result+'</span><input data-id ="'+item_list[i].answer_setting_score_id+'" type="text" class="answer-input" data-fen="'+item_list[i].full_score+'" value="'+item_list[i].score+'"><span>分</span></li>';
+			$('.edit-score-wrap .edit-ul').append(item_li);
+			if(!item_list[0].score){
+				$('.answer-input').val('')
+			}
+			if(item_list[i].result){
+				$('.change-answer').show();
+			}else{
+				$('.change-answer').hide();
+			}
+		};
+  }
+
+
+	//分数判定
+	var prompt_1 = '提示：您所给的分数不在规定范围内，请看清分值给分！';
+	var prompt_i = $('#i_two');//提示框元素
+	var prompt_2 = '提示：您所给的分数不合法，请输入合法分数！';
+	$('body').on('input' , '.answer-input', function(){
+		var str_score = $(this).val();
+
+		var fen = parseFloat($(this).attr('data-fen'));
+		var score = parseFloat($(this).val());
+		console.log(score,fen)
+
+		if(String(str_score).length>1&&String(str_score)[0]=='0'&&String(str_score)[1]!='.'){
+			iTwo(prompt_i,prompt_2);
+			$(this).val('');
+		}
+		if(String(str_score)[0]=='.'){
+			iTwo(prompt_i,prompt_2);
+			$(this).val('');
+		}
+
+		console.log(String(str_score).split('.').length-1);
+		var str_score_length = String(str_score).split('.').length-1;
+		if(str_score_length>1){
+			iTwo(prompt_i,prompt_2);
+			$(this).val('');
+		}
+
+		if(score > fen || score < 0 && score!=''){
+			console.log(9900)
+			iTwo(prompt_i,prompt_1);
+			$(this).val('');
+		}
+	});
+
+		//显示提示框
+	function iTwo(i,k){
+		$('#i_two .modal-main').animate({'top': '30%','opacity': 1},500);
+		$('#i_two .modal-shadow').animate({'opacity': 0},500);
+		i.show();
+		$('#i_two .prompt').text(k);
+		setTimeout(function(){
+			$('#i_two').hide();
+		},1000);
+	};
+  
+
+  // 确认修改分数
+  $('body').on('click', '.edit-score-wrap .btn-edit', function() {
+  	var type = $('.edit-score-wrap').attr('data-type');
+  	var answer_settings = [];
+  	var input_value = $('.edit-ul').children().find('.answer-input');
+		var input_length = input_value.length;
+		for (var i = 0; i < input_length; i++) {
+			var obj = new Object();
+			var value = $(input_value[i]).val();
+			var id = $(input_value[i]).attr('data-id');
+			obj['final_score']=value;
+			obj['answer_setting_score_id']=id;
+			answer_settings[i]=obj;
+		};
+		// answer_settings = JSON.stringify(answer_settings);
+		console.log(answer_settings)
+		var data_all={'type':type,'answer_settings':answer_settings};
+		// data_all = JSON.stringify(data_all);
+		get_all_value(data_all);
+
+  });
+
+  // 获取所有分数
+  function get_all_value(data_info){
+  	$.ajax({
+	   	type: "PATCH",
+	   	url: ajaxIp+"/api/v2/modify_score_infos/modify",
+	  	dataType: "JSON",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	data:data_info,
+	  	success: function(data){
+	  		console.log(data)
+	  		var exam_no = $('.score-edit-right #search-num').val();
+				var exam_id = $('.score-edit-right #select-exam').attr('data-id');
+				var subject_id = $('.score-edit-right #select-sujects').attr('data-id');
+	  		get_person_info(exam_id,subject_id,exam_no);
+      },
+      error: function(){
+      	// alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html'
+      }
+	  });
+  }
+
+
+
+  // 查看全卷
+  $('body').on('click', '.edit-score-wrap .look-all-peper', function() {
+  	$('.paper-all-wrap .modal-main').animate({'top': '50%','opacity': 1},500);
+		$('.paper-all-wrap .modal-shadow').animate({'opacity': 0.3},500);
+		$('.paper-all-wrap').show();
+		var scanner_image_id = $(this).parents('.edit-score-wrap').find('.edit-item-img img').attr('data-id');
+  	get_paper_all(scanner_image_id);
+  });
+  $('.modal-exit-paper').click(function(){
+		$('.paper-all-wrap .modal-main').animate({'top': '45%','opacity': 0},500);
+		$('.paper-all-wrap .modal-shadow').animate({'opacity': 0},500);
+		setTimeout(function(){
+			console.log(9090)
+			$('.paper-all-wrap').hide();
+		},500);
+	});
+
+  // 获取整个试卷
+  function get_paper_all(id){
+  	$.ajax({
+	   	type: "GET",
+	   	url: ajaxIp+"/api/v2/modify_score_infos/scanner_image",
+	  	dataType: "JSON",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	data:{'scanner_image_id':id},
+	  	success: function(data){
+	  		console.log(data);
+	  		$('.paper-all-wrap .paper-box').html('');
+	  		var img_url = '<img src="'+ajaxIp+''+data.image_uri+'" />';
+	  		$('.paper-all-wrap .paper-box').append(img_url);
+      },
+      error: function(){
+      	// alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html'
+      }
+	  });
+  }
+
+
 })
 
 
