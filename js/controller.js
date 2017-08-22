@@ -293,6 +293,12 @@ $(".modal-exit").click(function(event) {
                 },
                 success: function(data) {
                     console.log(data);
+                    if(data.error_code==500){
+                     
+                   $(".right_02 img").hide();
+
+
+                 }
                     $(".r2_02_01").html(data.statistics_total);
                     $(".r2_02_02").html(data.average);
                     $(".r2_02_03").html(data.average_rate);
@@ -771,6 +777,13 @@ $(".modal-exit").click(function(event) {
                 },
                 success: function(data) {
                     console.log(data);
+                    if(data.error_code==500){
+                     
+                   $(".study_q_04_bo").hide();
+                   $(".study_q_02_bo").hide();
+
+
+                 }
                     var mark_d = [];
                     for (var i = 0; i < data.socre_distributions.length; i++) {
 
@@ -894,7 +907,9 @@ $(".modal-exit").click(function(event) {
                     "classroom_id": class_id
                 },
                 success: function(data) {
-                    console.log(data);
+                console.log(data);
+
+                 
                     var c = Math.round((data[0].correct_rate * 100)) + "%";
                     $(".study_q_05_tb").append('<tr><td rowspan="' + data.length + '">一、选择题</td><td>' + data[0].average + '</td><td>' + data[0].num + '</td><td>' + data[0].column_value_1 + '</td><td>' + data[0].column_value_2 + '</td><td>' + data[0].column_value_3 + '</td><td>' + data[0].column_value_4 + '</td><td>' + data[0].correct + '</td><td>' + c + '</td><td><span data-id="1" data_ans="' + data[0].answer_setting_id + '">查看</span></td></tr>');
                     switch (data[0].correct) {
