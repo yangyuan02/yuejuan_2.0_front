@@ -238,7 +238,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr style="border-bottom:1px solid #ccc;">
+					<!-- 	<tr style="border-bottom:1px solid #ccc;">
 							<td>12773737373</td>
 							<td>一／选择题1-4</td>
 							<td>系统</td>
@@ -291,7 +291,7 @@
 							<td>1,2,1,1</td>
 							<td>管理员</td>
 							<td><a href="javascript:;" class="edit-btn"><i class="iconfont">&#xe614;</i>修改成绩</a></td>
-						</tr>
+						</tr> -->
 					</tbody>
 				</table>
 				<div class="pagination-wrap">
@@ -622,6 +622,9 @@
 
 	<!-- 删除分数 -->
 	<div class="modal-wrap modal-wrap-dele">
+		<input type="hidden" id="dele-exam-id">
+		<input type="hidden" id="dele-sub-id">
+		<input type="hidden" id="dele-exam-no">
 		<div class="modal-shadow modal-exit"></div>
 		<div class="modal-main modal-main-small">
 			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
@@ -634,7 +637,7 @@
 				</p>
 				<div class="modal-bottom">
 					<div class="modal-bottom-button modal-exit">取消</div>
-					<div class="modal-bottom-button determine modal-exit">确认</div>
+					<div class="modal-bottom-button determine modal-exit dele-gade">确认</div>
 				</div>
 			</div>
 		</div>
