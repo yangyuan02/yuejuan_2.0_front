@@ -303,7 +303,11 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     width:100%;
     height:150px;
 }
+.Answer .A_R .A_Rone .A_Rone_child table tbody .other_h{
+    width:100%;
+}
 .Answer .A_R .A_Rone .A_Rone_child table tbody .other_h .other_number{
+    width:24px;
     height: 12px;
     float:left;
 }

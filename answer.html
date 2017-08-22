@@ -412,11 +412,11 @@
                                 </td>
                             </tr>
                             <!--其他题模板开始-->
-                            <tr ng-if="a.type==5">
+                            <tr ng-if="a.type==5" class="other">
                                 <td>
                                     <div ng-repeat="item in a.no">
                                         <!--其他题头部-->
-                                        <div class="other_h">
+                                        <div class="other_h clearfix">
                                             <div class="other_number">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}</div>
                                             <!--网络阅卷打分框start-->
                                             <div class="marking clearfix">
@@ -518,11 +518,11 @@
                                 </td>
                             </tr>
                             <!--其他题模板开始-->
-                            <tr ng-if="a.type==5">
+                            <tr ng-if="a.type==5" class="other">
                                 <td>
                                     <div ng-repeat="item in a.no">
                                         <!--其他题头部-->
-                                        <div class="other_h">
+                                        <div class="other_h clearfix">
                                             <div class="other_number">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}</div>
                                             <!--网络阅卷打分框start-->
                                             <div class="marking clearfix">

@@ -234,6 +234,24 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         scoreRect.score_rect_y = parseInt(dom.top-dot.top)
         return scoreRect
     }
+    function otherFillScoreRect(index) {//获得其他题打分区域坐标
+        var otherScoreRect = []
+        var otherListDom = []
+        var dot = $(".position_TL span").eq(1).offset();
+        dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
+        var dom = $(".conten").find("table").eq(index).find("tbody").find(".other").find(".other_h")
+        dom.each(function () {
+            otherListDom.push($(this).offset())
+        })
+        for(var i = 1;i<=dom.length;i++){
+            var scoreRect = {}
+            scoreRect.no = i
+            scoreRect.score_rect_x = otherListDom[i-1].left-dot.left
+            scoreRect.score_rect_y = otherListDom[i-1].top-dot.top
+            otherScoreRect.push(scoreRect)
+        }
+        return otherScoreRect
+    }
     function getFillPost(index) {//获得填空题小题坐标
         var fillItemPost = []
         var dot = $(".position_TL span").eq(1).offset();
@@ -244,12 +262,16 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         })
         return fillItemPost
     }
-    function fillScoreOptions(index) {//获得17个打分框坐标
+    function fillScoreOptions(index,type) {//获得17个打分框坐标
         var fillScoreOptions = []
         var makrin = []
         var dot = $(".position_TL span").eq(1).offset();
         dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
-        var dom = $(".conten").find("table").eq(index).find("thead").find("tr").eq(1).find("a")
+        if(type==5){//其他题打分框坐标
+            var dom = $(".conten").find("table").eq(index).find("tbody").find(".other").find("a")
+        }else{//填空题坐标
+            var dom = $(".conten").find("table").eq(index).find("thead").find("tr").eq(1).find("a")
+        }
         dom.each(function () {
             fillScoreOptions.push($(this).offset())
         })
@@ -340,14 +362,21 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 itme_obj.block_height = 13//选项高度
                 itme_obj.answer_count = 1//答案个数
                 itme_obj.num_of_option = parseInt(obj[i - 1].itemNumber)//选项个数
-            }else{//填空题
+            }else if(obj[i - 1].type==3){//填空题
                 itme_obj.block_width = 25//选项宽度
                 itme_obj.block_height = 14//选项高度
                 itme_obj.score_rect_x = fillScoreRect(i - 1).score_rect_x//打分框区域的x坐标
                 itme_obj.score_rect_y = fillScoreRect(i - 1).score_rect_y//打分框区域的y坐标
                 itme_obj.score_rect_width = fillScoreRect(i - 1).score_rect_width//打分框区域的宽度
                 itme_obj.score_rect_height = fillScoreRect(i - 1).score_rect_height//打分框区域的高度
-                itme_obj.score_options = fillScoreOptions(i-1)
+                itme_obj.score_options = fillScoreOptions(i-1,obj[i - 1].type)
+            }else{//其他题
+                itme_obj.block_width = 25//选项宽度
+                itme_obj.block_height = 14//选项高度
+                itme_obj.score_rect_options = otherFillScoreRect(i - 1)//打分框区域的x坐标
+                itme_obj.score_rect_width = 690//打分框区域的宽度
+                itme_obj.score_rect_height = 40//打分框区域的高度
+                itme_obj.score_options = fillScoreOptions(i-1,obj[i - 1].type)
             }
             BigQuestion.push(itme_obj)
         }
