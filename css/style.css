@@ -502,4 +502,7 @@ input::-webkit-input-placeholder{
   text-align: center;
   color: #fff;
 }
+.alert {
+  color: #fd97a3;
+}
 
