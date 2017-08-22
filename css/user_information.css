@@ -369,13 +369,13 @@
 #add-class-grade{
 	margin-bottom: 10px;
 	margin-left: 14px;
-    height: 30px;
-    width: 432px;
-    line-height: 30px;
-    border: 1px solid #ccc;
-    padding: 0 10px;
-    background: #fafafa;
-    color: #666;
+  height: 30px;
+  width: 432px;
+  line-height: 30px;
+  border: 1px solid #ccc;
+  padding: 0 10px;
+  background: #fafafa;
+  color: #666;
 }
 #class-name{
 	margin-bottom: 10px;
@@ -577,7 +577,29 @@
 	background: #fafafa;
 	border: 1px solid #ccc;
 }
-
+.look-all-peper{
+	display: block;
+	width: 70px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px
+}
+.edit-item-img{
+	width: 689px;
+}
+.edit-item-img img{
+	width: 100%;
+}
+.alert {
+  color: #fd97a3;
+}
+.paper-box{
+	width: 992px;
+	padding: 0;
+}
+.paper-box img{
+	width: 100%;
+}
 
 
 

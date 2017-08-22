@@ -230,15 +230,15 @@
 						<tr>
 							<th>考号</th>
 							<th>题组</th>
-							<th>原评分人</th>
+							<th width="100">原评分人</th>
 							<th>原评分</th>
 							<th>最后评分</th>
-							<th>最后操作者</th>
-							<th>操作</th>
+							<th width="100">最后操作者</th>
+							<th width="100">操作</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr style="border-bottom:1px solid #ccc;">
+					<!-- 	<tr style="border-bottom:1px solid #ccc;">
 							<td>12773737373</td>
 							<td>一／选择题1-4</td>
 							<td>系统</td>
@@ -291,7 +291,7 @@
 							<td>1,2,1,1</td>
 							<td>管理员</td>
 							<td><a href="javascript:;" class="edit-btn"><i class="iconfont">&#xe614;</i>修改成绩</a></td>
-						</tr>
+						</tr> -->
 					</tbody>
 				</table>
 				<div class="pagination-wrap">
@@ -622,6 +622,9 @@
 
 	<!-- 删除分数 -->
 	<div class="modal-wrap modal-wrap-dele">
+		<input type="hidden" id="dele-exam-id">
+		<input type="hidden" id="dele-sub-id">
+		<input type="hidden" id="dele-exam-no">
 		<div class="modal-shadow modal-exit"></div>
 		<div class="modal-main modal-main-small">
 			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
@@ -634,7 +637,7 @@
 				</p>
 				<div class="modal-bottom">
 					<div class="modal-bottom-button modal-exit">取消</div>
-					<div class="modal-bottom-button determine modal-exit">确认</div>
+					<div class="modal-bottom-button determine modal-exit dele-gade">确认</div>
 				</div>
 			</div>
 		</div>
@@ -644,19 +647,18 @@
 		<div class="modal-shadow modal-exit"></div>
 		<div class="modal-main" style="width:765px">
 			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
-			<div class="modal-title">客观题（<em>得分模式</em>）</div>
+			<div class="modal-title"><span>客观题</span>（<em>得分模式</em>）</div>
 			<div class="modal-content" style="background:#f2f2f2">
 				<div class="edit-head">
 					<p class="edit-stu-num">考号：<span>12345678</span></p>
-					<p class="edit-item-name">题组：<span>：一、选择题（1-8）</span>分值： <span>共8分，每小题1分   </span></p>
+					<p class="edit-item-name">题组：<span>：一、选择题（1-8）</span></p>
 					<div class="edit-input">
-						<input type="text" placeholder="查看全卷">
-						<i class="iconfont">&#xe610;</i>
+						<a href="javascript:;" class="determine look-all-peper">查看全卷</a>
 					</div>
 				</div>
 				<div class="edit-answer">
 					<ul class="edit-ul">
-						<li>
+					<!-- 	<li>
 							<span>1</span>
 							<span>D</span>
 							<input type="text" class="answer-input">
@@ -697,17 +699,27 @@
 							<span>D</span>
 							<input type="text" class="answer-input">
 							<span>分</span>
-						</li>
+						</li> -->
 					</ul>
 				</div>
 				<div class="edit-item-img">
-					<img src="">
-					qqqq
+					<!-- <img src=""> -->
 				</div>
 				<div class="modal-bottom">
 					<div class="modal-bottom-button modal-exit">取消</div>
-					<div class="modal-bottom-button determine modal-exit">提交修改</div>
+					<div class="modal-bottom-button determine modal-exit btn-edit">提交修改</div>
 				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 查看全卷 -->
+	<div class="modal-wrap paper-all-wrap">
+		<div class="modal-shadow modal-exit-paper"></div>
+		<div class="modal-main" style="width:992px">
+			<div class="modal-exit-paper modal-exit-icon iconfont">&#xe61a;</div>
+		<!-- 	<div class="modal-title"><span>客观题</span>（<em>得分模式</em>）</div> -->
+			<div class="modal-content paper-box">
+				
 			</div>
 		</div>
 	</div>
@@ -757,6 +769,21 @@
 				<div class="modal-bottom">
 					<div class="modal-bottom-button modal-exit">取消</div>
 					<div class="modal-bottom-button determine modal-exit">保存</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 判分提示框 -->
+	<div class="modal-wrap" id="i_two">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main" style="width:440px">
+			<div class="modal-exit iconfont modal-exit-icon">&#xe61a;</div>
+			<div class="modal-title">提示框</div>
+			<div class="modal-content">
+				<div class="mian-cont">
+					<div class="prompt alert alert-danger center" role="alert">
+		        您所给的分数不在规定范围内，请看清分值给分！
+		    	</div>
 				</div>
 			</div>
 		</div>
