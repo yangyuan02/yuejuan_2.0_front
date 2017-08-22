@@ -39,12 +39,12 @@ angular.module("myApp", ["ui.router","myApp.controller"])
     });
         $stateProvider
             .state("form01", {
-                url: "/form01",
+                url: "http://192.168.1.127/form01",
                 templateUrl: "views/form01",
                 controller:"form01Controller"
             })
             .state("form02", {
-                url: "/form02",
+                url: "http://192.168.1.127/form02",
                 templateUrl: "views/form02",
                 controller:"form02Controller"
             })
