@@ -35,7 +35,6 @@ body{
 	width:188px;
 	height: 828px;
 	float: left;
-	z-index: 1;
 	position: relative;
 }
 .main_left a{
@@ -93,7 +92,7 @@ padding-bottom: 30px;
 	width: 125px;
 	height: 30px;
 	margin-left: 15px;
-	font-size: 16px;
+	font-size:14px;
     color: #666666;
 }
 .mark_span_01{
@@ -172,11 +171,12 @@ border: none;
 	margin-top: 40px;
 	box-sizing: border-box;
 	position: absolute;
-	left: 450px;
-	top:55px;
+	left: 50%;
+    top: 55px;
+    transform: translateX(-50%);
 	background: #ffffff;
-display: none;
-z-index: 1111111111;
+    display: none;
+    z-index: 1111111111;
 }
 .mart_set_01{
 	width:100%;
@@ -299,7 +299,6 @@ margin-bottom: 15px;
     top: 0px;
     width: 100%;
     background:#999999;
-    z-index: 111111;
     opacity: 0.5;
     display: none;
 }
