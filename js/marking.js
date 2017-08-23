@@ -636,6 +636,7 @@ $(function(){
 		var a = parseInt($('.on-num').text());
 		var b = parseInt($('.all-paper').text());
 		console.log(a,b);
+		$('.load-bg').show();
 		if(input_value.val() != ""){
 			$.ajax({
 			  type: "POST",
@@ -644,6 +645,9 @@ $(function(){
 			  data:data_value,
 			  success: function(data){
 			  	console.log(data);
+			  	if(data){
+			  		$('.load-bg').hide();
+			  	}
 			  	console.log(a_settings[0].answer_setting_score_id);
 			  	if(a<b &&a_settings[0].answer_setting_score_id==null){
 			  		get_info_request(s_c_id,name);

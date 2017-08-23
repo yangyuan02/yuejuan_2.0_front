@@ -272,6 +272,16 @@
 	text-align: left;
 	line-height: 28px;
 }
+#upfiles{
+  border: 1px solid #ccc;
+  width: 406px;
+  margin-left: 20px;
+  height: 26px;
+  padding: 1px 10px;
+  display: inline-block;
+  text-align: left;
+  line-height: 28px;
+}
 .modal-main-small{
 	width: 380px;
 }
