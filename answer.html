@@ -65,11 +65,12 @@
                             <p><span>试题类型</span>
                                 <input type="radio" ng-checked="result.isradio==1" ng-click="checkbox(1)"/>
                                 <span style="float: left;margin-right: 20px;">单选题</span>
-                                <input type="radio" ng-checkisradio==2" ng-click="checkbox(2)"／>
+                                <input type="radio" ng-checkisradio==2" ng-click="checkbox(2)" ／>
                                 <span style="float: left;">多选题</span>
                             </p>
                             <p><span>起始序号</span><input type="text" ng-model="result.no" placeholder="请输入起始序号"/></p>
-                            <p><span>每题分值</span><input type="text" ng-model="result.itemcoreS" placeholder="请输入每题分值"/></p>
+                            <p><span>每题分值</span><input type="text" ng-model="result.itemcoreS" placeholder="请输入每题分值"/>
+                            </p>
                             <p><span>选项个数</span><input type="text" ng-model="result.thr" placeholder="请输入选项个数"/></p>
 
                             <hr class="hr"/>
@@ -92,7 +93,8 @@
                             <p><span>试题数量</span><input type="text" placeholder="请输入试题数量" ng-model="result.numbel"/></p>
                             <p><span>起始序号</span><input type="text" placeholder="请输入起始序号" ng-model="result.no"/></p>
                             <p><span>所在页码</span><input type="text" placeholder="请输入所在页码" ng-model="result.page"/></p>
-                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/></p>
+                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/>
+                            </p>
                             <hr class="hr"/>
                             <p>
                                 <button ng-click="btn1()">确认添加</button>
@@ -108,11 +110,13 @@
                         <h3>添加题组<span class="fr cous" ng-click="close()">X</span></h3>
                         <div class="pd">
                             <p><span>题组名称</span><span class="Red">*</span><input class="mF" type="text"
-                                                                                 placeholder="请输入题组名称" ng-model="result.name"/></p>
+                                                                                 placeholder="请输入题组名称"
+                                                                                 ng-model="result.name"/></p>
                             <p><span>试题数量</span><input type="text" placeholder="请输入试题数量" ng-model="result.numbel"/></p>
                             <p><span>起始序号</span><input type="text" placeholder="请输入起始序号" ng-model="result.no"/></p>
                             <p><span>所在页码</span><input type="text" placeholder="请输入所在页码" ng-model="result.page"/></p>
-                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/></p>
+                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/>
+                            </p>
                             <hr class="hr"/>
                             <p>
                                 <button ng-click="btn1()">确认添加</button>
@@ -127,34 +131,80 @@
                     <div class="addQ {{4==index?'active':''}}" id="addQ4">
                         <h3>添加题组<span class="fr cous" ng-click="close()">X</span></h3>
                         <div class="pd">
-                            <p><span>题组名称</span><span class="Red">*</span><input class="mF" type="text"
-                                                                                 placeholder="请输入题组名称"/></p>
-                            <p><span>试题总分</span><input type="text" placeholder="请输入试题数量"/></p>
-                            <p><span>作文格式</span><input type="text" placeholder="请输入起始序号"/></p>
-                            <p><span>格子列数</span><input type="text"/></p>
-                            <p><span>作文格数</span><input type="text"/></p>
-                            <p><span>起始序号</span><input type="text" placeholder="请输入起始序号"/></p>
-                            <p><span>所在页码</span><input type="text" placeholder="请输入所在页码"/></p>
-                            <hr class="hr"/>
-                            <p>
-                                <button ng-click="btn3()">确认添加</button>
-                            </p>
+                           <div class="writItem clearfix">
+                               <p>题组名称</p>
+                               <p><input type="text" placeholder="请输入题组名称"></p>
+                           </div>
+                            <div class="writItem clearfix">
+                                <p>试题总分</p>
+                                <p><input type="text"></p>
+                            </div>
+                            <div class="writItem clearfix">
+                                <p>作文格式</p>
+                                <div class="writ_format">
+                                    <div class="formatItme clearfix">
+                                        <input type="radio" ng-checked="result.writIsradio==1" ng-click="checkWrit(1)">
+                                        <span>语文作文方格</span>
+                                        <div class="matrix">
+                                            <div class="matrix_item"></div>
+                                            <div class="matrix_item"></div>
+                                            <div class="matrix_item"></div>
+                                            <div class="matrix_item"></div>
+                                            <div class="matrix_item"></div>
+                                            <div class="matrix_item"></div>
+                                            <div class="matrix_item"></div>
+                                            <div class="matrix_item"></div>
+                                            <div class="matrix_item"></div>
+                                            <div class="matrix_item"></div>
+                                        </div>
+                                    </div>
+                                    <div class="formatItme clearfix"><input type="radio" ng-checked="result.writIsradio==2" ng-click="checkWrit(2)"><span>外语作文行线</span><span></span></div>
+                                    <div class="formatItme clearfix"><input type="radio" ng-checked="result.writIsradio==3" ng-click="checkWrit(3)"><span>单词间隔行线</span><span></span></div>
+                                </div>
+                            </div>
+                            <div class="writItem clearfix" ng-show="result.writIsradio==1"><!--语文作文-->
+                                <p>格子列数</p>
+                                <p><input type="text"></p>
+                            </div>
+                            <div class="writItem clearfix" ng-show="result.writIsradio==1">
+                                <p>作文格数</p>
+                                <p><input type="text"></p>
+                            </div>
+                            <div class="writItem clearfix" ng-show="result.writIsradio==2"><!--外语作文-->
+                                <p>格子行数</p>
+                                <p><input type="text"></p>
+                            </div>
+                            <div class="writItem clearfix" ng-show="result.writIsradio==3"><!--单词间隔-->
+                                <p>单词个数</p>
+                                <p><input type="text"></p>
+                            </div>
+                            <div class="writItem clearfix">
+                                <p>起始序号</p>
+                                <p><input type="text"></p>
+                            </div>
+                            <div class="writItem clearfix">
+                                <p>所在页码</p>
+                                <p><input type="text"></p>
+                            </div>
+                            <div class="writItem clearfix">
+                                <button ng-click="btn1()">确认添加</button>
+                            </div>
                         </div>
                     </div>
                 </li>
-
-
                 <li><a ng-click="add(5)" class="{{5==index?'active':''}}">其他题</a>
                     <!--添加题组-->
                     <div class="addQ {{5==index?'active':''}}" id="addQ5">
                         <h3>添加题组<span class="fr cous" ng-click="close()">X</span></h3>
                         <div class="pd">
                             <p><span>题组名称</span><span class="Red">*</span><input class="mF" type="text"
-                                                                                 placeholder="请输入题组名称" ng-model="result.name"/></p>
+                                                                                 placeholder="请输入题组名称"
+                                                                                 ng-model="result.name"/></p>
                             <p><span>试题数量</span><input type="text" placeholder="请输入试题数量" ng-model="result.numbel"/></p>
                             <p><span>起始序号</span><input type="text" placeholder="请输入起始序号" ng-model="result.no"/></p>
                             <p><span>所在页码</span><input type="text" placeholder="请输入所在页码" ng-model="result.page"/></p>
-                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/></p>
+                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/>
+                            </p>
                             <hr class="hr"/>
                             <p>
                                 <button ng-click="btn1()">确认添加</button>
@@ -168,7 +218,7 @@
         <div ng-class="{A_R:true}" id="AR">
             <!--顶部学生信息开始-->
             <div class="student_info clearfix">
-                <div class="ermai clearfix"></div>
+                <div class="ermai clearfix"><img src="../img/erwei.jpg" alt=""></div>
                 <div class="person clearfix">
                     <div class="person_item">
                         <span>学校:</span>
@@ -390,7 +440,8 @@
                             <tbody>
                             <tr ng-if="a.type!=5">
                                 <td>
-                                    <div ng-repeat="item in a.no" class="q_c" ng-style="{'width':'{{a.type==3?'40%':'25%'}}'}">
+                                    <div ng-repeat="item in a.no" class="q_c"
+                                         ng-style="{'width':'{{a.type==3?'40%':'25%'}}'}">
                                         <a class="numberNo" ng-show="a.type==3"></a>
                                         <!--序号start-->
                                         <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
@@ -417,7 +468,8 @@
                                     <div ng-repeat="item in a.no">
                                         <!--其他题头部-->
                                         <div class="other_h clearfix">
-                                            <div class="other_number">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}</div>
+                                            <div class="other_number">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
+                                            </div>
                                             <!--网络阅卷打分框start-->
                                             <div class="marking clearfix">
                                                 <a href="">1</a>
@@ -496,7 +548,8 @@
                             <tbody>
                             <tr ng-if="a.type!=5">
                                 <td>
-                                    <div ng-repeat="item in a.no" class="q_c" ng-style="{'width':'{{a.type==3?'40%':'25%'}}'}">
+                                    <div ng-repeat="item in a.no" class="q_c"
+                                         ng-style="{'width':'{{a.type==3?'40%':'25%'}}'}">
                                         <a class="numberNo" ng-show="a.type==3"></a>
                                         <!--序号start-->
                                         <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
@@ -523,7 +576,8 @@
                                     <div ng-repeat="item in a.no">
                                         <!--其他题头部-->
                                         <div class="other_h clearfix">
-                                            <div class="other_number">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}</div>
+                                            <div class="other_number">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
+                                            </div>
                                             <!--网络阅卷打分框start-->
                                             <div class="marking clearfix">
                                                 <a href="">1</a>

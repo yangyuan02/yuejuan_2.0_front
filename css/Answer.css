@@ -37,7 +37,7 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
 .Answer .L_ul li a.active{color: #31bc91;background: #ccc;}
 
 /*添加题组*/
-.Answer .L_ul li .addQ{display:none;position: absolute;z-index:1;left: 100%;top:0;width: 434px;height: 468px;border: 1px solid #31bc91;text-align: center;background: #fff;}
+.Answer .L_ul li .addQ{display:none;position: absolute;z-index:1;left: 100%;top:0;width: 434px;height: auto;border: 1px solid #31bc91;text-align: center;background: #fff;}
 .Answer .L_ul li .addQ.active{display:block}
 .Answer .L_ul li .addQ h3{background: #31bc91;color: #fff;font-weight: 300;}
 .Answer .L_ul li .addQ .pd{width:100%;height:100%;margin-top:7px;}
@@ -108,6 +108,14 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     float:left;
     margin:0 56px;
     margin-left:72px;
+    position:relative;
+}
+.Answer .student_info .ermai img{
+    position: absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
 }
 .Answer .student_info .person{
     float:left;
@@ -293,10 +301,6 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     display:inline-block;
     margin-right:4px;
 }
-/*英语作文*/
-.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span.writing{
-
-}
 /*其他题*/
 
 .Answer .A_R .A_Rone .A_Rone_child table tbody .other_c{
@@ -313,4 +317,88 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
 }
 .Answer .A_R .A_Rone .A_Rone_child table tbody .other_h .marking{
     float:left;
+}
+/*写作题*/
+.Answer .L_ul li .addQ .pd .writItem{
+    margin-bottom:14px;
+}
+.Answer .L_ul li .addQ .pd .writItem p{
+    display:inline-block;
+    float:left;
+}
+.Answer .L_ul li .addQ .pd .writItem p:first-child{
+    width:30%;
+    margin:0;
+    height:auto;
+    text-align:left;
+    color: #666;
+    font-size:16px;
+    padding-left:40px;
+    box-sizing:border-box;
+}
+.Answer .L_ul li .addQ .pd .writItem p:last-child{
+    width:50%;
+    margin:0;
+    height:auto;
+}
+.Answer .L_ul li .addQ .pd .writItem .writ_format{
+    width:50%;
+    height:auto;
+    float:left;
+}
+.Answer .L_ul li .addQ .pd .writItem .writ_format .formatItme{
+    height:40px;
+    line-height:40px;
+}
+.Answer .L_ul li .addQ .pd .writItem .writ_format .formatItme > input[type="radio"]{
+    margin:0;
+}
+.Answer .L_ul li .addQ .pd .writItem .writ_format .formatItme input[type="radio"]{
+    float:left;
+    display:inline-block;
+    height:40px;
+    line-height:40px;
+}
+.Answer .L_ul li .addQ .pd .writItem .writ_format .formatItme:nth-of-type(1) span{
+    float:left;
+}
+.Answer .L_ul li .addQ .pd .writItem .writ_format .formatItme:nth-of-type(2) span:last-child{
+    display:inline-block;
+    width: 80px;
+    border-top:1px solid black;
+    margin-top:20px;
+}
+.Answer .L_ul li .addQ .pd .writItem .writ_format .formatItme:nth-of-type(3) span:last-child{
+    display:inline-block;
+    width: 80px;
+    border-top:1px dashed black;
+    margin-top:20px;
+}
+.Answer .L_ul li .addQ .pd .writItem .writ_format .formatItme .matrix{
+    width:79px;
+    height:28px;
+    border:1px solid black;
+    float: left;
+    margin-top:5px;
+}
+.Answer .L_ul li .addQ .pd .writItem .writ_format .formatItme .matrix .matrix_item{
+    width:15px;
+    height:14px;
+    border:1px solid black;
+    float:left;
+    border-left:0;
+    border-top:0;
+}
+.Answer .L_ul li .addQ .pd .writItem .writ_format .formatItme .matrix .matrix_item:nth-of-type(6),
+.Answer .L_ul li .addQ .pd .writItem .writ_format .formatItme .matrix .matrix_item:nth-of-type(7),
+.Answer .L_ul li .addQ .pd .writItem .writ_format .formatItme .matrix .matrix_item:nth-of-type(8),
+.Answer .L_ul li .addQ .pd .writItem .writ_format .formatItme .matrix .matrix_item:nth-of-type(9),
+.Answer .L_ul li .addQ .pd .writItem .writ_format .formatItme .matrix .matrix_item:nth-of-type(10)
+{
+    border-bottom:0;
+}
+.Answer .L_ul li .addQ .pd .writItem .writ_format .formatItme .matrix .matrix_item:nth-of-type(5),
+.Answer .L_ul li .addQ .pd .writItem .writ_format .formatItme .matrix .matrix_item:nth-of-type(10)
+{
+    border-right:0;
 }

@@ -25,7 +25,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.listObj = [];//定义全局数组保存所有题目
     $scope.listObj2 = [];//定义全局数组保存所有题目
     $scope.result = {};//弹出框保存
-    $scope.result.isradio = 1
     var answer_id = []//大题answer_id
     function getAnswer() {//获取题目模板
         var isLogin = localStorage.getItem("token");
@@ -52,10 +51,14 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.add = function (index) {
         $scope.index = index
         clear()
-        $scope.result.isradio = 1
+        $scope.result.isradio = 1//单选题、多选题
+        $scope.result.writIsradio = 1//作文题
     };
     $scope.checkbox = function (index) {//切换单选多选
         $scope.result.isradio = index
+    }
+    $scope.checkWrit = function (index) {
+        $scope.result.writIsradio = index//作文题
     }
     $scope.Q_number = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十']
     $scope.isLine = function (type, num, page_num) {//是否换行
@@ -155,7 +158,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     //清空选择题的内容
     var clear = function () {
         $scope.result = {
-            name: '', numbel: '', isradio: '',
+            name: '', numbel: '', isradio:'',
             no: '', one: '', two: '', thr: '',
         };
     };
