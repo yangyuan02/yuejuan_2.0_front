@@ -373,7 +373,9 @@ $(function(){
 	
 	var on_checked_info;
 	// 选择题型
-
+	$('body').on('dblclick', '.select-area', function() {
+		$(this).find('.edit-item').click();
+	});
 	$('body').on('click','.edit-item',function() {
 		$('.modal-main').animate({'top': '50%','opacity': 1},500);
 		$('.modal-shadow').animate({'opacity': 0},500);

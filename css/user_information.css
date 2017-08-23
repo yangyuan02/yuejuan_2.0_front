@@ -476,7 +476,7 @@
   text-align: center;
   line-height: 22px;
   color: #31bc91;
-  border: 1px solid #31bc91;
+  border: 1px solid #31bc91;;
   margin-left: 20px;
   cursor: pointer;
 }
@@ -485,6 +485,9 @@
 }
 .success-deal{
 	color: #5fa3ed;
+}
+.on-deal{
+	color: #31bc91;
 }
 
 .modal-title em{
@@ -596,6 +599,8 @@
 }
 .edit-item-img{
 	width: 689px;
+	overflow-y: auto;
+  max-height: 300px;
 }
 .edit-item-img img{
 	width: 100%;

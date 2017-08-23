@@ -556,6 +556,7 @@ $(function(){
 		}
 
 
+
 		$.ajax({
 		  type: "POST",
 		  url: ajaxIp+"/api/v2/section_crop_images/manual_mark",
@@ -636,8 +637,18 @@ $(function(){
 		var a = parseInt($('.on-num').text());
 		var b = parseInt($('.all-paper').text());
 		console.log(a,b);
-		$('.load-bg').show();
-		if(input_value.val() != ""){
+
+		var iD_if_null = false;
+		for (var h = 0; h < $('.yuejuan_score').length; h++) {
+		 	if($('.yuejuan_score')[h].value == "")
+			 {
+				 iD_if_null = true;
+			 }
+		};
+
+
+		if(!iD_if_null){
+			$('.load-bg').show();
 			$.ajax({
 			  type: "POST",
 			  url: ajaxIp+"/api/v2/section_crop_images/manual_mark",
@@ -673,7 +684,7 @@ $(function(){
 			  }
 			});
 		}else{
-			alert('请输入得分后再提交');
+      alert('请输入得分后再提交');
 		}
 	})
 
