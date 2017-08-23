@@ -556,6 +556,7 @@ $(function(){
 		}
 
 
+
 		$.ajax({
 		  type: "POST",
 		  url: ajaxIp+"/api/v2/section_crop_images/manual_mark",
@@ -575,6 +576,7 @@ $(function(){
 
   })
 
+    var canSubmit = true
 	// 提交打分
 	$('.con-btn').click(function(){
 		var name = $('.paper-item-name').text();
@@ -636,13 +638,15 @@ $(function(){
 		var a = parseInt($('.on-num').text());
 		var b = parseInt($('.all-paper').text());
 		console.log(a,b);
-		if(input_value.val() != ""){
+		if(input_value.val() != "" && canSubmit){
+			canSubmit = false;
 			$.ajax({
 			  type: "POST",
 			  url: ajaxIp+"/api/v2/section_crop_images/manual_mark",
 			  headers: {'Authorization': "Bearer " + isLogin},
 			  data:data_value,
 			  success: function(data){
+			  	canSubmit = true;
 			  	console.log(data);
 			  	console.log(a_settings[0].answer_setting_score_id);
 			  	if(a<b &&a_settings[0].answer_setting_score_id==null){
@@ -663,13 +667,18 @@ $(function(){
 			  	}
 			  },
 			  error: function(){
+                  canSubmit = true;
 			      // alert('请稍后从新尝试登录或者联系管理员');
 		      	// localStorage.clear();
 		      	// window.location.href = './login.html';
 			  }
 			});
 		}else{
-			alert('请输入得分后再提交');
+			if(!canSubmit){
+                alert('请勿重复提交');
+			}else {
+                alert('请输入得分后再提交');
+            }
 		}
 	})
 
