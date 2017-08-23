@@ -186,7 +186,7 @@ $.ajax({
                     "subject_id":"12",
             },
                 success: function(data) {
-                    console.log(data);
+                      console.log(data);
                       $("#z_mark").val(data.full_score);
                       $("#jg_mark").val(data.pass);
                       $("#yx_mark").val(data.fine);
@@ -200,6 +200,21 @@ $.ajax({
                       $("#ul_iLabel li").eq(3).find('.level_02').val(data.column_value_4);
                       $("#ul_iLabel li").eq(4).find('.level_01').val(data.column_name_5);
                       $("#ul_iLabel li").eq(4).find('.level_02').val(data.column_value_5);
+                      if(data.lenght>5){
+                        var a=data.lenght-5;
+                        var b=data.lenght
+                        console.log(data.lenght);
+                        console.log(a);
+                        for(var i=0;i<a;i++){
+                            
+                         $("#ul_iLabel").append('<li><input value=""  class="level_01"></input><input value="" class="level_02"></input><button type="">-</button></li>   ');
+
+                          $("#ul_iLabel li").eq(4).find('.level_01').val(data.column_name_5);
+                          $("#ul_iLabel li").eq(4).find('.level_02').val(data.column_value_5);
+            
+
+                        }
+                      }
                 },
                 error: function() {
 
@@ -910,9 +925,11 @@ $.ajax({
                 data: {
                     "exam_id": exam_id,
                     "subject_id": sub_id,
+                    "classroom_id": class_id,
                 },
                 success: function(data) {
                     console.log(data);
+                     $("#study_q_i_btn_05c").html(" ");
                     for (var i = 0; i < data.exam_subjects.length; i++) {
                         $("#study_q_i_btn_05c").append('<tr><td>' + data.exam_subjects[i].name + '</td><td>' + data.exam_subjects[i].score + '</td><td>' + data.exam_subjects[i].level + '</td><td>' + data.exam_subjects[i].class_rank + '</td><td style="color:#fb7d8a">' + data.exam_subjects[i].class_ranking_change + '<i class="iconfont">&#xe627;</i></td><td><span>查看答题卡</span></td><td>点评</td></tr>');
 
@@ -1432,6 +1449,8 @@ $.ajax({
                 },
                 success: function(data) {
                     console.log(data);
+                    $(".study_k_201_he").html(" ");
+                      $(".study_k_201_bo").html(" ");
                     for (var i = 0; i < data.titile.length; i++) {
 
                         $(".study_k_201_he").append('<th>' + data.titile[i] + '</th>');
@@ -1470,6 +1489,8 @@ $.ajax({
                 },
                 success: function(data) {
                     console.log(data);
+                    $(".study_k_301_he").html(" ");
+                      $(".study_k_301_bo").html(" ");
                     for (var i = 0; i < data.titile.length; i++) {
 
                         $(".study_k_301_he").append('<th>' + data.titile[i] + '</th>');
@@ -1505,6 +1526,8 @@ $.ajax({
                 },
                 success: function(data) {
                     console.log(data);
+                    $(".study_k_401_he").html(" ");
+                      $(".study_k_401_bo").html(" ");
                     for (var i = 0; i < data.titile.length; i++) {
 
                         $(".study_k_401_he").append('<th>' + data.titile[i] + '</th>');
@@ -1540,6 +1563,8 @@ $.ajax({
                 },
                 success: function(data) {
                     console.log(data);
+                    $(".study_k_501_he").html(" ");
+                      $(".study_k_501_bo").html(" ");
                     for (var i = 0; i < data.titile.length; i++) {
 
                         $(".study_k_501_he").append('<th>' + data.titile[i] + '</th>');
@@ -1578,6 +1603,8 @@ $.ajax({
                 },
                 success: function(data) {
                     console.log(data);
+                    $(".study_k_601_he").html(" ");
+                      $(".study_k_601_bo").html(" ");
                     for (var i = 0; i < data.titile.length; i++) {
 
                         $(".study_k_601_he").append('<th>' + data.titile[i] + '</th>');
