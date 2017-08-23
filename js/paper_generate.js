@@ -20,7 +20,7 @@ $(function() {
 			dataType: "JSON",
 
 			success: function(data) {
-				console.log(data)
+				console.log(data,list_page)
 				if (data.length != 0) {
 					show_list(data);
 				}
@@ -119,7 +119,7 @@ $(function() {
 		var subjects_length = detail_data.subjects.length;
 		for (var i = 0; i < subjects_length; i++) {
 			// 表格列表信息
-			var list_tr = '<tr><td exam_subject_id="' + detail_data.subjects[i].exam_subject_id + '" batch-id="' + detail_data.subjects[i].batch_id + '" data-id="' + detail_data.subjects[i].id + '" class="subject-name">' + detail_data.subjects[i].name + '</td><td class="count">' + detail_data.student_total + '</td><td class="operation"><a href="../answer.html" class="set"><i class="iconfont">&#xe60f;</i>试卷设置</a><a href="javascript:;" class="sign"><i class="iconfont">&#xe612;</i>权限分配</a><a href="javascript:;" class="dele"><i class="iconfont">&#xe616;</i>删除科目</a><a class="look-paper"><i class="iconfont">&#xe61e;</i>查看试卷</a></td></tr>';
+			var list_tr = '<tr><td exam_subject_id="' + detail_data.subjects[i].exam_subject_id + '" batch-id="' + detail_data.subjects[i].batch_id + '" data-id="' + detail_data.subjects[i].id + '" class="subject-name">' + detail_data.subjects[i].name + '</td><td class="count">' + detail_data.student_total + '</td><td class="operation"><a href="../answer.html" class="set setAnswer"><i class="iconfont">&#xe60f;</i>试卷设置</a><a href="javascript:;" class="sign"><i class="iconfont">&#xe612;</i>权限分配</a><a href="javascript:;" class="dele"><i class="iconfont">&#xe616;</i>删除科目</a><a class="look-paper"><i class="iconfont">&#xe61e;</i>查看试卷</a></td></tr>';
 			$('.subject-list tbody').append(list_tr);
 			on_checked[i] = detail_data.subjects[i].id;
 		};
@@ -131,9 +131,13 @@ $(function() {
 			// $('#new-create').hide();
 			$('#operation-th').hide();
 			$('.operation').hide();
+			$('.request-school').hide();
+			$('#dele-test').hide();
 		} else {
 			$('.operation').show();
 			$('#operation-th').show();
+			$('.request-school').show();
+			$('#dele-test').show();
 		}
 	}
 
@@ -147,13 +151,13 @@ $(function() {
 
 	// 考试列表切换
 	$('body').on('click', '.list-ul li', function() {
-			$('.first-new').hide();
-			$('.teacher-set').hide();
-			$('.second-new').show();
-			$(this).addClass('active').siblings().removeClass('active');
-			// console.log($(this).data('id'));
-			show_test_cont($(this).data('id'));
-		})
+		$('.first-new').hide();
+		$('.teacher-set').hide();
+		$('.second-new').show();
+		$(this).addClass('active').siblings().removeClass('active');
+		// console.log($(this).data('id'));
+		show_test_cont($(this).data('id'));
+	})
 		// 搜索考试
 	$('#search-test').on('change', function() {
 		var str_name = $(this).val();
@@ -269,10 +273,11 @@ $(function() {
 	//新建科目显示modal层的科目方法
 	function showSubjectModal(show_grade_id) {
 		$.ajax({
-			url: ajaxIp + "/api/v2/commons/" + show_grade_id + "/grade_subjects",
+			url: ajaxIp + "/api/v2/commons/grade_subjects",
 			headers: {
 				'Authorization': "Bearer " + isLogin
 			},
+			data:{'grade_id':show_grade_id},
 			dataType: "JSON",
 			type: "get",
 			success: function(data) {
@@ -290,10 +295,11 @@ $(function() {
 	// 新建考试信息的时候显示对应班级所有科目信息
 	function showSubjectAll(show_grade_id) {
 		$.ajax({
-			url: ajaxIp + "/api/v2/commons/" + show_grade_id + "/grade_subjects",
+			url: ajaxIp + "/api/v2/commons/grade_subjects",
 			headers: {
 				'Authorization': "Bearer " + isLogin
 			},
+			data:{'grade_id':show_grade_id},
 			dataType: "JSON",
 			type: "get",
 			success: function(data) {
@@ -928,10 +934,11 @@ $(function() {
 
 	function show_modal_subject(show_grade_id) {
 		$.ajax({
-			url: ajaxIp + "/api/v2/commons/" + show_grade_id + "/grade_subjects",
+			url: ajaxIp + "/api/v2/commons/grade_subjects",
 			headers: {
 				'Authorization': "Bearer " + isLogin
 			},
+			data:{'grade_id':show_grade_id},
 			dataType: "JSON",
 			type: "get",
 			success: function(data) {
@@ -1545,5 +1552,10 @@ $(function() {
 		var exam_subject_id = $_this.parents('tr').find('.subject-name').attr('exam_subject_id');
 		var subject_name = $_this.parents('tr').find('.subject-name').text();
 		$_this.attr('href', 'look_paper.html?id=' + batch_id + '&test_local_id=' + test_id + '&exam_name=' + exam_name + '&subject_name=' + subject_name + '&exam_subject_id=' + exam_subject_id + '');
+	});
+	$('body').on('click', '.setAnswer', function() {
+		var $_this = $(this);
+		var examubjeId = $_this.parents('tr').find('.subject-name').attr('exam_subject_id');
+		$_this.attr('href', 'answer.html?examubjeId=' + examubjeId);
 	});
 })

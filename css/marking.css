@@ -156,7 +156,7 @@ tr.child-tr{
 }
 .child-title{
 	overflow: hidden;
-	margin-left: 50px;
+	margin-left: 30px;
 }
 .none{
 	display: none;
@@ -176,7 +176,7 @@ tr.child-tr{
 }
 .child-cont{
 	color: #7395a8;
-	margin-left: 50px;
+	margin-left: 30px;
 }
 .child-cont > li{
 	width: 100%;
@@ -187,6 +187,7 @@ tr.child-tr{
 .child-cont > li  div{
 	float: left;
 	width: 16.66%;
+	word-wrap: break-word;
 }
 .item-op .mark-btn{
 	display: inline-block;
@@ -389,7 +390,7 @@ tr.child-tr{
 .item-name{
 	line-height: 24px;
 }
-.child-trs .key-answer{
+.child-trs .key-answer,.child-trs .clear-items{
   display: inline-block;
   padding: 1px 5px;
   border: 1px solid #999;
@@ -404,7 +405,7 @@ tr.child-tr{
   -o-border-radius: 3px;
   border-radius: 3px;
 }
-.child-trs  .key-answer i{
+.child-trs  .key-answer i, .child-trs .clear-items i{
 	padding-right: 5px;
 	font-size: 12px;
 }
@@ -635,10 +636,11 @@ tr.child-tr{
 .last-ul li >div{
 	float: left;
 	width: 16.6%;
+	word-wrap: break-word;
 }
-.last-ul  .item-name{
+/* .last-ul  .item-name{
 	padding-left: 12px;
-}
+} */
 .last-ul .item-op{
 	width: 15%;
 }

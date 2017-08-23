@@ -43,7 +43,7 @@
         <span ng-class="{mR:true , clear:true}">
 						<span ng-class="{cous:true}">导入试卷</span>
 						<span ng-class="{cous:true}">导入模版</span>
-						<span ng-class="{cous:true}">存为模版</span>
+						<span ng-click="save()">存为模版</span>
 						<span ng-class="{Red:true, cous:true}">X</span>
 					</span>
     </div>
@@ -63,16 +63,13 @@
                             </p>
                             <p><span>试题数量</span><input type="text" ng-model="result.numbel" placeholder="请输入试题数量"/></p>
                             <p><span>试题类型</span>
-                                <input type="radio" ng-model="result.isradio" value="'0'"
-                                       style="width: 20px;height: 20px;float: left;margin: 7px 10px 0 20px;" name="ra"
-                                       ／>
+                                <input type="radio" ng-checked="result.isradio==1" ng-click="checkbox(1)"/>
                                 <span style="float: left;margin-right: 20px;">单选题</span>
-                                <input type="radio" ng-model="result.isradio" value="'1'"
-                                       style="width: 20px;height: 20px;float: left;margin: 7px 10px 0 ;" name="ra" ／>
+                                <input type="radio" ng-checkisradio==2" ng-click="checkbox(2)"／>
                                 <span style="float: left;">多选题</span>
                             </p>
                             <p><span>起始序号</span><input type="text" ng-model="result.no" placeholder="请输入起始序号"/></p>
-                            <p><span>每题分值</span><input type="text" ng-model="result.two" placeholder="请输入每题分值"/></p>
+                            <p><span>每题分值</span><input type="text" ng-model="result.itemcoreS" placeholder="请输入每题分值"/></p>
                             <p><span>选项个数</span><input type="text" ng-model="result.thr" placeholder="请输入选项个数"/></p>
 
                             <hr class="hr"/>
@@ -95,7 +92,7 @@
                             <p><span>试题数量</span><input type="text" placeholder="请输入试题数量" ng-model="result.numbel"/></p>
                             <p><span>起始序号</span><input type="text" placeholder="请输入起始序号" ng-model="result.no"/></p>
                             <p><span>所在页码</span><input type="text" placeholder="请输入所在页码" ng-model="result.page"/></p>
-                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.score"/></p>
+                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/></p>
                             <hr class="hr"/>
                             <p>
                                 <button ng-click="btn1()">确认添加</button>
@@ -115,9 +112,7 @@
                             <p><span>试题数量</span><input type="text" placeholder="请输入试题数量" ng-model="result.numbel"/></p>
                             <p><span>起始序号</span><input type="text" placeholder="请输入起始序号" ng-model="result.no"/></p>
                             <p><span>所在页码</span><input type="text" placeholder="请输入所在页码" ng-model="result.page"/></p>
-                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.score"/></p>
-                            <p><span>多评人数</span><input type="text" placeholder="请输入多评人数" ng-model="result.error_p"/></p>
-                            <p><span>多评误差</span><input type="text" placeholder="请输入多评误差" ng-model="result.error_s"/></p>
+                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/></p>
                             <hr class="hr"/>
                             <p>
                                 <button ng-click="btn1()">确认添加</button>
@@ -140,8 +135,6 @@
                             <p><span>作文格数</span><input type="text"/></p>
                             <p><span>起始序号</span><input type="text" placeholder="请输入起始序号"/></p>
                             <p><span>所在页码</span><input type="text" placeholder="请输入所在页码"/></p>
-                            <p><span>多评人数</span><input type="text" placeholder="请输入多评人数"/></p>
-                            <p><span>多评误差</span><input type="text" placeholder="请输入多评误差"/></p>
                             <hr class="hr"/>
                             <p>
                                 <button ng-click="btn3()">确认添加</button>
@@ -157,16 +150,14 @@
                         <h3>添加题组<span class="fr cous" ng-click="close()">X</span></h3>
                         <div class="pd">
                             <p><span>题组名称</span><span class="Red">*</span><input class="mF" type="text"
-                                                                                 placeholder="请输入题组名称"/></p>
-                            <p><span>试题数量</span><input type="text" placeholder="请输入试题数量"/></p>
-                            <p><span>起始序号</span><input type="text" placeholder="请输入起始序号"/></p>
-                            <p><span>所在页码</span><input type="text" placeholder="请输入所在页码"/></p>
-                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值"/></p>
-                            <p><span>多评人数</span><input type="text" placeholder="请输入多评人数"/></p>
-                            <p><span>多评误差</span><input type="text" placeholder="请输入多评误差"/></p>
+                                                                                 placeholder="请输入题组名称" ng-model="result.name"/></p>
+                            <p><span>试题数量</span><input type="text" placeholder="请输入试题数量" ng-model="result.numbel"/></p>
+                            <p><span>起始序号</span><input type="text" placeholder="请输入起始序号" ng-model="result.no"/></p>
+                            <p><span>所在页码</span><input type="text" placeholder="请输入所在页码" ng-model="result.page"/></p>
+                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/></p>
                             <hr class="hr"/>
                             <p>
-                                <button ng-click="btn3()">确认添加</button>
+                                <button ng-click="btn1()">确认添加</button>
                             </p>
                         </div>
                     </div>
@@ -366,29 +357,30 @@
                             <tr>
                                 <th>
                                     <span>{{Q_number[$index]}}、</span>
-                                    {{a.name}}<span ng-show="a.two!=''">(共{{a.one}}分，每题{{a.two}}分)</span>
+                                    {{a.name}}(共{{a.totalCores}}分，每题{{a.itemCores}}分)
                                 </th>
 
                             </tr>
-                            <tr ng-hide="a.type==1||a.type==2">
+                            <tr ng-hide="a.type==1||a.type==2||a.type==6">
                                 <th>
                                     <!--网络阅卷打分框start-->
                                     <div class="marking">
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
+                                        <a href="">1</a>
+                                        <a href="">2</a>
+                                        <a href="">3</a>
+                                        <a href="">4</a>
+                                        <a href="">5</a>
+                                        <a href="">6</a>
+                                        <a href="">7</a>
+                                        <a href="">8</a>
+                                        <a href="">9</a>
+                                        <a href="">0</a>
+                                        <a href="">1</a>
+                                        <a href="">2</a>
+                                        <a href="">3</a>
+                                        <a href="">4</a>
+                                        <a href="">5</a>
+                                        <a href="">.5</a>
                                         <a href=""></a>
                                     </div>
                                     <!--网络阅卷打分框end-->
@@ -399,12 +391,13 @@
                             <tbody>
                             <tr>
                                 <td>
-                                    <div ng-repeat="item in a.no" class="q_c">
+                                    <div ng-repeat="item in a.no" class="q_c" ng-style="{'width':'{{a.type==3?'40%':'25%'}}'}">
+                                        <a class="numberNo" ng-show="a.type==3"></a>
                                         <!--序号start-->
-                                        <span>{{item<10?'0'+item:item}}</span>
+                                        <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
                                         <!--序号end-->
                                         <!--选择题模版start-->
-                                        <span ng-show="a.type==1||a.type==2" ng-repeat="items in a.thr">
+                                        <span ng-show="a.type==1||a.type==2||a.type==6" ng-repeat="items in a.thr">
                                             <b>{{items}}</b>
                                         </span>
                                         <!--选择题模版end-->
@@ -427,6 +420,7 @@
                     </div>
                 </div>
                 <div class="A_Rone clearfix">
+                    <div style="height:20px;width:100%"></div>
                     <div class="tips tips_t">
                         <p>请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效</p>
                     </div>
@@ -436,7 +430,7 @@
                             <tr>
                                 <th>
                                     <span>{{Q_number[$index+listObj.length]}}、</span>
-                                    {{a.name}}<span ng-show="a.two!=''">(共{{a.one}}分，每题{{a.two}}分)</span>
+                                    {{a.name}}(共{{a.totalCores}}分，每题{{a.itemCores}}分)
                                 </th>
 
                             </tr>
@@ -444,21 +438,22 @@
                                 <th>
                                     <!--网络阅卷打分框start-->
                                     <div class="marking">
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
-                                        <a href=""></a>
+                                        <a href="">1</a>
+                                        <a href="">2</a>
+                                        <a href="">3</a>
+                                        <a href="">4</a>
+                                        <a href="">5</a>
+                                        <a href="">6</a>
+                                        <a href="">7</a>
+                                        <a href="">8</a>
+                                        <a href="">9</a>
+                                        <a href="">0</a>
+                                        <a href="">1</a>
+                                        <a href="">2</a>
+                                        <a href="">3</a>
+                                        <a href="">4</a>
+                                        <a href="">5</a>
+                                        <a href="">.5</a>
                                         <a href=""></a>
                                     </div>
                                     <!--网络阅卷打分框end-->
@@ -469,9 +464,10 @@
                             <tbody>
                             <tr>
                                 <td>
-                                    <div ng-repeat="item in a.no" class="q_c">
+                                    <div ng-repeat="item in a.no" class="q_c" ng-style="{'width':'{{a.type==3?'40%':'25%'}}'}">
                                         <!--序号start-->
-                                        <span>{{item<10?'0'+item:item}}</span>
+                                        <a class="numberNo" ng-show="a.type==3"></a>
+                                        <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
                                         <!--序号end-->
                                         <!--选择题模版start-->
                                         <span ng-show="a.type==1||a.type==2" ng-repeat="items in a.thr">

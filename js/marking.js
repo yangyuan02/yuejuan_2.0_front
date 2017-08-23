@@ -19,6 +19,7 @@ $(function(){
 
 
 
+
 	get_test_list();
 
 	function get_test_list(){
@@ -99,6 +100,13 @@ $(function(){
 			var tr_test ='<tr class="parent-tr p-'+i+'"><td class="test-name" width="320" exam-id="'+test_info.exam_subjects[i].exam_id+'" data-id="'+test_info.exam_subjects[i].exam_subject_id+'">'+ test_info.exam_subjects[i].name +'</td><td class="test-grade">'+ test_info.exam_subjects[i].grade_name +'</td><td class="test-subject">'+ test_info.exam_subjects[i].subject_name +'</td><td class="test-operation"><a href="javascript:;">显示题组<i class="iconfont bottom">&#xe622;</i><i class="iconfont up none">&#xe624;</i></a></td></tr><tr class="child-tr none"><td colspan="6"><div class="child-box"><ul class="child-title"><li>题组</li><li>阅卷进度</li><li>多评异常</li><li>问题试卷</li><li>生成日期</li><li></li></ul><ul class="child-cont"></ul></div></td></tr>';
 			$('#test-list-change tbody').append(tr_test);
 		};
+		// 判断是老师时候，不显示阅卷
+		console.log($('#role-name').val());
+		var role_name = $('#role-name').val();
+		if(role_name=="教师"){
+			$('#yuejuan-link').next().hide();
+			$('#yuejuan-link').hide();
+		}
 	}
 
 
@@ -677,6 +685,7 @@ $(function(){
 	var inputDiv = $('.popline_text');//输入框div
 	var prompt_1 = '提示：您所给的分数不在规定范围内，请看清分值给分！';
 	var prompt_i = $('#i_two');//提示框元素
+	var prompt_2 = '提示：您所给的分数不合法，请输入合法分数！';
 
 
 	// 关闭试卷
@@ -1252,9 +1261,28 @@ $(function(){
 
 		//分数判定
 	$('body').on('input' , '.yuejuan_score', function(){
+		var str_score = $(this).val();
+
 		var fen = parseFloat($(this).attr('data-fen'));
 		var score = parseFloat($(this).val());
 		console.log(score,fen)
+
+		if(String(str_score).length>1&&String(str_score)[0]=='0'&&String(str_score)[1]!='.'){
+			iTwo(prompt_i,prompt_2);
+			$(this).val('');
+		}
+		if(String(str_score)[0]=='.'){
+			iTwo(prompt_i,prompt_2);
+			$(this).val('');
+		}
+
+		console.log(String(str_score).split('.').length-1);
+		var str_score_length = String(str_score).split('.').length-1;
+		if(str_score_length>1){
+			iTwo(prompt_i,prompt_2);
+			$(this).val('');
+		}
+
 		if(score > fen || score < 0 && score!=''){
 			console.log(9900)
 			iTwo(prompt_i,prompt_1);
