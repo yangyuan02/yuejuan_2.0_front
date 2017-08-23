@@ -61,7 +61,7 @@ angular.module("myApp.controller", [])
                     'Authorization': "Bearer " + isLogin
                 },
                 data: {
-                    "subject_id":c,
+                    "subject_id": c,
                 },
                 success: function(date) {
                     // console.log(date[0].name);
@@ -110,7 +110,7 @@ angular.module("myApp.controller", [])
         // 分析
         $(".btn_1").click(function(event) {
 
-           $(".mart_set").hide();
+            $(".mart_set").hide();
             $(".load-bg").show();
             var ex_id = $(".mart_set_03").data("a1");
             var sub_id = $(".mart_set_04").data("b1");
@@ -151,35 +151,67 @@ angular.module("myApp.controller", [])
                 data: data_value,
                 success: function(data) {
                     console.log(data);
-                    if(data.success==true){
-                          $(".load-bg").hide();
-                          // $(".mask_layer").hide();
-                         // $('.modal-main').animate({'top': '50%','opacity': 1},500);
-                        $('.modal-main').css('opacity',"1");
-                       $('.modal-wrap').show();
-                       $('.modal-wrap span').html("更新成功");
+                    if (data.success == true) {
+                        $(".load-bg").hide();
+                        // $(".mask_layer").hide();
+                        // $('.modal-main').animate({'top': '50%','opacity': 1},500);
+                        $('.modal-main').css('opacity', "1");
+                        $('.modal-wrap').show();
+                        $('.modal-wrap span').html("更新成功");
                     }
-                    if(data.error_code==500){
-                         $(".load-bg").hide();
-                          // $(".mask_layer").hide();error_message
-                      // $('.modal-main').animate({'top': '50%','opacity': 1},500);
-                       $('.modal-main').css('opacity',"1");
-                       $('.modal-wrap span').html(data.error_message);
-                       $('.modal-wrap').show();
+                    if (data.error_code == 500) {
+                        $(".load-bg").hide();
+                        // $(".mask_layer").hide();error_message
+                        // $('.modal-main').animate({'top': '50%','opacity': 1},500);
+                        $('.modal-main').css('opacity', "1");
+                        $('.modal-wrap span').html(data.error_message);
+                        $('.modal-wrap').show();
                     }
                 },
                 error: function() {
 
                 }
             });
-
         });
 
 
-$(".modal-exit").click(function(event) {
-    /* Act on the event */
-    $(".mask_layer").hide();
-});
+// 获取分析参数接口
+$.ajax({
+                type: "POST",
+                url: ajaxIp + "/api/v2/reports/analysis_params",
+                headers: {
+                    'Authorization': "Bearer " + isLogin
+                },
+                data:{"exam_id":"187",
+                    "subject_id":"12",
+            },
+                success: function(data) {
+                    console.log(data);
+                      $("#z_mark").val(data.full_score);
+                      $("#jg_mark").val(data.pass);
+                      $("#yx_mark").val(data.fine);
+                      $("#ul_iLabel li").eq(0).find('.level_01').val(data.column_name_1);
+                      $("#ul_iLabel li").eq(0).find('.level_02').val(data.column_value_1);
+                      $("#ul_iLabel li").eq(1).find('.level_01').val(data.column_name_2);
+                      $("#ul_iLabel li").eq(1).find('.level_02').val(data.column_value_2);
+                      $("#ul_iLabel li").eq(2).find('.level_01').val(data.column_name_3);
+                      $("#ul_iLabel li").eq(2).find('.level_02').val(data.column_value_3);
+                      $("#ul_iLabel li").eq(3).find('.level_01').val(data.column_name_4);
+                      $("#ul_iLabel li").eq(3).find('.level_02').val(data.column_value_4);
+                      $("#ul_iLabel li").eq(4).find('.level_01').val(data.column_name_5);
+                      $("#ul_iLabel li").eq(4).find('.level_02').val(data.column_value_5);
+                },
+                error: function() {
+
+                }
+            });
+
+
+
+        $(".modal-exit").click(function(event) {
+            /* Act on the event */
+            $(".mask_layer").hide();
+        });
 
         $(".mark_02").on('click', ' button', function(event) {
             // $(this).parent().parent().prev().html();
@@ -293,12 +325,13 @@ $(".modal-exit").click(function(event) {
                 },
                 success: function(data) {
                     console.log(data);
+
                     if(data.error_code==500){
-                     
                    $(".right_02 img").hide();
-
-
+                 }else{
+                     $(".right_02 img").show();
                  }
+                
                     $(".r2_02_01").html(data.statistics_total);
                     $(".r2_02_02").html(data.average);
                     $(".r2_02_03").html(data.average_rate);
@@ -747,7 +780,15 @@ $(".modal-exit").click(function(event) {
                     "classroom_id": class_id
                 },
                 success: function(data) {
-                    console.log(data);
+                    console.log(data); 
+                    if(data.error_code==500){
+                     
+                   $(".study_q_04_bo").hide();
+                   $(".study_q_02_bo").hide();
+                 }else{
+                    $(".study_q_04_bo").show();
+                   $(".study_q_02_bo").show();
+                 }
                     $(".study_q_zt td").eq(0).html(data.full_score);
                     $(".study_q_zt td").eq(1).html(data.average);
                     $(".study_q_zt td").eq(2).html(data.highest_score);
@@ -777,13 +818,6 @@ $(".modal-exit").click(function(event) {
                 },
                 success: function(data) {
                     console.log(data);
-                    if(data.error_code==500){
-                     
-                   $(".study_q_04_bo").hide();
-                   $(".study_q_02_bo").hide();
-
-
-                 }
                     var mark_d = [];
                     for (var i = 0; i < data.socre_distributions.length; i++) {
 
@@ -960,7 +994,7 @@ $(".modal-exit").click(function(event) {
             });
 
             // 小题查看
-            $(".study_q_05_tb").on('click', 'span', function(event) {
+            $(".study_q_05").on('click', 'span', function(event) {
                 // 切换页面
                 $(".study_q_ck").show();
                 $("#study_q_ck").hide();
@@ -1042,7 +1076,7 @@ $(".modal-exit").click(function(event) {
 
             // 小题查看结束
         };
-
+// 小题查看判断题
     $(".study_q_i_btn_04").click(function(event) {
         /* Act on the event */
         alert();
@@ -1061,11 +1095,43 @@ $(".modal-exit").click(function(event) {
             },
             success: function(data) {
               console.log(data);
+               $(".study_q_05_tb02").html(" ");
+              var a = Math.round((data[0].correct_rate * 100)) + "%";
+               $(".study_q_05_tb02").append('<tr><td rowspan="'+data.length+'">二、判断题</td><td>'+data[0].average+'</td><td>'+data[0].num+'</td><td>'+data[0].column_value_1+'</td><td>'+data[0].column_value_2+'</td><td>'+data[0].correct+'</td><td>'+a+'</td><td><span>查看</span></td></tr>')
+
+              for(var i=1;i<data.length;i++){
+             var c = Math.round((data[i].correct_rate * 100)) + "%";
+              $(".study_q_05_tb02").append('<tr><td>'+data[i].average+'</td><td>'+data[i].num+'</td><td>'+data[i].column_value_1+'</td><td>'+data[i].column_value_2+'</td><td>'+data[i].correct+'</td><td>'+c+'</td><td><span>查看</span></td></tr>')
+
+              }
             },
             error: function() {
 
             }
         });
+        $.ajax({
+                    type: "GET",
+                    url: ajaxUrl + "/api/v2/reports/class_student_answer_setting_statistic",
+                    headers: {
+                        'Authorization': "Bearer " + isLogin
+                    },
+                    data: {
+                        "exam_id": "138",
+                        "subject_id": "12",
+                        "classroom_id": "102",
+                        // "item": "2",
+                        "answer_setting_id":"9980"
+                    },
+                    success: function(data) {
+                        console.log(data);
+                    },
+                    error:function() {
+                        /* Act on the event */
+                    }
+                    });
+
+
+
     });
 
 

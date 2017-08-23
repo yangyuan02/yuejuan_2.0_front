@@ -877,7 +877,12 @@ margin-left: 38px;
 	width: 936px;
 	max-height:300px;
 	overflow-y: auto;
-	/*position:relative;*/
+}
+.study_q_05_tb02_div{
+	
+	width: 936px;
+	max-height:300px;
+	overflow-y: auto;
 }
 /*.study_q_05_tb_div thead{
 	position: absolute;
@@ -891,6 +896,7 @@ margin-left: 38px;
 box-sizing: border-box;
 	font-size: 14px;
 	font-weight: normal;
+	width: 936px;
 	
 }
 .study_q_05_01 tr th{
@@ -901,12 +907,17 @@ box-sizing: border-box;
 	
 }
 .study_q_05_01 tr td{
-width:93.6px;
+   width:93.6px;
 	height:44px;
-	text-align: center;	
+	text-align: center;
+	cursor: pointer;
 	
 }
+.study_q_05_01 tr td span{
+  color:#31bc91;
 
+	
+}
 /*.study_q_05_01 tr td:nth-of-type(2){
 border:none;
 border-left: 1px solid #cccccc;
