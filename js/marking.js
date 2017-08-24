@@ -555,6 +555,7 @@ $(function(){
 			'blur':true
 		}
 
+		$('.load-bg').show();
 
 
 		$.ajax({
@@ -564,6 +565,9 @@ $(function(){
 		  data:data_value,
 		  success: function(data){
 		  	console.log(data);
+		  	if(data){
+		  		$('.load-bg').hide();
+		  	}
 		  	get_info_request(s_c_id,name);
 		  },
 		  error: function(){
