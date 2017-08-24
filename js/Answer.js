@@ -466,6 +466,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $(".Answer .A_R .A_Rone").css({"border-color": "#ddd"})
         // return false;
     }
+    $scope.start = 0,$scope.end = 1
     function getAnswerInfoTask() {//获取生成答题卡
         var isLogin = localStorage.getItem("token");
         $scope.nub = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
@@ -476,8 +477,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             headers: {'Authorization': "Bearer " + isLogin},
             async: false,
             success: function(data){
-                $scope.answers = data.answers//设置答案弹窗数组
-                console.log($scope.answers)
+                $scope.bigAnswer = data.answers
+                $scope.answers = $scope.bigAnswer.slice($scope.start,$scope.end)//设置答案弹窗数组
+                $scope.AnsLen = $scope.answers[0].settings.length
             },
             error: function(){
 
@@ -489,6 +491,40 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $('.modal-main').animate({'top': '50%','opacity': 1},500);
         $('.modal-shadow').animate({'opacity': 0.3},500);
         $('.modal-wrap').show();
+    }
+    $scope.showScore = false
+    $scope.checkScore = function () {//切换分数框
+        $scope.showScore = !$scope.showScore
+    }
+    $scope.pageData = function (type) {//翻页
+        var len = $scope.bigAnswer.length
+        if(type==1){//下一页
+            if($scope.end==len){
+                $scope.start = $scope.end-1
+                $scope.end = len
+            }else{
+                $scope.start++
+                $scope.end++
+            }
+        }
+        if(type==2){//上一页
+            if($scope.start==0){
+                $scope.start = 0
+                $scope.end = 1
+            }else{
+                $scope.start--
+                $scope.end--
+            }
+        }
+        $scope.answers = $scope.bigAnswer.slice($scope.start,$scope.end)
+        $scope.AnsLen = $scope.answers[0].settings.length
+    }
+    $scope.addAnswer = function () {//新增小题答案
+        
+    }
+    $scope.deleAnswer = function () {//删除小题
+        $scope.AnsLen--
+        $scope.answers[0].settings.splice($scope.AnsLen,1)
     }
     /**
      * 设置每题答案
@@ -509,7 +545,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             type: "POST",
             url: ajaxIp+"/api/v2/answer_settings/"+setting_id,
             headers: {'Authorization': "Bearer " + isLogin},
-            data:{'answer_setting[result]':result},
+            data:{
+                'answer_setting[result]':result
+            },
             async: false,
             success: function(data){
                 $scope.answers[outerIndex].settings[parentIndex].setting_result = result
@@ -518,6 +556,46 @@ m1.controller("demo", function ($scope, $timeout, $http) {
 
             }
         });
+    }
+    $scope.setItmeScore = function (setting_id,score) {//设置每小题分数
+        var isLogin = localStorage.getItem("token");
+        $timeout(function () {
+            $.ajax({
+                type: "POST",
+                url: ajaxIp+"/api/v2/answer_settings/"+setting_id,
+                headers: {'Authorization': "Bearer " + isLogin},
+                data:{
+                    'answer_setting[score]':score
+                },
+                async: false,
+                success: function(data){
+                    console.log(data)
+                },
+                error: function(){
+
+                }
+            });
+        },500)
+    }
+    $scope.setItmeNum = function (setting_id,num) {//设置题目序号
+        var isLogin = localStorage.getItem("token");
+        $timeout(function () {
+            $.ajax({
+                type: "POST",
+                url: ajaxIp+"/api/v2/answer_settings/"+setting_id,
+                headers: {'Authorization': "Bearer " + isLogin},
+                data:{
+                    'answer_setting[num]':num
+                },
+                async: false,
+                success: function(data){
+                    console.log(data)
+                },
+                error: function(){
+
+                }
+            });
+        },500)
     }
 })
 
