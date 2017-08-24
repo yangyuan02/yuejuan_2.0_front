@@ -476,6 +476,11 @@ input::-webkit-input-placeholder{
   zoom: 1;
 }
 
+/*浮动*/
+.fl{float:left}
+.fr{float:right}
+
+
 .load-bg{
   position: absolute;
   display: none;
