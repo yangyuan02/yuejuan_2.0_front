@@ -479,7 +479,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             success: function(data){
                 $scope.bigAnswer = data.answers
                 $scope.answers = $scope.bigAnswer.slice($scope.start,$scope.end)//设置答案弹窗数组
-                console.log($scope.answers)
+                $scope.AnsLen = $scope.answers[0].settings.length
             },
             error: function(){
 
@@ -517,6 +517,14 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
         }
         $scope.answers = $scope.bigAnswer.slice($scope.start,$scope.end)
+        $scope.AnsLen = $scope.answers[0].settings.length
+    }
+    $scope.addAnswer = function () {//新增小题答案
+        
+    }
+    $scope.deleAnswer = function () {//删除小题
+        $scope.AnsLen--
+        $scope.answers[0].settings.splice($scope.AnsLen,1)
     }
     /**
      * 设置每题答案
