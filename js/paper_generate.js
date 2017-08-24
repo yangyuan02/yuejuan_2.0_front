@@ -1,18 +1,26 @@
 $(function() {
 
 	var list_page = 1;
+	var limit = 10;
 	var exam_list;
 	var on_checked = [];
 	var isLogin = localStorage.getItem("token");
-	first_list();
+	var back_page = parseInt(localStorage.this_page);
+	if(back_page){
+		limit = back_page*10;
+	}
+	first_list(list_page);
+	localStorage.removeItem("this_page");
 
-	function first_list() {
+
+	function first_list(list_page) {
+		console.log(list_page)
 		$.ajax({
 			type: "GET",
 			url: ajaxIp + "/api/v2/exams",
 			data: {
 				'page': list_page,
-				'limit': 10
+				'limit': limit
 			},
 			headers: {
 				'Authorization': "Bearer " + isLogin
@@ -22,7 +30,7 @@ $(function() {
 			success: function(data) {
 				console.log(data,list_page)
 				if (data.length != 0) {
-					show_list(data);
+					show_list(data,list_page);
 				}
 			},
 			error: function() {
@@ -36,27 +44,27 @@ $(function() {
 
 	// show_test_cont(local_id);
 	// localStorage.removeItem("test_local_id");
-	function show_list(exam_list) {
+	function show_list(exam_list,list_page) {
 		console.log(exam_list)
 		var a = exam_list.length;
 		console.log(a)
 		if (a != 0) {
 			for (var i = 0; i < a; i++) {
-				var arr = '<li class="exam-' + exam_list[i].id + '" data-id=' + exam_list[i].id + '><h6 class="name">' + exam_list[i].name + '</h6><p class="time">' + exam_list[i].created_at + '</p></li>'
+				var arr = '<li data-page="'+list_page+'" class="exam-' + exam_list[i].id + '" data-id=' + exam_list[i].id + '><h6 class="name">' + exam_list[i].name + '</h6><p class="time">' + exam_list[i].created_at + '</p></li>'
 				$('.list-ul').append(arr);
 				// 判断没有选中的列表，默认第一个选中，并显示详情
 				// var first_id = $('.list-ul li').eq(0).data('id');
 				// console.log(first_id)
 				if (!$('.list-ul li').hasClass('active')) {
 					$('.list-ul li').eq(0).addClass('active');
-					show_test_cont($('.list-ul li').eq(0).data('id'));
+					show_test_cont($('.list-ul li').eq(0).data('id'),$('.list-ul li').eq(0).attr('data-page'));
 				}
 			};
 		};
 		var local_id = parseInt(localStorage.test_local_id);
-		console.log(local_id);
+		console.log(local_id,back_page);
 		if (local_id) {
-			show_test_cont(local_id);
+			show_test_cont(local_id,back_page);
 			var local_li = $('body').find('.list-ul li');
 			var local_li_length = local_li.length;
 			for (var i = 0; i < local_li_length; i++) {
@@ -72,7 +80,7 @@ $(function() {
 
 
 	// 显示考试信息
-	function show_test_cont(exam_list_id) {
+	function show_test_cont(exam_list_id,data_page) {
 		$.ajax({
 			type: "GET",
 			url: ajaxIp + "/api/v2/exams/" + exam_list_id,
@@ -82,7 +90,7 @@ $(function() {
 			dataType: "JSON",
 			success: function(data) {
 				console.log(data);
-				show_detail(data, exam_list_id);
+				show_detail(data, exam_list_id,data_page);
 			},
 			error: function() {
 				// alert('请稍后从新尝试登录或者联系管理员');
@@ -94,9 +102,10 @@ $(function() {
 
 
 
-	function show_detail(detail_data, test_id) {
+	function show_detail(detail_data, test_id,data_page) {
 		$('#test-title').text(detail_data.name);
 		$('#test-title').attr('data-id', test_id);
+		$('#test-title').attr('data-page', data_page);
 		$('.test-name').val(detail_data.name); //考试名称
 		$('.test-name').attr('data-id', test_id);
 		$('.test-grade').val(detail_data.grade.name); //考试班级
@@ -156,7 +165,7 @@ $(function() {
 		$('.second-new').show();
 		$(this).addClass('active').siblings().removeClass('active');
 		// console.log($(this).data('id'));
-		show_test_cont($(this).data('id'));
+		show_test_cont($(this).data('id'),$(this).attr('data-page'));
 	})
 		// 搜索考试
 	$('#search-test').on('change', function() {
@@ -200,7 +209,7 @@ $(function() {
 		if (sum <= $(this).scrollTop() + $(this).height()) {
 			list_page++;
 			// console.log(list_page);
-			first_list();
+			first_list(list_page);
 		}
 	});
 
@@ -424,7 +433,7 @@ $(function() {
 				success: function(data) { //ajax返回的数据
 					$('.list-ul').html('');
 					list_page = 1;
-					first_list();
+					first_list(list_page);
 					$('.first-new').hide();
 					$('.second-new').show();
 				},
@@ -1546,12 +1555,13 @@ $(function() {
 	// href="'+ajaxIp+'/api/v2/exam_subject_batches/'+detail_data.subjects[i].batch_id+'/scanner_images"
 	$('body').on('click', '.look-paper', function() {
 		var $_this = $(this);
+		var this_page = $('#test-title').attr('data-page');
 		var batch_id = $_this.parents('tr').find('.subject-name').attr('batch-id');
 		var test_id = $('#test-title').attr('data-id');
 		var exam_name = $('#test-title').text();
 		var exam_subject_id = $_this.parents('tr').find('.subject-name').attr('exam_subject_id');
 		var subject_name = $_this.parents('tr').find('.subject-name').text();
-		$_this.attr('href', 'look_paper.html?id=' + batch_id + '&test_local_id=' + test_id + '&exam_name=' + exam_name + '&subject_name=' + subject_name + '&exam_subject_id=' + exam_subject_id + '');
+		$_this.attr('href', 'look_paper.html?id=' + batch_id + '&test_local_id=' + test_id + '&exam_name=' + exam_name + '&subject_name=' + subject_name + '&exam_subject_id=' + exam_subject_id + '&this_page='+this_page+'');
 	});
 	$('body').on('click', '.setAnswer', function() {
 		var $_this = $(this);
