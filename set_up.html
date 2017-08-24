@@ -14,6 +14,7 @@
 	<script type="text/javascript" src='js/jquery.base64.js'></script>
 	<script type="text/javascript" src='js/jqPaginator.js'></script>
 	<script type="text/javascript" src='js/jquery_barcode.js'></script>
+	<script type="text/javascript" src='js/client.js'></script>
 </head>
 <body>
 	<div id="wrap">
@@ -294,9 +295,9 @@
 						</tr> -->
 					</tbody>
 				</table>
-				<div class="pagination-wrap">
+			<!-- 	<div class="pagination-wrap">
 					<ul class="pagination" id="scores-pagination"></ul>
-				</div>
+				</div> -->
 			</div>
 			<div class="user-right score-import-right none">
 				<div class="table-tittle-name">成绩导入
@@ -315,7 +316,7 @@
 						</select>
 					</div>
 					<div class="set-input-wrap">
-						<input id="search-num" class="search-input" type="text" placeholder="请输入考号">
+						<input id="search-num" class="search-input" type="text" placeholder="请输入考试名称">
 						<!-- <input class="student-search-input" type="text" placeholder="请输入学生姓名"> -->
 						<div class="student-search-button iconfont">&#xe610;</div>
 						<div class="import-button determine">导入</div>
@@ -333,7 +334,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr style="border-bottom:1px solid #ccc;">
+						<!-- <tr style="border-bottom:1px solid #ccc;">
 							<td>2017年9月入学考试成绩导入</td>
 							<td>语文</td>
 							<td colspan="2">
@@ -398,7 +399,7 @@
 							<td>2017-09-12  10:20</td>
 							<td>管理员1</td>
 							<td><span class="success-deal">处理成功</span></td>
-						</tr>
+						</tr> -->
 					</tbody>
 				</table>
 				<div class="pagination-wrap">
@@ -425,6 +426,29 @@
 					</div>
 					<input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" id="inPath" style="display:none">
 					<div style="color: #db4a4a;line-height: 60px;text-align: center;">请先点击：“教师（或学生）信息表格” <a class="table-template" style="color: #db4a4a;border: 1px solid #db4a4a">下载文件模板</a>，填入信息后再导入</div>
+				
+				<!-- <input type="file" id="inPath" style="display:none" onchange="upfile.value=this.value"> -->
+				<!-- <input type="file"> -->
+				
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-wrap import-grade-wrap">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main">
+			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
+			<div class="modal-title">导入</div>
+			<div class="modal-content" style="">
+					选择文件
+					<div id="upfiles" onclick="inPaths.click()">
+						未选择任何文件  
+					</div>
+					<input enctype="multipart/form-data" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" id="inPaths" style="display:none">
+					<div style="color: #db4a4a;line-height: 60px;text-align: center;">请先点击：“学生成绩表格” <a class="table-template" style="color: #db4a4a;border: 1px solid #db4a4a">下载文件模板</a>，填入信息后再导入</div>
 				
 				<!-- <input type="file" id="inPath" style="display:none" onchange="upfile.value=this.value"> -->
 				<!-- <input type="file"> -->
@@ -726,7 +750,7 @@
 	<!-- 设置总分 -->
 	<div class="modal-wrap set-score-wrap">
 		<div class="modal-shadow modal-exit"></div>
-		<div class="modal-main" style="width:350px">
+		<div class="modal-main" style="width:400px">
 			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
 			<div class="modal-title">输入分值</div>
 			<div class="modal-content" style="">
@@ -786,6 +810,12 @@
 		    	</div>
 				</div>
 			</div>
+		</div>
+	</div>
+	<div class="load-bg">
+		<div class="load-animate">
+			<img src="./img/load.jpg" alt="" width="200" height="200">
+			<p>正在处理中，请稍等...</p>
 		</div>
 	</div>
 

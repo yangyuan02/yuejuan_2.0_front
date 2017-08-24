@@ -29,6 +29,7 @@ $(function(){
   var exam_name = getUrlParam(url,'exam_name');
   var subject_name = getUrlParam(url,'subject_name');
   var exam_subject_id = getUrlParam(url,'exam_subject_id');
+  var this_page = getUrlParam(url,'this_page');
 
 	$('#test-name').text(exam_name);
 	//exam_subject_id
@@ -39,14 +40,17 @@ $(function(){
    storage.setItem("test_local_id",test_local_id);
    storage.setItem("exam_name",exam_name);
    storage.setItem("subject_name",subject_name);
+   storage.setItem("this_page",this_page);
    console.log(storage["id"]);
    console.log(storage["test_local_id"]);
    console.log(storage["exam_name"]);
    console.log(storage["subject_name"]);
+   console.log(storage["this_page"]);
 	$('body').on('click', '.back', function() {
 		console.log(storage["id"]);
    	console.log(storage["exam_name"]);
    	console.log(storage["subject_name"]);
+   	console.log(storage["this_page"]);
    	location.href=history.go(-1);
    	// show_test_cont(parseInt(localStorage.test_local_id));
 	});
@@ -373,7 +377,9 @@ $(function(){
 	
 	var on_checked_info;
 	// 选择题型
-
+	$('body').on('dblclick', '.select-area', function() {
+		$(this).find('.edit-item').click();
+	});
 	$('body').on('click','.edit-item',function() {
 		$('.modal-main').animate({'top': '50%','opacity': 1},500);
 		$('.modal-shadow').animate({'opacity': 0},500);
