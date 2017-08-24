@@ -165,9 +165,8 @@
 	text-align: left;
 }
 .search-tabble td{
-	padding: 0 16px;
-	height: 40px;
-	line-height: 40px;
+	padding: 7px 16px;
+	line-height: 24px;
 	text-align: left;
 }
 .search-tabble{
@@ -615,6 +614,11 @@
 .paper-box img{
 	width: 100%;
 }
-
+.test-name{
+	width:300px;
+	line-height: 24px!important;
+	word-wrap:break-word;
+	word-break:break-all;
+}
 
 
