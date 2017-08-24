@@ -35,10 +35,9 @@ body{
 	width:188px;
 	height: 828px;
 	float: left;
-	z-index: 1;
 	position: relative;
 }
-.main_left li {
+.main_left a{
 display: block;
 width: 188px;
 height: 52px;
@@ -57,7 +56,7 @@ cursor: pointer;
       color:#000;
       position: relative;
 }
-.main_left li:hover{
+.main_left a:hover{
  color:#000;
 }
 
@@ -93,7 +92,7 @@ padding-bottom: 30px;
 	width: 125px;
 	height: 30px;
 	margin-left: 15px;
-	font-size: 16px;
+	font-size:14px;
     color: #666666;
 }
 .mark_span_01{
@@ -172,10 +171,12 @@ border: none;
 	margin-top: 40px;
 	box-sizing: border-box;
 	position: absolute;
-	left: 300px;
-	top:-45px;
+	left: 50%;
+    top: 55px;
+    transform: translateX(-50%);
 	background: #ffffff;
-display: none;
+    display: none;
+    z-index: 1111111111;
 }
 .mart_set_01{
 	width:100%;
@@ -293,6 +294,16 @@ margin-bottom: 15px;
 	color:#31bc91;
 	cursor: pointer;
 }
+.mask_layer{
+	position: absolute;
+    top: 0px;
+    width: 100%;
+    background:#999999;
+    opacity: 0.5;
+    display: none;
+}
+
+
 /*成绩生成 end*/
 
 
@@ -851,7 +862,7 @@ margin-left: 38px;
 .study_q_05{
 	
 	width: 936px;
-	height: 434px;
+	
 	margin: 0 auto;
 	border-bottom: 1px solid #cccccc;
 	margin-top: 30px;
@@ -859,8 +870,25 @@ margin-left: 38px;
 .study_q_05_01{
 	
 	width: 936px;
-	height: 374px;
+	overflow: hidden;
 }
+.study_q_05_tb_div{
+	
+	width: 936px;
+	max-height:300px;
+	overflow-y: auto;
+}
+.study_q_05_tb02_div{
+	
+	width: 936px;
+	max-height:300px;
+	overflow-y: auto;
+}
+/*.study_q_05_tb_div thead{
+	position: absolute;
+	left:0px;
+
+}*/
 .study_q_05_01 table{
 	
 	border-collapse:collapse;
@@ -868,36 +896,33 @@ margin-left: 38px;
 box-sizing: border-box;
 	font-size: 14px;
 	font-weight: normal;
+	width: 936px;
 	
 }
 .study_q_05_01 tr th{
-	width:93.6px;
+	width:90.1px;
 	height:44px;
-	
 	background-color: #f5f5f5;
 
 	
 }
 .study_q_05_01 tr td{
-width:93.6px;
+   width:93.6px;
 	height:44px;
-	text-align: center;	
+	text-align: center;
+	cursor: pointer;
 	
 }
+.study_q_05_01 tr td span{
+  color:#31bc91;
 
-.study_q_05_01 tr td:nth-of-type(1){
-border:none;
 	
 }
-.study_q_05_01 tr td:nth-of-type(2){
+/*.study_q_05_01 tr td:nth-of-type(2){
 border:none;
 border-left: 1px solid #cccccc;
 	
-}
-.study_q_05_01 tr td:nth-of-type(10){
-/*color:#31bc91;
-*/cursor: pointer;	
-}
+}*/
 /*班级客观题表二*/
 .study_q_05_tab{
 	margin-top: 22px;
@@ -937,7 +962,7 @@ height:44px;
 .study_q_06_1 tr th{
 width:133.7px;
 height:44px;
-	background-color: #f5f5f5;
+background-color: #f5f5f5;
 }
 .study_q_06_tab tr td:nth-of-type(6){
 color:#fb7d8a;
@@ -1011,13 +1036,14 @@ z-index:111;
 
 }
 .ans_img{
-	width: 765px;
-	height:530px;
-	box-sizing: border-box;
+	width:998px;
+	height:662px;
+	box-sizing:border-box;
 	float:left;
 	position: relative;
 	overflow: hidden;
 	z-index: 0;
+
 }
 .ans_img img{
 	width:615px;
@@ -1025,7 +1051,6 @@ z-index:111;
 	position: absolute;
 	top:0px;
 	left:0px;
-	
 }
 .ans_03{
 	width: 36px;
@@ -1050,7 +1075,64 @@ z-index:111;
 	cursor: pointer; 
 	background: #f5f5f5;
 }
+.study_q_ck{
+	width:936px;
+	margin: 0 auto;
+	margin-top: 30px;
+	margin-bottom: 400px;
+	display: none;
+}
 
+.study_q_ck tr td{
+	text-align: left;
+	padding: 0px 0px 8px 0px;
+	border-right:1px solid #cccccc;
+}
+.study_q_ck tr th{
+	width: 900px;
+	height: 40px;
+    background-color: #f5f5f5;
+    line-height: 40px;
+    font-weight: normal;
+    border: none;
+    border-bottom: 1px solid #cccccc;
+    box-sizing: border-box;
+     border-right: 1px solid #cccccc;
+	
+}
+.study_q_ck tr td:nth-of-type(1){
+	width:107px;
+	text-align: center;
+
+}
+.study_q_ck tr td a {
+    display: block;
+    width: 62px;
+    margin-left: 13px;
+    background: #31bc91;
+    color: #f5f5f5;
+    padding: 5px;
+    margin-top: 10px;
+    float: left;
+    text-align: center;
+}
+.study_q_ck table {
+    width: 900px;
+    font-size: 14px;
+    border-collapse: collapse;
+    color: #666666;
+    font-weight: normal;
+    box-sizing: border-box;
+}
+.study_q_ck_a2{
+	color:#fb7d8a;
+}
+
+.study_q_05_tb span{
+	cursor: pointer;
+	color: #31bc91;
+
+}
 /*<!--班级学情追踪 end-->*/
 
 
@@ -1224,7 +1306,7 @@ color: #666666;
 	border-bottom: 1px solid #cccccc;
 	box-sizing: border-box;
 }
-.exam_z_tab tr td{
+.exam_z_tab tbody td{
 	padding:13px 0px 13px 0px;
 	border:none;
 	border-bottom: 1px solid #cccccc;
@@ -1530,7 +1612,11 @@ color: #666666;
 
 
 /*<!-- 跨校对比分析  end-->*/
-
+select{
+	 outline: none;
+    border: 1px solid #ccc;
+    background: #fafafa;
+}
 
 
 

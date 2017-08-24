@@ -156,7 +156,7 @@ tr.child-tr{
 }
 .child-title{
 	overflow: hidden;
-	margin-left: 50px;
+	margin-left: 30px;
 }
 .none{
 	display: none;
@@ -176,7 +176,7 @@ tr.child-tr{
 }
 .child-cont{
 	color: #7395a8;
-	margin-left: 50px;
+	margin-left: 30px;
 }
 .child-cont > li{
 	width: 100%;
@@ -187,6 +187,7 @@ tr.child-tr{
 .child-cont > li  div{
 	float: left;
 	width: 16.66%;
+	word-wrap: break-word;
 }
 .item-op .mark-btn{
 	display: inline-block;
@@ -635,10 +636,11 @@ tr.child-tr{
 .last-ul li >div{
 	float: left;
 	width: 16.6%;
+	word-wrap: break-word;
 }
-.last-ul  .item-name{
+/* .last-ul  .item-name{
 	padding-left: 12px;
-}
+} */
 .last-ul .item-op{
 	width: 15%;
 }

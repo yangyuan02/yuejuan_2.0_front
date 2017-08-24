@@ -556,6 +556,7 @@ $(function(){
 		}
 
 
+
 		$.ajax({
 		  type: "POST",
 		  url: ajaxIp+"/api/v2/section_crop_images/manual_mark",
@@ -636,7 +637,18 @@ $(function(){
 		var a = parseInt($('.on-num').text());
 		var b = parseInt($('.all-paper').text());
 		console.log(a,b);
-		if(input_value.val() != ""){
+
+		var iD_if_null = false;
+		for (var h = 0; h < $('.yuejuan_score').length; h++) {
+		 	if($('.yuejuan_score')[h].value == "")
+			 {
+				 iD_if_null = true;
+			 }
+		};
+
+
+		if(!iD_if_null){
+			$('.load-bg').show();
 			$.ajax({
 			  type: "POST",
 			  url: ajaxIp+"/api/v2/section_crop_images/manual_mark",
@@ -644,6 +656,9 @@ $(function(){
 			  data:data_value,
 			  success: function(data){
 			  	console.log(data);
+			  	if(data){
+			  		$('.load-bg').hide();
+			  	}
 			  	console.log(a_settings[0].answer_setting_score_id);
 			  	if(a<b &&a_settings[0].answer_setting_score_id==null){
 			  		get_info_request(s_c_id,name);
@@ -669,7 +684,7 @@ $(function(){
 			  }
 			});
 		}else{
-			alert('请输入得分后再提交');
+      alert('请输入得分后再提交');
 		}
 	})
 
@@ -685,6 +700,7 @@ $(function(){
 	var inputDiv = $('.popline_text');//输入框div
 	var prompt_1 = '提示：您所给的分数不在规定范围内，请看清分值给分！';
 	var prompt_i = $('#i_two');//提示框元素
+	var prompt_2 = '提示：您所给的分数不合法，请输入合法分数！';
 
 
 	// 关闭试卷
@@ -1260,9 +1276,28 @@ $(function(){
 
 		//分数判定
 	$('body').on('input' , '.yuejuan_score', function(){
+		var str_score = $(this).val();
+
 		var fen = parseFloat($(this).attr('data-fen'));
 		var score = parseFloat($(this).val());
 		console.log(score,fen)
+
+		if(String(str_score).length>1&&String(str_score)[0]=='0'&&String(str_score)[1]!='.'){
+			iTwo(prompt_i,prompt_2);
+			$(this).val('');
+		}
+		if(String(str_score)[0]=='.'){
+			iTwo(prompt_i,prompt_2);
+			$(this).val('');
+		}
+
+		console.log(String(str_score).split('.').length-1);
+		var str_score_length = String(str_score).split('.').length-1;
+		if(str_score_length>1){
+			iTwo(prompt_i,prompt_2);
+			$(this).val('');
+		}
+
 		if(score > fen || score < 0 && score!=''){
 			console.log(9900)
 			iTwo(prompt_i,prompt_1);
