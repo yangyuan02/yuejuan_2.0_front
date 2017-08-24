@@ -476,6 +476,11 @@ input::-webkit-input-placeholder{
   zoom: 1;
 }
 
+/*浮动*/
+.fl{float:left}
+.fr{float:right}
+
+
 .load-bg{
   position: absolute;
   display: none;
@@ -501,5 +506,8 @@ input::-webkit-input-placeholder{
   font-size: 18px;
   text-align: center;
   color: #fff;
+}
+.alert {
+  color: #fd97a3;
 }
 

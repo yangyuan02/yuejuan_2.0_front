@@ -65,11 +65,12 @@
                             <p><span>试题类型</span>
                                 <input type="radio" ng-checked="result.isradio==1" ng-click="checkbox(1)"/>
                                 <span style="float: left;margin-right: 20px;">单选题</span>
-                                <input type="radio" ng-checkisradio==2" ng-click="checkbox(2)"／>
+                                <input type="radio" ng-checkisradio==2" ng-click="checkbox(2)" ／>
                                 <span style="float: left;">多选题</span>
                             </p>
                             <p><span>起始序号</span><input type="text" ng-model="result.no" placeholder="请输入起始序号"/></p>
-                            <p><span>每题分值</span><input type="text" ng-model="result.itemcoreS" placeholder="请输入每题分值"/></p>
+                            <p><span>每题分值</span><input type="text" ng-model="result.itemcoreS" placeholder="请输入每题分值"/>
+                            </p>
                             <p><span>选项个数</span><input type="text" ng-model="result.thr" placeholder="请输入选项个数"/></p>
 
                             <hr class="hr"/>
@@ -92,7 +93,8 @@
                             <p><span>试题数量</span><input type="text" placeholder="请输入试题数量" ng-model="result.numbel"/></p>
                             <p><span>起始序号</span><input type="text" placeholder="请输入起始序号" ng-model="result.no"/></p>
                             <p><span>所在页码</span><input type="text" placeholder="请输入所在页码" ng-model="result.page"/></p>
-                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/></p>
+                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/>
+                            </p>
                             <hr class="hr"/>
                             <p>
                                 <button ng-click="btn1()">确认添加</button>
@@ -108,11 +110,13 @@
                         <h3>添加题组<span class="fr cous" ng-click="close()">X</span></h3>
                         <div class="pd">
                             <p><span>题组名称</span><span class="Red">*</span><input class="mF" type="text"
-                                                                                 placeholder="请输入题组名称" ng-model="result.name"/></p>
+                                                                                 placeholder="请输入题组名称"
+                                                                                 ng-model="result.name"/></p>
                             <p><span>试题数量</span><input type="text" placeholder="请输入试题数量" ng-model="result.numbel"/></p>
                             <p><span>起始序号</span><input type="text" placeholder="请输入起始序号" ng-model="result.no"/></p>
                             <p><span>所在页码</span><input type="text" placeholder="请输入所在页码" ng-model="result.page"/></p>
-                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/></p>
+                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/>
+                            </p>
                             <hr class="hr"/>
                             <p>
                                 <button ng-click="btn1()">确认添加</button>
@@ -120,41 +124,85 @@
                         </div>
                     </div>
                 </li>
-
-
                 <li><a ng-click="add(4)" class="{{4==index?'active':''}}">作文题</a>
                     <!--添加题组-->
                     <div class="addQ {{4==index?'active':''}}" id="addQ4">
                         <h3>添加题组<span class="fr cous" ng-click="close()">X</span></h3>
                         <div class="pd">
-                            <p><span>题组名称</span><span class="Red">*</span><input class="mF" type="text"
-                                                                                 placeholder="请输入题组名称"/></p>
-                            <p><span>试题总分</span><input type="text" placeholder="请输入试题数量"/></p>
-                            <p><span>作文格式</span><input type="text" placeholder="请输入起始序号"/></p>
-                            <p><span>格子列数</span><input type="text"/></p>
-                            <p><span>作文格数</span><input type="text"/></p>
-                            <p><span>起始序号</span><input type="text" placeholder="请输入起始序号"/></p>
-                            <p><span>所在页码</span><input type="text" placeholder="请输入所在页码"/></p>
-                            <hr class="hr"/>
-                            <p>
-                                <button ng-click="btn3()">确认添加</button>
-                            </p>
+                           <div class="writItem clearfix">
+                               <p>题组名称</p>
+                               <p><input type="text" placeholder="请输入题组名称"></p>
+                           </div>
+                            <div class="writItem clearfix">
+                                <p>试题总分</p>
+                                <p><input type="text"></p>
+                            </div>
+                            <div class="writItem clearfix">
+                                <p>作文格式</p>
+                                <div class="writ_format">
+                                    <div class="formatItme clearfix">
+                                        <input type="radio" ng-checked="result.writIsradio==1" ng-click="checkWrit(1)">
+                                        <span>语文作文方格</span>
+                                        <div class="matrix">
+                                            <div class="matrix_item"></div>
+                                            <div class="matrix_item"></div>
+                                            <div class="matrix_item"></div>
+                                            <div class="matrix_item"></div>
+                                            <div class="matrix_item"></div>
+                                            <div class="matrix_item"></div>
+                                            <div class="matrix_item"></div>
+                                            <div class="matrix_item"></div>
+                                            <div class="matrix_item"></div>
+                                            <div class="matrix_item"></div>
+                                        </div>
+                                    </div>
+                                    <div class="formatItme clearfix"><input type="radio" ng-checked="result.writIsradio==2" ng-click="checkWrit(2)"><span>外语作文行线</span><span></span></div>
+                                    <div class="formatItme clearfix"><input type="radio" ng-checked="result.writIsradio==3" ng-click="checkWrit(3)"><span>单词间隔行线</span><span></span></div>
+                                </div>
+                            </div>
+                            <div class="writItem clearfix" ng-show="result.writIsradio==1"><!--语文作文-->
+                                <p>格子列数</p>
+                                <p><input type="text"></p>
+                            </div>
+                            <div class="writItem clearfix" ng-show="result.writIsradio==1">
+                                <p>作文格数</p>
+                                <p><input type="text"></p>
+                            </div>
+                            <div class="writItem clearfix" ng-show="result.writIsradio==2"><!--外语作文-->
+                                <p>格子行数</p>
+                                <p><input type="text"></p>
+                            </div>
+                            <div class="writItem clearfix" ng-show="result.writIsradio==3"><!--单词间隔-->
+                                <p>单词个数</p>
+                                <p><input type="text"></p>
+                            </div>
+                            <div class="writItem clearfix">
+                                <p>起始序号</p>
+                                <p><input type="text"></p>
+                            </div>
+                            <div class="writItem clearfix">
+                                <p>所在页码</p>
+                                <p><input type="text"></p>
+                            </div>
+                            <div class="writItem clearfix">
+                                <button ng-click="btn1()">确认添加</button>
+                            </div>
                         </div>
                     </div>
                 </li>
-
-
                 <li><a ng-click="add(5)" class="{{5==index?'active':''}}">其他题</a>
                     <!--添加题组-->
                     <div class="addQ {{5==index?'active':''}}" id="addQ5">
                         <h3>添加题组<span class="fr cous" ng-click="close()">X</span></h3>
                         <div class="pd">
                             <p><span>题组名称</span><span class="Red">*</span><input class="mF" type="text"
-                                                                                 placeholder="请输入题组名称" ng-model="result.name"/></p>
+                                                                                 placeholder="请输入题组名称"
+                                                                                 ng-model="result.name"/></p>
                             <p><span>试题数量</span><input type="text" placeholder="请输入试题数量" ng-model="result.numbel"/></p>
                             <p><span>起始序号</span><input type="text" placeholder="请输入起始序号" ng-model="result.no"/></p>
                             <p><span>所在页码</span><input type="text" placeholder="请输入所在页码" ng-model="result.page"/></p>
-                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/></p>
+                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/>
+                            </p>
                             <hr class="hr"/>
                             <p>
                                 <button ng-click="btn1()">确认添加</button>
@@ -163,12 +211,25 @@
                     </div>
                 </li>
             </ul>
+            <ul ng-class="{L_ul:true}">
+                <h3>答题纸设置</h3>
+                <li class="import-button" ng-click="getAnswerInfo($event)"><a>设置答案</a>
+                </li>
+                <li><a>选择板式</a>
+                </li>
+                <li><a>题组排序</a>
+                </li>
+                <li><a>密封性间距</a>
+                </li>
+                <li><a>下载答题纸</a>
+                </li>
+            </ul>
         </div>
         <!--右侧区域-->
         <div ng-class="{A_R:true}" id="AR">
             <!--顶部学生信息开始-->
             <div class="student_info clearfix">
-                <div class="ermai clearfix"></div>
+                <div class="ermai clearfix"><img src="../img/erwei.jpg" alt=""></div>
                 <div class="person clearfix">
                     <div class="person_item">
                         <span>学校:</span>
@@ -359,9 +420,8 @@
                                     <span>{{Q_number[$index]}}、</span>
                                     {{a.name}}(共{{a.totalCores}}分，每题{{a.itemCores}}分)
                                 </th>
-
                             </tr>
-                            <tr ng-hide="a.type==1||a.type==2||a.type==6">
+                            <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5">
                                 <th>
                                     <!--网络阅卷打分框start-->
                                     <div class="marking">
@@ -389,9 +449,10 @@
                             </thead>
 
                             <tbody>
-                            <tr>
+                            <tr ng-if="a.type!=5">
                                 <td>
-                                    <div ng-repeat="item in a.no" class="q_c" ng-style="{'width':'{{a.type==3?'40%':'25%'}}'}">
+                                    <div ng-repeat="item in a.no" class="q_c"
+                                         ng-style="{'width':'{{a.type==3?'40%':'25%'}}'}">
                                         <a class="numberNo" ng-show="a.type==3"></a>
                                         <!--序号start-->
                                         <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
@@ -412,6 +473,41 @@
                                     </div>
                                 </td>
                             </tr>
+                            <!--其他题模板开始-->
+                            <tr ng-if="a.type==5" class="other">
+                                <td>
+                                    <div ng-repeat="item in a.no">
+                                        <!--其他题头部-->
+                                        <div class="other_h clearfix">
+                                            <div class="other_number">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
+                                            </div>
+                                            <!--网络阅卷打分框start-->
+                                            <div class="marking clearfix">
+                                                <a href="">1</a>
+                                                <a href="">2</a>
+                                                <a href="">3</a>
+                                                <a href="">4</a>
+                                                <a href="">5</a>
+                                                <a href="">6</a>
+                                                <a href="">7</a>
+                                                <a href="">8</a>
+                                                <a href="">9</a>
+                                                <a href="">0</a>
+                                                <a href="">1</a>
+                                                <a href="">2</a>
+                                                <a href="">3</a>
+                                                <a href="">4</a>
+                                                <a href="">5</a>
+                                                <a href="">.5</a>
+                                                <a href=""></a>
+                                            </div>
+                                            <!--网络阅卷打分框end-->
+                                        </div>
+                                        <div class="other_c"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!--其他题模板结束-->
                             </tbody>
                         </table>
                     </div>
@@ -432,9 +528,8 @@
                                     <span>{{Q_number[$index+listObj.length]}}、</span>
                                     {{a.name}}(共{{a.totalCores}}分，每题{{a.itemCores}}分)
                                 </th>
-
                             </tr>
-                            <tr ng-hide="a.type==1||a.type==2">
+                            <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5">
                                 <th>
                                     <!--网络阅卷打分框start-->
                                     <div class="marking">
@@ -462,15 +557,16 @@
                             </thead>
 
                             <tbody>
-                            <tr>
+                            <tr ng-if="a.type!=5">
                                 <td>
-                                    <div ng-repeat="item in a.no" class="q_c" ng-style="{'width':'{{a.type==3?'40%':'25%'}}'}">
-                                        <!--序号start-->
+                                    <div ng-repeat="item in a.no" class="q_c"
+                                         ng-style="{'width':'{{a.type==3?'40%':'25%'}}'}">
                                         <a class="numberNo" ng-show="a.type==3"></a>
+                                        <!--序号start-->
                                         <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
                                         <!--序号end-->
                                         <!--选择题模版start-->
-                                        <span ng-show="a.type==1||a.type==2" ng-repeat="items in a.thr">
+                                        <span ng-show="a.type==1||a.type==2||a.type==6" ng-repeat="items in a.thr">
                                             <b>{{items}}</b>
                                         </span>
                                         <!--选择题模版end-->
@@ -485,6 +581,41 @@
                                     </div>
                                 </td>
                             </tr>
+                            <!--其他题模板开始-->
+                            <tr ng-if="a.type==5" class="other">
+                                <td>
+                                    <div ng-repeat="item in a.no">
+                                        <!--其他题头部-->
+                                        <div class="other_h clearfix">
+                                            <div class="other_number">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
+                                            </div>
+                                            <!--网络阅卷打分框start-->
+                                            <div class="marking clearfix">
+                                                <a href="">1</a>
+                                                <a href="">2</a>
+                                                <a href="">3</a>
+                                                <a href="">4</a>
+                                                <a href="">5</a>
+                                                <a href="">6</a>
+                                                <a href="">7</a>
+                                                <a href="">8</a>
+                                                <a href="">9</a>
+                                                <a href="">0</a>
+                                                <a href="">1</a>
+                                                <a href="">2</a>
+                                                <a href="">3</a>
+                                                <a href="">4</a>
+                                                <a href="">5</a>
+                                                <a href="">.5</a>
+                                                <a href=""></a>
+                                            </div>
+                                            <!--网络阅卷打分框end-->
+                                        </div>
+                                        <div class="other_c"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!--其他题模板结束-->
                             </tbody>
                         </table>
                     </div>
@@ -495,7 +626,31 @@
             </div>
         </div>
     </div>
-
+    <!--设置答题卡弹窗开始-->
+    <div class="modal-wrap" id="i_two">
+        <div class="modal-shadow modal-exit"></div>
+        <div class="modal-main" style="width:550px;">
+            <div class="modal-exit iconfont modal-exit-icon">&#xe61a;</div>
+            <div class="modal-title">设置客观题答题</div>
+            <div class="modal-content nomal">
+                <div class="mian-cont">
+                    <div class="bigquestion" ng-repeat="ans in answers" ng-init="outerIndex = $index">
+                        <div class="q_title"><p ng-bind="ans.answer_name"></p></div>
+                        <div class="q_content clearfix">
+                            <div class="set_q_item fl clearfix" ng-repeat="itmes in ans.settings">
+                                <div class="set_number fl"><input type="text" value="{{itmes.setting_num<10?'0'+itmes.setting_num:itmes.setting_num}}"></div>
+                                <div class="set_options_itme fl clearfix">
+                                    <div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.type=='xz'" ng-repeat="itme in nub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>
+                                    <div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.type=='sf'" ng-repeat="itme in rightNub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--设置答题卡弹窗结束-->
 </div>
 
 <script src="js/Answer.js" type="text/javascript" charset="utf-8"></script>
