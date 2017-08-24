@@ -1,4 +1,8 @@
 var m1 = angular.module("pro", []);
+// m1.config(function ($httpProvider) {
+//     $httpProvider.defaults.useXDomain = true;
+//     delete $httpProvider.defaults.headers.common['X-Requested-With'];
+// })
 //设置控制器
 m1.controller("demo", function ($scope, $timeout, $http) {
     var url = window.location;
@@ -26,7 +30,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.listObj2 = [];//定义全局数组保存所有题目
     $scope.result = {};//弹出框保存
     var answer_id = []//大题answer_id
-    function getAnswer() {//获取题目模板
+    $scope.getAnswer = function() {//获取题目模板
         var isLogin = localStorage.getItem("token");
         $.ajax({
             type: "GET",
@@ -46,7 +50,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
         });
     }
-    getAnswer()
+    $scope.getAnswer()
     //点击显示
     $scope.add = function (index) {
         $scope.index = index
@@ -461,6 +465,59 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $(".Answer .A_R").css({"border-width": 4})
         $(".Answer .A_R .A_Rone").css({"border-color": "#ddd"})
         // return false;
+    }
+    function getAnswerInfoTask() {//获取生成答题卡
+        var isLogin = localStorage.getItem("token");
+        $scope.nub = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+        $scope.rightNub = ["T","F"]
+        $.ajax({
+            type: "GET",
+            url: ajaxIp+"/api/v2/answers/"+getUrlParam(url, 'examubjeId'),
+            headers: {'Authorization': "Bearer " + isLogin},
+            async: false,
+            success: function(data){
+                $scope.answers = data.answers//设置答案弹窗数组
+                console.log($scope.answers)
+            },
+            error: function(){
+
+            }
+        });
+    }
+    $scope.getAnswerInfo = function () {
+        getAnswerInfoTask()
+        $('.modal-main').animate({'top': '50%','opacity': 1},500);
+        $('.modal-shadow').animate({'opacity': 0.3},500);
+        $('.modal-wrap').show();
+    }
+    /**
+     * 设置每题答案
+     * @param outerIndex 最外层索引
+     * @param parentIndex 父级索引
+     * @param index 自己索引
+     */
+    $scope.setItemAnswer = function (outerIndex,parentIndex,index,setting_result,setting_id) {//设置每题答案
+        var setting_result= setting_result.split(',')
+        if(setting_result[index]==0){
+            setting_result[index] = 1
+        }else{
+            setting_result[index] = 0
+        }
+        var result = setting_result.join(',')
+        var isLogin = localStorage.getItem("token");
+        $.ajax({
+            type: "POST",
+            url: ajaxIp+"/api/v2/answer_settings/"+setting_id,
+            headers: {'Authorization': "Bearer " + isLogin},
+            data:{'answer_setting[result]':result},
+            async: false,
+            success: function(data){
+                $scope.answers[outerIndex].settings[parentIndex].setting_result = result
+            },
+            error: function(){
+
+            }
+        });
     }
 })
 

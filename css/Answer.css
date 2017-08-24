@@ -402,3 +402,52 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
 {
     border-right:0;
 }
+/***************************************************************************************************/
+/*设置答题卡*/
+.nomal{
+    padding:0;
+    padding:0px 24px;
+}
+.nomal .mian-cont .bigquestion .q_title{
+    margin:10px 0px;
+}
+.nomal .mian-cont .bigquestion .q_title p{
+    padding-left:4px;
+    text-align: left;
+}
+.nomal .mian-cont .bigquestion{
+    margin-bottom:20px;
+}
+.nomal .mian-cont .bigquestion:last-child{
+    margin-bottom:0;
+}
+.nomal .mian-cont .bigquestion .q_content .set_q_item{
+    margin-bottom:10px;
+}
+.nomal .mian-cont .bigquestion .q_content .set_q_item .set_number{
+    width:30px;
+    height:20px;
+    line-height:20px;
+    text-align: center;
+    padding-left: 4px;
+    padding-bottom: 7px;
+    box-sizing: border-box;
+    border:1px solid black;
+    margin:0px 4px;
+}
+.nomal .mian-cont .bigquestion .q_content .set_q_item .set_number input{
+    width:100%;
+    height:100%;
+    border:none;
+}
+.nomal .mian-cont .bigquestion .q_content .set_q_item .set_options_itme .child_option_itme{
+    width:20px;
+    height:20px;
+    text-align:center;
+    line-height:20px;
+    margin-right:10px;
+}
+.nomal .mian-cont .bigquestion .q_content .set_q_item .set_options_itme .child_option_itme.active{
+    background:red;
+    color: #fff;
+}

@@ -124,8 +124,6 @@
                         </div>
                     </div>
                 </li>
-
-
                 <li><a ng-click="add(4)" class="{{4==index?'active':''}}">作文题</a>
                     <!--添加题组-->
                     <div class="addQ {{4==index?'active':''}}" id="addQ4">
@@ -211,6 +209,19 @@
                             </p>
                         </div>
                     </div>
+                </li>
+            </ul>
+            <ul ng-class="{L_ul:true}">
+                <h3>答题纸设置</h3>
+                <li class="import-button" ng-click="getAnswerInfo($event)"><a>设置答案</a>
+                </li>
+                <li><a>选择板式</a>
+                </li>
+                <li><a>题组排序</a>
+                </li>
+                <li><a>密封性间距</a>
+                </li>
+                <li><a>下载答题纸</a>
                 </li>
             </ul>
         </div>
@@ -615,7 +626,31 @@
             </div>
         </div>
     </div>
-
+    <!--设置答题卡弹窗开始-->
+    <div class="modal-wrap" id="i_two">
+        <div class="modal-shadow modal-exit"></div>
+        <div class="modal-main" style="width:550px;">
+            <div class="modal-exit iconfont modal-exit-icon">&#xe61a;</div>
+            <div class="modal-title">设置客观题答题</div>
+            <div class="modal-content nomal">
+                <div class="mian-cont">
+                    <div class="bigquestion" ng-repeat="ans in answers" ng-init="outerIndex = $index">
+                        <div class="q_title"><p ng-bind="ans.answer_name"></p></div>
+                        <div class="q_content clearfix">
+                            <div class="set_q_item fl clearfix" ng-repeat="itmes in ans.settings">
+                                <div class="set_number fl"><input type="text" value="{{itmes.setting_num<10?'0'+itmes.setting_num:itmes.setting_num}}"></div>
+                                <div class="set_options_itme fl clearfix">
+                                    <div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.type=='xz'" ng-repeat="itme in nub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>
+                                    <div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.type=='sf'" ng-repeat="itme in rightNub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--设置答题卡弹窗结束-->
 </div>
 
 <script src="js/Answer.js" type="text/javascript" charset="utf-8"></script>
