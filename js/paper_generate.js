@@ -660,7 +660,7 @@ $(function() {
 				// console.log(data);
 				$('.list-ul').html('');
 				list_page = 1;
-				first_list();
+				first_list(list_page);
 			},
 			error: function() {
 				// alert('请稍后从新尝试登录或者联系管理员');
