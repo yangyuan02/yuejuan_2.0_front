@@ -520,7 +520,19 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.AnsLen = $scope.answers[0].settings.length
     }
     $scope.addAnswer = function () {//新增小题答案
-        
+        var len = $scope.answers[0].settings.length
+        console.log(len)
+        var obj = {}
+        obj.score = 1;
+        obj.setting_id = 81
+        console.log($scope.answers[0].settings)
+        obj.setting_num = parseInt($scope.answers[0].settings[len-1].setting_num)+1
+        if($scope.answers[0].type=='xz'){
+            obj.setting_result = "0,0,0,0"
+        }else{
+            obj.setting_result = "0,0"
+        }
+        $scope.answers[0].settings.push(obj)
     }
     $scope.deleAnswer = function () {//删除小题
         var isLogin = localStorage.getItem("token");
