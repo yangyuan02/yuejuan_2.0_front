@@ -464,3 +464,60 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     background:#31bc91;
     color: #fff;
 }
+/*设置答题卡按钮组*/
+.answer .btns{
+    width:100%;
+    height:60px;
+    border-top:1px solid #31bc91;
+    text-align:left;
+    line-height:60px;
+}
+.answer .btns a{
+    display:inline-block;
+    width:20px;
+    height:20px;
+    border:1px solid #31bc91;
+    margin-top:18px;
+    float:left;
+}
+.answer .btns span{
+    float:left;
+}
+.answer .btns .a_page{
+    width:100px;
+    height:30px;
+    text-align:center;
+    line-height:30px;
+    border:1px solid black;
+    margin-top:14px;
+}
+.answer .btns .add{
+    margin:0px 30px;
+    margin-right:0px;
+}
+.answer .btns .sub{
+    margin:0px 30px;
+}
+.answer .btns .show_score{
+    margin-right:30px;
+}
+.answer .btns .prev{
+    margin-right:30px;
+}
+.answer .btns .btnsa{
+    position:relative;
+    width:20px;
+    height:20px;
+    border:1px solid #31bc91;
+    margin-top:18px;
+}
+.answer .btns .btnsa i{
+    display:block;
+    width:20px;
+    height:20px;
+    position:absolute;
+    text-align:center;
+    top:-20px;
+    left:0px;
+    color:#31bc91;
+}

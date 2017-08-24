@@ -490,6 +490,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $('.modal-shadow').animate({'opacity': 0.3},500);
         $('.modal-wrap').show();
     }
+    $scope.showScore = false
+    $scope.checkScore = function () {//切换分数框
+        $scope.showScore = !$scope.showScore
+    }
+    $scope.pageData = function () {//翻页
+
+    }
     /**
      * 设置每题答案
      * @param outerIndex 最外层索引
