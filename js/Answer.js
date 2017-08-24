@@ -523,8 +523,22 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         
     }
     $scope.deleAnswer = function () {//删除小题
+        var isLogin = localStorage.getItem("token");
         $scope.AnsLen--
-        $scope.answers[0].settings.splice($scope.AnsLen,1)
+        var setting_id = $scope.answers[0].settings[$scope.AnsLen].setting_id
+        $.ajax({
+            type: "POST",
+            url: ajaxIp+"/api/v2/answer_settings/"+setting_id+"/delete",
+            headers: {'Authorization': "Bearer " + isLogin},
+            async: false,
+            success: function(data){
+                console.log(data)
+                $scope.answers[0].settings.splice($scope.AnsLen,1)
+            },
+            error: function(){
+
+            }
+        });
     }
     /**
      * 设置每题答案
