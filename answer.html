@@ -670,8 +670,8 @@
                     </div>
                     <span class="fl">显示分数</span>
                 </div>
-                <div class="prev a_page fl">上一页</div>
-                <div class="next a_page fl">下一页</div>
+                <div class="prev a_page fl {{start==0?'disabled':''}}" ng-click="pageData(2)">上一页</div>
+                <div class="next a_page fl {{end==bigAnswer.length?'disabled':''}}" ng-click="pageData(1)">下一页</div>
             </div>
         </div>
     </div>
