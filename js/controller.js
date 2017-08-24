@@ -2004,6 +2004,7 @@ function kaishi_zhi(a,b){
         $(".exam_h_101 select").change(function(event) {
             /* Act on the event */
             $(".exam_h_102_he").html(" ");
+             $(".exam_h_201_he").html(" ");
             $(".exam_h_102_bo").html(" ");
             $(".exam_h_201_bo").html(" ");
             $(".exam_h_301_bo").html(" ");
