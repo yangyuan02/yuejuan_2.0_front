@@ -2295,6 +2295,7 @@ $(function() {
 			}
 			if(in_status=="finished"){
 				$('.tr-'+info.import_scores[i].id+'').find('.status').addClass('success-deal').text('已完成');
+				$('.tr-'+info.import_scores[i].id+'').find('.deal').hide();
 			}
 			if(in_status=="executing"){
 				$('.tr-'+info.import_scores[i].id+'').find('.status').addClass('on-deal').text('处理中');
@@ -2452,7 +2453,7 @@ $(function() {
 				},
 				success : function(data) {
 					console.log(data);
-					get_exam_all_list();
+					get_grade_all_list(null,null);
 				},
 				error : function() {
 					console.log("error");
@@ -2588,6 +2589,38 @@ $(function() {
 			}
 		})
 	})
+
+	// 处理
+	$('body').on('click', '.deal', function() {
+		var import_score_id = $(this).parents('tr').attr('data-id');
+		$.ajax({
+		   	type: "POST",
+		   	url: ajaxIp+"/api/v2/import_student_scores/deal_import_student_score",
+		  	dataType: "JSON",
+		  	headers: {'Authorization': "Bearer " + isLogin},
+		  	data: {'import_score_id':import_score_id},
+		  	success: function(data){
+		  		console.log(data);
+			  	$('.load-bg').show();
+			  	var customer_id = $('#wrap').attr('customer_id');
+			  	console.log(customer_id)
+		  	  var faye = new Faye.Client('http://192.168.1.127:9292/api/v2/events');
+			    faye.subscribe("/import_score/"+ customer_id +"" , function (data) {
+		        console.log(222222)
+		        console.log(data)
+		        if(data.message=='ok'){
+							$('.load-bg').hide();
+							get_grade_all_list(null,null);
+		        }
+			    });
+	      },
+	      error: function(){
+	      	// alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html'
+	      }
+		  });
+	});
 
 
 
