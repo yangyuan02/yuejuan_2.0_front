@@ -509,7 +509,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             type: "POST",
             url: ajaxIp+"/api/v2/answer_settings/"+setting_id,
             headers: {'Authorization': "Bearer " + isLogin},
-            data:{'answer_setting[result]':result},
+            data:{
+                'answer_setting[result]':result
+            },
             async: false,
             success: function(data){
                 $scope.answers[outerIndex].settings[parentIndex].setting_result = result
@@ -518,6 +520,46 @@ m1.controller("demo", function ($scope, $timeout, $http) {
 
             }
         });
+    }
+    $scope.setItmeScore = function (setting_id,score) {//设置每小题分数
+        var isLogin = localStorage.getItem("token");
+        $timeout(function () {
+            $.ajax({
+                type: "POST",
+                url: ajaxIp+"/api/v2/answer_settings/"+setting_id,
+                headers: {'Authorization': "Bearer " + isLogin},
+                data:{
+                    'answer_setting[score]':score
+                },
+                async: false,
+                success: function(data){
+                    console.log(data)
+                },
+                error: function(){
+
+                }
+            });
+        },500)
+    }
+    $scope.setItmeNum = function (setting_id,num) {//设置题目序号
+        var isLogin = localStorage.getItem("token");
+        $timeout(function () {
+            $.ajax({
+                type: "POST",
+                url: ajaxIp+"/api/v2/answer_settings/"+setting_id,
+                headers: {'Authorization': "Bearer " + isLogin},
+                data:{
+                    'answer_setting[num]':num
+                },
+                async: false,
+                success: function(data){
+                    console.log(data)
+                },
+                error: function(){
+
+                }
+            });
+        },500)
     }
 })
 

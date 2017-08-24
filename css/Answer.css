@@ -423,6 +423,7 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
 }
 .nomal .mian-cont .bigquestion .q_content .set_q_item{
     margin-bottom:10px;
+    margin-right:10px;
 }
 .nomal .mian-cont .bigquestion .q_content .set_q_item .set_number{
     width:30px;
@@ -432,13 +433,25 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     padding-left: 4px;
     padding-bottom: 7px;
     box-sizing: border-box;
-    border:1px solid black;
+    border:1px solid #31bc91;
     margin:0px 4px;
+}
+.nomal .mian-cont .bigquestion .q_content .set_q_item .scoer{
+    width:20px;
+    padding-left:3px;
+}
+.nomal .mian-cont .bigquestion .q_content .set_q_item .scoer_wx{
+    height:20px;
+    line-height:20px;
 }
 .nomal .mian-cont .bigquestion .q_content .set_q_item .set_number input{
     width:100%;
     height:100%;
     border:none;
+    color: #31bc91;
+}
+.nomal .mian-cont .bigquestion .q_content .set_q_item .scoer input{
+    color:black;
 }
 .nomal .mian-cont .bigquestion .q_content .set_q_item .set_options_itme .child_option_itme{
     width:20px;
@@ -448,6 +461,6 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     margin-right:10px;
 }
 .nomal .mian-cont .bigquestion .q_content .set_q_item .set_options_itme .child_option_itme.active{
-    background:red;
+    background:#31bc91;
     color: #fff;
 }
