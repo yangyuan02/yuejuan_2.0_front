@@ -694,6 +694,9 @@ tr.child-tr{
 	line-height: 30px;
 	margin-top: 15px;
 	color: #fd97a3;
+	overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	-ms-border-radius: 5px;

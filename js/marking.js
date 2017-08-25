@@ -452,6 +452,7 @@ $(function(){
 		}else{
 			get_info_request(section_crop_id,section_crop_name);
 		}
+		$('.hide-pre').removeClass('hide-pre').addClass('show-pre').text('显示原试卷');
 	})
 
 	// 第一卷
@@ -464,6 +465,7 @@ $(function(){
 		}else{
 			alert("已经是第一张试卷了");
 		}
+			$('.hide-pre').removeClass('hide-pre').addClass('show-pre').text('显示原试卷');
 	})
 
   // 上一试卷
@@ -478,6 +480,7 @@ $(function(){
   	}else{
 			alert("已经是第一张试卷了")
 		}
+			$('.hide-pre').removeClass('hide-pre').addClass('show-pre').text('显示原试卷');
   })
 
   // 下一试卷
@@ -496,6 +499,7 @@ $(function(){
 		if(index-1==all_num){
 			alert('已经是最后一张试卷')
 		}
+			$('.hide-pre').removeClass('hide-pre').addClass('show-pre').text('显示原试卷');
   })
 
   // 提交问题试卷
@@ -752,8 +756,8 @@ $(function(){
 
   function zoomIn(img_width,img_height,ch){
 		if(ch){
-			img_width = img_width * 1.02;
-	    img_height = img_height * 1.02;
+			img_width = img_width * 1.25;
+	    img_height = img_height * 1.25;
 	    $('.move-paper img').css({
 	      "width":img_width + 'px',
 	      "height":img_height + 'px'
@@ -767,10 +771,10 @@ $(function(){
 	      var height = $(select_area[i]).height();
 	      var left_value = $(select_area[i]).position().left;
 	      var top_value = $(select_area[i]).position().top;
-	      width = width * 1.02;
-	      height = height * 1.02;
-	      left_value = left_value * 1.02;
-	      top_value = top_value * 1.02;
+	      width = width * 1.25;
+	      height = height * 1.25;
+	      left_value = left_value * 1.25;
+	      top_value = top_value * 1.25;
 	      $(select_area[i]).css({
 	        "width": width + 'px',
 	        "height": height + 'px',
@@ -782,8 +786,8 @@ $(function(){
 
 
 		}else{
-			img_width = img_width / 1.02;
-	    img_height = img_height / 1.02;
+			img_width = img_width / 1.25;
+	    img_height = img_height / 1.25;
 	    $('.move-paper img').css({
 	      "width":img_width + 'px',
 	      "height":img_height + 'px'
@@ -798,10 +802,10 @@ $(function(){
 	      var height = $(select_area[i]).height();
 	      var left_value = $(select_area[i]).position().left;
 	      var top_value = $(select_area[i]).position().top;
-	      width = width / 1.02;
-	      height = height / 1.02;
-	      left_value = left_value / 1.02;
-	      top_value = top_value /1.02;
+	      width = width / 1.25;
+	      height = height / 1.25;
+	      left_value = left_value / 1.25;
+	      top_value = top_value /1.25;
 	      $(select_area[i]).css({
 	        "width": width + 'px',
 	        "height": height + 'px',
@@ -1148,15 +1152,15 @@ $(function(){
 			var xx = $('.oMoveInDiv'+i).position().left;
 			var yy = $('.oMoveInDiv'+i).position().top;
 			if(dx){
-				xx=xx*1.02;
-				yy=yy*1.02;
+				xx=xx*1.25;
+				yy=yy*1.25;
 				$('.oMoveInDiv'+i).css({
 					left: xx + 'px',
 					top: yy + 'px'
 				});
 			}else{
-				xx=xx/1.02;
-				yy=yy/1.02;
+				xx=xx/1.25;
+				yy=yy/1.25;
 				$('.oMoveInDiv'+i).css({
 					left: xx + 'px',
 					top: yy + 'px'
@@ -1224,7 +1228,7 @@ $(function(){
 			return;
 		}
 
-		var iNum = parseFloat($(this).attr('data-number'));
+		var iNum = $(this).attr('data-number');
 		console.log(iNum)
 		var score = i_on_blur.val();
 		if(score != '' && iNum == 0.5){
@@ -1259,6 +1263,7 @@ $(function(){
  		if(idx==0){
  			return;
  		}
+ 		console.log('idx',idx);
  		i_on_blur = $(inputs[idx-1]);
  		console.log(i_on_blur.val());
 
@@ -1271,6 +1276,7 @@ $(function(){
  		if(idx==inputs.length-1){
  			return;
  		}
+ 		console.log('idx',idx);
  		i_on_blur = $(inputs[idx+1]);
  		console.log(i_on_blur.val());
 
@@ -1281,10 +1287,16 @@ $(function(){
 		//分数判定
 	$('body').on('input' , '.yuejuan_score', function(){
 		var str_score = $(this).val();
-
 		var fen = parseFloat($(this).attr('data-fen'));
 		var score = parseFloat($(this).val());
-		console.log(score,fen)
+		console.log(str_score,score,fen)
+
+
+		var re = /^[0-9]+.?[0-9]*$/;
+		if(!re.test(str_score)){
+			iTwo(prompt_i,prompt_2);
+			$(this).val('');
+		}
 
 		if(String(str_score).length>1&&String(str_score)[0]=='0'&&String(str_score)[1]!='.'){
 			iTwo(prompt_i,prompt_2);
@@ -1427,6 +1439,7 @@ $(function(){
 		var b_input=[];//分值input
 		// 获取每位老师的阅卷分数
 		if(section_crop_info && section_crop_info.length > 0){
+			console.log(section_crop_info.length)
 			for (var j = 0; j < section_crop_info.length; j++) {
 				var grade_th = '<th class="grade-th grade-th-'+j+'">分值</th>';
 				$('.num-th').after(grade_th);
@@ -1435,23 +1448,40 @@ $(function(){
 				// 审核题目信息
 				text_list = section_crop_info[0].answer_setting_scores;
 				var check_item_infos = section_crop_info[j].answer_setting_scores;
+				console.log(check_item_infos)
 				for (var z = 0; z < check_item_infos.length; z++) {
-					var td_input='<td class="input-p"><input data-id="'+check_item_infos[z].answer_setting_score_id+'" disabled style="width:45px" type="text" class="yuejuan_score" value="'+check_item_infos[z].answer_setting_score+'"/></td>';
+					var td_input='<td class="input-p"><input answer-id="'+check_item_infos[z].answer_setting_id+'" data-id="'+check_item_infos[z].answer_setting_score_id+'" disabled style="width:45px" type="text" class="yuejuan_score" value="'+check_item_infos[z].answer_setting_score+'"/></td>';
 					b_input.push(td_input);
 				};
 			};
 		}
 		
 		// console.log(text_list)
-		// console.log(b_input)
+		console.log(b_input,b_input.length)
 		// 根据第一个老师获取题号信息和总分值信息
 		if(text_list && text_list.length>0){
 			for (var m = 0; m < text_list.length; m++) {
-				var text_info = '<tr><td class="item-num" dta-id="'+text_list[m].answer_setting_id+'">'+text_list[m].num+'</td>'+b_input+'<td class="all-grade">'+text_list[m].total_score+'</td></tr>';
+				var text_info = '<tr><td class="item-num" data-id="'+text_list[m].answer_setting_id+'">'+text_list[m].num+'</td><td class="all-grade">'+text_list[m].total_score+'</td></tr>';
 				$('#check-table tbody').append(text_info);
 			};
 		}
-		
+
+
+		var num_input = $('#check-table tbody').find('.item-num');
+		for (var p = num_input.length-1; p >= 0; p--) {
+			var num_id = $(num_input[p]).attr('data-id');
+			// console.log(p)
+			for (var q = b_input.length-1; q >= 0; q--) {
+				var all_id = $(b_input[q]).find('input').attr('answer-id');
+				// console.log(p,q)
+				if(num_id==all_id){
+					console.log(p,q)
+					$(num_input[p]).after($(b_input[q]));
+
+				}
+			};
+		};
+
 
 
 
