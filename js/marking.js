@@ -452,6 +452,7 @@ $(function(){
 		}else{
 			get_info_request(section_crop_id,section_crop_name);
 		}
+		$('.hide-pre').removeClass('hide-pre').addClass('show-pre').text('显示原试卷');
 	})
 
 	// 第一卷
@@ -464,6 +465,7 @@ $(function(){
 		}else{
 			alert("已经是第一张试卷了");
 		}
+			$('.hide-pre').removeClass('hide-pre').addClass('show-pre').text('显示原试卷');
 	})
 
   // 上一试卷
@@ -478,6 +480,7 @@ $(function(){
   	}else{
 			alert("已经是第一张试卷了")
 		}
+			$('.hide-pre').removeClass('hide-pre').addClass('show-pre').text('显示原试卷');
   })
 
   // 下一试卷
@@ -496,6 +499,7 @@ $(function(){
 		if(index-1==all_num){
 			alert('已经是最后一张试卷')
 		}
+			$('.hide-pre').removeClass('hide-pre').addClass('show-pre').text('显示原试卷');
   })
 
   // 提交问题试卷
@@ -752,8 +756,8 @@ $(function(){
 
   function zoomIn(img_width,img_height,ch){
 		if(ch){
-			img_width = img_width * 1.02;
-	    img_height = img_height * 1.02;
+			img_width = img_width * 1.25;
+	    img_height = img_height * 1.25;
 	    $('.move-paper img').css({
 	      "width":img_width + 'px',
 	      "height":img_height + 'px'
@@ -767,10 +771,10 @@ $(function(){
 	      var height = $(select_area[i]).height();
 	      var left_value = $(select_area[i]).position().left;
 	      var top_value = $(select_area[i]).position().top;
-	      width = width * 1.02;
-	      height = height * 1.02;
-	      left_value = left_value * 1.02;
-	      top_value = top_value * 1.02;
+	      width = width * 1.25;
+	      height = height * 1.25;
+	      left_value = left_value * 1.25;
+	      top_value = top_value * 1.25;
 	      $(select_area[i]).css({
 	        "width": width + 'px',
 	        "height": height + 'px',
@@ -782,8 +786,8 @@ $(function(){
 
 
 		}else{
-			img_width = img_width / 1.02;
-	    img_height = img_height / 1.02;
+			img_width = img_width / 1.25;
+	    img_height = img_height / 1.25;
 	    $('.move-paper img').css({
 	      "width":img_width + 'px',
 	      "height":img_height + 'px'
@@ -798,10 +802,10 @@ $(function(){
 	      var height = $(select_area[i]).height();
 	      var left_value = $(select_area[i]).position().left;
 	      var top_value = $(select_area[i]).position().top;
-	      width = width / 1.02;
-	      height = height / 1.02;
-	      left_value = left_value / 1.02;
-	      top_value = top_value /1.02;
+	      width = width / 1.25;
+	      height = height / 1.25;
+	      left_value = left_value / 1.25;
+	      top_value = top_value /1.25;
 	      $(select_area[i]).css({
 	        "width": width + 'px',
 	        "height": height + 'px',
@@ -1148,15 +1152,15 @@ $(function(){
 			var xx = $('.oMoveInDiv'+i).position().left;
 			var yy = $('.oMoveInDiv'+i).position().top;
 			if(dx){
-				xx=xx*1.02;
-				yy=yy*1.02;
+				xx=xx*1.25;
+				yy=yy*1.25;
 				$('.oMoveInDiv'+i).css({
 					left: xx + 'px',
 					top: yy + 'px'
 				});
 			}else{
-				xx=xx/1.02;
-				yy=yy/1.02;
+				xx=xx/1.25;
+				yy=yy/1.25;
 				$('.oMoveInDiv'+i).css({
 					left: xx + 'px',
 					top: yy + 'px'
@@ -1224,7 +1228,7 @@ $(function(){
 			return;
 		}
 
-		var iNum = parseFloat($(this).attr('data-number'));
+		var iNum = $(this).attr('data-number');
 		console.log(iNum)
 		var score = i_on_blur.val();
 		if(score != '' && iNum == 0.5){
@@ -1259,6 +1263,7 @@ $(function(){
  		if(idx==0){
  			return;
  		}
+ 		console.log('idx',idx);
  		i_on_blur = $(inputs[idx-1]);
  		console.log(i_on_blur.val());
 
@@ -1271,6 +1276,7 @@ $(function(){
  		if(idx==inputs.length-1){
  			return;
  		}
+ 		console.log('idx',idx);
  		i_on_blur = $(inputs[idx+1]);
  		console.log(i_on_blur.val());
 
@@ -1281,10 +1287,16 @@ $(function(){
 		//分数判定
 	$('body').on('input' , '.yuejuan_score', function(){
 		var str_score = $(this).val();
-
 		var fen = parseFloat($(this).attr('data-fen'));
 		var score = parseFloat($(this).val());
-		console.log(score,fen)
+		console.log(str_score,score,fen)
+
+
+		var re = /^[0-9]+.?[0-9]*$/;
+		if(!re.test(str_score)){
+			iTwo(prompt_i,prompt_2);
+			$(this).val('');
+		}
 
 		if(String(str_score).length>1&&String(str_score)[0]=='0'&&String(str_score)[1]!='.'){
 			iTwo(prompt_i,prompt_2);
