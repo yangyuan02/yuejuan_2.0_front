@@ -486,11 +486,28 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
         });
     }
-    $scope.getAnswerInfo = function () {
+    $scope.getAnswerInfo = function (type) {
+        if($scope.listObj.length<=0){
+            alert("请添加客观题")
+            return
+        }
         getAnswerInfoTask()
-        $('.modal-main').animate({'top': '50%','opacity': 1},500);
-        $('.modal-shadow').animate({'opacity': 0.3},500);
-        $('.modal-wrap').show();
+        console.log($scope.bigAnswer)
+        if(type==0){//设置答案
+            $('.setAnswer .modal-main').animate({'top': '50%','opacity': 1},500);
+            $('.setAnswer .modal-shadow').animate({'opacity': 0.3},500);
+            $('.setAnswer').show();
+        }
+        if(type==1){
+            $('.setSort .modal-main').animate({'top': '50%','opacity': 1},500);
+            $('.setSort .modal-shadow').animate({'opacity': 0.3},500);
+            $('.setSort').show();
+        }
+    }
+    $scope.closeAnswerModel =  function () {//关闭窗口
+        $('.modal-wrap').hide();
+        $('.modal-main').css({"top":0,"opacity":0})
+        $('.modal-shadow').css({"opacity":0})
     }
     $scope.showScore = false
     $scope.checkScore = function () {//切换分数框
@@ -532,6 +549,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }else{
             obj.setting_result = "0,0"
         }
+        $scope.AnsLen++
         $scope.answers[0].settings.push(obj)
     }
     $scope.deleAnswer = function () {//删除小题
@@ -552,6 +570,32 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
         });
     }
+    $scope.selectBigQuestion = function (index) {//选中题目
+        $scope.sortIndex = index
+    }
+    // 交换数组元素
+    var swapItems = function(arr, index1, index2) {
+        arr[index1] = arr.splice(index2, 1, arr[index1])[0];
+        return arr;
+    };
+
+    // 上移
+    $scope.upRecord = function(arr, $index) {
+        if($index == 0) {
+            return;
+        }
+        $scope.sortIndex--
+        swapItems(arr, $index, $index - 1);
+    };
+
+    // 下移
+    $scope.downRecord = function(arr, $index) {
+        if($index == arr.length -1) {
+            return;
+        }
+        $scope.sortIndex++
+        swapItems(arr, $index, $index + 1);
+    };
     /**
      * 设置每题答案
      * @param outerIndex 最外层索引
@@ -623,6 +667,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             });
         },500)
     }
+    // window.onbeforeunload = function(){//离开刷新提醒
+    //     return "您的文章尚未保存！";
+    // }
 })
 
 
