@@ -1427,6 +1427,7 @@ $(function(){
 		var b_input=[];//分值input
 		// 获取每位老师的阅卷分数
 		if(section_crop_info && section_crop_info.length > 0){
+			console.log(section_crop_info.length)
 			for (var j = 0; j < section_crop_info.length; j++) {
 				var grade_th = '<th class="grade-th grade-th-'+j+'">分值</th>';
 				$('.num-th').after(grade_th);
@@ -1435,23 +1436,40 @@ $(function(){
 				// 审核题目信息
 				text_list = section_crop_info[0].answer_setting_scores;
 				var check_item_infos = section_crop_info[j].answer_setting_scores;
+				console.log(check_item_infos)
 				for (var z = 0; z < check_item_infos.length; z++) {
-					var td_input='<td class="input-p"><input data-id="'+check_item_infos[z].answer_setting_score_id+'" disabled style="width:45px" type="text" class="yuejuan_score" value="'+check_item_infos[z].answer_setting_score+'"/></td>';
+					var td_input='<td class="input-p"><input answer-id="'+check_item_infos[z].answer_setting_id+'" data-id="'+check_item_infos[z].answer_setting_score_id+'" disabled style="width:45px" type="text" class="yuejuan_score" value="'+check_item_infos[z].answer_setting_score+'"/></td>';
 					b_input.push(td_input);
 				};
 			};
 		}
 		
 		// console.log(text_list)
-		// console.log(b_input)
+		console.log(b_input,b_input.length)
 		// 根据第一个老师获取题号信息和总分值信息
 		if(text_list && text_list.length>0){
 			for (var m = 0; m < text_list.length; m++) {
-				var text_info = '<tr><td class="item-num" dta-id="'+text_list[m].answer_setting_id+'">'+text_list[m].num+'</td>'+b_input+'<td class="all-grade">'+text_list[m].total_score+'</td></tr>';
+				var text_info = '<tr><td class="item-num" data-id="'+text_list[m].answer_setting_id+'">'+text_list[m].num+'</td><td class="all-grade">'+text_list[m].total_score+'</td></tr>';
 				$('#check-table tbody').append(text_info);
 			};
 		}
-		
+
+
+		var num_input = $('#check-table tbody').find('.item-num');
+		for (var p = num_input.length-1; p >= 0; p--) {
+			var num_id = $(num_input[p]).attr('data-id');
+			// console.log(p)
+			for (var q = b_input.length-1; q >= 0; q--) {
+				var all_id = $(b_input[q]).find('input').attr('answer-id');
+				// console.log(p,q)
+				if(num_id==all_id){
+					console.log(p,q)
+					$(num_input[p]).after($(b_input[q]));
+
+				}
+			};
+		};
+
 
 
 
