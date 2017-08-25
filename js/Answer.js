@@ -466,6 +466,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $(".Answer .A_R .A_Rone").css({"border-color": "#ddd"})
         // return false;
     }
+    $scope.start = 0,$scope.end = 1
     function getAnswerInfoTask() {//获取生成答题卡
         var isLogin = localStorage.getItem("token");
         $scope.nub = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
@@ -476,20 +477,125 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             headers: {'Authorization': "Bearer " + isLogin},
             async: false,
             success: function(data){
-                $scope.answers = data.answers//设置答案弹窗数组
-                console.log($scope.answers)
+                $scope.bigAnswer = data.answers
+                $scope.answers = $scope.bigAnswer.slice($scope.start,$scope.end)//设置答案弹窗数组
+                $scope.AnsLen = $scope.answers[0].settings.length
             },
             error: function(){
 
             }
         });
     }
-    $scope.getAnswerInfo = function () {
+    $scope.getAnswerInfo = function (type) {
+        if($scope.listObj.length<=0){
+            alert("请添加客观题")
+            return
+        }
         getAnswerInfoTask()
-        $('.modal-main').animate({'top': '50%','opacity': 1},500);
-        $('.modal-shadow').animate({'opacity': 0.3},500);
-        $('.modal-wrap').show();
+        console.log($scope.bigAnswer)
+        if(type==0){//设置答案
+            $('.setAnswer .modal-main').animate({'top': '50%','opacity': 1},500);
+            $('.setAnswer .modal-shadow').animate({'opacity': 0.3},500);
+            $('.setAnswer').show();
+        }
+        if(type==1){
+            $('.setSort .modal-main').animate({'top': '50%','opacity': 1},500);
+            $('.setSort .modal-shadow').animate({'opacity': 0.3},500);
+            $('.setSort').show();
+        }
     }
+    $scope.closeAnswerModel =  function () {//关闭窗口
+        $('.modal-wrap').hide();
+        $('.modal-main').css({"top":0,"opacity":0})
+        $('.modal-shadow').css({"opacity":0})
+    }
+    $scope.showScore = false
+    $scope.checkScore = function () {//切换分数框
+        $scope.showScore = !$scope.showScore
+    }
+    $scope.pageData = function (type) {//翻页
+        var len = $scope.bigAnswer.length
+        if(type==1){//下一页
+            if($scope.end==len){
+                $scope.start = $scope.end-1
+                $scope.end = len
+            }else{
+                $scope.start++
+                $scope.end++
+            }
+        }
+        if(type==2){//上一页
+            if($scope.start==0){
+                $scope.start = 0
+                $scope.end = 1
+            }else{
+                $scope.start--
+                $scope.end--
+            }
+        }
+        $scope.answers = $scope.bigAnswer.slice($scope.start,$scope.end)
+        $scope.AnsLen = $scope.answers[0].settings.length
+    }
+    $scope.addAnswer = function () {//新增小题答案
+        var len = $scope.answers[0].settings.length
+        console.log(len)
+        var obj = {}
+        obj.score = 1;
+        obj.setting_id = 81
+        console.log($scope.answers[0].settings)
+        obj.setting_num = parseInt($scope.answers[0].settings[len-1].setting_num)+1
+        if($scope.answers[0].type=='xz'){
+            obj.setting_result = "0,0,0,0"
+        }else{
+            obj.setting_result = "0,0"
+        }
+        $scope.AnsLen++
+        $scope.answers[0].settings.push(obj)
+    }
+    $scope.deleAnswer = function () {//删除小题
+        var isLogin = localStorage.getItem("token");
+        $scope.AnsLen--
+        var setting_id = $scope.answers[0].settings[$scope.AnsLen].setting_id
+        $.ajax({
+            type: "POST",
+            url: ajaxIp+"/api/v2/answer_settings/"+setting_id+"/delete",
+            headers: {'Authorization': "Bearer " + isLogin},
+            async: false,
+            success: function(data){
+                console.log(data)
+                $scope.answers[0].settings.splice($scope.AnsLen,1)
+            },
+            error: function(){
+
+            }
+        });
+    }
+    $scope.selectBigQuestion = function (index) {//选中题目
+        $scope.sortIndex = index
+    }
+    // 交换数组元素
+    var swapItems = function(arr, index1, index2) {
+        arr[index1] = arr.splice(index2, 1, arr[index1])[0];
+        return arr;
+    };
+
+    // 上移
+    $scope.upRecord = function(arr, $index) {
+        if($index == 0) {
+            return;
+        }
+        $scope.sortIndex--
+        swapItems(arr, $index, $index - 1);
+    };
+
+    // 下移
+    $scope.downRecord = function(arr, $index) {
+        if($index == arr.length -1) {
+            return;
+        }
+        $scope.sortIndex++
+        swapItems(arr, $index, $index + 1);
+    };
     /**
      * 设置每题答案
      * @param outerIndex 最外层索引
@@ -509,7 +615,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             type: "POST",
             url: ajaxIp+"/api/v2/answer_settings/"+setting_id,
             headers: {'Authorization': "Bearer " + isLogin},
-            data:{'answer_setting[result]':result},
+            data:{
+                'answer_setting[result]':result
+            },
             async: false,
             success: function(data){
                 $scope.answers[outerIndex].settings[parentIndex].setting_result = result
@@ -519,6 +627,49 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
         });
     }
+    $scope.setItmeScore = function (setting_id,score) {//设置每小题分数
+        var isLogin = localStorage.getItem("token");
+        $timeout(function () {
+            $.ajax({
+                type: "POST",
+                url: ajaxIp+"/api/v2/answer_settings/"+setting_id,
+                headers: {'Authorization': "Bearer " + isLogin},
+                data:{
+                    'answer_setting[score]':score
+                },
+                async: false,
+                success: function(data){
+                    console.log(data)
+                },
+                error: function(){
+
+                }
+            });
+        },500)
+    }
+    $scope.setItmeNum = function (setting_id,num) {//设置题目序号
+        var isLogin = localStorage.getItem("token");
+        $timeout(function () {
+            $.ajax({
+                type: "POST",
+                url: ajaxIp+"/api/v2/answer_settings/"+setting_id,
+                headers: {'Authorization': "Bearer " + isLogin},
+                data:{
+                    'answer_setting[num]':num
+                },
+                async: false,
+                success: function(data){
+                    console.log(data)
+                },
+                error: function(){
+
+                }
+            });
+        },500)
+    }
+    // window.onbeforeunload = function(){//离开刷新提醒
+    //     return "您的文章尚未保存！";
+    // }
 })
 
 

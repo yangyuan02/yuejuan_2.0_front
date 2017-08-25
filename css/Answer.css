@@ -423,6 +423,7 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
 }
 .nomal .mian-cont .bigquestion .q_content .set_q_item{
     margin-bottom:10px;
+    margin-right:10px;
 }
 .nomal .mian-cont .bigquestion .q_content .set_q_item .set_number{
     width:30px;
@@ -432,13 +433,25 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     padding-left: 4px;
     padding-bottom: 7px;
     box-sizing: border-box;
-    border:1px solid black;
+    border:1px solid #31bc91;
     margin:0px 4px;
+}
+.nomal .mian-cont .bigquestion .q_content .set_q_item .scoer{
+    width:20px;
+    padding-left:3px;
+}
+.nomal .mian-cont .bigquestion .q_content .set_q_item .scoer_wx{
+    height:20px;
+    line-height:20px;
 }
 .nomal .mian-cont .bigquestion .q_content .set_q_item .set_number input{
     width:100%;
     height:100%;
     border:none;
+    color: #31bc91;
+}
+.nomal .mian-cont .bigquestion .q_content .set_q_item .scoer input{
+    color:black;
 }
 .nomal .mian-cont .bigquestion .q_content .set_q_item .set_options_itme .child_option_itme{
     width:20px;
@@ -448,6 +461,102 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     margin-right:10px;
 }
 .nomal .mian-cont .bigquestion .q_content .set_q_item .set_options_itme .child_option_itme.active{
-    background:red;
+    background:#31bc91;
     color: #fff;
+}
+/*设置答题卡按钮组*/
+.answer .btns{
+    width:100%;
+    height:60px;
+    border-top:1px solid #31bc91;
+    text-align:left;
+    line-height:60px;
+}
+.answer .btns a{
+    display:inline-block;
+    width:20px;
+    height:20px;
+    border:1px solid #31bc91;
+    margin-top:18px;
+    float:left;
+}
+.answer .btns span{
+    float:left;
+}
+.answer .btns .a_page{
+    width:100px;
+    height:30px;
+    text-align:center;
+    line-height:30px;
+    border:1px solid black;
+    margin-top:14px;
+}
+.answer .btns .add{
+    margin:0px 30px;
+    margin-right:0px;
+}
+.answer .btns .sub{
+    margin:0px 30px;
+}
+.answer .btns .show_score{
+    margin-right:30px;
+}
+.answer .btns .prev{
+    margin-right:30px;
+}
+.answer .btns .btnsa{
+    position:relative;
+    width:20px;
+    height:20px;
+    border:1px solid #31bc91;
+    margin-top:18px;
+}
+.answer .btns .btnsa i{
+    display:block;
+    width:20px;
+    height:20px;
+    position:absolute;
+    text-align:center;
+    top:-20px;
+    left:0px;
+    color:#31bc91;
+}
+.answer .btns .a_page.disabled{
+    background:#eee;
+}
+/*题组排序*/
+.setSort .sort_head span{
+    display:inline-block;
+    width:33.3%;
+    height:30px;
+    line-height:30px;
+    overflow:hidden;
+}
+.setSort .sort_con .sort_itme{
+    border:1px solid #eee;
+    margin-bottom:10px;
+}
+.setSort .sort_con .sort_itme.active{
+    background:#eee;
+}
+.setSort .sort_con .sort_itme span{
+    width:32.3%;
+    line-height:30px;
+}
+.setSort .set_sort_big_btn{
+    padding:15px 0px;
+}
+.setSort .set_sort_big_btn a{
+    display:inline-block;
+    width:100px;
+    height:30px;
+    border:1px solid #31bc91;
+    text-align:center;
+    color: #31bc91;
+    line-height:30px;
+}
+.setSort .set_sort_big_btn .confirm a{
+    margin-left:20px;
+    background:#31bc91;
+    color:#fff;
 }
