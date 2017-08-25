@@ -487,10 +487,19 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         });
     }
     $scope.getAnswerInfo = function () {
+        if($scope.listObj.length<=0){
+            alert("请添加客观题")
+            return
+        }
         getAnswerInfoTask()
         $('.modal-main').animate({'top': '50%','opacity': 1},500);
         $('.modal-shadow').animate({'opacity': 0.3},500);
         $('.modal-wrap').show();
+    }
+    $scope.closeAnswerModel =  function () {//关闭窗口
+        $('.modal-wrap').hide();
+        $('.modal-main').css({"top":0,"opacity":0})
+        $('.modal-shadow').css({"opacity":0})
     }
     $scope.showScore = false
     $scope.checkScore = function () {//切换分数框
@@ -532,6 +541,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }else{
             obj.setting_result = "0,0"
         }
+        $scope.AnsLen++
         $scope.answers[0].settings.push(obj)
     }
     $scope.deleAnswer = function () {//删除小题
@@ -623,6 +633,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             });
         },500)
     }
+    // window.onbeforeunload = function(){//离开刷新提醒
+    //     return "您的文章尚未保存！";
+    // }
 })
 
 
