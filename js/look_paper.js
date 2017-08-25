@@ -163,8 +163,8 @@ $(function(){
   $('#big').click(function(){
     var img_width = $('.img-box img').width();
     var img_height = $('.img-box img').height();
-    img_width = img_width * 1.02;
-    img_height = img_height * 1.02;
+    img_width = img_width * 1.25;
+    img_height = img_height * 1.25;
     $('.img-box img').css({
       "width":img_width + 'px',
       "height":img_height + 'px'
@@ -182,10 +182,10 @@ $(function(){
       var height = $(select_area[i]).height();
       var left_value = $(select_area[i]).position().left;
       var top_value = $(select_area[i]).position().top;
-      width = width * 1.02;
-      height = height * 1.02;
-      left_value = left_value * 1.02;
-      top_value = top_value * 1.02;
+      width = width * 1.25;
+      height = height * 1.25;
+      left_value = left_value * 1.25;
+      top_value = top_value * 1.25;
       $(select_area[i]).css({
         "width": width + 'px',
         "height": height + 'px',
@@ -198,8 +198,8 @@ $(function(){
   $('#small').click(function(){
     var img_width = $('.img-box img').width();
     var img_height = $('.img-box img').height();
-    img_width = img_width / 1.02;
-    img_height = img_height / 1.02;
+    img_width = img_width / 1.25;
+    img_height = img_height / 1.25;
     $('.img-box img').css({
       "width":img_width + 'px',
       "height":img_height + 'px'
@@ -217,10 +217,10 @@ $(function(){
       var height = $(select_area[i]).height();
       var left_value = $(select_area[i]).position().left;
       var top_value = $(select_area[i]).position().top;
-      width = width / 1.02;
-      height = height / 1.02;
-      left_value = left_value / 1.02;
-      top_value = top_value /1.02;
+      width = width / 1.25;
+      height = height / 1.25;
+      left_value = left_value / 1.25;
+      top_value = top_value /1.25;
       $(select_area[i]).css({
         "width": width + 'px',
         "height": height + 'px',

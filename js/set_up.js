@@ -2036,6 +2036,13 @@ $(function() {
 		var score = parseFloat($(this).val());
 		console.log(score,fen)
 
+		var re = /^[0-9]+.?[0-9]*$/;
+		if(!re.test(str_score)){
+			iTwo(prompt_i,prompt_2);
+			$(this).val('');
+		}
+
+
 		if(String(str_score).length>1&&String(str_score)[0]=='0'&&String(str_score)[1]!='.'){
 			iTwo(prompt_i,prompt_2);
 			$(this).val('');
@@ -2556,6 +2563,13 @@ $(function() {
 		var fen = parseFloat($(this).attr('data-fen'));
 		var score = parseFloat($(this).val());
 		console.log(score,fen)
+		
+		var re = /^[0-9]+.?[0-9]*$/;
+		if(!re.test(str_score)){
+			iTwo(prompt_i,prompt_2);
+			$(this).val('');
+		}
+
 
 		if(String(str_score).length>1&&String(str_score)[0]=='0'&&String(str_score)[1]!='.'){
 			iTwo(prompt_i,prompt_2);
