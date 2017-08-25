@@ -213,11 +213,11 @@
             </ul>
             <ul ng-class="{L_ul:true}">
                 <h3>答题纸设置</h3>
-                <li class="import-button" ng-click="getAnswerInfo($event)"><a>设置答案</a>
+                <li class="import-button" ng-click="getAnswerInfo(0)"><a>设置答案</a>
                 </li>
                 <li><a>选择板式</a>
                 </li>
-                <li><a>题组排序</a>
+                <li ng-click="getAnswerInfo(1)"><a>题组排序</a>
                 </li>
                 <li><a>密封性间距</a>
                 </li>
@@ -627,7 +627,7 @@
         </div>
     </div>
     <!--设置答题卡弹窗开始-->
-    <div class="modal-wrap answer" id="i_two">
+    <div class="modal-wrap answer setAnswer">
         <div class="modal-shadow modal-exit" ng-click="closeAnswerModel()"></div>
         <div class="modal-main" style="width:550px;">
             <div class="modal-exit iconfont modal-exit-icon" ng-click="closeAnswerModel()">&#xe61a;</div>
@@ -676,6 +676,37 @@
         </div>
     </div>
     <!--设置答题卡弹窗结束-->
+    <!--设置题组排序弹窗开始-->
+    <div class="modal-wrap setSort">
+        <div class="modal-shadow modal-exit" ng-click="closeAnswerModel()"></div>
+        <div class="modal-main" style="width:550px;">
+            <div class="modal-exit iconfont modal-exit-icon" ng-click="closeAnswerModel()">&#xe61a;</div>
+            <div class="modal-title">题组排序</div>
+            <div class="modal-content nomal">
+                <div class="mian-cont">
+                    <div class="sort_head">
+                        <div><span>序号</span><span>题组名称</span><span>分值</span></div>
+                    </div>
+                    <div class="sort_con">
+                        <div class="sort_itme {{$index==sortIndex?'active':''}}" ng-repeat="questionList in bigAnswer" ng-click="selectBigQuestion($index)">
+                            <span ng-bind="$index+1"></span>
+                            <span ng-bind="questionList.answer_name"></span>
+                            <span ng-bind="questionList.answer_score"></span>
+                        </div>
+                    </div>
+                    <div class="set_sort_btn clearfix">
+                        <div class="sort_prev fl"><a href="" ng-click="upRecord(bigAnswer,sortIndex)">上移</a></div>
+                        <div class="sort_next fl"><a href="" ng-click="downRecord(bigAnswer,sortIndex)">下移</a></div>
+                    </div>
+                    <div class="set_sort_big_btn clearfix">
+                        <div class="confirm fr"><a href="">确定</a></div>
+                        <div class="cancel fr"><a href="">取消</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--设置题组排序弹窗结束-->
 </div>
 
 <script src="js/Answer.js" type="text/javascript" charset="utf-8"></script>
