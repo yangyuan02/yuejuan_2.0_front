@@ -51,6 +51,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         });
     }
     $scope.getAnswer()
+    $scope.oldAnswerLen = answer_id.length
     //点击显示
     $scope.add = function (index) {
         $scope.index = index
@@ -111,6 +112,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 },
                 success: function (data) {
                     answer_id.push(data)
+                    $scope.newAnswerLen = answer_id.length
                 }
             }
         )
@@ -430,22 +432,41 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         return allList
     }
     $scope.save = function () {//保存模板
-        console.log($scope.listObj)
         var isLogin = localStorage.getItem("token");
-        console.log(allPagePost())
+        var answer_ids = []
+        for(var i = 0;i<answer_id.length;i++){
+            answer_ids.push(answer_id[i].answers.answer_id)
+        }
         $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/answer_regions",
                 headers: {'Authorization': "Bearer " + isLogin},
+                async: false,
                 data: {
                     'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
                     'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
                     'answer_region[region_info]': JSON.stringify(allPagePost()),//所有坐标信息
                     'answer_region[basic_info_region]':JSON.stringify(allList())//存储页面题目
                 },
-                // dataType: "JSON",
                 success: function (data) {
                     console.log(data)
+                    $scope.oldAnswerLen = answer_id.length
+                    console.log(222)
+                    $.ajax({
+                            type: "POST",
+                            url: ajaxIp + "/api/v2/answer_region_binds",
+                            headers: {'Authorization': "Bearer " + isLogin},
+                            async: false,
+                            data: {
+                                'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
+                                'answer_region_id': data.message,
+                                'answer_ids':answer_ids.join(",")
+                            },
+                            success: function (data) {
+                                console.log(data)
+                            }
+                        }
+                    )
                 }
             }
         )
@@ -490,6 +511,14 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         if($scope.listObj.length<=0){
             alert("请添加客观题")
             return
+        }
+        if($scope.newAnswerLen>$scope.oldAnswerLen){
+            var r=confirm("请保存答题卡")
+            if(r){
+                $scope.save()
+            }else {
+                return false
+            }
         }
         getAnswerInfoTask()
         console.log($scope.bigAnswer)
@@ -668,8 +697,21 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         },500)
     }
     // window.onbeforeunload = function(){//离开刷新提醒
+    //     // console.log(1111)
     //     return "您的文章尚未保存！";
     // }
+    $scope.closeUteroBox = function () {//关闭离开
+        if($scope.newAnswerLen>$scope.oldAnswerLen){
+            var r=confirm("请保存答题卡")
+            if(r){
+                $scope.save()
+            }else{
+                window.location.href = 'paper_generate.html'
+            }
+        }else{
+            window.location.href = 'paper_generate.html'
+        }
+    }
 })
 
 
