@@ -137,6 +137,19 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }else {
             var itemNumber = $scope.result.thr
         }
+        if($scope.result.writIsradio==1){
+            var row = Math.ceil($scope.result.plaid/20)
+        }
+        if($scope.result.writIsradio==2){
+            var row = $scope.result.enLine
+        }
+        if($scope.result.writIsradio==3){
+            var row = $scope.result.word
+        }
+        var rosItem = []
+        for(var i = 0;i<row;i++){
+            rosItem.push(i)
+        }
         obj = {
             name: $scope.result.name,//题组名称
             numbel: $scope.result.numbel,//试题数量
@@ -145,15 +158,21 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             currentPage: $scope.result.page==undefined?1:$scope.result.page,//所在页码
             no: noarray,//选项个数数组,
             itemNumber: itemNumber,//选项个数
-            totalCores: totaltwo,//总分
+            totalCores: $scope.index==4?$scope.result.writscore:totaltwo,//总分
             itemCores: $scope.result.itemcoreS,//每小题分
             thr: $scope.index == 1 ? $scope.nubarray : ['T', 'F'], //选项ABCD(选择题和判断题)
             type: $scope.result.isradio==2?6:$scope.index//题目类型
-        };
+        }
+        if($scope.index==4){
+            obj.articleType = $scope.result.writIsradio
+            obj.rows = rosItem
+            obj.plaids = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
+        }
         $scope.append(obj)
         $scope.createAsswer(obj)
         clear()
         close()
+        console.log($scope.listObj)
     };
     //关闭
     var close = function () {
