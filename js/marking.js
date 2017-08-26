@@ -1330,7 +1330,7 @@ $(function(){
 		$(document).unbind('keydown').keydown(function(event){
 			if(event.keyCode == 13){
 				if(that==$('.yuejuan_score')[$('.yuejuan_score').length-1]){
-					that.parents('table').next().find('.determine').click();
+					$(that).parents('table').next().find('.determine').click();
 				}else{
 					$(that).blur();
 					$(that).parents('tr').next().find('.yuejuan_score').focus();
@@ -1572,7 +1572,7 @@ $(function(){
 		$(document).unbind('keydown').keydown(function(event){
 			if(event.keyCode == 13){
 				if(that==$('.yuejuan_score')[$('.yuejuan_score').length-1]){
-					that.parents('table').next().find('.determine').click();
+					$(that).parents('table').next().find('.determine').click();
 				}else{
 					$(that).blur();
 					$(that).parents('tr').next().find('.yuejuan_score').focus();
