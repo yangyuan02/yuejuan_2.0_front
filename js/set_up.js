@@ -2011,7 +2011,7 @@ $(function() {
 		$('.edit-score-wrap .edit-ul').html('');
 		var item_list = every.answer_settings;
 		for (var i = 0; i <item_list.length; i++) {
-			var item_li = '<li><span>'+item_list[i].num+'</span><span class="change-answer none">'+item_list[i].result+'</span><input data-id ="'+item_list[i].answer_setting_score_id+'" type="text" class="answer-input" data-fen="'+item_list[i].full_score+'" value="'+item_list[i].score+'"><span>分</span></li>';
+			var item_li = '<li><div><span>'+item_list[i].num+'</span><span class="change-answer none">'+item_list[i].result+'</span><input data-id ="'+item_list[i].answer_setting_score_id+'" type="text" class="answer-input" data-fen="'+item_list[i].full_score+'" value="'+item_list[i].score+'"><span>分</span></div></li>';
 			$('.edit-score-wrap .edit-ul').append(item_li);
 			if(!item_list[0].score){
 				$('.answer-input').val('')
@@ -2022,6 +2022,8 @@ $(function() {
 				$('.change-answer').hide();
 			}
 		};
+		$($('.edit-ul input')[0]).focus();
+		get_key_ops('.edit-ul');
   }
 
 
@@ -2513,6 +2515,8 @@ $(function() {
 				$('.item-tr-'+i+'').find('input').val('');
 			}
 		};
+		$($('.set-table input')[0]).focus();
+		get_key_op('.set-score-wrap .set-table');
   }
 
 
@@ -2587,9 +2591,7 @@ $(function() {
 			$(this).val('');
 		}
 	});
-
-
-	  // 点击回车键进入下一个input,最后一个点击提交
+	// 点击回车键进入下一个input,最后一个点击提交
 	$('body').on('focus','.set-table input', function(){
 		var that= this;
 		$(document).unbind('keydown').keydown(function(event){
@@ -2599,10 +2601,83 @@ $(function() {
 				}else{
 					$(that).blur();
 					$(that).parents('tr').next().find('input').focus();
+					$(that).parents('tr').next().find('input').select();
 				}
 			}
-		})
+		});
 	})
+
+	// 上下键功能
+	function get_key_op(parent){
+		// 上下左右键控制input
+		var baseIndex = 100;
+		$(parent).find("tr").each(function(r) {
+			$(this).find("td").each(function(c) {
+				$(this).find("input").attr("tabindex", r * 100 + c + baseIndex).addClass("cGridInput");
+			});
+		});
+		$(parent).find(".cGridInput").on("keydown", function(event) {
+			var tabIndex = parseInt($(this).attr("tabindex"));
+			switch (event.keyCode) {
+				case 38: //上
+					tabIndex -= 100;
+					break;
+				case 40: //下
+					tabIndex += 100;
+					break;
+				case 37: //左
+					tabIndex = tabIndex - 1;
+					break;
+				case 39: //右
+					tabIndex = tabIndex + 1;
+					break;
+				default:
+					return;
+			}
+			if (tabIndex > 0) {
+				$(".cGridInput[tabindex=" + tabIndex + "]").focus();
+				$(".cGridInput[tabindex=" + tabIndex + "]").select();
+					return false;
+			}
+			return true;
+		});
+
+	}
+	function get_key_ops(parent){
+		// 上下左右键控制input
+		var baseIndex = 100;
+		$(parent).find("li").each(function(r) {
+			$(this).find("span").each(function(c) {
+				$(this).parent().find("input").attr("tabindex", r * 100 + c + baseIndex).addClass("cGridInput");
+			});
+		});
+		$(parent).find(".cGridInput").on("keydown", function(event) {
+			var tabIndex = parseInt($(this).attr("tabindex"));
+			switch (event.keyCode) {
+				case 38: //上
+					tabIndex -= 100;
+					break;
+				case 40: //下
+					tabIndex += 100;
+					break;
+				case 37: //左
+					tabIndex -= 100;
+					break;
+				case 39: //右
+					tabIndex += 100;
+					break;
+				default:
+					return;
+			}
+			if (tabIndex > 0) {
+				$(".cGridInput[tabindex=" + tabIndex + "]").focus();
+				$(".cGridInput[tabindex=" + tabIndex + "]").select();
+					return false;
+			}
+			return true;
+		});
+
+	}
 
 	// 处理
 	$('body').on('click', '.deal', function() {

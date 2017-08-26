@@ -178,6 +178,11 @@ $(function(){
 						// console.log('.check-'+item_last[j].id+'')
 						$('.check-'+item_last[j].id+'').hide();
 					}
+					// 如果是审核老师权限，但是没有阅卷权限，则阅卷进度不显示
+					if(item_last[j].reviewed && !item_last[j].examination){
+						$('.check-'+item_last[j].id+'').parents('tr').find('.item-on').hide();
+						$('.check-'+item_last[j].id+'').parents('.child-cont').prev().children().eq(1).hide();
+					}
 				};
 			}
 			
@@ -364,8 +369,9 @@ $(function(){
 			for (var i = 0; i < answer_settings_length; i++) {
 				var item_tr = '<tr><td class="item-num">'+answer_settings[i].num+'</td><td class="input-p"><input type="text" class="yuejuan_score" data-id="'+answer_settings[i].answer_setting_score_id+'" value="'+answer_settings[i].answer_setting_score+'" data-num = "'+answer_settings[i].num+'" data-fen="'+answer_settings[i].total_score+'"></td><td class="all-grade">'+answer_settings[i].total_score+'分</td></tr>';
 				$('#p-table tbody').append(item_tr);
-				$($('.yuejuan_score')[0]).focus();
 			};
+			$($('.yuejuan_score')[0]).focus();
+			get_key_op('#p-table');
 		}
 		
 
@@ -1211,10 +1217,9 @@ $(function(){
 
 
 
-//小键盘
+	//小键盘
 	var i_on_blur=999;
 	$('body').on('blur', '.yuejuan_score', function() {
-		console.log(1);
 		i_on_blur = $(this);
 		console.log(i_on_blur)
 		// i_on_blur.val('');
@@ -1224,7 +1229,6 @@ $(function(){
 		// console.log(111);
 		if(i_on_blur == 999){
 			console.log(i_on_blur);
-
 			return;
 		}
 
@@ -1245,7 +1249,6 @@ $(function(){
 			}
 			// score+=iNum;
 		}
-		console.log(score)
 		i_on_blur.val(score);
 		var fen = i_on_blur.attr('data-fen');
 		var num = i_on_blur.attr('data-num');
@@ -1257,7 +1260,6 @@ $(function(){
 	});
 
 	$('.key-btn_1').on('click',function(){
-		console.log(i_on_blur)
 		var inputs = $(".pop-2").find(".yuejuan_score");
  		var idx = inputs.index(i_on_blur);
  		if(idx==0){
@@ -1265,12 +1267,11 @@ $(function(){
  		}
  		console.log('idx',idx);
  		i_on_blur = $(inputs[idx-1]);
- 		console.log(i_on_blur.val());
-
- 		i_on_blur.focus();
- 		i_on_blur.select();
+ 		i_on_blur.focus().select();
+ 		// i_on_blur.select();
 	});
 	$('.key-btn_2').on('click',function(){
+		console.log(i_on_blur)
 		var inputs = $(".pop-2").find(".yuejuan_score");
  		var idx = inputs.index(i_on_blur);
  		if(idx==inputs.length-1){
@@ -1278,10 +1279,12 @@ $(function(){
  		}
  		console.log('idx',idx);
  		i_on_blur = $(inputs[idx+1]);
- 		console.log(i_on_blur.val());
+ 		console.log(i_on_blur);
 
  		i_on_blur.focus();
- 		i_on_blur.select();
+ 		// if(i_on_blur.val()){
+ 		// 	i_on_blur.select();
+ 		// }
 	});
 
 		//分数判定
@@ -1298,21 +1301,21 @@ $(function(){
 			$(this).val('');
 		}
 
-		if(String(str_score).length>1&&String(str_score)[0]=='0'&&String(str_score)[1]!='.'){
-			iTwo(prompt_i,prompt_2);
-			$(this).val('');
-		}
-		if(String(str_score)[0]=='.'){
-			iTwo(prompt_i,prompt_2);
-			$(this).val('');
-		}
+		// if(String(str_score).length>1&&String(str_score)[0]=='0'&&String(str_score)[1]!='.'){
+		// 	iTwo(prompt_i,prompt_2);
+		// 	$(this).val('');
+		// }
+		// if(String(str_score)[0]=='.'){
+		// 	iTwo(prompt_i,prompt_2);
+		// 	$(this).val('');
+		// }
 
-		console.log(String(str_score).split('.').length-1);
-		var str_score_length = String(str_score).split('.').length-1;
-		if(str_score_length>1){
-			iTwo(prompt_i,prompt_2);
-			$(this).val('');
-		}
+		// console.log(String(str_score).split('.').length-1);
+		// var str_score_length = String(str_score).split('.').length-1;
+		// if(str_score_length>1){
+		// 	iTwo(prompt_i,prompt_2);
+		// 	$(this).val('');
+		// }
 
 		if(score > fen || score < 0 && score!=''){
 			console.log(9900)
@@ -1322,19 +1325,63 @@ $(function(){
 	});
 
 	// 点击回车键进入下一个input,最后一个点击提交
-	$('body').on('focus','.yuejuan_score', function(){
+	$('body').on('focus','#p-table .yuejuan_score', function(){
 		var that= this;
 		$(document).unbind('keydown').keydown(function(event){
 			if(event.keyCode == 13){
 				if(that==$('.yuejuan_score')[$('.yuejuan_score').length-1]){
-					$('.con-btn').click();
+					that.parents('table').next().find('.determine').click();
 				}else{
 					$(that).blur();
 					$(that).parents('tr').next().find('.yuejuan_score').focus();
+					$(that).parents('tr').next().find('.yuejuan_score').select();
 				}
 			}
-		})
+		});
 	})
+	// 上下键功能
+	function get_key_op(parent){
+		// 上下左右键控制input
+		var baseIndex = 100;
+		$(parent).find("tr").each(function(r) {
+			$(this).find("td").each(function(c) {
+				$(this).find("input").attr("tabindex", r * 100 + c + baseIndex).addClass("cGridInput");
+			});
+		});
+		$(parent).find(".cGridInput").on("keydown", function(event) {
+			var tabIndex = parseInt($(this).attr("tabindex"));
+			switch (event.keyCode) {
+				case 38: //上
+					tabIndex -= 100;
+					break;
+				case 40: //下
+					tabIndex += 100;
+					break;
+				case 37: //左
+					tabIndex = tabIndex - 1;
+					break;
+				case 39: //右
+					tabIndex = tabIndex + 1;
+					break;
+				default:
+					return;
+			}
+			if (tabIndex > 0) {
+				$(".cGridInput[tabindex=" + tabIndex + "]").focus();
+				$(".cGridInput[tabindex=" + tabIndex + "]").select();
+					return false;
+			}
+			return true;
+		});
+
+	}
+
+
+
+
+
+
+
 
 
 	//显示提示框
@@ -1457,13 +1504,16 @@ $(function(){
 		}
 		
 		// console.log(text_list)
-		console.log(b_input,b_input.length)
+		// console.log(b_input,b_input.length)
 		// 根据第一个老师获取题号信息和总分值信息
 		if(text_list && text_list.length>0){
 			for (var m = 0; m < text_list.length; m++) {
 				var text_info = '<tr><td class="item-num" data-id="'+text_list[m].answer_setting_id+'">'+text_list[m].num+'</td><td class="all-grade">'+text_list[m].total_score+'</td></tr>';
 				$('#check-table tbody').append(text_info);
 			};
+			if($('#check-table').width()>204){
+				$(this).parent().css('overflow-x','scroll');
+			}
 		}
 
 
@@ -1510,11 +1560,27 @@ $(function(){
 				var score_info = '<tr><td class="item-num" data-id="'+score_infos[n].answer_setting_id+'">'+score_infos[n].num+'</td><td class="input-p"><input type="text" class="yuejuan_score" value="'+score_infos[n].score+'" data-fen="8"></td><td class="all-grade">'+score_infos[n].total_socre+'</td></tr>';
 				$('#check-teacher-table tbody').append(score_info);
 			};
-
+			$($('.yuejuan_score')[0]).focus();
+			get_key_op('#check-teacher-table');
 
 		}
 	}
 
+	// 点击回车键进入下一个input,最后一个点击提交
+	$('body').on('focus','#check-teacher-table .yuejuan_score', function(){
+		var that= this;
+		$(document).unbind('keydown').keydown(function(event){
+			if(event.keyCode == 13){
+				if(that==$('.yuejuan_score')[$('.yuejuan_score').length-1]){
+					that.parents('table').next().find('.determine').click();
+				}else{
+					$(that).blur();
+					$(that).parents('tr').next().find('.yuejuan_score').focus();
+					$(that).parents('tr').next().find('.yuejuan_score').select();
+				}
+			}
+		});
+	})
 
 
 	// 审核提交
@@ -1524,15 +1590,16 @@ $(function(){
 		var section_crop_image_id = $('.check-paper img').attr('data-id');
 		var student_info_id = $('.check-teacher-list').attr('student_info_id');
 		var answer_setting_scores=[];
-		var answer_obj = new Object();
 		var input_info = $(this).parent().siblings('#check-teacher-table').find('.yuejuan_score');
 		for (var i = 0; i <input_info.length; i++) {
+			var answer_obj = new Object();
 			var itme_id = $(input_info[i]).parent().prev().attr('data-id');
 			var input_value = $(input_info[i]).val();
 			answer_obj['answer_setting_id'] = itme_id;
 			answer_obj['score'] = input_value;
 			answer_setting_scores[i] = answer_obj;
 		};
+		// JSON.stringify(answer_setting_scores)
 		console.log(answer_setting_scores)
 
 		var data_all ={
