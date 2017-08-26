@@ -96,20 +96,25 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             data.type = 6
         }
         var Q_type = ['单选题', '是非题', '填空题', '作文题', '其他题', '多选题']
+        var param = {}
+        param["answer[exam_subject_id]"] = getUrlParam(url, 'examubjeId')//考试科目id
+        param["answer[item]"] = Q_type[data.type - 1]//试题类型
+        param["answer[name]"] = data.name//题组名称
+        param["answer_setting[count]"] = data.type ==4?1:data.numbel//试题数量 panduan
+        param["answer_setting[num]"] = data.startNo//起始序号
+        param["answer_setting[page]"] = data.currentPage == undefined ? 1 : data.currentPage//所在页码
+        param["answer_setting[score]"] = data.type==4?data.totalCores:data.itemCores//每题分值 panduan
+        param["answer_setting[type_count]"] = data.itemNumber//选项个数 panduan
+        if(data.type==4){
+            param["answer_setting[template_format]"] = data.articleType//作文模版格式 panduan
+            param["answer_setting[lattice_columns]"] = data.row//格子列数 panduan
+            param["answer_setting[lattice_total]]"] = data.plaid//格子总数 panduan
+        }
         $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/answers",
                 headers: {'Authorization': "Bearer " + isLogin},
-                data: {
-                    'answer[exam_subject_id]': getUrlParam(url, 'examubjeId'),
-                    'answer[item]': Q_type[data.type - 1],
-                    'answer[name]': data.name,
-                    'answer_setting[count]': data.numbel,
-                    'answer_setting[num]': data.startNo,
-                    'answer_setting[page]': data.currentPage == undefined ? 1 : data.currentPage,
-                    'answer_setting[score]': data.itemCores,
-                    'answer_setting[type_count]': data.itemNumber
-                },
+                data: param,
                 success: function (data) {
                     answer_id.push(data)
                     $scope.newAnswerLen = answer_id.length
@@ -132,28 +137,49 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         if($scope.index==2){
             var itemNumber = 2
-        }else if($scope.index==3){
-            var itemNumber = 1
+        }else if($scope.index==3||$scope.index==4||$scope.index==5){
+            var itemNumber = 0
         }else {
             var itemNumber = $scope.result.thr
         }
+        if($scope.result.writIsradio==1){
+            var row = Math.ceil($scope.result.plaid/20)
+        }
+        if($scope.result.writIsradio==2){
+            var row = $scope.result.enLine
+        }
+        if($scope.result.writIsradio==3){
+            var row = $scope.result.word
+        }
+        var rosItem = []
+        for(var i = 0;i<row;i++){
+            rosItem.push(i)
+        }
         obj = {
             name: $scope.result.name,//题组名称
-            numbel: $scope.result.numbel,//试题数量
+            numbel: parseInt($scope.result.numbel),//试题数量
             isradio: $scope.result.isradio,//单选多选
-            startNo: $scope.result.no,//起始序号
+            startNo: parseInt($scope.result.no),//起始序号
             currentPage: $scope.result.page==undefined?1:$scope.result.page,//所在页码
             no: noarray,//选项个数数组,
             itemNumber: itemNumber,//选项个数
-            totalCores: totaltwo,//总分
+            totalCores: $scope.index==4?$scope.result.writscore:totaltwo,//总分
             itemCores: $scope.result.itemcoreS,//每小题分
             thr: $scope.index == 1 ? $scope.nubarray : ['T', 'F'], //选项ABCD(选择题和判断题)
             type: $scope.result.isradio==2?6:$scope.index//题目类型
-        };
+        }
+        if($scope.index==4){
+            obj.articleType = $scope.result.writIsradio
+            obj.rows = rosItem
+            obj.plaids = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
+            obj.row = row
+            obj.plaid = $scope.result.plaid
+        }
         $scope.append(obj)
         $scope.createAsswer(obj)
         clear()
         close()
+        console.log($scope.listObj)
     };
     //关闭
     var close = function () {
