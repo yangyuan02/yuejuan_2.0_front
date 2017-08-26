@@ -620,11 +620,9 @@ $.ajax({
             myChart.setOption(option);
 
         }
-
         // 分数分布插件
         function mark_fb(a) {
             var myChart = echarts.init(document.getElementById('right_03'));
-
             var option = {
 
                 tooltip: {
@@ -635,7 +633,7 @@ $.ajax({
                     y: 40,
                     x2: 5,
                     y2: 25,
-                    borderWidth: 1
+                    borderWidth:1,
                 },
 
                 calculable:false,
@@ -986,11 +984,12 @@ $.ajax({
                 data: {
                     "exam_id": exam_id,
                     "subject_id": sub_id,
-                    "classroom_id": class_id
+                    "classroom_id": class_id,
+                    "item":"0",
+
                 },
                 success: function(data) {
                 console.log(data);
-
                  if(data.error_code!==500){
                     var c = Math.round((data[0].correct_rate * 100)) + "%";
                     $(".study_q_05_tb").append('<tr><td rowspan="' + data.length + '">一、选择题</td><td>' + data[0].average + '</td><td>' + data[0].num + '</td><td>' + data[0].column_value_1 + '</td><td>' + data[0].column_value_2 + '</td><td>' + data[0].column_value_3 + '</td><td>' + data[0].column_value_4 + '</td><td>' + data[0].correct + '</td><td>' + c + '</td><td><span data-id="1" data_ans="' + data[0].answer_setting_id + '">查看</span></td></tr>');
@@ -1295,12 +1294,12 @@ $.ajax({
         });
         var isLogin = localStorage.getItem("token");
         // <!--最新学科追踪分析 start-->
-        $(".study_k_left li").click(function(event) {
-            /* Act on the event */
+            $(".study_k_left li").eq(0).css("color","#31bc91");
+            $(".study_k_left li").click(function(event) {
             $(this).css("color", "#31bc91").siblings().css("color", "#999999");
             $(".study_k_b").html($(this).html());
             $(".study_k_tab div").eq($(this).index()).show().siblings().hide();
-            if ($(this).index() == "2" || $(this).index() == "3" || $(this).index() == "4") {
+            if ($(this).index() == "2" || $(this).index() == "3" || $(this).index() == "4" || $(this).index() == "1") {
                 $(".study_k_101 span").eq(2).hide();
             } else {
 
@@ -1308,83 +1307,274 @@ $.ajax({
             }
             // 导出按钮ID不同的值
             $(".study_k_101 button").attr("data-id", $(this).index());
+
+
         });
-        // 导出button点击 
+        // 导出button点击 /download/学科综合分析_20170825110502.xlsx
         // var ajaxUrl = "http://192.168.1.117:3000"
-        $(".study_k_left_ul").on('click', 'li', function(event) {
-            var btn_id = $(".study_k_101 button").attr("data-id");
+        // 学科追踪分析第一个导出报表
+     
 
-            console.log(btn_id);
-            switch (btn_id) {
-                case "0":
+    function study_k_bb01(){
+        var exam_id =$(".study_k_km01").children('option:selected').attr("data-id");
+        $(".study_k_km02").attr("data-id", $(".study_k_km02").children('option:selected').attr("data-id"));
+        var class_id =$(".study_k_km02").attr("data-id");
+        if (class_id == null) {
+            var class_id =$(".study_k_km02").attr("data-id");
+        }
+        $(".study_k_km03").attr("data-id", $(".study_k_km03").children('option:selected').attr("data-id"));
+        var sub_id =$(".study_k_km03").attr("data-id");
+        if (sub_id == null) {
+            var sub_id =$(".study_k_km03").attr("data-id");
+        };
+        console.log(exam_id);
+        console.log(class_id);
+        console.log(sub_id);
+        $.ajax({
+            type:"POST",
+            async:false,
+            url: ajaxIp + "/api/v2/reports/export_subject_integrated",
+            headers: {
+                'Authorization': "Bearer " + isLogin,
+            },
+            data:{
+                "exam_id":exam_id,
+                "subject_id":sub_id,
+                "classroom_id":class_id,
+            },
+            success: function(data) {
+                console.log(data);
+                console.log(data.file_path);
+                $(".study_k_101 button").parent().attr("href",ajaxIp + data.file_path);
 
-                    $.ajax({
-                        type: "POST",
-                        url: ajaxIp + "/api/v2/reports/export_subject_integrated",
-                        headers: {
-                            'Authorization': "Bearer " + isLogin,
-                        },
-                        data: {
-                            "exam_id": "1",
-                            "subject_id": "12",
-                            "classroom_id": "100",
-                        },
-                        success: function(data) {
-                            console.log(data);
-                            console.log(data.file_path);
-                            // $(".study_k_101 button").parent().attr("herf", ajaxIp + data.file_path);
+            },
+            error: function() {}
 
-                        },
-                        error: function() {}
+        });
 
-                    });
+    };
 
 
+    function study_k_bb02() {
+        var exam_id = parseInt($(".study_k_km01").children('option:selected').attr("data-id"));
+        $(".study_k_km02").attr("data-id", $(".study_k_km02").children('option:selected').attr("data-id"));
+        var class_id = parseInt($(".study_k_km02").attr("data-id"));
+        if (class_id == null) {
+            var class_id = parseInt($(".study_k_km02").attr("data-id"));
+        }
+        $(".study_k_km03").attr("data-id", $(".study_k_km03").children('option:selected').attr("data-id"));
+        var sub_id = parseInt($(".study_k_km03").attr("data-id"));
+        if (sub_id == null) {
+            var sub_id = parseInt($(".study_k_km03").attr("data-id"));
+        }
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: ajaxIp + "/api/v2/reports/export_total_points_and_ranking",
+            headers: {
+                'Authorization': "Bearer " + isLogin,
+            },
+            data: {
+                "exam_id": exam_id,
+                "subject_id": sub_id,
+                "classroom_id": class_id,
+            },
+            success: function(data) {
+                console.log(data);
+                console.log(data.file_path);
+                $(".study_k_101 button").parent().attr("href", ajaxIp + data.file_path);
 
-                    break;
-                case "1":
-                    alert("1");
-                    break;
-                case "2":
-                    // $.ajax({
-                    //     type: "POST",
-                    //     url: ajaxUrl + "/api/v2/reports/export_subject_integrated",
-                    //     headers: {
-                    //         'Authorization': "Bearer " + isLogin,
-                    //     },
-                    //     data: {
-                    //         "exam_id":"134",
-                    //         "subject_id":"13",
-                    //         "classroom_id":"96",
-                    //     },
-                    //     success: function(data) {
-                    //         console.log(data);
-                    //         console.log(data.file_path);
-                    //         $(".study_k_101 button").parent().attr("herf",' ');
-                    //         $(".study_k_101 button").parent().attr("herf", ajaxIp+data.file_path);
-
-                    //     },
-                    //     error: function() {}
-
-                    // });
-                    break;
-                case "3":
-                    alert("3");
-                    break;
-                case "4":
-                    alert("4");
-                    break;
-                case "5":
-                    alert("5");
-                    break;
+            },
+            error: function() {
 
             }
 
+        });
 
+    };
+
+    function study_k_bb03() {
+        var exam_id = parseInt($(".study_k_km01").children('option:selected').attr("data-id"));
+        $(".study_k_km02").attr("data-id", $(".study_k_km02").children('option:selected').attr("data-id"));
+        var class_id = parseInt($(".study_k_km02").attr("data-id"));
+        if (class_id == null) {
+            var class_id = parseInt($(".study_k_km02").attr("data-id"));
+        }
+        $(".study_k_km03").attr("data-id", $(".study_k_km03").children('option:selected').attr("data-id"));
+        var sub_id = parseInt($(".study_k_km03").attr("data-id"));
+        if (sub_id == null) {
+            var sub_id = parseInt($(".study_k_km03").attr("data-id"));
+        }
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: ajaxIp + "/api/v2/reports/export_single_and_level",
+            headers: {
+                'Authorization': "Bearer " + isLogin,
+            },
+            data: {
+                "exam_id": exam_id,
+                "classroom_id": class_id,
+            },
+            success: function(data) {
+                console.log(data);
+                console.log(data.file_path);
+                $(".study_k_101 button").parent().attr("href", ajaxIp + data.file_path);
+
+            },
+            error: function() {
+
+            }
 
         });
 
+    };
 
+    function study_k_bb04() {
+        var exam_id = parseInt($(".study_k_km01").children('option:selected').attr("data-id"));
+        $(".study_k_km02").attr("data-id", $(".study_k_km02").children('option:selected').attr("data-id"));
+        var class_id = parseInt($(".study_k_km02").attr("data-id"));
+        if (class_id == null) {
+            var class_id = parseInt($(".study_k_km02").attr("data-id"));
+        }
+        $(".study_k_km03").attr("data-id", $(".study_k_km03").children('option:selected').attr("data-id"));
+        var sub_id = parseInt($(".study_k_km03").attr("data-id"));
+        if (sub_id == null) {
+            var sub_id = parseInt($(".study_k_km03").attr("data-id"));
+        }
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: ajaxIp + "/api/v2/reports/export_all_subjects_ranking",
+            headers: {
+                'Authorization': "Bearer " + isLogin,
+            },
+            data: {
+                "exam_id": exam_id,
+                "classroom_id": class_id,
+            },
+            success: function(data) {
+                console.log(data);
+                console.log(data.file_path);
+                $(".study_k_101 button").parent().attr("href", ajaxIp + data.file_path);
+
+            },
+            error: function() {
+
+            }
+
+        });
+
+    };
+    function study_k_bb05() {
+        var exam_id = parseInt($(".study_k_km01").children('option:selected').attr("data-id"));
+        $(".study_k_km02").attr("data-id", $(".study_k_km02").children('option:selected').attr("data-id"));
+        var class_id = parseInt($(".study_k_km02").attr("data-id"));
+        if (class_id == null) {
+            var class_id = parseInt($(".study_k_km02").attr("data-id"));
+        }
+        $(".study_k_km03").attr("data-id", $(".study_k_km03").children('option:selected').attr("data-id"));
+        var sub_id = parseInt($(".study_k_km03").attr("data-id"));
+        if (sub_id == null) {
+            var sub_id = parseInt($(".study_k_km03").attr("data-id"));
+        }
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: ajaxIp + "/api/v2/reports/export_chinese_math_english_ranking",
+            headers: {
+                'Authorization': "Bearer " + isLogin,
+            },
+            data: {
+                "exam_id": exam_id,
+                "classroom_id": class_id,
+            },
+            success: function(data) {
+                console.log(data);
+                console.log(data.file_path);
+                $(".study_k_101 button").parent().attr("href", ajaxIp + data.file_path);
+
+            },
+            error: function() {
+
+            }
+
+        });
+
+    };
+
+    function study_k_bb06() {
+        var exam_id = parseInt($(".study_k_km01").children('option:selected').attr("data-id"));
+        $(".study_k_km02").attr("data-id", $(".study_k_km02").children('option:selected').attr("data-id"));
+        var class_id = parseInt($(".study_k_km02").attr("data-id"));
+        if (class_id == null) {
+            var class_id = parseInt($(".study_k_km02").attr("data-id"));
+        }
+        $(".study_k_km03").attr("data-id", $(".study_k_km03").children('option:selected').attr("data-id"));
+        var sub_id = parseInt($(".study_k_km03").attr("data-id"));
+        if (sub_id == null) {
+            var sub_id = parseInt($(".study_k_km03").attr("data-id"));
+        }
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: ajaxIp + "/api/v2/reports/export_student_details",
+            headers: {
+                'Authorization': "Bearer " + isLogin,
+            },
+            data: {
+                "exam_id": exam_id,
+                "subject_id": sub_id,
+                "classroom_id": class_id,
+            },
+            success: function(data) {
+                console.log(data);
+                console.log(data.file_path);
+                $(".study_k_101 button").parent().attr("href", ajaxIp + data.file_path);
+
+            },
+            error: function() {
+
+            }
+
+        });
+
+    };
+    $(".study_k_left_ul").on('click', 'li', function(event) {
+        var btn_id = $(".study_k_101 button").attr("data-id");
+
+        console.log(btn_id);
+        switch (btn_id) {
+            case "0":
+                study_k_bb01();
+                break;
+            case "1":
+                study_k_bb02();
+
+                break;
+            case "2":
+                study_k_bb03();
+
+                break;
+            case "3":
+                study_k_bb04();
+
+                
+                break;
+            case "4":
+                study_k_bb05();
+
+                break;
+            case "5":
+                study_k_bb06();
+
+                break;
+
+        }
+
+
+
+    });
 
         // 最新学科综合分析
         // 科目
@@ -1408,7 +1598,7 @@ $.ajax({
                     $(".study_k_km03").append('<option value="" data-id=' + data[0].subjects[i].subject_id + '>' + data[0].subjects[i].name + '</option>')
                     $(".study_k_km03").attr("data-id",data[0].subjects[0].subject_id);
                 };
-                study_k();
+
                 $(".study_k_km01").change(function(event) {
                     /* Act on the event */
                     var index01 = $(".study_k_km01").children('option:selected').index()
@@ -1426,7 +1616,8 @@ $.ajax({
                     }
                  
                 });
-                // study_k();
+                 study_k();
+                 study_k_bb01();
             },
 
             error: function() {
@@ -1437,18 +1628,36 @@ $.ajax({
         // 科目 end
         // 学科综合分析
 
-        $(".study_k_101 select").change(function(event) {
-            /* Act on the event */
-            $(".study_k_102_bo").html(" ");
-            $(".study_k_201_bo").html(" ");
-            $(".study_k_301_bo").html(" ");
-            $(".study_k_401_bo").html(" ");
-            $(".study_k_501_bo").html(" ");
-            $(".study_k_601_bo").html(" ");
-             study_k();
-            
-
-        });
+    $(".study_k_101 select").change(function(event) {
+        /* Act on the event */
+        $(".study_k_102_bo").html(" ");
+        $(".study_k_201_bo").html(" ");
+        $(".study_k_301_bo").html(" ");
+        $(".study_k_401_bo").html(" ");
+        $(".study_k_501_bo").html(" ");
+        $(".study_k_601_bo").html(" ");
+        study_k();
+// 导出报表
+var a=$(".study_k_101 button").attr("data-id");
+        if(a==0){
+         study_k_bb01();
+        };
+        if(a==1){
+         study_k_bb02();
+        };
+        if(a==2){
+         study_k_bb03();
+        };
+        if(a==3){
+         study_k_bb04();
+        };
+        if(a==4){
+         study_k_bb05();
+        };
+       if(a==5){
+         study_k_bb06();
+        };
+    });
 
         function study_k() {
             var exam_id = parseInt($(".study_k_km01").children('option:selected').attr("data-id"));
@@ -1462,7 +1671,6 @@ $.ajax({
             if(sub_id==null){
                  var sub_id = parseInt($(".study_k_km03").attr("data-id"));
              } 
-
             console.log(exam_id);
             console.log(class_id);  
             console.log(sub_id); 
@@ -1704,6 +1912,9 @@ $.ajax({
             $(".exam_z_left").hide();
         });
         var isLogin = localStorage.getItem("token");
+        
+
+        $(".exam_z_left li").eq(0).css("color", "#31bc91");
         $(".exam_z_left li").click(function(event) {
             /* Act on the event */
 
@@ -1781,23 +1992,27 @@ $.ajax({
         $(".exam_z_201_bo").html(" ");
         $(".exam_z_301_bo").html(" ");
         exam_z();
-
-
+        var a=$(".exam_z_101 button").attr("data-id");
+        if(a==0){
+         exam_z_bb01();
+        };
+        if(a==1){
+         exam_z_bb02();
+        };
     });
 function exam_z(){
         // 试卷质量
-       var exam_id = parseInt($(".exam_z_km01").children('option:selected').attr("data-id"));
+           var exam_id = $(".exam_z_km01").children('option:selected').attr("data-id");
              $(".exam_z_km02").attr("data-id",$(".exam_z_km02").children('option:selected').attr("data-id"));
-             var class_id = parseInt($(".exam_z_km02").attr("data-id"));
+             var class_id =$(".exam_z_km02").attr("data-id");
              if(class_id==null){
-                 var class_id = parseInt($(".exam_z_km02").attr("data-id"));
+                 var class_id = $(".exam_z_km02").attr("data-id");
              } 
              $(".exam_z_km03").attr("data-id",$(".exam_z_km03").children('option:selected').attr("data-id"));
-             var sub_id = parseInt($(".exam_z_km03").attr("data-id"));
+             var sub_id = $(".exam_z_km03").attr("data-id");
             if(sub_id==null){
-                 var sub_id = parseInt($(".exam_z_km03").attr("data-id"));
+                 var sub_id = $(".exam_z_km03").attr("data-id");
              } 
-
             console.log(exam_id);
             console.log(class_id);  
             console.log(sub_id);    
@@ -1888,6 +2103,105 @@ function exam_z(){
         });
 
 };
+// 导出报表
+exam_z_bb01();
+ function exam_z_bb01() {
+        var exam_id = $(".exam_z_km01").children('option:selected').attr("data-id");
+             $(".exam_z_km02").attr("data-id",$(".exam_z_km02").children('option:selected').attr("data-id"));
+             var class_id =$(".exam_z_km02").attr("data-id");
+             if(class_id==null){
+                 var class_id = $(".exam_z_km02").attr("data-id");
+             } 
+             $(".exam_z_km03").attr("data-id",$(".exam_z_km03").children('option:selected').attr("data-id"));
+             var sub_id = $(".exam_z_km03").attr("data-id");
+            if(sub_id==null){
+                 var sub_id = $(".exam_z_km03").attr("data-id");
+             } 
+            console.log(exam_id);
+            console.log(class_id);  
+            console.log(sub_id);    
+            $.ajax({
+            type: "POST",
+            async: false,
+            url: ajaxIp + "/api/v2/reports/export_paper_quality",
+            headers: {
+                'Authorization': "Bearer " + isLogin,
+            },
+            data: {
+                "exam_id": exam_id,
+            },
+            success: function(data) {
+                console.log(data);
+                console.log(data.file_path);
+                $(".exam_z_101 button").parent().attr("href", ajaxIp + data.file_path);
+
+            },
+            error: function() {
+
+            }
+
+        });
+
+    };
+ function exam_z_bb02() {
+        var exam_id = $(".exam_z_km01").children('option:selected').attr("data-id");
+             $(".exam_z_km02").attr("data-id",$(".exam_z_km02").children('option:selected').attr("data-id"));
+             var class_id =$(".exam_z_km02").attr("data-id");
+             if(class_id==null){
+                 var class_id = $(".exam_z_km02").attr("data-id");
+             } 
+             $(".exam_z_km03").attr("data-id",$(".exam_z_km03").children('option:selected').attr("data-id"));
+             var sub_id = $(".exam_z_km03").attr("data-id");
+            if(sub_id==null){
+                 var sub_id = $(".exam_z_km03").attr("data-id");
+             } 
+
+            console.log(exam_id);
+            console.log(class_id);  
+            console.log(sub_id);    
+            $.ajax({
+            type: "POST",
+            async: false,
+            url: ajaxIp + "/api/v2/reports/export_answer_quality",
+            headers: {
+                'Authorization': "Bearer " + isLogin,
+            },
+            data: {
+                "exam_id": exam_id,
+                "subject_id": sub_id,
+                "classroom_id":class_id 
+
+            },
+            success: function(data) {
+                console.log(data);
+                console.log(data.file_path);
+                $(".exam_z_101 button").parent().attr("href", ajaxIp + data.file_path);
+
+            },
+            error: function() {
+
+            }
+
+        });
+
+    };
+
+
+
+
+$(".exam_z_left_ul").on('click', 'li', function(event) {
+
+  $(".exam_z_101 button").attr("data-id",$(this).index());
+
+        var ul_id = $(this).index();
+
+       if(ul_id==0){
+        exam_z_bb01();
+       };
+       if(ul_id==1){
+            exam_z_bb02();
+       };
+    });
 
 
 
@@ -1941,6 +2255,7 @@ function kaishi_zhi(a,b){
 
     })
     .controller("form06Controller", function() {
+
         $(".main_left a").eq(5).addClass('li_click').siblings().removeClass("li_click");
         $("#index_span").html($(".main_left a").eq(5).html());
         $("#exam_h_left").css("margin-bottom", "150px");
@@ -1963,6 +2278,8 @@ function kaishi_zhi(a,b){
             },
             success: function(data) {
                 console.log(data);
+                
+
                 for (var i = 0; i < data.length; i++) {
                     $(".exam_h_km01").append('<option value="' + data[i].name + '" data-id=' + data[i].id + '>' + data[i].name + '</option>')
                 };
@@ -1990,6 +2307,7 @@ function kaishi_zhi(a,b){
                        $(".exam_h_km03").attr("data-id",data[index02].subjects[0].subject_id);
                     }
                 });
+                 heng_zhong();
             },
             error: function() {}
         });
@@ -2001,18 +2319,23 @@ function kaishi_zhi(a,b){
         //     /* Act on the event */
         //     heng_zhong();
         // });
-        $(".exam_h_101 select").change(function(event) {
-            /* Act on the event */
-            $(".exam_h_102_he").html(" ");
-             $(".exam_h_201_he").html(" ");
-            $(".exam_h_102_bo").html(" ");
-            $(".exam_h_201_bo").html(" ");
-            $(".exam_h_301_bo").html(" ");
-            $(".exam_h_402_bo").html(" ");
-            heng_zhong();
-            
-
-        });
+    $(".exam_h_101 select").change(function(event) {
+        /* Act on the event */
+        $(".exam_h_102_he").html(" ");
+        $(".exam_h_201_he").html(" ");
+        $(".exam_h_102_bo").html(" ");
+        $(".exam_h_201_bo").html(" ");
+        $(".exam_h_301_bo").html(" ");
+        $(".exam_h_402_bo").html(" ");
+        heng_zhong();
+        var a=$(".exam_h_101 button").attr("data-id");
+        if (a==0) {
+            exam_h_bb01();
+        };
+        if (a==1) {
+            exam_h_bb02();
+        };
+    });
         function heng_zhong() {
            var exam_id = parseInt($(".exam_h_km01").children('option:selected').attr("data-id"));
              $(".exam_h_km02").attr("data-id",$(".sexam_h_km02").children('option:selected').attr("data-id"));
@@ -2063,7 +2386,7 @@ function kaishi_zhi(a,b){
                 },
                 data: {
                     "exam_id":exam_id,
-                    // "classroom_id":
+                    // "classroom_id":class_id,
                 },
                 success: function(data) {
                     console.log(data);
@@ -2159,44 +2482,137 @@ function kaishi_zhi(a,b){
             });
 
         };
+// 导出报表
+exam_h_bb01();
+ function exam_h_bb01() {
+        var exam_id = $(".exam_h_km01").children('option:selected').attr("data-id");
+             $(".exam_h_km02").attr("data-id",$(".sexam_h_km02").children('option:selected').attr("data-id"));
+             var class_id =$(".exam_h_km02").attr("data-id");
+             if(class_id==null){
+                 var class_id =$(".exam_h_km02").attr("data-id");
+             } 
+             $(".exam_h_km03").attr("data-id",$(".exam_h_km03").children('option:selected').attr("data-id"));
+             var sub_id = $(".exam_h_km03").attr("data-id");
+            if(sub_id==null){
+                 var sub_id =$(".exam_h_km03").attr("data-id");
+             } 
+            console.log(exam_id);
+            console.log(class_id);  
+            console.log(sub_id);    
+            $.ajax({
+            type: "POST",
+            async: false,
+            url: ajaxIp + "/api/v2/reports/export_class_overall_contrast",
+            headers: {
+                'Authorization': "Bearer " + isLogin,
+            },
+            data: {
+                "exam_id": exam_id,
+            },
+            success: function(data) {
+                console.log(data);
+                console.log(data.file_path);
+                $(".exam_h_101 button").parent().attr("href", ajaxIp + data.file_path);
 
+            },
+            error: function() {
 
+            }
 
-        $(".exam_h_left li").click(function(event) {
-            /* Act on the event */
-
-            $(this).css("color", "#31bc91").siblings().css("color", "#999999");
-            $(".exam_h_b").html($(this).html());
-            $(".exam_h_tab").children("div").eq($(this).index()).show().siblings().hide();
         });
-        // 控制select的数量
-        $("#exam_h_left").click(function(event) {
-            /* Act on the event */
 
+    };
+ function exam_h_bb02() {
+       var exam_id = $(".exam_h_km01").children('option:selected').attr("data-id");
+             $(".exam_h_km02").attr("data-id",$(".sexam_h_km02").children('option:selected').attr("data-id"));
+             var class_id =$(".exam_h_km02").attr("data-id");
+             if(class_id==null){
+                 var class_id =$(".exam_h_km02").attr("data-id");
+             } 
+             $(".exam_h_km03").attr("data-id",$(".exam_h_km03").children('option:selected').attr("data-id"));
+             var sub_id = $(".exam_h_km03").attr("data-id");
+            if(sub_id==null){
+                 var sub_id =$(".exam_h_km03").attr("data-id");
+             } 
+            console.log(exam_id);
+            console.log(class_id);  
+            console.log(sub_id);    
+            $.ajax({
+            type: "POST",
+            async: false,
+            url: ajaxIp + "/api/v2/reports/export_class_level_distribute",
+            headers: {
+                'Authorization': "Bearer " + isLogin,
+            },
+            data: {
+                "exam_id": exam_id,
+                "classroom_id":class_id 
+
+            },
+            success: function(data) {
+                console.log(data);
+                console.log(data.file_path);
+                $(".exam_h_101 button").parent().attr("href", ajaxIp + data.file_path);
+
+            },
+            error: function() {
+
+            }
+
+        });
+
+    };
+    $(".exam_h_left_ul li").eq(0).css("color", "#31bc91");
+    $(".exam_h_left_ul").on('click', 'li', function(event) {
+        //切换不同的页面
+        $(this).css("color", "#31bc91").siblings().css("color", "#999999");
+        $(".exam_h_b").html($(this).html());
+        $(".exam_h_tab").children("div").eq($(this).index()).show().siblings().hide();
+        $(".exam_h_101 button").attr("data-id", $(this).index());
+        var ul_id = $(this).index();
+        if (ul_id == 0) {
+            exam_h_bb01();
+        };
+        if (ul_id == 1) {
+            exam_h_bb02();
+        };
+    });
+
+        // $(".exam_h_left li").click(function(event) {
+        //     /* Act on the event */
+
+        //     $(this).css("color", "#31bc91").siblings().css("color", "#999999");
+        //     $(".exam_h_b").html($(this).html());
+        //     $(".exam_h_tab").children("div").eq($(this).index()).show().siblings().hide();
+        // });
+        // 控制select的数量
+        
+          $(".exam_h_101 span").eq(1).hide();
             $(".exam_h_101 span").eq(2).hide();
 
-        });
         $("#exam_h_left_1l").click(function(event) {
             /* Act on the event */
+            $(".exam_h_101 span").eq(1).hide();
             $(".exam_h_101 span").eq(2).hide();
 
         });
 
         $("#exam_h_left_2l").click(function(event) {
             /* Act on the event */
-
+            $(".exam_h_101 span").eq(1).hide();
             $(".exam_h_101 span").eq(2).show();
 
         });
         $("#exam_h_left_3l").click(function(event) {
             /* Act on the event */
+             $(".exam_h_101 span").eq(1).show();
             $(".exam_h_101 span").eq(2).hide();
             // $(".exam_h_101 span").eq(2).show();
 
         });
         $("#exam_h_left_4l").click(function(event) {
             /* Act on the event */
-
+             $(".exam_h_101 span").eq(1).hide();
             $(".exam_h_101 span").eq(2).show();
 
         });
