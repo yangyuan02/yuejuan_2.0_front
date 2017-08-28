@@ -66,27 +66,53 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.result.writIsradio = index//作文题
     }
     $scope.Q_number = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十']
-    $scope.isLine = function (type, num, page_num) {//是否换行
-        var type = parseInt(type)
-        var num = parseInt(num)
-        var title_h = 40, item = 30;
-        var page_top = page_num == 0 ? 290 : 0
-        var page = 946
-        var marking = (type == 1 || type == 2) ? 0 : 40
-        var page_prev = page_num == 0 ? 0 : page_num * page
-        var height = $(".A_Rone_child").get(page_num).offsetHeight;//获取每次生成模版的高度
-        var isB = page - page_top - height - title_h - (Math.ceil(num / 4) * item) - 60 - page_prev < 0 ? true : false
-        return isB
+    var isLine = function (page_num) {//是否换行
+        var outerBox = $(".A_Rone").outerHeight()//最外层距离
+        var result;
+        if($(".A_Rone").eq(page_num).find("table:last").position()){//不是第一次插入
+            var lastTabPosi = $(".A_Rone").eq(page_num).find("table:last").position().top+$(".A_Rone").eq(page_num).find("table:last").height()+30//已经占用高度
+            var remain = outerBox - lastTabPosi
+            var title_h = 45,padding = 10
+            console.log(remain)
+            if($scope.index==1||$scope.index==2){//选择题、判断题
+                var rowItme_h = 27;
+                var row = Math.ceil($scope.result.numbel/4)
+                result = remain- title_h - padding - row*rowItme_h>0?true:false
+            }
+            if($scope.index==3){//填空题
+                var rowItme_h = 27,score_h = 35
+                var row = Math.ceil($scope.result.numbel/2)
+                result = remain- title_h - padding - score_h - row*rowItme_h>0?true:false
+            }
+            if($scope.index==4){//作文题
+                var rowItme_h = 36;
+                if($scope.result.writIsradio==1){
+                    var row = Math.ceil($scope.result.plaid/20)
+                    result = remain- title_h - padding - row*rowItme_h>0?true:false
+                }else if($scope.result.writIsradio==2){
+                    var row = parseInt($scope.result.enLine)
+                    result = remain- title_h - padding - row*rowItme_h>0?true:false
+                }else {
+                    var row = Math.ceil($scope.result.word/8)
+                    result = remain- title_h - padding - row*rowItme_h>0?true:false
+                }
+            }
+            if($scope.index==5){//其他题
+                var rowItme_h = 164;
+                var row = $scope.result.numbel
+                result = remain- title_h - padding - row*rowItme_h>0?true:false
+            }
+        }else {//第一次添加
+            console.log("第一添加")
+            return true
+        }
+        return result
     }
     $scope.append = function (obj) {//push数据
-        if ($scope.listObj2.length > 0) {
-            $scope.page_num = 1
-        }
-        var isB = $scope.isLine($scope.index, $scope.result.numbel, $scope.page_num)
-        if (isB) {
-            $scope.listObj2.push(obj);
-        } else {
+        if(isLine(0)){
             $scope.listObj.push(obj);
+        }else{
+            $scope.listObj2.push(obj);
         }
     }
     $scope.createAsswer = function (data) {//添加题组
@@ -458,6 +484,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         return allList
     }
     $scope.save = function () {//保存模板
+        console.log(allPagePost())
         var isLogin = localStorage.getItem("token");
         var answer_ids = []
         for(var i = 0;i<answer_id.length;i++){
@@ -477,7 +504,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 success: function (data) {
                     console.log(data)
                     $scope.oldAnswerLen = answer_id.length
-                    console.log(222)
                     $.ajax({
                             type: "POST",
                             url: ajaxIp + "/api/v2/answer_region_binds",
