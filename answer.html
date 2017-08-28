@@ -41,7 +41,7 @@
 							</select>
 						</span>
         <span ng-class="{mR:true , clear:true}">
-						<span>导入试卷</span>
+						<span ng-bind="checkTestTypeModel?'手工阅卷':'网络阅卷'" ng-click="checkTestType()"></span>
 						<span>导入模版</span>
 						<span ng-click="save()">存为模版</span>
 						<span ng-click="closeUteroBox()">X</span>
