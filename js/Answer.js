@@ -85,16 +85,16 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 result = remain- title_h - padding - score_h - row*rowItme_h>0?true:false
             }
             if($scope.index==4){//作文题
-                var rowItme_h = 36;
+                var rowItme_h = 36,score_h = 35;
                 if($scope.result.writIsradio==1){
                     var row = Math.ceil($scope.result.plaid/20)
-                    result = remain- title_h - padding - row*rowItme_h>0?true:false
+                    result = remain- title_h - padding - score_h - row*rowItme_h>0?true:false
                 }else if($scope.result.writIsradio==2){
                     var row = parseInt($scope.result.enLine)
-                    result = remain- title_h - padding - row*rowItme_h>0?true:false
+                    result = remain- title_h - padding - score_h - row*rowItme_h>0?true:false
                 }else {
                     var row = Math.ceil($scope.result.word/8)
-                    result = remain- title_h - padding - row*rowItme_h>0?true:false
+                    result = remain- title_h - padding - score_h - row*rowItme_h>0?true:false
                 }
             }
             if($scope.index==5){//其他题
@@ -183,13 +183,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         obj = {
             name: $scope.result.name,//题组名称
-            numbel: parseInt($scope.result.numbel),//试题数量
+            numbel: $scope.index==4?1:parseInt($scope.result.numbel),//试题数量
             isradio: $scope.result.isradio,//单选多选
             startNo: parseInt($scope.result.no),//起始序号
             currentPage: $scope.result.page==undefined?1:$scope.result.page,//所在页码
             no: noarray,//选项个数数组,
             itemNumber: itemNumber,//选项个数
-            totalCores: $scope.index==4?$scope.result.writscore:totaltwo,//总分
+            totalCores: $scope.index==4?parseInt($scope.result.writscore):totaltwo,//总分
             itemCores: $scope.result.itemcoreS,//每小题分
             thr: $scope.index == 1 ? $scope.nubarray : ['T', 'F'], //选项ABCD(选择题和判断题)
             type: $scope.result.isradio==2?6:$scope.index//题目类型
@@ -407,7 +407,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for (var i = 1; i <= obj.length; i++) { //标题有问题,最后一个选题只存了一个选项,16个打分框及坐标不对
             var itme_obj = {}
             itme_obj.no = i//大题编号
-            itme_obj.score = obj[i - 1].totalCores//答题总分
+            itme_obj.score = parseInt(obj[i - 1].totalCores)//答题总分
             itme_obj.string = answer_id[i - 1].answers.answer_name//大题标题
             itme_obj.answer_id = answer_id[i - 1].answers.answer_id//题组ID
             itme_obj.answer_mode = answerModeType(obj[i - 1].type)//题目类型
@@ -431,10 +431,16 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 itme_obj.score_rect_width = fillScoreRect(i - 1).score_rect_width//打分框区域的宽度
                 itme_obj.score_rect_height = fillScoreRect(i - 1).score_rect_height//打分框区域的高度
                 itme_obj.score_options = fillScoreOptions(i-1,obj[i - 1].type)
-            }else{//其他题
+            }else if(obj[i - 1].type==5){//其他题
                 itme_obj.block_width = 25//选项宽度
                 itme_obj.block_height = 14//选项高度
                 itme_obj.score_rect_options = otherFillScoreRect(i - 1)//打分框区域的x坐标
+                itme_obj.score_rect_width = 690//打分框区域的宽度
+                itme_obj.score_rect_height = 40//打分框区域的高度
+                itme_obj.score_options = fillScoreOptions(i-1,obj[i - 1].type)
+            }else {//作文题
+                itme_obj.block_width = 25//选项宽度
+                itme_obj.block_height = 14//选项高度
                 itme_obj.score_rect_width = 690//打分框区域的宽度
                 itme_obj.score_rect_height = 40//打分框区域的高度
                 itme_obj.score_options = fillScoreOptions(i-1,obj[i - 1].type)
@@ -502,7 +508,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     'answer_region[basic_info_region]':JSON.stringify(allList())//存储页面题目
                 },
                 success: function (data) {
-                    console.log(data)
                     $scope.oldAnswerLen = answer_id.length
                     $.ajax({
                             type: "POST",
