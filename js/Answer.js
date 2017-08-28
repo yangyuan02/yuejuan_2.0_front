@@ -759,10 +759,11 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             });
         },500)
     }
-    // window.onbeforeunload = function(){//离开刷新提醒
-    //     // console.log(1111)
-    //     return "您的文章尚未保存！";
-    // }
+    window.onbeforeunload = function(){//离开刷新提醒
+        if($scope.newAnswerLen>$scope.oldAnswerLen){
+            return "您修改了内容,请保存答题卡"
+        }
+    }
     $scope.closeUteroBox = function () {//关闭离开
         if($scope.newAnswerLen>$scope.oldAnswerLen){
             var r=confirm("请保存答题卡")
