@@ -540,7 +540,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         // return false;
     }
     $scope.start = 0,$scope.end = 1
-    function getAnswerInfoTask() {//获取生成答题卡
+    function getAnswerInfoTask(type) {//获取生成答题卡
         var isLogin = localStorage.getItem("token");
         $scope.nub = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
         $scope.rightNub = ["T","F"]
@@ -550,7 +550,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             headers: {'Authorization': "Bearer " + isLogin},
             async: false,
             success: function(data){
-                $scope.bigAnswer = data.answers
+                if(type==0){
+                    $scope.bigAnswer = data.answers.filter(function (ele) {//过滤出选择题是非题
+                        return ele.type=='xz'||ele.type=='sf'
+                    })
+                }else{
+                    $scope.bigAnswer = data.answers
+                }
                 $scope.answers = $scope.bigAnswer.slice($scope.start,$scope.end)//设置答案弹窗数组
                 $scope.AnsLen = $scope.answers[0].settings.length
             },
@@ -572,7 +578,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 return false
             }
         }
-        getAnswerInfoTask()
+        getAnswerInfoTask(type)
         console.log($scope.bigAnswer)
         if(type==0){//设置答案
             $('.setAnswer .modal-main').animate({'top': '50%','opacity': 1},500);
