@@ -71,6 +71,9 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     /*border:1px solid black;*/
     padding:0 30px;
 }
+.Answer .A_R .A_Rone{
+    position:relative;
+}
 .Answer .A_R .A_Rone:nth-child(2n){
     float:left;
     margin-left:10px;
@@ -325,6 +328,40 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
 .Answer .L_ul li .addQ .pd .writItem p{
     display:inline-block;
     float:left;
+}
+/*语文作文题*/
+.Answer .A_R .A_Rone .A_Rone_child table .chinese{
+    margin-bottom:2px;
+}
+.Answer .A_R .A_Rone .A_Rone_child table .chinese:last-child{
+    border-bottom:1px solid black;
+}
+.Answer .A_R .A_Rone .A_Rone_child table .chinese .plaid{
+    width:33px;
+    height:33px;
+    border:1px solid black;
+    border-right:0px;
+    border-bottom:0px;
+}
+.Answer .A_R .A_Rone .A_Rone_child table .chinese .chinese_row .plaid:last-child{
+    border-right:1px solid black;
+}
+/*英语作文题*/
+.Answer .A_R .A_Rone .A_Rone_child table .english .english_line{
+    width:100%;
+    border-bottom:1px solid black;
+    height:40px;
+}
+/*单词间隔线*/
+.Answer .A_R .A_Rone .A_Rone_child table .en_word .word_itme{
+    width:76px;
+    border-bottom:1px dashed black;
+    height:40px;
+    float:left;
+    margin-right:10px;
+}
+.Answer .A_R .A_Rone .A_Rone_child table .en_word .word_itme:nth-of-type(8n){
+    margin-right:0px;
 }
 .Answer .L_ul li .addQ .pd .writItem p:first-child{
     width:30%;
