@@ -302,7 +302,29 @@ margin-bottom: 15px;
     opacity: 0.5;
     display: none;
 }
-
+/*分析数据的的确定*/
+.t_f{
+	width: 440px;
+	height:300px;
+}
+.t_f span{
+	display: block;
+	width: 440px;
+	/*height:66px;*/
+}
+.tf_dj a{
+	display: block;
+	/*width: 440px;
+	height:66px;*/
+}
+.t_f_btn01{
+	float: left;
+	margin-left: 30px;
+}
+.t_f_btn02{
+	float:right;
+	margin-right: 30px;
+}
 
 /*成绩生成 end*/
 
