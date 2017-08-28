@@ -147,11 +147,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var result = true
         var trimUndefined = []
         for(var i = 0;i<inputInt.length;i++){
-            if(typeof inputInt[i].type!='undefined'&&inputInt[i].type!=''){//去除undefined
+            if(typeof inputInt[i].type!='undefined'&&inputInt[i].type!=''){//去除undefined和为空的值
                 trimUndefined.push(inputInt[i])
             }
         }
-        console.log(trimUndefined)
         for(var i = 0;i<trimUndefined.length;i++){
             if(!isNumber(trimUndefined[i].type,trimUndefined[i].index)){
                 result = false
@@ -684,19 +683,37 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
     $scope.addAnswer = function () {//新增小题答案
         var len = $scope.answers[0].settings.length
-        console.log(len)
         var obj = {}
         obj.score = 1;
-        obj.setting_id = 81
-        console.log($scope.answers[0].settings)
         obj.setting_num = parseInt($scope.answers[0].settings[len-1].setting_num)+1
         if($scope.answers[0].type=='xz'){
             obj.setting_result = "0,0,0,0"
         }else{
             obj.setting_result = "0,0"
         }
+
+        var param = {}
+        param["answer_setting[answer_id]"] =$scope.answers[0].answer_id//题组id
+        param["answer_setting[result]"] =obj.setting_result //答案选项
+        param["answer_setting[num]"] =obj.setting_num//题号
+        param["answer_setting[score]"] =obj.score//默认1分
+        param["answer_setting[type_count]"] = $scope.answers[0].type=='xz'?4:2  //选项个数
+        param["answer_setting[sort]"] = obj.setting_num
+        param["answer_setting[exam_subject_id]"] = getUrlParam(url, 'examubjeId')
         $scope.AnsLen++
-        $scope.answers[0].settings.push(obj)
+        var isLogin = localStorage.getItem("token");
+        $.ajax({
+            type:"POST",
+            url: ajaxIp+"/api/v2/answer_settings",
+            headers: {'Authorization': "Bearer " + isLogin},
+            data:param,
+            async: false,
+            success:function (data) {
+                console.log(data)
+                obj.setting_id = data.result.id
+                $scope.answers[0].settings.push(obj)
+            }
+        })
     }
     $scope.deleAnswer = function () {//删除小题
         var isLogin = localStorage.getItem("token");
