@@ -65,6 +65,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.checkWrit = function (index) {
         $scope.result.writIsradio = index//作文题
     }
+    $scope.checkTestTypeModel = true
+    $scope.checkTestType = function () {//阅卷模式切换
+        $scope.checkTestTypeModel = !$scope.checkTestTypeModel
+    }
     $scope.Q_number = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十']
     var isLine = function (page_num) {//是否换行
         var outerBox = $(".A_Rone").outerHeight()//最外层距离
@@ -105,6 +109,53 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }else {//第一次添加
             console.log("第一添加")
             return true
+        }
+        return result
+    }
+    var isNumber = function (value,index) {
+        var tips = [
+            "试题数量请输入整数",
+            "起始序号请输入整数",
+            "每题分值请输入整数",
+            "请输入1-20之间的整数",
+            "所在页码请输入整数",
+            "作文总分请输入整数",
+            "作文格数请输入整数",
+            "格子行数请输入整数",
+            "单词个数请输入整数",
+        ]
+        var patrn = /^(-)?\d+(\.\d+)?$/;
+        if (patrn.exec(value) == null || value == "") {
+            alert(tips[index])
+            return false
+        } else {
+            return true
+        }
+    }
+    var checkIsNumbers = function () {
+        var inputInt = [
+            {"type":$scope.result.numbel,"index":0},
+            {"type":$scope.result.no,"index":1},
+            {"type":$scope.result.itemcoreS,"index":2},
+            {"type":$scope.result.thr,"index":3},
+            {"type":$scope.result.page,"index":4},
+            {"type":$scope.result.writscore,"index":5},
+            {"type":$scope.result.plaid,"index":6},
+            {"type":$scope.result.enLine,"index":7},
+            {"type":$scope.result.word,"index":8}
+        ]
+        var result = true
+        var trimUndefined = []
+        for(var i = 0;i<inputInt.length;i++){
+            if(typeof inputInt[i].type!='undefined'&&inputInt[i].type!=''){//去除undefined
+                trimUndefined.push(inputInt[i])
+            }
+        }
+        console.log(trimUndefined)
+        for(var i = 0;i<trimUndefined.length;i++){
+            if(!isNumber(trimUndefined[i].type,trimUndefined[i].index)){
+                result = false
+            }
         }
         return result
     }
@@ -200,6 +251,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             obj.plaids = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
             obj.row = row
             obj.plaid = $scope.result.plaid
+        }
+        if(!checkIsNumbers()){
+            return false
         }
         $scope.append(obj)
         $scope.createAsswer(obj)
