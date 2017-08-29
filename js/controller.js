@@ -107,6 +107,7 @@ angular.module("myApp.controller", [])
         // }); 
         // 分析
         $(".btn_1").click(function(event) {
+
             $(".mart_set").hide();
             $(".load-bg").show();
             mark_fengxi();
@@ -151,6 +152,7 @@ function mark_fengxi(){
            
             $.ajax({
                 type: "POST",
+                async:false,
                 url: ajaxIp + "/api/v2/reports/save_analysis_params",
                 headers: {
                     'Authorization': "Bearer " + isLogin
@@ -166,7 +168,7 @@ function mark_fengxi(){
                         $(".load-bg").hide();
                         $('.modal-main').css('opacity', "1");
                         $('.modal-wrap').show();
-                        // $('.modal-content span').html("更新成功");
+                        $('.modal-content span').html("更新成功");
                         }
                         if(data.status==6){ 
                         //  $(".t_f").hide();
@@ -191,7 +193,10 @@ function mark_fengxi(){
                         //  // }
                         }
                     if (data.error_code == 500) {
-                      $(".t_f").hide();
+                       $(".modal-content").show();
+                       $(".modal-exit").show();
+                        $(".load-bg").show();
+                        $(".t_f").hide();
                         $(".load-bg").hide();
                         $('.modal-main').css('opacity', "1");
                         $('.modal-content span').html(data.error_message);
@@ -215,8 +220,6 @@ function mark_fengxi01(){
             var z_mark = $("#z_mark").val();
             var a = $("#ul_iLabel li").length;
             var data_value = {
-                // 't[column_name_1]':"A",
-                // "t[column_value_1]":"10",
                 "full_score": z_mark,
                 "t[exam_subject_id]": sub_id1,
                 "t[exam_id]": ex_id1,
@@ -244,6 +247,7 @@ function mark_fengxi01(){
            
             $.ajax({
                 type: "POST",
+                async:false,
                 url: ajaxIp + "/api/v2/reports/save_analysis_params",
                 headers: {
                     'Authorization': "Bearer " + isLogin
@@ -251,27 +255,26 @@ function mark_fengxi01(){
                 data:data_value,
                 success: function(data) {
                     console.log(data);
-                   
-                        if(data.status==5){
-                        $(".modal-exit").hide();
-                       $(".t_f").show();
-                        $(".modal-content").hide();
-                        $(".load-bg").hide();
-                        $('.modal-main').css('opacity', "1");
-                        $('.modal-wrap').show();
-                        // $('.modal-content span').html("更新成功");
-                        }
-                        if(data.status==6){ 
-                        
-                          $(".load-bg").hide();
-                          $(".modal-content").hide();
-                        }
-                    if (data.error_code == 500) {
-                        $(".load-bg").hide();
+                   if (data.error_code == 500) {
+                        $(".modal-content").show();
+                        $(".load-bg").show();
                         $('.modal-main').css('opacity', "1");
                         $('.modal-content span').html(data.error_message);
                         $('.modal-wrap').show();
+                        $(".modal-exit").show();
                     }
+                        if(data.status==5){
+                         $(".modal-exit").hide();
+                         $(".t_f").show();
+                        $(".modal-content").hide();
+                        $(".load-bg").hide();
+                        // $('.modal-content span').html("更新成功");
+                        }
+                        if(data.status==6){ 
+                          $(".load-bg").hide();
+                          $(".modal-content").hide();
+                        }
+                    
                 },
                 error: function() {
 
@@ -279,10 +282,6 @@ function mark_fengxi01(){
            
             });           
         };
-// 获取分析参数接口
-// var a=$(".t_f_btn01").attr("data-id");
-// var b=$(".t_f_btn02").attr("data-id");
-// mark_hou(a,b);
 function mark_hou(){
     var a=$(".t_f_btn01").attr("data-id");
      var b=$(".t_f_btn02").attr("data-sid");
@@ -430,7 +429,7 @@ $(".t_f_btn02").click(function(event) {
     $(".modal-wrap").hide();
     $(".mask_layer").hide();
     $(".tf_dj a").remove();
-      mark_fengxi01();
+    mark_fengxi01();
     $(".load-bg").hide();
 
 });
@@ -1151,13 +1150,14 @@ $(".t_f_btn02").click(function(event) {
                     console.log(data);
                     if(data.error_code!==500){
                     for (var i = 0; i < 5; i++) {
+                        var i1=4-i;
                         var a = i + 1;
                         var c = $("#study_q_q5 tr").eq(a);
                          c.find('td').eq(0).html(data.top_five[i].class_rank);
                         c.find('td').eq(1).html(data.top_five[i].name);
                         var d = $("#study_q_h5 tr").eq(a);
-                        d.find('td').eq(0).html(data.after_five[i].class_rank);
-                        d.find('td').eq(1).html(data.after_five[i].name);
+                        d.find('td').eq(0).html(data.after_five[i1].class_rank);
+                        d.find('td').eq(1).html(data.after_five[i1].name);
                     }
                    }
 
@@ -2826,20 +2826,19 @@ function kaishi_zhi(a,b){
                 },
                 success: function(data) {
                     console.log(data);
+
                     var a = data[0];
                     var b = data[1];
                     for (var i = 0; i < a.length; i++) {
                         $(".exam_h_102_he").append('<th>' + a[i] + '</th>');
                     }
                     for (var i = 0; i < b.length; i++) {
-                        $(".exam_h_102_bo").append('<tr><td>' + b[i].id + '</td><td>' + b[i].class_name + '</td><td>' + b[i].subject_name + '</td><td>' + b[i].class_average + '<td></td>' + a[i].ranking + '</td><td>' + b[i].highest_score + '</td><td>' + b[i].lowest_score + '</td><td>' + b[i].standard_deviation + '</td><td>' + b[i].average_range + '</td></tr>');
+                        $(".exam_h_102_bo").append('<tr><td>' + b[i].id + '</td><td>' + b[i].class_name + '</td><td>' + b[i].subject_name + '</td><td>' + b[i].class_average + '</td><td>' + b[i].ranking+ '</td><td>' + b[i].highest_score + '</td><td>' + b[i].lowest_score + '</td><td>' + b[i].standard_deviation + '</td><td>' + b[i].average_range + '</td></tr>');
                     }
                 },
                 error: function() {}
 
             });
-
-
             // 班级等级
             $.ajax({
                 type: "POST",
