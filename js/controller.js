@@ -20,7 +20,7 @@ angular.module("myApp.controller", [])
             headers: {
                 'Authorization': "Bearer " + isLogin
             },
-            // data:,
+
             success: function(data) {
                 console.log(data);
                 for (var i = 0; i < data.length; i++) {
@@ -34,7 +34,6 @@ angular.module("myApp.controller", [])
 
 
         $(".mark_01_select").change(function(event) {
-            /* Act on the event */
             $("#mark_02_ul ul li").remove();
             $("#mark_02_ul div").remove();
 
@@ -64,7 +63,6 @@ angular.module("myApp.controller", [])
                     "subject_id": c,
                 },
                 success: function(date) {
-                    // console.log(date[0].name);
                     console.log(date);
                     for (var i = 0; i < date.length; i++) {
 
@@ -1735,7 +1733,6 @@ $(".t_f_btn02").click(function(event) {
         $(".ans_02").on('click', 'a', function(event) {
           $(this).addClass('ye_a').siblings().removeClass('ye_a');
           var b = $(this).index() - 1;
-          alert(b);
           $("#ans_img").attr("src", ajaxIp + data[b].done_image_url);
         });
       },
