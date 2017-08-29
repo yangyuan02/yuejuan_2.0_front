@@ -309,13 +309,12 @@ margin-bottom: 15px;
 }
 .t_f01{
 	width: 370px;
-	overflow: hidden;
+	overflow:hidden;
 	margin:0 auto;
 	border-bottom: 1px solid #cccccc;
 }
 .t_f span{
 	display: block;
-	
 	margin-top: 15px;
 	text-align: left;
 	float: left;
@@ -331,10 +330,6 @@ margin-bottom: 15px;
 .tf_jg {
     font-size: 14px;
     width: 50%; 
-   
-    
-   
-
 }
 .tf_yx {
     font-size: 14px;
