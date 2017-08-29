@@ -1295,11 +1295,12 @@ $(function(){
 		console.log(str_score,score,fen)
 
 
-		var re = /^[0-9]+.?[0-9]*$/;
+		var re = /^\d+[.]?\d*$/;
 		if(!re.test(str_score)){
 			iTwo(prompt_i,prompt_2);
 			$(this).val('');
 		}
+		// ^[0-9]+.?[0-9]*$
 
 		// if(String(str_score).length>1&&String(str_score)[0]=='0'&&String(str_score)[1]!='.'){
 		// 	iTwo(prompt_i,prompt_2);
