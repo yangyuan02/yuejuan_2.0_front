@@ -324,6 +324,7 @@ $.ajax({
                       $("#ul_iLabel li").eq(4).find('.level_02').val(data.column_value_5);
                       var b=[data.column_name_6,data.column_name_7,data.column_name_8,data.column_name_9,data.column_name_10,data.column_name_11];
                       var b1=[data.column_value_6,data.column_value_7,data.column_value_8,data.column_value_9,data.column_value_10,data.column_value_11];
+                      if(data.lenght<12){
                       if(data.lenght>5){
                         console.log(data.lenght);     
                         for(var i=5;i<data.lenght;i++){
@@ -334,7 +335,7 @@ $.ajax({
                           $("#ul_iLabel li").eq(i).find('.level_02').val(b1[i]);
             
                         }
-                      }
+                     } }
                   }
                 },
                 error: function() {
@@ -372,6 +373,7 @@ $.ajax({
                       $("#ul_iLabel li").eq(4).find('.level_02').val(data.column_value_5);
                       var b=[data.column_name_6,data.column_name_7,data.column_name_8,data.column_name_9,data.column_name_10,data.column_name_11];
                       var b1=[data.column_value_6,data.column_value_7,data.column_value_8,data.column_value_9,data.column_value_10,data.column_value_11];
+                      if(data.lenght<12){
                       if(data.lenght>5){
                         console.log(data.lenght);     
                         for(var i=5;i<data.lenght;i++){
@@ -382,6 +384,7 @@ $.ajax({
                           $("#ul_iLabel li").eq(i).find('.level_02').val(b1[i]);
             
                         }
+                    }
                       }
                   }
                 },
