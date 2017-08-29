@@ -691,7 +691,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }else{
             obj.setting_result = "0,0"
         }
-
         var param = {}
         param["answer_setting[answer_id]"] =$scope.answers[0].answer_id//题组id
         param["answer_setting[result]"] =obj.setting_result //答案选项
