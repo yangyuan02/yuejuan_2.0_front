@@ -305,13 +305,13 @@ margin-bottom: 15px;
 /*分析数据的的确定*/
 .t_f{
 	width: 440px;
-	height:300px;
 }
 .t_f01{
 	width: 370px;
 	overflow:hidden;
 	margin:0 auto;
 	border-bottom: 1px solid #cccccc;
+    padding-bottom: 10px;
 }
 .t_f span{
 	display: block;
