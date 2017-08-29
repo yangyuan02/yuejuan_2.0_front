@@ -808,9 +808,10 @@ $(function() {
 		}
 	}
 
-	// 添加学生
+	// 添加学生功能
 	$('#new-student').on('click', function() {
-		// var exam_id = $('#test-title').attr('data-id');
+		var exam_id = $('#test-title').attr('data-id');
+		$('#student-modal').attr('data-id',exam_id);
 		var is_id = $('#change-student-all').val();
 		if(is_id==1){
 			is_id = true;
@@ -818,21 +819,116 @@ $(function() {
 		if(is_id==0){
 			is_id = false;
 		}
-		console.log(is_id)
-		get_student_grade();
+		get_student_grade(is_id);
 		var grade_id = $('#change-student-grade').attr('data-id');
-		console.log(grade_id)
-		get_student_info(grade_id,is_id);
+		get_student_info(grade_id);
+		get_on_student(exam_id);
 	});
-	function get_student_grade (){
-			$.ajax({
+
+
+
+
+	// 获取已经有的学生列表
+	function get_on_student(id){
+		$.ajax({
+			url: ajaxIp + "/api/v2/exams/"+id+"/get_exam_classrooms",
+			headers: {
+				'Authorization': "Bearer " + isLogin
+			},
+			type: "GET",
+			dataType: "JSON",
+			success: function(data) {
+				console.log(data)
+				show_on_student(data);
+			},
+			error: function() {
+				//  alert('请稍后从新尝试登录或者联系管理员');
+				// localStorage.clear();
+				// window.location.href = './login.html';
+			}
+		});
+	}
+
+
+	// 显示已有学生信息
+	function show_on_student(on_info){
+		var is_extra = on_info.is_extra;
+		var grade_id = on_info.grade_id;
+		if(is_extra==true){
+			is_extra=1;
+		}
+		if(is_extra==false){
+			is_extra=0;
+		}
+		console.log(is_extra,grade_id);
+
+		if(on_info){
+			var is_all = $('#change-student-all option');
+			for (var z = 0; z < is_all.length; z++) {
+				if(is_extra==$(is_all[z]).attr('value')){
+					$(is_all[z]).attr('selected', true);
+					// get_student_grade(is_extra);
+				}
+			};
+
+
+			var grade_all = $('#change-student-grade option');
+			for (var m = 0; m < grade_all.length; m++) {
+				if(grade_id==$(grade_all[m]).attr('data-id')){
+					$(grade_all[m]).attr('selected', true);
+					get_student_info(grade_id);
+				}
+			};
+
+
+			var on_info_length = on_info.classrooms.length;
+			if(on_info_length == $('#student-left-list li').length){
+				$('.teacher-title').find('#all-student').prop('checked', true);
+			}
+
+
+			$('#student-modal #student-right-list').html('');
+			for (var i = 0; i <on_info_length; i++) {
+				var on_id = on_info.classrooms[i].id;
+				var studen_list = $('#student-left-list li');
+				for (var j = 0; j < studen_list.length; j++) {
+					var s_id = $(studen_list[j]).find('.student-name').attr('data-id');
+					var s_name = $(studen_list[j]).find('.student-name').text();
+					var c_name = $(studen_list[j]).find('.count-name').text();
+					if(on_id==s_id){
+						$(studen_list[j]).find('input').prop('checked',true);
+						var rigth_li = '<li><span data-id="' + s_id + '">' + s_name + '</span><span class="count-name">'+c_name+'</span><i class="iconfont">&#xe61b;</i></li>';
+						$('#student-modal #student-right-list').append(rigth_li);
+					}
+				};
+			};
+		}
+		checked_all_student();
+	}
+
+	function checked_all_student() {
+		var checked_length = $("input[name='student-name']:checked").length;
+		var all_length = $("input[name='student-name']").length;
+		console.log(checked_length, all_length)
+		if (checked_length == all_length && checked_length > 0 && all_length > 0) {
+			$('body').find('#student-modal #all-student').prop('checked', true);
+		} else {
+			$('body').find('#student-modal #all-student').prop('checked', false);
+		}
+	}
+
+
+
+	// 获取年级信息
+	function get_student_grade (id){
+		$.ajax({
 			url: ajaxIp + "/api/v2/commons/school_grades",
 			headers: {
 				'Authorization': "Bearer " + isLogin
 			},
-			type: "get",
-			async: false,
+			type: "GET",
 			dataType: "JSON",
+			data: {'is_extra':id},
 			success: function(data) {
 				console.log(data)
 				show_all_grade(data); //显示所有年级
@@ -844,7 +940,8 @@ $(function() {
 			}
 		});
 	}
- 	function get_student_info(g_id,i_id){
+	// 获取学生班级列表
+ 	function get_student_info(g_id){
  		$.ajax({
 			url: ajaxIp + "/api/v2/commons/"+g_id+"/grade_classrooms",
 			headers: {
@@ -852,7 +949,7 @@ $(function() {
 			},
 			type: "GET",
 			dataType: "JSON",
-			data: {'is_extra':i_id},
+			async: false,
 			success: function(data) {
 				console.log(data);
 				show_student_info(data);
@@ -866,31 +963,29 @@ $(function() {
  	}
 
  	// 显示年级
-
  	function show_all_grade(info){
  		$('#student-modal #change-student-grade').html('');
 		var grade_length = info.length;
-		// $('#student-modal #change-student-grade').append(option_first);
-		for (var i = 0; i < grade_length; i++) {
-			var option_name = '<option data-id="' + info[i].id + '">' + info[i].name + '</option>';
-			$('#student-modal #change-student-grade').append(option_name);
-		};
-		$('#student-modal #change-student-grade').attr('data-id', info[0].id);
-		// show_modal_subject(modal_grade[0].id);
-
+		if(grade_length>0){
+			for (var i = 0; i < grade_length; i++) {
+				var option_name = '<option data-id="' + info[i].id + '">' + info[i].name + '</option>';
+				$('#student-modal #change-student-grade').append(option_name);
+			};
+			$('#student-modal #change-student-grade').attr('data-id', info[0].id);
+			// show_modal_subject(modal_grade[0].id);
+		}
  	}
 
  	// 显示班级列表
-
  	function show_student_info(student){
 		$('#student-modal .teacher-title .all-box').html('');
-		var all_check = '<span>全选 </span><div class="check_box"><input type="checkbox" value="" id="all-teacher" class="all-teacher" name="all-teacher"><label for="all-teacher" class="show_school"></label></div>';
+		var all_check = '<span>全选 </span><div class="check_box"><input type="checkbox" value="" id="all-student" class="all-student" name="all-student"><label for="all-student" class="show_school"></label></div>';
 		$('#student-modal .teacher-title .all-box').append(all_check);
 		$('#student-modal #student-left-list').html('');
- 		// for (var i = 0; i < student.length; i++) {
-			// // var student_li = '<li class="clear"><span class="left"><span class="teacher-name" data-id="' + teacher_detail.teachers[i].id + '">' + teacher_detail.teachers[i].real_name + '</span>@<span class="shcool-name" data-id="' + teacher_detail.teachers[i].school.id + '">' + teacher_detail.teachers[i].school.name + '</span></span><div class="check_box right"><input type="checkbox" value="" id="teacher' + i + '" class="" name="teacher-name"><label for="teacher' + i + '"></label></div></li>';
- 		// 	$('#student-modal #student-left-list').append(student_li);
- 		// };
+ 		for (var i = 0; i < student.length; i++) {
+			var student_li = '<li class="clear"><span class="left"><span class="student-name" data-id="' + student[i].id + '">' + student[i].name + '</span><span class="count-name">(' + student[i].count + '人)</span></span><div class="check_box right"><input type="checkbox" value="" id="student' + i + '" class="" name="student-name"><label for="student' + i + '"></label></div></li>';
+ 			$('#student-modal #student-left-list').append(student_li);
+ 		};
  	}
   // 学生库选择事件
 	$('body').on('change', '#student-modal #change-student-all', function() {
@@ -902,22 +997,115 @@ $(function() {
 			is_id = false;
 		}
 		var grade_id = $('#change-student-grade').attr('data-id');
-		console.log(grade_id)
-		get_student_info(grade_id,is_id);
+		var exam_id = $('#student-modal').attr('data-id');
+		get_student_grade(is_id);
+		get_on_student(exam_id);
 	});
-	// 学生库选择事件
+	// 年级选择事件
 	$('body').on('change', '#student-modal #change-student-grade', function() {
-		var is_id = $('#change-student-all').val();
-		if(is_id==1){
-			is_id = true;
-		}
-		if(is_id==0){
-			is_id = false;
-		}
-		var grade_id = $(this).attr('data-id');
-		console.log(grade_id)
-		get_student_info(grade_id,is_id);
+		var grade_id = $(this).find("option:selected").data('id');
+		$(this).attr('data-id',grade_id);
+		get_student_info(grade_id);
+		$('#student-modal #student-right-list').html('');
+		var exam_id = $('#student-modal').attr('data-id');
+		get_on_student(exam_id);
 	});
+
+
+
+	// 学生全选
+	$('body').on('click', '#student-modal #all-student', function() {
+		$("input[name=student-name]").prop('checked', this.checked);
+		if (this.checked) {
+			var left_all_li = $('#student-modal #student-left-list li');
+			var left_all_length = left_all_li.length;
+			$('#student-modal #student-right-list').html('');
+			for (var i = 0; i < left_all_length; i++) {
+				var text_name = $(left_all_li[i]).find('.student-name').text();
+				var text_id = $(left_all_li[i]).find('.student-name').data('id');
+				var stu_count = $(left_all_li[i]).find('.count-name').text();
+				var rigth_li = '<li><span data-id="' + text_id + '">' + text_name + '</span><span class="count-name">'+stu_count+'</span><i class="iconfont">&#xe61b;</i></li>';
+				$('#student-modal #student-right-list').append(rigth_li);
+			};
+		} else {
+			$('#student-modal #student-right-list').html('');
+		};
+	});
+
+	$('body').on('click', 'input[name="student-name"]', function() {
+		var $graBox = $("input[name='student-name']");
+		// $graBox.length=$("input[name='student-name']").length;
+		// console.log($("input[name='student-name']:checked").length,$graBox.length);
+		$("#student-modal #all-student").prop("checked", $graBox.length == $("input[name='student-name']:checked").length ? true : false);
+		var this_text = $(this).parents('li').find('.student-name').text();
+		var this_id = $(this).parents('li').find('.student-name').data('id');
+		var stu_count = $(this).parents('li').find('.count-name').text();
+		if (this.checked) {
+			var rigth_li = '<li><span data-id="' + this_id + '">' + this_text + '</span><span class="count-name">'+stu_count+'</span><i class="iconfont">&#xe61b;</i></li>';
+			$('#student-modal #student-right-list').append(rigth_li);
+		} else {
+			var t_li = $('#student-modal #student-right-list li');
+			var t_length = t_li.length;
+			for (var i = 0; i < t_length; i++) {
+				var t_id = $(t_li[i]).find('span').attr('data-id');
+				if (this_id == t_id) {
+					$(t_li[i]).remove();
+				};
+			};
+		};
+	});
+
+	// 删除已经选择的学生
+	$('body').on('click', '#student-modal #student-right-list li i', function() {
+		var student_id = $(this).prev().prev().attr('data-id');
+		var student_left_li = $('#student-modal #student-left-list li');
+		var student_left_length = student_left_li.length;
+		for (var i = 0; i < student_left_length; i++) {
+			var left_id = $(student_left_li[i]).find('.student-name').attr('data-id');
+			if (student_id == left_id) {
+				$(student_left_li[i]).find('input').prop('checked', false);
+			};
+		};
+		$('body').find('#student-modal #all-student').prop('checked', false);
+		$(this).parent().remove();
+	});
+	
+
+	// 确认添加学生
+	$('body').on('click', '.confirm-student', function() {
+		var exam_id = $('#student-modal').attr('data-id');
+		var classroom_ids = [];
+		var student_info = $('#student-modal #student-right-list li');
+		var student_info_length = student_info.length;
+		for (var i = 0; i < student_info_length; i++) {
+			classroom_ids.push(parseInt($(student_info[i]).find('span').eq(0).attr('data-id')));
+		};
+		// var data_value = {'exam_id':exam_id,'classroom_ids':classroom_ids};
+		add_student_info(exam_id,classroom_ids);
+	});
+
+	function add_student_info(id,value){
+		$.ajax({
+			url: ajaxIp + "/api/v2/exams/"+id+"/add_exam_classrooms",
+			headers: {
+				'Authorization': "Bearer " + isLogin
+			},
+			type: "POST",
+			dataType: "JSON",
+			data: {'classroom_ids':value},
+			success: function(data) {
+				console.log(data);
+				// show_student_info(data);
+			},
+			error: function() {
+				// alert('请稍后从新尝试登录或者联系管理员');
+				// localStorage.clear();
+				// window.location.href = './login.html';
+			}
+		});
+	}
+
+
 
 
 
