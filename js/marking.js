@@ -1295,7 +1295,8 @@ $(function(){
 		console.log(str_score,score,fen)
 
 
-		var re = /^\d+[.]?\d*$/;
+		// var re = /^\d+[.]?\d*$/;
+		var re = /^[\+\-]?\d*?\.?\d{0,1}$/;
 		if(!re.test(str_score)){
 			iTwo(prompt_i,prompt_2);
 			$(this).val('');
