@@ -65,28 +65,104 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.checkWrit = function (index) {
         $scope.result.writIsradio = index//作文题
     }
+    $scope.checkTestTypeModel = true
+    $scope.checkTestType = function () {//阅卷模式切换
+        $scope.checkTestTypeModel = !$scope.checkTestTypeModel
+    }
     $scope.Q_number = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十']
-    $scope.isLine = function (type, num, page_num) {//是否换行
-        var type = parseInt(type)
-        var num = parseInt(num)
-        var title_h = 40, item = 30;
-        var page_top = page_num == 0 ? 290 : 0
-        var page = 946
-        var marking = (type == 1 || type == 2) ? 0 : 40
-        var page_prev = page_num == 0 ? 0 : page_num * page
-        var height = $(".A_Rone_child").get(page_num).offsetHeight;//获取每次生成模版的高度
-        var isB = page - page_top - height - title_h - (Math.ceil(num / 4) * item) - 60 - page_prev < 0 ? true : false
-        return isB
+    var isLine = function (page_num) {//是否换行
+        var outerBox = $(".A_Rone").outerHeight()//最外层距离
+        var result;
+        if($(".A_Rone").eq(page_num).find("table:last").position()){//不是第一次插入
+            var lastTabPosi = $(".A_Rone").eq(page_num).find("table:last").position().top+$(".A_Rone").eq(page_num).find("table:last").height()+30//已经占用高度
+            var remain = outerBox - lastTabPosi
+            var title_h = 45,padding = 10
+            console.log(remain)
+            if($scope.index==1||$scope.index==2){//选择题、判断题
+                var rowItme_h = 27;
+                var row = Math.ceil($scope.result.numbel/4)
+                result = remain- title_h - padding - row*rowItme_h>0?true:false
+            }
+            if($scope.index==3){//填空题
+                var rowItme_h = 27,score_h = 35
+                var row = Math.ceil($scope.result.numbel/2)
+                result = remain- title_h - padding - score_h - row*rowItme_h>0?true:false
+            }
+            if($scope.index==4){//作文题
+                var rowItme_h = 36,score_h = 35;
+                if($scope.result.writIsradio==1){
+                    var row = Math.ceil($scope.result.plaid/20)
+                    result = remain- title_h - padding - score_h - row*rowItme_h>0?true:false
+                }else if($scope.result.writIsradio==2){
+                    var row = parseInt($scope.result.enLine)
+                    result = remain- title_h - padding - score_h - row*rowItme_h>0?true:false
+                }else {
+                    var row = Math.ceil($scope.result.word/8)
+                    result = remain- title_h - padding - score_h - row*rowItme_h>0?true:false
+                }
+            }
+            if($scope.index==5){//其他题
+                var rowItme_h = 164;
+                var row = $scope.result.numbel
+                result = remain- title_h - padding - row*rowItme_h>0?true:false
+            }
+        }else {//第一次添加
+            console.log("第一添加")
+            return true
+        }
+        return result
+    }
+    var isNumber = function (value,index) {
+        var tips = [
+            "试题数量请输入整数",
+            "起始序号请输入整数",
+            "每题分值请输入整数",
+            "请输入1-20之间的整数",
+            "所在页码请输入整数",
+            "作文总分请输入整数",
+            "作文格数请输入整数",
+            "格子行数请输入整数",
+            "单词个数请输入整数",
+        ]
+        var patrn = /^(-)?\d+(\.\d+)?$/;
+        if (patrn.exec(value) == null || value == "") {
+            alert(tips[index])
+            return false
+        } else {
+            return true
+        }
+    }
+    var checkIsNumbers = function () {
+        var inputInt = [
+            {"type":$scope.result.numbel,"index":0},
+            {"type":$scope.result.no,"index":1},
+            {"type":$scope.result.itemcoreS,"index":2},
+            {"type":$scope.result.thr,"index":3},
+            {"type":$scope.result.page,"index":4},
+            {"type":$scope.result.writscore,"index":5},
+            {"type":$scope.result.plaid,"index":6},
+            {"type":$scope.result.enLine,"index":7},
+            {"type":$scope.result.word,"index":8}
+        ]
+        var result = true
+        var trimUndefined = []
+        for(var i = 0;i<inputInt.length;i++){
+            if(typeof inputInt[i].type!='undefined'&&inputInt[i].type!=''){//去除undefined和为空的值
+                trimUndefined.push(inputInt[i])
+            }
+        }
+        for(var i = 0;i<trimUndefined.length;i++){
+            if(!isNumber(trimUndefined[i].type,trimUndefined[i].index)){
+                result = false
+            }
+        }
+        return result
     }
     $scope.append = function (obj) {//push数据
-        if ($scope.listObj2.length > 0) {
-            $scope.page_num = 1
-        }
-        var isB = $scope.isLine($scope.index, $scope.result.numbel, $scope.page_num)
-        if (isB) {
-            $scope.listObj2.push(obj);
-        } else {
+        if(isLine(0)){
             $scope.listObj.push(obj);
+        }else{
+            $scope.listObj2.push(obj);
         }
     }
     $scope.createAsswer = function (data) {//添加题组
@@ -157,13 +233,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         obj = {
             name: $scope.result.name,//题组名称
-            numbel: parseInt($scope.result.numbel),//试题数量
+            numbel: $scope.index==4?1:parseInt($scope.result.numbel),//试题数量
             isradio: $scope.result.isradio,//单选多选
             startNo: parseInt($scope.result.no),//起始序号
             currentPage: $scope.result.page==undefined?1:$scope.result.page,//所在页码
             no: noarray,//选项个数数组,
             itemNumber: itemNumber,//选项个数
-            totalCores: $scope.index==4?$scope.result.writscore:totaltwo,//总分
+            totalCores: $scope.index==4?parseInt($scope.result.writscore):totaltwo,//总分
             itemCores: $scope.result.itemcoreS,//每小题分
             thr: $scope.index == 1 ? $scope.nubarray : ['T', 'F'], //选项ABCD(选择题和判断题)
             type: $scope.result.isradio==2?6:$scope.index//题目类型
@@ -174,6 +250,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             obj.plaids = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
             obj.row = row
             obj.plaid = $scope.result.plaid
+        }
+        if(!checkIsNumbers()){
+            return false
         }
         $scope.append(obj)
         $scope.createAsswer(obj)
@@ -381,7 +460,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for (var i = 1; i <= obj.length; i++) { //标题有问题,最后一个选题只存了一个选项,16个打分框及坐标不对
             var itme_obj = {}
             itme_obj.no = i//大题编号
-            itme_obj.score = obj[i - 1].totalCores//答题总分
+            itme_obj.score = parseInt(obj[i - 1].totalCores)//答题总分
             itme_obj.string = answer_id[i - 1].answers.answer_name//大题标题
             itme_obj.answer_id = answer_id[i - 1].answers.answer_id//题组ID
             itme_obj.answer_mode = answerModeType(obj[i - 1].type)//题目类型
@@ -405,10 +484,16 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 itme_obj.score_rect_width = fillScoreRect(i - 1).score_rect_width//打分框区域的宽度
                 itme_obj.score_rect_height = fillScoreRect(i - 1).score_rect_height//打分框区域的高度
                 itme_obj.score_options = fillScoreOptions(i-1,obj[i - 1].type)
-            }else{//其他题
+            }else if(obj[i - 1].type==5){//其他题
                 itme_obj.block_width = 25//选项宽度
                 itme_obj.block_height = 14//选项高度
                 itme_obj.score_rect_options = otherFillScoreRect(i - 1)//打分框区域的x坐标
+                itme_obj.score_rect_width = 690//打分框区域的宽度
+                itme_obj.score_rect_height = 40//打分框区域的高度
+                itme_obj.score_options = fillScoreOptions(i-1,obj[i - 1].type)
+            }else {//作文题
+                itme_obj.block_width = 25//选项宽度
+                itme_obj.block_height = 14//选项高度
                 itme_obj.score_rect_width = 690//打分框区域的宽度
                 itme_obj.score_rect_height = 40//打分框区域的高度
                 itme_obj.score_options = fillScoreOptions(i-1,obj[i - 1].type)
@@ -458,6 +543,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         return allList
     }
     $scope.save = function () {//保存模板
+        console.log(allPagePost())
         var isLogin = localStorage.getItem("token");
         var answer_ids = []
         for(var i = 0;i<answer_id.length;i++){
@@ -475,9 +561,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     'answer_region[basic_info_region]':JSON.stringify(allList())//存储页面题目
                 },
                 success: function (data) {
-                    console.log(data)
                     $scope.oldAnswerLen = answer_id.length
-                    console.log(222)
                     $.ajax({
                             type: "POST",
                             url: ajaxIp + "/api/v2/answer_region_binds",
@@ -514,7 +598,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         // return false;
     }
     $scope.start = 0,$scope.end = 1
-    function getAnswerInfoTask() {//获取生成答题卡
+    function getAnswerInfoTask(type) {//获取生成答题卡
         var isLogin = localStorage.getItem("token");
         $scope.nub = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
         $scope.rightNub = ["T","F"]
@@ -524,7 +608,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             headers: {'Authorization': "Bearer " + isLogin},
             async: false,
             success: function(data){
-                $scope.bigAnswer = data.answers
+                if(type==0){
+                    $scope.bigAnswer = data.answers.filter(function (ele) {//过滤出选择题是非题
+                        return ele.type=='xz'||ele.type=='sf'
+                    })
+                }else{
+                    $scope.bigAnswer = data.answers
+                }
                 $scope.answers = $scope.bigAnswer.slice($scope.start,$scope.end)//设置答案弹窗数组
                 $scope.AnsLen = $scope.answers[0].settings.length
             },
@@ -546,7 +636,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 return false
             }
         }
-        getAnswerInfoTask()
+        getAnswerInfoTask(type)
         console.log($scope.bigAnswer)
         if(type==0){//设置答案
             $('.setAnswer .modal-main').animate({'top': '50%','opacity': 1},500);
@@ -593,19 +683,37 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
     $scope.addAnswer = function () {//新增小题答案
         var len = $scope.answers[0].settings.length
-        console.log(len)
         var obj = {}
         obj.score = 1;
-        obj.setting_id = 81
-        console.log($scope.answers[0].settings)
         obj.setting_num = parseInt($scope.answers[0].settings[len-1].setting_num)+1
         if($scope.answers[0].type=='xz'){
             obj.setting_result = "0,0,0,0"
         }else{
             obj.setting_result = "0,0"
         }
+
+        var param = {}
+        param["answer_setting[answer_id]"] =$scope.answers[0].answer_id//题组id
+        param["answer_setting[result]"] =obj.setting_result //答案选项
+        param["answer_setting[num]"] =obj.setting_num//题号
+        param["answer_setting[score]"] =obj.score//默认1分
+        param["answer_setting[type_count]"] = $scope.answers[0].type=='xz'?4:2  //选项个数
+        param["answer_setting[sort]"] = obj.setting_num
+        param["answer_setting[exam_subject_id]"] = getUrlParam(url, 'examubjeId')
         $scope.AnsLen++
-        $scope.answers[0].settings.push(obj)
+        var isLogin = localStorage.getItem("token");
+        $.ajax({
+            type:"POST",
+            url: ajaxIp+"/api/v2/answer_settings",
+            headers: {'Authorization': "Bearer " + isLogin},
+            data:param,
+            async: false,
+            success:function (data) {
+                console.log(data)
+                obj.setting_id = data.result.id
+                $scope.answers[0].settings.push(obj)
+            }
+        })
     }
     $scope.deleAnswer = function () {//删除小题
         var isLogin = localStorage.getItem("token");
@@ -722,10 +830,11 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             });
         },500)
     }
-    // window.onbeforeunload = function(){//离开刷新提醒
-    //     // console.log(1111)
-    //     return "您的文章尚未保存！";
-    // }
+    window.onbeforeunload = function(){//离开刷新提醒
+        if($scope.newAnswerLen>$scope.oldAnswerLen){
+            return "您修改了内容,请保存答题卡"
+        }
+    }
     $scope.closeUteroBox = function () {//关闭离开
         if($scope.newAnswerLen>$scope.oldAnswerLen){
             var r=confirm("请保存答题卡")
