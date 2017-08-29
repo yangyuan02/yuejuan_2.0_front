@@ -127,27 +127,30 @@ $(function(){
 		var parnt_info = $(this).parents('.parent-tr')
 		var id = parnt_info.find('.test-name').attr('data-id');
 		if($(this).children('.bottom').hasClass('none')){
-			$.ajax({
-			  type: "POST",
-			  url: ajaxIp+"/api/v2/exam_subjects/answer_group_details_for_exam_subject",
-			  headers: {'Authorization': "Bearer " + isLogin},
-			  data:{'id':id},
-			  success: function(data){
-			  	console.log(data);
-			  	show_item_info(data,parnt_info);
-			  },
-			  error: function(){
-			      // alert('请稍后从新尝试登录或者联系管理员');
-		      	// localStorage.clear();
-		      	// window.location.href = './login.html';
-			  }
-			});
+			get_item_info(id,parnt_info);
 		}
 	});
 
+	function get_item_info(id,parnt_info){
+		$.ajax({
+		  type: "POST",
+		  url: ajaxIp+"/api/v2/exam_subjects/answer_group_details_for_exam_subject",
+		  headers: {'Authorization': "Bearer " + isLogin},
+		  data:{'id':id},
+		  success: function(data){
+		  	console.log(data);
+		  	show_item_info(data,parnt_info);
+		  },
+		  error: function(){
+		      // alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html';
+		  }
+		});
+	}
 
-// 显示题组信息
-// <div class="item-on">'+item_info[i].revise_progress+'</div><div class="more-num">'+item_info[i].multiple_error_count+'</div><div class="bug-num">'+item_info[i].issue_paper_count+'</div><div class="item-time">'+item_info[i].finish_date+'</div>
+	// 显示题组信息
+	// <div class="item-on">'+item_info[i].revise_progress+'</div><div class="more-num">'+item_info[i].multiple_error_count+'</div><div class="bug-num">'+item_info[i].issue_paper_count+'</div><div class="item-time">'+item_info[i].finish_date+'</div>
 	function show_item_info(item_info,parnt_info){
 		console.log(parnt_info)
 		parnt_info.next().find('.child-cont').html('');
@@ -199,9 +202,13 @@ $(function(){
 	var s_i_id;
 	var e_s_id;
 	var current_index;
+	var parent_infos;
 	$('body').on('click', '.mark-btn', function() {
 		$(this).parents('#wrap').siblings('.marking-paper-box').show();
 		$(this).parents('#wrap').hide();
+		parent_infos = $(this).parents('.child-tr').prev('.parent-tr');
+		var id = parent_infos.find('.test-name').attr('data-id');
+		$(this).parents('#wrap').siblings('.marking-paper-box').attr('data-id',id);
 		// 获取题组信息ID,name
 		var section_crop_id = $(this).parent().parent().find('.item-name').attr('data-id');
 		var section_crop_name = $(this).parent().parent().find('.item-name').text();
@@ -721,6 +728,9 @@ $(function(){
 	$('.marking-paper-box .close').click(function() {
 		$(this).parents('.marking-paper-box').siblings('#wrap').show();
 		$(this).parents('.marking-paper-box').hide();
+		var id = $('.marking-paper-box').attr('data-id');
+		// console.log(parent_infos);
+		get_item_info(id,parent_infos)
 	});
 	// 试卷拖拽
 	$('.move-paper').draggable();
