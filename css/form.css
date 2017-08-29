@@ -309,7 +309,7 @@ margin-bottom: 15px;
 }
 .t_f01{
 	width: 370px;
-	height:200px;
+	overflow: hidden;
 	margin:0 auto;
 	border-bottom: 1px solid #cccccc;
 }

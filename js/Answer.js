@@ -132,7 +132,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             return true
         }
     }
-    var checkIsNumbers = function () {
+    var checkIsNumbers = function () {//检查是否为数字
         var inputInt = [
             {"type":$scope.result.numbel,"index":0},
             {"type":$scope.result.no,"index":1},
@@ -151,10 +151,73 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 trimUndefined.push(inputInt[i])
             }
         }
+        console.log(trimUndefined)
         for(var i = 0;i<trimUndefined.length;i++){
             if(!isNumber(trimUndefined[i].type,trimUndefined[i].index)){
                 result = false
             }
+        }
+        return result
+    }
+    var checkIsNUll = function () {//判断是否为空
+        var result = true
+        var tips = [
+            "题组名称不能为空",
+            "试题数量不能为空",
+            "起始序号不能为空",
+            "每题分值不能为空",
+            "选项个数不能为空",
+            "所在页码不能为空",
+            "作文总分不能为空",
+            "作文格数不能为空",
+            "格子行数不能为空",
+            "单词个数不能为空",
+        ]
+        var checkIsEmpty = function (array) {//检测是否为空
+            for(var i = 0;i<array.length;i++){
+                if(array[i].type==''){
+                    alert(tips[array[i].index])
+                    result = false
+                }
+            }
+        }
+        if($scope.index==1){
+            var input = [
+                {"type":$scope.result.name,"index":0},//题组名称
+                {"type":$scope.result.numbel,"index":1},//试题数量
+                {"type":$scope.result.no,"index":2},//起始序号
+                {"type":$scope.result.itemcoreS,"index":3},//每题分值
+                {"type":$scope.result.thr,"index":4}//选项个数
+            ]
+            checkIsEmpty(input)
+        }
+        if($scope.index==2||$scope.index==3||$scope.index==5){
+            var input = [
+                {"type":$scope.result.name,"index":0},//题组名称
+                {"type":$scope.result.numbel,"index":1},//试题数量
+                {"type":$scope.result.no,"index":2},//起始序号
+                {"type":$scope.result.itemcoreS,"index":3},//每题分值
+                {"type":$scope.result.page,"index":5}//所在页码
+            ]
+            checkIsEmpty(input)
+        }
+        if($scope.index==4){
+            var input = [
+                {"type":$scope.result.name,"index":0},//题组名称
+                {"type":$scope.result.no,"index":2},//起始序号
+                {"type":$scope.result.page,"index":5},//所在页码
+                {"type":$scope.result.writscore,"index":6},//作文总分
+            ]
+            if($scope.result.writIsradio==1){
+                input.push({"type":$scope.result.plaid,"index":7})
+            }
+            if($scope.result.writIsradio==2){
+                input.push({"type":$scope.result.enLine,"index":8})
+            }
+            if($scope.result.writIsradio==3){
+                input.push({"type":$scope.result.word,"index":9})
+            }
+            checkIsEmpty(input)
         }
         return result
     }
@@ -231,6 +294,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for(var i = 0;i<row;i++){
             rosItem.push(i)
         }
+        if(itemNumber<=4){
+            $scope.setWidth = 25+'%'
+        }else if(itemNumber>4&&itemNumber<=10){
+            $scope.setWidth = 50+'%'
+        }else{
+            $scope.setWidth = 100+'%'
+        }
         obj = {
             name: $scope.result.name,//题组名称
             numbel: $scope.index==4?1:parseInt($scope.result.numbel),//试题数量
@@ -250,6 +320,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             obj.plaids = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
             obj.row = row
             obj.plaid = $scope.result.plaid
+        }
+        if(!checkIsNUll()){
+            return false
         }
         if(!checkIsNumbers()){
             return false
@@ -549,37 +622,37 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for(var i = 0;i<answer_id.length;i++){
             answer_ids.push(answer_id[i].answers.answer_id)
         }
-        $.ajax({
-                type: "POST",
-                url: ajaxIp + "/api/v2/answer_regions",
-                headers: {'Authorization': "Bearer " + isLogin},
-                async: false,
-                data: {
-                    'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
-                    'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
-                    'answer_region[region_info]': JSON.stringify(allPagePost()),//所有坐标信息
-                    'answer_region[basic_info_region]':JSON.stringify(allList())//存储页面题目
-                },
-                success: function (data) {
-                    $scope.oldAnswerLen = answer_id.length
-                    $.ajax({
-                            type: "POST",
-                            url: ajaxIp + "/api/v2/answer_region_binds",
-                            headers: {'Authorization': "Bearer " + isLogin},
-                            async: false,
-                            data: {
-                                'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
-                                'answer_region_id': data.message,
-                                'answer_ids':answer_ids.join(",")
-                            },
-                            success: function (data) {
-                                console.log(data)
-                            }
-                        }
-                    )
-                }
-            }
-        )
+        // $.ajax({
+        //         type: "POST",
+        //         url: ajaxIp + "/api/v2/answer_regions",
+        //         headers: {'Authorization': "Bearer " + isLogin},
+        //         async: false,
+        //         data: {
+        //             'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
+        //             'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
+        //             'answer_region[region_info]': JSON.stringify(allPagePost()),//所有坐标信息
+        //             'answer_region[basic_info_region]':JSON.stringify(allList())//存储页面题目
+        //         },
+        //         success: function (data) {
+        //             $scope.oldAnswerLen = answer_id.length
+        //             $.ajax({
+        //                     type: "POST",
+        //                     url: ajaxIp + "/api/v2/answer_region_binds",
+        //                     headers: {'Authorization': "Bearer " + isLogin},
+        //                     async: false,
+        //                     data: {
+        //                         'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
+        //                         'answer_region_id': data.message,
+        //                         'answer_ids':answer_ids.join(",")
+        //                     },
+        //                     success: function (data) {
+        //                         console.log(data)
+        //                     }
+        //                 }
+        //             )
+        //         }
+        //     }
+        // )
 
 
     }
@@ -829,11 +902,11 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             });
         },500)
     }
-    window.onbeforeunload = function(){//离开刷新提醒
-        if($scope.newAnswerLen>$scope.oldAnswerLen){
-            return "您修改了内容,请保存答题卡"
-        }
-    }
+    // window.onbeforeunload = function(){//离开刷新提醒
+    //     if($scope.newAnswerLen>$scope.oldAnswerLen){
+    //         return "您修改了内容,请保存答题卡"
+    //     }
+    // }
     $scope.closeUteroBox = function () {//关闭离开
         if($scope.newAnswerLen>$scope.oldAnswerLen){
             var r=confirm("请保存答题卡")

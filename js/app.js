@@ -1,5 +1,5 @@
 angular.module("myApp", ["ui.router","myApp.controller"])
-    .config(function($stateProvider, $urlRouterProvider) {
+    .config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $urlRouterProvider) {
         var isLogin = localStorage.getItem("token");
         $.ajax({
         async:false,
@@ -73,4 +73,5 @@ angular.module("myApp", ["ui.router","myApp.controller"])
                 templateUrl: "views/form07.html",
                 controller:"form07Controller"
             })
-    });
+        }]
+    );
