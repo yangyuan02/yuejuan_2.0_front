@@ -132,7 +132,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             return true
         }
     }
-    var checkIsNumbers = function () {
+    var checkIsNumbers = function () {//检查是否为数字
         var inputInt = [
             {"type":$scope.result.numbel,"index":0},
             {"type":$scope.result.no,"index":1},
@@ -151,9 +151,68 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 trimUndefined.push(inputInt[i])
             }
         }
+        console.log(trimUndefined)
         for(var i = 0;i<trimUndefined.length;i++){
             if(!isNumber(trimUndefined[i].type,trimUndefined[i].index)){
                 result = false
+            }
+        }
+        return result
+    }
+    var checkIsNUll = function () {//判断是否为空
+        var result = true
+        var input = [
+            {"type":$scope.result.name,"index":0},//题组名称
+            {"type":$scope.result.numbel,"index":1},//试题数量
+            {"type":$scope.result.no,"index":2},//起始序号
+            {"type":$scope.result.itemcoreS,"index":3},//每题分值
+            {"type":$scope.result.thr,"index":4},//选项个数
+            {"type":$scope.result.page,"index":5},//所在页码
+            {"type":$scope.result.writscore,"index":6},//作文总分
+            {"type":$scope.result.plaid,"index":7},//作文格数
+            {"type":$scope.result.enLine,"index":8},//外语行数
+            {"type":$scope.result.word,"index":9}//单词个数
+        ]
+        var tips = [
+            "题组名称不能为空",
+            "试题数量不能为空",
+            "起始序号不能为空",
+            "每题分值不能为空",
+            "选项个数不能为空",
+            "所在页码不能为空",
+            "作文总分不能为空",
+            "作文格数不能为空",
+            "格子行数不能为空",
+            "单词个数不能为空",
+        ]
+        if($scope.index==1){
+            if(input[0].type=='' || input[1].type=='' || input[2].type=='' || input[3].type=='' || input[4].type==''){
+                result = false
+            }
+        }
+        if($scope.index==2||$scope.index==3||$scope.index==5){
+            if(input[0].type=='' || input[1].type=='' || input[2].type=='' || input[5].type=='' || input[3].type==''){
+                result = false
+            }
+        }
+        if($scope.index==4){
+            if(input[0].type=='' || input[6].type=='' || input[2].type=='' || input[5].type==''){
+                result =  false
+            }
+            if($scope.result.writIsradio==1){
+                if(input[7].type==''){
+                    result =  false
+                }
+            }
+            if($scope.result.writIsradio==2){
+                if(input[8].type==''){
+                    result =  false
+                }
+            }
+            if($scope.result.writIsradio==3){
+                if(input[9].type==''){
+                    result =  false
+                }
             }
         }
         return result
@@ -250,6 +309,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             obj.plaids = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
             obj.row = row
             obj.plaid = $scope.result.plaid
+        }
+        if(!checkIsNUll()){
+            return false
         }
         if(!checkIsNumbers()){
             return false
@@ -829,11 +891,11 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             });
         },500)
     }
-    window.onbeforeunload = function(){//离开刷新提醒
-        if($scope.newAnswerLen>$scope.oldAnswerLen){
-            return "您修改了内容,请保存答题卡"
-        }
-    }
+    // window.onbeforeunload = function(){//离开刷新提醒
+    //     if($scope.newAnswerLen>$scope.oldAnswerLen){
+    //         return "您修改了内容,请保存答题卡"
+    //     }
+    // }
     $scope.closeUteroBox = function () {//关闭离开
         if($scope.newAnswerLen>$scope.oldAnswerLen){
             var r=confirm("请保存答题卡")
