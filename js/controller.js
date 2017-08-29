@@ -160,7 +160,7 @@ function mark_fengxi(){
                 data:data_value,
                 success: function(data) {
                     console.log(data);
-                   
+                  
                         if(data.status==5){
                       $(".modal-exit").hide();
                        $(".t_f").show();
@@ -191,11 +191,9 @@ function mark_fengxi(){
                          // if(){
                        
                         //  // }
-                         $(".fx_btn").click(function(event) {
-                          mark_hou(1,12);
-                         });
                         }
                     if (data.error_code == 500) {
+                      $(".t_f").hide();
                         $(".load-bg").hide();
                         $('.modal-main').css('opacity', "1");
                         $('.modal-content span').html(data.error_message);
@@ -346,6 +344,84 @@ $.ajax({
                 }
             });
 };
+
+function mark_hou02(a,b){
+$.ajax({
+                type: "POST",
+                url: ajaxIp + "/api/v2/reports/analysis_params",
+                headers: {
+                    'Authorization': "Bearer " + isLogin
+                },
+                data:{"exam_id":a,
+                    "subject_id":b,
+            },
+                success: function(data) {
+                      console.log(data);
+                      if(data.error_code!==500){
+                      // $(".tf_span").html(data.full_score);
+                      $("#z_mark").val(data.full_score);
+                      $("#jg_mark").val(data.pass);
+                      $("#yx_mark").val(data.fine);
+                      $("#ul_iLabel li").eq(0).find('.level_01').val(data.column_name_1);
+                      $("#ul_iLabel li").eq(0).find('.level_02').val(data.column_value_1);
+                      $("#ul_iLabel li").eq(1).find('.level_01').val(data.column_name_2);
+                      $("#ul_iLabel li").eq(1).find('.level_02').val(data.column_value_2);
+                      $("#ul_iLabel li").eq(2).find('.level_01').val(data.column_name_3);
+                      $("#ul_iLabel li").eq(2).find('.level_02').val(data.column_value_3);
+                      $("#ul_iLabel li").eq(3).find('.level_01').val(data.column_name_4);
+                      $("#ul_iLabel li").eq(3).find('.level_02').val(data.column_value_4);
+                      $("#ul_iLabel li").eq(4).find('.level_01').val(data.column_name_5);
+                      $("#ul_iLabel li").eq(4).find('.level_02').val(data.column_value_5);
+                      var b=[data.column_name_6,data.column_name_7,data.column_name_8,data.column_name_9,data.column_name_10,data.column_name_11];
+                      var b1=[data.column_value_6,data.column_value_7,data.column_value_8,data.column_value_9,data.column_value_10,data.column_value_11];
+                      if(data.lenght>5){
+                        console.log(data.lenght);     
+                        for(var i=5;i<data.lenght;i++){
+                            var c=i-5;
+                            var a=i+1;
+                         $("#ul_iLabel").append('<li><input value=""  class="level_01"></input><input value="" class="level_02"></input><button type="">-</button></li>');        
+                          $("#ul_iLabel li").eq(i).find('.level_01').val(b[i]);
+                          $("#ul_iLabel li").eq(i).find('.level_02').val(b1[i]);
+            
+                        }
+                      }
+                  }
+                },
+                complete: function(xhr, statusText){
+                    if(xhr.status==416){
+                      $("#z_mark").val("100");
+                      $("#jg_mark").val("60");;
+                      $("#yx_mark").val("90")
+                      $("#ul_iLabel li").eq(0).find('.level_01').val("A");
+                      $("#ul_iLabel li").eq(0).find('.level_02').val("15%");
+                      $("#ul_iLabel li").eq(1).find('.level_01').val("B");
+                      $("#ul_iLabel li").eq(1).find('.level_02').val("30%");
+                      $("#ul_iLabel li").eq(2).find('.level_01').val("C");
+                      $("#ul_iLabel li").eq(2).find('.level_02').val("30%");
+                      $("#ul_iLabel li").eq(3).find('.level_01').val("D");
+                      $("#ul_iLabel li").eq(3).find('.level_02').val("20%");
+                      $("#ul_iLabel li").eq(4).find('.level_01').val("E");
+                      $("#ul_iLabel li").eq(4).find('.level_02').val("5%");
+
+                    } 
+                    },
+                error: function() {
+                      // $("#z_mark").val("100");
+                      // $("#jg_mark").val("60");
+                      // $("#yx_mark").val("90");
+                      // $("#ul_iLabel li").eq(0).find('.level_01').val("A");
+                      // $("#ul_iLabel li").eq(0).find('.level_02').val("15%");
+                      // $("#ul_iLabel li").eq(1).find('.level_01').val("B");
+                      // $("#ul_iLabel li").eq(1).find('.level_02').val("30%";
+                      // $("#ul_iLabel li").eq(2).find('.level_01').val("C");
+                      // $("#ul_iLabel li").eq(2).find('.level_02').val("30%");
+                      // $("#ul_iLabel li").eq(3).find('.level_01').val("D");
+                      // $("#ul_iLabel li").eq(3).find('.level_02').val("20%");
+                      // $("#ul_iLabel li").eq(4).find('.level_01').val("E");
+                      // $("#ul_iLabel li").eq(4).find('.level_02').val("5%");
+                }
+            });
+};
 /*分析数据的的确定*/
  mark_tf();
 function mark_tf(){
@@ -402,6 +478,7 @@ $(".t_f_btn02").click(function(event) {
             $(".mask_layer").css("height", $(document).height());
             $(".mask_layer").show();
            // mark_hou(a,b);
+           mark_hou02(a,b1);
 
         });
 
@@ -1104,7 +1181,7 @@ $(".t_f_btn02").click(function(event) {
 
             });
 
-
+          // 成绩单
             $.ajax({
                 type: "get",
                 url: ajaxIp + "/api/v2/reports/class_students",
@@ -1121,7 +1198,7 @@ $(".t_f_btn02").click(function(event) {
                     if(data.error_code!==500){
                      $("#study_q_i_btn_05c").html(" ");
                     for (var i = 0; i < data.exam_subjects.length; i++) {
-                        $("#study_q_i_btn_05c").append('<tr><td>' + data.exam_subjects[i].name + '</td><td>' + data.exam_subjects[i].score + '</td><td>' + data.exam_subjects[i].level + '</td><td>' + data.exam_subjects[i].class_rank + '</td><td style="color:#fb7d8a">' + data.exam_subjects[i].class_ranking_change + '<i class="iconfont">&#xe627;</i></td><td><span>查看答题卡</span></td><td>点评</td></tr>');
+                        $("#study_q_i_btn_05c").append('<tr><td>' + data.exam_subjects[i].name + '</td><td>' + data.exam_subjects[i].score + '</td><td>' + data.exam_subjects[i].level + '</td><td>' + data.exam_subjects[i].class_rank + '</td><td style="color:#fb7d8a">' + data.exam_subjects[i].class_ranking_change + '<i class="iconfont">&#xe627;</i></td><td><span data-exno="'+ data.exam_subjects[i].exam_no +'">查看答题卡</span></td><td>点评</td></tr>');
 
                     }
                     // $(".study_q_i_btn_05").unbind("click");
@@ -1491,7 +1568,6 @@ $(".t_f_btn02").click(function(event) {
             },
             error: function() {}
         });
-
     };
 
 
@@ -1520,18 +1596,31 @@ $(".t_f_btn02").click(function(event) {
                 grid: {
                     x: 28,
                     y: 23,
-                    x2: 5,
-                    y2: 25,
-                    borderWidth: 1
+                    x2:30,
+                    y2: 45,
+                    borderWidth: 1,
                 },
 
                 calculable:false,
                 xAxis: [{
                     type: 'category',
-                    data: ['10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', "140", "150"]
+                    // boundaryGap : false,
+                    data: ['0-10', '10-20', '20-30', '30-40', '40-50', '50-60', '60-70', '70-80', '80-90', '90-100', '100-110', '110-120', '120-130', "130-140", "140-150"],
+                     axisLabel:{
+                     rotate: 40,
+                      margin:5,
+                      textStyle:{
+                        color:"666666",
+                        align:'left',
+                        fontWeight: '300',
+                        fontFamily: 'Arial',
+                        // fontStyle: 'normal',
+                      }    
+                     },
                 }],
+
                 yAxis: [{
-                    type: 'value'
+                    type: 'value',
                 }],
                 series: [{
                     name: '人数',
@@ -1561,6 +1650,27 @@ $(".t_f_btn02").click(function(event) {
 
 
         // 查看答题卡
+        //  $.ajax({
+        //     type: "POST",
+        //     url: ajaxIp + "/api/v2/scanner_images/student_scanner_images",
+        //     headers: {
+        //         'Authorization': "Bearer " + isLogin
+        //     },
+        //     data: {
+        //          "exam_id": exam_id,
+        //         "subject_id":sub_id,
+        //         "classroom_id":class_id,
+        //     },
+        //     success: function(data) {
+        //         console.log(data);
+        //     },
+        //     error: function() {}
+        // });
+
+
+
+
+
         $("#img_add").click(function(event) {
             /* Act on the event */
             var a = $("#ans_img").height();
@@ -1588,10 +1698,51 @@ $(".t_f_btn02").click(function(event) {
         });
 
 
-        $(".study_q_06_tab").on('click', 'span', function(event) {
-            $(".ans").show();
+  $(".study_q_06_tab").on('click', 'span', function(event) {
+    $(".ans").show();
+    var exam_id = parseInt($(".study_q_km01").children('option:selected').attr("data-id"));
+    $(".study_q_km02").attr("data-id", $(".study_q_km02").children('option:selected').attr("data-id"));
+    var class_id = parseInt($(".study_q_km02").attr("data-id"));
+    if (class_id == null) {
+      var class_id = parseInt($(".study_q_km02").attr("data-id"));
+    }
+    $(".study_q_km03").attr("data-id", $(".study_q_km03").children('option:selected').attr("data-id"));
+    var sub_id = parseInt($(".study_q_km03").attr("data-id"));
+    if (sub_id == null) {
+      var sub_id = parseInt($(".study_q_km03").attr("data-id"));
+    }
+    var exon_id=$(this).attr("data-exno")
+    $.ajax({
+      type: "POST",
+      url: ajaxIp + "/api/v2/scanner_images/student_scanner_images",
+      headers: {
+        'Authorization': "Bearer " + isLogin
+      },
+      data: {
+        "exam_id":exam_id,
+        "subject_id":sub_id,
+        "exam_no": exon_id,
+      },
+      success: function(data) {
+        console.log(data);
+        $(".ans_02 a").remove();
+        for (var i = 0; i < data.length; i++) {
+          var a = i + 1
+          $(".ans_02").append('<a>' + a + '</a>');
+        }
+        $(".ans_02 a").eq(0).addClass('ye_a');
+        $("#ans_img").attr("src", ajaxIp + data[0].done_image_url);
+        $(".ans_02").on('click', 'a', function(event) {
+          $(this).addClass('ye_a').siblings().removeClass('ye_a');
+          var b = $(this).index() - 1;
+          alert(b);
+          $("#ans_img").attr("src", ajaxIp + data[b].done_image_url);
         });
+      },
+      error: function() {}
+    });
 
+  });
 
 
         $(".ans_01 i").click(function(event) {
@@ -2225,7 +2376,6 @@ var a=$(".study_k_101 button").attr("data-id");
         $(".main_left a").eq(4).addClass('li_click').siblings().removeClass("li_click");
         $("#index_span").html($(".main_left a").eq(4).html());
         $(".exam_z_101 span").eq(1).hide();
-        $(".exam_z_101 span").eq(2).hide();
         $("#exam_z_left").css("margin-bottom", "130px");
         $(".exam_z_left").show();
         $("#exam_z_left").siblings("a").click(function(event) {
@@ -2245,7 +2395,7 @@ var a=$(".study_k_101 button").attr("data-id");
             $(".exam_z_tab div").eq($(this).index()).show().siblings().hide();
             if ($(this).index() == 0) {
                 $(".exam_z_101 span").eq(1).hide();
-                $(".exam_z_101 span").eq(2).hide();
+                // $(".exam_z_101 span").eq(2).hide();
             };
 
         });
@@ -2272,9 +2422,11 @@ var a=$(".study_k_101 button").attr("data-id");
             },
             success: function(data) {
                 console.log(data);
+                 $(".exam_z_km03").append('<option value="全部科目" data-id="">全部科目</option>'); 
                 for (var i = 0; i < data.length; i++) {
                     $(".exam_z_km01").append('<option value="' + data[i].name + '" data-id=' + data[i].id + '>' + data[i].name + '</option>')
                 };
+
                 for (var i = 0; i < data[0].classrooms.length; i++) {
                     $(".exam_z_km02").append('<option value="" data-id=' + data[0].classrooms[i].classroom_id + '>' + data[0].classrooms[i].classroom_name + '</option>')
                      $(".exam_z_km02").attr("data-id",data[0].classrooms[0].classroom_id);
@@ -2286,11 +2438,12 @@ var a=$(".study_k_101 button").attr("data-id");
                 exam_z();
                 $(".exam_z_km01").change(function(event) {
                     /* Act on the event */
-                    var index01 = $(".exam_z_km01").children('option:selected').index()
+                    var index01 = $(".exam_z_km01").children('option:selected').index();
                     var index02 = index01;
                     // $(".study_q_km01 option").eq(0).remove();
                     $(".exam_z_km02 option").remove();
                     $(".exam_z_km03 option").remove();
+                    $(".exam_z_km03").append('<option value="全部科目" data-id="">全部科目</option>');
                     for (var i = 0; i < data[index02].classrooms.length; i++) {
                         $(".exam_z_km02").append('<option value="" data-id=' + data[index02].classrooms[i].classroom_id + '>' + data[index02].classrooms[i].classroom_name + '</option>')
                          $(".exam_z_km02").attr("data-id",data[index02].classrooms[0].classroom_id);
@@ -2332,9 +2485,9 @@ function exam_z(){
              } 
              $(".exam_z_km03").attr("data-id",$(".exam_z_km03").children('option:selected').attr("data-id"));
              var sub_id = $(".exam_z_km03").attr("data-id");
-            if(sub_id==null){
-                 var sub_id = $(".exam_z_km03").attr("data-id");
-             } 
+            // if(sub_id==null){
+            //      var sub_id = $(".exam_z_km03").attr("data-id");
+            //  } 
             console.log(exam_id);
             console.log(class_id);  
             console.log(sub_id);    
@@ -2347,6 +2500,7 @@ function exam_z(){
                 },
                 data: {
                     "exam_id":exam_id,
+                    "subject_id":sub_id,
                 },
                 success: function(data) {
                     console.log(data);
@@ -2451,6 +2605,7 @@ exam_z_bb01();
             },
             data: {
                 "exam_id": exam_id,
+                "subject_id":sub_id,
             },
             success: function(data) {
                 console.log(data);
