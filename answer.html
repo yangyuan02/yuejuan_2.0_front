@@ -41,7 +41,7 @@
 							</select>
 						</span>
         <span ng-class="{mR:true , clear:true}">
-						<span>导入试卷</span>
+						<span ng-bind="checkTestTypeModel?'手工阅卷':'网络阅卷'" ng-click="checkTestType()"></span>
 						<span>导入模版</span>
 						<span ng-click="save()">存为模版</span>
 						<span ng-click="closeUteroBox()">X</span>
@@ -421,7 +421,7 @@
                                     {{a.name}}(共{{a.totalCores}}分<span ng-hide="a.type==4">，每题{{a.itemCores}}分</span>)
                                 </th>
                             </tr>
-                            <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5||a.type==4">
+                            <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5">
                                 <th>
                                     <!--网络阅卷打分框start-->
                                     <div class="marking">
@@ -543,7 +543,7 @@
                                     {{a.name}}(共{{a.totalCores}}分<span ng-hide="a.type==4">，每题{{a.itemCores}}分</span>)
                                 </th>
                             </tr>
-                            <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5||a.type==4">
+                            <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5">
                                 <th>
                                     <!--网络阅卷打分框start-->
                                     <div class="marking">

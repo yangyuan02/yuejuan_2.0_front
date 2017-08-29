@@ -766,6 +766,34 @@ ul.ul-right .back-paper{
 	margin-left: 12px;
 	margin-right: 0;
 }
+.check-show-pre{
+	padding: 5px 10px;
+	line-height: 30px;
+	color: #fff;
+	text-align: center;
+	background: #31bc91;
+	margin-top: 15px;
+	margin-right: 12px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+}
+.check-hide-pre{
+	padding: 5px 10px;
+	line-height: 30px;
+	color: #fff;
+	text-align: center;
+	background: #31bc91;
+	margin-top: 15px;
+	margin-right: 12px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+}
 
 /* 试卷内容 */
 .paper-all{

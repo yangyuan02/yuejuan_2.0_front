@@ -1418,7 +1418,7 @@ $(function(){
 
 
 	function get_check_info(id,type){
-		console.log(id)
+		console.log(id,type)
 		$.ajax({
 		  type: "GET",
 		  url: ajaxIp+"/api/v2/section_crop_images/review_paper",
@@ -1456,6 +1456,14 @@ $(function(){
 
 		reviewed_teacher_name = check_info.reviewed_teacher_name;
 		$('.check-paper').html('');
+		var exam_subject_id = check_info.exam_subject_id;
+		var scanner_image_id = check_info.scanner_image_id;
+		var current_page = check_info.current_page;
+		$('.check-paper').attr({
+			'exam_subject_id': exam_subject_id,
+			'scanner_image_id': scanner_image_id,
+			'current_page': current_page
+		});;
 		var img_id = check_info.section_crop_image_id;
 		var img_url = check_info.section_crop_image_uri;
 		var check_img = '<img data-id="'+img_id+'" id="img-'+img_id+'" src="'+ ajaxIp +''+img_url+'">';
@@ -1533,6 +1541,34 @@ $(function(){
 		};
 
 
+
+
+   // 显示原试卷
+	 $('body').on('click','.check-show-pre',function(){
+	  	$(this).addClass('check-hide-pre').removeClass('check-show-pre');
+	  	$(this).text('隐藏原试卷');
+			var exam_subject_id = $('.check-paper').attr('exam_subject_id');
+			var scanner_image_id = $('.check-paper').attr('scanner_image_id');
+			var current_page = $('.check-paper').attr('current_page');
+			get_pre_info_request(exam_subject_id,scanner_image_id,current_page);
+	  })
+	  $('body').on('click','.check-hide-pre',function(){
+	  	$(this).addClass('check-show-pre').removeClass('check-hide-pre');
+	  	$(this).text('显示原试卷');
+	  	var type_id = $('.change-paper-type').val();
+			var section_crop_id = $('.check-paper-box').attr('section_crop_id');
+			get_check_info(section_crop_id,type_id);
+			// var section_crop_id = $('.paper-item-name').attr('section_crop_id');
+			// var section_crop_name = $('.paper-item-name').text();
+			// var index = parseInt($('.on-num').text());
+			// console.log($('.finished').text())
+			// console.log(section_crop_id,section_crop_name,index)
+			// if($('.yuejuan_score').val()){
+			// 	get_info_request(section_crop_id,section_crop_name,index);
+			// }else{
+			// 	get_info_request(section_crop_id,section_crop_name,null);
+			// }
+	  })
 
 
 		// 获取审核信息框的高度
@@ -1657,12 +1693,19 @@ $(function(){
 		get_check_info(section_crop_id,type_id);
 		$('.no-deal').addClass('on').siblings('.on-deal').removeClass('on');
 		$('.check-num-list').hide();
+		if(type_id==2){
+			$('.check-ul').next('.btn-on').show();
+		}else{
+			$('.check-ul').next('.btn-on').hide();
+		}
 
 	});
 
 
 	// 第一卷
 	$('.check-show-first').on('click',function() {
+		$('.check-hide-pre').removeClass('check-hide-pre').addClass('check-show-pre').text('显示原试卷');
+
 		var deal_type;
 		var type_id = $('.change-paper-type').val();
 		if(type_id==2){
@@ -1682,6 +1725,7 @@ $(function(){
 	});
 		// 上一卷
 	$('#check-pre').on('click',function() {
+		$('.check-hide-pre').removeClass('check-hide-pre').addClass('check-show-pre').text('显示原试卷');
 		var deal_type;
 		var type_id = $('.change-paper-type').val();
 		if(type_id==2){
@@ -1702,6 +1746,7 @@ $(function(){
 
 		// 下一卷
 	$('#check-next').on('click',function() {
+		$('.check-hide-pre').removeClass('check-hide-pre').addClass('check-show-pre').text('显示原试卷');
 		var deal_type;
 		var type_id = $('.change-paper-type').val();
 		if(type_id==2){
@@ -1730,6 +1775,7 @@ $(function(){
 		var type_id = $('.change-paper-type').val();
 		var section_crop_id = $('.check-paper-box').attr('section_crop_id');
 		get_check_info(section_crop_id,type_id);
+		$('.check-hide-pre').removeClass('check-hide-pre').addClass('check-show-pre').text('显示原试卷');
 	});
 
 
@@ -1743,6 +1789,7 @@ $(function(){
 
 	// 处理未处理切换
 	$('.check-ul li').click(function(){
+		$('.check-hide-pre').removeClass('check-hide-pre').addClass('check-show-pre').text('显示原试卷');
 		$(this).addClass('on').siblings().removeClass('on');
 		var section_crop_id = $('.check-paper-box').attr('section_crop_id');
 		// 获取试卷类型
