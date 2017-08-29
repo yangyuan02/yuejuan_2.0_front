@@ -161,18 +161,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
     var checkIsNUll = function () {//判断是否为空
         var result = true
-        var input = [
-            {"type":$scope.result.name,"index":0},//题组名称
-            {"type":$scope.result.numbel,"index":1},//试题数量
-            {"type":$scope.result.no,"index":2},//起始序号
-            {"type":$scope.result.itemcoreS,"index":3},//每题分值
-            {"type":$scope.result.thr,"index":4},//选项个数
-            {"type":$scope.result.page,"index":5},//所在页码
-            {"type":$scope.result.writscore,"index":6},//作文总分
-            {"type":$scope.result.plaid,"index":7},//作文格数
-            {"type":$scope.result.enLine,"index":8},//外语行数
-            {"type":$scope.result.word,"index":9}//单词个数
-        ]
         var tips = [
             "题组名称不能为空",
             "试题数量不能为空",
@@ -185,35 +173,51 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             "格子行数不能为空",
             "单词个数不能为空",
         ]
-        if($scope.index==1){
-            if(input[0].type=='' || input[1].type=='' || input[2].type=='' || input[3].type=='' || input[4].type==''){
-                result = false
+        var checkIsEmpty = function (array) {//检测是否为空
+            for(var i = 0;i<array.length;i++){
+                if(array[i].type==''){
+                    alert(tips[array[i].index])
+                    result = false
+                }
             }
+        }
+        if($scope.index==1){
+            var input = [
+                {"type":$scope.result.name,"index":0},//题组名称
+                {"type":$scope.result.numbel,"index":1},//试题数量
+                {"type":$scope.result.no,"index":2},//起始序号
+                {"type":$scope.result.itemcoreS,"index":3},//每题分值
+                {"type":$scope.result.thr,"index":4}//选项个数
+            ]
+            checkIsEmpty(input)
         }
         if($scope.index==2||$scope.index==3||$scope.index==5){
-            if(input[0].type=='' || input[1].type=='' || input[2].type=='' || input[5].type=='' || input[3].type==''){
-                result = false
-            }
+            var input = [
+                {"type":$scope.result.name,"index":0},//题组名称
+                {"type":$scope.result.numbel,"index":1},//试题数量
+                {"type":$scope.result.no,"index":2},//起始序号
+                {"type":$scope.result.itemcoreS,"index":3},//每题分值
+                {"type":$scope.result.page,"index":5}//所在页码
+            ]
+            checkIsEmpty(input)
         }
         if($scope.index==4){
-            if(input[0].type=='' || input[6].type=='' || input[2].type=='' || input[5].type==''){
-                result =  false
-            }
+            var input = [
+                {"type":$scope.result.name,"index":0},//题组名称
+                {"type":$scope.result.no,"index":2},//起始序号
+                {"type":$scope.result.page,"index":5},//所在页码
+                {"type":$scope.result.writscore,"index":6},//作文总分
+            ]
             if($scope.result.writIsradio==1){
-                if(input[7].type==''){
-                    result =  false
-                }
+                input.push({"type":$scope.result.plaid,"index":7})
             }
             if($scope.result.writIsradio==2){
-                if(input[8].type==''){
-                    result =  false
-                }
+                input.push({"type":$scope.result.enLine,"index":8})
             }
             if($scope.result.writIsradio==3){
-                if(input[9].type==''){
-                    result =  false
-                }
+                input.push({"type":$scope.result.word,"index":9})
             }
+            checkIsEmpty(input)
         }
         return result
     }
