@@ -307,23 +307,61 @@ margin-bottom: 15px;
 	width: 440px;
 	height:300px;
 }
+.t_f01{
+	width: 370px;
+	overflow:hidden;
+	margin:0 auto;
+	border-bottom: 1px solid #cccccc;
+}
 .t_f span{
 	display: block;
-	width: 440px;
+	margin-top: 15px;
+	text-align: left;
+	float: left;
 	/*height:66px;*/
 }
+.tf_zf {
+	width: 100%; 
+    font-size: 16px;
+    font-weight: bold;
+   
+
+}
+.tf_jg {
+    font-size: 14px;
+    width: 50%; 
+}
+.tf_yx {
+    font-size: 14px;
+    width: 50%; 
+ 
+
+}
+.tf_dj01 {
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%; 
+
+}
+.tf_dj {
+    
+    width: 100%; 
+
+}
 .tf_dj a{
-	display: block;
-	/*width: 440px;
-	height:66px;*/
+    font-size: 16px;
+    font-weight: bold;
+    width:50%;
+    float: left;
+
 }
 .t_f_btn01{
 	float: left;
-	margin-left: 30px;
-}
+	margin:17px 0px 15px 35px;
+	}
 .t_f_btn02{
 	float:right;
-	margin-right: 30px;
+	margin:17px 35px 15px 0px;
 }
 
 /*成绩生成 end*/
@@ -875,6 +913,7 @@ margin-left: 38px;
 	float: left;
 	margin-left: 38px;
 	margin-top: 20px;
+	position: relative;
 }
 .study_q_04_03 tr td:nth-of-type(4){
 	
@@ -1057,6 +1096,10 @@ z-index:111;
     background: #f5f5f5;
 
 }
+.ans_02 .ye_a{	
+	color: #31bc91; 
+	border: 1px solid #31bc91;
+	}
 .ans_img{
 	width:998px;
 	height:662px;
@@ -1068,11 +1111,12 @@ z-index:111;
 
 }
 .ans_img img{
-	width:615px;
-	height: 434px;
+	
 	position: absolute;
-	top:0px;
-	left:0px;
+	left: 108px;
+    top: 58px;
+    height: 544px;
+    width: 775px;
 }
 .ans_03{
 	width: 36px;
