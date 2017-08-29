@@ -2038,7 +2038,7 @@ $(function() {
 		var score = parseFloat($(this).val());
 		console.log(score,fen)
 
-		var re = /^[0-9]+.?[0-9]*$/;
+		var re = /^\d+[.]?\d*$/;
 		if(!re.test(str_score)){
 			iTwo(prompt_i,prompt_2);
 			$(this).val('');
@@ -2568,7 +2568,7 @@ $(function() {
 		var score = parseFloat($(this).val());
 		console.log(score,fen)
 		
-		var re = /^[0-9]+.?[0-9]*$/;
+		var re = /^\d+[.]?\d*$/;
 		if(!re.test(str_score)){
 			iTwo(prompt_i,prompt_2);
 			$(this).val('');
