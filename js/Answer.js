@@ -80,7 +80,14 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             console.log(remain)
             if($scope.index==1||$scope.index==2){//选择题、判断题
                 var rowItme_h = 27;
-                var row = Math.ceil($scope.result.numbel/4)
+                if($scope.result.thr<=4){//判断几个为一行
+                    var row_h = 4
+                }else if($scope.result.thr>4 && $scope.result.thr<=10){
+                    var row_h =2
+                }else {
+                    var row_h = 1
+                }
+                var row = Math.ceil($scope.result.numbel/row_h)
                 result = remain- title_h - padding - row*rowItme_h>0?true:false
             }
             if($scope.index==3){//填空题
