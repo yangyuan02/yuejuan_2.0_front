@@ -324,6 +324,7 @@ $.ajax({
                       $("#ul_iLabel li").eq(4).find('.level_02').val(data.column_value_5);
                       var b=[data.column_name_6,data.column_name_7,data.column_name_8,data.column_name_9,data.column_name_10,data.column_name_11];
                       var b1=[data.column_value_6,data.column_value_7,data.column_value_8,data.column_value_9,data.column_value_10,data.column_value_11];
+                      if(data.lenght<12){
                       if(data.lenght>5){
                         console.log(data.lenght);     
                         for(var i=5;i<data.lenght;i++){
@@ -332,7 +333,7 @@ $.ajax({
                          $("#ul_iLabel").append('<li><input value=""  class="level_01"></input><input value="" class="level_02"></input><button type="">-</button></li>');        
                           $("#ul_iLabel li").eq(i).find('.level_01').val(b[i]);
                           $("#ul_iLabel li").eq(i).find('.level_02').val(b1[i]);
-            
+                        }
                         }
                       }
                   }
@@ -372,6 +373,7 @@ $.ajax({
                       $("#ul_iLabel li").eq(4).find('.level_02').val(data.column_value_5);
                       var b=[data.column_name_6,data.column_name_7,data.column_name_8,data.column_name_9,data.column_name_10,data.column_name_11];
                       var b1=[data.column_value_6,data.column_value_7,data.column_value_8,data.column_value_9,data.column_value_10,data.column_value_11];
+                      if(data.lenght<12){
                       if(data.lenght>5){
                         console.log(data.lenght);     
                         for(var i=5;i<data.lenght;i++){
@@ -380,7 +382,7 @@ $.ajax({
                          $("#ul_iLabel").append('<li><input value=""  class="level_01"></input><input value="" class="level_02"></input><button type="">-</button></li>');        
                           $("#ul_iLabel li").eq(i).find('.level_01').val(b[i]);
                           $("#ul_iLabel li").eq(i).find('.level_02').val(b1[i]);
-            
+                           }
                         }
                       }
                   }
@@ -404,19 +406,6 @@ $.ajax({
                     } 
                     },
                 error: function() {
-                      // $("#z_mark").val("100");
-                      // $("#jg_mark").val("60");
-                      // $("#yx_mark").val("90");
-                      // $("#ul_iLabel li").eq(0).find('.level_01').val("A");
-                      // $("#ul_iLabel li").eq(0).find('.level_02').val("15%");
-                      // $("#ul_iLabel li").eq(1).find('.level_01').val("B");
-                      // $("#ul_iLabel li").eq(1).find('.level_02').val("30%";
-                      // $("#ul_iLabel li").eq(2).find('.level_01').val("C");
-                      // $("#ul_iLabel li").eq(2).find('.level_02').val("30%");
-                      // $("#ul_iLabel li").eq(3).find('.level_01').val("D");
-                      // $("#ul_iLabel li").eq(3).find('.level_02').val("20%");
-                      // $("#ul_iLabel li").eq(4).find('.level_01').val("E");
-                      // $("#ul_iLabel li").eq(4).find('.level_02').val("5%");
                 }
             });
 };
