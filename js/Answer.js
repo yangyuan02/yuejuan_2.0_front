@@ -28,6 +28,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.page_num = 0 //页数
     $scope.listObj = [];//定义全局数组保存所有题目
     $scope.listObj2 = [];//定义全局数组保存所有题目
+    $scope.listObj3 = []
+    $scope.listObj4 = []
     $scope.result = {};//弹出框保存
     var answer_id = []//大题answer_id
     $scope.getAnswer = function() {//获取题目模板
@@ -77,7 +79,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             var lastTabPosi = $(".A_Rone").eq(page_num).find("table:last").position().top+$(".A_Rone").eq(page_num).find("table:last").height()+30//已经占用高度
             var remain = outerBox - lastTabPosi
             var title_h = 45,padding = 10
-            console.log(remain)
             if($scope.index==1||$scope.index==2){//选择题、判断题
                 var rowItme_h = 27;
                 if($scope.result.thr<=4){//判断几个为一行
@@ -231,8 +232,12 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.append = function (obj) {//push数据
         if(isLine(0)){
             $scope.listObj.push(obj);
-        }else{
+        }else if(isLine(1)){
             $scope.listObj2.push(obj);
+        }else if(isLine(2)){
+            $scope.listObj3.push(obj);
+        }else if(isLine(3)){
+            $scope.listObj4.push(obj);
         }
     }
     $scope.createAsswer = function (data) {//添加题组
@@ -284,7 +289,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         if($scope.index==2){
             var itemNumber = 2
         }else if($scope.index==3||$scope.index==4||$scope.index==5){
-            var itemNumber = 0
+            var itemNumber = 1
         }else {
             var itemNumber = $scope.result.thr
         }
@@ -371,6 +376,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             len = $(this).find("li").length
         })
         itme_obj.answer_mode = 3
+        itme_obj.current_page = 1
         itme_obj.no = 0
         itme_obj.score = 0
         itme_obj.string = "学号"
@@ -484,9 +490,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
      * @param answerNumber 小题选项个数
      * @param Answerindex  $scope.listObj的索引
      * @param answerModeType 题目类型
+     * * @param itemCores 每小题分数
      * @returns {Array}
      */
-    function getQuestion(qNumer, answerNumber, Answerindex,answerModeType) {//获取每个小题目
+    function getQuestion(qNumer, answerNumber, Answerindex,answerModeType,itemCores) {//获取每个小题目
         var question = []
         var qNumer = parseInt(qNumer)
         var answerNumber = parseInt(answerNumber)//选项个数
@@ -496,6 +503,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for (var i = 1; i <= qNumer; i++) {//循环每个小题
             var itme_obj = {}
             itme_obj.no = i
+            itme_obj.one_score = itemCores
             itme_obj.answer_setting_id = answer_id[Answerindex].answers.settings[i - 1].setting_id//小题id
             itme_obj.option = []
             question.push(itme_obj)
@@ -540,7 +548,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for (var i = 1; i <= obj.length; i++) { //标题有问题,最后一个选题只存了一个选项,16个打分框及坐标不对
             var itme_obj = {}
             itme_obj.no = i//大题编号
-            itme_obj.score = parseInt(obj[i - 1].totalCores)//答题总分
+            itme_obj.total_score = parseInt(obj[i - 1].totalCores)//答题总分
             itme_obj.string = answer_id[i - 1].answers.answer_name//大题标题
             itme_obj.answer_id = answer_id[i - 1].answers.answer_id//题组ID
             itme_obj.answer_mode = answerModeType(obj[i - 1].type)//题目类型
@@ -581,7 +589,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             BigQuestion.push(itme_obj)
         }
         for (var i = 0; i < BigQuestion.length; i++) {
-            BigQuestion[i].question = getQuestion(obj[i].numbel, obj[i].itemNumber,i,obj[i].type)
+            BigQuestion[i].question = getQuestion(obj[i].numbel, obj[i].itemNumber,i,obj[i].type,obj[i].itemCores)
         }
         BigQuestion.push(getStudentInfo())//添加考生信息
         return BigQuestion
@@ -629,39 +637,37 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for(var i = 0;i<answer_id.length;i++){
             answer_ids.push(answer_id[i].answers.answer_id)
         }
-        // $.ajax({
-        //         type: "POST",
-        //         url: ajaxIp + "/api/v2/answer_regions",
-        //         headers: {'Authorization': "Bearer " + isLogin},
-        //         async: false,
-        //         data: {
-        //             'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
-        //             'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
-        //             'answer_region[region_info]': JSON.stringify(allPagePost()),//所有坐标信息
-        //             'answer_region[basic_info_region]':JSON.stringify(allList())//存储页面题目
-        //         },
-        //         success: function (data) {
-        //             $scope.oldAnswerLen = answer_id.length
-        //             $.ajax({
-        //                     type: "POST",
-        //                     url: ajaxIp + "/api/v2/answer_region_binds",
-        //                     headers: {'Authorization': "Bearer " + isLogin},
-        //                     async: false,
-        //                     data: {
-        //                         'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
-        //                         'answer_region_id': data.message,
-        //                         'answer_ids':answer_ids.join(",")
-        //                     },
-        //                     success: function (data) {
-        //                         console.log(data)
-        //                     }
-        //                 }
-        //             )
-        //         }
-        //     }
-        // )
-
-
+        $.ajax({
+                type: "POST",
+                url: ajaxIp + "/api/v2/answer_regions",
+                headers: {'Authorization': "Bearer " + isLogin},
+                async: false,
+                data: {
+                    'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
+                    'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
+                    'answer_region[region_info]': JSON.stringify(allPagePost()),//所有坐标信息
+                    'answer_region[basic_info_region]':JSON.stringify(allList())//存储页面题目
+                },
+                success: function (data) {
+                    $scope.oldAnswerLen = answer_id.length
+                    $.ajax({
+                            type: "POST",
+                            url: ajaxIp + "/api/v2/answer_region_binds",
+                            headers: {'Authorization': "Bearer " + isLogin},
+                            async: false,
+                            data: {
+                                'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
+                                'answer_region_id': data.message,
+                                'answer_ids':answer_ids.join(",")
+                            },
+                            success: function (data) {
+                                console.log(data)
+                            }
+                        }
+                    )
+                }
+            }
+        )
     }
     $scope.dayin = function () {//打印
         $(".A_Nav").css({"display": "none"})
@@ -719,6 +725,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         getAnswerInfoTask(type)
         console.log($scope.bigAnswer)
         if(type==0){//设置答案
+            if(!$scope.answers){
+                alert("暂无主观题")
+                return false
+            }
             $('.setAnswer .modal-main').animate({'top': '50%','opacity': 1},500);
             $('.setAnswer .modal-shadow').animate({'opacity': 0.3},500);
             $('.setAnswer').show();
@@ -909,11 +919,11 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             });
         },500)
     }
-    // window.onbeforeunload = function(){//离开刷新提醒
-    //     if($scope.newAnswerLen>$scope.oldAnswerLen){
-    //         return "您修改了内容,请保存答题卡"
-    //     }
-    // }
+    window.onbeforeunload = function(){//离开刷新提醒
+        if($scope.newAnswerLen>$scope.oldAnswerLen){
+            return "您修改了内容,请保存答题卡"
+        }
+    }
     $scope.closeUteroBox = function () {//关闭离开
         if($scope.newAnswerLen>$scope.oldAnswerLen){
             var r=confirm("请保存答题卡")
@@ -926,6 +936,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             window.location.href = 'paper_generate.html'
         }
     }
+
 })
 
 
