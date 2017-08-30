@@ -719,6 +719,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         getAnswerInfoTask(type)
         console.log($scope.bigAnswer)
         if(type==0){//设置答案
+            if(!$scope.answers){
+                alert("暂无主观题")
+                return false
+            }
             $('.setAnswer .modal-main').animate({'top': '50%','opacity': 1},500);
             $('.setAnswer .modal-shadow').animate({'opacity': 0.3},500);
             $('.setAnswer').show();
