@@ -7,6 +7,8 @@ angular.module("myApp.controller", [])
         // if($(this).attr("data-id")==1){
         // mark();
         // $(this).attr("data-id","2")
+        // }else{
+
         // }
         // });
         $(".main_left a").eq(0).addClass('li_click').siblings().removeClass("li_click");
@@ -171,33 +173,7 @@ function mark_fengxi(){
                         if(data.status==6){ 
                          $(".modal-exit").show(); 
                           $(".load-bg").show();
-<<<<<<< HEAD
-                        // $('.modal-main').css('opacity', "1");
-                        // $('.modal-wrap').show();
-                        // $(".mask_layer").show();
-                        // $('.modal-content span').html("更新成功");
-                         // mark_hou(1,12);
-                         // alert();
-                         // setInterval
-                          
-                          // $(function(){
-                          //   var faye= new Faye.Client('http://localhost:9292/api/v2/events/reports/[:id]');
-                          //   faye.subscribe("/reports/[:id]",function(date){
-                          //     console.log("124");
-                          //    console.log(data);
-                          //   });
-                          // });
-                          // var remove=setInterval(mark_hou,"10000");
-                          // $(".modal-exit").click(function(event) {
-                          //     /* Act on the event */
-                          //     clearInterval(remove);
-                          // });
-                         // if(){
-                       
-                        //  // }
-=======
                         
->>>>>>> 4044a907eade98f2a7ed03e7b592b52139827735
                         }
                     if (data.error_code == 500) {
                        $(".modal-content").show();
@@ -364,39 +340,6 @@ $.ajax({
             $(".mask_layer").hide();
         });
 
-<<<<<<< HEAD
-        $(".mark_02").on('click', ' button', function(event) {
-            // $(this).parent().parent().prev().html();
-            console.log($(this).parent().parent().parent().prev().attr("data-id"));
-            console.log($(this).attr("data-id"));
-
-             var a = $(this).parent().parent().parent().prev().attr("data-id");
-             var b = $(this).attr("data-id");
-              var b1= $(this).attr("data-sid");
-             $(this).attr("data-s",a);
-             $(this).attr("data-k",b);
-             $(".t_f_btn01").attr("data-id",a);
-             $(".t_f_btn02").attr("data-sid",b1);
-            $(".mart_set_03").data("a1",a);
-            $(".mart_set_04").data("b1",b);
-            $(".mart_set").show();
-            $(".mark_02").css("margin-bottom", "500px");
-            $(".mask_layer").css("height", $(document).height());
-            $(".mask_layer").show();
-           // mark_hou(a,b);
-           mark_hou02(a,b1);
-           var jurl='http://localhost:9292/api/v2/events/reports/'+b;
-           var jurl02='/reports/'+b;
-           console.log(jurl);
-             console.log(jurl02);
-   
-       var faye = new Faye.Client(jurl);
-       faye.subscribe(jurl02, function(date) {
-        console.log("124");
-        console.log(data); 
-      });
-        });
-=======
   $(".mark_02").on('click', ' button', function(event) {
     // $(this).parent().parent().prev().html();
     console.log($(this).parent().parent().parent().prev().attr("data-id"));
@@ -439,7 +382,6 @@ $.ajax({
       }
       console.log(data);
     });
->>>>>>> 4044a907eade98f2a7ed03e7b592b52139827735
 
   });
         $("#set_04").click(function(event) {
@@ -3212,12 +3154,3 @@ exam_h_bb01();
         var isLogin = localStorage.getItem("token");
 
     })
-angular.module("myApp.controller", [])
-    .controller("form01Controller", function() {
-        // mark();
-        // markxl(null);
-        // $(".main_left a").eq(0).click(function(event) {
-        /* Act on the event */
-        // if($(this).attr("data-id")==1){
-        // mark();
-        // $(this).attr("data-id","2")
