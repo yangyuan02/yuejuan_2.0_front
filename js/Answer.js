@@ -503,6 +503,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for (var i = 1; i <= qNumer; i++) {//循环每个小题
             var itme_obj = {}
             itme_obj.no = i
+            itme_obj.one_score = itemCores
             itme_obj.answer_setting_id = answer_id[Answerindex].answers.settings[i - 1].setting_id//小题id
             itme_obj.option = []
             question.push(itme_obj)
@@ -511,7 +512,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             for (var j = 1; j <= answerNumber; j++) {
                 var itme_obj = {}
                 itme_obj.no = j//小题序号
-                itme_obj.one_score = itemCores
                 if(answerModeType==1||answerModeType==2||answerModeType==6){//单选题/多选题/判断题
                     itme_obj.option_point_x = parseInt(getItemPost(Answerindex)[i].left + 8 + (item_w + itemMarginLeft) * (j-1) - dot.left)//选项框中心点x坐标
                     itme_obj.option_point_y = parseInt(getItemPost(Answerindex)[i].top + 6 - dot.top)//同行option_point_y都是一样的 选项框中心点y坐标
