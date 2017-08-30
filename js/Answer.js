@@ -28,6 +28,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.page_num = 0 //页数
     $scope.listObj = [];//定义全局数组保存所有题目
     $scope.listObj2 = [];//定义全局数组保存所有题目
+    $scope.listObj3 = []
+    $scope.listObj4 = []
     $scope.result = {};//弹出框保存
     var answer_id = []//大题answer_id
     $scope.getAnswer = function() {//获取题目模板
@@ -77,7 +79,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             var lastTabPosi = $(".A_Rone").eq(page_num).find("table:last").position().top+$(".A_Rone").eq(page_num).find("table:last").height()+30//已经占用高度
             var remain = outerBox - lastTabPosi
             var title_h = 45,padding = 10
-            console.log(remain)
             if($scope.index==1||$scope.index==2){//选择题、判断题
                 var rowItme_h = 27;
                 if($scope.result.thr<=4){//判断几个为一行
@@ -231,8 +232,12 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.append = function (obj) {//push数据
         if(isLine(0)){
             $scope.listObj.push(obj);
-        }else{
+        }else if(isLine(1)){
             $scope.listObj2.push(obj);
+        }else if(isLine(2)){
+            $scope.listObj3.push(obj);
+        }else if(isLine(3)){
+            $scope.listObj4.push(obj);
         }
     }
     $scope.createAsswer = function (data) {//添加题组
@@ -335,7 +340,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             return false
         }
         $scope.append(obj)
-        $scope.createAsswer(obj)
+        // $scope.createAsswer(obj)
         clear()
         close()
         console.log($scope.listObj)
@@ -498,6 +503,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for (var i = 1; i <= qNumer; i++) {//循环每个小题
             var itme_obj = {}
             itme_obj.no = i
+            itme_obj.one_score = itemCores
             itme_obj.answer_setting_id = answer_id[Answerindex].answers.settings[i - 1].setting_id//小题id
             itme_obj.option = []
             question.push(itme_obj)
@@ -543,7 +549,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for (var i = 1; i <= obj.length; i++) { //标题有问题,最后一个选题只存了一个选项,16个打分框及坐标不对
             var itme_obj = {}
             itme_obj.no = i//大题编号
-            itme_obj.score = parseInt(obj[i - 1].totalCores)//答题总分
+            itme_obj.total_score = parseInt(obj[i - 1].totalCores)//答题总分
             itme_obj.string = answer_id[i - 1].answers.answer_name//大题标题
             itme_obj.answer_id = answer_id[i - 1].answers.answer_id//题组ID
             itme_obj.answer_mode = answerModeType(obj[i - 1].type)//题目类型
@@ -663,8 +669,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 }
             }
         )
-
-
     }
     $scope.dayin = function () {//打印
         $(".A_Nav").css({"display": "none"})
