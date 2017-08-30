@@ -598,7 +598,7 @@ $(function() {
 		$('.modal-main').animate({
 			'top': '50%',
 			'opacity': 1,
-			'width': '765px'
+			// 'width': '765px'
 		}, 500);
 		$('.modal-shadow').animate({
 			'opacity': .3
