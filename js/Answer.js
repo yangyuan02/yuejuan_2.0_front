@@ -371,6 +371,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             len = $(this).find("li").length
         })
         itme_obj.answer_mode = 3
+        itme_obj.current_page = 1
         itme_obj.no = 0
         itme_obj.score = 0
         itme_obj.string = "学号"

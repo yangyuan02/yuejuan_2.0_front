@@ -7,8 +7,6 @@ angular.module("myApp.controller", [])
         // if($(this).attr("data-id")==1){
         // mark();
         // $(this).attr("data-id","2")
-        // }else{
-
         // }
         // });
         $(".main_left a").eq(0).addClass('li_click').siblings().removeClass("li_click");
@@ -171,10 +169,9 @@ function mark_fengxi(){
                         $('.modal-content span').html("更新成功");
                         }
                         if(data.status==6){ 
-                        //  $(".t_f").hide();
-                        //  $(".modal-content").show();
                          $(".modal-exit").show(); 
                           $(".load-bg").show();
+<<<<<<< HEAD
                         // $('.modal-main').css('opacity', "1");
                         // $('.modal-wrap').show();
                         // $(".mask_layer").show();
@@ -198,6 +195,9 @@ function mark_fengxi(){
                          // if(){
                        
                         //  // }
+=======
+                        
+>>>>>>> 4044a907eade98f2a7ed03e7b592b52139827735
                         }
                     if (data.error_code == 500) {
                        $(".modal-content").show();
@@ -216,8 +216,7 @@ function mark_fengxi(){
            
             });           
         };
-function mark_fengxi01(){
-            
+function mark_fengxi01(){     
             var ex_id = $(".mart_set_03").data("a1");
             var sub_id = $(".mart_set_04").data("b1");
             var sub_id1 = parseInt(sub_id);
@@ -303,16 +302,6 @@ $.ajax({
             },
                 success: function(data) {
                       console.log(data);
-                      if(data.status==8){
-                         $(".t_f").hide();
-                         $(".modal-content").show(); 
-                        $('.modal-main').css('opacity', "1");
-                        $('.modal-wrap').show();
-                        $(".mask_layer").show();
-                      $(".load-bg").hide();
-                      $('.modal-content span').html("更新成功");
-                      // clearInterval(remove);
-                  }
                       if(data.error_code!==500){
                       // $(".tf_span").html(data.full_score);
                       $("#z_mark").val(data.full_score);
@@ -350,108 +339,32 @@ $.ajax({
             });
 };
 
-function mark_hou02(a,b){
-$.ajax({
-                type: "POST",
-                url: ajaxIp + "/api/v2/reports/analysis_params",
-                headers: {
-                    'Authorization': "Bearer " + isLogin
-                },
-                data:{"exam_id":a,
-                    "subject_id":b,
-            },
-                success: function(data) {
-                      console.log(data);
-                      if(data.error_code!==500){
-                      // $(".tf_span").html(data.full_score);
-                      $("#z_mark").val(data.full_score);
-                      $("#jg_mark").val(data.pass);
-                      $("#yx_mark").val(data.fine);
-                      $("#ul_iLabel li").eq(0).find('.level_01').val(data.column_name_1);
-                      $("#ul_iLabel li").eq(0).find('.level_02').val(data.column_value_1);
-                      $("#ul_iLabel li").eq(1).find('.level_01').val(data.column_name_2);
-                      $("#ul_iLabel li").eq(1).find('.level_02').val(data.column_value_2);
-                      $("#ul_iLabel li").eq(2).find('.level_01').val(data.column_name_3);
-                      $("#ul_iLabel li").eq(2).find('.level_02').val(data.column_value_3);
-                      $("#ul_iLabel li").eq(3).find('.level_01').val(data.column_name_4);
-                      $("#ul_iLabel li").eq(3).find('.level_02').val(data.column_value_4);
-                      $("#ul_iLabel li").eq(4).find('.level_01').val(data.column_name_5);
-                      $("#ul_iLabel li").eq(4).find('.level_02').val(data.column_value_5);
-                      var b=[data.column_name_6,data.column_name_7,data.column_name_8,data.column_name_9,data.column_name_10,data.column_name_11];
-                      var b1=[data.column_value_6,data.column_value_7,data.column_value_8,data.column_value_9,data.column_value_10,data.column_value_11];
-                      if(data.lenght<12){
-                      if(data.lenght>5){
-                        console.log(data.lenght);     
-                        for(var i=5;i<data.lenght;i++){
-                            var c=i-5;
-                            var a=i+1;
-                         $("#ul_iLabel").append('<li><input value=""  class="level_01"></input><input value="" class="level_02"></input><button type="">-</button></li>');        
-                          $("#ul_iLabel li").eq(i).find('.level_01').val(b[i]);
-                          $("#ul_iLabel li").eq(i).find('.level_02').val(b1[i]);
-                           }
-                        }
-                      }
-                  }
-                },
-                complete: function(xhr, statusText){
-                    if(xhr.status==416){
-                      $("#z_mark").val("100");
-                      $("#jg_mark").val("60");;
-                      $("#yx_mark").val("90")
-                      $("#ul_iLabel li").eq(0).find('.level_01').val("A");
-                      $("#ul_iLabel li").eq(0).find('.level_02').val("15%");
-                      $("#ul_iLabel li").eq(1).find('.level_01').val("B");
-                      $("#ul_iLabel li").eq(1).find('.level_02').val("30%");
-                      $("#ul_iLabel li").eq(2).find('.level_01').val("C");
-                      $("#ul_iLabel li").eq(2).find('.level_02').val("30%");
-                      $("#ul_iLabel li").eq(3).find('.level_01').val("D");
-                      $("#ul_iLabel li").eq(3).find('.level_02').val("20%");
-                      $("#ul_iLabel li").eq(4).find('.level_01').val("E");
-                      $("#ul_iLabel li").eq(4).find('.level_02').val("5%");
-
-                    } 
-                    },
-                error: function() {
-                }
-            });
-};
 /*分析数据的的确定*/
- mark_tf();
-function mark_tf(){
-$(".t_f_btn01").click(function(event) {
-    /* Act on the event */
-   $(".modal-wrap").hide();
-    $(".mask_layer").hide();
+  mark_tf();
+  function mark_tf() {
+    $(".t_f_btn01").click(function(event) {
+      /* Act on the event */
+      $(".modal-wrap").hide();
+      $(".mask_layer").hide();
+      mark_fengxi();
+    });
 
-     // var a=$(".t_f_btn01").attr("data-id");
-     // var b=$(".t_f_btn02").attr("data-sid");
-
-     mark_fengxi();
-
-     
-});
-
-$(".t_f_btn02").click(function(event) {
-    /* Act on the event */
-    $(".modal-wrap").hide();
-    $(".mask_layer").hide();
-    $(".tf_dj a").remove();
-    mark_fengxi01();
-    $(".load-bg").hide();
-
-});
-
-
-
-
-
-};
+    $(".t_f_btn02").click(function(event) {
+      /* Act on the event */
+      $(".modal-wrap").hide();
+      $(".mask_layer").hide();
+      $(".tf_dj a").remove();
+      mark_fengxi01();
+      $(".load-bg").hide();
+    });
+  };
 
         $(".modal-exit").click(function(event) {
             /* Act on the event */
             $(".mask_layer").hide();
         });
 
+<<<<<<< HEAD
         $(".mark_02").on('click', ' button', function(event) {
             // $(this).parent().parent().prev().html();
             console.log($(this).parent().parent().parent().prev().attr("data-id"));
@@ -483,7 +396,52 @@ $(".t_f_btn02").click(function(event) {
         console.log(data); 
       });
         });
+=======
+  $(".mark_02").on('click', ' button', function(event) {
+    // $(this).parent().parent().prev().html();
+    console.log($(this).parent().parent().parent().prev().attr("data-id"));
+    console.log($(this).attr("data-id"));
 
+    var a = $(this).parent().parent().parent().prev().attr("data-id");
+    var b = $(this).attr("data-id");
+    var b1 = $(this).attr("data-sid");
+    $(this).attr("data-s", a);
+    $(this).attr("data-k", b);
+    $(".t_f_btn01").attr("data-id", a);
+    $(".t_f_btn02").attr("data-sid", b1);
+    $(".mart_set_03").data("a1", a);
+    $(".mart_set_04").data("b1", b);
+    $(".mart_set").show();
+    $(".mark_02").css("margin-bottom", "500px");
+    $(".mask_layer").css("height", $(document).height());
+    $(".mask_layer").show();
+    // mark_hou(a,b);
+    mark_hou();
+    var faye = new Faye.Client('http://192.168.1.127:9292/api/v2/events');
+    faye.subscribe("/reports/" + b + "", function(data) {
+      if (data.status == "analysed") {
+        $(".t_f").hide();
+        $(".modal-content").show();
+        $('.modal-main').css('opacity', "1");
+        $('.modal-wrap').show();
+        $(".mask_layer").show();
+        $(".load-bg").hide();
+        $('.modal-content span').html("更新成功");
+
+      }else{
+        $(".t_f").hide();
+        $(".modal-content").show();
+        $('.modal-main').css('opacity', "1");
+        $('.modal-wrap').show();
+        $(".mask_layer").show();
+        $(".load-bg").hide();
+        $('.modal-content span').html("分析失败");
+      }
+      console.log(data);
+    });
+>>>>>>> 4044a907eade98f2a7ed03e7b592b52139827735
+
+  });
         $("#set_04").click(function(event) {
             /* Act on the event */
             $(".mart_set").hide();
@@ -3254,3 +3212,12 @@ exam_h_bb01();
         var isLogin = localStorage.getItem("token");
 
     })
+angular.module("myApp.controller", [])
+    .controller("form01Controller", function() {
+        // mark();
+        // markxl(null);
+        // $(".main_left a").eq(0).click(function(event) {
+        /* Act on the event */
+        // if($(this).attr("data-id")==1){
+        // mark();
+        // $(this).attr("data-id","2")
