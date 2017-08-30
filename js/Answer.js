@@ -340,7 +340,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             return false
         }
         $scope.append(obj)
-        // $scope.createAsswer(obj)
+        $scope.createAsswer(obj)
         clear()
         close()
         console.log($scope.listObj)
