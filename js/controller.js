@@ -183,11 +183,18 @@ function mark_fengxi(){
                          // alert();
                          // setInterval
                           
-                          var remove=setInterval(mark_hou,"10000");
-                          $(".modal-exit").click(function(event) {
-                              /* Act on the event */
-                              clearInterval(remove);
-                          });
+                          // $(function(){
+                          //   var faye= new Faye.Client('http://localhost:9292/api/v2/events/reports/[:id]');
+                          //   faye.subscribe("/reports/[:id]",function(date){
+                          //     console.log("124");
+                          //    console.log(data);
+                          //   });
+                          // });
+                          // var remove=setInterval(mark_hou,"10000");
+                          // $(".modal-exit").click(function(event) {
+                          //     /* Act on the event */
+                          //     clearInterval(remove);
+                          // });
                          // if(){
                        
                         //  // }
@@ -465,7 +472,16 @@ $(".t_f_btn02").click(function(event) {
             $(".mask_layer").show();
            // mark_hou(a,b);
            mark_hou02(a,b1);
-
+           var jurl='http://localhost:9292/api/v2/events/reports/'+b;
+           var jurl02='/reports/'+b;
+           console.log(jurl);
+             console.log(jurl02);
+   
+       var faye = new Faye.Client(jurl);
+       faye.subscribe(jurl02, function(date) {
+        console.log("124");
+        console.log(data); 
+      });
         });
 
         $("#set_04").click(function(event) {
@@ -606,14 +622,19 @@ $(".t_f_btn02").click(function(event) {
                             var mark_d = [];
                             // s
                             // console.log(data[0].rate);
-
+                            
+                            
                             if(data.error_code!==500){
                             for (var i = 0; i < data.socre_distributions.length; i++) {
                                 mark_d.push(data.socre_distributions[i].count);
                             };
+                             }
                             console.log(mark_d);
                             mark_fb(mark_d);
-                        }
+                            if(data.error_code==500){
+                             mark_fb(mark_d);
+                            };
+                       
                         },
                         error: function() {
 
@@ -855,14 +876,25 @@ $(".t_f_btn02").click(function(event) {
                     x: 28,
                     y: 40,
                     x2: 5,
-                    y2: 25,
+                    y2: 45,
                     borderWidth:1,
                 },
 
                 calculable:false,
                 xAxis: [{
                     type: 'category',
-                    data: ['0-10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', "140", "150"]
+                     data: ['0-10', '10-20', '20-30', '30-40', '40-50', '50-60', '60-70', '70-80', '80-90', '90-100', '100-110', '110-120', '120-130', "130-140", "140-150"],
+                    axisLabel:{
+                     rotate: 40,
+                      margin:5,
+                      textStyle:{
+                        color:"666666",
+                        align:'left',
+                        fontWeight: '300',
+                        fontFamily: 'Arial',
+                        // fontStyle: 'normal',
+                      }    
+                     },
                 }],
                 yAxis: [{
                     type: 'value',
