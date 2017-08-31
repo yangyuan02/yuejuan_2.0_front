@@ -496,10 +496,11 @@ m1.controller("demo", function ($scope, $timeout, $http) {
      * @param answerNumber 小题选项个数
      * @param Answerindex  $scope.listObj的索引
      * @param answerModeType 题目类型
-     * * @param itemCores 每小题分数
+     * @param itemCores 每小题分数
+     * @param current_page 当前页面
      * @returns {Array}
      */
-    function getQuestion(qNumer, answerNumber, Answerindex,answerModeType,itemCores) {//获取每个小题目
+    function getQuestion(qNumer, answerNumber, Answerindex,answerModeType,itemCores,current_page) {//获取每个小题目
         var question = []
         var qNumer = parseInt(qNumer)
         var answerNumber = parseInt(answerNumber)//选项个数
@@ -520,10 +521,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 itme_obj.no = j//小题序号
                 if(answerModeType==1||answerModeType==2||answerModeType==6){//单选题/多选题/判断题
                     itme_obj.option_point_x = parseInt(getItemPost(Answerindex)[i].left + 8 + (item_w + itemMarginLeft) * (j-1) - dot.left)//选项框中心点x坐标
-                    itme_obj.option_point_y = parseInt(getItemPost(Answerindex)[i].top + 6 - dot.top)//同行option_point_y都是一样的 选项框中心点y坐标
+                    itme_obj.option_point_y = parseInt(getItemPost(Answerindex)[i].top + 6 - dot.top - 1126*(current_page-1))//同行option_point_y都是一样的 选项框中心点y坐标
                 }else if(answerModeType==3){
                     itme_obj.option_point_x = parseInt(getFillPost(Answerindex)[i].left+12-dot.left)
-                    itme_obj.option_point_y = parseInt(getFillPost(Answerindex)[i].top+7-dot.top)
+                    itme_obj.option_point_y = parseInt(getFillPost(Answerindex)[i].top+7-dot.top - 1126*(current_page-1))
                 }
                 question[i].option.push(itme_obj)
             }
@@ -595,7 +596,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             BigQuestion.push(itme_obj)
         }
         for (var i = 0; i < BigQuestion.length; i++) {
-            BigQuestion[i].question = getQuestion(obj[i].numbel, obj[i].itemNumber,i,obj[i].type,obj[i].itemCores)
+            BigQuestion[i].question = getQuestion(obj[i].numbel, obj[i].itemNumber,i,obj[i].type,obj[i].itemCores,obj[i].current_page)
         }
         BigQuestion.push(getStudentInfo())//添加考生信息
         return BigQuestion
