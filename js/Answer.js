@@ -28,8 +28,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.page_num = 0 //页数
     $scope.listObj = [];//定义全局数组保存所有题目
     $scope.listObj2 = [];//定义全局数组保存所有题目
-    $scope.listObj3 = []
-    $scope.listObj4 = []
+    $scope.listObj3 = [];
+    $scope.listObj4 = [];
     $scope.result = {};//弹出框保存
     var answer_id = []//大题answer_id
     $scope.getAnswer = function() {//获取题目模板
@@ -621,6 +621,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     function allPagePost() {//获取页面所有坐标点
         var allPagePost = []
         var allList;
+        console.log($scope.listObj4)
         if($scope.listObj4.length>0){
             allList = $scope.listObj.concat($scope.listObj2,$scope.listObj3,$scope.listObj4)
             allPagePost = getBigQuestion(allList)
@@ -657,37 +658,37 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for(var i = 0;i<answer_id.length;i++){
             answer_ids.push(answer_id[i].answers.answer_id)
         }
-        // $.ajax({
-        //         type: "POST",
-        //         url: ajaxIp + "/api/v2/answer_regions",
-        //         headers: {'Authorization': "Bearer " + isLogin},
-        //         async: false,
-        //         data: {
-        //             'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
-        //             'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
-        //             'answer_region[region_info]': JSON.stringify(allPagePost()),//所有坐标信息
-        //             'answer_region[basic_info_region]':JSON.stringify(allList())//存储页面题目
-        //         },
-        //         success: function (data) {
-        //             $scope.oldAnswerLen = answer_id.length
-        //             $.ajax({
-        //                     type: "POST",
-        //                     url: ajaxIp + "/api/v2/answer_region_binds",
-        //                     headers: {'Authorization': "Bearer " + isLogin},
-        //                     async: false,
-        //                     data: {
-        //                         'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
-        //                         'answer_region_id': data.message,
-        //                         'answer_ids':answer_ids.join(",")
-        //                     },
-        //                     success: function (data) {
-        //                         console.log(data)
-        //                     }
-        //                 }
-        //             )
-        //         }
-        //     }
-        // )
+        $.ajax({
+                type: "POST",
+                url: ajaxIp + "/api/v2/answer_regions",
+                headers: {'Authorization': "Bearer " + isLogin},
+                async: false,
+                data: {
+                    'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
+                    'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
+                    'answer_region[region_info]': JSON.stringify(allPagePost()),//所有坐标信息
+                    'answer_region[basic_info_region]':JSON.stringify(allList())//存储页面题目
+                },
+                success: function (data) {
+                    $scope.oldAnswerLen = answer_id.length
+                    $.ajax({
+                            type: "POST",
+                            url: ajaxIp + "/api/v2/answer_region_binds",
+                            headers: {'Authorization': "Bearer " + isLogin},
+                            async: false,
+                            data: {
+                                'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
+                                'answer_region_id': data.message,
+                                'answer_ids':answer_ids.join(",")
+                            },
+                            success: function (data) {
+                                console.log(data)
+                            }
+                        }
+                    )
+                }
+            }
+        )
     }
     $scope.dayin = function () {//打印
         $(".A_Nav").css({"display": "none"})
