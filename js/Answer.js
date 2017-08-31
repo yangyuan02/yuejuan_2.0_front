@@ -231,12 +231,16 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
     $scope.append = function (obj) {//push数据
         if(isLine(0)){
+            obj.current_page = 1
             $scope.listObj.push(obj);
         }else if(isLine(1)){
+            obj.current_page = 1
             $scope.listObj2.push(obj);
         }else if(isLine(2)){
+            obj.current_page = 2
             $scope.listObj3.push(obj);
         }else if(isLine(3)){
+            obj.current_page = 2
             $scope.listObj4.push(obj);
         }
     }
@@ -552,7 +556,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             itme_obj.string = answer_id[i - 1].answers.answer_name//大题标题
             itme_obj.answer_id = answer_id[i - 1].answers.answer_id//题组ID
             itme_obj.answer_mode = answerModeType(obj[i - 1].type)//题目类型
-            itme_obj.current_page = 1//当前页面
+            itme_obj.current_page = obj[i - 1].current_page//当前页面
             itme_obj.num_question = parseInt(obj[i - 1].numbel)//题目数量
             itme_obj.region_rect_x = regionRect(i - 1).region_rect_x//题组区域的X坐标
             itme_obj.region_rect_y = regionRect(i - 1).region_rect_y//题组区域的Y坐标
@@ -637,37 +641,37 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for(var i = 0;i<answer_id.length;i++){
             answer_ids.push(answer_id[i].answers.answer_id)
         }
-        $.ajax({
-                type: "POST",
-                url: ajaxIp + "/api/v2/answer_regions",
-                headers: {'Authorization': "Bearer " + isLogin},
-                async: false,
-                data: {
-                    'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
-                    'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
-                    'answer_region[region_info]': JSON.stringify(allPagePost()),//所有坐标信息
-                    'answer_region[basic_info_region]':JSON.stringify(allList())//存储页面题目
-                },
-                success: function (data) {
-                    $scope.oldAnswerLen = answer_id.length
-                    $.ajax({
-                            type: "POST",
-                            url: ajaxIp + "/api/v2/answer_region_binds",
-                            headers: {'Authorization': "Bearer " + isLogin},
-                            async: false,
-                            data: {
-                                'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
-                                'answer_region_id': data.message,
-                                'answer_ids':answer_ids.join(",")
-                            },
-                            success: function (data) {
-                                console.log(data)
-                            }
-                        }
-                    )
-                }
-            }
-        )
+        // $.ajax({
+        //         type: "POST",
+        //         url: ajaxIp + "/api/v2/answer_regions",
+        //         headers: {'Authorization': "Bearer " + isLogin},
+        //         async: false,
+        //         data: {
+        //             'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
+        //             'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
+        //             'answer_region[region_info]': JSON.stringify(allPagePost()),//所有坐标信息
+        //             'answer_region[basic_info_region]':JSON.stringify(allList())//存储页面题目
+        //         },
+        //         success: function (data) {
+        //             $scope.oldAnswerLen = answer_id.length
+        //             $.ajax({
+        //                     type: "POST",
+        //                     url: ajaxIp + "/api/v2/answer_region_binds",
+        //                     headers: {'Authorization': "Bearer " + isLogin},
+        //                     async: false,
+        //                     data: {
+        //                         'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
+        //                         'answer_region_id': data.message,
+        //                         'answer_ids':answer_ids.join(",")
+        //                     },
+        //                     success: function (data) {
+        //                         console.log(data)
+        //                     }
+        //                 }
+        //             )
+        //         }
+        //     }
+        // )
     }
     $scope.dayin = function () {//打印
         $(".A_Nav").css({"display": "none"})
