@@ -44,6 +44,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 if(data.code==200){
                     $scope.listObj = data.message.page1
                     $scope.listObj2 = data.message.page2
+                    $scope.listObj3 = data.message.page3
+                    $scope.listObj4 = data.message.page4
                     answer_id = data.message.answer_id
                 }
             },
@@ -619,18 +621,32 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     function allPagePost() {//获取页面所有坐标点
         var allPagePost = []
         var allList;
+        if($scope.listObj4.length>0){
+            allList = $scope.listObj.concat($scope.listObj2,$scope.listObj3,$scope.listObj4)
+            allPagePost = getBigQuestion(allList)
+            return allPagePost
+        }
+        if($scope.listObj3.length>0){
+            allList = $scope.listObj.concat($scope.listObj2,$scope.listObj3)
+            allPagePost = getBigQuestion(allList)
+            return allPagePost
+        }
         if($scope.listObj2.length>0){
             allList = $scope.listObj.concat($scope.listObj2)
             allPagePost = getBigQuestion(allList)
-        }else {
-            allPagePost = getBigQuestion($scope.listObj)
+            return allPagePost
         }
-        return allPagePost
+        if($scope.listObj.length>0){
+            allPagePost = getBigQuestion($scope.listObj)
+            return allPagePost
+        }
     }
     function allList() {//获取所有题目
         var allList = {}
         allList.page1 = $scope.listObj
         allList.page2 = $scope.listObj2
+        allList.page3 = $scope.listObj3
+        allList.page4 = $scope.listObj4
         allList.answer_id = answer_id
         return allList
     }
