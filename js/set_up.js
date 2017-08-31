@@ -10,7 +10,9 @@ $(function() {
 	selectGrades('.user-information-right');
 	selectGrades('.user-change-password');
 	selectGrades('.temporary-student-right');
-	batch_export();
+	batch_export('.user-information-right');
+	batch_export('.user-change-password');
+	batch_export('.temporary-student-right');
 	// schoolGrades();
 	$('#inPath').change(function(){
 		inputFlileName()
@@ -24,12 +26,21 @@ $(function() {
 
 		$('.modal-wrap-class .modal-title').text('创建班级');
 		$('.modal-wrap-class #add-class-grade').html('');
+		var is_extra;
+		if ($(this).parents('.user-right').hasClass('user-change-password')) {
+			is_extra = false;
+		};
+		if ($(this).parents('.user-right').hasClass('temporary-student-right')) {
+			is_extra = true;
+		};
 		$.ajax({
 	     	type: "GET",
 	     	url: ajaxIp+"/api/v2/commons/school_grades",
 	    	dataType: "JSON",
+	    	data: {'is_extra':is_extra},
 	    	headers: {'Authorization': "Bearer " + isLogin},
 	    	success: function(data){
+	    		console.log(data)
 	  			for (var i = 0; i < data.length; i++) {
 					var iOption = '<option value="'+data[i].id+'">'+data[i].name+'</option>'
 					$('.modal-wrap-class #add-class-grade').append(iOption);
@@ -96,6 +107,7 @@ $(function() {
 	     	type: "GET",
 	     	url: ajaxIp+"/api/v2/commons/school_grades",
 	    	dataType: "JSON",
+	    	data: {'is_extra':is_extra},
 	    	headers: {'Authorization': "Bearer " + isLogin},
 	    	success: function(data){
 	    		$('.modal-wrap-class-management #add-class-grade').html('')
@@ -308,6 +320,9 @@ $(function() {
 				}
 			});
 		}else{
+			var formData = new FormData();
+			formData.append("import_teacher",$("#inPath")[0].files[0]);
+			console.log(formData)
 			$.ajax({
 				url : ajaxIp+"/api/v2/teachers/batch_import",
 				type : 'POST',
@@ -319,7 +334,13 @@ $(function() {
 					console.log("正在进行，请稍候");
 				},
 				success : function(data) {
-					console.log(data)
+					console.log(data);
+					alert(data.message)
+					$('.modal-main').animate({'top': '45%','opacity': 0},500);
+					$('.modal-shadow').animate({'opacity': 0},500);
+					setTimeout(function(){
+						$('.modal-wrap').hide();
+					},500);
 				},
 				error : function() {
 					console.log("error");
@@ -331,6 +352,7 @@ $(function() {
 
 	$('.batch-import').click(function(){
 		isStudent = $(this).attr('data-name');
+		console.log(isStudent)
 		$('#upfile').html('未选择任何文件');
 		$('.import-wrap .modal-main').animate({'top': '50%','opacity': 1},500);
 		$('.import-wrap .modal-shadow').animate({'opacity': .3},500);
@@ -517,8 +539,10 @@ $(function() {
 	    });
 	}
 
-	function batch_export(){
-		$.ajax({
+	function batch_export(name){
+
+		if(name=='.user-information-right'){
+			$.ajax({
 	     	type: "GET",
 	     	url: ajaxIp+"/api/v2/teachers/batch_export",
 	    	dataType: "JSON",
@@ -536,17 +560,27 @@ $(function() {
 	        	// window.location.href = './login.html'
 	        }
 	    });
+		}
+		
+		var is_extra;
+		if(name=='.user-change-password'){
+			is_extra = false;
+		}
+		if(name=='.temporary-student-right'){
+			is_extra = true;
+		}
 
 	    $.ajax({
 	     	type: "GET",
 	     	url: ajaxIp+"/api/v2/students/batch_export",
 	    	dataType: "JSON",
+	    	data: {'is_extra':is_extra},
 	    	headers: {'Authorization': "Bearer " + isLogin},
 	    	success: function(data){
 
-	    		console.log(data)
+	    		console.log(data,is_extra)
 	  			if(data.filepath){
-	  				$('.Lead-in-student a').attr('href', ajaxIp+data.filepath);
+	  				$(''+ name +' .Lead-in-student a').attr('href', ajaxIp+data.filepath);
 	  			}
 	        },
 	        error: function(){
@@ -710,13 +744,23 @@ $(function() {
 
 
 	function selectGrades(name){
-		console.log(1)
+		// console.log(1)
+		var is_extra;
+		if(name=='.user-change-password'){
+			// console.log('xuesheng1');
+			is_extra = false;
+		}
+		if(name=='.temporary-student-right'){
+			// console.log('xuesheng2');
+			is_extra = true;
+		}
 
 		$.ajax({
 	     	type: "GET",
 	     	url: ajaxIp+"/api/v2/commons/school_grades",
 	    	dataType: "JSON",
 	    	headers: {'Authorization': "Bearer " + isLogin},
+	    	data: {'is_extra':is_extra},
 	    	success: function(data){
 	    		console.log(data)
 	  			selectGradesList(data, name);
@@ -1820,13 +1864,22 @@ $(function() {
 		$('.modal-wrap-student-info').show();
 
 		$('.modal-wrap-student-info .modal-title').text('添加学生');
+		var is_last;
+		if($('.modal-wrap-student-info').attr('is_extra')==0){
+			is_last = false;
+		}
+		if($('.modal-wrap-student-info').attr('is_extra')==1){
+			is_last = true;
+		}
 
 		$.ajax({
 	     	type: "GET",
 	     	url: ajaxIp+"/api/v2/commons/school_grades",
 	    	dataType: "JSON",
 	    	headers: {'Authorization': "Bearer " + isLogin},
+	    	data: {'is_extra':is_last},
 	    	success: function(data){
+	    		console.log(data,is_extra)
 	    		$('.modal-wrap-student-info .current-grade').html('')
 	  			for (var i = 0; i < data.length; i++) {
 					var iOption = '<option value="'+data[i].id+'">'+data[i].name+'</option>'
