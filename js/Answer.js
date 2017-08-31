@@ -621,7 +621,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     function allPagePost() {//获取页面所有坐标点
         var allPagePost = []
         var allList;
-        console.log($scope.listObj4)
         if($scope.listObj4.length>0){
             allList = $scope.listObj.concat($scope.listObj2,$scope.listObj3,$scope.listObj4)
             allPagePost = getBigQuestion(allList)
