@@ -28,8 +28,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.page_num = 0 //页数
     $scope.listObj = [];//定义全局数组保存所有题目
     $scope.listObj2 = [];//定义全局数组保存所有题目
-    $scope.listObj3 = []
-    $scope.listObj4 = []
+    $scope.listObj3 = [];
+    $scope.listObj4 = [];
     $scope.result = {};//弹出框保存
     var answer_id = []//大题answer_id
     $scope.getAnswer = function() {//获取题目模板
@@ -44,6 +44,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 if(data.code==200){
                     $scope.listObj = data.message.page1
                     $scope.listObj2 = data.message.page2
+                    $scope.listObj3 = data.message.page3
+                    $scope.listObj4 = data.message.page4
                     answer_id = data.message.answer_id
                 }
             },
@@ -231,12 +233,16 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
     $scope.append = function (obj) {//push数据
         if(isLine(0)){
+            obj.current_page = 1
             $scope.listObj.push(obj);
         }else if(isLine(1)){
+            obj.current_page = 1
             $scope.listObj2.push(obj);
         }else if(isLine(2)){
+            obj.current_page = 2
             $scope.listObj3.push(obj);
         }else if(isLine(3)){
+            obj.current_page = 2
             $scope.listObj4.push(obj);
         }
     }
@@ -553,7 +559,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             itme_obj.string = answer_id[i - 1].answers.answer_name//大题标题
             itme_obj.answer_id = answer_id[i - 1].answers.answer_id//题组ID
             itme_obj.answer_mode = answerModeType(obj[i - 1].type)//题目类型
-            itme_obj.current_page = 1//当前页面
+            itme_obj.current_page = obj[i - 1].current_page//当前页面
             itme_obj.num_question = parseInt(obj[i - 1].numbel)//题目数量
             itme_obj.region_rect_x = regionRect(i - 1).region_rect_x//题组区域的X坐标
             itme_obj.region_rect_y = regionRect(i - 1).region_rect_y//题组区域的Y坐标
@@ -616,18 +622,33 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     function allPagePost() {//获取页面所有坐标点
         var allPagePost = []
         var allList;
+        console.log($scope.listObj4)
+        if($scope.listObj4.length>0){
+            allList = $scope.listObj.concat($scope.listObj2,$scope.listObj3,$scope.listObj4)
+            allPagePost = getBigQuestion(allList)
+            return allPagePost
+        }
+        if($scope.listObj3.length>0){
+            allList = $scope.listObj.concat($scope.listObj2,$scope.listObj3)
+            allPagePost = getBigQuestion(allList)
+            return allPagePost
+        }
         if($scope.listObj2.length>0){
             allList = $scope.listObj.concat($scope.listObj2)
             allPagePost = getBigQuestion(allList)
-        }else {
-            allPagePost = getBigQuestion($scope.listObj)
+            return allPagePost
         }
-        return allPagePost
+        if($scope.listObj.length>0){
+            allPagePost = getBigQuestion($scope.listObj)
+            return allPagePost
+        }
     }
     function allList() {//获取所有题目
         var allList = {}
         allList.page1 = $scope.listObj
         allList.page2 = $scope.listObj2
+        allList.page3 = $scope.listObj3
+        allList.page4 = $scope.listObj4
         allList.answer_id = answer_id
         return allList
     }
