@@ -255,6 +255,8 @@ function mark_fengxi01(){
                         if(data.status==6){ 
                           $(".load-bg").hide();
                           $(".modal-content").hide();
+                          $(".modal-exit").show();
+                          $('.modal-content span').html("取消成功");
                         }
                     
                 },
@@ -330,7 +332,7 @@ $.ajax({
       $(".modal-wrap").hide();
       $(".mask_layer").hide();
       $(".tf_dj a").remove();
-      mark_fengxi01();
+      // mark_fengxi01();
       $(".load-bg").hide();
     });
   };
@@ -344,7 +346,7 @@ $.ajax({
     // $(this).parent().parent().prev().html();
     console.log($(this).parent().parent().parent().prev().attr("data-id"));
     console.log($(this).attr("data-id"));
-
+     $(".t_f").attr("data-id",$(this).attr("data-id"));
     var a = $(this).parent().parent().parent().prev().attr("data-id");
     var b = $(this).attr("data-id");
     var b1 = $(this).attr("data-sid");
@@ -455,6 +457,7 @@ $.ajax({
 
                 }
                 kaoshizk();
+                chengjifd(10);
 
             },
             error: function() {}
@@ -645,7 +648,7 @@ $.ajax({
                         b.push(data[i].average);
                     }
                     console.log(a);
-                    njxk(a, b)
+                    njxk(a,b);
                 },
                 error: function() {
                     /* Act on the event */
@@ -1685,7 +1688,7 @@ $.ajax({
         });
         var isLogin = localStorage.getItem("token");
         // <!--最新学科追踪分析 start-->
-            $(".study_k_left li").eq(0).css("color","#31bc91");
+            $(".study_k_left li").eq(0).css("color","#31bc91").siblings().css("color", "#999999");
             $(".study_k_left li").click(function(event) {
             $(this).css("color", "#31bc91").siblings().css("color", "#999999");
             $(".study_k_b").html($(this).html());
@@ -2304,7 +2307,7 @@ var a=$(".study_k_101 button").attr("data-id");
         var isLogin = localStorage.getItem("token");
         
 
-        $(".exam_z_left li").eq(0).css("color", "#31bc91");
+        $(".exam_z_left li").eq(0).css("color", "#31bc91").siblings().css("color", "#999999");
         $(".exam_z_left li").click(function(event) {
             /* Act on the event */
 
@@ -2487,6 +2490,7 @@ function exam_z(){
                     a.push(data[i].num);
                     b.push(data[i].difficulty);
                 }
+                console.log(b);
               kaishi_zhi(a,b);
 
             },
@@ -2608,7 +2612,7 @@ function kaishi_zhi(a,b){
         var option = {
 
             grid: {
-                x: 28,
+                x: 68,
                 y: 30,
                 x2: 10,
                 y2: 25,
@@ -2621,11 +2625,12 @@ function kaishi_zhi(a,b){
             xAxis: [{
                 type: 'category',
                 boundaryGap: false,
-                data: a,
+                data:a,
             }],
             yAxis: [{
                 type: 'value',
-                data: ['0', '0.2', '0.4', '0.6', '0.8', '1']
+
+               
             }],
             series: [{
                     name: '试题难度',
@@ -2667,7 +2672,7 @@ function kaishi_zhi(a,b){
         $.ajax({
             type: "GET",
             async:false,
-            url: ajaxIp + "/api/v2/reports/exams",
+            url: ajaxIp +"/api/v2/reports/exams",
             headers: {
                 'Authorization': "Bearer " + isLogin
             },
@@ -2956,7 +2961,7 @@ exam_h_bb01();
         });
 
     };
-    $(".exam_h_left_ul li").eq(0).css("color", "#31bc91");
+    $(".exam_h_left_ul li").eq(0).css("color", "#31bc91").siblings().css("color", "#999999");
     $(".exam_h_left_ul").on('click', 'li', function(event) {
         //切换不同的页面
         $(this).css("color", "#31bc91").siblings().css("color", "#999999");
@@ -3138,6 +3143,7 @@ exam_h_bb01();
         });
         var isLogin = localStorage.getItem("token");
         /*<!-- 跨校对比分析  start-->*/
+        $(".sc_left li").eq(0).css("color", "#31bc91").siblings().css("color", "#999999");
         $(".sc_left li").click(function(event) {
             /* Act on the event */
             $(this).css("color", "#31bc91").siblings().css("color", "#999999");
