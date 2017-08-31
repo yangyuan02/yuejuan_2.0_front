@@ -575,7 +575,7 @@
                                 <tr ng-if="a.type!=5&&a.type!=4">
                                     <td>
                                         <div ng-repeat="item in a.no" class="q_c"
-                                             ng-style="{'width':'{{a.type==3?'40%':'25%'}}'}">
+                                             ng-style="{'width':'{{a.type==3?'40%':setWidth}}'}">
                                             <a class="numberNo" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
@@ -870,7 +870,7 @@
                                 <tr ng-if="a.type!=5&&a.type!=4">
                                     <td>
                                         <div ng-repeat="item in a.no" class="q_c"
-                                             ng-style="{'width':'{{a.type==3?'40%':'25%'}}'}">
+                                             ng-style="{'width':'{{a.type==3?'40%':setWidth}}'}">
                                             <a class="numberNo" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
