@@ -41,11 +41,12 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             data:{'exam_subject_id':getUrlParam(url, 'examubjeId')},
             async: false,
             success: function(data){
+                console.log(data)
                 if(data.code==200){
                     $scope.listObj = data.message.page1
                     $scope.listObj2 = data.message.page2
-                    $scope.listObj3 = data.message.page3
-                    $scope.listObj4 = data.message.page4
+                    $scope.listObj3 = data.message.page3?data.message.page3:[]
+                    $scope.listObj4 = data.message.page4?data.message.page4:[]
                     answer_id = data.message.answer_id
                 }
             },
