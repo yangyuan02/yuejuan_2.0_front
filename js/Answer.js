@@ -625,26 +625,26 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         return anchor
     }
     function allPagePost() {//获取页面所有坐标点
-        var allPagePost = []
-        var allList;
+        // var allPagePost = []
+        var allList = [];
         if($scope.listObj4.length>0){
             allList = $scope.listObj.concat($scope.listObj2,$scope.listObj3,$scope.listObj4)
-            allPagePost = getBigQuestion(allList)
-            return allPagePost
+            // allPagePost = getBigQuestion(allList)
+            return allList
         }
         if($scope.listObj3.length>0){
             allList = $scope.listObj.concat($scope.listObj2,$scope.listObj3)
-            allPagePost = getBigQuestion(allList)
-            return allPagePost
+            // allPagePost = getBigQuestion(allList)
+            return allList
         }
         if($scope.listObj2.length>0){
             allList = $scope.listObj.concat($scope.listObj2)
-            allPagePost = getBigQuestion(allList)
-            return allPagePost
+            // allPagePost = getBigQuestion(allList)
+            return allList
         }
         if($scope.listObj.length>0){
-            allPagePost = getBigQuestion($scope.listObj)
-            return allPagePost
+            // allPagePost = getBigQuestion($scope.listObj)
+            return allList
         }
     }
     function allList() {//获取所有题目
@@ -655,46 +655,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         allList.page4 = $scope.listObj4
         allList.answer_id = answer_id
         return allList
-    }
-    $scope.save = function () {//保存模板
-        console.log(allPagePost())
-        var isLogin = localStorage.getItem("token");
-        var answer_ids = []
-        for(var i = 0;i<answer_id.length;i++){
-            answer_ids.push(answer_id[i].answers.answer_id)
-        }
-        $.ajax({
-                type: "POST",
-                url: ajaxIp + "/api/v2/answer_regions",
-                headers: {'Authorization': "Bearer " + isLogin},
-                async: false,
-                data: {
-                    'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
-                    'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
-                    'answer_region[region_info]': JSON.stringify(allPagePost()),//所有坐标信息
-                    'answer_region[basic_info_region]':JSON.stringify(allList())//存储页面题目
-                },
-                success: function (data) {
-                    $scope.oldAnswerLen = answer_id.length
-                    $.ajax({
-                            type: "POST",
-                            url: ajaxIp + "/api/v2/answer_region_binds",
-                            headers: {'Authorization': "Bearer " + isLogin},
-                            async: false,
-                            data: {
-                                'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
-                                'answer_region_id': data.message,
-                                'answer_ids':answer_ids.join(",")
-                            },
-                            success: function (data) {
-                                alert("保存成功")
-                                console.log(data)
-                            }
-                        }
-                    )
-                }
-            }
-        )
     }
     $scope.dayin = function () {//打印
         $(".A_Nav").css({"display": "none"})
@@ -875,6 +835,62 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.sortIndex++
         swapItems(arr, $index, $index + 1);
     };
+
+    //比较相邻的table高度大小
+    function compare(index) {
+        var currenTatble = $("body").find("table").eq(index)//当前table
+        var currenTatbleHeight = currenTatble.height()
+        var nextTatbleHeight = currenTatble.next().height()
+        var result = currenTatbleHeight - currenTatbleHeight > 0?true:false
+        return result
+
+    }
+    //删除题组
+    $scope.delAnswerGroup = function () {
+        console.log($scope.sortIndex)
+        var answer_id_item = $scope.bigAnswer[$scope.sortIndex].answer_id
+        var isLogin = localStorage.getItem("token");
+        var allListData = allList()
+        var allListId = allListData.answer_id
+        for(var i = 0;i<allListId.length;i++){
+            if(allListId[i].answers.answer_id==answer_id_item){
+                var index = i
+            }
+        }
+        console.log(index)
+        $.ajax({
+            type: "POST",
+            url: ajaxIp+"/api/v2/answers/delete",
+            headers: {'Authorization': "Bearer " + isLogin},
+            data:{'id':answer_id_item},
+            async: false,
+            success: function(data){
+                console.log(data)
+                $scope.bigAnswer.splice($scope.sortIndex,1)
+                $scope.listObj.splice($scope.sortIndex,1)
+                allListId.splice(index,1)
+                $.ajax({
+                    type: "POST",
+                    url: ajaxIp+"/api/v2/answer_regions/update_basic_info_region",
+                    headers: {'Authorization': "Bearer " + isLogin},
+                    data:{
+                        'exam_subject_id':getUrlParam(url, 'examubjeId'),
+                        'basic_info_region':JSON.stringify(allListData)
+                    },
+                    async: false,
+                    success: function(data){
+
+                    },
+                    error: function(){
+
+                    }
+                });
+            },
+            error: function(){
+
+            }
+        });
+    }
     /**
      * 设置每题答案
      * @param outerIndex 最外层索引
@@ -945,6 +961,49 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 }
             });
         },500)
+    }
+    $scope.save = function () {//保存模板
+        if($scope.listObj.length<=0){
+            alert("请添加题组")
+           return
+        }
+        var isLogin = localStorage.getItem("token");
+        var answer_ids = []
+        for(var i = 0;i<answer_id.length;i++){
+            answer_ids.push(answer_id[i].answers.answer_id)
+        }
+        $.ajax({
+                type: "POST",
+                url: ajaxIp + "/api/v2/answer_regions",
+                headers: {'Authorization': "Bearer " + isLogin},
+                async: false,
+                data: {
+                    'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
+                    'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
+                    'answer_region[region_info]': JSON.stringify(getBigQuestion(allPagePost())),//所有坐标信息
+                    'answer_region[basic_info_region]':JSON.stringify(allList())//存储页面题目
+                },
+                success: function (data) {//绑定题组以便刷新后删除没用的
+                    $scope.oldAnswerLen = answer_id.length
+                    $.ajax({
+                            type: "POST",
+                            url: ajaxIp + "/api/v2/answer_region_binds",
+                            headers: {'Authorization': "Bearer " + isLogin},
+                            async: false,
+                            data: {
+                                'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
+                                'answer_region_id': data.message,
+                                'answer_ids':answer_ids.join(",")
+                            },
+                            success: function (data) {
+                                alert("保存成功")
+                                console.log(data)
+                            }
+                        }
+                    )
+                }
+            }
+        )
     }
     window.onbeforeunload = function(){//离开刷新提醒
         if($scope.newAnswerLen>$scope.oldAnswerLen){
