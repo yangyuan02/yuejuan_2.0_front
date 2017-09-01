@@ -274,7 +274,7 @@
                         <!--考生个人信息开始-->
                         <div class="school">
                             <div class="school_title">
-                                <h2>上海师范大学第四附属中学2016学年高三三模拟英语试卷答题纸</h2>
+                                <h2 ng-bind="subjectName+'试卷答题纸'"></h2>
                             </div>
                             <div class="student">
                                 <div class="student_L">
@@ -453,7 +453,7 @@
                                 <tr ng-if="a.type!=5&&a.type!=4"><!--选择题/判断题/多选题/填空题-->
                                     <td>
                                         <div ng-repeat="item in a.no" class="q_c"
-                                             ng-style="{'width':'{{a.type==3?'40%':setWidth}}'}">
+                                             ng-style="{'width':'{{a.type==3?'40%':setItmeWidth(a.thr)}}'}">
                                             <a class="numberNo" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
@@ -575,7 +575,7 @@
                                 <tr ng-if="a.type!=5&&a.type!=4">
                                     <td>
                                         <div ng-repeat="item in a.no" class="q_c"
-                                             ng-style="{'width':'{{a.type==3?'40%':setWidth}}'}">
+                                             ng-style="{'width':'{{a.type==3?'40%':setItmeWidth(a.thr)}}'}">
                                             <a class="numberNo" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
@@ -748,7 +748,7 @@
                                 <tr ng-if="a.type!=5&&a.type!=4"><!--选择题/判断题/多选题/填空题-->
                                     <td>
                                         <div ng-repeat="item in a.no" class="q_c"
-                                             ng-style="{'width':'{{a.type==3?'40%':setWidth}}'}">
+                                             ng-style="{'width':'{{a.type==3?'40%':setItmeWidth(a.thr)}}'}">
                                             <a class="numberNo" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
@@ -870,7 +870,7 @@
                                 <tr ng-if="a.type!=5&&a.type!=4">
                                     <td>
                                         <div ng-repeat="item in a.no" class="q_c"
-                                             ng-style="{'width':'{{a.type==3?'40%':setWidth}}'}">
+                                             ng-style="{'width':'{{a.type==3?'40%':setItmeWidth(a.thr)}}'}">
                                             <a class="numberNo" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
