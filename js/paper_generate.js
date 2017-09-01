@@ -338,6 +338,7 @@ $(function() {
 
 	// 显示所有科目
 	function show_subject_detail(subject_info) {
+		$('#subject').html('');
 		for (var i = 0; i < subject_info.length; i++) {
 			var subject_li = '<li><div class="check-box"><input id= "subject-id' + i + '" type="checkbox" value="' + subject_info[i].name + '" data-id="' + subject_info[i].id + '" class="check" name="subject-check"><label for="subject-id' + i + '">' + subject_info[i].name + '</label></div></li>';
 			$('#subject').append(subject_li);
@@ -1149,8 +1150,8 @@ $(function() {
 				// window.location.href = './login.html';
 			}
 		});
-		if (!$('.modal-bottom-button').hasClass('confirm-teacher')) {
-			$('.modal-bottom-button').addClass('confirm-teacher').removeClass('key-confirm');
+		if (!$('.determine').hasClass('confirm-teacher')) {
+			$('.determine').addClass('confirm-teacher').removeClass('key-confirm');
 		}
 		// 已选择的老师显示在teacher－list中
 		if ($(this).hasClass('add')) {
@@ -1482,7 +1483,7 @@ $(function() {
 	});
 	// 一键添加
 	$('body').on('click', '.key-add', function() {
-		$('.modal-bottom-button').removeClass('confirm-teacher').addClass('key-confirm');
+		$('.determine').removeClass('confirm-teacher').addClass('key-confirm');
 		$('#teacher-modal .teacher-right-list').html('');
 		var teacher_type = $(this).parent().attr('teacher-type');
 		$('.modal-shadow').attr('teacher-type', teacher_type);
