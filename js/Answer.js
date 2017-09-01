@@ -6,7 +6,7 @@ var m1 = angular.module("pro", []);
 //设置控制器
 m1.controller("demo", function ($scope, $timeout, $http) {
     var url = window.location;
-
+    $scope.subjectName = window.localStorage.getItem("test_name") + window.localStorage.getItem("subjectname")
     function getUrlParam(url, name) {//获取页面参数
         var pattern = new RegExp("[?&]" + name + "\=([^&]+)", "g");
         var matcher = pattern.exec(url);
@@ -41,7 +41,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             data:{'exam_subject_id':getUrlParam(url, 'examubjeId')},
             async: false,
             success: function(data){
-                console.log(data)
                 if(data.code==200){
                     $scope.listObj = data.message.page1
                     $scope.listObj2 = data.message.page2
@@ -95,8 +94,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 result = remain- title_h - padding - row*rowItme_h>0?true:false
             }
             if($scope.index==3){//填空题
-                var rowItme_h = 27,score_h = 35
+                var rowItme_h = 27,score_h = 38
                 var row = Math.ceil($scope.result.numbel/2)
+                console.log(remain- title_h - padding - score_h - row*rowItme_h)
                 result = remain- title_h - padding - score_h - row*rowItme_h>0?true:false
             }
             if($scope.index==4){//作文题
@@ -313,13 +313,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for(var i = 0;i<row;i++){
             rosItem.push(i)
         }
-        if(itemNumber<=4){
-            $scope.setWidth = 25+'%'
-        }else if(itemNumber>4&&itemNumber<=10){
-            $scope.setWidth = 50+'%'
-        }else{
-            $scope.setWidth = 100+'%'
-        }
         obj = {
             name: $scope.result.name,//题组名称
             numbel: $scope.index==4?1:parseInt($scope.result.numbel),//试题数量
@@ -352,6 +345,17 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         close()
         console.log($scope.listObj)
     };
+    $scope.setItmeWidth = function (itemNumber) {
+        $scope.setWidth
+        if(itemNumber.length<=4){
+            $scope.setWidth = 25+'%'
+        }else if(itemNumber.length>4&&itemNumber.length<=10){
+            $scope.setWidth = 50+'%'
+        }else{
+            $scope.setWidth = 100+'%'
+        }
+        return $scope.setWidth
+    }
     //关闭
     var close = function () {
         clear();
@@ -511,7 +515,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for (var i = 1; i <= qNumer; i++) {//循环每个小题
             var itme_obj = {}
             itme_obj.no = i
-            itme_obj.one_score = itemCores
+            itme_obj.one_score = parseInt(itemCores)
             itme_obj.answer_setting_id = answer_id[Answerindex].answers.settings[i - 1].setting_id//小题id
             itme_obj.option = []
             question.push(itme_obj)
@@ -684,6 +688,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                                 'answer_ids':answer_ids.join(",")
                             },
                             success: function (data) {
+                                alert("保存成功")
                                 console.log(data)
                             }
                         }
