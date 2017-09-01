@@ -9,9 +9,9 @@
     <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
 </head>
 <body ng-app="pro" ng-controller="demo">
-<div ng-class="{Answer:true}" id="Answer">
+<div class="Answer" id="Answer">
     <!--头部导航-->
-    <div ng-class="{A_Nav:true}">
+    <div class="A_Nav">
         <span>总分:<span ng-class="{Red:true}">100</span>分</span>
         <span ng-class="{bord:true , mL:true}">
 							<span ng-class="{iconfont:true, cous:true}" ng-click="dayin()">&#xe7d0;</span>
@@ -41,16 +41,16 @@
 							</select>
 						</span>
         <span ng-class="{mR:true , clear:true}">
-						<span ng-class="{cous:true}">导入试卷</span>
-						<span ng-class="{cous:true}">导入模版</span>
+						<span ng-bind="checkTestTypeModel?'手工阅卷':'网络阅卷'" ng-click="checkTestType()"></span>
+						<span>导入模版</span>
 						<span ng-click="save()">存为模版</span>
-						<span ng-class="{Red:true, cous:true}">X</span>
+						<span ng-click="closeUteroBox()">X</span>
 					</span>
     </div>
     <!--主要内容-->
-    <div ng-class="{A_B:true}" class="clear">
+    <div class="A_B" class="clear clearfix">
         <!--左侧区域-->
-        <div ng-class="{A_L:true}">
+        <div class="A_L">
             <ul ng-class="{L_ul:true}">
                 <h3>添加题组</h3>
                 <li><a ng-click="add(1)" class="{{1==index?'active':''}}">选择题</a>
@@ -65,7 +65,7 @@
                             <p><span>试题类型</span>
                                 <input type="radio" ng-checked="result.isradio==1" ng-click="checkbox(1)"/>
                                 <span style="float: left;margin-right: 20px;">单选题</span>
-                                <input type="radio" ng-checkisradio==2" ng-click="checkbox(2)" ／>
+                                <input type="radio" ng-checked="result.isradio==2" ng-click="checkbox(2)" ／>
                                 <span style="float: left;">多选题</span>
                             </p>
                             <p><span>起始序号</span><input type="text" ng-model="result.no" placeholder="请输入起始序号"/></p>
@@ -131,11 +131,11 @@
                         <div class="pd">
                            <div class="writItem clearfix">
                                <p>题组名称</p>
-                               <p><input type="text" placeholder="请输入题组名称"></p>
+                               <p><input type="text" placeholder="请输入题组名称" ng-model="result.name"></p>
                            </div>
                             <div class="writItem clearfix">
                                 <p>试题总分</p>
-                                <p><input type="text"></p>
+                                <p><input type="text" ng-model="result.writscore"></p>
                             </div>
                             <div class="writItem clearfix">
                                 <p>作文格式</p>
@@ -160,29 +160,29 @@
                                     <div class="formatItme clearfix"><input type="radio" ng-checked="result.writIsradio==3" ng-click="checkWrit(3)"><span>单词间隔行线</span><span></span></div>
                                 </div>
                             </div>
-                            <div class="writItem clearfix" ng-show="result.writIsradio==1"><!--语文作文-->
-                                <p>格子列数</p>
-                                <p><input type="text"></p>
-                            </div>
+                            <!--<div class="writItem clearfix" ng-show="result.writIsradio==1">&lt;!&ndash;语文作文&ndash;&gt;-->
+                                <!--<p>格子列数</p>-->
+                                <!--<p><input type="text"></p>-->
+                            <!--</div>-->
                             <div class="writItem clearfix" ng-show="result.writIsradio==1">
                                 <p>作文格数</p>
-                                <p><input type="text"></p>
+                                <p><input type="text" ng-model="result.plaid"></p>
                             </div>
                             <div class="writItem clearfix" ng-show="result.writIsradio==2"><!--外语作文-->
                                 <p>格子行数</p>
-                                <p><input type="text"></p>
+                                <p><input type="text" ng-model="result.enLine"></p>
                             </div>
                             <div class="writItem clearfix" ng-show="result.writIsradio==3"><!--单词间隔-->
                                 <p>单词个数</p>
-                                <p><input type="text"></p>
+                                <p><input type="text" ng-model="result.word"></p>
                             </div>
                             <div class="writItem clearfix">
                                 <p>起始序号</p>
-                                <p><input type="text"></p>
+                                <p><input type="text" ng-model="result.no"></p>
                             </div>
                             <div class="writItem clearfix">
                                 <p>所在页码</p>
-                                <p><input type="text"></p>
+                                <p><input type="text" ng-model="result.page"></p>
                             </div>
                             <div class="writItem clearfix">
                                 <button ng-click="btn1()">确认添加</button>
@@ -213,11 +213,11 @@
             </ul>
             <ul ng-class="{L_ul:true}">
                 <h3>答题纸设置</h3>
-                <li class="import-button" ng-click="getAnswerInfo($event)"><a>设置答案</a>
+                <li class="import-button" ng-click="getAnswerInfo(0)"><a>设置答案</a>
                 </li>
                 <li><a>选择板式</a>
                 </li>
-                <li><a>题组排序</a>
+                <li ng-click="getAnswerInfo(1)"><a>题组排序</a>
                 </li>
                 <li><a>密封性间距</a>
                 </li>
@@ -225,412 +225,743 @@
                 </li>
             </ul>
         </div>
-        <!--右侧区域-->
-        <div ng-class="{A_R:true}" id="AR">
-            <!--顶部学生信息开始-->
-            <div class="student_info clearfix">
-                <div class="ermai clearfix"><img src="../img/erwei.jpg" alt=""></div>
-                <div class="person clearfix">
-                    <div class="person_item">
-                        <span>学校:</span>
-                        <span class="B_line"></span>
+        <div class="fl" style="width:1596px">
+            <!--右侧区域-->
+            <div class="A_R">
+                <!--顶部学生信息开始-->
+                <div class="student_info clearfix">
+                    <div class="ermai clearfix"><img src="../img/erwei.jpg" alt=""></div>
+                    <div class="person clearfix">
+                        <div class="person_item">
+                            <span>学校:</span>
+                            <span class="B_line"></span>
+                        </div>
+                        <div class="person_item">
+                            <span>班级:</span>
+                            <span class="B_line"></span>
+                        </div>
+                        <div class="person_item">
+                            <span>姓名:</span>
+                            <span class="B_line"></span>
+                        </div>
+                        <div class="person_item">
+                            <span>座位号:</span>
+                            <span class="B_line"></span>
+                        </div>
                     </div>
-                    <div class="person_item">
-                        <span>班级:</span>
-                        <span class="B_line"></span>
+                </div>
+                <!--顶部学生信息结束-->
+                <!--定位块开始-->
+                <div class="position_TL position_item">
+                    <span class="black_item black_1"></span>
+                    <span class="black_item black_r"></span>
+                </div>
+                <div class="position_TR position_item">
+                    <span class="black_item black_1"></span>
+                    <span class="black_item black_r"></span>
+                </div>
+                <div class="position_BL position_item">
+                    <span class="black_item black_1"></span>
+                    <span class="black_item black_r"></span>
+                </div>
+                <div class="position_BR position_item">
+                    <span class="black_item black_1"></span>
+                    <span class="black_item black_r"></span>
+                </div>
+                <!--定位块结束-->
+                <div class="conten clearfix">
+                    <div class="A_Rone clearfix">
+                        <!--考生个人信息开始-->
+                        <div class="school">
+                            <div class="school_title">
+                                <h2 ng-bind="subjectName+'试卷答题纸'"></h2>
+                            </div>
+                            <div class="student">
+                                <div class="student_L">
+                                    <div class="student_number">考生号</div>
+                                    <div class="student_number1">
+                                        <ul>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                        </ul>
+                                    </div>
+                                    <div class="student_number3">
+                                        <ul>
+                                            <li>0</li>
+                                            <li>1</li>
+                                            <li>2</li>
+                                            <li>3</li>
+                                            <li>4</li>
+                                            <li>5</li>
+                                            <li>6</li>
+                                            <li>7</li>
+                                            <li>8</li>
+                                            <li>9</li>
+                                        </ul>
+                                        <ul>
+                                            <li>0</li>
+                                            <li>1</li>
+                                            <li>2</li>
+                                            <li>3</li>
+                                            <li>4</li>
+                                            <li>5</li>
+                                            <li>6</li>
+                                            <li>7</li>
+                                            <li>8</li>
+                                            <li>9</li>
+                                        </ul>
+                                        <ul>
+                                            <li>0</li>
+                                            <li>1</li>
+                                            <li>2</li>
+                                            <li>3</li>
+                                            <li>4</li>
+                                            <li>5</li>
+                                            <li>6</li>
+                                            <li>7</li>
+                                            <li>8</li>
+                                            <li>9</li>
+                                        </ul>
+                                        <ul>
+                                            <li>0</li>
+                                            <li>1</li>
+                                            <li>2</li>
+                                            <li>3</li>
+                                            <li>4</li>
+                                            <li>5</li>
+                                            <li>6</li>
+                                            <li>7</li>
+                                            <li>8</li>
+                                            <li>9</li>
+                                        </ul>
+                                        <ul>
+                                            <li>0</li>
+                                            <li>1</li>
+                                            <li>2</li>
+                                            <li>3</li>
+                                            <li>4</li>
+                                            <li>5</li>
+                                            <li>6</li>
+                                            <li>7</li>
+                                            <li>8</li>
+                                            <li>9</li>
+                                        </ul>
+                                        <ul>
+                                            <li>0</li>
+                                            <li>1</li>
+                                            <li>2</li>
+                                            <li>3</li>
+                                            <li>4</li>
+                                            <li>5</li>
+                                            <li>6</li>
+                                            <li>7</li>
+                                            <li>8</li>
+                                            <li>9</li>
+                                        </ul>
+                                        <ul>
+                                            <li>0</li>
+                                            <li>1</li>
+                                            <li>2</li>
+                                            <li>3</li>
+                                            <li>4</li>
+                                            <li>5</li>
+                                            <li>6</li>
+                                            <li>7</li>
+                                            <li>8</li>
+                                            <li>9</li>
+                                        </ul>
+                                        <ul>
+                                            <li>0</li>
+                                            <li>1</li>
+                                            <li>2</li>
+                                            <li>3</li>
+                                            <li>4</li>
+                                            <li>5</li>
+                                            <li>6</li>
+                                            <li>7</li>
+                                            <li>8</li>
+                                            <li>9</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="student_R">
+                                    <div class="bar_code">
+                                        <div class="code_box_dashed">
+                                            <div class="code_box_line">
+                                                <p>贴条形码区</p>
+                                                <p>(正常正常正常正常正常正常)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tips">
+                                        <ul>
+                                            <h3>注意事项</h3>
+                                            <li>1.请在框线区域作答，密封线内答题无效</li>
+                                            <li>2.请使用标准的2B铅笔填涂，避免无法识和修改</li>
+                                            <li>3.请将正确选择框填满</li>
+                                        </ul>
+                                        <p>正确填涂方法<span></span></p>
+                                        <p>错误填涂方法<span></span><span></span><span></span><span></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--考试个人信息结束-->
+                        <div class="A_Rone_child">
+                            <table ng-repeat="a in listObj">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <span>{{Q_number[$index]}}、</span>
+                                        {{a.name}}(共{{a.totalCores}}分<span ng-hide="a.type==4">，每题{{a.itemCores}}分</span>)
+                                    </th>
+                                </tr>
+                                <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5">
+                                    <th>
+                                        <!--网络阅卷打分框start-->
+                                        <div class="marking">
+                                            <a href="">1</a>
+                                            <a href="">2</a>
+                                            <a href="">3</a>
+                                            <a href="">4</a>
+                                            <a href="">5</a>
+                                            <a href="">6</a>
+                                            <a href="">7</a>
+                                            <a href="">8</a>
+                                            <a href="">9</a>
+                                            <a href="">0</a>
+                                            <a href="">1</a>
+                                            <a href="">2</a>
+                                            <a href="">3</a>
+                                            <a href="">4</a>
+                                            <a href="">5</a>
+                                            <a href="">.5</a>
+                                            <a href=""></a>
+                                        </div>
+                                        <!--网络阅卷打分框end-->
+                                    </th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr ng-if="a.type!=5&&a.type!=4"><!--选择题/判断题/多选题/填空题-->
+                                    <td>
+                                        <div ng-repeat="item in a.no" class="q_c"
+                                             ng-style="{'width':'{{a.type==3?'40%':setItmeWidth(a.thr)}}'}">
+                                            <a class="numberNo" ng-show="a.type==3"></a>
+                                            <!--序号start-->
+                                            <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
+                                            <!--序号end-->
+                                            <!--选择题模版start-->
+                                            <span ng-show="a.type==1||a.type==2||a.type==6" ng-repeat="items in a.thr">
+                                            <b>{{items}}</b>
+                                        </span>
+                                            <!--选择题模版end-->
+                                            <!--填空题模板start-->
+                                            <span class="fill_line" ng-show="a.type==3"></span>
+                                            <!--填空题模版end-->
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!--其他题模板开始-->
+                                <tr ng-if="a.type==5" class="other"><!--其他题-->
+                                    <td>
+                                        <div ng-repeat="item in a.no">
+                                            <!--其他题头部-->
+                                            <div class="other_h clearfix">
+                                                <div class="other_number">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
+                                                </div>
+                                                <!--网络阅卷打分框start-->
+                                                <div class="marking clearfix">
+                                                    <a href="">1</a>
+                                                    <a href="">2</a>
+                                                    <a href="">3</a>
+                                                    <a href="">4</a>
+                                                    <a href="">5</a>
+                                                    <a href="">6</a>
+                                                    <a href="">7</a>
+                                                    <a href="">8</a>
+                                                    <a href="">9</a>
+                                                    <a href="">0</a>
+                                                    <a href="">1</a>
+                                                    <a href="">2</a>
+                                                    <a href="">3</a>
+                                                    <a href="">4</a>
+                                                    <a href="">5</a>
+                                                    <a href="">.5</a>
+                                                    <a href=""></a>
+                                                </div>
+                                                <!--网络阅卷打分框end-->
+                                            </div>
+                                            <div class="other_c"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!--其他题模板结束-->
+                                <!--作文题模板开始-->
+                                <tr ng-if="a.type==4" class="other"><!--作文题-->
+                                    <td>
+                                        <div class="chinese" ng-if="a.articleType==1">
+                                            <div class="wirt_outer">
+                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows">
+                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids"></div>
+                                                </div>
+                                            </div>
+                                        </div><!--语文作文题-->
+                                        <div class="english" ng-if="a.articleType==2">
+                                            <div class="english_line" ng-repeat="row in a.rows"></div>
+                                        </div><!-- 外语作文题-->
+                                        <div class="en_word" ng-if="a.articleType==3">
+                                            <div class="word_itme" ng-repeat="row in a.rows"></div>
+                                        </div><!--单词隔行线-->
+                                    </td>
+                                </tr>
+                                <!--作文题模板结束-->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tips">
+                            <p>请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效</p>
+                        </div>
                     </div>
-                    <div class="person_item">
-                        <span>姓名:</span>
-                        <span class="B_line"></span>
-                    </div>
-                    <div class="person_item">
-                        <span>座位号:</span>
-                        <span class="B_line"></span>
+                    <div class="A_Rone clearfix">
+                        <div style="height:20px;width:100%"></div>
+                        <div class="tips tips_t">
+                            <p>请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效</p>
+                        </div>
+                        <div class="A_Rone_child">
+                            <table ng-repeat="a in listObj2">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <span>{{Q_number[$index+listObj.length]}}、</span>
+                                        {{a.name}}(共{{a.totalCores}}分<span ng-hide="a.type==4">，每题{{a.itemCores}}分</span>)
+                                    </th>
+                                </tr>
+                                <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5">
+                                    <th>
+                                        <!--网络阅卷打分框start-->
+                                        <div class="marking">
+                                            <a href="">1</a>
+                                            <a href="">2</a>
+                                            <a href="">3</a>
+                                            <a href="">4</a>
+                                            <a href="">5</a>
+                                            <a href="">6</a>
+                                            <a href="">7</a>
+                                            <a href="">8</a>
+                                            <a href="">9</a>
+                                            <a href="">0</a>
+                                            <a href="">1</a>
+                                            <a href="">2</a>
+                                            <a href="">3</a>
+                                            <a href="">4</a>
+                                            <a href="">5</a>
+                                            <a href="">.5</a>
+                                            <a href=""></a>
+                                        </div>
+                                        <!--网络阅卷打分框end-->
+                                    </th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr ng-if="a.type!=5&&a.type!=4">
+                                    <td>
+                                        <div ng-repeat="item in a.no" class="q_c"
+                                             ng-style="{'width':'{{a.type==3?'40%':setItmeWidth(a.thr)}}'}">
+                                            <a class="numberNo" ng-show="a.type==3"></a>
+                                            <!--序号start-->
+                                            <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
+                                            <!--序号end-->
+                                            <!--选择题模版start-->
+                                            <span ng-show="a.type==1||a.type==2||a.type==6" ng-repeat="items in a.thr">
+                                            <b>{{items}}</b>
+                                        </span>
+                                            <!--选择题模版end-->
+                                            <!--填空题模板start-->
+                                            <span class="fill_line" ng-show="a.type==3"></span>
+                                            <!--填空题模版end-->
+                                            <!--英语作文题模板start-->
+                                            <span class="writing" ng-show="a.type==4">
+                                            <b></b>
+                                        </span>
+                                            <!--英语作文题模板end-->
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!--其他题模板开始-->
+                                <tr ng-if="a.type==5" class="other">
+                                    <td>
+                                        <div ng-repeat="item in a.no">
+                                            <!--其他题头部-->
+                                            <div class="other_h clearfix">
+                                                <div class="other_number">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
+                                                </div>
+                                                <!--网络阅卷打分框start-->
+                                                <div class="marking clearfix">
+                                                    <a href="">1</a>
+                                                    <a href="">2</a>
+                                                    <a href="">3</a>
+                                                    <a href="">4</a>
+                                                    <a href="">5</a>
+                                                    <a href="">6</a>
+                                                    <a href="">7</a>
+                                                    <a href="">8</a>
+                                                    <a href="">9</a>
+                                                    <a href="">0</a>
+                                                    <a href="">1</a>
+                                                    <a href="">2</a>
+                                                    <a href="">3</a>
+                                                    <a href="">4</a>
+                                                    <a href="">5</a>
+                                                    <a href="">.5</a>
+                                                    <a href=""></a>
+                                                </div>
+                                                <!--网络阅卷打分框end-->
+                                            </div>
+                                            <div class="other_c"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!--其他题模板结束-->
+                                <!--作文题模板开始-->
+                                <tr ng-if="a.type==4" class="other"><!--作文题-->
+                                    <td>
+                                        <div class="chinese" ng-if="a.articleType==1">
+                                            <div class="wirt_outer">
+                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows">
+                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids"></div>
+                                                </div>
+                                            </div>
+                                        </div><!--语文作文题-->
+                                        <div class="english" ng-if="a.articleType==2">
+                                            <div class="english_line" ng-repeat="row in a.rows"></div>
+                                        </div><!-- 外语作文题-->
+                                        <div class="en_word" ng-if="a.articleType==3">
+                                            <div class="word_itme" ng-repeat="row in a.rows"></div>
+                                        </div><!--单词隔行线-->
+                                    </td>
+                                </tr>
+                                <!--作文题模板结束-->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tips">
+                            <p>请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!--顶部学生信息结束-->
-            <!--定位块开始-->
-            <div class="position_TL position_item">
-                <span class="black_item black_1"></span>
-                <span class="black_item black_r"></span>
-            </div>
-            <div class="position_TR position_item">
-                <span class="black_item black_1"></span>
-                <span class="black_item black_r"></span>
-            </div>
-            <div class="position_BL position_item">
-                <span class="black_item black_1"></span>
-                <span class="black_item black_r"></span>
-            </div>
-            <div class="position_BR position_item">
-                <span class="black_item black_1"></span>
-                <span class="black_item black_r"></span>
-            </div>
-            <!--定位块结束-->
-            <div class="conten clearfix">
-                <div class="A_Rone clearfix">
-                    <!--考生个人信息开始-->
-                    <div class="school">
-                        <div class="school_title">
-                            <h2>上海师范大学第四附属中学2016学年高三三模拟英语试卷答题纸</h2>
+            <!--右侧区域-->
+            <div class="A_R" ng-if="listObj3.length>0">
+                <!--顶部学生信息开始-->
+                <div class="student_info clearfix">
+                    <div class="ermai clearfix"><img src="../img/erwei.jpg" alt=""></div>
+                    <div class="person clearfix">
+                        <div class="person_item">
+                            <span>学校:</span>
+                            <span class="B_line"></span>
                         </div>
-                        <div class="student">
-                            <div class="student_L">
-                                <div class="student_number">考生号</div>
-                                <div class="student_number1">
-                                    <ul>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                    </ul>
-                                </div>
-                                <div class="student_number3">
-                                    <ul>
-                                        <li>0</li>
-                                        <li>1</li>
-                                        <li>2</li>
-                                        <li>3</li>
-                                        <li>4</li>
-                                        <li>5</li>
-                                        <li>6</li>
-                                        <li>7</li>
-                                        <li>8</li>
-                                        <li>9</li>
-                                    </ul>
-                                    <ul>
-                                        <li>0</li>
-                                        <li>1</li>
-                                        <li>2</li>
-                                        <li>3</li>
-                                        <li>4</li>
-                                        <li>5</li>
-                                        <li>6</li>
-                                        <li>7</li>
-                                        <li>8</li>
-                                        <li>9</li>
-                                    </ul>
-                                    <ul>
-                                        <li>0</li>
-                                        <li>1</li>
-                                        <li>2</li>
-                                        <li>3</li>
-                                        <li>4</li>
-                                        <li>5</li>
-                                        <li>6</li>
-                                        <li>7</li>
-                                        <li>8</li>
-                                        <li>9</li>
-                                    </ul>
-                                    <ul>
-                                        <li>0</li>
-                                        <li>1</li>
-                                        <li>2</li>
-                                        <li>3</li>
-                                        <li>4</li>
-                                        <li>5</li>
-                                        <li>6</li>
-                                        <li>7</li>
-                                        <li>8</li>
-                                        <li>9</li>
-                                    </ul>
-                                    <ul>
-                                        <li>0</li>
-                                        <li>1</li>
-                                        <li>2</li>
-                                        <li>3</li>
-                                        <li>4</li>
-                                        <li>5</li>
-                                        <li>6</li>
-                                        <li>7</li>
-                                        <li>8</li>
-                                        <li>9</li>
-                                    </ul>
-                                    <ul>
-                                        <li>0</li>
-                                        <li>1</li>
-                                        <li>2</li>
-                                        <li>3</li>
-                                        <li>4</li>
-                                        <li>5</li>
-                                        <li>6</li>
-                                        <li>7</li>
-                                        <li>8</li>
-                                        <li>9</li>
-                                    </ul>
-                                    <ul>
-                                        <li>0</li>
-                                        <li>1</li>
-                                        <li>2</li>
-                                        <li>3</li>
-                                        <li>4</li>
-                                        <li>5</li>
-                                        <li>6</li>
-                                        <li>7</li>
-                                        <li>8</li>
-                                        <li>9</li>
-                                    </ul>
-                                    <ul>
-                                        <li>0</li>
-                                        <li>1</li>
-                                        <li>2</li>
-                                        <li>3</li>
-                                        <li>4</li>
-                                        <li>5</li>
-                                        <li>6</li>
-                                        <li>7</li>
-                                        <li>8</li>
-                                        <li>9</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="student_R">
-                                <div class="bar_code">
-                                    <div class="code_box_dashed">
-                                        <div class="code_box_line">
-                                            <p>贴条形码区</p>
-                                            <p>(正常正常正常正常正常正常)</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tips">
-                                    <ul>
-                                        <h3>注意事项</h3>
-                                        <li>1.请在框线区域作答，密封线内答题无效</li>
-                                        <li>2.请使用标准的2B铅笔填涂，避免无法识和修改</li>
-                                        <li>3.请将正确选择框填满</li>
-                                    </ul>
-                                    <p>正确填涂方法<span></span></p>
-                                    <p>错误填涂方法<span></span><span></span><span></span><span></span></p>
-                                </div>
-                            </div>
+                        <div class="person_item">
+                            <span>班级:</span>
+                            <span class="B_line"></span>
                         </div>
-                    </div>
-                    <!--考试个人信息结束-->
-                    <div class="A_Rone_child">
-                        <table ng-repeat="a in listObj">
-                            <thead>
-                            <tr>
-                                <th>
-                                    <span>{{Q_number[$index]}}、</span>
-                                    {{a.name}}(共{{a.totalCores}}分，每题{{a.itemCores}}分)
-                                </th>
-                            </tr>
-                            <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5">
-                                <th>
-                                    <!--网络阅卷打分框start-->
-                                    <div class="marking">
-                                        <a href="">1</a>
-                                        <a href="">2</a>
-                                        <a href="">3</a>
-                                        <a href="">4</a>
-                                        <a href="">5</a>
-                                        <a href="">6</a>
-                                        <a href="">7</a>
-                                        <a href="">8</a>
-                                        <a href="">9</a>
-                                        <a href="">0</a>
-                                        <a href="">1</a>
-                                        <a href="">2</a>
-                                        <a href="">3</a>
-                                        <a href="">4</a>
-                                        <a href="">5</a>
-                                        <a href="">.5</a>
-                                        <a href=""></a>
-                                    </div>
-                                    <!--网络阅卷打分框end-->
-                                </th>
-                            </tr>
-                            </thead>
-
-                            <tbody>
-                            <tr ng-if="a.type!=5">
-                                <td>
-                                    <div ng-repeat="item in a.no" class="q_c"
-                                         ng-style="{'width':'{{a.type==3?'40%':'25%'}}'}">
-                                        <a class="numberNo" ng-show="a.type==3"></a>
-                                        <!--序号start-->
-                                        <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
-                                        <!--序号end-->
-                                        <!--选择题模版start-->
-                                        <span ng-show="a.type==1||a.type==2||a.type==6" ng-repeat="items in a.thr">
-                                            <b>{{items}}</b>
-                                        </span>
-                                        <!--选择题模版end-->
-                                        <!--填空题模板start-->
-                                        <span class="fill_line" ng-show="a.type==3"></span>
-                                        <!--填空题模版end-->
-                                        <!--英语作文题模板start-->
-                                        <span class="writing" ng-show="a.type==4">
-                                            <b></b>
-                                        </span>
-                                        <!--英语作文题模板end-->
-                                    </div>
-                                </td>
-                            </tr>
-                            <!--其他题模板开始-->
-                            <tr ng-if="a.type==5" class="other">
-                                <td>
-                                    <div ng-repeat="item in a.no">
-                                        <!--其他题头部-->
-                                        <div class="other_h clearfix">
-                                            <div class="other_number">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
-                                            </div>
-                                            <!--网络阅卷打分框start-->
-                                            <div class="marking clearfix">
-                                                <a href="">1</a>
-                                                <a href="">2</a>
-                                                <a href="">3</a>
-                                                <a href="">4</a>
-                                                <a href="">5</a>
-                                                <a href="">6</a>
-                                                <a href="">7</a>
-                                                <a href="">8</a>
-                                                <a href="">9</a>
-                                                <a href="">0</a>
-                                                <a href="">1</a>
-                                                <a href="">2</a>
-                                                <a href="">3</a>
-                                                <a href="">4</a>
-                                                <a href="">5</a>
-                                                <a href="">.5</a>
-                                                <a href=""></a>
-                                            </div>
-                                            <!--网络阅卷打分框end-->
-                                        </div>
-                                        <div class="other_c"></div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!--其他题模板结束-->
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="tips">
-                        <p>请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效</p>
+                        <div class="person_item">
+                            <span>姓名:</span>
+                            <span class="B_line"></span>
+                        </div>
+                        <div class="person_item">
+                            <span>座位号:</span>
+                            <span class="B_line"></span>
+                        </div>
                     </div>
                 </div>
-                <div class="A_Rone clearfix">
-                    <div style="height:20px;width:100%"></div>
-                    <div class="tips tips_t">
-                        <p>请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效</p>
-                    </div>
-                    <div class="A_Rone_child">
-                        <table ng-repeat="a in listObj2">
-                            <thead>
-                            <tr>
-                                <th>
-                                    <span>{{Q_number[$index+listObj.length]}}、</span>
-                                    {{a.name}}(共{{a.totalCores}}分，每题{{a.itemCores}}分)
-                                </th>
-                            </tr>
-                            <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5">
-                                <th>
-                                    <!--网络阅卷打分框start-->
-                                    <div class="marking">
-                                        <a href="">1</a>
-                                        <a href="">2</a>
-                                        <a href="">3</a>
-                                        <a href="">4</a>
-                                        <a href="">5</a>
-                                        <a href="">6</a>
-                                        <a href="">7</a>
-                                        <a href="">8</a>
-                                        <a href="">9</a>
-                                        <a href="">0</a>
-                                        <a href="">1</a>
-                                        <a href="">2</a>
-                                        <a href="">3</a>
-                                        <a href="">4</a>
-                                        <a href="">5</a>
-                                        <a href="">.5</a>
-                                        <a href=""></a>
-                                    </div>
-                                    <!--网络阅卷打分框end-->
-                                </th>
-                            </tr>
-                            </thead>
+                <!--顶部学生信息结束-->
+                <!--定位块开始-->
+                <div class="position_TL position_item">
+                    <span class="black_item black_1"></span>
+                    <span class="black_item black_r"></span>
+                </div>
+                <div class="position_TR position_item">
+                    <span class="black_item black_1"></span>
+                    <span class="black_item black_r"></span>
+                </div>
+                <div class="position_BL position_item">
+                    <span class="black_item black_1"></span>
+                    <span class="black_item black_r"></span>
+                </div>
+                <div class="position_BR position_item">
+                    <span class="black_item black_1"></span>
+                    <span class="black_item black_r"></span>
+                </div>
+                <!--定位块结束-->
+                <div class="conten clearfix">
+                    <div class="A_Rone clearfix">
+                        <div style="height:20px;width:100%"></div>
+                        <div class="tips tips_t" style="top:0px;">
+                            <p>请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效</p>
+                        </div>
+                        <div class="A_Rone_child">
+                            <table ng-repeat="a in listObj3">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <span>{{Q_number[$index+listObj.length+listObj2.length]}}、</span>
+                                        {{a.name}}(共{{a.totalCores}}分<span ng-hide="a.type==4">，每题{{a.itemCores}}分</span>)
+                                    </th>
+                                </tr>
+                                <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5">
+                                    <th>
+                                        <!--网络阅卷打分框start-->
+                                        <div class="marking">
+                                            <a href="">1</a>
+                                            <a href="">2</a>
+                                            <a href="">3</a>
+                                            <a href="">4</a>
+                                            <a href="">5</a>
+                                            <a href="">6</a>
+                                            <a href="">7</a>
+                                            <a href="">8</a>
+                                            <a href="">9</a>
+                                            <a href="">0</a>
+                                            <a href="">1</a>
+                                            <a href="">2</a>
+                                            <a href="">3</a>
+                                            <a href="">4</a>
+                                            <a href="">5</a>
+                                            <a href="">.5</a>
+                                            <a href=""></a>
+                                        </div>
+                                        <!--网络阅卷打分框end-->
+                                    </th>
+                                </tr>
+                                </thead>
 
-                            <tbody>
-                            <tr ng-if="a.type!=5">
-                                <td>
-                                    <div ng-repeat="item in a.no" class="q_c"
-                                         ng-style="{'width':'{{a.type==3?'40%':'25%'}}'}">
-                                        <a class="numberNo" ng-show="a.type==3"></a>
-                                        <!--序号start-->
-                                        <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
-                                        <!--序号end-->
-                                        <!--选择题模版start-->
-                                        <span ng-show="a.type==1||a.type==2||a.type==6" ng-repeat="items in a.thr">
+                                <tbody>
+                                <tr ng-if="a.type!=5&&a.type!=4"><!--选择题/判断题/多选题/填空题-->
+                                    <td>
+                                        <div ng-repeat="item in a.no" class="q_c"
+                                             ng-style="{'width':'{{a.type==3?'40%':setItmeWidth(a.thr)}}'}">
+                                            <a class="numberNo" ng-show="a.type==3"></a>
+                                            <!--序号start-->
+                                            <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
+                                            <!--序号end-->
+                                            <!--选择题模版start-->
+                                            <span ng-show="a.type==1||a.type==2||a.type==6" ng-repeat="items in a.thr">
                                             <b>{{items}}</b>
                                         </span>
-                                        <!--选择题模版end-->
-                                        <!--填空题模板start-->
-                                        <span class="fill_line" ng-show="a.type==3"></span>
-                                        <!--填空题模版end-->
-                                        <!--英语作文题模板start-->
-                                        <span class="writing" ng-show="a.type==4">
+                                            <!--选择题模版end-->
+                                            <!--填空题模板start-->
+                                            <span class="fill_line" ng-show="a.type==3"></span>
+                                            <!--填空题模版end-->
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!--其他题模板开始-->
+                                <tr ng-if="a.type==5" class="other"><!--其他题-->
+                                    <td>
+                                        <div ng-repeat="item in a.no">
+                                            <!--其他题头部-->
+                                            <div class="other_h clearfix">
+                                                <div class="other_number">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
+                                                </div>
+                                                <!--网络阅卷打分框start-->
+                                                <div class="marking clearfix">
+                                                    <a href="">1</a>
+                                                    <a href="">2</a>
+                                                    <a href="">3</a>
+                                                    <a href="">4</a>
+                                                    <a href="">5</a>
+                                                    <a href="">6</a>
+                                                    <a href="">7</a>
+                                                    <a href="">8</a>
+                                                    <a href="">9</a>
+                                                    <a href="">0</a>
+                                                    <a href="">1</a>
+                                                    <a href="">2</a>
+                                                    <a href="">3</a>
+                                                    <a href="">4</a>
+                                                    <a href="">5</a>
+                                                    <a href="">.5</a>
+                                                    <a href=""></a>
+                                                </div>
+                                                <!--网络阅卷打分框end-->
+                                            </div>
+                                            <div class="other_c"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!--其他题模板结束-->
+                                <!--作文题模板开始-->
+                                <tr ng-if="a.type==4" class="other"><!--作文题-->
+                                    <td>
+                                        <div class="chinese" ng-if="a.articleType==1">
+                                            <div class="wirt_outer">
+                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows">
+                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids"></div>
+                                                </div>
+                                            </div>
+                                        </div><!--语文作文题-->
+                                        <div class="english" ng-if="a.articleType==2">
+                                            <div class="english_line" ng-repeat="row in a.rows"></div>
+                                        </div><!-- 外语作文题-->
+                                        <div class="en_word" ng-if="a.articleType==3">
+                                            <div class="word_itme" ng-repeat="row in a.rows"></div>
+                                        </div><!--单词隔行线-->
+                                    </td>
+                                </tr>
+                                <!--作文题模板结束-->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tips">
+                            <p>请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效</p>
+                        </div>
+                    </div>
+                    <div class="A_Rone clearfix">
+                        <div style="height:20px;width:100%"></div>
+                        <div class="tips tips_t">
+                            <p>请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效</p>
+                        </div>
+                        <div class="A_Rone_child">
+                            <table ng-repeat="a in listObj4">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <span>{{Q_number[$index+listObj.length+listObj2.length+listObj3.length]}}、</span>
+                                        {{a.name}}(共{{a.totalCores}}分<span ng-hide="a.type==4">，每题{{a.itemCores}}分</span>)
+                                    </th>
+                                </tr>
+                                <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5">
+                                    <th>
+                                        <!--网络阅卷打分框start-->
+                                        <div class="marking">
+                                            <a href="">1</a>
+                                            <a href="">2</a>
+                                            <a href="">3</a>
+                                            <a href="">4</a>
+                                            <a href="">5</a>
+                                            <a href="">6</a>
+                                            <a href="">7</a>
+                                            <a href="">8</a>
+                                            <a href="">9</a>
+                                            <a href="">0</a>
+                                            <a href="">1</a>
+                                            <a href="">2</a>
+                                            <a href="">3</a>
+                                            <a href="">4</a>
+                                            <a href="">5</a>
+                                            <a href="">.5</a>
+                                            <a href=""></a>
+                                        </div>
+                                        <!--网络阅卷打分框end-->
+                                    </th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr ng-if="a.type!=5&&a.type!=4">
+                                    <td>
+                                        <div ng-repeat="item in a.no" class="q_c"
+                                             ng-style="{'width':'{{a.type==3?'40%':setItmeWidth(a.thr)}}'}">
+                                            <a class="numberNo" ng-show="a.type==3"></a>
+                                            <!--序号start-->
+                                            <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
+                                            <!--序号end-->
+                                            <!--选择题模版start-->
+                                            <span ng-show="a.type==1||a.type==2||a.type==6" ng-repeat="items in a.thr">
+                                            <b>{{items}}</b>
+                                        </span>
+                                            <!--选择题模版end-->
+                                            <!--填空题模板start-->
+                                            <span class="fill_line" ng-show="a.type==3"></span>
+                                            <!--填空题模版end-->
+                                            <!--英语作文题模板start-->
+                                            <span class="writing" ng-show="a.type==4">
                                             <b></b>
                                         </span>
-                                        <!--英语作文题模板end-->
-                                    </div>
-                                </td>
-                            </tr>
-                            <!--其他题模板开始-->
-                            <tr ng-if="a.type==5" class="other">
-                                <td>
-                                    <div ng-repeat="item in a.no">
-                                        <!--其他题头部-->
-                                        <div class="other_h clearfix">
-                                            <div class="other_number">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
-                                            </div>
-                                            <!--网络阅卷打分框start-->
-                                            <div class="marking clearfix">
-                                                <a href="">1</a>
-                                                <a href="">2</a>
-                                                <a href="">3</a>
-                                                <a href="">4</a>
-                                                <a href="">5</a>
-                                                <a href="">6</a>
-                                                <a href="">7</a>
-                                                <a href="">8</a>
-                                                <a href="">9</a>
-                                                <a href="">0</a>
-                                                <a href="">1</a>
-                                                <a href="">2</a>
-                                                <a href="">3</a>
-                                                <a href="">4</a>
-                                                <a href="">5</a>
-                                                <a href="">.5</a>
-                                                <a href=""></a>
-                                            </div>
-                                            <!--网络阅卷打分框end-->
+                                            <!--英语作文题模板end-->
                                         </div>
-                                        <div class="other_c"></div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!--其他题模板结束-->
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="tips">
-                        <p>请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效</p>
+                                    </td>
+                                </tr>
+                                <!--其他题模板开始-->
+                                <tr ng-if="a.type==5" class="other">
+                                    <td>
+                                        <div ng-repeat="item in a.no">
+                                            <!--其他题头部-->
+                                            <div class="other_h clearfix">
+                                                <div class="other_number">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
+                                                </div>
+                                                <!--网络阅卷打分框start-->
+                                                <div class="marking clearfix">
+                                                    <a href="">1</a>
+                                                    <a href="">2</a>
+                                                    <a href="">3</a>
+                                                    <a href="">4</a>
+                                                    <a href="">5</a>
+                                                    <a href="">6</a>
+                                                    <a href="">7</a>
+                                                    <a href="">8</a>
+                                                    <a href="">9</a>
+                                                    <a href="">0</a>
+                                                    <a href="">1</a>
+                                                    <a href="">2</a>
+                                                    <a href="">3</a>
+                                                    <a href="">4</a>
+                                                    <a href="">5</a>
+                                                    <a href="">.5</a>
+                                                    <a href=""></a>
+                                                </div>
+                                                <!--网络阅卷打分框end-->
+                                            </div>
+                                            <div class="other_c"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!--其他题模板结束-->
+                                <!--作文题模板开始-->
+                                <tr ng-if="a.type==4" class="other"><!--作文题-->
+                                    <td>
+                                        <div class="chinese" ng-if="a.articleType==1">
+                                            <div class="wirt_outer">
+                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows">
+                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids"></div>
+                                                </div>
+                                            </div>
+                                        </div><!--语文作文题-->
+                                        <div class="english" ng-if="a.articleType==2">
+                                            <div class="english_line" ng-repeat="row in a.rows"></div>
+                                        </div><!-- 外语作文题-->
+                                        <div class="en_word" ng-if="a.articleType==3">
+                                            <div class="word_itme" ng-repeat="row in a.rows"></div>
+                                        </div><!--单词隔行线-->
+                                    </td>
+                                </tr>
+                                <!--作文题模板结束-->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tips">
+                            <p>请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
     <!--设置答题卡弹窗开始-->
-    <div class="modal-wrap" id="i_two">
-        <div class="modal-shadow modal-exit"></div>
+    <div class="modal-wrap answer setAnswer">
+        <div class="modal-shadow modal-exit" ng-click="closeAnswerModel()"></div>
         <div class="modal-main" style="width:550px;">
-            <div class="modal-exit iconfont modal-exit-icon">&#xe61a;</div>
+            <div class="modal-exit iconfont modal-exit-icon" ng-click="closeAnswerModel()">&#xe61a;</div>
             <div class="modal-title">设置客观题答题</div>
             <div class="modal-content nomal">
                 <div class="mian-cont">
@@ -638,19 +969,75 @@
                         <div class="q_title"><p ng-bind="ans.answer_name"></p></div>
                         <div class="q_content clearfix">
                             <div class="set_q_item fl clearfix" ng-repeat="itmes in ans.settings">
-                                <div class="set_number fl"><input type="text" value="{{itmes.setting_num<10?'0'+itmes.setting_num:itmes.setting_num}}"></div>
+                                <div class="set_number fl"><input type="text" ng-keyup="setItmeNum(itmes.setting_id,itmes.setting_num)" ng-model="itmes.setting_num"></div>
                                 <div class="set_options_itme fl clearfix">
                                     <div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.type=='xz'" ng-repeat="itme in nub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>
                                     <div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.type=='sf'" ng-repeat="itme in rightNub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>
                                 </div>
+                                <div class="set_number scoer fl" ng-show="showScore"><input type="text" ng-keyup="setItmeScore(itmes.setting_id,itmes.score)" ng-model="itmes.score"></div>
+                                <div class="scoer_wx fl" ng-show="showScore">分</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!--功能按钮组-->
+            <div class="btns clearfix">
+                <div class="add fl">
+                    <div class="fl btnsa" ng-click="addAnswer()">
+                        <i class="iconfont">&#xe620;</i>
+                    </div>
+                    <span class="fl">增加</span>
+                </div>
+                <div class="sub fl">
+                    <div class="fl btnsa" ng-click="deleAnswer()">
+                        <i class="iconfont">&#xe621;</i>
+                    </div>
+                    <span class="fl">删除</span>
+                </div>
+                <div class="show_score fl">
+                    <div class="fl btnsa" ng-click="checkScore()">
+                        <i class="iconfont" ng-bind="showScore?'&#xe619':''">;</i>
+                    </div>
+                    <span class="fl">显示分数</span>
+                </div>
+                <div class="prev a_page fl {{start==0?'disabled':''}}" ng-click="pageData(2)">上一页</div>
+                <div class="next a_page fl {{end==bigAnswer.length?'disabled':''}}" ng-click="pageData(1)">下一页</div>
+            </div>
         </div>
     </div>
     <!--设置答题卡弹窗结束-->
+    <!--设置题组排序弹窗开始-->
+    <div class="modal-wrap setSort">
+        <div class="modal-shadow modal-exit" ng-click="closeAnswerModel()"></div>
+        <div class="modal-main" style="width:550px;">
+            <div class="modal-exit iconfont modal-exit-icon" ng-click="closeAnswerModel()">&#xe61a;</div>
+            <div class="modal-title">题组排序</div>
+            <div class="modal-content nomal">
+                <div class="mian-cont">
+                    <div class="sort_head">
+                        <div><span>序号</span><span>题组名称</span><span>分值</span></div>
+                    </div>
+                    <div class="sort_con">
+                        <div class="sort_itme {{$index==sortIndex?'active':''}}" ng-repeat="questionList in bigAnswer" ng-click="selectBigQuestion($index)">
+                            <span ng-bind="$index+1"></span>
+                            <span ng-bind="questionList.answer_name"></span>
+                            <span ng-bind="questionList.answer_score"></span>
+                        </div>
+                    </div>
+                    <div class="set_sort_btn clearfix">
+                        <div class="sort_prev fl"><a href="" ng-click="upRecord(bigAnswer,sortIndex)">上移</a></div>
+                        <div class="sort_next fl"><a href="" ng-click="downRecord(bigAnswer,sortIndex)">下移</a></div>
+                    </div>
+                    <div class="set_sort_big_btn clearfix">
+                        <div class="confirm fr"><a href="">确定</a></div>
+                        <div class="cancel fr"><a href="">取消</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--设置题组排序弹窗结束-->
 </div>
 
 <script src="js/Answer.js" type="text/javascript" charset="utf-8"></script>

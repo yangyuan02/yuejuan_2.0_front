@@ -29,6 +29,7 @@ $(function(){
   var exam_name = getUrlParam(url,'exam_name');
   var subject_name = getUrlParam(url,'subject_name');
   var exam_subject_id = getUrlParam(url,'exam_subject_id');
+  var this_page = getUrlParam(url,'this_page');
 
 	$('#test-name').text(exam_name);
 	//exam_subject_id
@@ -39,14 +40,17 @@ $(function(){
    storage.setItem("test_local_id",test_local_id);
    storage.setItem("exam_name",exam_name);
    storage.setItem("subject_name",subject_name);
+   storage.setItem("this_page",this_page);
    console.log(storage["id"]);
    console.log(storage["test_local_id"]);
    console.log(storage["exam_name"]);
    console.log(storage["subject_name"]);
+   console.log(storage["this_page"]);
 	$('body').on('click', '.back', function() {
 		console.log(storage["id"]);
    	console.log(storage["exam_name"]);
    	console.log(storage["subject_name"]);
+   	console.log(storage["this_page"]);
    	location.href=history.go(-1);
    	// show_test_cont(parseInt(localStorage.test_local_id));
 	});
@@ -159,8 +163,8 @@ $(function(){
   $('#big').click(function(){
     var img_width = $('.img-box img').width();
     var img_height = $('.img-box img').height();
-    img_width = img_width * 1.02;
-    img_height = img_height * 1.02;
+    img_width = img_width * 1.25;
+    img_height = img_height * 1.25;
     $('.img-box img').css({
       "width":img_width + 'px',
       "height":img_height + 'px'
@@ -178,10 +182,10 @@ $(function(){
       var height = $(select_area[i]).height();
       var left_value = $(select_area[i]).position().left;
       var top_value = $(select_area[i]).position().top;
-      width = width * 1.02;
-      height = height * 1.02;
-      left_value = left_value * 1.02;
-      top_value = top_value * 1.02;
+      width = width * 1.25;
+      height = height * 1.25;
+      left_value = left_value * 1.25;
+      top_value = top_value * 1.25;
       $(select_area[i]).css({
         "width": width + 'px',
         "height": height + 'px',
@@ -194,8 +198,8 @@ $(function(){
   $('#small').click(function(){
     var img_width = $('.img-box img').width();
     var img_height = $('.img-box img').height();
-    img_width = img_width / 1.02;
-    img_height = img_height / 1.02;
+    img_width = img_width / 1.25;
+    img_height = img_height / 1.25;
     $('.img-box img').css({
       "width":img_width + 'px',
       "height":img_height + 'px'
@@ -213,10 +217,10 @@ $(function(){
       var height = $(select_area[i]).height();
       var left_value = $(select_area[i]).position().left;
       var top_value = $(select_area[i]).position().top;
-      width = width / 1.02;
-      height = height / 1.02;
-      left_value = left_value / 1.02;
-      top_value = top_value /1.02;
+      width = width / 1.25;
+      height = height / 1.25;
+      left_value = left_value / 1.25;
+      top_value = top_value /1.25;
       $(select_area[i]).css({
         "width": width + 'px',
         "height": height + 'px',

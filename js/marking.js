@@ -127,27 +127,30 @@ $(function(){
 		var parnt_info = $(this).parents('.parent-tr')
 		var id = parnt_info.find('.test-name').attr('data-id');
 		if($(this).children('.bottom').hasClass('none')){
-			$.ajax({
-			  type: "POST",
-			  url: ajaxIp+"/api/v2/exam_subjects/answer_group_details_for_exam_subject",
-			  headers: {'Authorization': "Bearer " + isLogin},
-			  data:{'id':id},
-			  success: function(data){
-			  	console.log(data);
-			  	show_item_info(data,parnt_info);
-			  },
-			  error: function(){
-			      // alert('请稍后从新尝试登录或者联系管理员');
-		      	// localStorage.clear();
-		      	// window.location.href = './login.html';
-			  }
-			});
+			get_item_info(id,parnt_info);
 		}
 	});
 
+	function get_item_info(id,parnt_info){
+		$.ajax({
+		  type: "POST",
+		  url: ajaxIp+"/api/v2/exam_subjects/answer_group_details_for_exam_subject",
+		  headers: {'Authorization': "Bearer " + isLogin},
+		  data:{'id':id},
+		  success: function(data){
+		  	console.log(data);
+		  	show_item_info(data,parnt_info);
+		  },
+		  error: function(){
+		      // alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html';
+		  }
+		});
+	}
 
-// 显示题组信息
-// <div class="item-on">'+item_info[i].revise_progress+'</div><div class="more-num">'+item_info[i].multiple_error_count+'</div><div class="bug-num">'+item_info[i].issue_paper_count+'</div><div class="item-time">'+item_info[i].finish_date+'</div>
+	// 显示题组信息
+	// <div class="item-on">'+item_info[i].revise_progress+'</div><div class="more-num">'+item_info[i].multiple_error_count+'</div><div class="bug-num">'+item_info[i].issue_paper_count+'</div><div class="item-time">'+item_info[i].finish_date+'</div>
 	function show_item_info(item_info,parnt_info){
 		console.log(parnt_info)
 		parnt_info.next().find('.child-cont').html('');
@@ -178,6 +181,11 @@ $(function(){
 						// console.log('.check-'+item_last[j].id+'')
 						$('.check-'+item_last[j].id+'').hide();
 					}
+					// 如果是审核老师权限，但是没有阅卷权限，则阅卷进度不显示
+					if(item_last[j].reviewed && !item_last[j].examination){
+						$('.check-'+item_last[j].id+'').parents('tr').find('.item-on').hide();
+						$('.check-'+item_last[j].id+'').parents('.child-cont').prev().children().eq(1).hide();
+					}
 				};
 			}
 			
@@ -194,9 +202,13 @@ $(function(){
 	var s_i_id;
 	var e_s_id;
 	var current_index;
+	var parent_infos;
 	$('body').on('click', '.mark-btn', function() {
 		$(this).parents('#wrap').siblings('.marking-paper-box').show();
 		$(this).parents('#wrap').hide();
+		parent_infos = $(this).parents('.child-tr').prev('.parent-tr');
+		var id = parent_infos.find('.test-name').attr('data-id');
+		$(this).parents('#wrap').siblings('.marking-paper-box').attr('data-id',id);
 		// 获取题组信息ID,name
 		var section_crop_id = $(this).parent().parent().find('.item-name').attr('data-id');
 		var section_crop_name = $(this).parent().parent().find('.item-name').text();
@@ -364,8 +376,9 @@ $(function(){
 			for (var i = 0; i < answer_settings_length; i++) {
 				var item_tr = '<tr><td class="item-num">'+answer_settings[i].num+'</td><td class="input-p"><input type="text" class="yuejuan_score" data-id="'+answer_settings[i].answer_setting_score_id+'" value="'+answer_settings[i].answer_setting_score+'" data-num = "'+answer_settings[i].num+'" data-fen="'+answer_settings[i].total_score+'"></td><td class="all-grade">'+answer_settings[i].total_score+'分</td></tr>';
 				$('#p-table tbody').append(item_tr);
-				$($('.yuejuan_score')[0]).focus();
 			};
+			$($('.yuejuan_score')[0]).focus();
+			get_key_op('#p-table');
 		}
 		
 
@@ -452,6 +465,7 @@ $(function(){
 		}else{
 			get_info_request(section_crop_id,section_crop_name);
 		}
+		$('.hide-pre').removeClass('hide-pre').addClass('show-pre').text('显示原试卷');
 	})
 
 	// 第一卷
@@ -464,6 +478,7 @@ $(function(){
 		}else{
 			alert("已经是第一张试卷了");
 		}
+			$('.hide-pre').removeClass('hide-pre').addClass('show-pre').text('显示原试卷');
 	})
 
   // 上一试卷
@@ -478,6 +493,7 @@ $(function(){
   	}else{
 			alert("已经是第一张试卷了")
 		}
+			$('.hide-pre').removeClass('hide-pre').addClass('show-pre').text('显示原试卷');
   })
 
   // 下一试卷
@@ -496,6 +512,7 @@ $(function(){
 		if(index-1==all_num){
 			alert('已经是最后一张试卷')
 		}
+			$('.hide-pre').removeClass('hide-pre').addClass('show-pre').text('显示原试卷');
   })
 
   // 提交问题试卷
@@ -555,6 +572,7 @@ $(function(){
 			'blur':true
 		}
 
+		$('.load-bg').show();
 
 
 		$.ajax({
@@ -564,6 +582,9 @@ $(function(){
 		  data:data_value,
 		  success: function(data){
 		  	console.log(data);
+		  	if(data){
+		  		$('.load-bg').hide();
+		  	}
 		  	get_info_request(s_c_id,name);
 		  },
 		  error: function(){
@@ -707,6 +728,9 @@ $(function(){
 	$('.marking-paper-box .close').click(function() {
 		$(this).parents('.marking-paper-box').siblings('#wrap').show();
 		$(this).parents('.marking-paper-box').hide();
+		var id = $('.marking-paper-box').attr('data-id');
+		// console.log(parent_infos);
+		get_item_info(id,parent_infos)
 	});
 	// 试卷拖拽
 	$('.move-paper').draggable();
@@ -748,8 +772,8 @@ $(function(){
 
   function zoomIn(img_width,img_height,ch){
 		if(ch){
-			img_width = img_width * 1.02;
-	    img_height = img_height * 1.02;
+			img_width = img_width * 1.25;
+	    img_height = img_height * 1.25;
 	    $('.move-paper img').css({
 	      "width":img_width + 'px',
 	      "height":img_height + 'px'
@@ -763,10 +787,10 @@ $(function(){
 	      var height = $(select_area[i]).height();
 	      var left_value = $(select_area[i]).position().left;
 	      var top_value = $(select_area[i]).position().top;
-	      width = width * 1.02;
-	      height = height * 1.02;
-	      left_value = left_value * 1.02;
-	      top_value = top_value * 1.02;
+	      width = width * 1.25;
+	      height = height * 1.25;
+	      left_value = left_value * 1.25;
+	      top_value = top_value * 1.25;
 	      $(select_area[i]).css({
 	        "width": width + 'px',
 	        "height": height + 'px',
@@ -778,8 +802,8 @@ $(function(){
 
 
 		}else{
-			img_width = img_width / 1.02;
-	    img_height = img_height / 1.02;
+			img_width = img_width / 1.25;
+	    img_height = img_height / 1.25;
 	    $('.move-paper img').css({
 	      "width":img_width + 'px',
 	      "height":img_height + 'px'
@@ -794,10 +818,10 @@ $(function(){
 	      var height = $(select_area[i]).height();
 	      var left_value = $(select_area[i]).position().left;
 	      var top_value = $(select_area[i]).position().top;
-	      width = width / 1.02;
-	      height = height / 1.02;
-	      left_value = left_value / 1.02;
-	      top_value = top_value /1.02;
+	      width = width / 1.25;
+	      height = height / 1.25;
+	      left_value = left_value / 1.25;
+	      top_value = top_value /1.25;
 	      $(select_area[i]).css({
 	        "width": width + 'px',
 	        "height": height + 'px',
@@ -1144,15 +1168,15 @@ $(function(){
 			var xx = $('.oMoveInDiv'+i).position().left;
 			var yy = $('.oMoveInDiv'+i).position().top;
 			if(dx){
-				xx=xx*1.02;
-				yy=yy*1.02;
+				xx=xx*1.25;
+				yy=yy*1.25;
 				$('.oMoveInDiv'+i).css({
 					left: xx + 'px',
 					top: yy + 'px'
 				});
 			}else{
-				xx=xx/1.02;
-				yy=yy/1.02;
+				xx=xx/1.25;
+				yy=yy/1.25;
 				$('.oMoveInDiv'+i).css({
 					left: xx + 'px',
 					top: yy + 'px'
@@ -1203,10 +1227,9 @@ $(function(){
 
 
 
-//小键盘
+	//小键盘
 	var i_on_blur=999;
 	$('body').on('blur', '.yuejuan_score', function() {
-		console.log(1);
 		i_on_blur = $(this);
 		console.log(i_on_blur)
 		// i_on_blur.val('');
@@ -1216,11 +1239,10 @@ $(function(){
 		// console.log(111);
 		if(i_on_blur == 999){
 			console.log(i_on_blur);
-
 			return;
 		}
 
-		var iNum = parseFloat($(this).attr('data-number'));
+		var iNum = $(this).attr('data-number');
 		console.log(iNum)
 		var score = i_on_blur.val();
 		if(score != '' && iNum == 0.5){
@@ -1237,7 +1259,6 @@ $(function(){
 			}
 			// score+=iNum;
 		}
-		console.log(score)
 		i_on_blur.val(score);
 		var fen = i_on_blur.attr('data-fen');
 		var num = i_on_blur.attr('data-num');
@@ -1249,54 +1270,64 @@ $(function(){
 	});
 
 	$('.key-btn_1').on('click',function(){
-		console.log(i_on_blur)
 		var inputs = $(".pop-2").find(".yuejuan_score");
  		var idx = inputs.index(i_on_blur);
  		if(idx==0){
  			return;
  		}
+ 		console.log('idx',idx);
  		i_on_blur = $(inputs[idx-1]);
- 		console.log(i_on_blur.val());
-
- 		i_on_blur.focus();
- 		i_on_blur.select();
+ 		i_on_blur.focus().select();
+ 		// i_on_blur.select();
 	});
 	$('.key-btn_2').on('click',function(){
+		console.log(i_on_blur)
 		var inputs = $(".pop-2").find(".yuejuan_score");
  		var idx = inputs.index(i_on_blur);
  		if(idx==inputs.length-1){
  			return;
  		}
+ 		console.log('idx',idx);
  		i_on_blur = $(inputs[idx+1]);
- 		console.log(i_on_blur.val());
+ 		console.log(i_on_blur);
 
  		i_on_blur.focus();
- 		i_on_blur.select();
+ 		// if(i_on_blur.val()){
+ 		// 	i_on_blur.select();
+ 		// }
 	});
 
 		//分数判定
 	$('body').on('input' , '.yuejuan_score', function(){
 		var str_score = $(this).val();
-
 		var fen = parseFloat($(this).attr('data-fen'));
 		var score = parseFloat($(this).val());
-		console.log(score,fen)
+		console.log(str_score,score,fen)
 
-		if(String(str_score).length>1&&String(str_score)[0]=='0'&&String(str_score)[1]!='.'){
-			iTwo(prompt_i,prompt_2);
-			$(this).val('');
-		}
-		if(String(str_score)[0]=='.'){
-			iTwo(prompt_i,prompt_2);
-			$(this).val('');
-		}
 
-		console.log(String(str_score).split('.').length-1);
-		var str_score_length = String(str_score).split('.').length-1;
-		if(str_score_length>1){
+		// var re = /^\d+[.]?\d*$/;
+		var re = /^[\+\-]?\d*?\.?\d{0,1}$/;
+		if(!re.test(str_score)){
 			iTwo(prompt_i,prompt_2);
 			$(this).val('');
 		}
+		// ^[0-9]+.?[0-9]*$
+
+		// if(String(str_score).length>1&&String(str_score)[0]=='0'&&String(str_score)[1]!='.'){
+		// 	iTwo(prompt_i,prompt_2);
+		// 	$(this).val('');
+		// }
+		// if(String(str_score)[0]=='.'){
+		// 	iTwo(prompt_i,prompt_2);
+		// 	$(this).val('');
+		// }
+
+		// console.log(String(str_score).split('.').length-1);
+		// var str_score_length = String(str_score).split('.').length-1;
+		// if(str_score_length>1){
+		// 	iTwo(prompt_i,prompt_2);
+		// 	$(this).val('');
+		// }
 
 		if(score > fen || score < 0 && score!=''){
 			console.log(9900)
@@ -1306,19 +1337,63 @@ $(function(){
 	});
 
 	// 点击回车键进入下一个input,最后一个点击提交
-	$('body').on('focus','.yuejuan_score', function(){
+	$('body').on('focus','#p-table .yuejuan_score', function(){
 		var that= this;
 		$(document).unbind('keydown').keydown(function(event){
 			if(event.keyCode == 13){
 				if(that==$('.yuejuan_score')[$('.yuejuan_score').length-1]){
-					$('.con-btn').click();
+					$(that).parents('table').next().find('.determine').click();
 				}else{
 					$(that).blur();
 					$(that).parents('tr').next().find('.yuejuan_score').focus();
+					$(that).parents('tr').next().find('.yuejuan_score').select();
 				}
 			}
-		})
+		});
 	})
+	// 上下键功能
+	function get_key_op(parent){
+		// 上下左右键控制input
+		var baseIndex = 100;
+		$(parent).find("tr").each(function(r) {
+			$(this).find("td").each(function(c) {
+				$(this).find("input").attr("tabindex", r * 100 + c + baseIndex).addClass("cGridInput");
+			});
+		});
+		$(parent).find(".cGridInput").on("keydown", function(event) {
+			var tabIndex = parseInt($(this).attr("tabindex"));
+			switch (event.keyCode) {
+				case 38: //上
+					tabIndex -= 100;
+					break;
+				case 40: //下
+					tabIndex += 100;
+					break;
+				case 37: //左
+					tabIndex = tabIndex - 1;
+					break;
+				case 39: //右
+					tabIndex = tabIndex + 1;
+					break;
+				default:
+					return;
+			}
+			if (tabIndex > 0) {
+				$(".cGridInput[tabindex=" + tabIndex + "]").focus();
+				$(".cGridInput[tabindex=" + tabIndex + "]").select();
+					return false;
+			}
+			return true;
+		});
+
+	}
+
+
+
+
+
+
+
 
 
 	//显示提示框
@@ -1355,7 +1430,7 @@ $(function(){
 
 
 	function get_check_info(id,type){
-		console.log(id)
+		console.log(id,type)
 		$.ajax({
 		  type: "GET",
 		  url: ajaxIp+"/api/v2/section_crop_images/review_paper",
@@ -1393,6 +1468,14 @@ $(function(){
 
 		reviewed_teacher_name = check_info.reviewed_teacher_name;
 		$('.check-paper').html('');
+		var exam_subject_id = check_info.exam_subject_id;
+		var scanner_image_id = check_info.scanner_image_id;
+		var current_page = check_info.current_page;
+		$('.check-paper').attr({
+			'exam_subject_id': exam_subject_id,
+			'scanner_image_id': scanner_image_id,
+			'current_page': current_page
+		});;
 		var img_id = check_info.section_crop_image_id;
 		var img_url = check_info.section_crop_image_uri;
 		var check_img = '<img data-id="'+img_id+'" id="img-'+img_id+'" src="'+ ajaxIp +''+img_url+'">';
@@ -1423,6 +1506,7 @@ $(function(){
 		var b_input=[];//分值input
 		// 获取每位老师的阅卷分数
 		if(section_crop_info && section_crop_info.length > 0){
+			console.log(section_crop_info.length)
 			for (var j = 0; j < section_crop_info.length; j++) {
 				var grade_th = '<th class="grade-th grade-th-'+j+'">分值</th>';
 				$('.num-th').after(grade_th);
@@ -1431,24 +1515,72 @@ $(function(){
 				// 审核题目信息
 				text_list = section_crop_info[0].answer_setting_scores;
 				var check_item_infos = section_crop_info[j].answer_setting_scores;
+				console.log(check_item_infos)
 				for (var z = 0; z < check_item_infos.length; z++) {
-					var td_input='<td class="input-p"><input data-id="'+check_item_infos[z].answer_setting_score_id+'" disabled style="width:45px" type="text" class="yuejuan_score" value="'+check_item_infos[z].answer_setting_score+'"/></td>';
+					var td_input='<td class="input-p"><input answer-id="'+check_item_infos[z].answer_setting_id+'" data-id="'+check_item_infos[z].answer_setting_score_id+'" disabled style="width:45px" type="text" class="yuejuan_score" value="'+check_item_infos[z].answer_setting_score+'"/></td>';
 					b_input.push(td_input);
 				};
 			};
 		}
 		
 		// console.log(text_list)
-		// console.log(b_input)
+		// console.log(b_input,b_input.length)
 		// 根据第一个老师获取题号信息和总分值信息
 		if(text_list && text_list.length>0){
 			for (var m = 0; m < text_list.length; m++) {
-				var text_info = '<tr><td class="item-num" dta-id="'+text_list[m].answer_setting_id+'">'+text_list[m].num+'</td>'+b_input+'<td class="all-grade">'+text_list[m].total_score+'</td></tr>';
+				var text_info = '<tr><td class="item-num" data-id="'+text_list[m].answer_setting_id+'">'+text_list[m].num+'</td><td class="all-grade">'+text_list[m].total_score+'</td></tr>';
 				$('#check-table tbody').append(text_info);
 			};
+			if($('#check-table').width()>204){
+				$(this).parent().css('overflow-x','scroll');
+			}
 		}
-		
 
+
+		var num_input = $('#check-table tbody').find('.item-num');
+		for (var p = num_input.length-1; p >= 0; p--) {
+			var num_id = $(num_input[p]).attr('data-id');
+			// console.log(p)
+			for (var q = b_input.length-1; q >= 0; q--) {
+				var all_id = $(b_input[q]).find('input').attr('answer-id');
+				// console.log(p,q)
+				if(num_id==all_id){
+					console.log(p,q)
+					$(num_input[p]).after($(b_input[q]));
+
+				}
+			};
+		};
+
+
+
+
+   // 显示原试卷
+	 $('body').on('click','.check-show-pre',function(){
+	  	$(this).addClass('check-hide-pre').removeClass('check-show-pre');
+	  	$(this).text('隐藏原试卷');
+			var exam_subject_id = $('.check-paper').attr('exam_subject_id');
+			var scanner_image_id = $('.check-paper').attr('scanner_image_id');
+			var current_page = $('.check-paper').attr('current_page');
+			get_pre_info_request(exam_subject_id,scanner_image_id,current_page);
+	  })
+	  $('body').on('click','.check-hide-pre',function(){
+	  	$(this).addClass('check-show-pre').removeClass('check-hide-pre');
+	  	$(this).text('显示原试卷');
+	  	var type_id = $('.change-paper-type').val();
+			var section_crop_id = $('.check-paper-box').attr('section_crop_id');
+			get_check_info(section_crop_id,type_id);
+			// var section_crop_id = $('.paper-item-name').attr('section_crop_id');
+			// var section_crop_name = $('.paper-item-name').text();
+			// var index = parseInt($('.on-num').text());
+			// console.log($('.finished').text())
+			// console.log(section_crop_id,section_crop_name,index)
+			// if($('.yuejuan_score').val()){
+			// 	get_info_request(section_crop_id,section_crop_name,index);
+			// }else{
+			// 	get_info_request(section_crop_id,section_crop_name,null);
+			// }
+	  })
 
 
 		// 获取审核信息框的高度
@@ -1476,11 +1608,27 @@ $(function(){
 				var score_info = '<tr><td class="item-num" data-id="'+score_infos[n].answer_setting_id+'">'+score_infos[n].num+'</td><td class="input-p"><input type="text" class="yuejuan_score" value="'+score_infos[n].score+'" data-fen="8"></td><td class="all-grade">'+score_infos[n].total_socre+'</td></tr>';
 				$('#check-teacher-table tbody').append(score_info);
 			};
-
+			$($('.yuejuan_score')[0]).focus();
+			get_key_op('#check-teacher-table');
 
 		}
 	}
 
+	// 点击回车键进入下一个input,最后一个点击提交
+	$('body').on('focus','#check-teacher-table .yuejuan_score', function(){
+		var that= this;
+		$(document).unbind('keydown').keydown(function(event){
+			if(event.keyCode == 13){
+				if(that==$('.yuejuan_score')[$('.yuejuan_score').length-1]){
+					$(that).parents('table').next().find('.determine').click();
+				}else{
+					$(that).blur();
+					$(that).parents('tr').next().find('.yuejuan_score').focus();
+					$(that).parents('tr').next().find('.yuejuan_score').select();
+				}
+			}
+		});
+	})
 
 
 	// 审核提交
@@ -1490,15 +1638,16 @@ $(function(){
 		var section_crop_image_id = $('.check-paper img').attr('data-id');
 		var student_info_id = $('.check-teacher-list').attr('student_info_id');
 		var answer_setting_scores=[];
-		var answer_obj = new Object();
 		var input_info = $(this).parent().siblings('#check-teacher-table').find('.yuejuan_score');
 		for (var i = 0; i <input_info.length; i++) {
+			var answer_obj = new Object();
 			var itme_id = $(input_info[i]).parent().prev().attr('data-id');
 			var input_value = $(input_info[i]).val();
 			answer_obj['answer_setting_id'] = itme_id;
 			answer_obj['score'] = input_value;
 			answer_setting_scores[i] = answer_obj;
 		};
+		// JSON.stringify(answer_setting_scores)
 		console.log(answer_setting_scores)
 
 		var data_all ={
@@ -1556,12 +1705,19 @@ $(function(){
 		get_check_info(section_crop_id,type_id);
 		$('.no-deal').addClass('on').siblings('.on-deal').removeClass('on');
 		$('.check-num-list').hide();
+		if(type_id==2){
+			$('.check-ul').next('.btn-on').show();
+		}else{
+			$('.check-ul').next('.btn-on').hide();
+		}
 
 	});
 
 
 	// 第一卷
 	$('.check-show-first').on('click',function() {
+		$('.check-hide-pre').removeClass('check-hide-pre').addClass('check-show-pre').text('显示原试卷');
+
 		var deal_type;
 		var type_id = $('.change-paper-type').val();
 		if(type_id==2){
@@ -1581,6 +1737,7 @@ $(function(){
 	});
 		// 上一卷
 	$('#check-pre').on('click',function() {
+		$('.check-hide-pre').removeClass('check-hide-pre').addClass('check-show-pre').text('显示原试卷');
 		var deal_type;
 		var type_id = $('.change-paper-type').val();
 		if(type_id==2){
@@ -1601,6 +1758,7 @@ $(function(){
 
 		// 下一卷
 	$('#check-next').on('click',function() {
+		$('.check-hide-pre').removeClass('check-hide-pre').addClass('check-show-pre').text('显示原试卷');
 		var deal_type;
 		var type_id = $('.change-paper-type').val();
 		if(type_id==2){
@@ -1629,6 +1787,7 @@ $(function(){
 		var type_id = $('.change-paper-type').val();
 		var section_crop_id = $('.check-paper-box').attr('section_crop_id');
 		get_check_info(section_crop_id,type_id);
+		$('.check-hide-pre').removeClass('check-hide-pre').addClass('check-show-pre').text('显示原试卷');
 	});
 
 
@@ -1642,6 +1801,7 @@ $(function(){
 
 	// 处理未处理切换
 	$('.check-ul li').click(function(){
+		$('.check-hide-pre').removeClass('check-hide-pre').addClass('check-show-pre').text('显示原试卷');
 		$(this).addClass('on').siblings().removeClass('on');
 		var section_crop_id = $('.check-paper-box').attr('section_crop_id');
 		// 获取试卷类型
