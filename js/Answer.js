@@ -6,8 +6,6 @@ var m1 = angular.module("pro", []);
 //设置控制器
 m1.controller("demo", function ($scope, $timeout, $http) {
     var url = window.location;
-    console.log(window.localStorage.getItem("test_name"))
-    console.log(window.localStorage.getItem("subjectname"))
     $scope.subjectName = window.localStorage.getItem("test_name") + window.localStorage.getItem("subjectname")
     function getUrlParam(url, name) {//获取页面参数
         var pattern = new RegExp("[?&]" + name + "\=([^&]+)", "g");
@@ -96,8 +94,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 result = remain- title_h - padding - row*rowItme_h>0?true:false
             }
             if($scope.index==3){//填空题
-                var rowItme_h = 27,score_h = 35
+                var rowItme_h = 27,score_h = 38
                 var row = Math.ceil($scope.result.numbel/2)
+                console.log(remain- title_h - padding - score_h - row*rowItme_h)
                 result = remain- title_h - padding - score_h - row*rowItme_h>0?true:false
             }
             if($scope.index==4){//作文题
@@ -516,7 +515,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for (var i = 1; i <= qNumer; i++) {//循环每个小题
             var itme_obj = {}
             itme_obj.no = i
-            itme_obj.one_score = itemCores
+            itme_obj.one_score = parseInt(itemCores)
             itme_obj.answer_setting_id = answer_id[Answerindex].answers.settings[i - 1].setting_id//小题id
             itme_obj.option = []
             question.push(itme_obj)
