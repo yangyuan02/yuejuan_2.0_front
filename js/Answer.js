@@ -6,8 +6,6 @@ var m1 = angular.module("pro", []);
 //设置控制器
 m1.controller("demo", function ($scope, $timeout, $http) {
     var url = window.location;
-    console.log(window.localStorage.getItem("test_name"))
-    console.log(window.localStorage.getItem("subjectname"))
     $scope.subjectName = window.localStorage.getItem("test_name") + window.localStorage.getItem("subjectname")
     function getUrlParam(url, name) {//获取页面参数
         var pattern = new RegExp("[?&]" + name + "\=([^&]+)", "g");
