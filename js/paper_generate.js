@@ -90,6 +90,7 @@ $(function() {
 			dataType: "JSON",
 			success: function(data) {
 				console.log(data);
+				window.localStorage.setItem("test_name",data.name)
 				show_detail(data, exam_list_id,data_page);
 			},
 			error: function() {
@@ -128,7 +129,7 @@ $(function() {
 		var subjects_length = detail_data.subjects.length;
 		for (var i = 0; i < subjects_length; i++) {
 			// 表格列表信息
-			var list_tr = '<tr><td exam_subject_id="' + detail_data.subjects[i].exam_subject_id + '" batch-id="' + detail_data.subjects[i].batch_id + '" data-id="' + detail_data.subjects[i].id + '" class="subject-name">' + detail_data.subjects[i].name + '</td><td class="count">' + detail_data.student_total + '</td><td class="operation"><a href="../answer.html" class="set setAnswer"><i class="iconfont">&#xe60f;</i>试卷设置</a><a href="javascript:;" class="sign"><i class="iconfont">&#xe612;</i>权限分配</a><a href="javascript:;" class="dele"><i class="iconfont">&#xe616;</i>删除科目</a><a class="look-paper"><i class="iconfont">&#xe61e;</i>查看试卷</a></td></tr>';
+			var list_tr = '<tr><td exam_subject_id="' + detail_data.subjects[i].exam_subject_id + '" batch-id="' + detail_data.subjects[i].batch_id + '" data-id="' + detail_data.subjects[i].id + '" class="subject-name">' + detail_data.subjects[i].name + '</td><td class="count">' + detail_data.student_total + '</td><td class="operation"><a href="javascript:(0);" class="set setAnswer"><i class="iconfont">&#xe60f;</i>试卷设置</a><a href="javascript:;" class="sign"><i class="iconfont">&#xe612;</i>权限分配</a><a href="javascript:;" class="dele"><i class="iconfont">&#xe616;</i>删除科目</a><a class="look-paper"><i class="iconfont">&#xe61e;</i>查看试卷</a></td></tr>';
 			$('.subject-list tbody').append(list_tr);
 			on_checked[i] = detail_data.subjects[i].id;
 		};
@@ -1882,6 +1883,8 @@ $(function() {
 	$('body').on('click', '.setAnswer', function() {
 		var $_this = $(this);
 		var examubjeId = $_this.parents('tr').find('.subject-name').attr('exam_subject_id');
+		var subjectName = $_this.parents('tr').find('.subject-name').text()
+		window.localStorage.setItem("subjectname",subjectName)
 		$_this.attr('href', 'answer.html?examubjeId=' + examubjeId);
 	});
 })
