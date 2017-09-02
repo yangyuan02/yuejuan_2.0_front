@@ -847,8 +847,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
     //删除题组
     $scope.delAnswerGroup = function () {
-        console.log($scope.sortIndex)
         var answer_id_item = $scope.bigAnswer[$scope.sortIndex].answer_id
+        var answer_sort = $scope.bigAnswer[$scope.sortIndex].answer_sort-1
+        console.log(answer_sort)
         var isLogin = localStorage.getItem("token");
         var allListData = allList()
         var allListId = allListData.answer_id
@@ -857,39 +858,40 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 var index = i
             }
         }
-        console.log(index)
-        $.ajax({
-            type: "POST",
-            url: ajaxIp+"/api/v2/answers/delete",
-            headers: {'Authorization': "Bearer " + isLogin},
-            data:{'id':answer_id_item},
-            async: false,
-            success: function(data){
-                console.log(data)
-                $scope.bigAnswer.splice($scope.sortIndex,1)
-                $scope.listObj.splice($scope.sortIndex,1)
-                allListId.splice(index,1)
-                $.ajax({
-                    type: "POST",
-                    url: ajaxIp+"/api/v2/answer_regions/update_basic_info_region",
-                    headers: {'Authorization': "Bearer " + isLogin},
-                    data:{
-                        'exam_subject_id':getUrlParam(url, 'examubjeId'),
-                        'basic_info_region':JSON.stringify(allListData)
-                    },
-                    async: false,
-                    success: function(data){
-
-                    },
-                    error: function(){
-
-                    }
-                });
-            },
-            error: function(){
-
-            }
-        });
+        console.log($scope.sortIndex+'sortIndex')
+        console.log(index+'查找index')
+        // $.ajax({
+        //     type: "POST",
+        //     url: ajaxIp+"/api/v2/answers/delete",
+        //     headers: {'Authorization': "Bearer " + isLogin},
+        //     data:{'id':answer_id_item},
+        //     async: false,
+        //     success: function(data){
+        //         console.log(data)
+        //         $scope.bigAnswer.splice($scope.sortIndex,1)
+        //         $scope.listObj.splice(answer_sort,1)
+        //         allListId.splice(index,1)
+        //         $.ajax({
+        //             type: "POST",
+        //             url: ajaxIp+"/api/v2/answer_regions/update_basic_info_region",
+        //             headers: {'Authorization': "Bearer " + isLogin},
+        //             data:{
+        //                 'exam_subject_id':getUrlParam(url, 'examubjeId'),
+        //                 'basic_info_region':JSON.stringify(allListData)
+        //             },
+        //             async: false,
+        //             success: function(data){
+        //
+        //             },
+        //             error: function(){
+        //
+        //             }
+        //         });
+        //     },
+        //     error: function(){
+        //
+        //     }
+        // });
     }
     /**
      * 设置每题答案
@@ -963,6 +965,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         },500)
     }
     $scope.save = function () {//保存模板
+        console.log(JSON.stringify(getBigQuestion(allPagePost())))
         if($scope.listObj.length<=0){
             alert("请添加题组")
            return
