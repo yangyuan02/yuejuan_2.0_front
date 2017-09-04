@@ -966,8 +966,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         },500)
     }
     $scope.save = function () {//保存模板
-        console.log(allPagePost())
-        console.log(getBigQuestion(allPagePost()))
+        console.log(JSON.stringify(getBigQuestion(allPagePost())))
         if($scope.listObj.length<=0){
             alert("请添加题组")
            return
