@@ -79,7 +79,7 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     margin-left:10px;
 }
 .Answer .A_R .A_Rone {width:720px;box-sizing:border-box;height:870px;padding: 10px;border: 1px solid #ddd;border-radius: 10px;float:left;position:relative;overflow:hidden}
-.Answer .A_R .A_Rone .A_Rone_child table{width: 100%;margin-bottom: 14px;border: 1px solid black;}
+.Answer .A_R .A_Rone .A_Rone_child table{width: 100%;margin-bottom: 14px;border: 1px solid black;padding:0px 10px;}
 .Answer .A_R .A_Rone .A_Rone_child table thead tr th{height: 20px;padding: 10px 5px;font-size: 15px;text-align: left;}
 .Answer .A_R .A_Rone .A_Rone_child table tbody tr td{height: 20px;padding: 5px 5px;font-size: 12px;}
 .Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c {width: 25%;display: inline-block;padding: 5px 0;}
@@ -337,7 +337,7 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     border-bottom:1px solid black;
 }
 .Answer .A_R .A_Rone .A_Rone_child table .chinese .plaid{
-    width:33px;
+    width:32px;
     height:33px;
     border:1px solid black;
     border-right:0px;
