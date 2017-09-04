@@ -374,7 +374,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var studentRegionRect = {}//学号区域信息
         var dot = $(".position_TL span").eq(1).offset();
         dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
-        var studentInfo = $(".student_number3")
+        var studentInfo = $(".student_L")
         studentRegionRect.region_rect_x = parseInt(studentInfo.offset().left - dot.left)
         studentRegionRect.region_rect_y = parseInt(studentInfo.offset().top - dot.top)
         studentRegionRect.region_rect_width = studentInfo.width()
@@ -966,7 +966,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         },500)
     }
     $scope.save = function () {//保存模板
-        console.log(JSON.stringify(getBigQuestion(allPagePost())))
+        console.log(getBigQuestion(allPagePost()))
         if($scope.listObj.length<=0){
             alert("请添加题组")
            return
