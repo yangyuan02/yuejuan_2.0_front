@@ -42,8 +42,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             async: false,
             success: function(data){
                 if(data.code==200){
-                    $scope.listObj = data.message.page1
-                    $scope.listObj2 = data.message.page2
+                    $scope.listObj = data.message.page1?data.message.page1:[]
+                    $scope.listObj2 = data.message.page2?data.message.page2:[]
                     $scope.listObj3 = data.message.page3?data.message.page3:[]
                     $scope.listObj4 = data.message.page4?data.message.page4:[]
                     answer_id = data.message.answer_id
@@ -162,7 +162,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 trimUndefined.push(inputInt[i])
             }
         }
-        console.log(trimUndefined)
         for(var i = 0;i<trimUndefined.length;i++){
             if(!isNumber(trimUndefined[i].type,trimUndefined[i].index)){
                 result = false
@@ -571,7 +570,11 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             itme_obj.region_rect_x = regionRect(i - 1).region_rect_x//题组区域的X坐标
             itme_obj.region_rect_y = regionRect(i - 1).region_rect_y - 1126*(itme_obj.current_page-1)//题组区域的Y坐标
             itme_obj.region_rect_width = 698//题组区域的宽度
-            itme_obj.region_rect_height = regionRect(i - 1).region_rect_height//题组区域的高度
+            if(obj[i - 1].type==4){//作文题
+                itme_obj.region_rect_height = 100//题组区域的高度
+            }else {
+                itme_obj.region_rect_height = regionRect(i - 1).region_rect_height//题组区域的高度
+            }
             itme_obj.question = []
             if(obj[i - 1].type==1||obj[i - 1].type==6||obj[i - 1].type==2){//单选题/多选题/判断题
                 itme_obj.block_width = 16//选项宽度
@@ -627,25 +630,21 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         return anchor
     }
     function allPagePost() {//获取页面所有坐标点
-        // var allPagePost = []
         var allList = [];
         if($scope.listObj4.length>0){
             allList = $scope.listObj.concat($scope.listObj2,$scope.listObj3,$scope.listObj4)
-            // allPagePost = getBigQuestion(allList)
             return allList
         }
         if($scope.listObj3.length>0){
             allList = $scope.listObj.concat($scope.listObj2,$scope.listObj3)
-            // allPagePost = getBigQuestion(allList)
             return allList
         }
         if($scope.listObj2.length>0){
             allList = $scope.listObj.concat($scope.listObj2)
-            // allPagePost = getBigQuestion(allList)
             return allList
         }
         if($scope.listObj.length>0){
-            // allPagePost = getBigQuestion($scope.listObj)
+            allList = $scope.listObj
             return allList
         }
     }
@@ -685,7 +684,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             success: function(data){
                 if(type==0){
                     $scope.bigAnswer = data.answers.filter(function (ele) {//过滤出选择题是非题
-                        return ele.type=='xz'||ele.type=='sf'
+                        return ele.type=='xz'||ele.type=='sf'||ele.type=='dx'
                     })
                 }else{
                     $scope.bigAnswer = data.answers
@@ -850,8 +849,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     //删除题组
     $scope.delAnswerGroup = function () {
         var answer_id_item = $scope.bigAnswer[$scope.sortIndex].answer_id
-        var answer_sort = $scope.bigAnswer[$scope.sortIndex].answer_sort-1
-        console.log(answer_sort)
+        var answer_sort = $scope.bigAnswer[$scope.sortIndex].answer_sort-1//排序sort
         var isLogin = localStorage.getItem("token");
         var allListData = allList()
         var allListId = allListData.answer_id
@@ -860,40 +858,41 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 var index = i
             }
         }
+        console.log(answer_sort+'排序sort')
         console.log($scope.sortIndex+'sortIndex')
         console.log(index+'查找index')
-        // $.ajax({
-        //     type: "POST",
-        //     url: ajaxIp+"/api/v2/answers/delete",
-        //     headers: {'Authorization': "Bearer " + isLogin},
-        //     data:{'id':answer_id_item},
-        //     async: false,
-        //     success: function(data){
-        //         console.log(data)
-        //         $scope.bigAnswer.splice($scope.sortIndex,1)
-        //         $scope.listObj.splice(answer_sort,1)
-        //         allListId.splice(index,1)
-        //         $.ajax({
-        //             type: "POST",
-        //             url: ajaxIp+"/api/v2/answer_regions/update_basic_info_region",
-        //             headers: {'Authorization': "Bearer " + isLogin},
-        //             data:{
-        //                 'exam_subject_id':getUrlParam(url, 'examubjeId'),
-        //                 'basic_info_region':JSON.stringify(allListData)
-        //             },
-        //             async: false,
-        //             success: function(data){
-        //
-        //             },
-        //             error: function(){
-        //
-        //             }
-        //         });
-        //     },
-        //     error: function(){
-        //
-        //     }
-        // });
+        $.ajax({
+            type: "POST",
+            url: ajaxIp+"/api/v2/answers/delete",
+            headers: {'Authorization': "Bearer " + isLogin},
+            data:{'id':answer_id_item},
+            async: false,
+            success: function(data){
+                console.log(data)
+                $scope.bigAnswer.splice($scope.sortIndex,1)
+                $scope.listObj.splice(answer_sort,1)
+                allListId.splice(index,1)
+                $.ajax({
+                    type: "POST",
+                    url: ajaxIp+"/api/v2/answer_regions/update_basic_info_region",
+                    headers: {'Authorization': "Bearer " + isLogin},
+                    data:{
+                        'exam_subject_id':getUrlParam(url, 'examubjeId'),
+                        'basic_info_region':JSON.stringify(allListData)
+                    },
+                    async: false,
+                    success: function(data){
+
+                    },
+                    error: function(){
+
+                    }
+                });
+            },
+            error: function(){
+
+            }
+        });
     }
     /**
      * 设置每题答案
@@ -967,13 +966,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         },500)
     }
     $scope.save = function () {//保存模板
-        console.log(JSON.stringify(getBigQuestion(allPagePost())))
         if($scope.listObj.length<=0){
             alert("请添加题组")
            return
         }
         var isLogin = localStorage.getItem("token");
         var answer_ids = []
+        console.log(getBigQuestion(allPagePost()))
         for(var i = 0;i<answer_id.length;i++){
             answer_ids.push(answer_id[i].answers.answer_id)
         }
