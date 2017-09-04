@@ -848,15 +848,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         return result
 
     }
-<<<<<<< HEAD
-    //查找每个Scope最多中有table
-    function findScopeList() {
-        var Scon
-        var dom = $(".A_Rone")
-        dom.each(function () {
-            console.log($(this).find("table").length)
-        })
-=======
     //查找在那个全局变量删除元素
     function findScopeList(index) {
         var len1 = $scope.listObj.length,len2 = $scope.listObj2.length,len3 = $scope.listObj3.length,len4 = $scope.listObj4.length
@@ -877,7 +868,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             console.log("删除list4")
         }
         console.log(len1,len2,len3,len4,index)
->>>>>>> develop
     }
     //删除题组
     $scope.delAnswerGroup = function () {
