@@ -399,7 +399,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         itme_obj.region_rect_width = studentRegionRect.region_rect_width+10
         itme_obj.region_rect_height = studentRegionRect.region_rect_height+8
         itme_obj.question = []
-        for(var i = 1;i<=ulLen;i++){
+        for(var i = 1;i<ulLen;i++){
             var a = {}
             a.no = i
             a.option = []
@@ -844,6 +844,14 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var result = currenTatbleHeight - currenTatbleHeight > 0?true:false
         return result
 
+    }
+    //查找每个Scope最多中有table
+    function findScopeList() {
+        var Scon
+        var dom = $(".A_Rone")
+        dom.each(function () {
+            console.log($(this).find("table").length)
+        })
     }
     //删除题组
     $scope.delAnswerGroup = function () {
