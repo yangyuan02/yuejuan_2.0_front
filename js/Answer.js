@@ -397,8 +397,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         itme_obj.num_of_option = parseInt(len)
         itme_obj.region_rect_x = studentRegionRect.region_rect_x
         itme_obj.region_rect_y = studentRegionRect.region_rect_y
-        itme_obj.region_rect_width = studentRegionRect.region_rect_width
-        itme_obj.region_rect_height = studentRegionRect.region_rect_height
+        itme_obj.region_rect_width = studentRegionRect.region_rect_width+10
+        itme_obj.region_rect_height = studentRegionRect.region_rect_height+8
         itme_obj.question = []
         for(var i = 1;i<=ulLen;i++){
             var a = {}
@@ -967,7 +967,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         },500)
     }
     $scope.save = function () {//保存模板
-        console.log(getBigQuestion(allPagePost()))
+        console.log(JSON.stringify(getBigQuestion(allPagePost())))
         if($scope.listObj.length<=0){
             alert("请添加题组")
            return
