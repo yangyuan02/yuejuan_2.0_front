@@ -870,7 +870,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 console.log(data)
                 $scope.bigAnswer.splice($scope.sortIndex,1)
                 allListId.splice(index,1)
-                $scope.listObj.splice(answer_sort,1)
+                $scope.listObj.splice($scope.sortIndex,1)
                 $.ajax({
                     type: "POST",
                     url: ajaxIp+"/api/v2/answer_regions/update_basic_info_region",
