@@ -825,6 +825,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         $scope.sortIndex--
         swapItems(arr, $index, $index - 1);
+        swapItems($scope.listObj, $index, $index - 1);
     };
 
     // 下移
@@ -834,6 +835,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         $scope.sortIndex++
         swapItems(arr, $index, $index + 1);
+        swapItems($scope.listObj, $index, $index + 1);
     };
 
     //比较相邻的table高度大小
