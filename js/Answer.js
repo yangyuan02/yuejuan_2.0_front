@@ -374,7 +374,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var studentRegionRect = {}//学号区域信息
         var dot = $(".position_TL span").eq(1).offset();
         dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
-        var studentInfo = $(".student_number3")
+        var studentInfo = $(".student_L")
         studentRegionRect.region_rect_x = parseInt(studentInfo.offset().left - dot.left)
         studentRegionRect.region_rect_y = parseInt(studentInfo.offset().top - dot.top)
         studentRegionRect.region_rect_width = studentInfo.width()
@@ -503,9 +503,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
      * @param answerModeType 题目类型
      * @param itemCores 每小题分数
      * @param current_page 当前页面
+     * @param startNo 起始序号
      * @returns {Array}
      */
-    function getQuestion(qNumer, answerNumber, Answerindex,answerModeType,itemCores,current_page) {//获取每个小题目
+    function getQuestion(qNumer, answerNumber, Answerindex,answerModeType,itemCores,current_page,startNo) {//获取每个小题目
         var question = []
         var qNumer = parseInt(qNumer)
         var answerNumber = parseInt(answerNumber)//选项个数
@@ -514,7 +515,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var item_w = 16, itemMarginLeft = 14;
         for (var i = 1; i <= qNumer; i++) {//循环每个小题
             var itme_obj = {}
-            itme_obj.no = i
+            itme_obj.no = startNo+i-1
             itme_obj.one_score = parseInt(itemCores)
             itme_obj.answer_setting_id = answer_id[Answerindex].answers.settings[i - 1].setting_id//小题id
             itme_obj.option = []
@@ -602,7 +603,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             BigQuestion.push(itme_obj)
         }
         for (var i = 0; i < BigQuestion.length; i++) {
-            BigQuestion[i].question = getQuestion(obj[i].numbel, obj[i].itemNumber,i,obj[i].type,obj[i].itemCores,obj[i].current_page)
+            BigQuestion[i].question = getQuestion(obj[i].numbel, obj[i].itemNumber,i,obj[i].type,obj[i].itemCores,obj[i].current_page,obj[i].startNo)
         }
         BigQuestion.push(getStudentInfo())//添加考生信息
         return BigQuestion
@@ -966,7 +967,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         },500)
     }
     $scope.save = function () {//保存模板
-        console.log(JSON.stringify(getBigQuestion(allPagePost())))
+        console.log(getBigQuestion(allPagePost()))
         if($scope.listObj.length<=0){
             alert("请添加题组")
            return
