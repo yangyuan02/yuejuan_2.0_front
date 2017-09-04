@@ -399,7 +399,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         itme_obj.region_rect_width = studentRegionRect.region_rect_width+10
         itme_obj.region_rect_height = studentRegionRect.region_rect_height+8
         itme_obj.question = []
-        for(var i = 1;i<=ulLen;i++){
+        for(var i = 1;i<ulLen;i++){
             var a = {}
             a.no = i
             a.option = []
