@@ -512,7 +512,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var answerNumber = parseInt(answerNumber)//选项个数
         var dot = $(".position_TL span").eq(1).offset();
         dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
-        var item_w = 16, itemMarginLeft = 14;
+        var item_w = 16, itemMarginLeft = 13;
         for (var i = 1; i <= qNumer; i++) {//循环每个小题
             var itme_obj = {}
             itme_obj.no = startNo+i-1
@@ -986,7 +986,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
                     'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
                     'answer_region[region_info]': JSON.stringify(getBigQuestion(allPagePost())),//所有坐标信息
-                    'answer_region[basic_info_region]':JSON.stringify(allList())//存储页面题目
+                    'answer_region[basic_info_region]':JSON.stringify(allList()),//存储页面题目
+                    'page':$(".A_R").length
                 },
                 success: function (data) {//绑定题组以便刷新后删除没用的
                     $scope.oldAnswerLen = answer_id.length
