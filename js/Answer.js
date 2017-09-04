@@ -162,7 +162,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 trimUndefined.push(inputInt[i])
             }
         }
-        console.log(trimUndefined)
         for(var i = 0;i<trimUndefined.length;i++){
             if(!isNumber(trimUndefined[i].type,trimUndefined[i].index)){
                 result = false
@@ -684,7 +683,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             success: function(data){
                 if(type==0){
                     $scope.bigAnswer = data.answers.filter(function (ele) {//过滤出选择题是非题
-                        return ele.type=='xz'||ele.type=='sf'
+                        return ele.type=='xz'||ele.type=='sf'||ele.type=='dx'
                     })
                 }else{
                     $scope.bigAnswer = data.answers
@@ -966,7 +965,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         },500)
     }
     $scope.save = function () {//保存模板
-        console.log(JSON.stringify(getBigQuestion(allPagePost())))
+        // console.log($scope.listObj)
+        // console.log(allPagePost())
+        // // console.log(getBigQuestion(allPagePost()))
         if($scope.listObj.length<=0){
             alert("请添加题组")
            return
