@@ -394,10 +394,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         itme_obj.block_height = 12
         itme_obj.num_question = parseInt(ulLen)
         itme_obj.num_of_option = parseInt(len)
-        itme_obj.region_rect_x = studentRegionRect.region_rect_x
-        itme_obj.region_rect_y = studentRegionRect.region_rect_y
-        itme_obj.region_rect_width = studentRegionRect.region_rect_width+10
-        itme_obj.region_rect_height = studentRegionRect.region_rect_height+8
+        itme_obj.region_rect_x = studentRegionRect.region_rect_x-10
+        itme_obj.region_rect_y = studentRegionRect.region_rect_y-8
+        itme_obj.region_rect_width = studentRegionRect.region_rect_width
+        itme_obj.region_rect_height = studentRegionRect.region_rect_height
         itme_obj.question = []
         for(var i = 1;i<=ulLen;i++){
             var a = {}
@@ -869,8 +869,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             success: function(data){
                 console.log(data)
                 $scope.bigAnswer.splice($scope.sortIndex,1)
-                $scope.listObj.splice(answer_sort,1)
                 allListId.splice(index,1)
+                $scope.listObj.splice(answer_sort,1)
                 $.ajax({
                     type: "POST",
                     url: ajaxIp+"/api/v2/answer_regions/update_basic_info_region",
