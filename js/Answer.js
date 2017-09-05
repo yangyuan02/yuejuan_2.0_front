@@ -661,13 +661,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
 
     //获取页面上所有高度集合
-    function allTableHeight() {
-        $("table").each(function () {
-            allHeight.push($(this).height())
-        })
-    }
+    // function allTableHeight() {
+    //     $("table").each(function () {
+    //         allHeight.push($(this).height())
+    //     })
+    // }
     function allList() {//获取所有题目
-        allTableHeight()
+        // allTableHeight()
         var allList = {}
         allList.page1 = $scope.listObj
         allList.page2 = $scope.listObj2
@@ -733,7 +733,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
         }
         getAnswerInfoTask(type)
-        console.log($scope.bigAnswer)
+        // console.log($scope.bigAnswer)
         if (type == 0) {//设置答案
             if (!$scope.answers) {
                 alert("暂无主观题")
@@ -904,7 +904,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     var allList_1 = allPagePost()
     // 上移
     $scope.upRecord = function (arr, $index) {
-        console.log(allHeight)
+        // console.log(allHeight)
         if ($index == 0) {
             return;
         }
@@ -912,8 +912,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         swapItems(arr, $index, $index - 1);
         swapItems(answer_id, $index, $index - 1);
         swapItems(allList_1, $index, $index - 1);
+        // console.log(allList_1)
         // render(allList_1)
-        // setAnswerSor()
+        setAnswerSor()
     };
 
     // 下移
@@ -925,8 +926,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         swapItems(arr, $index, $index + 1);
         swapItems(answer_id, $index, $index + 1);
         swapItems(allList_1, $index, $index + 1);
-        render(allList_1)
-        // setAnswerSor()
+        // render(allList_1)
+        setAnswerSor()
     };
     //查找在那个全局变量删除元素
     function findScopeListDele(index) {
