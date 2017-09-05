@@ -342,7 +342,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.createAsswer(obj)
         clear()
         close()
-        console.log($scope.listObj)
     };
     $scope.setItmeWidth = function (itemNumber) {
         $scope.setWidth
@@ -394,12 +393,12 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         itme_obj.block_height = 12
         itme_obj.num_question = parseInt(ulLen)
         itme_obj.num_of_option = parseInt(len)
-        itme_obj.region_rect_x = studentRegionRect.region_rect_x
-        itme_obj.region_rect_y = studentRegionRect.region_rect_y
+        itme_obj.region_rect_x = studentRegionRect.region_rect_x-10
+        itme_obj.region_rect_y = studentRegionRect.region_rect_y-8
         itme_obj.region_rect_width = studentRegionRect.region_rect_width+10
         itme_obj.region_rect_height = studentRegionRect.region_rect_height+8
         itme_obj.question = []
-        for(var i = 1;i<=ulLen;i++){
+        for(var i = 1;i<ulLen;i++){
             var a = {}
             a.no = i
             a.option = []
@@ -813,6 +812,15 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.selectBigQuestion = function (index) {//选中题目
         $scope.sortIndex = index
     }
+    //比较相邻的table高度大小
+    function compare(index) {
+        var currenTatble = $("body").find("table").eq(index)//当前table
+        var currenTatbleHeight = currenTatble.height()
+        var nextTatbleHeight = currenTatble.next().height()
+        var result = currenTatbleHeight - currenTatbleHeight > 0?true:false
+        return result
+
+    }
     // 交换数组元素
     var swapItems = function(arr, index1, index2) {
         arr[index1] = arr.splice(index2, 1, arr[index1])[0];
@@ -826,6 +834,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         $scope.sortIndex--
         swapItems(arr, $index, $index - 1);
+        swapItems(answer_id, $index, $index - 1);
+        swapItems($scope.listObj, $index, $index - 1);
     };
 
     // 下移
@@ -835,16 +845,29 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         $scope.sortIndex++
         swapItems(arr, $index, $index + 1);
+        swapItems(answer_id, $index, $index + 1);
+        swapItems($scope.listObj, $index, $index + 1);
     };
-
-    //比较相邻的table高度大小
-    function compare(index) {
-        var currenTatble = $("body").find("table").eq(index)//当前table
-        var currenTatbleHeight = currenTatble.height()
-        var nextTatbleHeight = currenTatble.next().height()
-        var result = currenTatbleHeight - currenTatbleHeight > 0?true:false
-        return result
-
+    //查找在那个全局变量删除元素
+    function findScopeList(index) {
+        var len1 = $scope.listObj.length,len2 = $scope.listObj2.length,len3 = $scope.listObj3.length,len4 = $scope.listObj4.length
+        if(index<len1){
+            $scope.listObj.splice(index,1)
+            console.log("删除list1")
+        }
+        if(index>=len1&&index<len1+len2){
+            $scope.listObj2.splice(index-len1,1)
+            console.log("删除list2")
+        }
+        if(index>=len1+len2&&index<len1+len2+len3){
+            $scope.listObj3.splice(index-len1-len2,1)
+            console.log("删除list3")
+        }
+        if(index>=len1+len2+len3&&index<len1+len2+len3+len4){
+            $scope.listObj4.splice(index-len1-len2-len3,1)
+            console.log("删除list4")
+        }
+        console.log(len1,len2,len3,len4,index)
     }
     //删除题组
     $scope.delAnswerGroup = function () {
@@ -858,41 +881,41 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 var index = i
             }
         }
-        console.log(answer_sort+'排序sort')
-        console.log($scope.sortIndex+'sortIndex')
-        console.log(index+'查找index')
-        $.ajax({
-            type: "POST",
-            url: ajaxIp+"/api/v2/answers/delete",
-            headers: {'Authorization': "Bearer " + isLogin},
-            data:{'id':answer_id_item},
-            async: false,
-            success: function(data){
-                console.log(data)
-                $scope.bigAnswer.splice($scope.sortIndex,1)
-                $scope.listObj.splice(answer_sort,1)
-                allListId.splice(index,1)
-                $.ajax({
-                    type: "POST",
-                    url: ajaxIp+"/api/v2/answer_regions/update_basic_info_region",
-                    headers: {'Authorization': "Bearer " + isLogin},
-                    data:{
-                        'exam_subject_id':getUrlParam(url, 'examubjeId'),
-                        'basic_info_region':JSON.stringify(allListData)
-                    },
-                    async: false,
-                    success: function(data){
-
-                    },
-                    error: function(){
-
-                    }
-                });
-            },
-            error: function(){
-
-            }
-        });
+        $scope.bigAnswer.splice($scope.sortIndex,1)
+        findScopeList($scope.sortIndex)
+        allListId.splice(index,1)
+        // $.ajax({
+        //     type: "POST",
+        //     url: ajaxIp+"/api/v2/answers/delete",
+        //     headers: {'Authorization': "Bearer " + isLogin},
+        //     data:{'id':answer_id_item},
+        //     async: false,
+        //     success: function(data){
+        //         console.log(data)
+        //         $scope.bigAnswer.splice($scope.sortIndex,1)
+        //
+        //         findScopeList($scope.sortIndex)
+        //         $.ajax({
+        //             type: "POST",
+        //             url: ajaxIp+"/api/v2/answer_regions/update_basic_info_region",
+        //             headers: {'Authorization': "Bearer " + isLogin},
+        //             data:{
+        //                 'exam_subject_id':getUrlParam(url, 'examubjeId'),
+        //                 'basic_info_region':JSON.stringify(allListData)
+        //             },
+        //             async: false,
+        //             success: function(data){
+        //
+        //             },
+        //             error: function(){
+        //
+        //             }
+        //         });
+        //     },
+        //     error: function(){
+        //
+        //     }
+        // });
     }
     /**
      * 设置每题答案
