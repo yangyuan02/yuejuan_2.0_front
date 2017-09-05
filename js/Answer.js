@@ -396,7 +396,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         itme_obj.num_of_option = parseInt(len)
         itme_obj.region_rect_x = studentRegionRect.region_rect_x-10
         itme_obj.region_rect_y = 0
-        itme_obj.region_rect_width = studentRegionRect.region_rect_width+10
+        itme_obj.region_rect_width = 698
         itme_obj.region_rect_height = studentRegionRect.region_rect_height+8+180
         itme_obj.question = []
         for(var i = 1;i<=ulLen;i++){
@@ -854,6 +854,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
     //重新渲染
     function render(allList) {
+        var len1 = $scope.listObj.length,len2 = $scope.listObj2.length,len3 = $scope.listObj3.length,len4 = $scope.listObj4.length
         $scope.listObj = allList.slice(0,5)
         $scope.listObj2 = allList.slice(5,12)
         $scope.listObj3 = allList.slice(12,14)
