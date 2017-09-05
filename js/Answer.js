@@ -395,9 +395,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         itme_obj.num_question = parseInt(ulLen)
         itme_obj.num_of_option = parseInt(len)
         itme_obj.region_rect_x = studentRegionRect.region_rect_x-10
-        itme_obj.region_rect_y = studentRegionRect.region_rect_y-8
+        itme_obj.region_rect_y = 0
         itme_obj.region_rect_width = studentRegionRect.region_rect_width+10
-        itme_obj.region_rect_height = studentRegionRect.region_rect_height+8
+        itme_obj.region_rect_height = studentRegionRect.region_rect_height+8+180
         itme_obj.question = []
         for(var i = 1;i<=ulLen;i++){
             var a = {}
@@ -853,9 +853,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         console.log(len1,len2,len3,len4,index)
     }
     //重新渲染
-    function render() {
-        
+    function render(allList) {
+        $scope.listObj = allList.slice(0,5)
+        $scope.listObj2 = allList.slice(5,12)
+        $scope.listObj3 = allList.slice(12,14)
+        // console.log(allList)
     }
+    var allList_1 = allPagePost()
     // 上移
     $scope.upRecord = function(arr, $index) {
         if($index == 0) {
@@ -864,8 +868,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.sortIndex--
         swapItems(arr, $index, $index - 1);
         swapItems(answer_id, $index, $index - 1);
-        // swapItems(allPagePost(), $index, $index - 1);
-        findScopeListSort($index,0)
+        swapItems(allList_1, $index, $index - 1);
+        render(allList_1)
+        // findScopeListSort($index,0)
     };
 
     // 下移
@@ -876,13 +881,14 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.sortIndex++
         swapItems(arr, $index, $index + 1);
         swapItems(answer_id, $index, $index + 1);
-        // swapItems(allPagePost(), $index, $index + 1);
-        findScopeListSort($index,1)
+        swapItems(allList_1, $index, $index + 1);
+        render(allList_1)
+        // findScopeListSort($index,1)
     };
     //查找在那个全局变量删除元素
     function findScopeListDele(index) {
         var len1 = $scope.listObj.length,len2 = $scope.listObj2.length,len3 = $scope.listObj3.length,len4 = $scope.listObj4.length
-        if(index<len1){
+        if(index<=len1-1){
             $scope.listObj.splice(index,1)
             console.log("删除list1")
         }
@@ -924,8 +930,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         //     success: function(data){
         //         console.log(data)
         //         $scope.bigAnswer.splice($scope.sortIndex,1)
-        //
-        //         findScopeList($scope.sortIndex)
+        //         findScopeListDele($scope.sortIndex)
+        //         allListId.splice(index,1)
         //         $.ajax({
         //             type: "POST",
         //             url: ajaxIp+"/api/v2/answer_regions/update_basic_info_region",
