@@ -811,6 +811,15 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.selectBigQuestion = function (index) {//选中题目
         $scope.sortIndex = index
     }
+    //比较相邻的table高度大小
+    function compare(index) {
+        var currenTatble = $("body").find("table").eq(index)//当前table
+        var currenTatbleHeight = currenTatble.height()
+        var nextTatbleHeight = currenTatble.next().height()
+        var result = currenTatbleHeight - currenTatbleHeight > 0?true:false
+        return result
+
+    }
     // 交换数组元素
     var swapItems = function(arr, index1, index2) {
         arr[index1] = arr.splice(index2, 1, arr[index1])[0];
@@ -838,16 +847,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         swapItems(answer_id, $index, $index + 1);
         swapItems($scope.listObj, $index, $index + 1);
     };
-
-    //比较相邻的table高度大小
-    function compare(index) {
-        var currenTatble = $("body").find("table").eq(index)//当前table
-        var currenTatbleHeight = currenTatble.height()
-        var nextTatbleHeight = currenTatble.next().height()
-        var result = currenTatbleHeight - currenTatbleHeight > 0?true:false
-        return result
-
-    }
     //查找在那个全局变量删除元素
     function findScopeList(index) {
         var len1 = $scope.listObj.length,len2 = $scope.listObj2.length,len3 = $scope.listObj3.length,len4 = $scope.listObj4.length
@@ -995,7 +994,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         var isLogin = localStorage.getItem("token");
         var answer_ids = []
-        // console.log(getBigQuestion(allPagePost()))
+        console.log(getBigQuestion(allPagePost()))
         for(var i = 0;i<answer_id.length;i++){
             answer_ids.push(answer_id[i].answers.answer_id)
         }
