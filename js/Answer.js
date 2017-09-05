@@ -377,7 +377,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         studentRegionRect.region_rect_y = parseInt(studentInfo.offset().top - dot.top)
         studentRegionRect.region_rect_width = studentInfo.width()
         studentRegionRect.region_rect_height = studentInfo.height()
-        var ulItem = studentInfo.find("ul"),ulLen = ulItem.length
+        var ulP = $(".student_number3")
+        var ulItem = ulP.find("ul"),ulLen = ulItem.length
         var len;
         var fristPost = []//第一个itme坐标
         ulItem.each(function () {
@@ -398,7 +399,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         itme_obj.region_rect_width = studentRegionRect.region_rect_width+10
         itme_obj.region_rect_height = studentRegionRect.region_rect_height+8
         itme_obj.question = []
-        for(var i = 1;i<ulLen;i++){
+        for(var i = 1;i<=ulLen;i++){
             var a = {}
             a.no = i
             a.option = []
@@ -825,7 +826,36 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         arr[index1] = arr.splice(index2, 1, arr[index1])[0];
         return arr;
     };
-
+    //查找并排序
+    function findScopeListSort(index,type) {
+        var len1 = $scope.listObj.length,len2 = $scope.listObj2.length,len3 = $scope.listObj3.length,len4 = $scope.listObj4.length
+        var spend = type==0?-1:1
+        if(index<len1){
+            swapItems($scope.listObj, index, index + spend);
+            // $scope.listObj.splice(index,1)
+            console.log("排序list1")
+        }
+        if(index>=len1&&index<len1+len2){
+            swapItems($scope.listObj2, index-len1, index-len1 + spend);
+            // $scope.listObj2.splice(index-len1,1)
+            console.log("排序list2")
+        }
+        if(index>=len1+len2&&index<len1+len2+len3){
+            swapItems($scope.listObj3, index-len1-len2, index-len1-len2 + spend);
+            // $scope.listObj3.splice(index-len1-len2,1)
+            console.log("排序list3")
+        }
+        if(index>=len1+len2+len3&&index<len1+len2+len3+len4){
+            swapItems($scope.listObj4, index-len1-len2-len3, index-len1-len2-len3 + spend);
+            // $scope.listObj4.splice(index-len1-len2-len3,1)
+            console.log("排序list4")
+        }
+        console.log(len1,len2,len3,len4,index)
+    }
+    //重新渲染
+    function render() {
+        
+    }
     // 上移
     $scope.upRecord = function(arr, $index) {
         if($index == 0) {
@@ -834,7 +864,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.sortIndex--
         swapItems(arr, $index, $index - 1);
         swapItems(answer_id, $index, $index - 1);
-        swapItems($scope.listObj, $index, $index - 1);
+        // swapItems(allPagePost(), $index, $index - 1);
+        findScopeListSort($index,0)
     };
 
     // 下移
@@ -845,10 +876,11 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.sortIndex++
         swapItems(arr, $index, $index + 1);
         swapItems(answer_id, $index, $index + 1);
-        swapItems($scope.listObj, $index, $index + 1);
+        // swapItems(allPagePost(), $index, $index + 1);
+        findScopeListSort($index,1)
     };
     //查找在那个全局变量删除元素
-    function findScopeList(index) {
+    function findScopeListDele(index) {
         var len1 = $scope.listObj.length,len2 = $scope.listObj2.length,len3 = $scope.listObj3.length,len4 = $scope.listObj4.length
         if(index<len1){
             $scope.listObj.splice(index,1)
@@ -881,7 +913,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
         }
         $scope.bigAnswer.splice($scope.sortIndex,1)
-        findScopeList($scope.sortIndex)
+        findScopeListDele($scope.sortIndex)
         allListId.splice(index,1)
         // $.ajax({
         //     type: "POST",
