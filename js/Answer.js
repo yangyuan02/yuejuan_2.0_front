@@ -826,38 +826,14 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         arr[index1] = arr.splice(index2, 1, arr[index1])[0];
         return arr;
     };
-    //查找并排序
-    function findScopeListSort(index,type) {
-        var len1 = $scope.listObj.length,len2 = $scope.listObj2.length,len3 = $scope.listObj3.length,len4 = $scope.listObj4.length
-        var spend = type==0?-1:1
-        if(index<len1){
-            swapItems($scope.listObj, index, index + spend);
-            // $scope.listObj.splice(index,1)
-            console.log("排序list1")
-        }
-        if(index>=len1&&index<len1+len2){
-            swapItems($scope.listObj2, index-len1, index-len1 + spend);
-            // $scope.listObj2.splice(index-len1,1)
-            console.log("排序list2")
-        }
-        if(index>=len1+len2&&index<len1+len2+len3){
-            swapItems($scope.listObj3, index-len1-len2, index-len1-len2 + spend);
-            // $scope.listObj3.splice(index-len1-len2,1)
-            console.log("排序list3")
-        }
-        if(index>=len1+len2+len3&&index<len1+len2+len3+len4){
-            swapItems($scope.listObj4, index-len1-len2-len3, index-len1-len2-len3 + spend);
-            // $scope.listObj4.splice(index-len1-len2-len3,1)
-            console.log("排序list4")
-        }
-        console.log(len1,len2,len3,len4,index)
-    }
+
     //重新渲染
     function render(allList) {
         var len1 = $scope.listObj.length,len2 = $scope.listObj2.length,len3 = $scope.listObj3.length,len4 = $scope.listObj4.length
         $scope.listObj = allList.slice(0,5)
         $scope.listObj2 = allList.slice(5,12)
         $scope.listObj3 = allList.slice(12,14)
+        // $scope.listObj4 = allList.slice(len1+len2+len3,len1+len2+len3+len4)
         // console.log(allList)
     }
     var allList_1 = allPagePost()
@@ -871,7 +847,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         swapItems(answer_id, $index, $index - 1);
         swapItems(allList_1, $index, $index - 1);
         render(allList_1)
-        // findScopeListSort($index,0)
     };
 
     // 下移
@@ -884,7 +859,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         swapItems(answer_id, $index, $index + 1);
         swapItems(allList_1, $index, $index + 1);
         render(allList_1)
-        // findScopeListSort($index,1)
     };
     //查找在那个全局变量删除元素
     function findScopeListDele(index) {
