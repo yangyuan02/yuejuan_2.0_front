@@ -113,21 +113,13 @@ $(function() {
 		// $('.test-grade').attr('data-id', detail_data.grade.id);
 		$('.range').val(detail_data.range); //查看范围
 		// 班级信息
-<<<<<<< HEAD
-		$('#show-class').html('');
-		var classrooms_length = detail_data.exam_classrooms.length;
-		for (var i = 0; i < classrooms_length; i++) {
-			var class_arr = '<li class="on">' + detail_data.exam_classrooms[i].name + '</li>';
-			$('#show-class').append(class_arr);
-		};
-=======
+
 		// $('#show-class').html('');
 		// var classrooms_length = detail_data.exam_classrooms.length;
 		// for (var i = 0; i < classrooms_length; i++) {
 		// 	var class_arr = '<li class="on">' + detail_data.exam_classrooms[i].name + '<i class="iconfont">&#xe619;</i></li>';
 		// 	$('#show-class').append(class_arr);
 		// };
->>>>>>> upstream/master
 		// 科目信息
 		// detail_data.subjects.name;
 		// $('#modal-list').html('');
@@ -1080,7 +1072,7 @@ $(function() {
 		$('body').find('#student-modal #all-student').prop('checked', false);
 		$(this).parent().remove();
 	});
-	
+
 
 	// 确认添加学生
 	$('body').on('click', '.confirm-student', function() {
