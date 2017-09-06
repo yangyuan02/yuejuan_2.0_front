@@ -1020,7 +1020,7 @@ $(function(){
 		  	$('.load-bg').show();
 		  	var customer_id = $('#wrap').attr('customer_id');
 		  	console.log(customer_id)
-	  	  var faye = new Faye.Client('http://118.190.44.204:9292/api/v2/events');
+	  	  var faye = new Faye.Client(fayeIp+'/api/v2/events');
 		    faye.subscribe("/cut_images/"+ customer_id +"" , function (data) {
 	        console.log(data)
 	        if(data.message=='ok'){
