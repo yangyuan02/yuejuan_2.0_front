@@ -1089,7 +1089,7 @@ $(function() {
 		// var data_value = {'exam_id':exam_id,'classroom_ids':classroom_ids};
 		add_student_info(exam_id,classroom_ids);
 		// console.log(exam_id)
-		show_test_cont(exam_id);
+		// show_test_cont(exam_id);
 	});
 
 	function add_student_info(id,value){
@@ -1103,7 +1103,7 @@ $(function() {
 			data: {'classroom_ids':value},
 			success: function(data) {
 				console.log(data);
-				// show_student_info(data);
+				show_test_cont(id);
 			},
 			error: function() {
 				// alert('请稍后从新尝试登录或者联系管理员');
