@@ -48,6 +48,7 @@ $(function() {
 		console.log(exam_list)
 		var a = exam_list.length;
 		console.log(a)
+		var local_id = parseInt(localStorage.test_local_id);
 		if (a != 0) {
 			for (var i = 0; i < a; i++) {
 				var arr = '<li data-page="'+list_page+'" class="exam-' + exam_list[i].id + '" data-id=' + exam_list[i].id + '><h6 class="name">' + exam_list[i].name + '</h6><p class="time">' + exam_list[i].created_at + '</p></li>'
@@ -55,13 +56,16 @@ $(function() {
 				// 判断没有选中的列表，默认第一个选中，并显示详情
 				// var first_id = $('.list-ul li').eq(0).data('id');
 				// console.log(first_id)
-				if (!$('.list-ul li').hasClass('active')) {
+				if (!$('.list-ul li').hasClass('active') && !local_id ) {
 					$('.list-ul li').eq(0).addClass('active');
+					console.log(local_id)
 					show_test_cont($('.list-ul li').eq(0).data('id'),$('.list-ul li').eq(0).attr('data-page'));
 				}
+				// else{
+				// 	show_test_cont(local_id,list_page)
+				// }
 			};
 		};
-		var local_id = parseInt(localStorage.test_local_id);
 		console.log(local_id,back_page);
 		if (local_id) {
 			show_test_cont(local_id,back_page);
@@ -1085,7 +1089,7 @@ $(function() {
 		// var data_value = {'exam_id':exam_id,'classroom_ids':classroom_ids};
 		add_student_info(exam_id,classroom_ids);
 		// console.log(exam_id)
-		show_test_cont(exam_id);
+		// show_test_cont(exam_id);
 	});
 
 	function add_student_info(id,value){
@@ -1099,7 +1103,7 @@ $(function() {
 			data: {'classroom_ids':value},
 			success: function(data) {
 				console.log(data);
-				// show_student_info(data);
+				show_test_cont(id);
 			},
 			error: function() {
 				// alert('请稍后从新尝试登录或者联系管理员');
