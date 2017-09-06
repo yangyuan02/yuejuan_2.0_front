@@ -762,6 +762,7 @@ $(function(){
       	var width = $("div[name='"+(num-1)+"']").width();
       	var height = $("div[name='"+(num-1)+"']").height();
       	console.log(width,height)
+      	var p_id =  $("div[name='"+(num-1)+"']").attr('id');
       	var w = 1044;
       	var h = 734;
       	var x = $("div[name='"+(num-1)+"']").position().left;
@@ -783,8 +784,10 @@ $(function(){
         	'exam_subject_id':exam_subject_id,
       	}
       	var data_id = $("div[name='"+(num-1)+"']").attr('data-id');
+      	console.log(num,data_id,data_arr)
       	if(data_id){
-					update_select_info(data_id,data_arr);
+      		console.log(data_id)
+					// update_select_info(data_id,data_arr);
       	}else{
 	      	$.ajax({
 	      	  type: "POST",
@@ -793,8 +796,8 @@ $(function(){
 	      	  headers: {'Authorization': "Bearer " + isLogin},
 	      	  data: data_arr,
 	      	  success: function(data){
-	      	  	console.log(data);
-	      	  	show_info_id(data);
+	      	  	console.log(data,data.id);
+	      	  	show_info_id(data,p_id);
 	      	   },
 	      	   error: function(){
 	      	      // alert('请稍后从新尝试登录或者联系管理员');
@@ -835,13 +838,7 @@ $(function(){
 		// 	answer_setting_ids;
 		// }
 		// console.log(answer_setting_ids);
-		var crop_type;
-		if($('.hide-sec').hasClass('active')){
-			crop_type=1;
-	  }
-	  if($('.has-bg').hasClass('active')){
-			crop_type=4;
-	  }
+		var crop_type=4;
 		var data_arr={
 			'w':w,
 	  	'h':h,
@@ -864,6 +861,41 @@ $(function(){
 			update_select_info(update_select_id,data_arr);
 		}
 	});
+
+
+
+	// 遮蔽区域更新
+	$(document).on('mouseup', '.bg-type-hide .select-area', function() {
+		// event.stopPropagation()
+		// 更新区域块信息
+		var update_select_id = $(this).attr('data-id');
+		var width = $(this).width();
+		var height = $(this).height();
+		var w = 1044;
+		var h = 734;
+		var x = $(this).position().left;
+		var y = $(this).position().top;
+		var current_page =parseInt($('.page .on').text());
+  	var crop_type = 1;
+  	var data_arr={
+  		'w':w,
+    	'h':h,
+    	'width':width,
+    	'height':height,
+    	'x':x,
+    	'y':y,
+    	'exam_subject_batch_id':bath_id,
+    	'crop_type':crop_type,
+    	'current_page':current_page,
+    	'exam_subject_id':exam_subject_id,
+  	}
+		console.log(update_select_id)
+		if(update_select_id){
+			console.log(data_arr);
+			update_select_info(update_select_id,data_arr);
+		}
+	});
+
 
 	function update_select_info(up_id,up_arr){
 		console.log(up_arr)
