@@ -362,7 +362,7 @@ $.ajax({
     $(".mask_layer").show();
     // mark_hou(a,b);
     mark_hou();
-    var faye = new Faye.Client('http://192.168.1.127:9292/api/v2/events');
+    var faye = new Faye.Client(fayeIp+'/api/v2/events');
     faye.subscribe("/reports/" + b + "", function(data) {
       if (data.status == "analysed") {
         $(".t_f").hide();
@@ -630,7 +630,12 @@ $.ajax({
                          $("#r5_11_tbody").html(' ');
                     $("#r5_11_tbody02").html(' ');
                     for (var i = 0; i < data.rise.length; i++) {
-
+                        if(data.rise[i].grade_ranking_change==null){
+                           data.rise[i].grade_ranking_change=0;
+                        };
+                         if(data.decline[i].grade_ranking_change==null){
+                            data.decline[i].grade_ranking_change=0;
+                        };
                         $("#r5_11_tbody").append(' <tr><td>' + data.rise[i].name + '</td><td>' + data.rise[i].grade_rank + '</td><td>' + data.rise[i].grade_ranking_change + '<i class="iconfont">&#xe627;</i></td></tr>');
                         $("#r5_11_tbody02").append(' <tr><td>' + data.decline[i].name + '</td><td>' + data.decline[i].grade_rank + '</td><td>' + data.decline[i].grade_ranking_change + '<i class="iconfont">&#xe628;</i></td></tr>');
                     }
@@ -965,7 +970,65 @@ $.ajax({
             
         });
 
+
+        $(".study_q_qk03").click(function(event) {
+            /* Act on the event */
+            $(".study_q_qk").hide();
+           $(".mask_layer").hide();
+        });
+
         //最新班级学情追踪函数
+        // 缺考人数
+$(".study_q_zt").on('click', 'span', function(event) {
+$(".mask_layer").css("height", $(document).height());
+$(".study_q_qk").show();
+$(".mask_layer").show();
+          var exam_id = parseInt($(".study_q_km01").children('option:selected').attr("data-id"));
+             $(".study_q_km02").attr("data-id",$(".study_q_km02").children('option:selected').attr("data-id"));
+             var class_id = parseInt($(".study_q_km02").attr("data-id"));
+             if(class_id==null){
+                 var class_id = parseInt($(".study_q_km02").attr("data-id"));
+             } 
+             $(".study_q_km03").attr("data-id",$(".study_q_km03").children('option:selected').attr("data-id"));
+             var sub_id = parseInt($(".study_q_km03").attr("data-id"));
+            if(sub_id==null){
+                 var sub_id = parseInt($(".study_q_km03").attr("data-id"));
+             } 
+
+            console.log(exam_id);
+            console.log(class_id);  
+            console.log(sub_id); 
+
+// var a="http://192.168.1.117:3000";
+  $.ajax({
+                type: "POST",
+                url: ajaxIp + "/api/v2/reports/absents",
+                headers: {
+                    'Authorization': "Bearer " + isLogin
+                },
+                data: {
+                    "exam_id":exam_id,
+                    "subject_id":class_id,
+                     "classroom_id":class_id,
+                     // "name":"厉吴巍"
+                },
+                success: function(data) {
+                    console.log(data);
+                    $(".study_q_qk span").html(data[0].classroom_name+data[0].subject_name);
+                      $(".study_q_qk02").html(" ");
+                    for(var i=0;i<data.length;i++){
+                      $(".study_q_qk02").append('<a>'+data[i].name+'</a>')
+                    }   
+                },
+                error: function() {
+
+                }
+
+            });
+
+
+});
+
 
         function banji() {
             var exam_id = parseInt($(".study_q_km01").children('option:selected').attr("data-id"));
@@ -1013,7 +1076,7 @@ $.ajax({
                     $(".study_q_zt td").eq(4).html(data.pass_number);
                     $(".study_q_zt td").eq(5).html(data.fine_number);
                     $(".study_q_zt td").eq(6).html(data.student_total);
-                    $(".study_q_zt td").eq(7).html(data.absent_total);
+                    // $(".study_q_zt td").eq(7).append('<span>查看</span>')
                 },
                 error: function() {
 
@@ -1075,10 +1138,16 @@ $.ajax({
                         var c = $(".study_q_dfj tr").eq(a);
                         c.find('td').eq(1).html(data.rise[i].name);
                         c.find('td').eq(2).html(data.rise[i].class_rank);
+                        if(data.rise[i].class_ranking_change==null){
+                          data.rise[i].class_ranking_change=0;
+                        };
                         c.find('td').eq(3).children('span').html(data.rise[i].class_ranking_change);
                         var d = $(".study_q_dft tr").eq(a);
                         d.find('td').eq(1).html(data.decline[i].name);
                         d.find('td').eq(2).html(data.decline[i].class_rank);
+                        if(data.decline[i].class_ranking_change==null){
+                          data.decline[i].class_ranking_change=0;
+                        };
                         d.find('td').eq(3).children('span').html(data.decline[i].class_ranking_change);
                     }
                 }
@@ -1140,6 +1209,9 @@ $.ajax({
                     if(data.error_code!==500){
                      $("#study_q_i_btn_05c").html(" ");
                     for (var i = 0; i < data.exam_subjects.length; i++) {
+                        if(data.exam_subjects[i].class_ranking_change==null){
+                            data.exam_subjects[i].class_ranking_change=0;
+                        }
                         $("#study_q_i_btn_05c").append('<tr><td>' + data.exam_subjects[i].name + '</td><td>' + data.exam_subjects[i].score + '</td><td>' + data.exam_subjects[i].level + '</td><td>' + data.exam_subjects[i].class_rank + '</td><td style="color:#fb7d8a">' + data.exam_subjects[i].class_ranking_change + '<i class="iconfont">&#xe627;</i></td><td><span data-exno="'+ data.exam_subjects[i].exam_no +'">查看答题卡</span></td><td>点评</td></tr>');
 
                     }
@@ -1301,18 +1373,10 @@ $.ajax({
 
 
                 });
-
-
-
             });
 
             // 小题查看结束
-        };
-// 小题查看判断题
-    $(".study_q_i_btn_04").click(function(event) {
-        /* Act on the event */
-        alert();
-        // var ajaxUrl = "http://192.168.1.117:3000"
+// 小题判断题
         $.ajax({
             type: "GET",
             url: ajaxIp +"/api/v2/reports/class_answer_setting_statistic",
@@ -1320,9 +1384,9 @@ $.ajax({
                 'Authorization': "Bearer " + isLogin
             },
             data: {
-                "exam_id": "1",
-                "subject_id": "13",
-                "classroom_id": "102",
+                "exam_id": exam_id,
+                "subject_id": sub_id,
+                "classroom_id": class_id,
                 "item":"2",
             },
             success: function(data) {
@@ -1341,30 +1405,13 @@ $.ajax({
 
             }
         });
-    //     $.ajax({
-    //                 type: "GET",
-    //                 url: ajaxUrl + "/api/v2/reports/class_student_answer_setting_statistic",
-    //                 headers: {
-    //                     'Authorization': "Bearer " + isLogin
-    //                 },
-    //                 data: {
-    //                     "exam_id": "1",
-    //                     "subject_id": "13",
-    //                    "classroom_id": "102",
-    //                     // "item": "2",
-    //                     "answer_setting_id":"9980"
-    //                 },
-    //                 success: function(data) {
-    //                     console.log(data);
-    //                 },
-    //                 error:function() {
-    //                     /* Act on the event */
-    //                 }
-    //                 });
+    
 
 
+        };
 
-    });
+    
+    // 判断题查看
     $(".study_q_05_tb02").on('click', 'span', function(event) {
         // 切换页面
         $(".study_q_ck").show();
@@ -1388,7 +1435,7 @@ $.ajax({
                 "exam_id": "1",
                 "subject_id": "13",
                 "classroom_id": "102",
-                // "item": "2",
+                "item":"2",
                 // "answer_setting_id": "9980"
             },
             success: function(data) {
