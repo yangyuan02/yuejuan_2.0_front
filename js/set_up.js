@@ -902,6 +902,9 @@ $(function() {
 			if(role_name=="教师"){
 				$('body').find('.table-span').css('visibility', 'hidden');
 			}
+			if(role_name=="超级管理员"){
+				$('body').find('.table-span').css('visibility', 'hidden');
+			}
 
 		$('.table-reset-password span').click(function(){
 			$('.modal-wrap-small .modal-main').animate({'top': '50%','opacity': 1},500);
@@ -1163,15 +1166,16 @@ $(function() {
 				    		})
 
 				    		$('.allNew').on('click' , function(){
+				    			console.log(99)
 				    			$(this).toggleClass('newBack');
 				    			if($(this).hasClass('newBack')){
-									for (var i = 0; i < $('.newTea').length; i++) {
-										$($('.newTea')[i]).addClass('newTeacherBack');
-									}
+										for (var i = 0; i < $('.newTea').length; i++) {
+											$($('.newTea')[i]).addClass('newTeacherBack');
+										}
 				    			}else{
-									for (var i = 0; i < $('.newTea').length; i++) {
-										$($('.newTea')[i]).removeClass('newTeacherBack');
-									}
+										for (var i = 0; i < $('.newTea').length; i++) {
+											$($('.newTea')[i]).removeClass('newTeacherBack');
+										}
 				    			}
 
 				    			var grade_ids = [];
@@ -1215,7 +1219,7 @@ $(function() {
 							        }
 							    });
 				    		})
-				        }
+				       }
 				    });
 
 
@@ -1764,6 +1768,56 @@ $(function() {
 					        }
 					    });
 		    		})
+						$('.allNew').on('click' , function(){
+				    			$(this).toggleClass('newBack');
+				    			if($(this).hasClass('newBack')){
+										for (var i = 0; i < $('.newTea').length; i++) {
+											$($('.newTea')[i]).addClass('newTeacherBack');
+										}
+				    			}else{
+										for (var i = 0; i < $('.newTea').length; i++) {
+											$($('.newTea')[i]).removeClass('newTeacherBack');
+										}
+				    			}
+
+				    			var grade_ids = [];
+								if($('#teachers-grade .newBack').length==0){
+									for (var i = 0; i < $('.newTeacherBack').length; i++) {
+										grade_ids[i] = $($('.newTeacherBack')[i]).data('id');
+									}
+								}else{
+									for (var i = 0; i < $('.newTeacherBack').length; i++) {
+										grade_ids[i] = $($('.newTeacherBack')[i]).data('id');
+									}
+								}
+								grade_ids = grade_ids.join(',');
+								console.log(grade_ids)
+				    			$.ajax({
+							     	type: "GET",
+							     	url: ajaxIp+"/api/v2/teachers/find_subject_by_grade",
+							    	dataType: "JSON",
+							    	headers: {'Authorization': "Bearer " + isLogin},
+							    	data:{grade_ids},
+							    	success: function(data){
+							    		console.log(data)
+							    		var iOption_s='';
+							  			for (var i = 0; i < data.length; i++) {
+							  					iOption_s+= '<option value="'+data[i].id+'">'+data[i].name+'</option>';
+
+							  				// $(iOption_s).attr('id', data.id);
+							  				// $(iOption_s).attr('value', data.name);
+							  				// $(iOption_s).text(data.name);
+							  			}
+							  			$('#teachers-subject').html(iOption_s);
+							        },
+							        error: function(){
+							        	// alert('请稍后从新尝试登录或者联系管理员');
+							        	// localStorage.clear();
+							        	// window.location.href = './login.html'
+							        }
+							    });
+				    		})
+
 				}
 		    })
 
@@ -3131,7 +3185,7 @@ $(function() {
 			  	$('.load-bg').show();
 			  	var customer_id = $('#wrap').attr('customer_id');
 			  	console.log(customer_id)
-		  	  var faye = new Faye.Client('http://192.168.1.127:9292/api/v2/events');
+		  	  var faye = new Faye.Client(fayeIp+'/api/v2/events');
 			    faye.subscribe("/import_score/"+ customer_id +"" , function (data) {
 		        console.log(222222);
 		        console.log(data)
