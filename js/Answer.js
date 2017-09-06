@@ -32,7 +32,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.listObj4 = [];
     $scope.result = {};//弹出框保存
     var answer_id = []//大题answer_id
-    // var allHeight = [] //页面上所有table高度
+    var allHeight = [] //页面上所有table高度
     $scope.getAnswer = function () {//获取题目模板
         var isLogin = localStorage.getItem("token");
         $.ajax({
@@ -49,7 +49,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     $scope.listObj3 = data.message.page3 ? data.message.page3 : []
                     $scope.listObj4 = data.message.page4 ? data.message.page4 : []
                     answer_id = data.message.answer_id
-                    // allHeight = data.message.allHeight?data.message.allHeight:[]
+                    allHeight = data.message.allHeight?data.message.allHeight:[]
                 }
             },
             error: function () {
@@ -661,20 +661,22 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
 
     //获取页面上所有高度集合
-    // function allTableHeight() {
-    //     $("table").each(function () {
-    //         allHeight.push($(this).height())
-    //     })
-    // }
+    function allTableHeight() {
+        var allHeight = []
+        $("table").each(function () {
+            allHeight.push($(this).height())
+        })
+        return allHeight
+    }
+
     function allList() {//获取所有题目
-        // allTableHeight()
         var allList = {}
         allList.page1 = $scope.listObj
         allList.page2 = $scope.listObj2
         allList.page3 = $scope.listObj3
         allList.page4 = $scope.listObj4
         allList.answer_id = answer_id
-        // allList.allHeight = allHeight
+        allList.allHeight = allTableHeight()
         return allList
     }
 
@@ -868,14 +870,18 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         return arr;
     };
 
-    //重新渲染
-    function render(allList) {
-        // var len1 = $scope.listObj.length, len2 = $scope.listObj2.length, len3 = $scope.listObj3.length, len4 = $scope.listObj4.length
-        // $scope.listObj = allList.slice(0, 5)
-        // $scope.listObj2 = allList.slice(5, 12)
-        // $scope.listObj3 = allList.slice(12, 14)
-        // $scope.listObj4 = allList.slice(len1+len2+len3,len1+len2+len3+len4)
-        console.log(allList)
+    /**
+     * 重新渲染
+     * @param allList  页面的page总和
+     * @param index    当前移动的index
+     */
+    function render(allList,index) {
+        var TableHeight = allTableHeight()//页面中所有table高度
+        var len1 = $scope.listObj.length, len2 = $scope.listObj2.length, len3 = $scope.listObj3.length, len4 = $scope.listObj4.length
+        $scope.listObj = allList.slice(0,len1)
+        $scope.listObj2 = allList.slice(len1,len1+len2)
+        $scope.listObj3 = allList.slice(len1+len2,len1+len2+len3)
+        $scope.listObj4 = allList.slice(len1+len2+len3,len1+len2+len3+len4)
     }
 
     //设置当前排序
@@ -904,7 +910,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     var allList_1 = allPagePost()
     // 上移
     $scope.upRecord = function (arr, $index) {
-        // console.log(allHeight)
         if ($index == 0) {
             return;
         }
@@ -912,9 +917,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         swapItems(arr, $index, $index - 1);
         swapItems(answer_id, $index, $index - 1);
         swapItems(allList_1, $index, $index - 1);
-        // console.log(allList_1)
-        // render(allList_1)
-        setAnswerSor()
+        render(allList_1,$index)
+        // setAnswerSor()
     };
 
     // 下移
@@ -926,8 +930,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         swapItems(arr, $index, $index + 1);
         swapItems(answer_id, $index, $index + 1);
         swapItems(allList_1, $index, $index + 1);
-        // render(allList_1)
-        setAnswerSor()
+        render(allList_1,$index)
+        // setAnswerSor()
     };
     //查找在那个全局变量删除元素
     function findScopeListDele(index) {
