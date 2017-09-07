@@ -1030,71 +1030,50 @@ $(function(){
 		var label_value;
 		var tests = [];
 		var all_test = [];
-		// $('.section-list').each(function(i){
-		// 	var obj = new Object();
-		// 	var label_values=[];
-		// 	if($(this).children('li.section-li').find('input[name="section-check"]:checked')){
-		// 		 label_value = $(this).children('li.section-li').find('input[name="section-check"]:checked').next().text();
-		// 		 on_page = parseInt($(this).parent().find('.on-page').text());
-		// 	}
-		// 	label_values=label_value.split("");
-		// 	label_values;
-		// 	console.log(label_values,on_page)
-		// 	obj['current_page']=on_page;
-		// 	obj['index']=label_values;
-		// 	console.log(obj);
-		// 	// tests=obj;
-		// 	// console.log(i)
-		// 	all_test[i]=obj;
-		// 	console.log(all_test)
-		// })
-		// var sections = all_test;
-		// console.log(sections)
-		
-		var section_list = $('.section-list');
-		for (var i = 0; i < section_list.length; i++) {
+		$('.section-list').each(function(i){
 			var obj = new Object();
 			var label_values=[];
-			var check_list = $(section_list[i]).children('li.section-li').find('input[name="section-check"]:checked');
-			for (var j = 0; j < check_list.length; j++) {
-				 label_value = $(check_list[j]).next().text();
-				 label_values.push(label_value);
-			};
-			on_page = $(section_list[i]).parent().find('.on-page').text();
-			// console.log(label_values,on_page)
+			if($(this).children('li.section-li').find('input[name="section-check"]:checked')){
+				 label_value = $(this).children('li.section-li').find('input[name="section-check"]:checked').next().text();
+				 on_page = parseInt($(this).parent().find('.on-page').text());
+			}
+			label_values=label_value.split("");
+			label_values;
+			console.log(label_values,on_page)
 			obj['current_page']=on_page;
 			obj['index']=label_values;
-			console.log(obj)
+			console.log(obj);
+			// tests=obj;
+			// console.log(i)
 			all_test[i]=obj;
 			console.log(all_test)
-
-		};
+		})
 		var sections = all_test;
 		console.log(sections)
-		$.ajax({
-		  type: "POST",
-		  url: ajaxIp+"/api/v2/section_crops/cut_images",
-		  headers: {'Authorization': "Bearer " + isLogin},
-		  data:{'exam_subject_batch_id':bath_id,'sections':sections,'crop_type':4},
-		  success: function(data){
-		  	console.log(data);
-		  	$('.load-bg').show();
-		  	var customer_id = $('#wrap').attr('customer_id');
-		  	console.log(customer_id)
-	  	  var faye = new Faye.Client(fayeIp+'/api/v2/events');
-		    faye.subscribe("/cut_images/"+ customer_id +"" , function (data) {
-	        console.log(data)
-	        if(data.message=='ok'){
-						$('.load-bg').hide();
-	        }
-		    });
-		   },
-		   error: function(){
-		      // alert('请稍后从新尝试登录或者联系管理员');
-	      	// localStorage.clear();
-	      	// window.location.href = './login.html';
-		  }
-		});
+		// $.ajax({
+		//   type: "POST",
+		//   url: ajaxIp+"/api/v2/section_crops/cut_images",
+		//   headers: {'Authorization': "Bearer " + isLogin},
+		//   data:{'exam_subject_batch_id':bath_id,'sections':sections,'crop_type':4},
+		//   success: function(data){
+		//   	console.log(data);
+		//   	$('.load-bg').show();
+		//   	var customer_id = $('#wrap').attr('customer_id');
+		//   	console.log(customer_id)
+	 //  	  var faye = new Faye.Client(fayeIp+'/api/v2/events');
+		//     faye.subscribe("/cut_images/"+ customer_id +"" , function (data) {
+	 //        console.log(data)
+	 //        if(data.message=='ok'){
+		// 				$('.load-bg').hide();
+	 //        }
+		//     });
+		//    },
+		//    error: function(){
+		//       // alert('请稍后从新尝试登录或者联系管理员');
+	 //      	// localStorage.clear();
+	 //      	// window.location.href = './login.html';
+		//   }
+		// });
 	});
 
 
