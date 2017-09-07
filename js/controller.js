@@ -1009,7 +1009,7 @@ $(".mask_layer").show();
                 },
                 data: {
                     "exam_id":exam_id,
-                    "subject_id":class_id,
+                    "subject_id":sub_id,
                      "classroom_id":class_id,
                      // "name":"厉吴巍"
                 },
