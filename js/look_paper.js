@@ -443,6 +443,7 @@ $(function(){
 			if(answer_id==li_op_id){
 				console.log(88)
 				$('#item-list').html('');
+				console.log(m)
 				$(li_op[m]).attr('selected', true);
 				get_num_list(answer_id);
 				// var on_checked_info_length = on_checked_info.length;

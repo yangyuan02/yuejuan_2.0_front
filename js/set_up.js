@@ -902,9 +902,9 @@ $(function() {
 			if(role_name=="教师"){
 				$('body').find('.table-span').css('visibility', 'hidden');
 			}
-			if(role_name=="超级管理员"){
-				$('body').find('.table-span').css('visibility', 'hidden');
-			}
+			// if(role_name=="超级管理员"){
+			// 	$('body').find('.table-span').css('visibility', 'hidden');
+			// }
 
 		$('.table-reset-password span').click(function(){
 			$('.modal-wrap-small .modal-main').animate({'top': '50%','opacity': 1},500);
