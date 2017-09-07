@@ -667,14 +667,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
     }
 
-    //获取页面上所有高度集合
-    function allTableHeight() {
-        var allHeight = []
-        $("table").each(function () {
-            allHeight.push($(this).height())
-        })
-        return allHeight
-    }
 
     function allList() {//获取所有题目
         var allList = {}
@@ -683,7 +675,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         allList.page3 = $scope.listObj3
         allList.page4 = $scope.listObj4
         allList.answer_id = answer_id
-        allList.allHeight = allTableHeight()
         return allList
     }
 
@@ -862,16 +853,19 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.sortIndex = index
     }
     //比较相邻的table高度大小
-    function compare(index,type) {
+    function compare(index,type,page_num) {
+        var outerBox = $(".A_Rone").outerHeight()//最外层距离
+        var lastTabPosi = $(".A_Rone").eq(page_num).find("table:last").position().top + $(".A_Rone").eq(page_num).find("table:last").height() + 30
         var currenTatbleHeight = $("body").find("table").eq(index).height()
         var nextTatbleHeight = $("body").find("table").eq(index+1).height()
         var prevTatbleHeight = $("body").find("table").eq(index-1).height()
-        console.log(currenTatbleHeight+'currenTatbleHeight',prevTatbleHeight+'prevTatbleHeight',nextTatbleHeight+'nextTatbleHeight')
+        var remain = outerBox - lastTabPosi
+        console.log(currenTatbleHeight+'currenTatbleHeight',prevTatbleHeight+'prevTatbleHeight',nextTatbleHeight+'nextTatbleHeight',remain+'remain',outerBox+'outerBox',lastTabPosi+'lastTabPosi',page_num+'page_num')
         if(type==0){//上移动
-            var result = prevTatbleHeight - currenTatbleHeight >= 0 ? true : false
+            var result = remain + prevTatbleHeight - currenTatbleHeight >= 0 ? true : false
         }
         if(type==1){//下移动
-            var result = nextTatbleHeight - currenTatbleHeight >= 0 ? true : false
+            var result = remain + nextTatbleHeight - currenTatbleHeight >= 0 ? true : false
         }
         return result
 
@@ -889,7 +883,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
      * @param index    当前移动的index
      */
     function render(allList,index) {
-        var TableHeight = allTableHeight()//页面中所有table高度
         var len1 = $scope.listObj.length, len2 = $scope.listObj2.length, len3 = $scope.listObj3.length, len4 = $scope.listObj4.length
         $scope.listObj = allList.slice(0,len1)
         $scope.listObj2 = allList.slice(len1,len1+len2)
@@ -929,7 +922,14 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             return;
         }
         if($index==page2_frist||$index==page3_frist||$index==page4_frist){
-            if(compare($index,0)){
+            if($index==page2_frist){
+                var page_num = 0
+            }else if($index==page3_frist){
+                var page_num = 1
+            }else{
+                var page_num = 2
+            }
+            if(compare($index,0,page_num)){
                 $scope.sortIndex--
                 swapItems(arr, $index, $index - 1);
                 swapItems(answer_id, $index, $index - 1);
@@ -958,7 +958,14 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             return;
         }
         if($index==page_last||$index==page2_last||$index==page3_last){
-            if(compare($index,1)){
+            if($index==page_last){
+                var page_num = 1
+            }else if($index==page2_last){
+                var page_num = 2
+            }else{
+                var page_num = 3
+            }
+            if(compare($index,1,page_num)){
                 $scope.sortIndex++
                 swapItems(arr, $index, $index + 1);
                 swapItems(answer_id, $index, $index + 1);
@@ -970,7 +977,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 alert("当前高度大于下一个高度")
                 return false
             }
-        }
+        }//
         $scope.sortIndex++
         swapItems(arr, $index, $index + 1);
         swapItems(answer_id, $index, $index + 1);
