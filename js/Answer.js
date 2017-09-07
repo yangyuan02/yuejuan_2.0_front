@@ -875,6 +875,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
      * @param allList  页面的page总和
      * @param index    当前移动的index
      */
+
     function render(allList,index) {
         var len1 = $scope.listObj.length, len2 = $scope.listObj2.length, len3 = $scope.listObj3.length, len4 = $scope.listObj4.length
         $scope.listObj = allList.slice(0,len1)
@@ -925,10 +926,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             if(compare($index,0,page_num)){
                 $scope.sortIndex--
                 swapItems(arr, $index, $index - 1);
-                swapItems(answer_id, $index, $index - 1);
+                // swapItems(answer_id, $index, $index - 1);
                 swapItems(allList_1, $index, $index - 1);
                 render(allList_1,$index)
-                setAnswerSor()
+                // setAnswerSor()
                 return false
             }else {
                 alert("当前高度大于上一个高度")
@@ -937,10 +938,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         $scope.sortIndex--
         swapItems(arr, $index, $index - 1);
-        swapItems(answer_id, $index, $index - 1);
+        // swapItems(answer_id, $index, $index - 1);
         swapItems(allList_1, $index, $index - 1);
         render(allList_1,$index)
-        setAnswerSor()
+        // setAnswerSor()
     };
 
     // 下移
@@ -961,10 +962,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             if(compare($index,1,page_num)){
                 $scope.sortIndex++
                 swapItems(arr, $index, $index + 1);
-                swapItems(answer_id, $index, $index + 1);
+                // swapItems(answer_id, $index, $index + 1);
                 swapItems(allList_1, $index, $index + 1);
                 render(allList_1,$index)
-                setAnswerSor()
+                // setAnswerSor()
                 return false
             }else {
                 alert("当前高度大于下一个高度")
@@ -973,10 +974,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }//
         $scope.sortIndex++
         swapItems(arr, $index, $index + 1);
-        swapItems(answer_id, $index, $index + 1);
+        // swapItems(answer_id, $index, $index + 1);
         swapItems(allList_1, $index, $index + 1);
         render(allList_1,$index)
-        setAnswerSor()
+        // setAnswerSor()
     };
     //查找在那个全局变量删除元素
     function findScopeListDele(index) {
