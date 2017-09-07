@@ -499,9 +499,22 @@ $.ajax({
                 
                     $(".r2_02_01").html(data.statistics_total);
                     $(".r2_02_02").html(data.average);
-                    $(".r2_02_03").html(data.average_rate);
-                    $(".r2_02_04").html(data.pass_rate);
-                    $(".r2_02_05").html(data.fine_rate);
+                    if(data.average_rate==undefined){
+                         $(".r2_02_03").html("0");
+                     }else{
+                         $(".r2_02_03").html(data.average_rate+"%");
+                     }
+                    if(data.average_rate==undefined){
+                         $(".r2_02_04").html("0");
+                     }else{
+                        $(".r2_02_04").html(data.pass_rate+"%");
+                     }
+                   if(data.average_rate==undefined){
+                         $(".r2_02_05").html("0");
+                     }else{
+                        $(".r2_02_05").html(data.fine_rate+"%");
+                     }
+                   
                     $(".r2_02_06").html(data.standard_deviation);
                     var a = 100 - data.fine_rate;
                     var b = 100 - data.pass_rate;
@@ -613,13 +626,16 @@ $.ajax({
                 },
                 success: function(data) {
                     console.log(data);
-                    $("#r5_11_tbody").html(' ');
+                    if(data.error_code!==500){
+                         $("#r5_11_tbody").html(' ');
                     $("#r5_11_tbody02").html(' ');
                     for (var i = 0; i < data.rise.length; i++) {
 
                         $("#r5_11_tbody").append(' <tr><td>' + data.rise[i].name + '</td><td>' + data.rise[i].grade_rank + '</td><td>' + data.rise[i].grade_ranking_change + '<i class="iconfont">&#xe627;</i></td></tr>');
                         $("#r5_11_tbody02").append(' <tr><td>' + data.decline[i].name + '</td><td>' + data.decline[i].grade_rank + '</td><td>' + data.decline[i].grade_ranking_change + '<i class="iconfont">&#xe628;</i></td></tr>');
                     }
+                    }
+                   
                 },
                 error: function() {
 
@@ -638,7 +654,9 @@ $.ajax({
                     "subject_id": sub_id
                 },
                 success: function(data) {
+
                     console.log(data);
+                    if(data.length==0){
                     var a = [];
                     var b = [];
                     for (var i = 0; i < data.length; i++) {
@@ -648,7 +666,9 @@ $.ajax({
                         b.push(data[i].average);
                     }
                     console.log(a);
+
                     njxk(a,b);
+                }
                 },
                 error: function() {
                     /* Act on the event */
@@ -2709,7 +2729,10 @@ function kaishi_zhi(a,b){
                 });
                  heng_zhong();
             },
-            error: function() {}
+            error: function() {
+               
+            }         
+
         });
 
         // 科目 end
@@ -2763,7 +2786,6 @@ function kaishi_zhi(a,b){
                 },
                 success: function(data) {
                     console.log(data);
-
                     var a = data[0];
                     var b = data[1];
                     for (var i = 0; i < a.length; i++) {
@@ -2773,7 +2795,12 @@ function kaishi_zhi(a,b){
                         $(".exam_h_102_bo").append('<tr><td>' + b[i].id + '</td><td>' + b[i].class_name + '</td><td>' + b[i].subject_name + '</td><td>' + b[i].class_average + '</td><td>' + b[i].ranking+ '</td><td>' + b[i].highest_score + '</td><td>' + b[i].lowest_score + '</td><td>' + b[i].standard_deviation + '</td><td>' + b[i].average_range + '</td></tr>');
                     }
                 },
-                error: function() {}
+                error: function(data) { 
+                    
+                   
+                },
+
+
 
             });
             // 班级等级
@@ -2824,6 +2851,7 @@ function kaishi_zhi(a,b){
                 },
                 success: function(data) {
                     console.log(data);
+                    if(data.length!==0){
                     var a = [];
                     var b = [];
                     var c = [];
@@ -2833,6 +2861,7 @@ function kaishi_zhi(a,b){
                         c.push(data[i].class_rate);
                     }
                     heng_z(a, b, c);
+                }
                 },
                 error: function() {
 
@@ -2910,12 +2939,13 @@ exam_h_bb01();
             },
             success: function(data) {
                 console.log(data);
+               
                 console.log(data.file_path);
                 $(".exam_h_101 button").parent().attr("href", ajaxIp + data.file_path);
 
             },
             error: function() {
-
+        
             }
 
         });
