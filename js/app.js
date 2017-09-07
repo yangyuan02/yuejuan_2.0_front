@@ -14,13 +14,12 @@ angular.module("myApp", ["ui.router","myApp.controller"])
             if (role_name == "教师") {
                 $(".main_left a").eq(0).hide();
                 $(".main_left a").eq(0).removeClass('li_click');
-              $(".main_left a").eq(1).addClass('li_click');
+                $(".main_left a").eq(1).addClass('li_click');
                 $("#index_span").html($(".main_left a").eq(1).html());
                 $(".study_k_left").css("top", "190px");
                 $(".exam_z_left").css("top", "260px");
                 $(".exam_h_left").css("top", "328px");
                 $(".sc_left").css("top", "397px");
-
                 var a=$(".li_click").attr("ui-sref");
                 console.log('/'+a);
                 // window.location.reload($urlRouterProvider.otherwise('/'+a))
