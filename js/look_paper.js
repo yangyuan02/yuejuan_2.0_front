@@ -445,6 +445,7 @@ $(function(){
 				$('#item-list').html('');
 				console.log(m)
 				$(li_op[m]).attr('selected', true);
+				$(li_op[m]).siblings().attr('selected', false);
 				get_num_list(answer_id);
 				// var on_checked_info_length = on_checked_info.length;
 				// var new_arr = [];
