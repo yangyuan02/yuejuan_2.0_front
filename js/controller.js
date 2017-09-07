@@ -14,6 +14,7 @@ angular.module("myApp.controller", [])
         $(".main_left a").eq(0).addClass('li_click').siblings().removeClass("li_click");
         $("#index_span").html($(".main_left a").eq(0).html());
         var isLogin = localStorage.getItem("token"); // 全部科目
+        
         $.ajax({
             type: "GET",
             url: ajaxIp + "/api/v2/commons/grade_subjects",
@@ -661,7 +662,7 @@ $.ajax({
                 success: function(data) {
 
                     console.log(data);
-                    if(data.length==0){
+                    if(data.length!==0){
                     var a = [];
                     var b = [];
                     for (var i = 0; i < data.length; i++) {
@@ -1106,10 +1107,10 @@ $(".mask_layer").show();
 
 
                     };
-                    study_q_fd(mark_d);
+                   
 
                     }
-
+                  study_q_fd(mark_d);
                 },
                 error: function() {
 
@@ -2538,6 +2539,7 @@ function exam_z(){
         });
 
 // 难度系数
+   kaishi_zhi(0,0);
         /* Act on the event */
         $.ajax({
             type: "POST",
@@ -2557,7 +2559,7 @@ function exam_z(){
                     a.push(data[i].num);
                     b.push(data[i].difficulty);
                 }
-                console.log(b);
+              console.log(b);
               kaishi_zhi(a,b);
 
             },
@@ -2911,7 +2913,10 @@ function kaishi_zhi(a,b){
                 }
                 },
                 error: function() {
-
+                     var a = [];
+                    var b = [];
+                    var c = [];
+                  heng_z(a, b, c);
                 }
 
             });
@@ -2951,7 +2956,9 @@ function kaishi_zhi(a,b){
                     heng_m(a, b);
                 },
                 error: function() {
-
+                     var a = [];
+                     var b = [];
+                    heng_m(a, b);
                 }
 
             });
