@@ -1109,6 +1109,7 @@ $(".mask_layer").show();
                    
 
                     }
+                    // study_q_fd(a,b);
                   study_q_fd(a,b);
                 },
                 error: function() {
