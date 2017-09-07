@@ -276,7 +276,7 @@ body{
   -o-border-radius: 2px;
   border-radius: 2px;
 }
-.check-box label:after {
+/*.check-box label:after {
   opacity: 1;
   content: '';
   position: absolute;
@@ -293,7 +293,7 @@ body{
   -o-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
-}
+}*/
 .check-box input[type=checkbox]{
   visibility: hidden;
 }

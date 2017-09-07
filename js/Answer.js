@@ -862,11 +862,17 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.sortIndex = index
     }
     //比较相邻的table高度大小
-    function compare(index) {
-        var currenTatble = $("body").find("table").eq(index)//当前table
-        var currenTatbleHeight = currenTatble.height()
-        var nextTatbleHeight = currenTatble.next().height()
-        var result = currenTatbleHeight - currenTatbleHeight > 0 ? true : false
+    function compare(index,type) {
+        var currenTatbleHeight = $("body").find("table").eq(index).height()
+        var nextTatbleHeight = $("body").find("table").eq(index+1).height()
+        var prevTatbleHeight = $("body").find("table").eq(index-1).height()
+        console.log(currenTatbleHeight+'currenTatbleHeight',prevTatbleHeight+'prevTatbleHeight',nextTatbleHeight+'nextTatbleHeight')
+        if(type==0){//上移动
+            var result = prevTatbleHeight - currenTatbleHeight >= 0 ? true : false
+        }
+        if(type==1){//下移动
+            var result = nextTatbleHeight - currenTatbleHeight >= 0 ? true : false
+        }
         return result
 
     }
@@ -917,28 +923,60 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     var allList_1 = allPagePost()
     // 上移
     $scope.upRecord = function (arr, $index) {
+        var len1 = $scope.listObj.length, len2 = $scope.listObj2.length, len3 = $scope.listObj3.length, len4 = $scope.listObj4.length
+        var page_frist = 0,page2_frist = len1,page3_frist = len1+len2,page4_frist = len1+len2+len3
         if ($index == 0) {
             return;
+        }
+        if($index==page2_frist||$index==page3_frist||$index==page4_frist){
+            if(compare($index,0)){
+                $scope.sortIndex--
+                swapItems(arr, $index, $index - 1);
+                swapItems(answer_id, $index, $index - 1);
+                swapItems(allList_1, $index, $index - 1);
+                render(allList_1,$index)
+                setAnswerSor()
+                return false
+            }else {
+                alert("当前高度大于上一个高度")
+                return false
+            }
         }
         $scope.sortIndex--
         swapItems(arr, $index, $index - 1);
         swapItems(answer_id, $index, $index - 1);
         swapItems(allList_1, $index, $index - 1);
         render(allList_1,$index)
-        // setAnswerSor()
+        setAnswerSor()
     };
 
     // 下移
     $scope.downRecord = function (arr, $index) {
+        var len1 = $scope.listObj.length, len2 = $scope.listObj2.length, len3 = $scope.listObj3.length, len4 = $scope.listObj4.length
+        var page_last = len1-1,page2_last = len1+len2-1,page3_last = len1+len2+len3-1,page4_last = len1+len2+len3+len4-1
         if ($index == arr.length - 1) {
             return;
+        }
+        if($index==page_last||$index==page2_last||$index==page3_last){
+            if(compare($index,1)){
+                $scope.sortIndex++
+                swapItems(arr, $index, $index + 1);
+                swapItems(answer_id, $index, $index + 1);
+                swapItems(allList_1, $index, $index + 1);
+                render(allList_1,$index)
+                setAnswerSor()
+                return false
+            }else {
+                alert("当前高度大于下一个高度")
+                return false
+            }
         }
         $scope.sortIndex++
         swapItems(arr, $index, $index + 1);
         swapItems(answer_id, $index, $index + 1);
         swapItems(allList_1, $index, $index + 1);
         render(allList_1,$index)
-        // setAnswerSor()
+        setAnswerSor()
     };
     //查找在那个全局变量删除元素
     function findScopeListDele(index) {
