@@ -536,20 +536,20 @@ $.ajax({
                         },
                         success: function(data) {
                             console.log(data);
-                            var mark_d = [];
+                            var a = [];
                             // s
                             // console.log(data[0].rate);
-                            
+                            var b = [];
                             
                             if(data.error_code!==500){
                             for (var i = 0; i < data.socre_distributions.length; i++) {
-                                mark_d.push(data.socre_distributions[i].count);
+                                a.push(data.socre_distributions[i].range_text);
+                                b.push(data.socre_distributions[i].count);
                             };
                              }
-                            console.log(mark_d);
-                            mark_fb(mark_d);
+                            mark_fb(a,b);
                             if(data.error_code==500){
-                             mark_fb(mark_d);
+                             mark_fb(a,b);
                             };
                        
                         },
@@ -794,7 +794,7 @@ $.ajax({
 
         }
         // 分数分布插件
-        function mark_fb(a) {
+        function mark_fb(a,b) {
             var myChart = echarts.init(document.getElementById('right_03'));
             var option = {
 
@@ -812,7 +812,7 @@ $.ajax({
                 calculable:false,
                 xAxis: [{
                     type: 'category',
-                     data: ['0-10', '10-20', '20-30', '30-40', '40-50', '50-60', '60-70', '70-80', '80-90', '90-100', '100-110', '110-120', '120-130', "130-140", "140-150"],
+                     data:a,
                     axisLabel:{
                      rotate: 40,
                       margin:5,
@@ -832,7 +832,7 @@ $.ajax({
                 series: [{
                     name: '人数',
                     type: 'bar',
-                    data: a,
+                    data: b,
                     markPoint: {
                         data: [{
                             type: 'max',
@@ -1099,18 +1099,18 @@ $(".mask_layer").show();
                 },
                 success: function(data) {
                     console.log(data);
-                    var mark_d = [];
+                    var a = [];
+                    var b = [];
                     if(data.error_code!==500){
                     for (var i = 0; i < data.socre_distributions.length; i++) {
-
-                        mark_d.push(data.socre_distributions[i].count);
-
-
+                        a.push(data.socre_distributions[i].range_text);
+                        b.push(data.socre_distributions[i].count);
                     };
                    
 
                     }
-                  study_q_fd(mark_d);
+                    // study_q_fd(a,b);
+                  study_q_fd(a,b);
                 },
                 error: function() {
 
@@ -1575,7 +1575,7 @@ $(".mask_layer").show();
 
 
         // 分数段分布插件
-        function study_q_fd(a) {
+        function study_q_fd(a,b) {
             var myChart = echarts.init(document.getElementById('study_q_03_02'));
 
             var option = {
@@ -1595,7 +1595,7 @@ $(".mask_layer").show();
                 xAxis: [{
                     type: 'category',
                     // boundaryGap : false,
-                    data: ['0-10', '10-20', '20-30', '30-40', '40-50', '50-60', '60-70', '70-80', '80-90', '90-100', '100-110', '110-120', '120-130', "130-140", "140-150"],
+                    data:a,
                      axisLabel:{
                      rotate: 40,
                       margin:5,
@@ -1615,7 +1615,7 @@ $(".mask_layer").show();
                 series: [{
                     name: '人数',
                     type: 'bar',
-                    data: a,
+                    data:b,
                     markPoint: {
                         data: [{
                             type: 'max',
@@ -2172,7 +2172,6 @@ var a=$(".study_k_101 button").attr("data-id");
                 },
                 data: {
                     "exam_id": exam_id,
-                    "subject_id": sub_id,
                     "classroom_id": class_id,
                 },
                 success: function(data) {
