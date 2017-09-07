@@ -280,17 +280,23 @@ $(function(){
       var select_height = arr[i]['height'];//140
       var select_left = arr[i]['x'];
       var select_top = arr[i]['y'];
-
+			
+			// $('.img-box img, .bg-img').css({
+			// 	'width': arr[0].w+'px',
+			// 	'height': arr[0].h+'px'
+			// });
+			// $('.img-box .bg-img').css('marginTop', -arr[0].h+'px');
 
       //获取当前试卷的宽度和高度比例
-      var l_width=$('.bg-img').width()/1044;
-      var l_height=$('.bg-img').height()/734;
+      var l_width=arr[i].w/1044;
+      var l_height=arr[i].h/734;
+      console.log(l_width,l_height)
       //显示区域所在位置
       $(select_area[i]).css({
-        "width": select_width*l_width + 'px',
-        "height": select_height*l_height + 'px',
-        "left": select_left*l_width + 'px',
-        "top": select_top*l_height + 'px'
+        "width": select_width/l_width + 'px',
+        "height": select_height/l_height + 'px',
+        "left": select_left/l_width + 'px',
+        "top": select_top/l_height + 'px'
       });
     }
     //如果区域块的数量大于2，显示区域块的个数，添加span_title
@@ -568,8 +574,8 @@ $(function(){
 	// 确认选择
 	$('body').on('click', '#confirm-sub', function() {
 		var p_id = $(this).parents('.modal-main').attr('id');
-		var w = 1044;
-		var h = 734;
+		var w = $('.img-box img').width();
+    var h = $('.img-box img').height();
 		// 获取图片id
 		// var scanner_image_id = $('.img-box img').attr('data-id');
 	  // 获取当前页数
@@ -762,8 +768,9 @@ $(function(){
       	var width = $("div[name='"+(num-1)+"']").width();
       	var height = $("div[name='"+(num-1)+"']").height();
       	console.log(width,height)
-      	var w = 1044;
-      	var h = 734;
+      	var p_id =  $("div[name='"+(num-1)+"']").attr('id');
+      	var w = $('.img-box img').width();
+      	var h = $('.img-box img').height();
       	var x = $("div[name='"+(num-1)+"']").position().left;
       	var y = $("div[name='"+(num-1)+"']").position().top;
       	// var num_index = parseInt($("div[name='"+(num-1)+"']").children('.title').text());
@@ -783,8 +790,10 @@ $(function(){
         	'exam_subject_id':exam_subject_id,
       	}
       	var data_id = $("div[name='"+(num-1)+"']").attr('data-id');
+      	console.log(num,data_id,data_arr)
       	if(data_id){
-					update_select_info(data_id,data_arr);
+      		console.log(data_id)
+					// update_select_info(data_id,data_arr);
       	}else{
 	      	$.ajax({
 	      	  type: "POST",
@@ -793,8 +802,8 @@ $(function(){
 	      	  headers: {'Authorization': "Bearer " + isLogin},
 	      	  data: data_arr,
 	      	  success: function(data){
-	      	  	console.log(data);
-	      	  	show_info_id(data);
+	      	  	console.log(data,data.id);
+	      	  	show_info_id(data,p_id);
 	      	   },
 	      	   error: function(){
 	      	      // alert('请稍后从新尝试登录或者联系管理员');
@@ -815,8 +824,8 @@ $(function(){
 		get_update_show_info(update_select_id);
 		var width = $(this).width();
 		var height = $(this).height();
-		var w = 1044;
-		var h = 734;
+		var w = $('.img-box img').width();
+    var h = $('.img-box img').height();
 		var x = $(this).position().left;
 		var y = $(this).position().top;
 		var num_index = parseInt($(this).children('.title').text());
@@ -835,13 +844,7 @@ $(function(){
 		// 	answer_setting_ids;
 		// }
 		// console.log(answer_setting_ids);
-		var crop_type;
-		if($('.hide-sec').hasClass('active')){
-			crop_type=1;
-	  }
-	  if($('.has-bg').hasClass('active')){
-			crop_type=4;
-	  }
+		var crop_type=4;
 		var data_arr={
 			'w':w,
 	  	'h':h,
@@ -864,6 +867,41 @@ $(function(){
 			update_select_info(update_select_id,data_arr);
 		}
 	});
+
+
+
+	// 遮蔽区域更新
+	$(document).on('mouseup', '.bg-type-hide .select-area', function() {
+		// event.stopPropagation()
+		// 更新区域块信息
+		var update_select_id = $(this).attr('data-id');
+		var width = $(this).width();
+		var height = $(this).height();
+		var w = $('.img-box img').width();
+    var h = $('.img-box img').height();
+		var x = $(this).position().left;
+		var y = $(this).position().top;
+		var current_page =parseInt($('.page .on').text());
+  	var crop_type = 1;
+  	var data_arr={
+  		'w':w,
+    	'h':h,
+    	'width':width,
+    	'height':height,
+    	'x':x,
+    	'y':y,
+    	'exam_subject_batch_id':bath_id,
+    	'crop_type':crop_type,
+    	'current_page':current_page,
+    	'exam_subject_id':exam_subject_id,
+  	}
+		console.log(update_select_id)
+		if(update_select_id){
+			console.log(data_arr);
+			update_select_info(update_select_id,data_arr);
+		}
+	});
+
 
 	function update_select_info(up_id,up_arr){
 		console.log(up_arr)
@@ -1020,9 +1058,8 @@ $(function(){
 		  	$('.load-bg').show();
 		  	var customer_id = $('#wrap').attr('customer_id');
 		  	console.log(customer_id)
-	  	  var faye = new Faye.Client('http://192.168.1.127:9292/api/v2/events');
+	  	  var faye = new Faye.Client(fayeIp+'/api/v2/events');
 		    faye.subscribe("/cut_images/"+ customer_id +"" , function (data) {
-	        console.log(222222)
 	        console.log(data)
 	        if(data.message=='ok'){
 						$('.load-bg').hide();

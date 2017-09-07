@@ -3185,7 +3185,7 @@ $(function() {
 			  	$('.load-bg').show();
 			  	var customer_id = $('#wrap').attr('customer_id');
 			  	console.log(customer_id)
-		  	  var faye = new Faye.Client('http://192.168.1.127:9292/api/v2/events');
+		  	  var faye = new Faye.Client(fayeIp+'/api/v2/events');
 			    faye.subscribe("/import_score/"+ customer_id +"" , function (data) {
 		        console.log(222222);
 		        console.log(data)
