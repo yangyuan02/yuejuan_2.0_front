@@ -382,6 +382,7 @@ $(function(){
 	}
 	
 	var on_checked_info;
+	// var check_all_info;
 	// 选择题型
 	$('body').on('dblclick', '.select-area', function() {
 		$(this).find('.edit-item').click();
@@ -396,6 +397,11 @@ $(function(){
 		var parent_id = $(this).parent().attr('data-id');
 		console.log(parent_id);
 		$('#change-modal').attr('data-id', parent_id);
+		if(parent_id==undefined){
+			un_id='undefined'
+			$('#change-modal').attr('data-id', un_id);
+
+		}
 
 		var p_width = $(this).parent().width();
 		var p_height = $(this).parent().height();
@@ -415,6 +421,7 @@ $(function(){
 			  headers: {'Authorization': "Bearer " + isLogin},
 			  success: function(data){
 			  	console.log(data);
+			  	// check_all_info=data;
 			  	show_onchecked_info(data,parent_id);
 			   },
 			   error: function(){
@@ -434,6 +441,7 @@ $(function(){
 		// console.log(answer_id)
 	});
 	function show_onchecked_info(info,parent_id){
+		console.log(parent_id)
 		var answer_id = info.answer_id;
 		var li_op = $('#type-list option');
 		for (var m = 0; m < li_op.length; m++) {
@@ -521,10 +529,48 @@ $(function(){
 	}
 	 // 题型选择事件
 	$('body').on('change', '#type-list', function() {
+		console.log(check_all_info)
+		var parent_id = $(this).parents('#change-modal').attr('data-id');
 		$('#item-list').html('');
 		var type_name = $(this).find("option:selected").val();
 		var type_id = $(this).find("option:selected").attr('data-id');
 		get_num_list(type_id);
+		var parent_id = $(this).parents('#change-modal').attr('data-id');
+		console.log(parent_id)
+		var check_all_info;
+		if(parent_id!="undefined"){
+			$.ajax({
+			  type: "GET",
+			  async:false,
+			  url: ajaxIp+"/api/v2/section_crops/"+parent_id+"",
+			  headers: {'Authorization': "Bearer " + isLogin},
+			  success: function(data){
+			  	console.log(data);
+			  	check_all_info=data;
+			   },
+			   error: function(){
+			      // alert('请稍后从新尝试登录或者联系管理员');
+		      	// localStorage.clear();
+		      	// window.location.href = './login.html';
+			  }
+			});
+		}
+		if(check_all_info){
+		console.log(check_all_info);
+		for (var z = 0; z < check_all_info.answer_setting_ids.length; z++) {
+			var ll_li = $('#item-list li.num_li');
+			var ll_li_length = ll_li.length;
+			console.log(ll_li_length,check_all_info.answer_setting_ids.length)
+			for (var j = 0; j < ll_li_length; j++) {
+				var li_id = $(ll_li[j]).find('input').attr('data-id');
+				if(check_all_info.answer_setting_ids[z] == li_id){
+					$(ll_li[j]).find('input').attr('checked', true);
+				}
+			};
+			if(check_all_info.answer_setting_ids.length==ll_li_length){
+					$('#item-list .all').find('input').attr('checked', true);
+				}
+		};}
 	});
 
 	// 显示题号列表
@@ -553,9 +599,28 @@ $(function(){
 		var all_change = '<li class="all"><div class="check-box"><input type="checkbox" id="all-num" class="checkall" name="checkall"><label for="all-num">全部</label></div></li>' ;
 		$('#item-list').append(all_change);
 		for (var i = 0; i < num_info.length; i++) {
-			var all_num = '<li class="num_li"><div class="check-box"><input type="checkbox" data-id="'+num_info[i].id+'" value="'+num_info[i].num+'" id="num-check'+ i +'" class="check" name="num-check"><label for="num-check'+ i +'">'+num_info[i].num+'</label></div></li>';
+			var all_num = '<li class="num_li num_li_'+i+'"><div class="check-box"><input type="checkbox" data-id="'+num_info[i].id+'" value="'+num_info[i].num+'" id="num-check'+ i +'" class="check" name="num-check"><label for="num-check'+ i +'">'+num_info[i].num+'</label></div></li>';
 			$('#item-list').append(all_num);
+			if(!num_info[i].choose){
+				console.log(999)
+				$('.num_li_'+i+'').find('input').removeAttr('name');
+				$('.num_li_'+i+'').find('input').prop("disabled","disabled");
+				$('.num_li_'+i+'').find('label').css({
+					'opacity': .5,
+					'cursor': 'not-allowed'
+				});
+			}
 		};
+
+
+		var disabled_length = $('#item-list').find("input:disabled").length;
+		if(num_info.length == disabled_length){
+			$('#item-list .all').find('#all-num').prop("disabled","disabled");
+			$('#item-list .all').find('label').css({
+				'opacity': .5,
+				'cursor': 'not-allowed'
+			});
+		}
 	}
 
 		// 题号全选
@@ -865,8 +930,30 @@ $(function(){
 		}
 		console.log(update_select_id)
 		if(update_select_id){
+			var pre_info;
+			$.ajax({
+			  type: "GET",
+			  async:false,
+			  url: ajaxIp+"/api/v2/section_crops/"+update_select_id+"",
+			  headers: {'Authorization': "Bearer " + isLogin},
+			  success: function(data){
+			  	// console.log(data);
+			  	pre_info = data;
+			   },
+			   error: function(){
+			      // alert('请稍后从新尝试登录或者联系管理员');
+		      	// localStorage.clear();
+		      	// window.location.href = './login.html';
+			  }
+			});
 			console.log(data_arr);
-			update_select_info(update_select_id,data_arr);
+			var pre_width = pre_info.position.width;
+			var pre_height = pre_info.position.height;
+			var pre_x = pre_info.position.x;
+			var pre_y = pre_info.position.y;
+			if(width-pre_width!=0 || height-pre_height!=0 || x-pre_x!=0 || y-pre_y!=0){
+				update_select_info(update_select_id,data_arr);
+			}
 		}
 	});
 
