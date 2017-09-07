@@ -970,7 +970,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 alert("当前高度大于下一个高度")
                 return false
             }
-        }
+        }//
         $scope.sortIndex++
         swapItems(arr, $index, $index + 1);
         swapItems(answer_id, $index, $index + 1);
