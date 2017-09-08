@@ -12,37 +12,42 @@
 <div class="Answer" id="Answer">
     <!--头部导航-->
     <div class="A_Nav">
-        <span>总分:<span ng-class="{Red:true}">100</span>分</span>
-        <span ng-class="{bord:true , mL:true}">
-							<span ng-class="{iconfont:true, cous:true}" ng-click="dayin()">&#xe7d0;</span>
-							<span ng-class="{iconfont:true, cous:true}" ng-click="backs()">&#xe66f;</span>
-							<span ng-class="{iconfont:true, cous:true}" ng-click="backt()">&#xe670;</span>
+        <span>总分:<span class="Red">100</span>分</span>
+        <span class="bord mL">
+							<span class="iconfont cous" ng-click="dayin()">&#xe7d0;</span>
+							<span class="iconfont cous">&#xe66f;</span>
+							<span class="iconfont cous">&#xe670;</span>
 						</span>
-        <span ng-class="{bord:true}">
-							<span ng-class="{iconfont:true, cous:true}" ng-click="strons()">&#xe76a;</span>
-							<span ng-class="{iconfont:true, cous:true}" ng-click="slope()">&#xe609;</span>
-							<span ng-class="{iconfont:true, cous:true}" ng-click="unline()">&#xe63f;</span>
+        <span class="bord">
+							<span class="iconfont cous">&#xe76a;</span>
+							<span class="iconfont cous">&#xe609;</span>
+							<span class="iconfont cous">&#xe63f;</span>
 						</span>
-        <span ng-click="fonts()" ng-class="{bord:true, cous:true}">14 <span
-                ng-class="{iconfont:true}">&#xe610;</span></span>
-        <span ng-class="{iconfont:true, cous:true, bord:true}" ng-click="lineH()">&#xe65b;</span>
-        <span ng-class="{bord:true, cous:true}">
+        <span class="bord cous">14 <span
+                class="iconfont">&#xe610;</span></span>
+        <span class="iconfont cous bord">&#xe65b;</span>
+        <span class="bord cous">
 							<select name="">
 								<option>边框</option>
 								<option>有边框</option>
 								<option>无边框</option>
 							</select>
 						</span>
-        <span ng-class="{bord:true}">
+        <span class="bord">
 							<select name="">
 								<option>小 </option>
 								<option>中 </option>
 								<option>大 </option>
 							</select>
 						</span>
-        <span ng-class="{mR:true , clear:true}">
-						<span ng-bind="checkTestTypeModel?'手工阅卷':'网络阅卷'" ng-click="checkTestType()"></span>
-						<span>导入模版</span>
+        <span class="mR clear">
+						<span>
+                            <select ng-init="selectedName = myPaper[paperType]" ng-model="selectedName" ng-options="x for x in myPaper" ng-change="checkTestType(0)">
+							</select>
+                        </span>
+						<span ng-click="showItmeScore()">显示分值</span>
+                        <select ng-init="selectedName1 = myDayin[myDayinType]" ng-model="selectedName1" ng-options="x for x in myDayin" ng-change="checkTestType(1)">
+							</select>
 						<span ng-click="save()">存为模版</span>
 						<span ng-click="closeUteroBox()">X</span>
 					</span>
@@ -51,7 +56,7 @@
     <div class="A_B" class="clear clearfix">
         <!--左侧区域-->
         <div class="A_L">
-            <ul ng-class="{L_ul:true}">
+            <ul class="L_ul">
                 <h3>添加题组</h3>
                 <li><a ng-click="add(1)" class="{{1==index?'active':''}}">选择题</a>
                     <!--添加题组-->
@@ -211,7 +216,7 @@
                     </div>
                 </li>
             </ul>
-            <ul ng-class="{L_ul:true}">
+            <ul class="L_ul">
                 <h3>答题纸设置</h3>
                 <li class="import-button" ng-click="getAnswerInfo(0)"><a>设置答案</a>
                 </li>
@@ -222,6 +227,15 @@
                 <li><a>密封性间距</a>
                 </li>
                 <li><a>下载答题纸</a>
+                </li>
+            </ul>
+            <ul class="L_ul">
+                <h3>模板设置</h3>
+                <li class="import-button"><a>导入试卷</a>
+                </li>
+                <li><a>导入模板</a>
+                </li>
+                <li><a>另存为模板</a>
                 </li>
             </ul>
         </div>
@@ -457,6 +471,7 @@
                                             <a class="numberNo" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
+                                            <span ng-show="a.type==3 && showItmeSore">({{a.itemCores}}分)</span>
                                             <!--序号end-->
                                             <!--选择题模版start-->
                                             <span ng-show="a.type==1||a.type==2||a.type==6" ng-repeat="items in a.thr">
@@ -475,7 +490,8 @@
                                         <div ng-repeat="item in a.no">
                                             <!--其他题头部-->
                                             <div class="other_h clearfix">
-                                                <div class="other_number">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
+                                                <div class="other_number {{a.type==5 && showItmeSore?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
+                                                    <span ng-show="a.type==5 && showItmeSore">({{a.itemCores}}分)</span>
                                                 </div>
                                                 <!--网络阅卷打分框start-->
                                                 <div class="marking clearfix">
@@ -575,10 +591,11 @@
                                 <tr ng-if="a.type!=5&&a.type!=4">
                                     <td>
                                         <div ng-repeat="item in a.no" class="q_c"
-                                             ng-style="{'width':'{{a.type==3?'40%':setItmeWidth(a.thr)}}'}">
+                                             ng-style="{'width':'{{a.type==3?'48%':setItmeWidth(a.thr)}}'}">
                                             <a class="numberNo" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
+                                            <span ng-show="a.type==3 && showItmeSore">({{a.itemCores}}分)</span>
                                             <!--序号end-->
                                             <!--选择题模版start-->
                                             <span ng-show="a.type==1||a.type==2||a.type==6" ng-repeat="items in a.thr">
@@ -602,7 +619,8 @@
                                         <div ng-repeat="item in a.no">
                                             <!--其他题头部-->
                                             <div class="other_h clearfix">
-                                                <div class="other_number">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
+                                                <div class="other_number {{a.type==5 && showItmeSore?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
+                                                    <span ng-show="a.type==5 && showItmeSore">({{a.itemCores}}分)</span>
                                                 </div>
                                                 <!--网络阅卷打分框start-->
                                                 <div class="marking clearfix">
@@ -663,7 +681,7 @@
             <div class="A_R" ng-if="listObj3.length>0">
                 <!--顶部学生信息开始-->
                 <div class="student_info clearfix">
-                    <div class="ermai clearfix"><img src="../img/erwei.jpg" alt=""></div>
+                    <div class="ermai clearfix {{myDayinType==0?'':'b0'}}"><img ng-if="myDayinType==0" src="../img/erwei.jpg" alt=""></div>
                     <div class="person clearfix">
                         <div class="person_item">
                             <span>学校:</span>
@@ -682,6 +700,7 @@
                             <span class="B_line"></span>
                         </div>
                     </div>
+                    <div class="ermai clearfix fr" ng-if="myDayinType==1"><img src="../img/erwei.jpg" alt=""></div>
                 </div>
                 <!--顶部学生信息结束-->
                 <!--定位块开始-->
@@ -752,6 +771,7 @@
                                             <a class="numberNo" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
+                                            <span ng-show="a.type==3 && showItmeSore">({{a.itemCores}}分)</span>
                                             <!--序号end-->
                                             <!--选择题模版start-->
                                             <span ng-show="a.type==1||a.type==2||a.type==6" ng-repeat="items in a.thr">
@@ -770,7 +790,8 @@
                                         <div ng-repeat="item in a.no">
                                             <!--其他题头部-->
                                             <div class="other_h clearfix">
-                                                <div class="other_number">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
+                                                <div class="other_number {{a.type==5 && showItmeSore?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
+                                                    <span ng-show="a.type==5 && showItmeSore">({{a.itemCores}}分)</span>
                                                 </div>
                                                 <!--网络阅卷打分框start-->
                                                 <div class="marking clearfix">
@@ -874,6 +895,7 @@
                                             <a class="numberNo" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
+                                            <span ng-show="a.type==3 && showItmeSore">({{a.itemCores}}分)</span>
                                             <!--序号end-->
                                             <!--选择题模版start-->
                                             <span ng-show="a.type==1||a.type==2||a.type==6" ng-repeat="items in a.thr">
@@ -897,7 +919,8 @@
                                         <div ng-repeat="item in a.no">
                                             <!--其他题头部-->
                                             <div class="other_h clearfix">
-                                                <div class="other_number">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
+                                                <div class="other_number {{a.type==5 && showItmeSore?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
+                                                    <span ng-show="a.type==5 && showItmeSore">({{a.itemCores}}分)</span>
                                                 </div>
                                                 <!--网络阅卷打分框start-->
                                                 <div class="marking clearfix">
