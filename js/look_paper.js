@@ -280,17 +280,23 @@ $(function(){
       var select_height = arr[i]['height'];//140
       var select_left = arr[i]['x'];
       var select_top = arr[i]['y'];
-
+			
+			// $('.img-box img, .bg-img').css({
+			// 	'width': arr[0].w+'px',
+			// 	'height': arr[0].h+'px'
+			// });
+			// $('.img-box .bg-img').css('marginTop', -arr[0].h+'px');
 
       //获取当前试卷的宽度和高度比例
-      var l_width=$('.bg-img').width()/1044;
-      var l_height=$('.bg-img').height()/734;
+      var l_width=arr[i].w/1044;
+      var l_height=arr[i].h/734;
+      console.log(l_width,l_height)
       //显示区域所在位置
       $(select_area[i]).css({
-        "width": select_width*l_width + 'px',
-        "height": select_height*l_height + 'px',
-        "left": select_left*l_width + 'px',
-        "top": select_top*l_height + 'px'
+        "width": select_width/l_width + 'px',
+        "height": select_height/l_height + 'px',
+        "left": select_left/l_width + 'px',
+        "top": select_top/l_height + 'px'
       });
     }
     //如果区域块的数量大于2，显示区域块的个数，添加span_title
@@ -376,6 +382,7 @@ $(function(){
 	}
 	
 	var on_checked_info;
+	// var check_all_info;
 	// 选择题型
 	$('body').on('dblclick', '.select-area', function() {
 		$(this).find('.edit-item').click();
@@ -390,6 +397,11 @@ $(function(){
 		var parent_id = $(this).parent().attr('data-id');
 		console.log(parent_id);
 		$('#change-modal').attr('data-id', parent_id);
+		if(parent_id==undefined){
+			un_id='undefined'
+			$('#change-modal').attr('data-id', un_id);
+
+		}
 
 		var p_width = $(this).parent().width();
 		var p_height = $(this).parent().height();
@@ -409,6 +421,7 @@ $(function(){
 			  headers: {'Authorization': "Bearer " + isLogin},
 			  success: function(data){
 			  	console.log(data);
+			  	// check_all_info=data;
 			  	show_onchecked_info(data,parent_id);
 			   },
 			   error: function(){
@@ -428,6 +441,7 @@ $(function(){
 		// console.log(answer_id)
 	});
 	function show_onchecked_info(info,parent_id){
+		console.log(parent_id)
 		var answer_id = info.answer_id;
 		var li_op = $('#type-list option');
 		for (var m = 0; m < li_op.length; m++) {
@@ -437,7 +451,9 @@ $(function(){
 			if(answer_id==li_op_id){
 				console.log(88)
 				$('#item-list').html('');
+				console.log(m)
 				$(li_op[m]).attr('selected', true);
+				$(li_op[m]).siblings().attr('selected', false);
 				get_num_list(answer_id);
 				// var on_checked_info_length = on_checked_info.length;
 				// var new_arr = [];
@@ -513,10 +529,48 @@ $(function(){
 	}
 	 // 题型选择事件
 	$('body').on('change', '#type-list', function() {
+		console.log(check_all_info)
+		var parent_id = $(this).parents('#change-modal').attr('data-id');
 		$('#item-list').html('');
 		var type_name = $(this).find("option:selected").val();
 		var type_id = $(this).find("option:selected").attr('data-id');
 		get_num_list(type_id);
+		var parent_id = $(this).parents('#change-modal').attr('data-id');
+		console.log(parent_id)
+		var check_all_info;
+		if(parent_id!="undefined"){
+			$.ajax({
+			  type: "GET",
+			  async:false,
+			  url: ajaxIp+"/api/v2/section_crops/"+parent_id+"",
+			  headers: {'Authorization': "Bearer " + isLogin},
+			  success: function(data){
+			  	console.log(data);
+			  	check_all_info=data;
+			   },
+			   error: function(){
+			      // alert('请稍后从新尝试登录或者联系管理员');
+		      	// localStorage.clear();
+		      	// window.location.href = './login.html';
+			  }
+			});
+		}
+		if(check_all_info){
+		console.log(check_all_info);
+		for (var z = 0; z < check_all_info.answer_setting_ids.length; z++) {
+			var ll_li = $('#item-list li.num_li');
+			var ll_li_length = ll_li.length;
+			console.log(ll_li_length,check_all_info.answer_setting_ids.length)
+			for (var j = 0; j < ll_li_length; j++) {
+				var li_id = $(ll_li[j]).find('input').attr('data-id');
+				if(check_all_info.answer_setting_ids[z] == li_id){
+					$(ll_li[j]).find('input').attr('checked', true);
+				}
+			};
+			if(check_all_info.answer_setting_ids.length==ll_li_length){
+					$('#item-list .all').find('input').attr('checked', true);
+				}
+		};}
 	});
 
 	// 显示题号列表
@@ -545,9 +599,28 @@ $(function(){
 		var all_change = '<li class="all"><div class="check-box"><input type="checkbox" id="all-num" class="checkall" name="checkall"><label for="all-num">全部</label></div></li>' ;
 		$('#item-list').append(all_change);
 		for (var i = 0; i < num_info.length; i++) {
-			var all_num = '<li class="num_li"><div class="check-box"><input type="checkbox" data-id="'+num_info[i].id+'" value="'+num_info[i].num+'" id="num-check'+ i +'" class="check" name="num-check"><label for="num-check'+ i +'">'+num_info[i].num+'</label></div></li>';
+			var all_num = '<li class="num_li num_li_'+i+'"><div class="check-box"><input type="checkbox" data-id="'+num_info[i].id+'" value="'+num_info[i].num+'" id="num-check'+ i +'" class="check" name="num-check"><label for="num-check'+ i +'">'+num_info[i].num+'</label></div></li>';
 			$('#item-list').append(all_num);
+			if(!num_info[i].choose){
+				console.log(999)
+				$('.num_li_'+i+'').find('input').removeAttr('name');
+				$('.num_li_'+i+'').find('input').prop("disabled","disabled");
+				$('.num_li_'+i+'').find('label').css({
+					'opacity': .5,
+					'cursor': 'not-allowed'
+				});
+			}
 		};
+
+
+		var disabled_length = $('#item-list').find("input:disabled").length;
+		if(num_info.length == disabled_length){
+			$('#item-list .all').find('#all-num').prop("disabled","disabled");
+			$('#item-list .all').find('label').css({
+				'opacity': .5,
+				'cursor': 'not-allowed'
+			});
+		}
 	}
 
 		// 题号全选
@@ -568,8 +641,8 @@ $(function(){
 	// 确认选择
 	$('body').on('click', '#confirm-sub', function() {
 		var p_id = $(this).parents('.modal-main').attr('id');
-		var w = 1044;
-		var h = 734;
+		var w = $('.img-box img').width();
+    var h = $('.img-box img').height();
 		// 获取图片id
 		// var scanner_image_id = $('.img-box img').attr('data-id');
 	  // 获取当前页数
@@ -762,8 +835,9 @@ $(function(){
       	var width = $("div[name='"+(num-1)+"']").width();
       	var height = $("div[name='"+(num-1)+"']").height();
       	console.log(width,height)
-      	var w = 1044;
-      	var h = 734;
+      	var p_id =  $("div[name='"+(num-1)+"']").attr('id');
+      	var w = $('.img-box img').width();
+      	var h = $('.img-box img').height();
       	var x = $("div[name='"+(num-1)+"']").position().left;
       	var y = $("div[name='"+(num-1)+"']").position().top;
       	// var num_index = parseInt($("div[name='"+(num-1)+"']").children('.title').text());
@@ -783,8 +857,10 @@ $(function(){
         	'exam_subject_id':exam_subject_id,
       	}
       	var data_id = $("div[name='"+(num-1)+"']").attr('data-id');
+      	console.log(num,data_id,data_arr)
       	if(data_id){
-					update_select_info(data_id,data_arr);
+      		console.log(data_id)
+					// update_select_info(data_id,data_arr);
       	}else{
 	      	$.ajax({
 	      	  type: "POST",
@@ -793,8 +869,8 @@ $(function(){
 	      	  headers: {'Authorization': "Bearer " + isLogin},
 	      	  data: data_arr,
 	      	  success: function(data){
-	      	  	console.log(data);
-	      	  	show_info_id(data);
+	      	  	console.log(data,data.id);
+	      	  	show_info_id(data,p_id);
 	      	   },
 	      	   error: function(){
 	      	      // alert('请稍后从新尝试登录或者联系管理员');
@@ -815,8 +891,8 @@ $(function(){
 		get_update_show_info(update_select_id);
 		var width = $(this).width();
 		var height = $(this).height();
-		var w = 1044;
-		var h = 734;
+		var w = $('.img-box img').width();
+    var h = $('.img-box img').height();
 		var x = $(this).position().left;
 		var y = $(this).position().top;
 		var num_index = parseInt($(this).children('.title').text());
@@ -835,13 +911,7 @@ $(function(){
 		// 	answer_setting_ids;
 		// }
 		// console.log(answer_setting_ids);
-		var crop_type;
-		if($('.hide-sec').hasClass('active')){
-			crop_type=1;
-	  }
-	  if($('.has-bg').hasClass('active')){
-			crop_type=4;
-	  }
+		var crop_type=4;
 		var data_arr={
 			'w':w,
 	  	'h':h,
@@ -860,10 +930,67 @@ $(function(){
 		}
 		console.log(update_select_id)
 		if(update_select_id){
+			var pre_info;
+			$.ajax({
+			  type: "GET",
+			  async:false,
+			  url: ajaxIp+"/api/v2/section_crops/"+update_select_id+"",
+			  headers: {'Authorization': "Bearer " + isLogin},
+			  success: function(data){
+			  	// console.log(data);
+			  	pre_info = data;
+			   },
+			   error: function(){
+			      // alert('请稍后从新尝试登录或者联系管理员');
+		      	// localStorage.clear();
+		      	// window.location.href = './login.html';
+			  }
+			});
+			console.log(data_arr);
+			var pre_width = pre_info.position.width;
+			var pre_height = pre_info.position.height;
+			var pre_x = pre_info.position.x;
+			var pre_y = pre_info.position.y;
+			if(width-pre_width!=0 || height-pre_height!=0 || x-pre_x!=0 || y-pre_y!=0){
+				update_select_info(update_select_id,data_arr);
+			}
+		}
+	});
+
+
+
+	// 遮蔽区域更新
+	$(document).on('mouseup', '.bg-type-hide .select-area', function() {
+		// event.stopPropagation()
+		// 更新区域块信息
+		var update_select_id = $(this).attr('data-id');
+		var width = $(this).width();
+		var height = $(this).height();
+		var w = $('.img-box img').width();
+    var h = $('.img-box img').height();
+		var x = $(this).position().left;
+		var y = $(this).position().top;
+		var current_page =parseInt($('.page .on').text());
+  	var crop_type = 1;
+  	var data_arr={
+  		'w':w,
+    	'h':h,
+    	'width':width,
+    	'height':height,
+    	'x':x,
+    	'y':y,
+    	'exam_subject_batch_id':bath_id,
+    	'crop_type':crop_type,
+    	'current_page':current_page,
+    	'exam_subject_id':exam_subject_id,
+  	}
+		console.log(update_select_id)
+		if(update_select_id){
 			console.log(data_arr);
 			update_select_info(update_select_id,data_arr);
 		}
 	});
+
 
 	function update_select_info(up_id,up_arr){
 		console.log(up_arr)
@@ -990,24 +1117,45 @@ $(function(){
 		var label_value;
 		var tests = [];
 		var all_test = [];
-		$('.section-list').each(function(i){
+		// $('.section-list').each(function(i){
+		// 	var obj = new Object();
+		// 	var label_values=[];
+		// 	if($(this).children('li.section-li').find('input[name="section-check"]:checked')){
+		// 		 label_value = $(this).children('li.section-li').find('input[name="section-check"]:checked').next().text();
+		// 		 on_page = parseInt($(this).parent().find('.on-page').text());
+		// 	}
+		// 	label_values=label_value.split("");
+		// 	label_values;
+		// 	console.log(label_values,on_page)
+		// 	obj['current_page']=on_page;
+		// 	obj['index']=label_values;
+		// 	console.log(obj);
+		// 	// tests=obj;
+		// 	// console.log(i)
+		// 	all_test[i]=obj;
+		// 	console.log(all_test)
+		// })
+		// var sections = all_test;
+		// console.log(sections)
+		
+		var section_list = $('.section-list');
+		for (var i = 0; i < section_list.length; i++) {
 			var obj = new Object();
 			var label_values=[];
-			if($(this).children('li.section-li').find('input[name="section-check"]:checked')){
-				 label_value = $(this).children('li.section-li').find('input[name="section-check"]:checked').next().text();
-				 on_page = parseInt($(this).parent().find('.on-page').text());
-			}
-			label_values=label_value.split("");
-			label_values;
-			console.log(label_values,on_page)
+			var check_list = $(section_list[i]).children('li.section-li').find('input[name="section-check"]:checked');
+			for (var j = 0; j < check_list.length; j++) {
+				 label_value = $(check_list[j]).next().text();
+				 label_values.push(label_value);
+			};
+			on_page = $(section_list[i]).parent().find('.on-page').text();
+			// console.log(label_values,on_page)
 			obj['current_page']=on_page;
 			obj['index']=label_values;
-			console.log(obj);
-			// tests=obj;
-			// console.log(i)
+			console.log(obj)
 			all_test[i]=obj;
 			console.log(all_test)
-		})
+
+		};
 		var sections = all_test;
 		console.log(sections)
 		$.ajax({
@@ -1020,9 +1168,8 @@ $(function(){
 		  	$('.load-bg').show();
 		  	var customer_id = $('#wrap').attr('customer_id');
 		  	console.log(customer_id)
-	  	  var faye = new Faye.Client('http://118.190.44.204:9292/api/v2/events');
+	  	  var faye = new Faye.Client(fayeIp+'/api/v2/events');
 		    faye.subscribe("/cut_images/"+ customer_id +"" , function (data) {
-	        console.log(222222)
 	        console.log(data)
 	        if(data.message=='ok'){
 						$('.load-bg').hide();

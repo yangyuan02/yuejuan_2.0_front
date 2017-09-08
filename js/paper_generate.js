@@ -117,6 +117,7 @@ $(function() {
 		// $('.test-grade').attr('data-id', detail_data.grade.id);
 		$('.range').val(detail_data.range); //查看范围
 		// 班级信息
+
 		// $('#show-class').html('');
 		// var classrooms_length = detail_data.exam_classrooms.length;
 		// for (var i = 0; i < classrooms_length; i++) {
@@ -360,7 +361,7 @@ $(function() {
 		var subject_list = $('.subject-list').find('.subject-name');
 		var subject_length = subject_list.length;
 		for (var i = 0; i < subject_length; i++) {
-			var subject_arr = '<li class="finished" id="ll-' + i + '" data-id="' + $(subject_list[i]).attr('data-id') + '">' + $(subject_list[i]).text() + '<i class="iconfont">&#xe619;</i></li>';
+			var subject_arr = '<li class="finished" id="ll-' + i + '" data-id="' + $(subject_list[i]).attr('data-id') + '">' + $(subject_list[i]).text() + '</li>';
 			$('#onchecked-modal-list').append(subject_arr);
 		};
 		var arr_gg = [];
@@ -1075,7 +1076,7 @@ $(function() {
 		$('body').find('#student-modal #all-student').prop('checked', false);
 		$(this).parent().remove();
 	});
-	
+
 
 	// 确认添加学生
 	$('body').on('click', '.confirm-student', function() {
