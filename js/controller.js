@@ -2036,6 +2036,7 @@ angular.module("myApp.controller", [])
         });
 
         // 最新学科综合分析
+          // 最新学科综合分析
         // 科目
         $.ajax({
             type: "GET",
