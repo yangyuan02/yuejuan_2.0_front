@@ -1383,17 +1383,53 @@ angular.module("myApp.controller", [])
 
             // 小题查看结束
             // 小题判断题
-            $.ajax({
+            // $.ajax({
+            //     type: "GET",
+            //     url: ajaxIp + "/api/v2/reports/class_answer_setting_statistic",
+            //     headers: {
+            //         'Authorization': "Bearer " + isLogin
+            //     },
+            //     data: {
+            //         "exam_id": exam_id,
+            //         "subject_id": sub_id,
+            //         "classroom_id": class_id,
+            //         "item": "2",
+            //     },
+            //     success: function(data) {
+            //         console.log(data);
+            //         $(".study_q_05_tb02").html(" ");
+            //         var a = Math.round((data[0].correct_rate * 100)) + "%";
+            //         $(".study_q_05_tb02").append('<tr><td rowspan="' + data.length + '">二、判断题</td><td>' + data[0].average + '</td><td>' + data[0].num + '</td><td>' + data[0].column_value_1 + '</td><td>' + data[0].column_value_2 + '</td><td>' + data[0].correct + '</td><td>' + a + '</td><td><span>查看</span></td></tr>')
+
+            //         for (var i = 1; i < data.length; i++) {
+            //             var c = Math.round((data[i].correct_rate * 100)) + "%";
+            //             $(".study_q_05_tb02").append('<tr><td>' + data[i].average + '</td><td>' + data[i].num + '</td><td>' + data[i].column_value_1 + '</td><td>' + data[i].column_value_2 + '</td><td>' + data[i].correct + '</td><td>' + c + '</td><td><span>查看</span></td></tr>')
+
+            //         }
+            //     },
+            //     error: function() {
+
+            //     }
+            // });
+
+
+
+        };
+
+ $(".study_q_i_btn_05").click(function(event) {
+     /* Act on the event */
+// var aj=""
+ $.ajax({
                 type: "GET",
                 url: ajaxIp + "/api/v2/reports/class_answer_setting_statistic",
                 headers: {
                     'Authorization': "Bearer " + isLogin
                 },
                 data: {
-                    "exam_id": exam_id,
-                    "subject_id": sub_id,
-                    "classroom_id": class_id,
-                    "item": "2",
+                    "exam_id": "209",
+                    "subject_id": "12",
+                    "classroom_id": "156",
+                    "item": "2", 
                 },
                 success: function(data) {
                     console.log(data);
@@ -1413,10 +1449,7 @@ angular.module("myApp.controller", [])
             });
 
 
-
-        };
-
-
+ });
         // 判断题查看
         $(".study_q_05_tb02").on('click', 'span', function(event) {
             // 切换页面
@@ -1438,9 +1471,9 @@ angular.module("myApp.controller", [])
                     'Authorization': "Bearer " + isLogin
                 },
                 data: {
-                    "exam_id": "1",
-                    "subject_id": "13",
-                    "classroom_id": "102",
+                    "exam_id": "209",
+                    "subject_id": "11",
+                    "classroom_id": "155",
                     "item": "2",
                     // "answer_setting_id": "9980"
                 },
