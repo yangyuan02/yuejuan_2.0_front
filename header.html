@@ -1,20 +1,20 @@
 
 <div class="navbar">
 	<div class="logo">
-		<a href="./index.html">
+		<a href="./index">
 			<img src="img/logo.png" alt="logo" height="32" width="auto">
 		</a>
 	</div>
 	<ul class="">
 		<li>
-			<a style="border-left: 2px solid #32af82;" href="paper_generate.html">组卷</a>
+			<a style="border-left: 2px solid #32af82;" href="paper_generate">组卷</a>
 		</li>
 		<li>
 			<input type="hidden" id="mark-link">
-			<a href="marking.html" id="mark-top">阅卷</a>
+			<a href="marking" id="mark-top">阅卷</a>
 		</li>
 		<li>
-			<a href="form.html">报表</a>
+			<a href="form">报表</a>
 		</li>
 		<li>
 			<a href="#">错题集</a>
@@ -26,13 +26,13 @@
 </div>
 <div class="nav-right">
 
-	<a class="news mouseover" href="message.html">
+	<a class="news mouseover" href="message">
 		<i class="iconfont iconfont-size">&#xe615;</i>
 		消息
 		<span class="m-count"></span>
 	</a>
 	<input type="hidden" id="role-name">
-	<a href="./set_up.html" class="supervise mouseover">
+	<a href="./set_up" class="supervise mouseover">
 		<i class="iconfont iconfont-size">&#xe617;</i>
 		管理
 	</a>
@@ -42,7 +42,7 @@
 		<div class="dropdown">
 			<ul>
 				<li>
-					<a href="./user_information.html">账户信息</a>
+					<a href="./user_information">账户信息</a>
 				</li>
 				<li>
 					<a href="#" class="exit">退出登录</a>
@@ -67,6 +67,6 @@
 
 	$('.exit').on('click',function(){
 		localStorage.clear();
-		window.location.href = './login.html'
+		window.location.href = './login'
 	});
 </script>

@@ -1384,13 +1384,13 @@ color: #666666;
 	margin-bottom: 400px;
 	
 }
-.study_k_601{
+/*.study_k_601{
 	display: none;
 	margin: 0 auto;
 	margin-bottom: 400px;
-	max-width:900px;
-    overflow-x:auto;	
-}
+	height:528px;
+
+}*/
 /*<!--学科追踪分析 end-->*/
 
 /*<!-- 考试质量追踪  start-->*/
@@ -1467,6 +1467,7 @@ color: #666666;
 	border:none;
 	border-bottom: 1px solid #cccccc;
 	box-sizing: border-box;
+	max-width: 200px;
 }
 
 .exam_z_102{

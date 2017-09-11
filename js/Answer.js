@@ -30,6 +30,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.listObj2 = [];//定义全局数组保存所有题目
     $scope.listObj3 = [];
     $scope.listObj4 = [];
+    $scope.paperType = 0;//阅卷方式/0代表手工1代表网络默认0
+    $scope.myPaper = ['手工阅卷','网络阅卷'];
+    $scope.myDayinType = 0
+    $scope.myDayin = ['单面打印','双面打印'];
     $scope.result = {};//弹出框保存
     var answer_id = []//大题answer_id
     var allHeight = [] //页面上所有table高度
@@ -50,10 +54,12 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     $scope.listObj4 = data.message.page4 ? data.message.page4 : []
                     answer_id = data.message.answer_id
                     allHeight = data.message.allHeight?data.message.allHeight:[]
+                    $scope.paperType = data.message.paperType?data.message.paperType:0
+                    $scope.myDayinType = data.message.myDayinType?data.message.myDayinType:0
                 }
             },
             error: function () {
-
+                $scope.paperType = 0
             }
         });
     }
@@ -72,9 +78,27 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.checkWrit = function (index) {
         $scope.result.writIsradio = index//作文题
     }
-    $scope.checkTestTypeModel = true
-    $scope.checkTestType = function () {//阅卷模式切换
-        $scope.checkTestTypeModel = !$scope.checkTestTypeModel
+    //阅卷模式切换
+    $scope.checkTestType = function (type) {
+        if(type==0){//阅卷
+            if($scope.paperType==0){
+                $scope.paperType = 1
+            }else {
+                $scope.paperType = 0
+            }
+        }
+        if(type==1){//打印
+            if($scope.myDayinType==0){
+                $scope.myDayinType = 1
+            }else {
+                $scope.myDayinType = 0
+            }
+        }
+    }
+    //切换显示分数
+    $scope.showItmeSore = false
+    $scope.showItmeScore = function () {
+        $scope.showItmeSore = !$scope.showItmeSore
     }
     $scope.Q_number = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十']
     var isLine = function (page_num) {//是否换行
@@ -568,7 +592,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
 
     function getBigQuestion(obj) {//获取大题
         var BigQuestion = []
-        for (var i = 1; i <= obj.length; i++) { //标题有问题,最后一个选题只存了一个选项,16个打分框及坐标不对
+        for (var i = 1; i <= obj.length; i++) {
             var itme_obj = {}
             itme_obj.no = i//大题编号
             itme_obj.total_score = parseInt(obj[i - 1].totalCores)//答题总分
@@ -660,23 +684,17 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
     }
 
-    //获取页面上所有高度集合
-    function allTableHeight() {
-        var allHeight = []
-        $("table").each(function () {
-            allHeight.push($(this).height())
-        })
-        return allHeight
-    }
 
     function allList() {//获取所有题目
+        console.log($scope.paperType)
         var allList = {}
         allList.page1 = $scope.listObj
         allList.page2 = $scope.listObj2
         allList.page3 = $scope.listObj3
         allList.page4 = $scope.listObj4
         allList.answer_id = answer_id
-        allList.allHeight = allTableHeight()
+        allList.paperType = $scope.paperType
+        allList.myDayinType = $scope.myDayinType
         return allList
     }
 
@@ -855,15 +873,24 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.sortIndex = index
     }
     //比较相邻的table高度大小
-    function compare(index) {
-        var currenTatble = $("body").find("table").eq(index)//当前table
-        var currenTatbleHeight = currenTatble.height()
-        var nextTatbleHeight = currenTatble.next().height()
-        var result = currenTatbleHeight - currenTatbleHeight > 0 ? true : false
+    function compare(index,type,page_num) {
+        var outerBox = $(".A_Rone").outerHeight()//最外层距离
+        var lastTabPosi = $(".A_Rone").eq(page_num).find("table:last").position().top + $(".A_Rone").eq(page_num).find("table:last").height() + 30
+        var currenTatbleHeight = $("body").find("table").eq(index).height()
+        var nextTatbleHeight = $("body").find("table").eq(index+1).height()
+        var prevTatbleHeight = $("body").find("table").eq(index-1).height()
+        var remain = outerBox - lastTabPosi
+        console.log(currenTatbleHeight+'currenTatbleHeight',prevTatbleHeight+'prevTatbleHeight',nextTatbleHeight+'nextTatbleHeight',remain+'remain',outerBox+'outerBox',lastTabPosi+'lastTabPosi',page_num+'page_num')
+        if(type==0){//上移动
+            var result = remain + prevTatbleHeight - currenTatbleHeight >= 0 ? true : false
+        }
+        if(type==1){//下移动
+            var result = remain + nextTatbleHeight - currenTatbleHeight >= 0 ? true : false
+        }
         return result
 
     }
-
+    var allList_1 = allPagePost()
     // 交换数组元素
     var swapItems = function (arr, index1, index2) {
         arr[index1] = arr.splice(index2, 1, arr[index1])[0];
@@ -875,8 +902,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
      * @param allList  页面的page总和
      * @param index    当前移动的index
      */
+
     function render(allList,index) {
-        var TableHeight = allTableHeight()//页面中所有table高度
         var len1 = $scope.listObj.length, len2 = $scope.listObj2.length, len3 = $scope.listObj3.length, len4 = $scope.listObj4.length
         $scope.listObj = allList.slice(0,len1)
         $scope.listObj2 = allList.slice(len1,len1+len2)
@@ -884,6 +911,61 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.listObj4 = allList.slice(len1+len2+len3,len1+len2+len3+len4)
     }
 
+    /**
+     * 获取切割节点
+     * @param max  最大值
+     * @param arr  当前数组
+     * @returns {number} 节点索引
+     */
+    // function getSliceIndex(max,arr){
+    //     var sum = 0,index = 0
+    //     for(var i = 0;i<arr.length;i++){
+    //         sum += arr[i]
+    //         if(sum>max){
+    //             index = i
+    //             break
+    //         }
+    //     }
+    //     return index
+    // }
+
+    /**
+     * 获取页面所有高度
+     * @returns {Array}
+     */
+    // function getAllTableHeight(){
+    //     var heights = []
+    //     $("body").find("table").each(function(){
+    //         heights.push($(this).height())
+    //     })
+    //     return heights
+    // }
+
+    /**
+     * 获取最后的切割节点
+     * @returns {Array}
+     */
+    // function getAllIndex(){
+    //     var indexList = []
+    //     var allTableHeigh = getAllTableHeight()
+    //     var index = getSliceIndex(525,allTableHeigh)
+    //     var allTableHeigh2 = allTableHeigh.slice(index)
+    //     var index2 = getSliceIndex(870,allTableHeigh2)
+    //     var allTableHeigh3 = allTableHeigh2.slice(index2)
+    //     var index3 = getSliceIndex(870,allTableHeigh3)
+    //     var allTableHeigh4 = allTableHeigh3.slice(index3)
+    //     var index4 = getSliceIndex(870,allTableHeigh4)
+    //     indexList = [index,index2,index3,index4]
+    //     return indexList
+    // }
+    // function deleRender() {
+    //     var index = getAllIndex()
+    //     console.log(index+"index",allList_1+"剩余的")
+    //     $scope.listObj = allList_1.slice(0,index[0])
+    //     $scope.listObj2 = allList_1.slice(index[0])
+    //     // $scope.listObj3 = allList.slice(index[0]+index[1],index[0]+index[1]+index[2])
+    //     // $scope.listObj4 = allList.slice(index[0]+index[1]+index[2],index[0]+index[1]+index[2]+index[3])
+    // }
     //设置当前排序
     function setAnswerSor() {
         var answer_id_item = $scope.bigAnswer[$scope.sortIndex].answer_id
@@ -907,15 +989,37 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         });
     }
 
-    var allList_1 = allPagePost()
     // 上移
     $scope.upRecord = function (arr, $index) {
+        var len1 = $scope.listObj.length, len2 = $scope.listObj2.length, len3 = $scope.listObj3.length, len4 = $scope.listObj4.length
+        var page_frist = 0,page2_frist = len1,page3_frist = len1+len2,page4_frist = len1+len2+len3
         if ($index == 0) {
             return;
         }
+        if($index==page2_frist||$index==page3_frist||$index==page4_frist){
+            if($index==page2_frist){
+                var page_num = 0
+            }else if($index==page3_frist){
+                var page_num = 1
+            }else{
+                var page_num = 2
+            }
+            if(compare($index,0,page_num)){
+                $scope.sortIndex--
+                swapItems(arr, $index, $index - 1);
+                // swapItems(answer_id, $index, $index - 1);
+                swapItems(allList_1, $index, $index - 1);
+                render(allList_1,$index)
+                // setAnswerSor()
+                return false
+            }else {
+                alert("当前高度大于上一个高度")
+                return false
+            }
+        }
         $scope.sortIndex--
         swapItems(arr, $index, $index - 1);
-        swapItems(answer_id, $index, $index - 1);
+        // swapItems(answer_id, $index, $index - 1);
         swapItems(allList_1, $index, $index - 1);
         render(allList_1,$index)
         // setAnswerSor()
@@ -923,12 +1027,35 @@ m1.controller("demo", function ($scope, $timeout, $http) {
 
     // 下移
     $scope.downRecord = function (arr, $index) {
+        var len1 = $scope.listObj.length, len2 = $scope.listObj2.length, len3 = $scope.listObj3.length, len4 = $scope.listObj4.length
+        var page_last = len1-1,page2_last = len1+len2-1,page3_last = len1+len2+len3-1,page4_last = len1+len2+len3+len4-1
         if ($index == arr.length - 1) {
             return;
         }
+        if($index==page_last||$index==page2_last||$index==page3_last){
+            if($index==page_last){
+                var page_num = 1
+            }else if($index==page2_last){
+                var page_num = 2
+            }else{
+                var page_num = 3
+            }
+            if(compare($index,1,page_num)){
+                $scope.sortIndex++
+                swapItems(arr, $index, $index + 1);
+                // swapItems(answer_id, $index, $index + 1);
+                swapItems(allList_1, $index, $index + 1);
+                render(allList_1,$index)
+                // setAnswerSor()
+                return false
+            }else {
+                alert("当前高度大于下一个高度")
+                return false
+            }
+        }//
         $scope.sortIndex++
         swapItems(arr, $index, $index + 1);
-        swapItems(answer_id, $index, $index + 1);
+        // swapItems(answer_id, $index, $index + 1);
         swapItems(allList_1, $index, $index + 1);
         render(allList_1,$index)
         // setAnswerSor()
@@ -952,7 +1079,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             $scope.listObj4.splice(index - len1 - len2 - len3, 1)
             console.log("删除list4")
         }
-        console.log(len1, len2, len3, len4, index)
+        // allList_1.splice(index,1)
+        // deleRender()
+        // console.log(len1, len2, len3, len4, index)
     }
 
     //删除题组
@@ -965,6 +1094,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 index = i
             }
         }
+        // $scope.bigAnswer.splice($scope.sortIndex,1)
+        // findScopeListDele($scope.sortIndex)
+        // answer_id.splice(index,1)
         $.ajax({
             type: "POST",
             url: ajaxIp+"/api/v2/answers/delete",
@@ -1053,6 +1185,16 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             });
         }, 500)
     }
+    /**
+     * 过滤手工阅卷还是网络阅卷
+     * @param arr 题组的数组
+     */
+    function filtrAnswerMode(arr) {
+        var filtrAnswer = arr.filter(function (ele) {
+            return ele.answer_mode==0 || ele.answer_mode==1 || ele.answer_mode==2 ||ele.answer_mode==3
+        })
+        return filtrAnswer
+    }
     $scope.save = function () {//保存模板
         if ($scope.listObj.length <= 0) {
             alert("请添加题组")
@@ -1064,6 +1206,12 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for (var i = 0; i < answer_id.length; i++) {
             answer_ids.push(answer_id[i].answers.answer_id)
         }
+        if($scope.paperType==0){//手工阅卷
+            var allP = getBigQuestion(allPagePost())
+        }else{
+            var allP = filtrAnswerMode(getBigQuestion(allPagePost()))
+        }
+        console.log(allList())
         $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/answer_regions",
@@ -1072,7 +1220,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 data: {
                     'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
                     'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
-                    'answer_region[region_info]': JSON.stringify(getBigQuestion(allPagePost())),//所有坐标信息
+                    'answer_region[region_info]': JSON.stringify(allP),//所有坐标信息
                     'answer_region[basic_info_region]': JSON.stringify(allList()),//存储页面题目
                     'page': $(".A_R").length
                 },
@@ -1109,10 +1257,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             if (r) {
                 $scope.save()
             } else {
-                window.location.href = 'paper_generate.html'
+                window.location.href = 'paper_generate'
             }
         } else {
-            window.location.href = 'paper_generate.html'
+            window.location.href = 'paper_generate'
         }
     }
 

@@ -893,16 +893,16 @@ $(function() {
 				iGreads[j] =data[i].grades[j].name
 			}
 
-			var iTr = '<tr style="border-bottom:1px solid #ccc;"><td>'+data[i].real_name+'</td><td style="width:140px">'+iGreads+'</td><td>'+(data[i].subject==undefined?"":data[i].subject.name)+'</td><td>'+data[i].email+'</td><td>'+data[i].phone+'</td><td>'+data[i].role+'</td><td class="table-modify"><span class="iconfont table-span" data-id="'+data[i].id+'">&#xe614;&nbsp;修改</span></td><td class="table-reset-password"><span class="iconfont table-span" data-id="'+data[i].id+'" data-name="'+data[i].real_name+'">&#xe60d;&nbsp;重置密码</span></td><td class="table-delete iconfont"><span class="iconfont table-span" data-id="'+data[i].id+'" data-name="'+data[i].real_name+'">&#xe616;&nbsp;删除</span></td></tr>'
+			var iTr = '<tr class="tr-'+i+'" style="border-bottom:1px solid #ccc;"><td>'+data[i].real_name+'</td><td style="width:140px">'+iGreads+'</td><td>'+(data[i].subject==undefined?"":data[i].subject.name)+'</td><td>'+data[i].email+'</td><td>'+data[i].phone+'</td><td>'+data[i].role+'</td><td class="table-modify"><span class="iconfont table-span" data-id="'+data[i].id+'">&#xe614;&nbsp;修改</span></td><td class="table-reset-password"><span class="iconfont table-span" data-id="'+data[i].id+'" data-name="'+data[i].real_name+'">&#xe60d;&nbsp;重置密码</span></td><td class="table-delete iconfont"><span class="iconfont table-span" data-id="'+data[i].id+'" data-name="'+data[i].real_name+'">&#xe616;&nbsp;删除</span></td></tr>'
  			$('.teachers-tabble tbody').append(iTr)
+ 			if(data[i].role=="超级管理员"){
+				$('.tr-'+i+'').find('.table-span').css('visibility', 'hidden');
+ 			}
  		}
  		// 根据用户身份判断是否可以修改密码
 			var role_name = $('#role-name').val();
 			console.log(role_name)
 			if(role_name=="教师"){
-				$('body').find('.table-span').css('visibility', 'hidden');
-			}
-			if(role_name=="超级管理员"){
 				$('body').find('.table-span').css('visibility', 'hidden');
 			}
 
@@ -1576,21 +1576,21 @@ $(function() {
 						        error: function(){
 						        	// alert('请稍后从新尝试登录或者联系管理员');
 						        	// localStorage.clear();
-						        	// window.location.href = './login.html'
+						        	// window.location.href = './login'
 						        }
 						    });
 				        },
 				        error: function(){
 				        	// alert('请稍后从新尝试登录或者联系管理员');
 				        	// localStorage.clear();
-				        	// window.location.href = './login.html'
+				        	// window.location.href = './login'
 				        }
 				    });
 		        },
 		        error: function(){
 		        	// alert('请稍后从新尝试登录或者联系管理员');
 		        	// localStorage.clear();
-		        	// window.location.href = './login.html'
+		        	// window.location.href = './login'
 		        }
 		    });
 
@@ -1614,7 +1614,7 @@ $(function() {
 			        error: function(){
 			        	// alert('请稍后从新尝试登录或者联系管理员');
 			        	// localStorage.clear();
-			        	// window.location.href = './login.html'
+			        	// window.location.href = './login'
 			        }
 			    });
 			});
@@ -1660,7 +1660,7 @@ $(function() {
 			        error: function(){
 			        	// alert('请稍后从新尝试登录或者联系管理员');
 			        	// localStorage.clear();
-			        	// window.location.href = './login.html'
+			        	// window.location.href = './login'
 			        }
 			    });
 			})
@@ -1700,7 +1700,7 @@ $(function() {
 				error: function(){
 					// alert('请稍后从新尝试登录或者联系管理员');
 					// localStorage.clear();
-					// window.location.href = './login.html'
+					// window.location.href = './login'
 				}
 			});
 
@@ -1764,7 +1764,7 @@ $(function() {
 					        error: function(){
 					        	// alert('请稍后从新尝试登录或者联系管理员');
 					        	// localStorage.clear();
-					        	// window.location.href = './login.html'
+					        	// window.location.href = './login'
 					        }
 					    });
 		    		})
@@ -1813,7 +1813,7 @@ $(function() {
 							        error: function(){
 							        	// alert('请稍后从新尝试登录或者联系管理员');
 							        	// localStorage.clear();
-							        	// window.location.href = './login.html'
+							        	// window.location.href = './login'
 							        }
 							    });
 				    		})
@@ -1896,7 +1896,7 @@ $(function() {
 		        error: function(){
 		        	// alert('请稍后从新尝试登录或者联系管理员');
 		        	// localStorage.clear();
-		        	// window.location.href = './login.html'
+		        	// window.location.href = './login'
 		        }
 		    });
 		}else{
@@ -1932,7 +1932,7 @@ $(function() {
 		        error: function(){
 		        	// alert('请稍后从新尝试登录或者联系管理员');
 		        	// localStorage.clear();
-		        	// window.location.href = './login.html'
+		        	// window.location.href = './login'
 		        }
 		    });
 		}
@@ -1992,14 +1992,14 @@ $(function() {
 			        error: function(){
 			        	// alert('请稍后从新尝试登录或者联系管理员');
 			        	// localStorage.clear();
-			        	// window.location.href = './login.html'
+			        	// window.location.href = './login'
 			        }
 			    });
 	        },
 	        error: function(){
 	        	// alert('请稍后从新尝试登录或者联系管理员');
 	        	// localStorage.clear();
-	        	// window.location.href = './login.html'
+	        	// window.location.href = './login'
 	        }
 	    });
 
@@ -2022,7 +2022,7 @@ $(function() {
 		        error: function(){
 		        	// alert('请稍后从新尝试登录或者联系管理员');
 		        	// localStorage.clear();
-		        	// window.location.href = './login.html'
+		        	// window.location.href = './login'
 		        }
 		    });
 		});
@@ -2149,7 +2149,7 @@ $(function() {
 		        error: function(){
 		        	// alert('请稍后从新尝试登录或者联系管理员');
 		        	// localStorage.clear();
-		        	// window.location.href = './login.html'
+		        	// window.location.href = './login'
 		        }
 	      })}else{
 	      alert('请先选择年级和班级');
@@ -2282,7 +2282,7 @@ $(function() {
       error: function(){
       	// alert('请稍后从新尝试登录或者联系管理员');
       	// localStorage.clear();
-      	// window.location.href = './login.html'
+      	// window.location.href = './login'
       }
 	  });
 	}
@@ -2313,7 +2313,7 @@ $(function() {
       error: function(){
       	// alert('请稍后从新尝试登录或者联系管理员');
       	// localStorage.clear();
-      	// window.location.href = './login.html'
+      	// window.location.href = './login'
       }
 	  });
 	}
@@ -2367,7 +2367,7 @@ $(function() {
       error: function(){
       	// alert('请稍后从新尝试登录或者联系管理员');
       	// localStorage.clear();
-      	// window.location.href = './login.html'
+      	// window.location.href = './login'
       }
 	  });
 	}
@@ -2440,7 +2440,7 @@ $(function() {
 	      error: function(){
 	      	// alert('请稍后从新尝试登录或者联系管理员');
 	      	// localStorage.clear();
-	      	// window.location.href = './login.html'
+	      	// window.location.href = './login'
 	      }
 	  });
   }
@@ -2468,7 +2468,7 @@ $(function() {
       error: function(){
       	// alert('请稍后从新尝试登录或者联系管理员');
       	// localStorage.clear();
-      	// window.location.href = './login.html'
+      	// window.location.href = './login'
       }
 	  });
   }
@@ -2633,7 +2633,7 @@ $(function() {
       error: function(){
       	// alert('请稍后从新尝试登录或者联系管理员');
       	// localStorage.clear();
-      	// window.location.href = './login.html'
+      	// window.location.href = './login'
       }
 	  });
   }
@@ -2674,7 +2674,7 @@ $(function() {
       error: function(){
       	// alert('请稍后从新尝试登录或者联系管理员');
       	// localStorage.clear();
-      	// window.location.href = './login.html'
+      	// window.location.href = './login'
       }
 	  });
   }
@@ -2719,7 +2719,7 @@ $(function() {
       error: function(){
       	// alert('请稍后从新尝试登录或者联系管理员');
       	// localStorage.clear();
-      	// window.location.href = './login.html'
+      	// window.location.href = './login'
       }
 	  });
   }
@@ -2769,7 +2769,7 @@ $(function() {
 				  error: function(){
 				      // alert('请稍后从新尝试登录或者联系管理员');
 			      	// localStorage.clear();
-			      	// window.location.href = './login.html';
+			      	// window.location.href = './login';
 				  }
 				});
 	    }
@@ -2810,7 +2810,7 @@ $(function() {
       error: function(){
       	// alert('请稍后从新尝试登录或者联系管理员');
       	// localStorage.clear();
-      	// window.location.href = './login.html'
+      	// window.location.href = './login'
       }
 	  });
 	}
@@ -2841,7 +2841,7 @@ $(function() {
       error: function(){
       	// alert('请稍后从新尝试登录或者联系管理员');
       	// localStorage.clear();
-      	// window.location.href = './login.html'
+      	// window.location.href = './login'
       }
 	  });
 	}
@@ -2982,7 +2982,7 @@ $(function() {
       error: function(){
       	// alert('请稍后从新尝试登录或者联系管理员');
       	// localStorage.clear();
-      	// window.location.href = './login.html'
+      	// window.location.href = './login'
       }
 	  });
   }
@@ -3046,7 +3046,7 @@ $(function() {
 	      error: function(){
 	      	// alert('请稍后从新尝试登录或者联系管理员');
 	      	// localStorage.clear();
-	      	// window.location.href = './login.html'
+	      	// window.location.href = './login'
 	      }
 		  });
   	}else{
@@ -3198,7 +3198,7 @@ $(function() {
 	      error: function(){
 	      	// alert('请稍后从新尝试登录或者联系管理员');
 	      	// localStorage.clear();
-	      	// window.location.href = './login.html'
+	      	// window.location.href = './login'
 	      }
 		  });
 	});
