@@ -1,0 +1,33 @@
+#maili
+
+server {
+    listen       8088;
+    server_name  localhost;
+
+    #charset koi8-r;
+
+    #access_log  logs/host.access.log  main;
+
+    root /work/yuejuan2.0_front;
+
+     location ~ .*\.(gif|jpg|jpeg|png)$ {
+      root /work/yuejuan2.0_front;
+      if (-f $request_filename) {
+        expires 1d;
+        break;
+      }
+    }
+
+    location ~ .*\.(js|css)$ {
+     root /work/yuejuan2.0_front;
+     if (-f $request_filename) {
+        expires 1d;
+        break;
+      }
+    }
+
+
+   location / {
+      rewrite ^~.*/?(.*)$ /$1;
+      try_files $uri/index.html $uri.html =404;
+   }

@@ -69,7 +69,7 @@ $(function(){
 		   error: function(){
 		      // alert('请稍后从新尝试登录或者联系管理员');
 	      	// localStorage.clear();
-	      	// window.location.href = './login.html';
+	      	// window.location.href = './login';
 		  }
 		});
 	}
@@ -103,7 +103,7 @@ $(function(){
 		   error: function(){
 		      // alert('请稍后从新尝试登录或者联系管理员');
 	      	// localStorage.clear();
-	      	// window.location.href = './login.html';
+	      	// window.location.href = './login';
 		  }
 		});
 	}
@@ -359,7 +359,7 @@ $(function(){
 		   error: function(){
 		      // alert('请稍后从新尝试登录或者联系管理员');
 	      	// localStorage.clear();
-	      	// window.location.href = './login.html';
+	      	// window.location.href = './login';
 		  }
 		});
 	}
@@ -427,7 +427,7 @@ $(function(){
 			   error: function(){
 			      // alert('请稍后从新尝试登录或者联系管理员');
 		      	// localStorage.clear();
-		      	// window.location.href = './login.html';
+		      	// window.location.href = './login';
 			  }
 			});
 		}else{
@@ -502,7 +502,7 @@ $(function(){
 		   error: function(){
 		      // alert('请稍后从新尝试登录或者联系管理员');
 	      	// localStorage.clear();
-	      	// window.location.href = './login.html';
+	      	// window.location.href = './login';
 		  }
 		});
   }
@@ -551,7 +551,7 @@ $(function(){
 			   error: function(){
 			      // alert('请稍后从新尝试登录或者联系管理员');
 		      	// localStorage.clear();
-		      	// window.location.href = './login.html';
+		      	// window.location.href = './login';
 			  }
 			});
 		}
@@ -589,7 +589,7 @@ $(function(){
 		   error: function(){
 		      // alert('请稍后从新尝试登录或者联系管理员');
 	      	// localStorage.clear();
-	      	// window.location.href = './login.html';
+	      	// window.location.href = './login';
 		  }
 		});
 	}
@@ -701,7 +701,7 @@ $(function(){
 			   error: function(){
 			      // alert('请稍后从新尝试登录或者联系管理员');
 		      	// localStorage.clear();
-		      	// window.location.href = './login.html';
+		      	// window.location.href = './login';
 			  }
 			});
 	  }
@@ -736,7 +736,7 @@ $(function(){
 			   error: function(){
 			      // alert('请稍后从新尝试登录或者联系管理员');
 		      	// localStorage.clear();
-		      	// window.location.href = './login.html';
+		      	// window.location.href = './login';
 			  }
 			});
 		}
@@ -875,7 +875,7 @@ $(function(){
 	      	   error: function(){
 	      	      // alert('请稍后从新尝试登录或者联系管理员');
 	            	// localStorage.clear();
-	            	// window.location.href = './login.html';
+	            	// window.location.href = './login';
 	      	  }
 	      	});
       	}
@@ -943,7 +943,7 @@ $(function(){
 			   error: function(){
 			      // alert('请稍后从新尝试登录或者联系管理员');
 		      	// localStorage.clear();
-		      	// window.location.href = './login.html';
+		      	// window.location.href = './login';
 			  }
 			});
 			console.log(data_arr);
@@ -1006,7 +1006,7 @@ $(function(){
 		   error: function(){
 		      // alert('请稍后从新尝试登录或者联系管理员');
 	      	// localStorage.clear();
-	      	// window.location.href = './login.html';
+	      	// window.location.href = './login';
 		  }
 		});
 	}
@@ -1025,7 +1025,7 @@ $(function(){
 			   error: function(){
 			      // alert('请稍后从新尝试登录或者联系管理员');
 		      	// localStorage.clear();
-		      	// window.location.href = './login.html';
+		      	// window.location.href = './login';
 			  }
 			});
 		}
@@ -1050,7 +1050,7 @@ $(function(){
 		   error: function(){
 		      // alert('请稍后从新尝试登录或者联系管理员');
 	      	// localStorage.clear();
-	      	// window.location.href = './login.html';
+	      	// window.location.href = './login';
 		  }
 		});
 	});
@@ -1179,7 +1179,7 @@ $(function(){
 		   error: function(){
 		      // alert('请稍后从新尝试登录或者联系管理员');
 	      	// localStorage.clear();
-	      	// window.location.href = './login.html';
+	      	// window.location.href = './login';
 		  }
 		});
 	});
