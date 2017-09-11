@@ -54,7 +54,7 @@ angular.module("myApp", ["ui.router","myApp.controller"])
             })
             .state("form04", {
                 url: "/form04",
-                templateUrl: "views/form04.",
+                templateUrl: "views/form04",
                 controller:"form04Controller"
             })
             .state("form05", {

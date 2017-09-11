@@ -24,7 +24,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         return items;
     }
-
+    $scope.countScore = 0//总分
     $scope.page_num = 0 //页数
     $scope.listObj = [];//定义全局数组保存所有题目
     $scope.listObj2 = [];//定义全局数组保存所有题目
@@ -34,6 +34,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.myPaper = ['手工阅卷','网络阅卷'];
     $scope.myDayinType = 0
     $scope.myDayin = ['单面打印','双面打印'];
+    $scope.showItmeScoreType = 0
+    $scope.showItmeScore = ['不显示分数','显示分数'];
     $scope.result = {};//弹出框保存
     var answer_id = []//大题answer_id
     var allHeight = [] //页面上所有table高度
@@ -56,6 +58,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     allHeight = data.message.allHeight?data.message.allHeight:[]
                     $scope.paperType = data.message.paperType?data.message.paperType:0
                     $scope.myDayinType = data.message.myDayinType?data.message.myDayinType:0
+                    $scope.showItmeScoreType = data.message.showItmeScoreType?data.message.showItmeScoreType:0
+                    $scope.countScore = data.message.countScore?data.message.countScore:0
                 }
             },
             error: function () {
@@ -94,11 +98,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.myDayinType = 0
             }
         }
-    }
-    //切换显示分数
-    $scope.showItmeSore = false
-    $scope.showItmeScore = function () {
-        $scope.showItmeSore = !$scope.showItmeSore
+        if(type==2){
+            if($scope.showItmeScoreType==0){
+                $scope.showItmeScoreType = 1
+            }else {
+                $scope.showItmeScoreType = 0
+            }
+        }
     }
     $scope.Q_number = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十']
     var isLine = function (page_num) {//是否换行
@@ -258,6 +264,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         return result
     }
+    /**
+     * 计算总分
+     * @param itmeScore
+     */
+    var count = function (itmeScore) {
+        $scope.countScore += itmeScore
+    }
     $scope.append = function (obj) {//push数据
         if (isLine(0)) {
             obj.current_page = 1
@@ -366,6 +379,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             return false
         }
         $scope.append(obj)
+        count(obj.totalCores)
         $scope.createAsswer(obj)
         clear()
         close()
@@ -686,7 +700,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
 
 
     function allList() {//获取所有题目
-        console.log($scope.paperType)
         var allList = {}
         allList.page1 = $scope.listObj
         allList.page2 = $scope.listObj2
@@ -695,6 +708,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         allList.answer_id = answer_id
         allList.paperType = $scope.paperType
         allList.myDayinType = $scope.myDayinType
+        allList.showItmeScoreType = $scope.showItmeScoreType
+        allList.countScore = $scope.countScore
         return allList
     }
 
@@ -1202,7 +1217,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         var isLogin = localStorage.getItem("token");
         var answer_ids = []
-        console.log(getBigQuestion(allPagePost()))
         for (var i = 0; i < answer_id.length; i++) {
             answer_ids.push(answer_id[i].answers.answer_id)
         }
@@ -1211,7 +1225,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }else{
             var allP = filtrAnswerMode(getBigQuestion(allPagePost()))
         }
-        console.log(allList())
+        console.log(allP)
         $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/answer_regions",

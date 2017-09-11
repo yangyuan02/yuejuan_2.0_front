@@ -12,9 +12,9 @@
 <div class="Answer" id="Answer">
     <!--头部导航-->
     <div class="A_Nav">
-        <span>总分:<span class="Red">100</span>分</span>
+        <span>总分:<span class="Red" ng-bind="countScore"></span>分</span>
         <span class="bord mL">
-							<span class="iconfont cous" ng-click="dayin()">&#xe7d0;</span>
+							<span class="iconfont" ng-click="dayin()">&#xe688;</span>
 							<span class="iconfont cous">&#xe66f;</span>
 							<span class="iconfont cous">&#xe670;</span>
 						</span>
@@ -45,7 +45,10 @@
                             <select ng-init="selectedName = myPaper[paperType]" ng-model="selectedName" ng-options="x for x in myPaper" ng-change="checkTestType(0)">
 							</select>
                         </span>
-						<span ng-click="showItmeScore()">显示分值</span>
+						<span>
+                            <select ng-init="selectedName2 = showItmeScore[showItmeScoreType]" ng-model="selectedName2" ng-options="x for x in showItmeScore" ng-change="checkTestType(2)">
+							</select>
+                        </span>
                         <select ng-init="selectedName1 = myDayin[myDayinType]" ng-model="selectedName1" ng-options="x for x in myDayin" ng-change="checkTestType(1)">
 							</select>
 						<span ng-click="save()">存为模版</span>
@@ -471,7 +474,7 @@
                                             <a class="numberNo" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
-                                            <span ng-show="a.type==3 && showItmeSore">({{a.itemCores}}分)</span>
+                                            <span ng-show="a.type==3 && showItmeScoreType==1">({{a.itemCores}}分)</span>
                                             <!--序号end-->
                                             <!--选择题模版start-->
                                             <span ng-show="a.type==1||a.type==2||a.type==6" ng-repeat="items in a.thr">
@@ -490,8 +493,8 @@
                                         <div ng-repeat="item in a.no">
                                             <!--其他题头部-->
                                             <div class="other_h clearfix">
-                                                <div class="other_number {{a.type==5 && showItmeSore?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
-                                                    <span ng-show="a.type==5 && showItmeSore">({{a.itemCores}}分)</span>
+                                                <div class="other_number {{a.type==5 && showItmeScoreType ==1?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
+                                                    <span ng-show="a.type==5 && showItmeScoreType==1">({{a.itemCores}}分)</span>
                                                 </div>
                                                 <!--网络阅卷打分框start-->
                                                 <div class="marking clearfix">
@@ -595,7 +598,7 @@
                                             <a class="numberNo" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
-                                            <span ng-show="a.type==3 && showItmeSore">({{a.itemCores}}分)</span>
+                                            <span ng-show="a.type==3 && showItmeScoreType ==1">({{a.itemCores}}分)</span>
                                             <!--序号end-->
                                             <!--选择题模版start-->
                                             <span ng-show="a.type==1||a.type==2||a.type==6" ng-repeat="items in a.thr">
@@ -619,8 +622,8 @@
                                         <div ng-repeat="item in a.no">
                                             <!--其他题头部-->
                                             <div class="other_h clearfix">
-                                                <div class="other_number {{a.type==5 && showItmeSore?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
-                                                    <span ng-show="a.type==5 && showItmeSore">({{a.itemCores}}分)</span>
+                                                <div class="other_number {{a.type==5 && showItmeScoreType ==1?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
+                                                    <span ng-show="a.type==5 && showItmeScoreType ==1">({{a.itemCores}}分)</span>
                                                 </div>
                                                 <!--网络阅卷打分框start-->
                                                 <div class="marking clearfix">
@@ -771,7 +774,7 @@
                                             <a class="numberNo" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
-                                            <span ng-show="a.type==3 && showItmeSore">({{a.itemCores}}分)</span>
+                                            <span ng-show="a.type==3 && showItmeScoreType==1">({{a.itemCores}}分)</span>
                                             <!--序号end-->
                                             <!--选择题模版start-->
                                             <span ng-show="a.type==1||a.type==2||a.type==6" ng-repeat="items in a.thr">
@@ -790,8 +793,8 @@
                                         <div ng-repeat="item in a.no">
                                             <!--其他题头部-->
                                             <div class="other_h clearfix">
-                                                <div class="other_number {{a.type==5 && showItmeSore?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
-                                                    <span ng-show="a.type==5 && showItmeSore">({{a.itemCores}}分)</span>
+                                                <div class="other_number {{a.type==5 && showItmeScoreType ==1?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
+                                                    <span ng-show="a.type==5 && showItmeScoreType==1">({{a.itemCores}}分)</span>
                                                 </div>
                                                 <!--网络阅卷打分框start-->
                                                 <div class="marking clearfix">
@@ -895,7 +898,7 @@
                                             <a class="numberNo" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
-                                            <span ng-show="a.type==3 && showItmeSore">({{a.itemCores}}分)</span>
+                                            <span ng-show="a.type==3 && showItmeScoreType==1">({{a.itemCores}}分)</span>
                                             <!--序号end-->
                                             <!--选择题模版start-->
                                             <span ng-show="a.type==1||a.type==2||a.type==6" ng-repeat="items in a.thr">
@@ -919,8 +922,8 @@
                                         <div ng-repeat="item in a.no">
                                             <!--其他题头部-->
                                             <div class="other_h clearfix">
-                                                <div class="other_number {{a.type==5 && showItmeSore?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
-                                                    <span ng-show="a.type==5 && showItmeSore">({{a.itemCores}}分)</span>
+                                                <div class="other_number {{a.type==5 && showItmeScoreType ==1?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
+                                                    <span ng-show="a.type==5 && showItmeScoreType ==1">({{a.itemCores}}分)</span>
                                                 </div>
                                                 <!--网络阅卷打分框start-->
                                                 <div class="marking clearfix">

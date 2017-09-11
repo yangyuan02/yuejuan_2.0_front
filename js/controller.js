@@ -1416,7 +1416,40 @@ angular.module("myApp.controller", [])
 
         };
 
+//  $(".study_q_i_btn_05").click(function(event) {
+//      /* Act on the event */
+// // var aj=""
+//  $.ajax({
+//                 type: "GET",
+//                 url: ajaxIp + "/api/v2/reports/class_answer_setting_statistic",
+//                 headers: {
+//                     'Authorization': "Bearer " + isLogin
+//                 },
+//                 data: {
+//                     "exam_id": "209",
+//                     "subject_id": "12",
+//                     "classroom_id": "156",
+//                     "item": "2", 
+//                 },
+//                 success: function(data) {
+//                     console.log(data);
+//                     $(".study_q_05_tb02").html(" ");
+//                     var a = Math.round((data[0].correct_rate * 100)) + "%";
+//                     $(".study_q_05_tb02").append('<tr><td rowspan="' + data.length + '">二、判断题</td><td>' + data[0].average + '</td><td>' + data[0].num + '</td><td>' + data[0].column_value_1 + '</td><td>' + data[0].column_value_2 + '</td><td>' + data[0].correct + '</td><td>' + a + '</td><td><span>查看</span></td></tr>')
 
+//                     for (var i = 1; i < data.length; i++) {
+//                         var c = Math.round((data[i].correct_rate * 100)) + "%";
+//                         $(".study_q_05_tb02").append('<tr><td>' + data[i].average + '</td><td>' + data[i].num + '</td><td>' + data[i].column_value_1 + '</td><td>' + data[i].column_value_2 + '</td><td>' + data[i].correct + '</td><td>' + c + '</td><td><span>查看</span></td></tr>')
+
+//                     }
+//                 },
+//                 error: function() {
+
+//                 }
+//             });
+
+
+//  });
         // 判断题查看
         $(".study_q_05_tb02").on('click', 'span', function(event) {
             // 切换页面
@@ -1438,9 +1471,9 @@ angular.module("myApp.controller", [])
                     'Authorization': "Bearer " + isLogin
                 },
                 data: {
-                    "exam_id": "1",
-                    "subject_id": "13",
-                    "classroom_id": "102",
+                    "exam_id": "209",
+                    "subject_id": "11",
+                    "classroom_id": "155",
                     "item": "2",
                     // "answer_setting_id": "9980"
                 },
@@ -2206,20 +2239,17 @@ function study_k02() {
                     $(".study_k_201_he").html(" ");
                     $(".study_k_201_bo").html(" ");
                     for (var i = 0; i < data.titile.length; i++) {
-
                         $(".study_k_201_he").append('<th>' + data.titile[i] + '</th>');
                     };
-
-
                     for (var i = 0; i < data.data.length; i++) {
                         var a = data.data[i];
                         $(".study_k_201_bo").append('<tr></tr>');
-
                         for (var c = 0; c < a.length; c++) {
                             $(".study_k_201_bo tr").eq(i).append('<td>' + a[c] + '</td>');
                         }
 
                     }
+
 
                 },
                 error: function() {
@@ -2389,52 +2419,7 @@ function study_k04() {
 
             });
         }
-            // 学生详细成绩单
-
-            // $.ajax({
-            //     type: "POST",
-            //     url: ajaxIp + "/api/v2/reports/student_details",
-            //     headers: {
-            //         'Authorization': "Bearer " + isLogin
-            //     },
-            //     data: {
-            //         "exam_id": exam_id,
-            //         "subject_id": sub_id,
-            //         "classroom_id": class_id,
-            //     },
-            //     success: function(data) {
-            //         console.log(data);
-            //         $(".study_k_601_he").html(" ");
-            //         $(".study_k_601_bo").html(" ");
-            //         for (var i = 0; i < data.titile.length; i++) {
-
-            //             $(".study_k_601_he").append('<th>' + data.titile[i] + '</th>');
-            //         };
-
-
-            //         for (var i = 0; i < data.data.length; i++) {
-            //             var a = data.data[i];
-            //             $(".study_k_601_bo").append('<tr></tr>');
-
-            //             for (var c = 0; c < a.length; c++) {
-            //                 $(".study_k_601_bo tr").eq(i).append('<td>' + a[c] + '</td>');
-            //             }
-
-            //         }
-            //    FixTable("MyTable",1, 900, 500);     
-            //     },
-            //     error: function() {
-
-            //     }
-
-            // });
-
-
-
-
-
-        // }
-    
+    // 学生详细成绩单
     function study_k06(){
          var exam_id = parseInt($(".study_k_km01").children('option:selected').attr("data-id"));
             $(".study_k_km02").attr("data-id", $(".study_k_km02").children('option:selected').attr("data-id"));
@@ -2648,7 +2633,7 @@ function study_k04() {
                     $(".exam_z_km03").append('<option value="" data-id=' + data[0].subjects[i].subject_id + '>' + data[0].subjects[i].name + '</option>')
                     $(".exam_z_km03").attr("data-id", data[0].subjects[0].subject_id);
                 };
-                exam_z();
+                exam_z01();
                 $(".exam_z_km01").change(function(event) {
                     /* Act on the event */
                     var index01 = $(".exam_z_km01").children('option:selected').index();
@@ -2679,17 +2664,39 @@ function study_k04() {
             $(".exam_z_102_bo").html(" ");
             $(".exam_z_201_bo").html(" ");
             $(".exam_z_301_bo").html(" ");
-            exam_z();
+           
             var a = $(".exam_z_101 button").attr("data-id");
             if (a == 0) {
+                exam_z01();
                 exam_z_bb01();
             };
             if (a == 1) {
+                exam_z02();
                 exam_z_bb02();
             };
+             if (a == 2) {
+                exam_z03();
+                
+            };
         });
+    $(".exam_z_left_ul").on('click', 'li', function(event) {
+        /* Act on the event */
+        var a=$(this).index();
+         if (a == 0) {
+                exam_z01();   
+            };
+            if (a == 1) {
+                exam_z02();    
+            };
+             if (a == 2) {
+                exam_z03();
+            };
+    });
 
-        function exam_z() {
+
+
+
+        function exam_z01() {
             // 试卷质量
             var exam_id = $(".exam_z_km01").children('option:selected').attr("data-id");
             $(".exam_z_km02").attr("data-id", $(".exam_z_km02").children('option:selected').attr("data-id"));
@@ -2733,8 +2740,25 @@ function study_k04() {
                 }
 
             });
+        };
 
             // 各科逐题质量分析
+            function exam_z02() {
+            // 试卷质量
+            var exam_id = $(".exam_z_km01").children('option:selected').attr("data-id");
+            $(".exam_z_km02").attr("data-id", $(".exam_z_km02").children('option:selected').attr("data-id"));
+            var class_id = $(".exam_z_km02").attr("data-id");
+            if (class_id == null) {
+                var class_id = $(".exam_z_km02").attr("data-id");
+            }
+            $(".exam_z_km03").attr("data-id", $(".exam_z_km03").children('option:selected').attr("data-id"));
+            var sub_id = $(".exam_z_km03").attr("data-id");
+            // if(sub_id==null){
+            //      var sub_id = $(".exam_z_km03").attr("data-id");
+            //  } 
+            console.log(exam_id);
+            console.log(class_id);
+            console.log(sub_id);
             $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/reports/answer_quality",
@@ -2762,8 +2786,24 @@ function study_k04() {
                 }
 
             });
-
+};
             // 难度系数
+            function exam_z03() {
+            // 试卷质量
+            var exam_id = $(".exam_z_km01").children('option:selected').attr("data-id");
+            $(".exam_z_km02").attr("data-id", $(".exam_z_km02").children('option:selected').attr("data-id"));
+            var class_id = $(".exam_z_km02").attr("data-id");
+            if (class_id == null) {
+                var class_id = $(".exam_z_km02").attr("data-id");
+            }
+            $(".exam_z_km03").attr("data-id", $(".exam_z_km03").children('option:selected').attr("data-id"));
+            var sub_id = $(".exam_z_km03").attr("data-id");
+            // if(sub_id==null){
+            //      var sub_id = $(".exam_z_km03").attr("data-id");
+            //  } 
+            console.log(exam_id);
+            console.log(class_id);
+            console.log(sub_id);
             kaishi_zhi(0, 0);
             /* Act on the event */
             $.ajax({
@@ -3001,7 +3041,7 @@ function study_k04() {
                         $(".exam_h_km03").attr("data-id", data[index02].subjects[0].subject_id);
                     }
                 });
-                heng_zhong();
+                heng_zhong01();
             },
             error: function() {
 
@@ -3024,17 +3064,41 @@ function study_k04() {
             $(".exam_h_201_bo").html(" ");
             $(".exam_h_301_bo").html(" ");
             $(".exam_h_402_bo").html(" ");
-            heng_zhong();
             var a = $(".exam_h_101 button").attr("data-id");
             if (a == 0) {
+                heng_zhong01();
                 exam_h_bb01();
             };
             if (a == 1) {
+                heng_zhong02();
                 exam_h_bb02();
             };
+            if (a == 2) {
+               heng_zhong03();
+            };
+            if (a == 3) {
+                heng_zhong04();
+            };
         });
+$(".exam_h_left_ul").on('click', 'li', function(event) {
+    /* Act on the event */
+    var a=$(this).index();
+    if(a==0){
+      heng_zhong01();
+    };
+    if(a==1){
+      heng_zhong02();
+    };
+    if(a==2){
+      heng_zhong03();
+    };
+    if(a==3){
+      heng_zhong04();
+    };
+});
 
-        function heng_zhong() {
+
+        function heng_zhong01() {
             var exam_id = parseInt($(".exam_h_km01").children('option:selected').attr("data-id"));
             $(".exam_h_km02").attr("data-id", $(".exam_h_km02").children('option:selected').attr("data-id"));
             var class_id = parseInt($(".exam_h_km02").attr("data-id"));
@@ -3078,7 +3142,24 @@ function study_k04() {
 
 
             });
+        };
             // 班级等级
+            function heng_zhong02() {
+            var exam_id = parseInt($(".exam_h_km01").children('option:selected').attr("data-id"));
+            $(".exam_h_km02").attr("data-id", $(".exam_h_km02").children('option:selected').attr("data-id"));
+            var class_id = parseInt($(".exam_h_km02").attr("data-id"));
+            if (class_id == null) {
+                var class_id = parseInt($(".exam_h_km02").attr("data-id"));
+            }
+            $(".exam_h_km03").attr("data-id", $(".exam_h_km03").children('option:selected').attr("data-id"));
+            var sub_id = parseInt($(".exam_h_km03").attr("data-id"));
+            if (sub_id == null) {
+                var sub_id = parseInt($(".exam_h_km03").attr("data-id"));
+            }
+
+            console.log(exam_id);
+            console.log(class_id);
+            console.log(sub_id);
             $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/reports/class_level_distribute",
@@ -3114,9 +3195,25 @@ function study_k04() {
                 }
 
             });
-
+};
 
             // 总分分数段
+            function heng_zhong03() {
+            var exam_id = parseInt($(".exam_h_km01").children('option:selected').attr("data-id"));
+            $(".exam_h_km02").attr("data-id", $(".exam_h_km02").children('option:selected').attr("data-id"));
+            var class_id = parseInt($(".exam_h_km02").attr("data-id"));
+            if (class_id == null) {
+                var class_id = parseInt($(".exam_h_km02").attr("data-id"));
+            }
+            $(".exam_h_km03").attr("data-id", $(".exam_h_km03").children('option:selected').attr("data-id"));
+            var sub_id = parseInt($(".exam_h_km03").attr("data-id"));
+            if (sub_id == null) {
+                var sub_id = parseInt($(".exam_h_km03").attr("data-id"));
+            }
+
+            console.log(exam_id);
+            console.log(class_id);
+            console.log(sub_id);
             $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/reports/total_section_contrast",
@@ -3150,11 +3247,27 @@ function study_k04() {
 
             });
 
-
+};
 
             // 名次各班分布
 
             /* Act on the event */
+            function heng_zhong04() {
+            var exam_id = parseInt($(".exam_h_km01").children('option:selected').attr("data-id"));
+            $(".exam_h_km02").attr("data-id", $(".exam_h_km02").children('option:selected').attr("data-id"));
+            var class_id = parseInt($(".exam_h_km02").attr("data-id"));
+            if (class_id == null) {
+                var class_id = parseInt($(".exam_h_km02").attr("data-id"));
+            }
+            $(".exam_h_km03").attr("data-id", $(".exam_h_km03").children('option:selected').attr("data-id"));
+            var sub_id = parseInt($(".exam_h_km03").attr("data-id"));
+            if (sub_id == null) {
+                var sub_id = parseInt($(".exam_h_km03").attr("data-id"));
+            }
+
+            console.log(exam_id);
+            console.log(class_id);
+            console.log(sub_id);
             $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/reports/class_ranking_distribute",
@@ -3427,7 +3540,7 @@ function study_k04() {
                     data: a,
                 },
 
-                calculable: ƒfalse,
+                calculable:false,
                 series: [{
                     name: '所占比例',
                     type: 'pie',
