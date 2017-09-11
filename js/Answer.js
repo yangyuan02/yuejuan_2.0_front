@@ -24,7 +24,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         return items;
     }
-
+    $scope.countScore = 0//总分
     $scope.page_num = 0 //页数
     $scope.listObj = [];//定义全局数组保存所有题目
     $scope.listObj2 = [];//定义全局数组保存所有题目
@@ -59,6 +59,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     $scope.paperType = data.message.paperType?data.message.paperType:0
                     $scope.myDayinType = data.message.myDayinType?data.message.myDayinType:0
                     $scope.showItmeScoreType = data.message.showItmeScoreType?data.message.showItmeScoreType:0
+                    $scope.countScore = data.message.countScore?data.message.countScore:0
                 }
             },
             error: function () {
@@ -263,6 +264,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         return result
     }
+    /**
+     * 计算总分
+     * @param itmeScore
+     */
+    var count = function (itmeScore) {
+        $scope.countScore += itmeScore
+    }
     $scope.append = function (obj) {//push数据
         if (isLine(0)) {
             obj.current_page = 1
@@ -371,6 +379,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             return false
         }
         $scope.append(obj)
+        count(obj.totalCores)
         $scope.createAsswer(obj)
         clear()
         close()
@@ -700,6 +709,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         allList.paperType = $scope.paperType
         allList.myDayinType = $scope.myDayinType
         allList.showItmeScoreType = $scope.showItmeScoreType
+        allList.countScore = $scope.countScore
         return allList
     }
 
@@ -1207,7 +1217,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         var isLogin = localStorage.getItem("token");
         var answer_ids = []
-        console.log(getBigQuestion(allPagePost()))
         for (var i = 0; i < answer_id.length; i++) {
             answer_ids.push(answer_id[i].answers.answer_id)
         }
