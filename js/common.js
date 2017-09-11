@@ -1,6 +1,6 @@
 $(function() {
-	$('#header').load('header.html');
-	$('#footer').load('footer.html');
+	$('#header').load('header');
+	$('#footer').load('footer');
 
 	$.ajaxSetup ({
         cache: false
@@ -13,7 +13,7 @@ $(function() {
 	var role_name;
 
 	if(!isLogin){
-		window.location.href = './login.html'
+		window.location.href = './login'
 	}else{
 		var user_name,school_name;
 
@@ -33,7 +33,7 @@ $(function() {
 	    		if(data.error){
 					alert('登录已过期，请从新登录！');
 	    			localStorage.clear();
-	        		window.location.href = './login.html'
+	        		window.location.href = './login'
 	    		}else if(data.user_name){
 	    			user_name = data.user_name;
 	    			$('#teacher-name').val(user_name);
@@ -44,19 +44,19 @@ $(function() {
 
 	        		if(isAction){
 						if(window.location.pathname!='/user_information.html')
-					{	window.location.href = './user_information.html'
+					{	window.location.href = './user_information'
 						}	
 					}
 	    		}else{
 	    			alert('账号已在其他地方登录');
 	    			localStorage.clear();
-	        		window.location.href = './login.html'
+	        		window.location.href = './login'
 	    		}
 	        },
 	        error: function(){
 	        	alert('登录已过期，请从新登录！');
     			localStorage.clear();
-        		window.location.href = './login.html'
+        		window.location.href = './login'
 	        }
 	    });
 	}
@@ -65,16 +65,16 @@ $(function() {
 	$('#mark-head').click(function(){
 		console.log(role_name)
 		if(role_name=="教师"){
-			$(this).attr('href','./marking_change.html');
+			$(this).attr('href','./marking_change');
 		}else{
-			$(this).attr('href','./marking.html');
+			$(this).attr('href','./marking');
 		}
 	})
 	$('body').on('click','#mark-top',function(){
 		if(role_name=="教师"){
-			$(this).attr('href','./marking_change.html');
+			$(this).attr('href','./marking_change');
 		}else{
-			$(this).attr('href','./marking.html');
+			$(this).attr('href','./marking');
 		}
 	})
 

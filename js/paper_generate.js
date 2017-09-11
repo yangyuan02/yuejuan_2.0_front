@@ -36,7 +36,7 @@ $(function() {
 			error: function() {
 				// alert('请稍后从新尝试登录或者联系管理员');
 				// localStorage.clear();
-				// window.location.href = './login.html';
+				// window.location.href = './login';
 			}
 		});
 	}
@@ -100,7 +100,7 @@ $(function() {
 			error: function() {
 				// alert('请稍后从新尝试登录或者联系管理员');
 				// 	localStorage.clear();
-				// 	window.location.href = './login.html';
+				// 	window.location.href = './login';
 			}
 		});
 	}
@@ -201,7 +201,7 @@ $(function() {
 			error: function() {
 				// alert('请稍后从新尝试登录或者联系管理员');
 				// localStorage.clear();
-				// window.location.href = './login.html';
+				// window.location.href = './login';
 			}
 		});
 	});
@@ -243,7 +243,7 @@ $(function() {
 	// 	error: function() {
 	// 		//  alert('请稍后从新尝试登录或者联系管理员');
 	// 		// localStorage.clear();
-	// 		// window.location.href = './login.html';
+	// 		// window.location.href = './login';
 	// 	}
 	// });
 
@@ -278,7 +278,7 @@ $(function() {
 	// 		error: function() {
 	// 			// alert('请稍后从新尝试登录或者联系管理员');
 	// 			// localStorage.clear();
-	// 			// window.location.href = './login.html';
+	// 			// window.location.href = './login';
 	// 		}
 	// 	});
 	// 	// showSubjectModal(show_grade_id);//新建科目显示modal层的科目方法
@@ -303,7 +303,7 @@ $(function() {
 			error: function() {
 				// alert('请稍后从新尝试登录或者联系管理员');
 				// localStorage.clear();
-				// window.location.href = './login.html';
+				// window.location.href = './login';
 			}
 		});
 	}
@@ -325,7 +325,7 @@ $(function() {
 			error: function() {
 				// alert('请稍后从新尝试登录或者联系管理员');
 				// localStorage.clear();
-				// window.location.href = './login.html';
+				// window.location.href = './login';
 			}
 		});
 	}
@@ -448,7 +448,7 @@ $(function() {
 				error: function() {
 					// alert('请稍后从新尝试登录或者联系管理员');
 					// localStorage.clear();
-					// window.location.href = './login.html';
+					// window.location.href = './login';
 				}
 			});
 		}
@@ -501,7 +501,7 @@ $(function() {
 			error: function() {
 				// alert('请稍后从新尝试登录或者联系管理员');
 				// localStorage.clear();
-				// window.location.href = './login.html';
+				// window.location.href = './login';
 			}
 		});
 	});
@@ -583,7 +583,7 @@ $(function() {
 			error: function() {
 				// alert('请稍后从新尝试登录或者联系管理员');
 				// localStorage.clear();
-				// window.location.href = './login.html';
+				// window.location.href = './login';
 			}
 		});
 	});
@@ -647,7 +647,7 @@ $(function() {
 			error: function() {
 				// alert('请稍后从新尝试登录或者联系管理员');
 				// localStorage.clear();
-				// window.location.href = './login.html';
+				// window.location.href = './login';
 			}
 		});
 	});
@@ -685,7 +685,7 @@ $(function() {
 			error: function() {
 				// alert('请稍后从新尝试登录或者联系管理员');
 				// localStorage.clear();
-				// window.location.href = './login.html';
+				// window.location.href = './login';
 			}
 		});
 	});
@@ -728,7 +728,7 @@ $(function() {
 			error: function() {
 				// alert('请稍后从新尝试登录或者联系管理员');
 				// localStorage.clear();
-				// window.location.href = './login.html';
+				// window.location.href = './login';
 			}
 		});
 	}
@@ -761,7 +761,7 @@ $(function() {
 			error: function() {
 				// alert('请稍后从新尝试登录或者联系管理员');
 				// localStorage.clear();
-				// window.location.href = './login.html';
+				// window.location.href = './login';
 			}
 		});
 	}
@@ -851,7 +851,7 @@ $(function() {
 			error: function() {
 				//  alert('请稍后从新尝试登录或者联系管理员');
 				// localStorage.clear();
-				// window.location.href = './login.html';
+				// window.location.href = './login';
 			}
 		});
 	}
@@ -943,7 +943,7 @@ $(function() {
 			error: function() {
 				//  alert('请稍后从新尝试登录或者联系管理员');
 				// localStorage.clear();
-				// window.location.href = './login.html';
+				// window.location.href = './login';
 			}
 		});
 	}
@@ -964,7 +964,7 @@ $(function() {
 			error: function() {
 				// alert('请稍后从新尝试登录或者联系管理员');
 				// localStorage.clear();
-				// window.location.href = './login.html';
+				// window.location.href = './login';
 			}
 		});
  	}
@@ -1109,7 +1109,7 @@ $(function() {
 			error: function() {
 				// alert('请稍后从新尝试登录或者联系管理员');
 				// localStorage.clear();
-				// window.location.href = './login.html';
+				// window.location.href = './login';
 			}
 		});
 	}
@@ -1153,7 +1153,7 @@ $(function() {
 			error: function() {
 				//  alert('请稍后从新尝试登录或者联系管理员');
 				// localStorage.clear();
-				// window.location.href = './login.html';
+				// window.location.href = './login';
 			}
 		});
 		if (!$('.determine').hasClass('confirm-teacher')) {
@@ -1217,7 +1217,7 @@ $(function() {
 				error: function() {
 					// alert('请稍后从新尝试登录或者联系管理员');
 					// localStorage.clear();
-					// window.location.href = './login.html';
+					// window.location.href = './login';
 				}
 			});
 		} else {
@@ -1244,7 +1244,7 @@ $(function() {
 				error: function() {
 					// alert('请稍后从新尝试登录或者联系管理员');
 					// localStorage.clear();
-					// window.location.href = './login.html';
+					// window.location.href = './login';
 				}
 			});
 		}
@@ -1279,7 +1279,7 @@ $(function() {
 			error: function() {
 				// alert('请稍后从新尝试登录或者联系管理员');
 				// localStorage.clear();
-				// window.location.href = './login.html';
+				// window.location.href = './login';
 			}
 		});
 	}
@@ -1483,7 +1483,7 @@ $(function() {
 			error: function() {
 				// alert('请稍后从新尝试登录或者联系管理员');
 				// localStorage.clear();
-				// window.location.href = './login.html';
+				// window.location.href = './login';
 			}
 		});
 	});
@@ -1524,7 +1524,7 @@ $(function() {
 			error: function() {
 				// alert('请稍后从新尝试登录或者联系管理员');
 				// localStorage.clear();
-				// window.location.href = './login.html';
+				// window.location.href = './login';
 			}
 		});
 	});
@@ -1571,7 +1571,7 @@ $(function() {
 			error: function() {
 				// alert('请稍后从新尝试登录或者联系管理员');
 				// localStorage.clear();
-				// window.location.href = './login.html';
+				// window.location.href = './login';
 			}
 		});
 	});
@@ -1618,7 +1618,7 @@ $(function() {
 			error: function() {
 				// alert('请稍后从新尝试登录或者联系管理员');
 				// localStorage.clear();
-				// window.location.href = './login.html';
+				// window.location.href = './login';
 			}
 		});
 	});
@@ -1650,7 +1650,7 @@ $(function() {
 			error: function() {
 				// alert('请稍后从新尝试登录或者联系管理员');
 				// localStorage.clear();
-				// window.location.href = './login.html';
+				// window.location.href = './login';
 			}
 		});
 	}
@@ -1685,7 +1685,7 @@ $(function() {
 				error: function() {
 					// alert('请稍后从新尝试登录或者联系管理员');
 					// localStorage.clear();
-					// window.location.href = './login.html';
+					// window.location.href = './login';
 				}
 			});
 		} else {
@@ -1706,7 +1706,7 @@ $(function() {
 				error: function() {
 					// alert('请稍后从新尝试登录或者联系管理员');
 					// localStorage.clear();
-					// window.location.href = './login.html';
+					// window.location.href = './login';
 				}
 			});
 		}
@@ -1831,7 +1831,7 @@ $(function() {
 			error: function() {
 				// alert('请稍后从新尝试登录或者联系管理员');
 				// localStorage.clear();
-				// window.location.href = './login.html';
+				// window.location.href = './login';
 			}
 		});
 	});
@@ -1866,7 +1866,7 @@ $(function() {
 			error: function() {
 				// alert('请稍后从新尝试登录或者联系管理员');
 				// localStorage.clear();
-				// window.location.href = './login.html';
+				// window.location.href = './login';
 			}
 		});
 	});
@@ -1883,13 +1883,13 @@ $(function() {
 		var exam_name = $('#test-title').text();
 		var exam_subject_id = $_this.parents('tr').find('.subject-name').attr('exam_subject_id');
 		var subject_name = $_this.parents('tr').find('.subject-name').text();
-		$_this.attr('href', 'look_paper.html?id=' + batch_id + '&test_local_id=' + test_id + '&exam_name=' + exam_name + '&subject_name=' + subject_name + '&exam_subject_id=' + exam_subject_id + '&this_page='+this_page+'');
+		$_this.attr('href', 'look_paper?id=' + batch_id + '&test_local_id=' + test_id + '&exam_name=' + exam_name + '&subject_name=' + subject_name + '&exam_subject_id=' + exam_subject_id + '&this_page='+this_page+'');
 	});
 	$('body').on('click', '.setAnswer', function() {
 		var $_this = $(this);
 		var examubjeId = $_this.parents('tr').find('.subject-name').attr('exam_subject_id');
 		var subjectName = $_this.parents('tr').find('.subject-name').text()
 		window.localStorage.setItem("subjectname",subjectName)
-		$_this.attr('href', 'answer.html?examubjeId=' + examubjeId);
+		$_this.attr('href', 'answer?examubjeId=' + examubjeId);
 	});
 })
