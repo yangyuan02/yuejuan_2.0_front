@@ -5,15 +5,15 @@
   }  
   var isLogin = localStorage.getItem("token");
   if(isLogin){
-    window.location.href = "./index.html";
+    window.location.href = "./index";
   }
 
-  $(document).keyup(function(event){ 
-      if(event.keyCode ==13){ 
-        $(".login-btn").trigger("click"); 
-      } 
+  $(document).keyup(function(event){
+      if(event.keyCode ==13){
+        $(".login-btn").trigger("click");
+      }
   })
-     
+
   $('.login-btn').on('click', function(){
     save();
     var password = $.base64.encode($("#login-pwd").val())
@@ -21,7 +21,7 @@
           type: "POST",
           url: ajaxIp+"/api/v2/login.json",
           data: {
-            'username':$("#login-name").val(), 
+            'username':$("#login-name").val(),
             'password': password
           },
           dataType: "JSON",
@@ -34,18 +34,18 @@
               // $('.login-animate').show();
               localStorage.setItem("token", data.token);
               localStorage.setItem("action", data.action);
-              window.location.href = "./user_information.html";
+              window.location.href = "./user_information";
               // setTimeout(function(){
-              //   window.location.href = "./index.html";
+              //   window.location.href = "./index";
               // },1000)
-              
+
             }else if (data.token) {
               // $('.login').hide();
               // $('.login-shadow').hide();
               // $('.login-animate').show();
               localStorage.setItem("token", data.token);
               // setTimeout(function(){
-              window.location.href = "./index.html";
+              window.location.href = "./index";
               // },1000)
               
             }else{

@@ -1257,10 +1257,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             if (r) {
                 $scope.save()
             } else {
-                window.location.href = 'paper_generate.html'
+                window.location.href = 'paper_generate'
             }
         } else {
-            window.location.href = 'paper_generate.html'
+            window.location.href = 'paper_generate'
         }
     }
 
