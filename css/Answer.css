@@ -1,19 +1,18 @@
 body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inline-block;} select{border: 0;background: #f1f1f1;} .Red{color: red;}
 .fl{float: left;} .fr{float: right;} .cous{cursor: pointer;}
-@font-face {font-family: 'iconfont';
-    src: url('../icon/iconfont.eot');
-    src: url('../icon/iconfont.eot?#iefix') format('embedded-opentype'),
-    url('../icon/iconfont.woff') format('woff'),
-    url('../icon/iconfont.ttf') format('truetype'),
-    url('../icon/iconfont.svg#iconfont') format('svg');
-}
-
-.iconfont{
-    font-family:"iconfont" !important;
-    font-size:16px;font-style:normal;
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke-width: 0.2px;
-    -moz-osx-font-smoothing: grayscale;}
+/*@font-face {*/
+    /*font-family: 'iconfont';  !* project id 308672 *!*/
+    /*src: url('//at.alicdn.com/t/font_czssl6oou81if6r.eot');*/
+    /*src: url('//at.alicdn.com/t/font_czssl6oou81if6r.eot?#iefix') format('embedded-opentype'),*/
+    /*url('//at.alicdn.com/t/font_czssl6oou81if6r.woff') format('woff'),*/
+    /*url('//at.alicdn.com/t/font_czssl6oou81if6r.ttf') format('truetype'),*/
+    /*url('//at.alicdn.com/t/font_czssl6oou81if6r.svg#iconfont') format('svg');*/
+/*}*/
+/*.iconfont{*/
+    /*font-family:"iconfont";*/
+    /*font-size:16px;*/
+    /*font-style:normal;*/
+/*}*/
 
 /*Answer主页面*/
 .Answer{width: 100%;height: 100%;background: #fff;}
@@ -78,7 +77,7 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     float:left;
     margin-left:10px;
 }
-.Answer .A_R .A_Rone {width:720px;box-sizing:border-box;height:870px;padding: 10px;border: 1px solid #ddd;border-radius: 10px;float:left;position:relative;overflow:hidden}
+.Answer .A_R .A_Rone {width:720px;box-sizing:border-box;height:910px;padding: 10px;border: 1px solid #ddd;border-radius: 10px;float:left;position:relative;overflow:hidden}
 .Answer .A_R .A_Rone .A_Rone_child table{width: 100%;margin-bottom: 14px;border: 1px solid black;padding:0px 10px;}
 .Answer .A_R .A_Rone .A_Rone_child table thead tr th{height: 20px;padding: 10px 5px;font-size: 15px;text-align: left;}
 .Answer .A_R .A_Rone .A_Rone_child table tbody tr td{height: 20px;padding: 5px 5px;font-size: 12px;}
@@ -128,7 +127,7 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
 }
 .Answer .student_info .person{
     float:left;
-    margin-top:80px;
+    margin-top:40px;
 }
 .Answer .student_info .person .person_item{
     float: left;
