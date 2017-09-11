@@ -2681,7 +2681,7 @@ function study_k04() {
                     $(".exam_z_km03").append('<option value="" data-id=' + data[0].subjects[i].subject_id + '>' + data[0].subjects[i].name + '</option>')
                     $(".exam_z_km03").attr("data-id", data[0].subjects[0].subject_id);
                 };
-                exam_z();
+                exam_z01();
                 $(".exam_z_km01").change(function(event) {
                     /* Act on the event */
                     var index01 = $(".exam_z_km01").children('option:selected').index();
@@ -2712,17 +2712,39 @@ function study_k04() {
             $(".exam_z_102_bo").html(" ");
             $(".exam_z_201_bo").html(" ");
             $(".exam_z_301_bo").html(" ");
-            exam_z();
+           
             var a = $(".exam_z_101 button").attr("data-id");
             if (a == 0) {
+                exam_z01();
                 exam_z_bb01();
             };
             if (a == 1) {
+                exam_z02();
                 exam_z_bb02();
             };
+             if (a == 2) {
+                exam_z03();
+                
+            };
         });
+    $(".exam_z_left_ul").on('click', 'li', function(event) {
+        /* Act on the event */
+        var a=$(this).index();
+         if (a == 0) {
+                exam_z01();   
+            };
+            if (a == 1) {
+                exam_z02();    
+            };
+             if (a == 2) {
+                exam_z03();
+            };
+    });
 
-        function exam_z() {
+
+
+
+        function exam_z01() {
             // 试卷质量
             var exam_id = $(".exam_z_km01").children('option:selected').attr("data-id");
             $(".exam_z_km02").attr("data-id", $(".exam_z_km02").children('option:selected').attr("data-id"));
@@ -2766,8 +2788,25 @@ function study_k04() {
                 }
 
             });
+        };
 
             // 各科逐题质量分析
+            function exam_z02() {
+            // 试卷质量
+            var exam_id = $(".exam_z_km01").children('option:selected').attr("data-id");
+            $(".exam_z_km02").attr("data-id", $(".exam_z_km02").children('option:selected').attr("data-id"));
+            var class_id = $(".exam_z_km02").attr("data-id");
+            if (class_id == null) {
+                var class_id = $(".exam_z_km02").attr("data-id");
+            }
+            $(".exam_z_km03").attr("data-id", $(".exam_z_km03").children('option:selected').attr("data-id"));
+            var sub_id = $(".exam_z_km03").attr("data-id");
+            // if(sub_id==null){
+            //      var sub_id = $(".exam_z_km03").attr("data-id");
+            //  } 
+            console.log(exam_id);
+            console.log(class_id);
+            console.log(sub_id);
             $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/reports/answer_quality",
@@ -2795,8 +2834,24 @@ function study_k04() {
                 }
 
             });
-
+};
             // 难度系数
+            function exam_z03() {
+            // 试卷质量
+            var exam_id = $(".exam_z_km01").children('option:selected').attr("data-id");
+            $(".exam_z_km02").attr("data-id", $(".exam_z_km02").children('option:selected').attr("data-id"));
+            var class_id = $(".exam_z_km02").attr("data-id");
+            if (class_id == null) {
+                var class_id = $(".exam_z_km02").attr("data-id");
+            }
+            $(".exam_z_km03").attr("data-id", $(".exam_z_km03").children('option:selected').attr("data-id"));
+            var sub_id = $(".exam_z_km03").attr("data-id");
+            // if(sub_id==null){
+            //      var sub_id = $(".exam_z_km03").attr("data-id");
+            //  } 
+            console.log(exam_id);
+            console.log(class_id);
+            console.log(sub_id);
             kaishi_zhi(0, 0);
             /* Act on the event */
             $.ajax({
@@ -3034,7 +3089,7 @@ function study_k04() {
                         $(".exam_h_km03").attr("data-id", data[index02].subjects[0].subject_id);
                     }
                 });
-                heng_zhong();
+                heng_zhong01();
             },
             error: function() {
 
@@ -3057,17 +3112,41 @@ function study_k04() {
             $(".exam_h_201_bo").html(" ");
             $(".exam_h_301_bo").html(" ");
             $(".exam_h_402_bo").html(" ");
-            heng_zhong();
             var a = $(".exam_h_101 button").attr("data-id");
             if (a == 0) {
+                heng_zhong01();
                 exam_h_bb01();
             };
             if (a == 1) {
+                heng_zhong02();
                 exam_h_bb02();
             };
+            if (a == 2) {
+               heng_zhong03();
+            };
+            if (a == 3) {
+                heng_zhong04();
+            };
         });
+$(".exam_h_left_ul").on('click', 'li', function(event) {
+    /* Act on the event */
+    var a=$(this).index();
+    if(a==0){
+      heng_zhong01();
+    };
+    if(a==1){
+      heng_zhong02();
+    };
+    if(a==2){
+      heng_zhong03();
+    };
+    if(a==3){
+      heng_zhong04();
+    };
+});
 
-        function heng_zhong() {
+
+        function heng_zhong01() {
             var exam_id = parseInt($(".exam_h_km01").children('option:selected').attr("data-id"));
             $(".exam_h_km02").attr("data-id", $(".exam_h_km02").children('option:selected').attr("data-id"));
             var class_id = parseInt($(".exam_h_km02").attr("data-id"));
@@ -3111,7 +3190,24 @@ function study_k04() {
 
 
             });
+        };
             // 班级等级
+            function heng_zhong02() {
+            var exam_id = parseInt($(".exam_h_km01").children('option:selected').attr("data-id"));
+            $(".exam_h_km02").attr("data-id", $(".exam_h_km02").children('option:selected').attr("data-id"));
+            var class_id = parseInt($(".exam_h_km02").attr("data-id"));
+            if (class_id == null) {
+                var class_id = parseInt($(".exam_h_km02").attr("data-id"));
+            }
+            $(".exam_h_km03").attr("data-id", $(".exam_h_km03").children('option:selected').attr("data-id"));
+            var sub_id = parseInt($(".exam_h_km03").attr("data-id"));
+            if (sub_id == null) {
+                var sub_id = parseInt($(".exam_h_km03").attr("data-id"));
+            }
+
+            console.log(exam_id);
+            console.log(class_id);
+            console.log(sub_id);
             $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/reports/class_level_distribute",
@@ -3147,9 +3243,25 @@ function study_k04() {
                 }
 
             });
-
+};
 
             // 总分分数段
+            function heng_zhong03() {
+            var exam_id = parseInt($(".exam_h_km01").children('option:selected').attr("data-id"));
+            $(".exam_h_km02").attr("data-id", $(".exam_h_km02").children('option:selected').attr("data-id"));
+            var class_id = parseInt($(".exam_h_km02").attr("data-id"));
+            if (class_id == null) {
+                var class_id = parseInt($(".exam_h_km02").attr("data-id"));
+            }
+            $(".exam_h_km03").attr("data-id", $(".exam_h_km03").children('option:selected').attr("data-id"));
+            var sub_id = parseInt($(".exam_h_km03").attr("data-id"));
+            if (sub_id == null) {
+                var sub_id = parseInt($(".exam_h_km03").attr("data-id"));
+            }
+
+            console.log(exam_id);
+            console.log(class_id);
+            console.log(sub_id);
             $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/reports/total_section_contrast",
@@ -3183,11 +3295,27 @@ function study_k04() {
 
             });
 
-
+};
 
             // 名次各班分布
 
             /* Act on the event */
+            function heng_zhong04() {
+            var exam_id = parseInt($(".exam_h_km01").children('option:selected').attr("data-id"));
+            $(".exam_h_km02").attr("data-id", $(".exam_h_km02").children('option:selected').attr("data-id"));
+            var class_id = parseInt($(".exam_h_km02").attr("data-id"));
+            if (class_id == null) {
+                var class_id = parseInt($(".exam_h_km02").attr("data-id"));
+            }
+            $(".exam_h_km03").attr("data-id", $(".exam_h_km03").children('option:selected').attr("data-id"));
+            var sub_id = parseInt($(".exam_h_km03").attr("data-id"));
+            if (sub_id == null) {
+                var sub_id = parseInt($(".exam_h_km03").attr("data-id"));
+            }
+
+            console.log(exam_id);
+            console.log(class_id);
+            console.log(sub_id);
             $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/reports/class_ranking_distribute",
@@ -3460,7 +3588,7 @@ function study_k04() {
                     data: a,
                 },
 
-                calculable: ƒfalse,
+                calculable:false,
                 series: [{
                     name: '所占比例',
                     type: 'pie',

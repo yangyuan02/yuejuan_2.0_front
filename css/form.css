@@ -1467,6 +1467,7 @@ color: #666666;
 	border:none;
 	border-bottom: 1px solid #cccccc;
 	box-sizing: border-box;
+	max-width: 200px;
 }
 
 .exam_z_102{
