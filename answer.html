@@ -440,7 +440,7 @@
                                 <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5">
                                     <th>
                                         <!--网络阅卷打分框start-->
-                                        <div class="marking">
+                                        <div class="marking {{paperType==1?'paper':''}}">
                                             <a href="">1</a>
                                             <a href="">2</a>
                                             <a href="">3</a>
@@ -469,7 +469,7 @@
                                     <td>
                                         <div ng-repeat="item in a.no" class="q_c"
                                              ng-style="{'width':'{{a.type==3?'48%':setItmeWidth(a.thr)}}'}">
-                                            <a class="numberNo" ng-show="a.type==3"></a>
+                                            <a class="numberNo {{paperType==1?'paperno':''}}" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
                                             <span ng-show="a.type==3 && showItmeScoreType==1">({{a.itemCores}}分)</span>
@@ -495,7 +495,7 @@
                                                     <span ng-show="a.type==5 && showItmeScoreType==1">({{a.itemCores}}分)</span>
                                                 </div>
                                                 <!--网络阅卷打分框start-->
-                                                <div class="marking clearfix">
+                                                <div class="marking clearfix {{paperType==1?'paper':''}}">
                                                     <a href="">1</a>
                                                     <a href="">2</a>
                                                     <a href="">3</a>
@@ -564,7 +564,7 @@
                                 <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5">
                                     <th>
                                         <!--网络阅卷打分框start-->
-                                        <div class="marking">
+                                        <div class="marking {{paperType==1?'paper':''}}">
                                             <a href="">1</a>
                                             <a href="">2</a>
                                             <a href="">3</a>
@@ -593,7 +593,7 @@
                                     <td>
                                         <div ng-repeat="item in a.no" class="q_c"
                                              ng-style="{'width':'{{a.type==3?'48%':setItmeWidth(a.thr)}}'}">
-                                            <a class="numberNo" ng-show="a.type==3"></a>
+                                            <a class="numberNo {{paperType==1?'paperno':''}}" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
                                             <span ng-show="a.type==3 && showItmeScoreType ==1">({{a.itemCores}}分)</span>
@@ -624,7 +624,7 @@
                                                     <span ng-show="a.type==5 && showItmeScoreType ==1">({{a.itemCores}}分)</span>
                                                 </div>
                                                 <!--网络阅卷打分框start-->
-                                                <div class="marking clearfix">
+                                                <div class="marking clearfix {{paperType==1?'paper':''}}">
                                                     <a href="">1</a>
                                                     <a href="">2</a>
                                                     <a href="">3</a>
@@ -740,7 +740,7 @@
                                 <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5">
                                     <th>
                                         <!--网络阅卷打分框start-->
-                                        <div class="marking">
+                                        <div class="marking {{paperType==1?'paper':''}}">
                                             <a href="">1</a>
                                             <a href="">2</a>
                                             <a href="">3</a>
@@ -769,7 +769,7 @@
                                     <td>
                                         <div ng-repeat="item in a.no" class="q_c"
                                              ng-style="{'width':'{{a.type==3?'48%':setItmeWidth(a.thr)}}'}">
-                                            <a class="numberNo" ng-show="a.type==3"></a>
+                                            <a class="numberNo {{paperType==1?'paperno':''}}" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
                                             <span ng-show="a.type==3 && showItmeScoreType==1">({{a.itemCores}}分)</span>
@@ -795,7 +795,7 @@
                                                     <span ng-show="a.type==5 && showItmeScoreType==1">({{a.itemCores}}分)</span>
                                                 </div>
                                                 <!--网络阅卷打分框start-->
-                                                <div class="marking clearfix">
+                                                <div class="marking clearfix {{paperType==1?'paper':''}}">
                                                     <a href="">1</a>
                                                     <a href="">2</a>
                                                     <a href="">3</a>
@@ -864,7 +864,7 @@
                                 <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5">
                                     <th>
                                         <!--网络阅卷打分框start-->
-                                        <div class="marking">
+                                        <div class="marking {{paperType==1?'paper':''}}">
                                             <a href="">1</a>
                                             <a href="">2</a>
                                             <a href="">3</a>
@@ -893,7 +893,7 @@
                                     <td>
                                         <div ng-repeat="item in a.no" class="q_c"
                                              ng-style="{'width':'{{a.type==3?'48%':setItmeWidth(a.thr)}}'}">
-                                            <a class="numberNo" ng-show="a.type==3"></a>
+                                            <a class="numberNo {{paperType==1?'paperno':''}}" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
                                             <span ng-show="a.type==3 && showItmeScoreType==1">({{a.itemCores}}分)</span>
@@ -924,7 +924,7 @@
                                                     <span ng-show="a.type==5 && showItmeScoreType ==1">({{a.itemCores}}分)</span>
                                                 </div>
                                                 <!--网络阅卷打分框start-->
-                                                <div class="marking clearfix">
+                                                <div class="marking clearfix {{paperType==1?'paper':''}}">
                                                     <a href="">1</a>
                                                     <a href="">2</a>
                                                     <a href="">3</a>

@@ -715,6 +715,29 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         return allList
     }
 
+    //查找在那个全局变量
+    function findScopeList(index,options) {
+        var len1 = $scope.listObj.length, len2 = $scope.listObj2.length, len3 = $scope.listObj3.length, len4 = $scope.listObj4.length
+        console.log(options)
+        if (index <= len1 - 1) {
+            if(type==0){
+                // $scope.listObj[index].name =
+            }
+        }
+        if (index >= len1 && index < len1 + len2) {
+            // $scope.listObj2.splice(index - len1, 1)
+            console.log("删除list2")
+        }
+        if (index >= len1 + len2 && index < len1 + len2 + len3) {
+            // $scope.listObj3.splice(index - len1 - len2, 1)
+            console.log("删除list3")
+        }
+        if (index >= len1 + len2 + len3 && index < len1 + len2 + len3 + len4) {
+            // $scope.listObj4.splice(index - len1 - len2 - len3, 1)
+            console.log("删除list4")
+        }
+    }
+
     $scope.dayin = function () {//打印
         $(".A_Nav").css({"display": "none"})
         $(".Answer .A_L").css({"display": "none"})
@@ -897,16 +920,17 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.setItmeTitle = function (index,name) {
         var answer_id = $scope.bigAnswer[index].answer_id
         var newName = name
-        $.ajax({
-                type: "POST",
-                url: "/api/v2/answers/change_name",
-                headers: {'Authorization': "Bearer " + isLogin},
-                data: {"answer_id":answer_id,"name":name},
-                success: function (data) {
-                    console.log(data)
-                }
-            }
-        )
+        // var
+        // findScopeList(index,)
+        // $.ajax({
+        //         type: "POST",
+        //         url: "/api/v2/answers/change_name",
+        //         headers: {'Authorization': "Bearer " + isLogin},
+        //         data: {"answer_id":answer_id,"name":name},
+        //         success: function (data) {
+        //         }
+        //     }
+        // )
     }
     //比较相邻的table高度大小
     function compare(index,type,page_num) {
@@ -1116,9 +1140,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             $scope.listObj4.splice(index - len1 - len2 - len3, 1)
             console.log("删除list4")
         }
-        // allList_1.splice(index,1)
-        // deleRender()
-        // console.log(len1, len2, len3, len4, index)
     }
 
     //删除题组
