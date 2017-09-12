@@ -7,6 +7,7 @@ var m1 = angular.module("pro", []);
 m1.controller("demo", function ($scope, $timeout, $http) {
     var url = window.location;
     $scope.subjectName = window.localStorage.getItem("test_name") + window.localStorage.getItem("subjectname")
+    $(".Answer .A_Nav").width($(document).width())
     function getUrlParam(url, name) {//获取页面参数
         var pattern = new RegExp("[?&]" + name + "\=([^&]+)", "g");
         var matcher = pattern.exec(url);

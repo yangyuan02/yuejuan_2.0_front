@@ -18,10 +18,10 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
 .Answer{width: 100%;height: 100%;background: #fff;}
 
 /*头部导航*/
-.Answer .A_Nav{max-width:100%;height: 58px;background: #f1f1f1;line-height: 58px;padding-left: 118px;border-bottom: 2px solid #dedede;}
+.Answer .A_Nav{height: 58px;background: #f1f1f1;line-height: 58px;padding-left: 118px;border-bottom: 2px solid #dedede;}
 .Answer .A_Nav .bord{border-right: 1px solid #ccc;}
 .Answer .A_Nav .mL{margin-left: 108px;}
-.Answer .A_Nav .mR{float: right;margin-right: 20px;}
+.Answer .A_Nav .mR{margin-left: 100px;}
 .Answer .A_Nav span{padding: 0 10px;}
 
 /*主内容区*/
