@@ -1100,6 +1100,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     function findScopeListDele(index) {
         var len1 = $scope.listObj.length, len2 = $scope.listObj2.length, len3 = $scope.listObj3.length, len4 = $scope.listObj4.length
         if (index <= len1 - 1) {
+            console.log($scope.listObj)
             $scope.listObj.splice(index, 1)
             console.log("删除list1")
         }
@@ -1123,6 +1124,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     //删除题组
     $scope.delAnswerGroup = function () {
         var answer_id_item = $scope.bigAnswer[$scope.sortIndex].answer_id
+        var answer_score = $scope.bigAnswer[$scope.sortIndex].answer_score
+
         var isLogin = localStorage.getItem("token");
         var index;
         for (var i = 0; i < answer_id.length; i++) {
@@ -1144,6 +1147,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.bigAnswer.splice($scope.sortIndex,1)
                 findScopeListDele($scope.sortIndex)
                 answer_id.splice(index,1)
+                count(-parseInt(answer_score))
             },
             error: function(){
 
