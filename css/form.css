@@ -1369,21 +1369,71 @@ color: #666666;
 	margin-bottom: 400px;
 	
 }
+.study_k_201_he th{
+	width: 78px;	
+}
+.study_k_201_bo td{
+	width: 78px;	
+}
+.study_k_202{
+	display:block;
+	max-height: 500px;
+	overflow-x: hidden;
+	padding-left: 15px;
+	
+}
 .study_k_301{
 	display: none;
 	margin-bottom: 400px;
 	
+}
+.study_k_301_he th{
+	width: 78px;	
+}
+.study_k_301_bo td{
+	width: 78px;	
+}
+.study_k_302{
+	display:block;
+	max-height: 500px;
+	overflow-x: hidden;
+	padding-left: 15px;	
 }
 .study_k_401{
 	display: none;
 	margin-bottom: 400px;
 	
 }
+.study_k_401_he th{
+	width: 78px;	
+}
+.study_k_401_bo td{
+	width: 78px;	
+}
+.study_k_402{
+	display:block;
+	max-height: 500px;
+	overflow-x: hidden;
+	padding-left: 15px;	
+}
 .study_k_501{
 	display: none;
 	margin-bottom: 400px;
 	
 }
+.study_k_501_he th{
+	width: 78px;	
+}
+.study_k_501_bo td{
+	width: 78px;	
+}
+.study_k_502{
+	display:block;
+	max-height: 500px;
+	overflow-x: hidden;
+	padding-left: 15px;	
+}
+
 /*.study_k_601{
 	display: none;
 	margin: 0 auto;
@@ -1467,7 +1517,7 @@ color: #666666;
 	border:none;
 	border-bottom: 1px solid #cccccc;
 	box-sizing: border-box;
-	max-width: 200px;
+	width: 200px;
 }
 
 .exam_z_102{
