@@ -1,22 +1,26 @@
 body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inline-block;} select{border: 0;background: #f1f1f1;} .Red{color: red;}
 .fl{float: left;} .fr{float: right;} .cous{cursor: pointer;}
-/*@font-face {*/
-    /*font-family: 'iconfont';  !* project id 308672 *!*/
-    /*src: url('//at.alicdn.com/t/font_czssl6oou81if6r.eot');*/
-    /*src: url('//at.alicdn.com/t/font_czssl6oou81if6r.eot?#iefix') format('embedded-opentype'),*/
-    /*url('//at.alicdn.com/t/font_czssl6oou81if6r.woff') format('woff'),*/
-    /*url('//at.alicdn.com/t/font_czssl6oou81if6r.ttf') format('truetype'),*/
-    /*url('//at.alicdn.com/t/font_czssl6oou81if6r.svg#iconfont') format('svg');*/
+
+/*@font-face {font-family: 'iconfont';*/
+    /*src: url('../icon/iconfont.eot');*/
+    /*src: url('../icon/iconfont.eot?#iefix') format('embedded-opentype'),*/
+    /*url('../icon/iconfont.woff') format('woff'),*/
+    /*url('../icon/iconfont.ttf') format('truetype'),*/
+    /*url('../icon/iconfont.svg#iconfont') format('svg');*/
 /*}*/
+
 /*.iconfont{*/
-    /*font-family:"iconfont";*/
-    /*font-size:16px;*/
-    /*font-style:normal;*/
-/*}*/
+    /*font-family:"iconfont" !important;*/
+    /*font-size:16px;font-style:normal;*/
+    /*-webkit-font-smoothing: antialiased;*/
+    /*-webkit-text-stroke-width: 0.2px;*/
+    /*-moz-osx-font-smoothing: grayscale;}*/
 
 /*Answer主页面*/
 .Answer{width: 100%;height: 100%;background: #fff;}
-
+/*div{*/
+    /*box-sizing: border-box;*/
+/*}*/
 /*头部导航*/
 .Answer .A_Nav{height: 58px;background: #f1f1f1;line-height: 58px;padding-left: 118px;border-bottom: 2px solid #dedede;}
 .Answer .A_Nav .bord{border-right: 1px solid #ccc;}
@@ -588,6 +592,11 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     width:32.3%;
     line-height:30px;
 }
+/*.setSort .sort_con .sort_itme span:nth-of-type(2){*/
+    /*overflow: hidden;*/
+    /*text-overflow:ellipsis;*/
+    /*white-space: nowrap;*/
+/*}*/
 .setSort .set_sort_big_btn{
     padding:15px 0px;
 }
@@ -604,4 +613,10 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     margin-left:20px;
     background:#31bc91;
     color:#fff;
+}
+/****/
+.modal-scroll{
+    height:600px;
+    overflow: auto;
+    overflow-x: hidden
 }

@@ -15,17 +15,15 @@
         <span>总分:<span class="Red" ng-bind="countScore"></span>分</span>
         <span class="bord mL">
 							<span class="iconfont" ng-click="dayin()">&#xe688;</span>
-							<span class="iconfont cous">&#xe66f;</span>
-							<span class="iconfont cous">&#xe670;</span>
+							<span class="iconfont cous">&#xe62d;</span>
+							<span class="iconfont cous">&#xe634;</span>
 						</span>
         <span class="bord">
-							<span class="iconfont cous">&#xe76a;</span>
-							<span class="iconfont cous">&#xe609;</span>
-							<span class="iconfont cous">&#xe63f;</span>
+							<span class="iconfont cous">&#xe62e;</span>
+							<span class="iconfont cous">&#xe62f;</span>
+							<span class="iconfont cous">&#xe66b;</span>
 						</span>
-        <span class="bord cous">14 <span
-                class="iconfont">&#xe610;</span></span>
-        <span class="iconfont cous bord">&#xe65b;</span>
+        <span class="bord cous">12</span>
         <span class="bord cous">
 							<select name="">
 								<option>边框</option>
@@ -226,7 +224,6 @@
                 <li><a>选择板式</a>
                 </li>
                 <li ng-click="getAnswerInfo(1)"><a>题组排序</a>
-                <li ng-click="getAnswerInfo(1)"><a>修改标题</a>
                 </li>
                 <li><a>密封性间距</a>
                 </li>
@@ -1037,8 +1034,8 @@
     <!--设置题组排序弹窗开始-->
     <div class="modal-wrap setSort">
         <div class="modal-shadow modal-exit" ng-click="closeAnswerModel()"></div>
-        <div class="modal-main" style="width:550px;">
-            <div class="modal-exit iconfont modal-exit-icon" ng-click="closeAnswerModel()">&#xe61a;</div>
+        <div class="modal-main modal-scroll" style="width:550px;">
+            <!--<div class="modal-exit iconfont modal-exit-icon">&#xe61a;</div>-->
             <div class="modal-title">题组排序</div>
             <div class="modal-content nomal">
                 <div class="mian-cont">
@@ -1048,7 +1045,7 @@
                     <div class="sort_con">
                         <div class="sort_itme {{$index==sortIndex?'active':''}}" ng-repeat="questionList in bigAnswer" ng-click="selectBigQuestion($index)">
                             <span ng-bind="$index+1"></span>
-                            <span ng-bind="questionList.answer_name"></span>
+                            <span><input type="text" ng-model="questionList.answer_name" ng-blur="setItmeTitle($index,questionList.answer_name)"></span>
                             <span ng-bind="questionList.answer_score"></span>
                         </div>
                     </div>
@@ -1058,8 +1055,8 @@
                         <div class="sort_next fl"><a href="" ng-click="delAnswerGroup()">删除</a></div>
                     </div>
                     <div class="set_sort_big_btn clearfix">
-                        <div class="confirm fr"><a href="">确定</a></div>
-                        <div class="cancel fr"><a href="">取消</a></div>
+                        <div class="confirm fr"><a ng-click="closeAnswerModel()">关闭</a></div>
+                        <!--<div class="cancel fr"><a href="">取消</a></div>-->
                     </div>
                 </div>
             </div>

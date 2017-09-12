@@ -6,6 +6,7 @@ var m1 = angular.module("pro", []);
 //设置控制器
 m1.controller("demo", function ($scope, $timeout, $http) {
     var url = window.location;
+    var isLogin = localStorage.getItem("token");
     $scope.subjectName = window.localStorage.getItem("test_name") + window.localStorage.getItem("subjectname")
     $(".Answer .A_Nav").width($(document).width())
     function getUrlParam(url, name) {//获取页面参数
@@ -780,6 +781,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             $('.setAnswer').show();
         }
         if (type == 1) {
+            var a = $scope.bigAnswer.length>10?600:'auto'
+            $(".modal-scroll").height(a)
             $('.setSort .modal-main').animate({'top': '50%', 'opacity': 1}, 500);
             $('.setSort .modal-shadow').animate({'opacity': 0.3}, 500);
             $('.setSort').show();
@@ -887,6 +890,23 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
     $scope.selectBigQuestion = function (index) {//选中题目
         $scope.sortIndex = index
+    }
+    /**
+     * 设置标题
+     */
+    $scope.setItmeTitle = function (index,name) {
+        var answer_id = $scope.bigAnswer[index].answer_id
+        var newName = name
+        $.ajax({
+                type: "POST",
+                url: "/api/v2/answers/change_name",
+                headers: {'Authorization': "Bearer " + isLogin},
+                data: {"answer_id":answer_id,"name":name},
+                success: function (data) {
+                    console.log(data)
+                }
+            }
+        )
     }
     //比较相邻的table高度大小
     function compare(index,type,page_num) {
