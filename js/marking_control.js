@@ -520,7 +520,23 @@ $(function(){
 				$('#reviewed-'+i+' ul').append(reviewed_li);
 			};
 			var par_id = $('.pr-'+i+'');
-			get_section_info(progress_info.answers[i].answer_id,par_id);
+			// get_section_info(progress_info.answers[i].answer_id,par_id);
+				$(par_id).after('');
+				var select_info = progress_info.answers[i].answer_section_crops;
+				var select_info_length = select_info.length;
+				// console.log(progress_info.answers[i].answer_section_crops)
+				for (var m = select_info_length-1; m >= 0; m--) {
+					var child_tr = '<tr class="child-trs child-trs-'+m+'" style="background:#fafafa" answer-id="'+select_info[m].answer_id+'" answers="'+select_info[m].answer_setting_ids+'"><td colspan="5" data-id="'+select_info[m].id+'"><a class="key-answer" href="javascript:;"><i class="iconfont">&#xe62a;</i>解锁试卷</a><a class="clear-items" style="display:none" href="javascript:;"><i class="iconfont">&#xe616;</i>清空题组</a>'+select_info[m].name+'</td><td colspan="5" class="test-operation"><a href="javascript:;"><span>批阅详情</span><i class="iconfont bottom">&#xe622;</i><i class="iconfont up none">&#xe624;</i></a></td></tr><tr class="child-tr none"><td colspan="10" style="text-align: center"><div class="child-box"><ul class="child-title"><li>阅卷老师</li><li>所在学校</li><li>批改数量</li><li>批阅速度</li><li>平均分</li></ul><ul class="child-cont"></ul></div></td></tr>';
+					$(par_id).after(child_tr);
+					// var par_id = $('.child-trs-'+i+'');
+					// console.log(par_id)
+					// 根据用户身份判断是否可以清空题组权限
+					var role_name = $('#role-name').val();
+					// console.log(role_name)
+					if(role_name=="超级管理员"){
+						$('.clear-items').show();
+					}
+				};
 		};
 	}
 
@@ -963,48 +979,48 @@ $(function(){
 
 	// 获取切割列表
 
-	function get_section_info(answer_id,par_id){
-		console.log(answer_id,par_id)
-		$.ajax({
-			url: ajaxIp + "/api/v2/correct_progress/answer_section_crops",
-			headers: {
-				'Authorization': "Bearer " + isLogin
-			},
-			type: "POST",
-			data: {
-				'answer_id': answer_id,
-			},
-			success: function(data){
-				console.log(data);
-				show_section_info(data,par_id);
-			},
-			error: function() {
-				// alert('请稍后从新尝试登录或者联系管理员');
-				// localStorage.clear();
-				// window.location.href = './login';
-			}
-		});
-	}
+	// function get_section_info(answer_id,par_id){
+	// 	console.log(answer_id,par_id)
+	// 	$.ajax({
+	// 		url: ajaxIp + "/api/v2/correct_progress/answer_section_crops",
+	// 		headers: {
+	// 			'Authorization': "Bearer " + isLogin
+	// 		},
+	// 		type: "POST",
+	// 		data: {
+	// 			'answer_id': answer_id,
+	// 		},
+	// 		success: function(data){
+	// 			console.log(data);
+	// 			show_section_info(data,par_id);
+	// 		},
+	// 		error: function() {
+	// 			// alert('请稍后从新尝试登录或者联系管理员');
+	// 			// localStorage.clear();
+	// 			// window.location.href = './login';
+	// 		}
+	// 	});
+	// }
 
 
 	 // 显示小题名称
-	function show_section_info(select_info,id){
-		$(id).after('');
-		var select_info_length = select_info.length;
-		console.log(select_info_length)
-		for (var i = select_info_length-1; i >= 0; i--) {
-			var child_tr = '<tr class="child-trs child-trs-'+i+'" style="background:#fafafa" answer-id="'+select_info[i].answer_id+'" answers="'+select_info[i].answer_setting_ids+'"><td colspan="5" data-id="'+select_info[i].id+'"><a class="key-answer" href="javascript:;"><i class="iconfont">&#xe62a;</i>解锁试卷</a><a class="clear-items" style="display:none" href="javascript:;"><i class="iconfont">&#xe616;</i>清空题组</a>'+select_info[i].name+'</td><td colspan="5" class="test-operation"><a href="javascript:;"><span>批阅详情</span><i class="iconfont bottom">&#xe622;</i><i class="iconfont up none">&#xe624;</i></a></td></tr><tr class="child-tr none"><td colspan="10" style="text-align: center"><div class="child-box"><ul class="child-title"><li>阅卷老师</li><li>所在学校</li><li>批改数量</li><li>批阅速度</li><li>平均分</li></ul><ul class="child-cont"></ul></div></td></tr>';
-			$(id).after(child_tr);
-			// var par_id = $('.child-trs-'+i+'');
-			// console.log(par_id)
-			// 根据用户身份判断是否可以清空题组权限
-			var role_name = $('#role-name').val();
-			console.log(role_name)
-			if(role_name=="超级管理员"){
-				$('.clear-items').show();
-			}
-		};
-	}
+	// function show_section_info(select_info,id){
+	// 	$(id).after('');
+	// 	var select_info_length = select_info.length;
+	// 	console.log(select_info_length)
+	// 	for (var i = select_info_length-1; i >= 0; i--) {
+	// 		var child_tr = '<tr class="child-trs child-trs-'+i+'" style="background:#fafafa" answer-id="'+select_info[i].answer_id+'" answers="'+select_info[i].answer_setting_ids+'"><td colspan="5" data-id="'+select_info[i].id+'"><a class="key-answer" href="javascript:;"><i class="iconfont">&#xe62a;</i>解锁试卷</a><a class="clear-items" style="display:none" href="javascript:;"><i class="iconfont">&#xe616;</i>清空题组</a>'+select_info[i].name+'</td><td colspan="5" class="test-operation"><a href="javascript:;"><span>批阅详情</span><i class="iconfont bottom">&#xe622;</i><i class="iconfont up none">&#xe624;</i></a></td></tr><tr class="child-tr none"><td colspan="10" style="text-align: center"><div class="child-box"><ul class="child-title"><li>阅卷老师</li><li>所在学校</li><li>批改数量</li><li>批阅速度</li><li>平均分</li></ul><ul class="child-cont"></ul></div></td></tr>';
+	// 		$(id).after(child_tr);
+	// 		// var par_id = $('.child-trs-'+i+'');
+	// 		// console.log(par_id)
+	// 		// 根据用户身份判断是否可以清空题组权限
+	// 		var role_name = $('#role-name').val();
+	// 		console.log(role_name)
+	// 		if(role_name=="超级管理员"){
+	// 			$('.clear-items').show();
+	// 		}
+	// 	};
+	// }
 
 
 	// 点击批阅详情显示进度
