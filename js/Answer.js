@@ -885,6 +885,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         obj.score = 1;
         obj.setting_num = parseInt($scope.answers[0].settings[len - 1].setting_num) + 1
         obj.type_count = parseInt($scope.answers[0].settings[len - 1].type_count)
+        obj.answer_setting_page = $scope.answers[0].answer_setting_page
         var resultArr = []
         for(var i = 0;i < obj.type_count;i++){
             resultArr.push(0)
@@ -895,8 +896,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         param["answer_setting[result]"] = obj.setting_result //答案选项
         param["answer_setting[num]"] = obj.setting_num//题号
         param["answer_setting[score]"] = obj.score//默认1分
-        param["answer_setting[type_count]"] = $scope.answers[0].type == 'xz' ? 4 : 2  //选项个数
+        param["answer_setting[type_count]"] = obj.type_count  //选项个数
         param["answer_setting[sort]"] = obj.setting_num
+        param["answer_setting[page]"] = obj.answer_setting_page
         param["answer_setting[exam_subject_id]"] = getUrlParam(url, 'examubjeId')
         $scope.AnsLen++
         var isLogin = localStorage.getItem("token");
