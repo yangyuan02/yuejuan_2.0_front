@@ -884,11 +884,12 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var obj = {}
         obj.score = 1;
         obj.setting_num = parseInt($scope.answers[0].settings[len - 1].setting_num) + 1
-        if ($scope.answers[0].type == 'xz') {
-            obj.setting_result = "0,0,0,0"
-        } else {
-            obj.setting_result = "0,0"
+        obj.type_count = parseInt($scope.answers[0].settings[len - 1].type_count)
+        var resultArr = []
+        for(var i = 0;i < obj.type_count;i++){
+            resultArr.push(0)
         }
+        obj.setting_result = resultArr.join(',')
         var param = {}
         param["answer_setting[answer_id]"] = $scope.answers[0].answer_id//题组id
         param["answer_setting[result]"] = obj.setting_result //答案选项
