@@ -2478,8 +2478,9 @@ angular.module("myApp.controller", [])
                 },
                 success: function(data) {
                     console.log(data);
+                    $(".study_k_102_bo").html(" ");
                     for (var i = 0; i < data.length; i++) {
-                        $(".study_k_102_bo").append('<tr><td>' + data[i].id + '</td><td>' + data[i].class_name + '</td><td>' + data[i].subject_name + '</td><td>' + data[i].id + '</td><td>' + data[i].average + '</td><td>' + data[i].highest_score + '</td><td>' + data[i].lowest_score + '</td><td>' + data[i].range + '</td><td>' + data[i].fine_number + '</td><td>' + data[i].fine_rate + '</td><td>' + data[i].pass_number + '</td><td>' + data[i].pass_rate + '</td><td>' + data[i].fail_number + '</td><td>' + data[i].standard_deviation + '</td></tr>');
+                        $(".study_k_102_bo").append('<tr><td>' + data[i].class_name + '</td><td>' + data[i].subject_name + '</td><td>' + data[i].average + '</td><td>' + data[i].highest_score + '</td><td>' + data[i].lowest_score + '</td><td>' + data[i].range + '</td><td>' + data[i].fine_number + '</td><td>' + data[i].fine_rate + '</td><td>' + data[i].pass_number + '</td><td>' + data[i].pass_rate + '</td><td>' + data[i].fail_number + '</td><td>' + data[i].standard_deviation + '</td></tr>');
                     }
 
 
