@@ -6,7 +6,9 @@ var m1 = angular.module("pro", []);
 //设置控制器
 m1.controller("demo", function ($scope, $timeout, $http) {
     var url = window.location;
+    var isLogin = localStorage.getItem("token");
     $scope.subjectName = window.localStorage.getItem("test_name") + window.localStorage.getItem("subjectname")
+    $(".Answer .A_Nav").width($(document).width())
     function getUrlParam(url, name) {//获取页面参数
         var pattern = new RegExp("[?&]" + name + "\=([^&]+)", "g");
         var matcher = pattern.exec(url);
@@ -610,7 +612,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             var itme_obj = {}
             itme_obj.no = i//大题编号
             itme_obj.total_score = parseInt(obj[i - 1].totalCores)//答题总分
-            itme_obj.string = answer_id[i - 1].answers.answer_name//大题标题
+            itme_obj.string = obj[i - 1].name//大题标题
             itme_obj.answer_id = answer_id[i - 1].answers.answer_id//题组ID
             itme_obj.answer_mode = answerModeType(obj[i - 1].type)//题目类型
             itme_obj.current_page = obj[i - 1].current_page//当前页面
@@ -713,6 +715,47 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         return allList
     }
 
+    //查找在那个全局变量
+    function findScopeList(index,options) {
+        var len1 = $scope.listObj.length, len2 = $scope.listObj2.length, len3 = $scope.listObj3.length, len4 = $scope.listObj4.length
+        console.log(options)
+        if (index <= len1 - 1) {
+            if(options.type==0){//修改标题
+                $scope.listObj[index].name =options.name
+            }
+            if(options.type==1){//增加小题
+                $scope.listObj[index].no.push(options.no)
+            }
+            if(options.type==2){//删除小题
+                $scope.listObj[index].no.pop()
+            }
+        }
+        if (index >= len1 && index < len1 + len2) {
+            if(options.type==0){
+                $scope.listObj2[index - len1].name =options.name
+            }
+            if(options.type==1){//增加小题
+                $scope.listObj2[index - len1].no.push(options.no)
+            }
+        }
+        if (index >= len1 + len2 && index < len1 + len2 + len3) {
+            if(options.type==0){
+                $scope.listObj3[index - len1 - len2].name =options.name
+            }
+            if(options.type==1){//增加小题
+                $scope.listObj3[index - len1 - len2].no.push(options.no)
+            }
+        }
+        if (index >= len1 + len2 + len3 && index < len1 + len2 + len3 + len4) {
+            if(options.type==0){
+                $scope.listObj4[index - len1 - len2 - len3].name =options.name
+            }
+            if(options.type==1){//增加小题
+                $scope.listObj4[index - len1 - len2 - len3].no.push(options.no)
+            }
+        }
+    }
+
     $scope.dayin = function () {//打印
         $(".A_Nav").css({"display": "none"})
         $(".Answer .A_L").css({"display": "none"})
@@ -738,6 +781,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             headers: {'Authorization': "Bearer " + isLogin},
             async: false,
             success: function (data) {
+                $scope.beforeBigAns = data.answers//没有过滤前
                 if (type == 0) {
                     $scope.bigAnswer = data.answers.filter(function (ele) {//过滤出选择题是非题
                         return ele.type == 'xz' || ele.type == 'sf' || ele.type == 'dx'
@@ -779,6 +823,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             $('.setAnswer').show();
         }
         if (type == 1) {
+            var a = $scope.bigAnswer.length>10?600:'auto'
+            $(".modal-scroll").height(a)
             $('.setSort .modal-main').animate({'top': '50%', 'opacity': 1}, 500);
             $('.setSort .modal-shadow').animate({'opacity': 0.3}, 500);
             $('.setSort').show();
@@ -865,6 +911,16 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.answers[0].settings.push(obj)
             }
         })
+        var options = {}
+        options.type = 1
+        options.no = obj.setting_num
+        var index;
+        for(var i = 0;i<$scope.beforeBigAns.length;i++){
+            if(param["answer_setting[answer_id]"]==$scope.beforeBigAns[i].answer_id){
+                index = i
+            }
+        }
+        findScopeList(index,options)
     }
     $scope.deleAnswer = function () {//删除小题
         var isLogin = localStorage.getItem("token");
@@ -883,9 +939,37 @@ m1.controller("demo", function ($scope, $timeout, $http) {
 
             }
         });
+        var options = {}
+        options.type = 2
+        var index;
+        for(var i = 0;i<$scope.beforeBigAns.length;i++){
+            if($scope.answers[0].answer_id==$scope.beforeBigAns[i].answer_id){
+                index = i
+            }
+        }
+        findScopeList(index,options)
     }
     $scope.selectBigQuestion = function (index) {//选中题目
         $scope.sortIndex = index
+    }
+    /**
+     * 设置标题
+     */
+    $scope.setItmeTitle = function (index,name) {
+        var answer_id = $scope.bigAnswer[index].answer_id
+        var options = {}
+        options.type = 0
+        options.name = name
+        $.ajax({
+                type: "POST",
+                url: "/api/v2/answers/change_name",
+                headers: {'Authorization': "Bearer " + isLogin},
+                data: {"answer_id":answer_id,"name":name},
+                success: function (data) {
+                    findScopeList(index,options)
+                }
+            }
+        )
     }
     //比较相邻的table高度大小
     function compare(index,type,page_num) {
@@ -1079,6 +1163,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     function findScopeListDele(index) {
         var len1 = $scope.listObj.length, len2 = $scope.listObj2.length, len3 = $scope.listObj3.length, len4 = $scope.listObj4.length
         if (index <= len1 - 1) {
+            console.log($scope.listObj)
             $scope.listObj.splice(index, 1)
             console.log("删除list1")
         }
@@ -1094,14 +1179,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             $scope.listObj4.splice(index - len1 - len2 - len3, 1)
             console.log("删除list4")
         }
-        // allList_1.splice(index,1)
-        // deleRender()
-        // console.log(len1, len2, len3, len4, index)
     }
 
     //删除题组
     $scope.delAnswerGroup = function () {
         var answer_id_item = $scope.bigAnswer[$scope.sortIndex].answer_id
+        var answer_score = $scope.bigAnswer[$scope.sortIndex].answer_score
+
         var isLogin = localStorage.getItem("token");
         var index;
         for (var i = 0; i < answer_id.length; i++) {
@@ -1123,6 +1207,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.bigAnswer.splice($scope.sortIndex,1)
                 findScopeListDele($scope.sortIndex)
                 answer_id.splice(index,1)
+                count(-parseInt(answer_score))
             },
             error: function(){
 

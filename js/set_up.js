@@ -6,13 +6,85 @@ $(function() {
 	var isAdd = true;
 	var isStudent = true;
 	selectALl(null,null);
-	students_selectALl(null,null);
+	// students_selectALl(null,null);
 	selectGrades('.user-information-right');
 	selectGrades('.user-change-password');
 	selectGrades('.temporary-student-right');
-	batch_export('.user-information-right',null);
-	batch_export('.user-change-password',null);
-	batch_export('.temporary-student-right',null);
+
+	// 导出老师
+	$('.Lead-in-teacher a').click(function(){
+		var grade_id = $('.user-information-right #select-grade').val();
+		var subject_id = $('.user-information-right #select-sujects').val();
+		if(grade_id == 0 && subject_id==0){
+			batch_export('.user-information-right',null);
+		}
+		if(grade_id!=0){
+			batch_export('.user-information-right',["grade_id",grade_id]);
+		}
+
+		if(subject_id!=0 && grade_id!=0){
+			var iData = [
+				"grade_id",grade_id,
+				"subject_id",subject_id,
+			]
+			batch_export('.user-information-right',iData);
+		}else if(subject_id==0 && grade_id!=0){
+			batch_export('.user-information-right',["grade_id",grade_id]);
+		}
+	})
+	// batch_export('.user-information-right',null);
+
+	// 导出学生
+	$('.user-change-password .Lead-in-student a').click(function(){
+		var grade_id = $('.user-change-password #select-grade').val();
+		var classroom_id = $('.user-change-password #select-sujects').val();
+		console.log(grade_id,classroom_id)
+
+		if(grade_id == 0 && classroom_id==0){
+			batch_export('.user-change-password',null);
+		}
+
+		if(grade_id!=0){
+			batch_export('.user-change-password',["grade_id",grade_id]);
+		}
+
+		if(classroom_id!=0 && grade_id!=0){
+			var iData = [
+				"grade_id",grade_id,
+				"classroom_id",classroom_id,
+			]
+			batch_export('.user-change-password',iData);
+		}else if(classroom_id==0 && grade_id!=0){
+			batch_export('.user-change-password',["grade_id",grade_id]);
+		}
+	})
+	// batch_export('.user-change-password',null);
+
+		// 导出临时学生
+	$('.temporary-student-right .Lead-in-student a').click(function(){
+		var grade_id = $('.temporary-student-right #select-grade').val();
+		var classroom_id = $('.temporary-student-right #select-sujects').val();
+		console.log(grade_id,classroom_id)
+
+		if(grade_id == 0 && classroom_id==0){
+			batch_export('.temporary-student-right',null);
+		}
+
+		if(grade_id!=0){
+			batch_export('.temporary-student-right',["grade_id",grade_id]);
+		}
+
+		if(classroom_id!=0 && grade_id!=0){
+			var iData = [
+				"grade_id",grade_id,
+				"classroom_id",classroom_id,
+			]
+			batch_export('.temporary-student-right',iData);
+		}else if(classroom_id==0 && grade_id!=0){
+			batch_export('.temporary-student-right',["grade_id",grade_id]);
+		}
+	})
+	// batch_export('.temporary-student-right',null);
 	// schoolGrades();
 	$('#inPath').change(function(){
 		inputFlileName()
@@ -404,10 +476,10 @@ $(function() {
 			// $('.user-information-right #select-sujects').html('<option value="0">全部科目</option>');
 			selectSubjects($(this).val());
 			selectALl(["grade_id",$(this).val()]);
-			batch_export('.user-information-right',["grade_id",$(this).val()]);
+			// batch_export('.user-information-right',["grade_id",$(this).val()]);
 		}else{
 			selectALl(null,null);
-			batch_export('.user-information-right',null);
+			// batch_export('.user-information-right',null);
 			$('.user-information-right #select-sujects').html('<option value="0">全部科目</option>');
 		}
 
@@ -417,12 +489,12 @@ $(function() {
 
 		if($(this).val()!=0){
 			$('.user-change-password #select-sujects').html('<option value="0">全部班级</option>');
-			studentSelectSubjects($(this).val());
+			studentSelectSubjects($(this).val(),'.user-change-password');
 			students_selectALl(["grade_id",$(this).val()]);
-			batch_export('.user-change-password',["grade_id",$(this).val()]);
+			// batch_export('.user-change-password',["grade_id",$(this).val()]);
 		}else{
 			students_selectALl(null,null);
-			batch_export('.user-change-password',null);
+			// batch_export('.user-change-password',null);
 			$('.user-change-password #select-sujects').html('<option value="0">全部班级</option>');
 		}
 
@@ -432,16 +504,16 @@ $(function() {
 
 		if($(this).val()!=0){
 			$('.temporary-student-right #select-sujects').html('<option value="0">全部班级</option>');
-			studentSelectSubjects($(this).val());
+			studentSelectSubjects($(this).val(),'.temporary-student-right');
 			var iData = [
-				"grade_id",$(this).val(),
 				"is_extra",true,
+				"grade_id",$(this).val(),
 			]
 			students_selectALl(iData);
-			batch_export('.temporary-student-right',["grade_id",$(this).val()]);
+			// batch_export('.temporary-student-right',["grade_id",$(this).val()]);
 		}else{
 			students_selectALl(["is_extra",true]);
-			batch_export('.temporary-student-right',null);
+			// batch_export('.temporary-student-right',null);
 			$('.temporary-student-right #select-sujects').html('<option value="0">全部班级</option>');
 		}
 
@@ -454,12 +526,12 @@ $(function() {
 				"subject_id",$(this).val(),
 			]
 			selectALl(iData);
-			batch_export('.user-information-right',iData);
+			// batch_export('.user-information-right',iData);
 		}else if($(this).val()==0 && $('.user-information-right #select-grade').val()!=0){
 			$('.user-information-right #select-sujects').html('<option value="0">全部科目</option>');
 			selectSubjects($('.user-information-right #select-grade').val());
 			selectALl(["grade_id",$('.user-information-right #select-grade').val()]);
-			batch_export('.user-information-right',["grade_id",$('.user-information-right #select-grade').val()]);
+			// batch_export('.user-information-right',["grade_id",$('.user-information-right #select-grade').val()]);
 		}
 	});
 
@@ -470,34 +542,34 @@ $(function() {
 				"classroom_id",$(this).val(),
 			]
 			students_selectALl(iData);
-			batch_export('.user-change-password',iData);
+			// batch_export('.user-change-password',iData);
 		}else if($(this).val()==0 && $('.user-change-password #select-grade').val()!=0){
 			$('.user-change-password #select-sujects').html('<option value="0">全部年级</option>');
-			studentSelectSubjects($('.user-change-password #select-grade').val());
+			studentSelectSubjects($('.user-change-password #select-grade').val(),'.user-change-password');
 			students_selectALl(["grade_id",$('.user-change-password #select-grade').val()]);
-			batch_export('.user-change-password',["grade_id",$('.user-change-password #select-grade').val()]);
+			// batch_export('.user-change-password',["grade_id",$('.user-change-password #select-grade').val()]);
 		}
 	});
 
 	$('.temporary-student-right #select-sujects').change(function(){
 		if($(this).val()!=0 && $('.temporary-student-right #select-grade').val()!=0){
 			var iData = [
+				"is_extra",true,
 				"grade_id",$('.temporary-student-right #select-grade').val(),
 				"classroom_id",$(this).val(),
-				"is_extra",true,
 			]
 			students_selectALl(iData);
-			batch_export('.temporary-student-right',["grade_id",$('.temporary-student-right #select-grade').val(),
-				"classroom_id",$(this).val()]);
+			// batch_export('.temporary-student-right',["grade_id",$('.temporary-student-right #select-grade').val(),
+				// "classroom_id",$(this).val()]);
 		}else if($(this).val()==0 && $('.temporary-student-right #select-grade').val()!=0){
 			$('.temporary-student-right #select-sujects').html('<option value="0">全部年级</option>');
-			studentSelectSubjects($('.temporary-student-right #select-grade').val());
+			studentSelectSubjects($('.temporary-student-right #select-grade').val(),'.temporary-student-right');
 			var iData = [
-				"grade_id",$('.temporary-student-right #select-grade').val(),
 				"is_extra",true,
+				"grade_id",$('.temporary-student-right #select-grade').val(),
 			]
 			students_selectALl(iData);
-			batch_export('.temporary-student-right',["grade_id",$('.temporary-student-right #select-grade').val()]);
+			// batch_export('.temporary-student-right',["grade_id",$('.temporary-student-right #select-grade').val()]);
 		}
 	});
 
@@ -565,6 +637,7 @@ $(function() {
 			console.log(data_value)
 			$.ajax({
 	     	type: "GET",
+	     	async:false,
 	     	url: ajaxIp+"/api/v2/teachers/batch_export",
 	    	dataType: "JSON",
 	    	headers: {'Authorization': "Bearer " + isLogin},
@@ -574,6 +647,9 @@ $(function() {
 	    		console.log(data,data_value)
 	  			if(data.filepath){
 	  				$('.Lead-in-teacher a').attr('href', ajaxIp+data.filepath);
+	  				// $('.Lead-in-teacher a',this).click();
+	  				// $(".Lead-in-teacher a strong").trigger("click");
+	  				console.log(99)
 	  			}
 	        },
 	        error: function(){
@@ -607,6 +683,7 @@ $(function() {
 
     $.ajax({
      	type: "GET",
+     	async:false,
      	url: ajaxIp+"/api/v2/students/batch_export",
     	dataType: "JSON",
     	data: data_all,
@@ -664,6 +741,7 @@ $(function() {
 	        onPageChange: function (num) {
 	        	console.log(iData)
 				var iDataI = {'page':num, 'limit': 10};
+				console.log(iData,iDataI)
 				if(iData!=null){
 					for (var i = 0; i < iData.length; i+=2) {
 						iDataI[iData[i]] = iData[i+1];
@@ -698,45 +776,8 @@ $(function() {
 		}else{
 			ii_num=Math.ceil(num/10);
 		}
-		$.jqPaginator('#students-pagination', {
-	        totalPages:ii_num,
-	        visiblePages: 5,
-	        currentPage: 1,
-	        disableClass: 'disableClass',
-	        activeClass:'activeClass',
-	        prev: '<li class="prev"><a href="javascript:;" class="pagination-color">上一页</a></li>',
-	        next: '<li class="next"><a href="javascript:;" class="pagination-color">下一页</a></li>',
-	        first: '<li class="prev"><a href="javascript:;" class="pagination-color">首页</a></li>',
-	        last: '<li class="next"><a href="javascript:;" class="pagination-color">尾页</a></li>',
-	        page: '<li class="page"><a href="javascript:;" class="pagination-color">{{page}}</a></li>',
-	        onPageChange: function (num) {
-	        	console.log(iData)
-				var iDataI = {'page':num, 'limit': 10};
-				if(iData!=null){
-					for (var i = 0; i < iData.length; i+=2) {
-						iDataI[iData[i]] = iData[i+1];
-					}
-				}
-	            $.ajax({
-			     	type: "GET",
-			     	url: ajaxIp+"/api/v2/students",
-			    	dataType: "JSON",
-			    	headers: {'Authorization': "Bearer " + isLogin},
-			    	data: iDataI,
-			    	success: function(data){
-			    		console.log(data,iDataI)
-			    		console.log(1111111111111111111)
-			  			students_list(data.students);
-			        },
-			        error: function(){
-			        	// alert('请稍后从新尝试登录或者联系管理员');
-			        	// localStorage.clear();
-			        	// window.location.href = './login.html'
-			        }
-			    });
-	        }
-	    });
-
+		if(iData[1]==true){
+			console.log('truetrue');
 			$.jqPaginator('#temporary-pagination', {
 	        totalPages:ii_num,
 	        visiblePages: 5,
@@ -775,6 +816,48 @@ $(function() {
 			    });
 	        }
 	    });
+		}else{
+			$.jqPaginator('#students-pagination', {
+	        totalPages:ii_num,
+	        visiblePages: 5,
+	        currentPage: 1,
+	        disableClass: 'disableClass',
+	        activeClass:'activeClass',
+	        prev: '<li class="prev"><a href="javascript:;" class="pagination-color">上一页</a></li>',
+	        next: '<li class="next"><a href="javascript:;" class="pagination-color">下一页</a></li>',
+	        first: '<li class="prev"><a href="javascript:;" class="pagination-color">首页</a></li>',
+	        last: '<li class="next"><a href="javascript:;" class="pagination-color">尾页</a></li>',
+	        page: '<li class="page"><a href="javascript:;" class="pagination-color">{{page}}</a></li>',
+	        onPageChange: function (num) {
+	        	console.log(iData)
+				var iDataI = {'page':num, 'limit': 10};
+				if(iData!=null){
+					for (var i = 0; i < iData.length; i+=2) {
+						iDataI[iData[i]] = iData[i+1];
+					}
+				}
+	            $.ajax({
+			     	type: "GET",
+			     	url: ajaxIp+"/api/v2/students",
+			    	dataType: "JSON",
+			    	headers: {'Authorization': "Bearer " + isLogin},
+			    	data: iDataI,
+			    	success: function(data){
+			    		console.log(data,iDataI)
+			    		console.log(1111111111111111111)
+			  			students_list(data.students);
+			        },
+			        error: function(){
+			        	// alert('请稍后从新尝试登录或者联系管理员');
+			        	// localStorage.clear();
+			        	// window.location.href = './login.html'
+			        }
+			    });
+	        }
+	    });
+		}
+
+
 	}
 
 
@@ -813,7 +896,7 @@ $(function() {
 		$(name+' #select-grade').html('<option value="0">全部年级</option>');
 		for (var i = 0; i < data.length; i++) {
 			var iOption = '<option value="'+data[i].id+'">'+data[i].name+'</option>'
-			console.log(i)
+			// console.log(i)
 			$(name+' #select-grade').append(iOption);
 		}
 	}
@@ -837,7 +920,7 @@ $(function() {
 	    });
 	}
 
-	function studentSelectSubjects(id){
+	function studentSelectSubjects(id,name){
 		$.ajax({
 	     	type: "GET",
 	     	url: ajaxIp+"/api/v2/commons/"+id+"/grade_classrooms",
@@ -846,8 +929,8 @@ $(function() {
 	    	success: function(data){
 	    		console.log(data)
 	    		console.log(111111111111111)
-	  			selectSubjectsList(data , '.user-change-password');
-	  			selectSubjectsList(data , '.temporary-student-right');
+	  			selectSubjectsList(data , name);
+	  			// selectSubjectsList(data , '.temporary-student-right');
 
 	        },
 	        error: function(){
@@ -859,6 +942,7 @@ $(function() {
 	}
 
 	function selectSubjectsList(data , name){
+		// $('#select-sujects').html('');
 		$('#select-sujects').html('<option value="0">全部科目</option>');
 		if(name == '.user-change-password' || name == '.temporary-student-right'){
 			for (var i = 0; i < data.length; i++) {
@@ -2044,11 +2128,11 @@ $(function() {
   	$('.user-right').eq(index).show().siblings('.user-right').hide();
   	if($(this).hasClass('temporary-student')){
   		students_selectALl(["is_extra",true]);
-  		batch_export('.temporary-student-right',null);
+  		// batch_export('.temporary-student-right',null);
   	}
   	if($(this).hasClass('change-password')){
   		students_selectALl(["is_extra",false]);
-  		batch_export('.user-change-password',null)
+  		// batch_export('.user-change-password',null)
   	}
   });
 
