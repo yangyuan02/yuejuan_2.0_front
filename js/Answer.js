@@ -616,7 +616,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             itme_obj.answer_id = answer_id[i - 1].answers.answer_id//题组ID
             itme_obj.answer_mode = answerModeType(obj[i - 1].type)//题目类型
             itme_obj.current_page = obj[i - 1].current_page//当前页面
-            itme_obj.num_question = parseInt(obj[i - 1].numbel)//题目数量
+            itme_obj.num_question = answer_id[i - 1].answers.settings.length//题目数量
             itme_obj.region_rect_x = regionRect(i - 1).region_rect_x//题组区域的X坐标
             itme_obj.region_rect_y = regionRect(i - 1).region_rect_y - 1126 * (itme_obj.current_page - 1)//题组区域的Y坐标
             itme_obj.region_rect_width = 698//题组区域的宽度
@@ -656,7 +656,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             BigQuestion.push(itme_obj)
         }
         for (var i = 0; i < BigQuestion.length; i++) {
-            BigQuestion[i].question = getQuestion(obj[i].numbel, obj[i].itemNumber, i, obj[i].type, obj[i].itemCores, obj[i].current_page, obj[i].startNo)
+            BigQuestion[i].question = getQuestion(answer_id[i].answers.settings.length, obj[i].itemNumber, i, obj[i].type, obj[i].itemCores, obj[i].current_page, obj[i].startNo)
         }
         BigQuestion.push(getStudentInfo())//添加考生信息
         return BigQuestion
@@ -884,18 +884,21 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var obj = {}
         obj.score = 1;
         obj.setting_num = parseInt($scope.answers[0].settings[len - 1].setting_num) + 1
-        if ($scope.answers[0].type == 'xz') {
-            obj.setting_result = "0,0,0,0"
-        } else {
-            obj.setting_result = "0,0"
+        obj.type_count = parseInt($scope.answers[0].settings[len - 1].type_count)
+        obj.answer_setting_page = $scope.answers[0].answer_setting_page
+        var resultArr = []
+        for(var i = 0;i < obj.type_count;i++){
+            resultArr.push(0)
         }
+        obj.setting_result = resultArr.join(',')
         var param = {}
         param["answer_setting[answer_id]"] = $scope.answers[0].answer_id//题组id
         param["answer_setting[result]"] = obj.setting_result //答案选项
         param["answer_setting[num]"] = obj.setting_num//题号
         param["answer_setting[score]"] = obj.score//默认1分
-        param["answer_setting[type_count]"] = $scope.answers[0].type == 'xz' ? 4 : 2  //选项个数
+        param["answer_setting[type_count]"] = obj.type_count  //选项个数
         param["answer_setting[sort]"] = obj.setting_num
+        param["answer_setting[page]"] = obj.answer_setting_page
         param["answer_setting[exam_subject_id]"] = getUrlParam(url, 'examubjeId')
         $scope.AnsLen++
         var isLogin = localStorage.getItem("token");
@@ -908,6 +911,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             success: function (data) {
                 console.log(data)
                 obj.setting_id = data.result.id
+                obj.type_count = data.result.type_count
                 $scope.answers[0].settings.push(obj)
             }
         })
@@ -920,6 +924,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 index = i
             }
         }
+        answer_id[index].answers.settings.push(obj)
         findScopeList(index,options)
     }
     $scope.deleAnswer = function () {//删除小题
@@ -947,6 +952,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 index = i
             }
         }
+        answer_id[index].answers.settings.pop()
+        console.log(answer_id)
         findScopeList(index,options)
     }
     $scope.selectBigQuestion = function (index) {//选中题目
@@ -956,7 +963,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
      * 设置标题
      */
     $scope.setItmeTitle = function (index,name) {
-        var answer_id = $scope.bigAnswer[index].answer_id
+        var answerId = $scope.bigAnswer[index].answer_id
         var options = {}
         options.type = 0
         options.name = name
@@ -964,8 +971,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 type: "POST",
                 url: "/api/v2/answers/change_name",
                 headers: {'Authorization': "Bearer " + isLogin},
-                data: {"answer_id":answer_id,"name":name},
+                data: {"answer_id":answerId,"name":name},
                 success: function (data) {
+                    answer_id[index].answers.answer_name = name
                     findScopeList(index,options)
                 }
             }

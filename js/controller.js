@@ -3017,6 +3017,8 @@ $(".exam_z_101 button").click(function(event) {
                     "subject_id": sub_id,
                 },
                 success: function(data) {
+                    $(".exam_z_102_he").html(" ");
+                    $(".exam_z_102_bo").html(" ");
                     console.log(data);
                     for (var i = 0; i < data.titile.length; i++) {
 
@@ -3065,6 +3067,8 @@ $(".exam_z_101 button").click(function(event) {
                 },
                 success: function(data) {
                     console.log(data);
+                    $(".exam_z_201_he").html(" ");
+                    $(".exam_z_201_bo").html(" ");
                     for (var i = 0; i < data.titile.length; i++) {
 
                         $(".exam_z_201_he").append('<th>' + data.titile[i] + '</th>');
@@ -3415,7 +3419,6 @@ $(".exam_h_left_ul").on('click', 'li', function(event) {
             if (sub_id == null) {
                 var sub_id = parseInt($(".exam_h_km03").attr("data-id"));
             }
-
             console.log(exam_id);
             console.log(class_id);
             console.log(sub_id);
@@ -3427,9 +3430,12 @@ $(".exam_h_left_ul").on('click', 'li', function(event) {
                 },
                 data: {
                     "exam_id": exam_id,
+                     "subject_id":sub_id,
                 },
                 success: function(data) {
                     console.log(data);
+                    $(".exam_h_102_he").html("  ");
+                    $(".exam_h_102_bo").html("  ");
                     var a = data[0];
                     var b = data[1];
                     for (var i = 0; i < a.length; i++) {
@@ -3477,11 +3483,9 @@ $(".exam_h_left_ul").on('click', 'li', function(event) {
                 },
                 success: function(data) {
                     console.log(data);
-
                      $(".exam_h_201_he").html(" ");                   
                      $(".exam_h_201_bo").html(" ");
                     for (var i = 0; i < data.titile.length; i++) {
-
                         $(".exam_h_201_he").append('<th>' + data.titile[i] + '</th>');
                     };
                     for (var i = 0; i < data.data.length; i++) {
@@ -3493,7 +3497,6 @@ $(".exam_h_left_ul").on('click', 'li', function(event) {
                         }
 
                     }
-
                 },
                 error: function() {
 
@@ -3720,12 +3723,12 @@ $(".exam_h_left_ul").on('click', 'li', function(event) {
         // 控制select的数量
 
         $(".exam_h_101 span").eq(1).hide();
-        $(".exam_h_101 span").eq(2).hide();
+        // $(".exam_h_101 span").eq(2).hide();
 
         $("#exam_h_left_1l").click(function(event) {
             /* Act on the event */
             $(".exam_h_101 span").eq(1).hide();
-            $(".exam_h_101 span").eq(2).hide();
+            // $(".exam_h_101 span").eq(2).hide();
 
         });
 
