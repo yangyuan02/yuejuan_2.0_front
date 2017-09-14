@@ -39,6 +39,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.showItmeScoreType = 0
     $scope.showItmeScore = ['不显示分数','显示分数'];
     $scope.result = {};//弹出框保存
+    var modelParam = []//存储请求参数
     var answer_id = []//大题answer_id
     var allHeight = [] //页面上所有table高度
     $scope.getAnswer = function () {//获取题目模板
@@ -266,6 +267,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         return result
     }
+
     /**
      * 计算总分
      * @param itmeScore
@@ -301,7 +303,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         param["answer[name]"] = data.name//题组名称
         param["answer_setting[count]"] = data.type == 4 ? 1 : data.numbel//试题数量 panduan
         param["answer_setting[num]"] = data.startNo//起始序号
-        param["answer_setting[page]"] = data.currentPage == undefined ? 1 : data.currentPage//所在页码
+        // param["answer_setting[page]"] = data.currentPage == undefined ? 1 : data.currentPage//所在页码
         param["answer_setting[score]"] = data.type == 4 ? data.totalCores : data.itemCores//每题分值 panduan
         param["answer_setting[type_count]"] = data.itemNumber//选项个数 panduan
         if (data.type == 4) {
@@ -309,6 +311,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             param["answer_setting[lattice_columns]"] = data.row//格子列数 panduan
             param["answer_setting[lattice_total]]"] = data.plaid//格子总数 panduan
         }
+        modelParam.push(param)
+        window.localStorage.setItem(getUrlParam(url, 'examubjeId'),JSON.stringify(modelParam))
         $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/answers",
@@ -359,7 +363,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             numbel: $scope.index == 4 ? 1 : parseInt($scope.result.numbel),//试题数量
             isradio: $scope.result.isradio,//单选多选
             startNo: parseInt($scope.result.no),//起始序号
-            currentPage: $scope.result.page == undefined ? 1 : $scope.result.page,//所在页码
+            // currentPage: $scope.result.page == undefined ? 1 : $scope.result.page,//所在页码
             no: noarray,//选项个数数组,
             itemNumber: itemNumber,//选项个数
             totalCores: $scope.index == 4 ? parseInt($scope.result.writscore) : totaltwo,//总分
@@ -737,6 +741,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             if(options.type==1){//增加小题
                 $scope.listObj2[index - len1].no.push(options.no)
             }
+            if(options.type==2){//删除小题
+                $scope.listObj2[index - len1].no.pop()
+            }
         }
         if (index >= len1 + len2 && index < len1 + len2 + len3) {
             if(options.type==0){
@@ -745,6 +752,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             if(options.type==1){//增加小题
                 $scope.listObj3[index - len1 - len2].no.push(options.no)
             }
+            if(options.type==2){//删除小题
+                $scope.listObj3[index - len1 - len2].no.pop()
+            }
         }
         if (index >= len1 + len2 + len3 && index < len1 + len2 + len3 + len4) {
             if(options.type==0){
@@ -752,6 +762,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
             if(options.type==1){//增加小题
                 $scope.listObj4[index - len1 - len2 - len3].no.push(options.no)
+            }
+            if(options.type==2){//删除小题
+                $scope.listObj4[index - len1 - len2 - len3].no.pop()
             }
         }
     }
@@ -771,7 +784,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         // return false;
     }
     $scope.start = 0, $scope.end = 1
-    function getAnswerInfoTask(type) {//获取生成答题卡
+    function getAnswerInfoTask(type) {//获取生成答题卡详情
         var isLogin = localStorage.getItem("token");
         $scope.nub = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
         $scope.rightNub = ["T", "F"]
@@ -781,16 +794,22 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             headers: {'Authorization': "Bearer " + isLogin},
             async: false,
             success: function (data) {
+                console.log(data)
                 $scope.beforeBigAns = data.answers//没有过滤前
                 if (type == 0) {
                     $scope.bigAnswer = data.answers.filter(function (ele) {//过滤出选择题是非题
                         return ele.type == 'xz' || ele.type == 'sf' || ele.type == 'dx'
                     })
-                } else {
+                }else if(type==2){
+                    $scope.bigAnswer = data.answers.filter(function (ele) {//过滤出主观题
+                        return ele.type == 'qt' || ele.type == 'tk'
+                    })
+                }
+                else {
                     $scope.bigAnswer = data.answers
                 }
                 $scope.answers = $scope.bigAnswer.slice($scope.start, $scope.end)//设置答案弹窗数组
-                $scope.AnsLen = $scope.answers[0].settings.length
+                $scope.AnsLen = $scope.answers.length>0?$scope.answers[0].settings.length:0
             },
             error: function () {
 
@@ -799,8 +818,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
 
     $scope.getAnswerInfo = function (type) {
+        console.log(type)
         if ($scope.listObj.length <= 0) {
-            alert("请添加客观题")
+            alert("请添题组")
             return
         }
         if ($scope.newAnswerLen > $scope.oldAnswerLen) {
@@ -812,10 +832,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
         }
         getAnswerInfoTask(type)
-        // console.log($scope.bigAnswer)
         if (type == 0) {//设置答案
             if (!$scope.answers) {
-                alert("暂无主观题")
+                alert("暂无客观题")
                 return false
             }
             $('.setAnswer .modal-main').animate({'top': '50%', 'opacity': 1}, 500);
@@ -829,12 +848,23 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             $('.setSort .modal-shadow').animate({'opacity': 0.3}, 500);
             $('.setSort').show();
         }
+        if(type == 2){
+            console.log($scope.answers)
+            if ($scope.answers.length==0) {
+                alert("暂无主观题")
+                return false
+            }
+            $('.setubjec .modal-main').animate({'top': '50%', 'opacity': 1}, 500);
+            $('.setubjec .modal-shadow').animate({'opacity': 0.3}, 500);
+            $('.setubjec').show();
+        }
     }
     $scope.closeAnswerModel = function () {//关闭窗口
         $('.modal-wrap').hide();
         $('.modal-main').css({"top": 0, "opacity": 0})
         $('.modal-shadow').css({"opacity": 0})
         var isLogin = localStorage.getItem("token");
+        $scope.start = 0, $scope.end = 1
         $.ajax({//关闭的时候进行绑定
             type: "POST",
             url: ajaxIp+"/api/v2/answer_regions/update_basic_info_region",
@@ -1221,6 +1251,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
 
             }
         });
+        if($scope.bigAnswer.length==0){
+            $scope.closeAnswerModel()
+        }
     }
     /**
      * 设置每题答案
