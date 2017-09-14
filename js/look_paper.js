@@ -686,7 +686,8 @@ $(function(){
 	  	'answer_setting_ids':answer_setting_ids,
 		}
 	  // 新建区域
-	  if(select_id){
+	  if(select_id!='undefined'){
+	  	console.log(typeof(select_id))
 	  	console.log(data_arr)
 			update_select_info(select_id,data_arr);
 	  }else{
