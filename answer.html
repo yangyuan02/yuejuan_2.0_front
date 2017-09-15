@@ -98,7 +98,7 @@
                             </p>
                             <p><span>试题数量</span><input type="text" placeholder="请输入试题数量" ng-model="result.numbel"/></p>
                             <p><span>起始序号</span><input type="text" placeholder="请输入起始序号" ng-model="result.no"/></p>
-                            <p><span>所在页码</span><input type="text" placeholder="请输入所在页码" ng-model="result.page"/></p>
+                            <!--<p><span>所在页码</span><input type="text" placeholder="请输入所在页码" ng-model="result.page"/></p>-->
                             <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/>
                             </p>
                             <hr class="hr"/>
@@ -120,7 +120,7 @@
                                                                                  ng-model="result.name"/></p>
                             <p><span>试题数量</span><input type="text" placeholder="请输入试题数量" ng-model="result.numbel"/></p>
                             <p><span>起始序号</span><input type="text" placeholder="请输入起始序号" ng-model="result.no"/></p>
-                            <p><span>所在页码</span><input type="text" placeholder="请输入所在页码" ng-model="result.page"/></p>
+                            <!--<p><span>所在页码</span><input type="text" placeholder="请输入所在页码" ng-model="result.page"/></p>-->
                             <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/>
                             </p>
                             <hr class="hr"/>
@@ -186,10 +186,10 @@
                                 <p>起始序号</p>
                                 <p><input type="text" ng-model="result.no"></p>
                             </div>
-                            <div class="writItem clearfix">
-                                <p>所在页码</p>
-                                <p><input type="text" ng-model="result.page"></p>
-                            </div>
+                            <!--<div class="writItem clearfix">-->
+                                <!--<p>所在页码</p>-->
+                                <!--<p><input type="text" ng-model="result.page"></p>-->
+                            <!--</div>-->
                             <div class="writItem clearfix">
                                 <button ng-click="btn1()">确认添加</button>
                             </div>
@@ -206,7 +206,7 @@
                                                                                  ng-model="result.name"/></p>
                             <p><span>试题数量</span><input type="text" placeholder="请输入试题数量" ng-model="result.numbel"/></p>
                             <p><span>起始序号</span><input type="text" placeholder="请输入起始序号" ng-model="result.no"/></p>
-                            <p><span>所在页码</span><input type="text" placeholder="请输入所在页码" ng-model="result.page"/></p>
+                            <!--<p><span>所在页码</span><input type="text" placeholder="请输入所在页码" ng-model="result.page"/></p>-->
                             <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/>
                             </p>
                             <hr class="hr"/>
@@ -220,6 +220,8 @@
             <ul class="L_ul">
                 <h3>答题纸设置</h3>
                 <li class="import-button" ng-click="getAnswerInfo(0)"><a>设置答案</a>
+                </li>
+                <li ng-click="getAnswerInfo(2)"><a>主观题设置</a>
                 </li>
                 <li><a>选择板式</a>
                 </li>
@@ -1021,7 +1023,7 @@
                 </div>
                 <div class="show_score fl">
                     <div class="fl btnsa" ng-click="checkScore()">
-                        <i class="iconfont" ng-bind="showScore?'&#xe619':''">;</i>
+                        <i class="iconfont" ng-bind="showScore?'&#xe619':''"></i>
                     </div>
                     <span class="fl">显示分数</span>
                 </div>
@@ -1063,6 +1065,50 @@
         </div>
     </div>
     <!--设置题组排序弹窗结束-->
+    <!--设置主观题弹窗开始-->
+    <div class="modal-wrap answer setubjec">
+        <div class="modal-shadow modal-exit" ng-click="closeAnswerModel()"></div>
+        <div class="modal-main" style="width:550px;">
+            <div class="modal-exit iconfont modal-exit-icon" ng-click="closeAnswerModel()">&#xe61a;</div>
+            <div class="modal-title">设置客观题答题</div>
+            <div class="modal-content nomal">
+                <div class="mian-cont">
+                    <div class="bigquestion" ng-repeat="ans in answers" ng-init="outerIndex = $index">
+                        <div class="q_title"><p ng-bind="ans.answer_name"></p></div>
+                        <div class="q_content clearfix">
+                            <div class="set_q_item fl clearfix" ng-repeat="itmes in ans.settings">
+                                <div class="set_number fl"><input type="text" ng-keyup="setItmeNum(itmes.setting_id,itmes.setting_num)" ng-model="itmes.setting_num"></div>
+                                <div class="set_options_itme fl clearfix">
+                                    <!--<div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.type=='xz'" ng-repeat="itme in nub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>-->
+                                    <!--<div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.type=='sf'" ng-repeat="itme in rightNub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>-->
+                                </div>
+                                <div class="set_number scoer fl"><input type="text" ng-keyup="setItmeScore(itmes.setting_id,itmes.score)" ng-model="itmes.score"></div>
+                                <div class="scoer_wx fl">分</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--功能按钮组-->
+            <div class="btns clearfix">
+                <div class="add fl">
+                    <div class="fl btnsa" ng-click="addAnswer()">
+                        <i class="iconfont">&#xe620;</i>
+                    </div>
+                    <span class="fl">增加</span>
+                </div>
+                <div class="sub fl">
+                    <div class="fl btnsa" ng-click="deleAnswer()">
+                        <i class="iconfont">&#xe621;</i>
+                    </div>
+                    <span class="fl">删除</span>
+                </div>
+                <div class="prev a_page fl {{start==0?'disabled':''}}" ng-click="pageData(2)">上一页</div>
+                <div class="next a_page fl {{end==bigAnswer.length?'disabled':''}}" ng-click="pageData(1)">下一页</div>
+            </div>
+        </div>
+    </div>
+    <!--设置主观题弹窗结束-->
 </div>
 
 <script src="js/Answer.js" type="text/javascript" charset="utf-8"></script>
