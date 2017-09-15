@@ -1261,7 +1261,7 @@ angular.module("myApp.controller", [])
                             $('#' + tab_bo[i] + '').append('<tr></tr>');
                             // $('#'+tab_bo[i]+'').append('<tr><td></td><td>' + data.class_answer_setting_statistic[i].content[c].average + '</td><td>' + data.class_answer_setting_statistic[i].content[c].num + '</td><td>' + data.class_answer_setting_statistic[i].content[c].column_value_1 + '</td><td>' + data.class_answer_setting_statistic[i].content[c].column_value_2 + '</td><td>' + data.class_answer_setting_statistic[i].content[c].column_value_3 + '</td><td>' + data.class_answer_setting_statistic[i].content[c].column_value_4 + '</td><td>' + data.class_answer_setting_statistic[i].content[c].correct + '</td><td>'+data.class_answer_setting_statistic[i].content[c].correct_rate+'</td><td><span data_ans="' + data.class_answer_setting_statistic[i].content[c].answer_setting_id + '">查看</span></td></tr>');
                             // 
-                            $('#' + tab_bo[i] + ' tr').eq(c).append('<td>' + data.class_answer_setting_statistic[i].answer_name+ '</td><td>' + data.class_answer_setting_statistic[i].content[c].average + '</td><td>' + data.class_answer_setting_statistic[i].content[c].num + '</td><td>' + data.class_answer_setting_statistic[i].content[c].correct + '</td><td>' + data.class_answer_setting_statistic[i].content[c].correct_rate + '</td><td><span data_ans="' + data.class_answer_setting_statistic[i].content[c].answer_setting_id + '">查看</span></td></tr>');
+                            $('#' + tab_bo[i] + ' tr').eq(c).append('<td>' + data.class_answer_setting_statistic[i].answer_name+ '</td><td>' + data.class_answer_setting_statistic[i].content[c].average + '</td><td>' + data.class_answer_setting_statistic[i].content[c].num + '</td><td>' + data.class_answer_setting_statistic[i].content[c].correct + '</td><td>' + data.class_answer_setting_statistic[i].content[c].correct_rate + '</td><td data-itm="'+data.class_answer_setting_statistic[i].content[c].item+'"><span data_ans="' + data.class_answer_setting_statistic[i].content[c].answer_setting_id + '">查看</span></td></tr>');
                             for (var d = 0; d < data.class_answer_setting_statistic[i].content[0].result.length; d++) {
                                 var f = data.class_answer_setting_statistic[i].content[0].result.length - 1 - d;
                                 $('#' + tab_bo[i] + ' tr').eq(c).find("td").eq(2).after('<td style=" color:' + data.class_answer_setting_statistic[i].content[c].result[f] + '">' + data.class_answer_setting_statistic[i].content[c].column_value[f] + '</td>');
@@ -1297,7 +1297,6 @@ angular.module("myApp.controller", [])
 };
             // 小题查看
             $(".study_q_05_01").on('click', 'span', function(event) {
-                alert();
                 // 切换页面
                 $(".study_q_ck").show();
                 $("#study_q_ck").hide();
@@ -1335,21 +1334,21 @@ angular.module("myApp.controller", [])
             if (sub_id == null) {
                 var sub_id = parseInt($(".study_q_km03").attr("data-id"));
             }
-
             console.log(exam_id);
             console.log(class_id);
             console.log(sub_id);
                 $.ajax({
                     type: "GET",
+                    async: false,
                     url: ajaxIp + "/api/v2/reports/class_student_answer_setting_statistic",
                     headers: {
                         'Authorization': "Bearer " + isLogin
                     },
                     data: {
                         "exam_id": exam_id,
-                        "subject_id":12,
+                        "subject_id":sub_id,
                         "classroom_id": class_id,
-                        "answer_setting_id":19838
+                        "answer_setting_id":data_ans,
                     },
                     success: function(data) {
                         console.log(data);
@@ -1357,10 +1356,11 @@ angular.module("myApp.controller", [])
                     var x_zhe = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O"]; 
                     var p_duan = ["T", "F"];
                     // console.log(data.student_answer_setting_infos.length);
+                    if(data.student_answer_setting_infos.length!=2){
                     for(var i=0;i<data.student_answer_setting_infos.length;i++){
                         var a=x_zhe[i];
-                        var tda_id="x_"+x_zhe[i];
-                       $(".xiaoti_mark").append('<tr id="'+tda_id+'"><td>'+x_zhe[i]+'</td><td></td></tr>')
+                        var tda_id="x_"+a;
+                       $(".xiaoti_mark").append('<tr id="'+tda_id+'"><td>'+a+'</td><td></td></tr>')
                        // console.log(a);
                        // var b=data.student_answer_setting_infos[0].+a;
                        var b=data.student_answer_setting_infos[i][a].length;
@@ -1370,6 +1370,22 @@ angular.module("myApp.controller", [])
                            $('#'+tda_id+' td').eq(1).append('<a>' +data.student_answer_setting_infos[i][a][c].real_name + '</a>');
                        }
 
+                    }
+                    }else{
+                        for(var i=0;i<data.student_answer_setting_infos.length;i++){
+                        var a=p_duan[i];
+                        var tda_id="x_"+a;
+                       $(".xiaoti_mark").append('<tr id="'+tda_id+'"><td>'+a+'</td><td></td></tr>')
+                       // console.log(a);
+                       // var b=data.student_answer_setting_infos[0].+a;
+                       var b=data.student_answer_setting_infos[i][a].length;
+                       console.log(b);
+                       // console.log(data.student_answer_setting_infos[0][a].length);
+                       for(var c=0;c<b;c++){
+                           $('#'+tda_id+' td').eq(1).append('<a>' +data.student_answer_setting_infos[i][a][c].real_name + '</a>');
+                       }
+
+                    }
                     }
                     },
                     error: function() {
