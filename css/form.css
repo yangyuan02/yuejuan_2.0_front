@@ -1221,6 +1221,7 @@ z-index:111;
 	margin-bottom: 10px;
 	cursor: pointer; 
 	background: #f5f5f5;
+	z-index:1111;
 }
 .study_q_ck{
 	width:936px;
