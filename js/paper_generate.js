@@ -211,8 +211,10 @@ $(function() {
 	// 下拉加载
 	$('.list-ul').unbind('scroll').bind('scroll', function() {
 		var sum = this.scrollHeight;
-		// console.log(sum,$(this).scrollTop(),$(this).height())
-		if (sum <= $(this).scrollTop() + $(this).height()) {
+		var total = $(this).scrollTop() + $(this).height();
+		var compare = total*list_page;
+		console.log(sum,total,compare)
+		if (sum <= total && total<compare) {
 			list_page++;
 			// console.log(list_page);
 			first_list(list_page);
