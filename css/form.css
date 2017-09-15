@@ -1129,6 +1129,7 @@ bottom:205px;
 left: 240px;
 background: #f5f5f5;
 display: none;
+z-index:1111111;
 }
 .ans_01{
 	width:100%;
