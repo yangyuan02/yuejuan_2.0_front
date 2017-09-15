@@ -289,6 +289,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             obj.current_page = 2
             $scope.listObj4.push(obj);
         }
+        console.log($scope.listObj)
     }
     $scope.createAsswer = function (data) {//添加题组
         var data = data
@@ -367,10 +368,15 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             no: noarray,//选项个数数组,
             itemNumber: itemNumber,//选项个数
             totalCores: $scope.index == 4 ? parseInt($scope.result.writscore) : totaltwo,//总分
-            itemCores: $scope.result.itemcoreS,//每小题分
-            thr: $scope.index == 1 ? $scope.nubarray : ['T', 'F'], //选项ABCD(选择题和判断题)
+            itemCores: parseInt($scope.result.itemcoreS),//每小题分
+            thr : $scope.index == 1 ? $scope.nubarray : ['T', 'F'], //选项ABCD(选择题和判断题)
             type: $scope.result.isradio == 2 ? 6 : $scope.index//题目类型
         }
+        var itemCoresArr = []//每题分数数组
+        for(var i = 0; i < obj.numbel;i++){
+            itemCoresArr.push(obj.itemCores)
+        }
+        obj.itemCoresArr = itemCoresArr
         if ($scope.index == 4) {
             obj.articleType = $scope.result.writIsradio
             obj.rows = rosItem
@@ -568,7 +574,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for (var i = 1; i <= qNumer; i++) {//循环每个小题
             var itme_obj = {}
             itme_obj.no = startNo + i - 1
-            itme_obj.one_score = parseInt(itemCores)
+            itme_obj.one_score = parseInt(itemCores[i-1])
             itme_obj.answer_setting_id = answer_id[Answerindex].answers.settings[i - 1].setting_id//小题id
             itme_obj.option = []
             question.push(itme_obj)
@@ -660,7 +666,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             BigQuestion.push(itme_obj)
         }
         for (var i = 0; i < BigQuestion.length; i++) {
-            BigQuestion[i].question = getQuestion(obj[i].numbel, obj[i].itemNumber, i, obj[i].type, obj[i].itemCores, obj[i].current_page, obj[i].startNo)
+            BigQuestion[i].question = getQuestion(obj[i].numbel, obj[i].itemNumber, i, obj[i].type, obj[i].itemCoresArr, obj[i].current_page, obj[i].startNo)
         }
         BigQuestion.push(getStudentInfo())//添加考生信息
         return BigQuestion
@@ -728,17 +734,26 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
             if(obj.type==1){//增加小题
                 obj.list[obj.index].no.push(obj.no)
+                obj.list[obj.index].itemCoresArr.push(obj.score)
                 obj.list[obj.index].numbel++  //题目数量
-                obj.list[obj.index].itemCores = obj.score  //当前小题分值
+                // obj.list[obj.index].itemCores = obj.score  //当前小题分值
                 obj.list[obj.index].totalCores = obj.list[obj.index].totalCores+obj.score //当前答题总分
                 $scope.countScore = $scope.countScore + obj.score  //总分
                 console.log($scope.listObj)
             }
             if(obj.type==2){//删除小题
-                obj.list[obj.index].no.pop()
                 obj.list[obj.index].numbel--
-                obj.list[obj.index].totalCores = obj.list[obj.index].totalCores-obj.list[obj.index].itemCores
-                $scope.countScore = $scope.countScore -  obj.list[obj.index].itemCores
+                obj.list[obj.index].no.pop()
+                var delScore = obj.list[obj.index].itemCoresArr.pop()
+                obj.list[obj.index].totalCores = obj.list[obj.index].totalCores - delScore
+                $scope.countScore = $scope.countScore -  delScore
+                console.log($scope.listObj)
+            }
+            if(obj.type==3){//修改分数
+                var oldScore = obj.list[obj.index].itemCoresArr[obj.itmeIndex]//最开始的分数
+                obj.list[obj.index].itemCoresArr[obj.itmeIndex] = parseInt(obj.score)
+                obj.list[obj.index].totalCores = obj.list[obj.index].totalCores - parseInt(oldScore) + parseInt(obj.score)
+                $scope.countScore = $scope.countScore - parseInt(oldScore) + parseInt(obj.score)
             }
         }
         function setAnswerGrounp(index){
@@ -747,6 +762,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             config.no = options.no
             config.type = options.type
             config.score = options.score
+            config.itmeIndex = options.itmeIndex
             if(index <= len1 - 1){
                 config.index = index
                 config.list = $scope.listObj
@@ -948,6 +964,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         options.type = 1
         options.no = obj.setting_num
         options.score = obj.score
+        options.itmeIndex = obj.len
         var index;
         for(var i = 0;i<$scope.beforeBigAns.length;i++){
             if(param["answer_setting[answer_id]"]==$scope.beforeBigAns[i].answer_id){
@@ -976,6 +993,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         });
         var options = {}
         options.type = 2
+        options.itmeIndex = $scope.AnsLen
         var index;
         for(var i = 0;i<$scope.beforeBigAns.length;i++){
             if($scope.answers[0].answer_id==$scope.beforeBigAns[i].answer_id){
@@ -1286,9 +1304,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
         });
     }
-    $scope.setItmeScore = function (setting_id, score) {//设置每小题分数
+    $scope.setItmeScore = function (setting_id, score,itmeIndex) {//设置每小题分数
         var isLogin = localStorage.getItem("token");
-        $timeout(function () {
             $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/answer_settings/" + setting_id,
@@ -1299,12 +1316,22 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 async: false,
                 success: function (data) {
                     console.log(data)
+                    var options = {}
+                    options.type = 3
+                    options.score = score
+                    options.itmeIndex = itmeIndex
+                    var index;
+                    for(var i = 0;i<$scope.beforeBigAns.length;i++){
+                        if($scope.answers[0].answer_id==$scope.beforeBigAns[i].answer_id){
+                            index = i
+                        }
+                    }
+                    findScopeList(index,options)
                 },
                 error: function () {
 
                 }
-            });
-        }, 500)
+            })
     }
     $scope.setItmeNum = function (setting_id, num) {//设置题目序号
         var isLogin = localStorage.getItem("token");

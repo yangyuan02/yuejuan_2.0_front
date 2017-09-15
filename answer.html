@@ -474,7 +474,7 @@
                                             <a class="numberNo {{paperType==1?'paperno':''}}" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
-                                            <span ng-show="a.type==3 && showItmeScoreType==1">({{a.itemCores}}分)</span>
+                                            <span ng-show="a.type==3 && showItmeScoreType==1">({{a.itemCoresArr[$index]}}分)</span>
                                             <!--序号end-->
                                             <!--选择题模版start-->
                                             <span ng-show="a.type==1||a.type==2||a.type==6" ng-repeat="items in a.thr">
@@ -494,7 +494,7 @@
                                             <!--其他题头部-->
                                             <div class="other_h clearfix">
                                                 <div class="other_number {{a.type==5 && showItmeScoreType ==1?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
-                                                    <span ng-show="a.type==5 && showItmeScoreType==1">({{a.itemCores}}分)</span>
+                                                    <span ng-show="a.type==5 && showItmeScoreType==1">({{a.itemCoresArr[$index]}}分)</span>
                                                 </div>
                                                 <!--网络阅卷打分框start-->
                                                 <div class="marking clearfix {{paperType==1?'paper':''}}">
@@ -598,7 +598,7 @@
                                             <a class="numberNo {{paperType==1?'paperno':''}}" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
-                                            <span ng-show="a.type==3 && showItmeScoreType ==1">({{a.itemCores}}分)</span>
+                                            <span ng-show="a.type==3 && showItmeScoreType ==1">({{a.itemCoresArr[$index]}}分)</span>
                                             <!--序号end-->
                                             <!--选择题模版start-->
                                             <span ng-show="a.type==1||a.type==2||a.type==6" ng-repeat="items in a.thr">
@@ -623,7 +623,7 @@
                                             <!--其他题头部-->
                                             <div class="other_h clearfix">
                                                 <div class="other_number {{a.type==5 && showItmeScoreType ==1?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
-                                                    <span ng-show="a.type==5 && showItmeScoreType ==1">({{a.itemCores}}分)</span>
+                                                    <span ng-show="a.type==5 && showItmeScoreType ==1">({{a.itemCoresArr[$index]}}分)</span>
                                                 </div>
                                                 <!--网络阅卷打分框start-->
                                                 <div class="marking clearfix {{paperType==1?'paper':''}}">
@@ -774,7 +774,7 @@
                                             <a class="numberNo {{paperType==1?'paperno':''}}" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
-                                            <span ng-show="a.type==3 && showItmeScoreType==1">({{a.itemCores}}分)</span>
+                                            <span ng-show="a.type==3 && showItmeScoreType==1">({{a.itemCoresArr[$index]}}分)</span>
                                             <!--序号end-->
                                             <!--选择题模版start-->
                                             <span ng-show="a.type==1||a.type==2||a.type==6" ng-repeat="items in a.thr">
@@ -794,7 +794,7 @@
                                             <!--其他题头部-->
                                             <div class="other_h clearfix">
                                                 <div class="other_number {{a.type==5 && showItmeScoreType ==1?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
-                                                    <span ng-show="a.type==5 && showItmeScoreType==1">({{a.itemCores}}分)</span>
+                                                    <span ng-show="a.type==5 && showItmeScoreType==1">({{a.itemCoresArr[$index]}}分)</span>
                                                 </div>
                                                 <!--网络阅卷打分框start-->
                                                 <div class="marking clearfix {{paperType==1?'paper':''}}">
@@ -898,7 +898,7 @@
                                             <a class="numberNo {{paperType==1?'paperno':''}}" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
-                                            <span ng-show="a.type==3 && showItmeScoreType==1">({{a.itemCores}}分)</span>
+                                            <span ng-show="a.type==3 && showItmeScoreType==1">({{a.itemCoresArr[$index]}}分)</span>
                                             <!--序号end-->
                                             <!--选择题模版start-->
                                             <span ng-show="a.type==1||a.type==2||a.type==6" ng-repeat="items in a.thr">
@@ -923,7 +923,7 @@
                                             <!--其他题头部-->
                                             <div class="other_h clearfix">
                                                 <div class="other_number {{a.type==5 && showItmeScoreType ==1?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
-                                                    <span ng-show="a.type==5 && showItmeScoreType ==1">({{a.itemCores}}分)</span>
+                                                    <span ng-show="a.type==5 && showItmeScoreType ==1">({{a.itemCoresArr[$index]}}分)</span>
                                                 </div>
                                                 <!--网络阅卷打分框start-->
                                                 <div class="marking clearfix {{paperType==1?'paper':''}}">
@@ -1000,7 +1000,7 @@
                                     <div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.type=='xz'" ng-repeat="itme in nub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>
                                     <div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.type=='sf'" ng-repeat="itme in rightNub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>
                                 </div>
-                                <div class="set_number scoer fl" ng-show="showScore"><input type="text" ng-keyup="setItmeScore(itmes.setting_id,itmes.score)" ng-model="itmes.score"></div>
+                                <div class="set_number scoer fl" ng-show="showScore"><input type="text" ng-blur="setItmeScore(itmes.setting_id,itmes.score,$index)" ng-model="itmes.score"></div>
                                 <div class="scoer_wx fl" ng-show="showScore">分</div>
                             </div>
                         </div>
@@ -1082,7 +1082,7 @@
                                     <!--<div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.type=='xz'" ng-repeat="itme in nub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>-->
                                     <!--<div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.type=='sf'" ng-repeat="itme in rightNub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>-->
                                 </div>
-                                <div class="set_number scoer fl"><input type="text" ng-keyup="setItmeScore(itmes.setting_id,itmes.score)" ng-model="itmes.score"></div>
+                                <div class="set_number scoer fl"><input type="text" ng-blur="setItmeScore(itmes.setting_id,itmes.score,$index)" ng-model="itmes.score"></div>
                                 <div class="scoer_wx fl">分</div>
                             </div>
                         </div>
