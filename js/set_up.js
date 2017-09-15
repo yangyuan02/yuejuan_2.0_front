@@ -1749,8 +1749,10 @@ $(function() {
 			    });
 			})
 		})
+ 	}
 
-		$('.add-teacher').click(function(){
+
+		$('.add-teacher').on('click',function(){
 			isTrueFalse = false;
 			$('.teachers-propmt-wrap .modal-main').animate({'top': '50%','opacity': 1},500);
 			$('.teachers-propmt-wrap .modal-shadow').animate({'opacity': .3},500);
@@ -1906,7 +1908,6 @@ $(function() {
 		    })
 
 		})
- 	}
 
 
  	$('.modal-wrap-student-info .determine').on('click', function(){
