@@ -1274,9 +1274,13 @@ angular.module("myApp.controller", [])
                                 $('#' + tab_bo[i] + '').append('<tr></tr>');
                                 // $('#'+tab_bo[i]+'').append('<tr><td></td><td>' + data.class_answer_setting_statistic[i].content[c].average + '</td><td>' + data.class_answer_setting_statistic[i].content[c].num + '</td><td>' + data.class_answer_setting_statistic[i].content[c].column_value_1 + '</td><td>' + data.class_answer_setting_statistic[i].content[c].column_value_2 + '</td><td>' + data.class_answer_setting_statistic[i].content[c].column_value_3 + '</td><td>' + data.class_answer_setting_statistic[i].content[c].column_value_4 + '</td><td>' + data.class_answer_setting_statistic[i].content[c].correct + '</td><td>'+data.class_answer_setting_statistic[i].content[c].correct_rate+'</td><td><span data_ans="' + data.class_answer_setting_statistic[i].content[c].answer_setting_id + '">查看</span></td></tr>');
                                 // 
-                                $('#' + tab_bo[i] + ' tr').eq(c).append('<td>' + data.class_answer_setting_statistic[i].answer_name + '</td><td>' + data.class_answer_setting_statistic[i].content[c].average + '</td><td>' + data.class_answer_setting_statistic[i].content[c].num + '</td><td>' + data.class_answer_setting_statistic[i].content[c].correct + '</td><td>' + data.class_answer_setting_statistic[i].content[c].correct_rate + '</td><td data-itm="' + data.class_answer_setting_statistic[i].content[c].item + '"><span data_ans="' + data.class_answer_setting_statistic[i].content[c].answer_setting_id + '">查看</span></td></tr>');
+                                var zq_rate=Math.round(data.class_answer_setting_statistic[i].content[c].correct_rate*100)+"%";
+                                $('#' + tab_bo[i] + ' tr').eq(c).append('<td>' + data.class_answer_setting_statistic[i].answer_name + '</td><td>' + data.class_answer_setting_statistic[i].content[c].average + '</td><td>' + data.class_answer_setting_statistic[i].content[c].num + '</td><td>' + data.class_answer_setting_statistic[i].content[c].correct + '</td><td>' +zq_rate+ '</td><td data-itm="' + data.class_answer_setting_statistic[i].content[c].item + '"><span data_ans="' + data.class_answer_setting_statistic[i].content[c].answer_setting_id + '">查看</span></td></tr>');
                                 for (var d = 0; d < data.class_answer_setting_statistic[i].content[0].result.length; d++) {
                                     var f = data.class_answer_setting_statistic[i].content[0].result.length - 1 - d;
+                                    if(data.class_answer_setting_statistic[i].content[c].column_value[f]==undefined){
+                                          data.class_answer_setting_statistic[i].content[c].column_value[f]=0
+                                    };
                                     $('#' + tab_bo[i] + ' tr').eq(c).find("td").eq(2).after('<td style=" color:' + data.class_answer_setting_statistic[i].content[c].result[f] + '">' + data.class_answer_setting_statistic[i].content[c].column_value[f] + '</td>');
                                 }
                                 // console.log($('#'+tab_bo[i]+'').children('tr').children('td').attr("data-id"));
@@ -1311,6 +1315,7 @@ angular.module("myApp.controller", [])
         };
         // 小题查看
         $(".study_q_05_01").on('click', 'span', function(event) {
+
             // 切换页面
             $(".study_q_ck").show();
             $("#study_q_ck").hide();
@@ -1336,6 +1341,8 @@ angular.module("myApp.controller", [])
             var xuan_z = $(this).parents().prev().prev().html();
             console.log(xuan_z);
             $(".study_q_ck_a2").html("正确答案" + $(this).parents().prev().prev().html());
+              $(".xiaoti_mark").attr("data-itm",$(this).parents().attr("data-itm"));
+
 
             var exam_id = parseInt($(".study_q_km01").children('option:selected').attr("data-id"));
             $(".study_q_km02").attr("data-id", $(".study_q_km02").children('option:selected').attr("data-id"));
@@ -1362,7 +1369,7 @@ angular.module("myApp.controller", [])
                     "exam_id": exam_id,
                     "subject_id": sub_id,
                     "classroom_id": class_id,
-                    "answer_setting_id": data_ans,
+                    "answer_setting_id":data_ans,
                 },
                 success: function(data) {
                     console.log(data);
@@ -1370,7 +1377,14 @@ angular.module("myApp.controller", [])
                     var x_zhe = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O"];
                     var p_duan = ["T", "F"];
                     // console.log(data.student_answer_setting_infos.length);
-                    if (data.student_answer_setting_infos.length != 2) {
+                    var data_itm1=$(".xiaoti_mark").attr("data-itm");
+                    // if (data_itm1="单选题") {
+                    //      data_itm1=0;
+                    // };
+                    // if (data_itm1="是非题"){
+                    //      data_itm1=1;
+                    // };
+                    if (data_itm1=="单选题"||data_itm1==0) {
                         for (var i = 0; i < data.student_answer_setting_infos.length; i++) {
                             var a = x_zhe[i];
                             var tda_id = "x_" + a;
@@ -1385,7 +1399,8 @@ angular.module("myApp.controller", [])
                             }
 
                         }
-                    } else {
+                    };
+                    if(data_itm1=="是非题"||data_itm1==1){
                         for (var i = 0; i < data.student_answer_setting_infos.length; i++) {
                             var a = p_duan[i];
                             var tda_id = "x_" + a;
@@ -1400,7 +1415,7 @@ angular.module("myApp.controller", [])
                             }
 
                         }
-                    }
+                    };
                 },
                 error: function() {
 
