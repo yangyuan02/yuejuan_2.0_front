@@ -1511,6 +1511,7 @@ color: #666666;
 	border:none;
 	border-bottom: 1px solid #cccccc;
 	box-sizing: border-box;
+	width: 200px;
 }
 .exam_z_tab tbody td{
 	padding:13px 0px 13px 0px;
