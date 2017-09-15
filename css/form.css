@@ -1048,6 +1048,14 @@ margin-left: 38px;
 	cursor: pointer;
 	
 }
+.study_q_05_01 tr td:nth{
+  /* width:93.6px;*/
+    width:40px;
+	height:44px;
+	text-align: center;
+	cursor: pointer;
+	
+}
 .study_q_05_01 tr td span{
   color:#31bc91;
 
@@ -1529,10 +1537,10 @@ color: #666666;
 	margin-bottom: 400px;
 	
 }
-.exam_z_201{
-	
+.exam_z_201{	
 	margin-bottom: 400px;
 	display: none;
+	padding-left: 45px;
 }
 .exam_z_301{
 	width: 936px;
