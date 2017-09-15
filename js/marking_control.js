@@ -92,7 +92,7 @@ $(function(){
 		var test_length = test_info.exam_subjects.length;
 		$('#test-list tbody').html('');
 		for (var i = 0; i < test_length; i++) {
-			var tr_test ='<tr class="parent-tr"><td class="test-name" width="320" exam-id="'+test_info.exam_subjects[i].exam_id+'" data-id="'+test_info.exam_subjects[i].exam_subject_id+'">'+ test_info.exam_subjects[i].name +'</td><td class="test-grade">'+ test_info.exam_subjects[i].grade_name +'</td><td class="test-subject">'+ test_info.exam_subjects[i].subject_name +'</td><td class="test-num">'+ test_info.exam_subjects[i].answers_total_count+'</td><td class="test-on"> <p class="num">'+ test_info.exam_subjects[i].paper_revise_progress+'%</p><div class="bar"><div style="width:'+ test_info.exam_subjects[i].paper_revise_progress+'%;"></div></div></td><td class="test-model"><select id="select-'+i+'" class="grade-model" value="'+test_info.exam_subjects[i].correct_pattern+'"><option value="null">选择模式</option><option value="1">得分模式</option><option value="0">扣分模式</option></select></td><td id="test-status-'+i+'" class="test-status" value="'+test_info.exam_subjects[i].status+'"><div class="modify-paper edit-paper determine on" value="1"><span class="text left ml13">改卷</span><span class="cir right"></span></div><div class="modify-paper edit-paper stop-paper" value="0"><span class="cir left"></span><span class="text right mr13">暂停</span></div><div class="modify-paper end-paper" value="5" style="cursor: not-allowed; color: rgb(102, 102, 102);"><span class="cir left"></span><span class="text right mr13">结束</span></div></td><td class="test2-operation"><a href="javascript:;">查看进度<i class="iconfont"></i></a></td></tr>';
+			var tr_test ='<tr class="parent-tr"><td class="test-name" width="320" exam-id="'+test_info.exam_subjects[i].exam_id+'" data-id="'+test_info.exam_subjects[i].exam_subject_id+'">'+ test_info.exam_subjects[i].name +'</td><td class="test-grade">'+ test_info.exam_subjects[i].grade_name +'</td><td class="test-subject">'+ test_info.exam_subjects[i].subject_name +'</td><td class="test-num">'+ test_info.exam_subjects[i].answers_total_count+'</td><td class="test-on"> <p class="num">'+ test_info.exam_subjects[i].paper_revise_progress+'%</p><div class="bar"><div style="width:'+ test_info.exam_subjects[i].paper_revise_progress+'%;"></div></div></td><td class="test-model"><select id="select-'+i+'" class="grade-model" value="'+test_info.exam_subjects[i].correct_pattern+'"><option value="null">选择模式</option><option value="1">得分模式</option><option value="0">扣分模式</option></select></td><td class="test-status"><select value="'+test_info.exam_subjects[i].status+'" id="test-status-'+i+'" class="test-status-select"><option value="1">改卷</option><option value="0">暂停</option><option value="5" class="end-status">结束</option></select></td><td class="test2-operation"><a href="javascript:;">查看进度<i class="iconfont">&#xe623;</i></a></td></tr>';
 			$('#test-list tbody').append(tr_test);
 			// 判断改卷模式
 			var par_value=test_info.exam_subjects[i].correct_pattern;
@@ -110,16 +110,21 @@ $(function(){
 				};
 			}
 			// 判断阅卷状态
+			var bar_num = $('#test-status-'+i+'').parents('.parent-tr').find('td.test-on').text();
+			bar_num = bar_num.substring(0,bar_num.length-1);
+			if(bar_num==100){
+				$('#test-status-'+i+'').find('.end-status').show();
+			}
 			var par_status = test_info.exam_subjects[i].status;
 		  var child_status = $('#test-status-'+i+'').children();
 		  for (var z = 0; z < child_status.length; z++) {
 			  if(par_status == $(child_status[z]).attr('value')){
-			  	$(child_status[z]).show().siblings().hide();
+			  	$(child_status[z]).attr('selected',true);
 			  }
 			  // 判断不是 0,1,2,5,的时候都为结束状态
-			  if(par_status!=0&&par_status!=1&par_status!=2&&par_status!=5){
-					$('#test-status-'+i+'').find('.end-paper').show();
-					$('#test-status-'+i+'').find('.end-paper').siblings().hide();
+			  if(par_status!=0&&par_status!=1&par_status!=2){
+					$('#test-status-'+i+'').find('.end-status').attr('selected',true);
+					$('#test-status-'+i+'').find('.end-status').siblings().attr('selected',false);
 			  }
 		  };
 		};
@@ -321,32 +326,16 @@ $(function(){
 
 	// 修改阅卷状态
 
-	$('body').on('click', '.edit-paper', function() {
-		var status;
+	$('body').on('change', '.test-status-select', function() {
+		var status = $(this).val();
 		var exam_id =$(this).parents('.parent-tr').find('.test-name').attr('data-id');
 		var bar_num = $(this).parents('tr').children('td.test-on').find('.num').text();
 		bar_num = bar_num.substring(0,bar_num.length-1);
-		
 
-		if($(this).hasClass('stop-paper')){
-			$(this).prev().show();
-			$(this).hide();
-			status=1;
-
-		}
-		if($(this).hasClass('on')){
-			$(this).next().show();
-			$(this).hide();
-			status=0;
-			if(bar_num==100){
-				console.log('yes');
-				status=5;
-				$(this).next().find('.text').text('结束');
-				$(this).next().css({
-					'cursor': 'not-allowed',
-					'color': '#666'
-				});
-				$(this).next().removeClass('edit-paper');
+		if(bar_num==100){
+			console.log('yes');
+			$(this).find('.end-status').show();
+			if(status==5){
 				$.ajax({
 				  type: "PATCH",
 				  url: ajaxIp+"/api/v2/exam_subjects/"+exam_id+"/finished_review_paper",
@@ -387,15 +376,15 @@ $(function(){
 		for (var i = 0; i < list_cont.length; i++) {
 			var list_id = $(list_cont[i]).find('.test-name').attr('data-id');
 			if(id==list_id){
-				$(list_cont[i]).find('.test-status').attr('value', status);
-				if(status==0){
-					$(list_cont[i]).find('.stop-paper').show();
-					$(list_cont[i]).find('.on').hide();
-				}
-				if(status==1){
-					$(list_cont[i]).find('.stop-paper').hide();
-					$(list_cont[i]).find('.on').show();
-				}
+				$(list_cont[i]).find('.test-status-select').attr('value', status);
+				// if(status==0){
+				// 	$(list_cont[i]).find('.stop-paper').show();
+				// 	$(list_cont[i]).find('.on').hide();
+				// }
+				// if(status==1){
+				// 	$(list_cont[i]).find('.stop-paper').hide();
+				// 	$(list_cont[i]).find('.on').show();
+				// }
 			}
 		};
 	}
