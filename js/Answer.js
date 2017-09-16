@@ -637,8 +637,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
             itme_obj.question = []
             if (obj[i - 1].type == 1 || obj[i - 1].type == 6 || obj[i - 1].type == 2) {//单选题/多选题/判断题
-                itme_obj.block_width = 16//选项宽度
-                itme_obj.block_height = 13//选项高度
+                itme_obj.block_width = 14//选项宽度
+                itme_obj.block_height = 11//选项高度
                 itme_obj.answer_count = 1//答案个数
                 itme_obj.num_of_option = parseInt(obj[i - 1].itemNumber)//选项个数
             } else if (obj[i - 1].type == 3) {//填空题
