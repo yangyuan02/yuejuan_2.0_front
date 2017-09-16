@@ -570,7 +570,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var answerNumber = parseInt(answerNumber)//选项个数
         var dot = $(".position_TL span").eq(1).offset();
         dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
-        var item_w = 16, itemMarginLeft = 13;
+        var item_w = 14, itemMarginLeft = 11;
         for (var i = 1; i <= qNumer; i++) {//循环每个小题
             var itme_obj = {}
             itme_obj.no = startNo + i - 1
@@ -584,8 +584,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 var itme_obj = {}
                 itme_obj.no = j//小题序号
                 if (answerModeType == 1 || answerModeType == 2 || answerModeType == 6) {//单选题/多选题/判断题
-                    itme_obj.option_point_x = parseInt(getItemPost(Answerindex)[i].left + 7 + (item_w + itemMarginLeft) * (j - 1) - dot.left)//选项框中心点x坐标
-                    itme_obj.option_point_y = parseInt(getItemPost(Answerindex)[i].top + 5.5 - dot.top - 1126 * (current_page - 1))//同行option_point_y都是一样的 选项框中心点y坐标
+                    itme_obj.option_point_x = getItemPost(Answerindex)[i].left + 7 + (item_w + itemMarginLeft) * (j - 1) - dot.left//选项框中心点x坐标
+                    itme_obj.option_point_y = getItemPost(Answerindex)[i].top + 5.5 - dot.top - 1126 * (current_page - 1)//同行option_point_y都是一样的 选项框中心点y坐标
                 } else if (answerModeType == 3) {
                     itme_obj.option_point_x = parseInt(getFillPost(Answerindex)[i].left + 12 - dot.left)
                     itme_obj.option_point_y = parseInt(getFillPost(Answerindex)[i].top + 7 - dot.top - 1126 * (current_page - 1))
