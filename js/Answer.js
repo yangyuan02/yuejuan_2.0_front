@@ -627,13 +627,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             itme_obj.answer_mode = answerModeType(obj[i - 1].type)//题目类型
             itme_obj.current_page = obj[i - 1].current_page//当前页面
             itme_obj.num_question = obj[i - 1].numbel//题目数量
-            itme_obj.region_rect_x = regionRect(i - 1).region_rect_x//题组区域的X坐标
-            itme_obj.region_rect_y = regionRect(i - 1).region_rect_y - 1126 * (itme_obj.current_page - 1)//题组区域的Y坐标
-            itme_obj.region_rect_width = 698//题组区域的宽度
+            itme_obj.region_rect_x = regionRect(i - 1).region_rect_x-8//题组区域的X坐标
+            itme_obj.region_rect_y = regionRect(i - 1).region_rect_y - 1126 * (itme_obj.current_page - 1)-8//题组区域的Y坐标
+            itme_obj.region_rect_width = 698-8//题组区域的宽度
             if (obj[i - 1].type == 4) {//作文题
                 itme_obj.region_rect_height = 100//题组区域的高度
             } else {
-                itme_obj.region_rect_height = regionRect(i - 1).region_rect_height//题组区域的高度
+                itme_obj.region_rect_height = regionRect(i - 1).region_rect_height-8//题组区域的高度
             }
             itme_obj.question = []
             if (obj[i - 1].type == 1 || obj[i - 1].type == 6 || obj[i - 1].type == 2) {//单选题/多选题/判断题
