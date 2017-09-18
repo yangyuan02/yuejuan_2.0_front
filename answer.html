@@ -998,6 +998,7 @@
                                 <div class="set_number fl"><input type="text" ng-keyup="setItmeNum(itmes.setting_id,itmes.setting_num)" ng-model="itmes.setting_num"></div>
                                 <div class="set_options_itme fl clearfix">
                                     <div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.type=='xz'" ng-repeat="itme in nub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>
+                                    <div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.type=='dx'" ng-repeat="itme in nub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>
                                     <div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.type=='sf'" ng-repeat="itme in rightNub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>
                                 </div>
                                 <div class="set_number scoer fl" ng-show="showScore"><input type="text" ng-blur="setItmeScore(itmes.setting_id,itmes.score,$index)" ng-model="itmes.score"></div>
