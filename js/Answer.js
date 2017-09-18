@@ -116,7 +116,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         if ($(".A_Rone").eq(page_num).find("table:last").position()) {//不是第一次插入
             var lastTabPosi = $(".A_Rone").eq(page_num).find("table:last").position().top + $(".A_Rone").eq(page_num).find("table:last").height() + 30//已经占用高度
             var remain = outerBox - lastTabPosi
-            var title_h = 45, padding = 10
+            var title_h = 40, padding = 10
             if ($scope.index == 1 || $scope.index == 2) {//选择题、判断题
                 var rowItme_h = 27;
                 if ($scope.result.thr <= 4) {//判断几个为一行
