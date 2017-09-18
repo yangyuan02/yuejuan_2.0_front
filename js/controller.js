@@ -1374,48 +1374,27 @@ angular.module("myApp.controller", [])
                 success: function(data) {
                     console.log(data);
                     $(".xiaoti_mark").html(" ");
-                    var x_zhe = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O"];
-                    var p_duan = ["T", "F"];
-                    // console.log(data.student_answer_setting_infos.length);
-                    var data_itm1=$(".xiaoti_mark").attr("data-itm");
-                    // if (data_itm1="单选题") {
-                    //      data_itm1=0;
-                    // };
-                    // if (data_itm1="是非题"){
-                    //      data_itm1=1;
-                    // };
-                    if (data_itm1=="单选题"||data_itm1==0) {
+                     var x_zhe =[];
+                   for(var i=0;i<data.student_answer_setting_infos.length;i++){
+                    var jsons=data.student_answer_setting_infos[i];
+                    for(var key in jsons){
+                       console.log(key);
+                      
+                       x_zhe.push(key);
+                    }
+                }
+                 console.log(x_zhe);
                         for (var i = 0; i < data.student_answer_setting_infos.length; i++) {
                             var a = x_zhe[i];
                             var tda_id = "x_" + a;
-                            $(".xiaoti_mark").append('<tr id="' + tda_id + '"><td>' + a + '</td><td></td></tr>')
-                                // console.log(a);
-                                // var b=data.student_answer_setting_infos[0].+a;
+                                $(".xiaoti_mark").append('<tr id="' + tda_id + '"><td>' + a + '</td><td></td></tr>')
                             var b = data.student_answer_setting_infos[i][a].length;
+                            console.log(data.student_answer_setting_infos[i][a]);
                             console.log(b);
-                            // console.log(data.student_answer_setting_infos[0][a].length);
                             for (var c = 0; c < b; c++) {
                                 $('#' + tda_id + ' td').eq(1).append('<a>' + data.student_answer_setting_infos[i][a][c].real_name + '</a>');
-                            }
-
-                        }
-                    };
-                    if(data_itm1=="是非题"||data_itm1==1){
-                        for (var i = 0; i < data.student_answer_setting_infos.length; i++) {
-                            var a = p_duan[i];
-                            var tda_id = "x_" + a;
-                            $(".xiaoti_mark").append('<tr id="' + tda_id + '"><td>' + a + '</td><td></td></tr>')
-                                // console.log(a);
-                                // var b=data.student_answer_setting_infos[0].+a;
-                            var b = data.student_answer_setting_infos[i][a].length;
-                            console.log(b);
-                            // console.log(data.student_answer_setting_infos[0][a].length);
-                            for (var c = 0; c < b; c++) {
-                                $('#' + tda_id + ' td').eq(1).append('<a>' + data.student_answer_setting_infos[i][a][c].real_name + '</a>');
-                            }
-
-                        }
-                    };
+                            } 
+                        };
                 },
                 error: function() {
 
