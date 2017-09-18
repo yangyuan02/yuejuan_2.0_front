@@ -289,6 +289,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             obj.current_page = 2
             $scope.listObj4.push(obj);
         }
+        console.log($scope.listObj)
     }
     $scope.createAsswer = function (data) {//添加题组
         var data = data
@@ -367,10 +368,15 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             no: noarray,//选项个数数组,
             itemNumber: itemNumber,//选项个数
             totalCores: $scope.index == 4 ? parseInt($scope.result.writscore) : totaltwo,//总分
-            itemCores: $scope.result.itemcoreS,//每小题分
-            thr: $scope.index == 1 ? $scope.nubarray : ['T', 'F'], //选项ABCD(选择题和判断题)
+            itemCores: parseInt($scope.result.itemcoreS),//每小题分
+            thr : $scope.index == 1 ? $scope.nubarray : ['T', 'F'], //选项ABCD(选择题和判断题)
             type: $scope.result.isradio == 2 ? 6 : $scope.index//题目类型
         }
+        var itemCoresArr = []//每题分数数组
+        for(var i = 0; i < obj.numbel;i++){
+            itemCoresArr.push(obj.itemCores)
+        }
+        obj.itemCoresArr = itemCoresArr
         if ($scope.index == 4) {
             obj.articleType = $scope.result.writIsradio
             obj.rows = rosItem
@@ -564,11 +570,11 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var answerNumber = parseInt(answerNumber)//选项个数
         var dot = $(".position_TL span").eq(1).offset();
         dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
-        var item_w = 16, itemMarginLeft = 13;
+        var item_w = 14, itemMarginLeft = 11;
         for (var i = 1; i <= qNumer; i++) {//循环每个小题
             var itme_obj = {}
             itme_obj.no = startNo + i - 1
-            itme_obj.one_score = parseInt(itemCores)
+            itme_obj.one_score = parseInt(itemCores[i-1])
             itme_obj.answer_setting_id = answer_id[Answerindex].answers.settings[i - 1].setting_id//小题id
             itme_obj.option = []
             question.push(itme_obj)
@@ -578,8 +584,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 var itme_obj = {}
                 itme_obj.no = j//小题序号
                 if (answerModeType == 1 || answerModeType == 2 || answerModeType == 6) {//单选题/多选题/判断题
-                    itme_obj.option_point_x = parseInt(getItemPost(Answerindex)[i].left + 8 + (item_w + itemMarginLeft) * (j - 1) - dot.left)//选项框中心点x坐标
-                    itme_obj.option_point_y = parseInt(getItemPost(Answerindex)[i].top + 6 - dot.top - 1126 * (current_page - 1))//同行option_point_y都是一样的 选项框中心点y坐标
+                    itme_obj.option_point_x = getItemPost(Answerindex)[i].left + 7 + (item_w + itemMarginLeft) * (j - 1) - dot.left//选项框中心点x坐标
+                    itme_obj.option_point_y = getItemPost(Answerindex)[i].top + 5.5 - dot.top - 1126 * (current_page - 1)//同行option_point_y都是一样的 选项框中心点y坐标
                 } else if (answerModeType == 3) {
                     itme_obj.option_point_x = parseInt(getFillPost(Answerindex)[i].left + 12 - dot.left)
                     itme_obj.option_point_y = parseInt(getFillPost(Answerindex)[i].top + 7 - dot.top - 1126 * (current_page - 1))
@@ -621,18 +627,18 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             itme_obj.answer_mode = answerModeType(obj[i - 1].type)//题目类型
             itme_obj.current_page = obj[i - 1].current_page//当前页面
             itme_obj.num_question = obj[i - 1].numbel//题目数量
-            itme_obj.region_rect_x = regionRect(i - 1).region_rect_x//题组区域的X坐标
-            itme_obj.region_rect_y = regionRect(i - 1).region_rect_y - 1126 * (itme_obj.current_page - 1)//题组区域的Y坐标
-            itme_obj.region_rect_width = 698//题组区域的宽度
+            itme_obj.region_rect_x = regionRect(i - 1).region_rect_x+8//题组区域的X坐标
+            itme_obj.region_rect_y = regionRect(i - 1).region_rect_y - 1126 * (itme_obj.current_page - 1)+8//题组区域的Y坐标
+            itme_obj.region_rect_width = 698-14//题组区域的宽度
             if (obj[i - 1].type == 4) {//作文题
                 itme_obj.region_rect_height = 100//题组区域的高度
             } else {
-                itme_obj.region_rect_height = regionRect(i - 1).region_rect_height//题组区域的高度
+                itme_obj.region_rect_height = regionRect(i - 1).region_rect_height-8//题组区域的高度
             }
             itme_obj.question = []
             if (obj[i - 1].type == 1 || obj[i - 1].type == 6 || obj[i - 1].type == 2) {//单选题/多选题/判断题
-                itme_obj.block_width = 16//选项宽度
-                itme_obj.block_height = 13//选项高度
+                itme_obj.block_width = 14//选项宽度
+                itme_obj.block_height = 11//选项高度
                 itme_obj.answer_count = 1//答案个数
                 itme_obj.num_of_option = parseInt(obj[i - 1].itemNumber)//选项个数
             } else if (obj[i - 1].type == 3) {//填空题
@@ -660,7 +666,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             BigQuestion.push(itme_obj)
         }
         for (var i = 0; i < BigQuestion.length; i++) {
-            BigQuestion[i].question = getQuestion(obj[i].numbel, obj[i].itemNumber, i, obj[i].type, obj[i].itemCores, obj[i].current_page, obj[i].startNo)
+            BigQuestion[i].question = getQuestion(obj[i].numbel, obj[i].itemNumber, i, obj[i].type, obj[i].itemCoresArr, obj[i].current_page, obj[i].startNo)
         }
         BigQuestion.push(getStudentInfo())//添加考生信息
         return BigQuestion
@@ -728,17 +734,26 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
             if(obj.type==1){//增加小题
                 obj.list[obj.index].no.push(obj.no)
+                obj.list[obj.index].itemCoresArr.push(obj.score)
                 obj.list[obj.index].numbel++  //题目数量
-                obj.list[obj.index].itemCores = obj.score  //当前小题分值
+                // obj.list[obj.index].itemCores = obj.score  //当前小题分值
                 obj.list[obj.index].totalCores = obj.list[obj.index].totalCores+obj.score //当前答题总分
                 $scope.countScore = $scope.countScore + obj.score  //总分
                 console.log($scope.listObj)
             }
             if(obj.type==2){//删除小题
-                obj.list[obj.index].no.pop()
                 obj.list[obj.index].numbel--
-                obj.list[obj.index].totalCores = obj.list[obj.index].totalCores-obj.list[obj.index].itemCores
-                $scope.countScore = $scope.countScore -  obj.list[obj.index].itemCores
+                obj.list[obj.index].no.pop()
+                var delScore = obj.list[obj.index].itemCoresArr.pop()
+                obj.list[obj.index].totalCores = obj.list[obj.index].totalCores - delScore
+                $scope.countScore = $scope.countScore -  delScore
+                console.log($scope.listObj)
+            }
+            if(obj.type==3){//修改分数
+                var oldScore = obj.list[obj.index].itemCoresArr[obj.itmeIndex]//最开始的分数
+                obj.list[obj.index].itemCoresArr[obj.itmeIndex] = parseInt(obj.score)
+                obj.list[obj.index].totalCores = obj.list[obj.index].totalCores - parseInt(oldScore) + parseInt(obj.score)
+                $scope.countScore = $scope.countScore - parseInt(oldScore) + parseInt(obj.score)
             }
         }
         function setAnswerGrounp(index){
@@ -747,6 +762,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             config.no = options.no
             config.type = options.type
             config.score = options.score
+            config.itmeIndex = options.itmeIndex
             if(index <= len1 - 1){
                 config.index = index
                 config.list = $scope.listObj
@@ -948,6 +964,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         options.type = 1
         options.no = obj.setting_num
         options.score = obj.score
+        options.itmeIndex = obj.len
         var index;
         for(var i = 0;i<$scope.beforeBigAns.length;i++){
             if(param["answer_setting[answer_id]"]==$scope.beforeBigAns[i].answer_id){
@@ -976,6 +993,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         });
         var options = {}
         options.type = 2
+        options.itmeIndex = $scope.AnsLen
         var index;
         for(var i = 0;i<$scope.beforeBigAns.length;i++){
             if($scope.answers[0].answer_id==$scope.beforeBigAns[i].answer_id){
@@ -1286,9 +1304,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
         });
     }
-    $scope.setItmeScore = function (setting_id, score) {//设置每小题分数
+    $scope.setItmeScore = function (setting_id, score,itmeIndex) {//设置每小题分数
         var isLogin = localStorage.getItem("token");
-        $timeout(function () {
             $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/answer_settings/" + setting_id,
@@ -1299,12 +1316,22 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 async: false,
                 success: function (data) {
                     console.log(data)
+                    var options = {}
+                    options.type = 3
+                    options.score = score
+                    options.itmeIndex = itmeIndex
+                    var index;
+                    for(var i = 0;i<$scope.beforeBigAns.length;i++){
+                        if($scope.answers[0].answer_id==$scope.beforeBigAns[i].answer_id){
+                            index = i
+                        }
+                    }
+                    findScopeList(index,options)
                 },
                 error: function () {
 
                 }
-            });
-        }, 500)
+            })
     }
     $scope.setItmeNum = function (setting_id, num) {//设置题目序号
         var isLogin = localStorage.getItem("token");
