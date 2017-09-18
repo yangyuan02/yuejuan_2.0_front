@@ -528,7 +528,7 @@ angular.module("myApp.controller", [])
                         if (data.grade_socre_trend.length !== 0) {
 
                             for (var i = 0; i < data.grade_socre_trend.length; i++) {
-                                var nub = "第" + (i + 1) + "考试"
+                                var nub = "第" + (i + 1) + "次考试"
                                 nub_c.push(nub);
                                 nub_m.push(data.grade_socre_trend[i].average);
                             }
