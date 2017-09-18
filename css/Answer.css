@@ -83,7 +83,7 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
 }
 .Answer .A_R .A_Rone {width:720px;box-sizing:border-box;height:910px;padding: 10px;border: 1px solid #ddd;border-radius: 10px;float:left;position:relative;overflow:hidden}
 .Answer .A_R .A_Rone .A_Rone_child table{width: 100%;margin-bottom: 14px;border: 1px solid black;padding:0px 10px;}
-.Answer .A_R .A_Rone .A_Rone_child table thead tr th{height: 20px;padding: 10px 5px;font-size: 15px;text-align: left;}
+.Answer .A_R .A_Rone .A_Rone_child table thead tr th{height: 20px;padding: 0px 5px;font-size: 12px;text-align: left;padding-top:10px;}
 .Answer .A_R .A_Rone .A_Rone_child table tbody tr td{height: 20px;padding: 5px 5px;font-size: 12px;}
 .Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c {width: 25%;display: inline-block;padding: 5px 0;}
 .Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span {margin-right: 13px;}
@@ -101,7 +101,7 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
 .Answer .A_R .A_Rone:nth-child(2n) .tips_t{
     top:0;
 }
-.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span b{border: 1px solid black;display: inline-block;width: 14px;height:11px;line-height:11px;text-align: center;font-weight:normal;}
+.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span b{border: 1px solid black;display:block;width: 14px;height:11px;line-height:11px;text-align: center;font-weight:normal;}
 /*顶部学生信息*/
 .Answer .student_info{
     margin-top:30px;
