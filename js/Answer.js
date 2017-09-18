@@ -116,7 +116,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         if ($(".A_Rone").eq(page_num).find("table:last").position()) {//不是第一次插入
             var lastTabPosi = $(".A_Rone").eq(page_num).find("table:last").position().top + $(".A_Rone").eq(page_num).find("table:last").height() + 30//已经占用高度
             var remain = outerBox - lastTabPosi
-            var title_h = 45, padding = 10
+            var title_h = 40, padding = 10
             if ($scope.index == 1 || $scope.index == 2) {//选择题、判断题
                 var rowItme_h = 27;
                 if ($scope.result.thr <= 4) {//判断几个为一行
@@ -570,7 +570,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var answerNumber = parseInt(answerNumber)//选项个数
         var dot = $(".position_TL span").eq(1).offset();
         dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
-        var item_w = 16, itemMarginLeft = 13;
+        var item_w = 14, itemMarginLeft = 11;
         for (var i = 1; i <= qNumer; i++) {//循环每个小题
             var itme_obj = {}
             itme_obj.no = startNo + i - 1
@@ -584,8 +584,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 var itme_obj = {}
                 itme_obj.no = j//小题序号
                 if (answerModeType == 1 || answerModeType == 2 || answerModeType == 6) {//单选题/多选题/判断题
-                    itme_obj.option_point_x = parseInt(getItemPost(Answerindex)[i].left + 8 + (item_w + itemMarginLeft) * (j - 1) - dot.left)//选项框中心点x坐标
-                    itme_obj.option_point_y = parseInt(getItemPost(Answerindex)[i].top + 6 - dot.top - 1126 * (current_page - 1))//同行option_point_y都是一样的 选项框中心点y坐标
+                    itme_obj.option_point_x = getItemPost(Answerindex)[i].left + 7 + (item_w + itemMarginLeft) * (j - 1) - dot.left//选项框中心点x坐标
+                    itme_obj.option_point_y = getItemPost(Answerindex)[i].top + 5.5 - dot.top - 1126 * (current_page - 1)//同行option_point_y都是一样的 选项框中心点y坐标
                 } else if (answerModeType == 3) {
                     itme_obj.option_point_x = parseInt(getFillPost(Answerindex)[i].left + 12 - dot.left)
                     itme_obj.option_point_y = parseInt(getFillPost(Answerindex)[i].top + 7 - dot.top - 1126 * (current_page - 1))
@@ -627,18 +627,18 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             itme_obj.answer_mode = answerModeType(obj[i - 1].type)//题目类型
             itme_obj.current_page = obj[i - 1].current_page//当前页面
             itme_obj.num_question = obj[i - 1].numbel//题目数量
-            itme_obj.region_rect_x = regionRect(i - 1).region_rect_x//题组区域的X坐标
-            itme_obj.region_rect_y = regionRect(i - 1).region_rect_y - 1126 * (itme_obj.current_page - 1)//题组区域的Y坐标
-            itme_obj.region_rect_width = 698//题组区域的宽度
+            itme_obj.region_rect_x = regionRect(i - 1).region_rect_x+8//题组区域的X坐标
+            itme_obj.region_rect_y = regionRect(i - 1).region_rect_y - 1126 * (itme_obj.current_page - 1)+8//题组区域的Y坐标
+            itme_obj.region_rect_width = 698-14//题组区域的宽度
             if (obj[i - 1].type == 4) {//作文题
                 itme_obj.region_rect_height = 100//题组区域的高度
             } else {
-                itme_obj.region_rect_height = regionRect(i - 1).region_rect_height//题组区域的高度
+                itme_obj.region_rect_height = regionRect(i - 1).region_rect_height-8//题组区域的高度
             }
             itme_obj.question = []
             if (obj[i - 1].type == 1 || obj[i - 1].type == 6 || obj[i - 1].type == 2) {//单选题/多选题/判断题
-                itme_obj.block_width = 16//选项宽度
-                itme_obj.block_height = 13//选项高度
+                itme_obj.block_width = 14//选项宽度
+                itme_obj.block_height = 11//选项高度
                 itme_obj.answer_count = 1//答案个数
                 itme_obj.num_of_option = parseInt(obj[i - 1].itemNumber)//选项个数
             } else if (obj[i - 1].type == 3) {//填空题
