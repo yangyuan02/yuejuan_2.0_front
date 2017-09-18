@@ -1072,55 +1072,55 @@ m1.controller("demo", function ($scope, $timeout, $http) {
      * @param arr  当前数组
      * @returns {number} 节点索引
      */
-    // function getSliceIndex(max,arr){
-    //     var sum = 0,index = 0
-    //     for(var i = 0;i<arr.length;i++){
-    //         sum += arr[i]
-    //         if(sum>max){
-    //             index = i
-    //             break
-    //         }
-    //     }
-    //     return index
-    // }
+    function getSliceIndex(max,arr){
+        var sum = 0,index = 0
+        for(var i = 0;i<arr.length;i++){
+            sum += arr[i]
+            if(sum>=max){
+                index = i
+                break
+            }
+        }
+        return index
+    }
 
     /**
      * 获取页面所有高度
      * @returns {Array}
      */
-    // function getAllTableHeight(){
-    //     var heights = []
-    //     $("body").find("table").each(function(){
-    //         heights.push($(this).height())
-    //     })
-    //     return heights
-    // }
+    function getAllTableHeight(){
+        var heights = []
+        $("body").find("table").each(function(){
+            heights.push($(this).height())
+        })
+        return heights
+    }
 
     /**
      * 获取最后的切割节点
      * @returns {Array}
      */
-    // function getAllIndex(){
-    //     var indexList = []
-    //     var allTableHeigh = getAllTableHeight()
-    //     var index = getSliceIndex(525,allTableHeigh)
-    //     var allTableHeigh2 = allTableHeigh.slice(index)
-    //     var index2 = getSliceIndex(870,allTableHeigh2)
-    //     var allTableHeigh3 = allTableHeigh2.slice(index2)
-    //     var index3 = getSliceIndex(870,allTableHeigh3)
-    //     var allTableHeigh4 = allTableHeigh3.slice(index3)
-    //     var index4 = getSliceIndex(870,allTableHeigh4)
-    //     indexList = [index,index2,index3,index4]
-    //     return indexList
-    // }
-    // function deleRender() {
-    //     var index = getAllIndex()
-    //     console.log(index+"index",allList_1+"剩余的")
-    //     $scope.listObj = allList_1.slice(0,index[0])
-    //     $scope.listObj2 = allList_1.slice(index[0])
-    //     // $scope.listObj3 = allList.slice(index[0]+index[1],index[0]+index[1]+index[2])
-    //     // $scope.listObj4 = allList.slice(index[0]+index[1]+index[2],index[0]+index[1]+index[2]+index[3])
-    // }
+    function getAllIndex(){
+        var indexList = []
+        var allTableHeigh = getAllTableHeight()
+        var index = getSliceIndex(525,allTableHeigh)
+        var allTableHeigh2 = allTableHeigh.slice(index)
+        var index2 = getSliceIndex(870,allTableHeigh2)
+        var allTableHeigh3 = allTableHeigh2.slice(index2)
+        var index3 = getSliceIndex(870,allTableHeigh3)
+        var allTableHeigh4 = allTableHeigh3.slice(index3)
+        var index4 = getSliceIndex(870,allTableHeigh4)
+        indexList = [index,index2,index3,index4]
+        return indexList
+    }
+    function deleRender() {
+        var index = getAllIndex()
+        console.log(index+"index",allList_1+"剩余的")
+        // $scope.listObj = allList_1.slice(0,index[0])
+        // $scope.listObj2 = allList_1.slice(index[0])
+        // $scope.listObj3 = allList.slice(index[0]+index[1],index[0]+index[1]+index[2])
+        // $scope.listObj4 = allList.slice(index[0]+index[1]+index[2],index[0]+index[1]+index[2]+index[3])
+    }
     //设置当前排序
     function setAnswerSor() {
         var answer_id_item = $scope.bigAnswer[$scope.sortIndex].answer_id
@@ -1235,6 +1235,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             $scope.listObj4.splice(index - len1 - len2 - len3, 1)
             console.log("删除list4")
         }
+        // allList_1.splice(index,1)
+        // console.log(allList_1)
+        // deleRender()
     }
 
     //删除题组
@@ -1249,26 +1252,27 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 index = i
             }
         }
-        // $scope.bigAnswer.splice($scope.sortIndex,1)
-        // findScopeListDele($scope.sortIndex)
-        // answer_id.splice(index,1)
-        $.ajax({
-            type: "POST",
-            url: ajaxIp+"/api/v2/answers/delete",
-            headers: {'Authorization': "Bearer " + isLogin},
-            data:{'id':answer_id_item},
-            async: false,
-            success: function(data){
-                console.log(data)
-                $scope.bigAnswer.splice($scope.sortIndex,1)
-                findScopeListDele($scope.sortIndex)
-                answer_id.splice(index,1)
-                count(-parseInt(answer_score))
-            },
-            error: function(){
-
-            }
-        });
+        $scope.bigAnswer.splice($scope.sortIndex,1)
+        findScopeListDele($scope.sortIndex)
+        answer_id.splice(index,1)
+        count(-parseInt(answer_score))
+        // $.ajax({
+        //     type: "POST",
+        //     url: ajaxIp+"/api/v2/answers/delete",
+        //     headers: {'Authorization': "Bearer " + isLogin},
+        //     data:{'id':answer_id_item},
+        //     async: false,
+        //     success: function(data){
+        //         console.log(data)
+        //         $scope.bigAnswer.splice($scope.sortIndex,1)
+        //         findScopeListDele($scope.sortIndex)
+        //         answer_id.splice(index,1)
+        //         count(-parseInt(answer_score))
+        //     },
+        //     error: function(){
+        //
+        //     }
+        // });
         if($scope.bigAnswer.length==0){
             $scope.closeAnswerModel()
         }
