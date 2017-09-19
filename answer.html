@@ -86,8 +86,6 @@
                         </div>
                     </div>
                 </li>
-
-
                 <li><a ng-click="add(2)" class="{{2==index?'active':''}}">判断题</a>
                     <!--添加题组-->
                     <div class="addQ {{2==index?'active':''}}" id="addQ2">
@@ -108,8 +106,6 @@
                         </div>
                     </div>
                 </li>
-
-
                 <li><a ng-click="add(3)" class="{{3==index?'active':''}}">填空题</a>
                     <!--添加题组-->
                     <div class="addQ {{3==index?'active':''}}" id="addQ3">
@@ -238,7 +234,32 @@
                 </li>
                 <li><a>导入模板</a>
                 </li>
-                <li><a>另存为模板</a>
+                <li><a ng-click="add(6)" class="{{6==index?'active':''}}">另存为模板</a>
+                    <!--添加题组-->
+                    <div class="addQ {{6==index?'active':''}}">
+                        <h3>添加题组<span class="fr cous" ng-click="close()">X</span></h3>
+                        <div class="pd">
+                            <p><span>题组名称</span><span class="Red">*</span>
+                                <input class="mF" type="text" ng-model="result.name" placeholder="请输入题组名称"/>
+                            </p>
+                            <p><span>试题数量</span><input type="text" ng-model="result.numbel" placeholder="请输入试题数量"/></p>
+                            <p><span>试题类型</span>
+                                <input type="radio" ng-checked="result.isradio==1" ng-click="checkbox(1)"/>
+                                <span style="float: left;margin-right: 20px;">单选题</span>
+                                <input type="radio" ng-checked="result.isradio==2" ng-click="checkbox(2)" ／>
+                                <span style="float: left;">多选题</span>
+                            </p>
+                            <p><span>起始序号</span><input type="text" ng-model="result.no" placeholder="请输入起始序号"/></p>
+                            <p><span>每题分值</span><input type="text" ng-model="result.itemcoreS" placeholder="请输入每题分值"/>
+                            </p>
+                            <p><span>选项个数</span><input type="text" ng-model="result.thr" placeholder="请输入选项个数"/></p>
+
+                            <hr class="hr"/>
+                            <p>
+                                <button ng-click="btn1()">确认添加</button>
+                            </p>
+                        </div>
+                    </div>
                 </li>
             </ul>
         </div>
