@@ -535,7 +535,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for (var i = 1; i <= fillScoreOptions.length; i++) {
             var obj = {}
             obj.no = i
-            obj.option_point_x = fillScoreOptions[i - 1].left + 12 - dot.left
+            obj.option_point_x = fillScoreOptions[i - 1].left + 12.5 - dot.left
             obj.option_point_y = fillScoreOptions[i - 1].top - dot.top - 1126 * (current_page - 1)
             makrin.push(obj)
         }
@@ -630,23 +630,23 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 itme_obj.answer_count = 1//答案个数
                 itme_obj.num_of_option = parseInt(obj[i - 1].itemNumber)//选项个数
             } else if (obj[i - 1].type == 3) {//填空题
-                itme_obj.block_width = 25//选项宽度
-                itme_obj.block_height = 14//选项高度
+                itme_obj.block_width = 23//选项宽度
+                itme_obj.block_height = 12//选项高度
                 itme_obj.score_rect_x = fillScoreRect(i - 1).score_rect_x//打分框区域的x坐标
                 itme_obj.score_rect_y = fillScoreRect(i - 1).score_rect_y - 1126 * (itme_obj.current_page - 1)//打分框区域的y坐标
                 itme_obj.score_rect_width = fillScoreRect(i - 1).score_rect_width//打分框区域的宽度
                 itme_obj.score_rect_height = fillScoreRect(i - 1).score_rect_height//打分框区域的高度
                 itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page) //打分框坐标
             } else if (obj[i - 1].type == 5) {//其他题
-                itme_obj.block_width = 25//选项宽度
-                itme_obj.block_height = 14//选项高度
+                itme_obj.block_width = 23//选项宽度
+                itme_obj.block_height = 12//选项高度
                 itme_obj.score_rect_options = otherFillScoreRect(i - 1, obj[i - 1].current_page)//打分框区域的x坐标
                 itme_obj.score_rect_width = 690//打分框区域的宽度
                 itme_obj.score_rect_height = 40//打分框区域的高度
                 itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page)
             } else {//作文题
-                itme_obj.block_width = 25//选项宽度
-                itme_obj.block_height = 14//选项高度
+                itme_obj.block_width = 23//选项宽度
+                itme_obj.block_height = 12//选项高度
                 itme_obj.score_rect_width = 690//打分框区域的宽度
                 itme_obj.score_rect_height = 40//打分框区域的高度
                 itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page)
