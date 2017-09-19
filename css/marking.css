@@ -309,7 +309,7 @@ tr.child-tr{
 .test2-operation a{
 	color: #28b98c;
 }
-.test-model select {
+.test-model select, .test-status select{
   width: 72px;
   height: 24px;
   font-size: 12px;
@@ -317,6 +317,9 @@ tr.child-tr{
   outline: none;
   border: 1px solid #ccc;
   background: #fafafa;
+}
+.test-status select .end-status{
+	display: none;
 }
 .test-status .modify-paper{
 	width: 70px;

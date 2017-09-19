@@ -1048,6 +1048,14 @@ margin-left: 38px;
 	cursor: pointer;
 	
 }
+.study_q_05_01 tr td:nth{
+  /* width:93.6px;*/
+    width:40px;
+	height:44px;
+	text-align: center;
+	cursor: pointer;
+	
+}
 .study_q_05_01 tr td span{
   color:#31bc91;
 
@@ -1121,6 +1129,7 @@ bottom:205px;
 left: 240px;
 background: #f5f5f5;
 display: none;
+z-index:1111111;
 }
 .ans_01{
 	width:100%;
@@ -1213,6 +1222,7 @@ z-index:111;
 	margin-bottom: 10px;
 	cursor: pointer; 
 	background: #f5f5f5;
+	z-index:1111;
 }
 .study_q_ck{
 	width:936px;
@@ -1529,15 +1539,15 @@ color: #666666;
 	margin-bottom: 400px;
 	
 }
-.exam_z_201{
-	
+.exam_z_201{	
 	margin-bottom: 400px;
 	display: none;
+	padding-left: 45px;
 }
 .exam_z_301{
 	width: 936px;
 	margin: 0 auto;
-	overflow:hidden;
+	/*overflow:hidden;*/
 	margin-bottom: 400px;
 	display: none;
 }
