@@ -997,9 +997,9 @@
                             <div class="set_q_item fl clearfix" ng-repeat="itmes in ans.settings">
                                 <div class="set_number fl"><input type="text" ng-keyup="setItmeNum(itmes.setting_id,itmes.setting_num)" ng-model="itmes.setting_num"></div>
                                 <div class="set_options_itme fl clearfix">
-                                    <div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.type=='xz'" ng-repeat="itme in nub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>
-                                    <div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.type=='dx'" ng-repeat="itme in nub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>
-                                    <div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.type=='sf'" ng-repeat="itme in rightNub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>
+                                    <div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.item=='单选题'" ng-repeat="itme in nub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>
+                                    <div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.item=='多选题'" ng-repeat="itme in nub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>
+                                    <div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.item=='是非题'" ng-repeat="itme in rightNub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>
                                 </div>
                                 <div class="set_number scoer fl" ng-show="showScore"><input type="text" ng-blur="setItmeScore(itmes.setting_id,itmes.score,$index)" ng-model="itmes.score"></div>
                                 <div class="scoer_wx fl" ng-show="showScore">分</div>
@@ -1071,7 +1071,7 @@
         <div class="modal-shadow modal-exit" ng-click="closeAnswerModel()"></div>
         <div class="modal-main" style="width:550px;">
             <div class="modal-exit iconfont modal-exit-icon" ng-click="closeAnswerModel()">&#xe61a;</div>
-            <div class="modal-title">设置客观题答题</div>
+            <div class="modal-title">设置主观题答题</div>
             <div class="modal-content nomal">
                 <div class="mian-cont">
                     <div class="bigquestion" ng-repeat="ans in answers" ng-init="outerIndex = $index">

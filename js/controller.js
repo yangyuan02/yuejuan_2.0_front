@@ -1164,6 +1164,7 @@ angular.module("myApp.controller", [])
                         $(".study_q_04_bo").hide();
                         $(".study_q_02_bo").hide();
                         $("#study_q_03_02").html(" ");
+                        $(".study_q_05_01").html(" ");
                     } else {
                         $(".study_q_04_bo").show();
                         $(".study_q_02_bo").show();
@@ -1347,6 +1348,7 @@ angular.module("myApp.controller", [])
             var xuan_z = $(this).parents().prev().prev().html();
             console.log(xuan_z);
             $(".study_q_ck_a2").html("正确答案" + $(this).parents().prev().prev().html());
+            $(".study_q_ck_a2").attr("data_ans",$(this).parents().prev().prev().html());
               $(".xiaoti_mark").attr("data-itm",$(this).parents().attr("data-itm"));
 
 
@@ -1379,8 +1381,9 @@ angular.module("myApp.controller", [])
                 },
                 success: function(data) {
                     console.log(data);
+                    var da_ans=$(".study_q_ck_a2").attr("data_ans");
                     $(".xiaoti_mark").html(" ");
-                     var x_zhe =[];
+                    var x_zhe =[];
                    for(var i=0;i<data.student_answer_setting_infos.length;i++){
                     var jsons=data.student_answer_setting_infos[i];
                     for(var key in jsons){
@@ -1398,8 +1401,12 @@ angular.module("myApp.controller", [])
                             console.log(data.student_answer_setting_infos[i][a]);
                             console.log(b);
                             for (var c = 0; c < b; c++) {
-                                $('#' + tda_id + ' td').eq(1).append('<a>' + data.student_answer_setting_infos[i][a][c].real_name + '</a>');
-                            } 
+                                if(x_zhe[i]==da_ans){
+                              $('#' + tda_id + ' td').eq(1).append('<a style="background:#fb7d8a;">' + data.student_answer_setting_infos[i][a][c].real_name + '</a>');
+                            }else{
+                            $('#' + tda_id + ' td').eq(1).append('<a>' + data.student_answer_setting_infos[i][a][c].real_name + '</a>');
+                            }
+                        }
                         };
                 },
                 error: function() {
@@ -3129,6 +3136,7 @@ angular.module("myApp.controller", [])
                      max:1
                 }],
                  // large:false,
+                 // itemStyle:{normal:{color:'#dc143c'}}
                 series: [{
                         name: '试题难度',
                         type: 'line',
@@ -3136,11 +3144,11 @@ angular.module("myApp.controller", [])
                         markLine : {
             
                       data : [
-                     [{value:0.4,xAxis:0, yAxis:0.4},      
-                      {xAxis:c, yAxis:0.4},             
+                     [{value:0.4,xAxis:0, yAxis:0.4,itemStyle:{normal:{color:'#31bc92'}}},      
+                      {xAxis:c, yAxis:0.4,itemStyle:{normal:{color:'#31bc92'}}},             
                       ],
-                      [{value:0.7,xAxis:0, yAxis:0.7},   
-                      {xAxis:c, yAxis:0.7},            
+                      [{value:0.7,xAxis:0, yAxis:0.7,itemStyle:{normal:{color:'#31bc92'}}},   
+                      {xAxis:c, yAxis:0.7,itemStyle:{normal:{color:'#31bc92'}}},            
                       ],
                       ]
                         },
