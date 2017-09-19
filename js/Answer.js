@@ -535,7 +535,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for (var i = 1; i <= fillScoreOptions.length; i++) {
             var obj = {}
             obj.no = i
-            obj.option_point_x = fillScoreOptions[i - 1].left + 12.5 - dot.left
+            obj.option_point_x = fillScoreOptions[i - 1].left + 11.5 - dot.left
             obj.option_point_y = fillScoreOptions[i - 1].top - dot.top - 1126 * (current_page - 1)
             makrin.push(obj)
         }
@@ -575,7 +575,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     itme_obj.option_point_x = getItemPost(Answerindex)[i].left + 7 + (item_w + itemMarginLeft) * (j - 1) - dot.left//选项框中心点x坐标
                     itme_obj.option_point_y = getItemPost(Answerindex)[i].top - dot.top - 1126 * (current_page - 1)//同行option_point_y都是一样的 选项框中心点y坐标
                 } else if (answerModeType == 3) {
-                    itme_obj.option_point_x = getFillPost(Answerindex)[i].left + 12.5 - dot.left
+                    itme_obj.option_point_x = getFillPost(Answerindex)[i].left + 11.5 - dot.left
                     itme_obj.option_point_y = getFillPost(Answerindex)[i].top - dot.top - 1126 * (current_page - 1)
                 }
                 question[i].option.push(itme_obj)
