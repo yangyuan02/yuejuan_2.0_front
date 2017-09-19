@@ -71,7 +71,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         });
     }
     $scope.getAnswer()
-    $scope.oldAnswerLen = answer_id.length
     //点击显示
     $scope.add = function (index) {
         $scope.index = index
@@ -828,7 +827,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             alert("请添题组")
             return
         }
-        if ($scope.newAnswerLen > $scope.oldAnswerLen) {
+        if (modelParam.length>0) {
             var r = confirm("请保存答题卡")
             if (r) {
                 $scope.save()
@@ -1062,47 +1061,47 @@ m1.controller("demo", function ($scope, $timeout, $http) {
      * @param arr  当前数组
      * @returns {number} 节点索引
      */
-    function getSliceIndex(max,arr){
-        var sum = 0,index = 0
-        for(var i = 0;i<arr.length;i++){
-            sum += arr[i]
-            if(sum>=max){
-                index = i
-                break
-            }
-        }
-        return index
-    }
+    // function getSliceIndex(max,arr){
+    //     var sum = 0,index = 0
+    //     for(var i = 0;i<arr.length;i++){
+    //         sum += arr[i]
+    //         if(sum>=max){
+    //             index = i
+    //             break
+    //         }
+    //     }
+    //     return index
+    // }
 
     /**
      * 获取页面所有高度
      * @returns {Array}
      */
-    function getAllTableHeight(){
-        var heights = []
-        $("body").find("table").each(function(){
-            heights.push($(this).height())
-        })
-        return heights
-    }
+    // function getAllTableHeight(){
+    //     var heights = []
+    //     $("body").find("table").each(function(){
+    //         heights.push($(this).height())
+    //     })
+    //     return heights
+    // }
 
     /**
      * 获取最后的切割节点
      * @returns {Array}
      */
-    function getAllIndex(){
-        var indexList = []
-        var allTableHeigh = getAllTableHeight()
-        var index = getSliceIndex(525,allTableHeigh)
-        var allTableHeigh2 = allTableHeigh.slice(index)
-        var index2 = getSliceIndex(870,allTableHeigh2)
-        var allTableHeigh3 = allTableHeigh2.slice(index2)
-        var index3 = getSliceIndex(870,allTableHeigh3)
-        var allTableHeigh4 = allTableHeigh3.slice(index3)
-        var index4 = getSliceIndex(870,allTableHeigh4)
-        indexList = [index,index2,index3,index4]
-        return indexList
-    }
+    // function getAllIndex(){
+    //     var indexList = []
+    //     var allTableHeigh = getAllTableHeight()
+    //     var index = getSliceIndex(525,allTableHeigh)
+    //     var allTableHeigh2 = allTableHeigh.slice(index)
+    //     var index2 = getSliceIndex(870,allTableHeigh2)
+    //     var allTableHeigh3 = allTableHeigh2.slice(index2)
+    //     var index3 = getSliceIndex(870,allTableHeigh3)
+    //     var allTableHeigh4 = allTableHeigh3.slice(index3)
+    //     var index4 = getSliceIndex(870,allTableHeigh4)
+    //     indexList = [index,index2,index3,index4]
+    //     return indexList
+    // }
     function deleRender() {
         var index = getAllIndex()
         console.log(index+"index",allList_1+"剩余的")
@@ -1152,10 +1151,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             if(compare($index,0,page_num)){
                 $scope.sortIndex--
                 swapItems(arr, $index, $index - 1);
-                // swapItems(answer_id, $index, $index - 1);
+                swapItems(answer_id, $index, $index - 1);
                 swapItems(allList_1, $index, $index - 1);
                 render(allList_1,$index)
-                // setAnswerSor()
+                setAnswerSor()
                 return false
             }else {
                 alert("当前高度大于上一个高度")
@@ -1164,10 +1163,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         $scope.sortIndex--
         swapItems(arr, $index, $index - 1);
-        // swapItems(answer_id, $index, $index - 1);
+        swapItems(answer_id, $index, $index - 1);
         swapItems(allList_1, $index, $index - 1);
         render(allList_1,$index)
-        // setAnswerSor()
+        setAnswerSor()
     };
 
     // 下移
@@ -1188,10 +1187,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             if(compare($index,1,page_num)){
                 $scope.sortIndex++
                 swapItems(arr, $index, $index + 1);
-                // swapItems(answer_id, $index, $index + 1);
+                swapItems(answer_id, $index, $index + 1);
                 swapItems(allList_1, $index, $index + 1);
                 render(allList_1,$index)
-                // setAnswerSor()
+                setAnswerSor()
                 return false
             }else {
                 alert("当前高度大于下一个高度")
@@ -1200,10 +1199,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }//
         $scope.sortIndex++
         swapItems(arr, $index, $index + 1);
-        // swapItems(answer_id, $index, $index + 1);
+        swapItems(answer_id, $index, $index + 1);
         swapItems(allList_1, $index, $index + 1);
         render(allList_1,$index)
-        // setAnswerSor()
+        setAnswerSor()
     };
     //查找在那个全局变量删除元素
     function findScopeListDele(index) {
@@ -1242,27 +1241,27 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 index = i
             }
         }
-        $scope.bigAnswer.splice($scope.sortIndex,1)
-        findScopeListDele($scope.sortIndex)
-        answer_id.splice(index,1)
-        count(-parseInt(answer_score))
-        // $.ajax({
-        //     type: "POST",
-        //     url: ajaxIp+"/api/v2/answers/delete",
-        //     headers: {'Authorization': "Bearer " + isLogin},
-        //     data:{'id':answer_id_item},
-        //     async: false,
-        //     success: function(data){
-        //         console.log(data)
-        //         $scope.bigAnswer.splice($scope.sortIndex,1)
-        //         findScopeListDele($scope.sortIndex)
-        //         answer_id.splice(index,1)
-        //         count(-parseInt(answer_score))
-        //     },
-        //     error: function(){
-        //
-        //     }
-        // });
+        // $scope.bigAnswer.splice($scope.sortIndex,1)
+        // findScopeListDele($scope.sortIndex)
+        // answer_id.splice(index,1)
+        // count(-parseInt(answer_score))
+        $.ajax({
+            type: "POST",
+            url: ajaxIp+"/api/v2/answers/delete",
+            headers: {'Authorization': "Bearer " + isLogin},
+            data:{'id':answer_id_item},
+            async: false,
+            success: function(data){
+                console.log(data)
+                $scope.bigAnswer.splice($scope.sortIndex,1)
+                findScopeListDele($scope.sortIndex)
+                answer_id.splice(index,1)
+                count(-parseInt(answer_score))
+            },
+            error: function(){
+
+            }
+        });
         if($scope.bigAnswer.length==0){
             $scope.closeAnswerModel()
         }
@@ -1363,78 +1362,121 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             return
         }
         var isLogin = localStorage.getItem("token");
-        var param = ''
-        modelParam.forEach(function (item,index,arr) {
-            for(var k in arr[index]){
-                param+='&'+k+'='+ arr[index][k]
-            }
-        })
-        var a = param.substr(1)
-        $.ajax({//获取answer_id
-                type: "POST",
-                url:"api/v2/answers/batch_create?"+param,
-                headers: {'Authorization': "Bearer " + isLogin},
-                // data: JSON.stringify(modelParam),
-                async: false,
-                success: function (data) {
-                    console.log(data)
-                    answer_id = data
-                    console.log(answer_id)
-                    $scope.newAnswerLen = answer_id.length
-                    var answer_ids = []
-                    for (var i = 0; i < answer_id.length; i++) {
-                        answer_ids.push(answer_id[i].answers.answer_id)
-                    }
-                    if($scope.paperType==0){//手工阅卷
-                        var allP = getBigQuestion(allPagePost())
-                    }else{
-                        var allP = filtrAnswerMode(getBigQuestion(allPagePost()))
-                    }
-                    console.log(allP)
-                    $.ajax({
-                            type: "POST",
-                            url: ajaxIp + "/api/v2/answer_regions",
-                            headers: {'Authorization': "Bearer " + isLogin},
-                            async: false,
-                            data: {
-                                'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
-                                'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
-                                'answer_region[region_info]': JSON.stringify(allP),//所有坐标信息
-                                'answer_region[basic_info_region]': JSON.stringify(allList()),//存储页面题目
-                                'page': $(".A_R").length
-                            },
-                            success: function (data) {//绑定题组以便刷新后删除没用的
-                                $scope.oldAnswerLen = answer_id.length
-                                $.ajax({
-                                        type: "POST",
-                                        url: ajaxIp + "/api/v2/answer_region_binds",
-                                        headers: {'Authorization': "Bearer " + isLogin},
-                                        async: false,
-                                        data: {
-                                            'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
-                                            'answer_region_id': data.message,
-                                            'answer_ids': answer_ids.join(",")
-                                        },
-                                        success: function (data) {
-                                            alert("保存成功")
-                                            console.log(data)
-                                        }
-                                    }
-                                )
-                            }
-                        }
-                    )
+        if(modelParam.length>0){
+            var param = ''
+            modelParam.forEach(function (item,index,arr) {
+                for(var k in arr[index]){
+                    param+='&'+k+'='+ arr[index][k]
                 }
+            })
+            var a = param.substr(1)
+            $.ajax({//获取answer_id
+                    type: "POST",
+                    url:"api/v2/answers/batch_create?"+param,
+                    headers: {'Authorization': "Bearer " + isLogin},
+                    // data: JSON.stringify(modelParam),
+                    async: false,
+                    success: function (data) {
+                        console.log(data)
+                        answer_id = data
+                        console.log(answer_id)
+                        var answer_ids = []
+                        for (var i = 0; i < answer_id.length; i++) {
+                            answer_ids.push(answer_id[i].answers.answer_id)
+                        }
+                        if($scope.paperType==0){//手工阅卷
+                            var allP = getBigQuestion(allPagePost())
+                        }else{
+                            var allP = filtrAnswerMode(getBigQuestion(allPagePost()))
+                        }
+                        console.log(allP)
+                        $.ajax({
+                                type: "POST",
+                                url: ajaxIp + "/api/v2/answer_regions",
+                                headers: {'Authorization': "Bearer " + isLogin},
+                                async: false,
+                                data: {
+                                    'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
+                                    'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
+                                    'answer_region[region_info]': JSON.stringify(allP),//所有坐标信息
+                                    'answer_region[basic_info_region]': JSON.stringify(allList()),//存储页面题目
+                                    'page': $(".A_R").length
+                                },
+                                success: function (data) {//绑定题组以便刷新后删除没用的
+                                    $.ajax({
+                                            type: "POST",
+                                            url: ajaxIp + "/api/v2/answer_region_binds",
+                                            headers: {'Authorization': "Bearer " + isLogin},
+                                            async: false,
+                                            data: {
+                                                'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
+                                                'answer_region_id': data.message,
+                                                'answer_ids': answer_ids.join(",")
+                                            },
+                                            success: function (data) {
+                                                alert("保存成功")
+                                                console.log(data)
+                                            }
+                                        }
+                                    )
+                                }
+                            }
+                        )
+                    }
+                }
+            )
+        }else{
+            var answer_ids = []
+            for (var i = 0; i < answer_id.length; i++) {
+                answer_ids.push(answer_id[i].answers.answer_id)
             }
-        )
+            if($scope.paperType==0){//手工阅卷
+                var allP = getBigQuestion(allPagePost())
+            }else{
+                var allP = filtrAnswerMode(getBigQuestion(allPagePost()))
+            }
+            console.log(allP)
+            $.ajax({
+                    type: "POST",
+                    url: ajaxIp + "/api/v2/answer_regions",
+                    headers: {'Authorization': "Bearer " + isLogin},
+                    async: false,
+                    data: {
+                        'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
+                        'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
+                        'answer_region[region_info]': JSON.stringify(allP),//所有坐标信息
+                        'answer_region[basic_info_region]': JSON.stringify(allList()),//存储页面题目
+                        'page': $(".A_R").length
+                    },
+                    success: function (data) {//绑定题组以便刷新后删除没用的
+                        $.ajax({
+                                type: "POST",
+                                url: ajaxIp + "/api/v2/answer_region_binds",
+                                headers: {'Authorization': "Bearer " + isLogin},
+                                async: false,
+                                data: {
+                                    'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
+                                    'answer_region_id': data.message,
+                                    'answer_ids': answer_ids.join(",")
+                                },
+                                success: function (data) {
+                                    alert("保存成功")
+                                    console.log(data)
+                                }
+                            }
+                        )
+                    }
+                }
+            )
+        }
     }
     window.onbeforeunload = function () {//离开刷新提醒
-        if ($scope.newAnswerLen > $scope.oldAnswerLen) {
+        if (modelParam.length>0) {
             return "您修改了内容,请保存答题卡"
         }
     }
     $scope.closeUteroBox = function () {//关闭离开
-        if ($scope.newAnswerLen > $scope.oldAnswerLen) {
+        if (modelParam.length>0) {
             var r = confirm("请保存答题卡")
             if (r) {
                 $scope.save()
