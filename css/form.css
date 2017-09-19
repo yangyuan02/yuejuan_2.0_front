@@ -1547,7 +1547,7 @@ color: #666666;
 .exam_z_301{
 	width: 936px;
 	margin: 0 auto;
-	overflow:hidden;
+	/*overflow:hidden;*/
 	margin-bottom: 400px;
 	display: none;
 }

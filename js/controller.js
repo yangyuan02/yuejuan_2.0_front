@@ -528,7 +528,7 @@ angular.module("myApp.controller", [])
                         if (data.grade_socre_trend.length !== 0) {
 
                             for (var i = 0; i < data.grade_socre_trend.length; i++) {
-                                var nub = "第" + (i + 1) + "考试"
+                                var nub = "第" + (i + 1) + "次考试"
                                 nub_c.push(nub);
                                 nub_m.push(data.grade_socre_trend[i].average);
                             }
@@ -1164,6 +1164,7 @@ angular.module("myApp.controller", [])
                         $(".study_q_04_bo").hide();
                         $(".study_q_02_bo").hide();
                         $("#study_q_03_02").html(" ");
+                        $(".study_q_05_01").html(" ");
                     } else {
                         $(".study_q_04_bo").show();
                         $(".study_q_02_bo").show();
@@ -1275,7 +1276,13 @@ angular.module("myApp.controller", [])
                                 // $('#'+tab_bo[i]+'').append('<tr><td></td><td>' + data.class_answer_setting_statistic[i].content[c].average + '</td><td>' + data.class_answer_setting_statistic[i].content[c].num + '</td><td>' + data.class_answer_setting_statistic[i].content[c].column_value_1 + '</td><td>' + data.class_answer_setting_statistic[i].content[c].column_value_2 + '</td><td>' + data.class_answer_setting_statistic[i].content[c].column_value_3 + '</td><td>' + data.class_answer_setting_statistic[i].content[c].column_value_4 + '</td><td>' + data.class_answer_setting_statistic[i].content[c].correct + '</td><td>'+data.class_answer_setting_statistic[i].content[c].correct_rate+'</td><td><span data_ans="' + data.class_answer_setting_statistic[i].content[c].answer_setting_id + '">查看</span></td></tr>');
                                 // 
                                 var zq_rate=Math.round(data.class_answer_setting_statistic[i].content[c].correct_rate*100)+"%";
-                                $('#' + tab_bo[i] + ' tr').eq(c).append('<td>' + data.class_answer_setting_statistic[i].answer_name + '</td><td>' + data.class_answer_setting_statistic[i].content[c].average + '</td><td>' + data.class_answer_setting_statistic[i].content[c].num + '</td><td>' + data.class_answer_setting_statistic[i].content[c].correct + '</td><td>' +zq_rate+ '</td><td data-itm="' + data.class_answer_setting_statistic[i].content[c].item + '"><span data_ans="' + data.class_answer_setting_statistic[i].content[c].answer_setting_id + '">查看</span></td></tr>');
+                                if(c==0){
+                                console.log(c);
+                                $('#' + tab_bo[i] + ' tr').eq(c).append('<td style="border:0px;">' + data.class_answer_setting_statistic[i].answer_name + '</td><td>' + data.class_answer_setting_statistic[i].content[c].average + '</td><td>' + data.class_answer_setting_statistic[i].content[c].num + '</td><td>' + data.class_answer_setting_statistic[i].content[c].correct + '</td><td>' +zq_rate+ '</td><td data-itm="' + data.class_answer_setting_statistic[i].content[c].item + '"><span data_ans="' + data.class_answer_setting_statistic[i].content[c].answer_setting_id + '">查看</span></td></tr>'); 
+                                
+                                }else{
+                                $('#' + tab_bo[i] + ' tr').eq(c).append('<td style="border:0px;"></td><td>' + data.class_answer_setting_statistic[i].content[c].average + '</td><td>' + data.class_answer_setting_statistic[i].content[c].num + '</td><td>' + data.class_answer_setting_statistic[i].content[c].correct + '</td><td>' +zq_rate+ '</td><td data-itm="' + data.class_answer_setting_statistic[i].content[c].item + '"><span data_ans="' + data.class_answer_setting_statistic[i].content[c].answer_setting_id + '">查看</span></td></tr>'); 
+                                }
                                 for (var d = 0; d < data.class_answer_setting_statistic[i].content[0].result.length; d++) {
                                     var f = data.class_answer_setting_statistic[i].content[0].result.length - 1 - d;
                                     if(data.class_answer_setting_statistic[i].content[c].column_value[f]==undefined){
@@ -1341,6 +1348,7 @@ angular.module("myApp.controller", [])
             var xuan_z = $(this).parents().prev().prev().html();
             console.log(xuan_z);
             $(".study_q_ck_a2").html("正确答案" + $(this).parents().prev().prev().html());
+            $(".study_q_ck_a2").attr("data_ans",$(this).parents().prev().prev().html());
               $(".xiaoti_mark").attr("data-itm",$(this).parents().attr("data-itm"));
 
 
@@ -1373,8 +1381,9 @@ angular.module("myApp.controller", [])
                 },
                 success: function(data) {
                     console.log(data);
+                    var da_ans=$(".study_q_ck_a2").attr("data_ans");
                     $(".xiaoti_mark").html(" ");
-                     var x_zhe =[];
+                    var x_zhe =[];
                    for(var i=0;i<data.student_answer_setting_infos.length;i++){
                     var jsons=data.student_answer_setting_infos[i];
                     for(var key in jsons){
@@ -1392,8 +1401,12 @@ angular.module("myApp.controller", [])
                             console.log(data.student_answer_setting_infos[i][a]);
                             console.log(b);
                             for (var c = 0; c < b; c++) {
-                                $('#' + tda_id + ' td').eq(1).append('<a>' + data.student_answer_setting_infos[i][a][c].real_name + '</a>');
-                            } 
+                                if(x_zhe[i]==da_ans){
+                              $('#' + tda_id + ' td').eq(1).append('<a style="background:#fb7d8a;">' + data.student_answer_setting_infos[i][a][c].real_name + '</a>');
+                            }else{
+                            $('#' + tda_id + ' td').eq(1).append('<a>' + data.student_answer_setting_infos[i][a][c].real_name + '</a>');
+                            }
+                        }
                         };
                 },
                 error: function() {
@@ -2713,8 +2726,8 @@ angular.module("myApp.controller", [])
             $(".exam_z_left").hide();
         });
         var isLogin = localStorage.getItem("token");
-
-
+        // $(".exam_z_201").hide();
+        // $(".exam_z_301").hide();
         $(".exam_z_left li").eq(0).css("color", "#31bc91").siblings().css("color", "#999999");
         $(".exam_z_left li").click(function(event) {
             /* Act on the event */
@@ -2722,21 +2735,30 @@ angular.module("myApp.controller", [])
             $(this).css("color", "#31bc91").siblings().css("color", "#999999");
             $(".exam_z_b").html($(this).html());
             $(".exam_z_tab div").eq($(this).index()).show().siblings().hide();
-            if ($(this).index() == 0) {
-                $(".exam_z_101 span").eq(1).hide();
-                // $(".exam_z_101 span").eq(2).hide();
-            };
+            // if ($(this).index() == 0) {
+            //     $(".exam_z_101 span").eq(1).hide();
+            //     $(".exam_z_101").show().siblings().hide();
+            //     // $(".exam_z_101 span").eq(2).hide();
+            // };
 
+        });
+        $("#exam_z_left_1l").click(function(event) {
+            /* Act on the event */
+                 $(".exam_z_101 span").eq(1).hide();
+                // $(".exam_z_101").show().siblings().hide();
         });
 
         $("#exam_z_left_2l").click(function(event) {
             /* Act on the event */
+             // $(".exam_z_201").show().siblings().hide();
             $(".exam_z_101 span").eq(1).show();
             $(".exam_z_101 span").eq(2).show();
         });
 
         $("#exam_z_left_3l").click(function(event) {
             /* Act on the event */
+            $(".exam_z_301").show().siblings().hide();
+             
             $(".exam_z_101 span").eq(1).hide();
             $(".exam_z_101 span").eq(2).show();
         });
@@ -2950,10 +2972,11 @@ angular.module("myApp.controller", [])
             console.log(exam_id);
             console.log(class_id);
             console.log(sub_id);
-            kaishi_zhi(0, 0);
+            $("#exam_z_303").html(" ");
             /* Act on the event */
             $.ajax({
                 type: "POST",
+                async: false,
                 url: ajaxIp + "/api/v2/reports/degree_of_difficulty",
                 headers: {
                     'Authorization': "Bearer " + isLogin
@@ -2966,12 +2989,23 @@ angular.module("myApp.controller", [])
                     console.log(data);
                     var a = [];
                     var b = [];
+                    
                     for (var i = 0; i < data.length; i++) {
                         a.push(data[i].num);
                         b.push(data[i].difficulty);
+                        // if(data[i].difficulty<=0.4){
+                        //   c.push(data[i].num);
+                        // };
+                        //  if(data[i].difficulty>0.4&&data[i].difficulty<=0.7){
+                        //   d.push(data[i].num);
+                        // }
+                        // if(data[i].difficulty>0.7){
+                        //   e.push(data[i].num);
+                        // }
                     }
-                    console.log(b);
-                    kaishi_zhi(a, b);
+                    var c = a[a.length-1];
+                    console.log(c);
+                    kaishi_zhi(a,b,c);
 
                 },
                 error: function() {
@@ -3075,15 +3109,15 @@ angular.module("myApp.controller", [])
         // });
 
         // 难度系数变化图
-        function kaishi_zhi(a, b) {
+        function kaishi_zhi(a,b,c) {
             var myChart = echarts.init(document.getElementById('exam_z_303'));
-
+            
             var option = {
 
                 grid: {
                     x: 68,
                     y: 30,
-                    x2: 10,
+                    x2: 25,
                     y2: 25,
                     borderWidth: 1
                 },
@@ -3098,24 +3132,32 @@ angular.module("myApp.controller", [])
                 }],
                 yAxis: [{
                     type: 'value',
-
-
+                     min: 0,
+                     max:1
                 }],
+                 // large:false,
+                 // itemStyle:{normal:{color:'#dc143c'}}
                 series: [{
                         name: '试题难度',
                         type: 'line',
-                        data: b,
-                        markPoint: {
-                            data: [
+                        data:b,
+                        markLine : {
+            
+                      data : [
+                     [{value:0.4,xAxis:0, yAxis:0.4,itemStyle:{normal:{color:'#31bc92'}}},      
+                      {xAxis:c, yAxis:0.4,itemStyle:{normal:{color:'#31bc92'}}},             
+                      ],
+                      [{value:0.7,xAxis:0, yAxis:0.7,itemStyle:{normal:{color:'#31bc92'}}},   
+                      {xAxis:c, yAxis:0.7,itemStyle:{normal:{color:'#31bc92'}}},            
+                      ],
+                      ]
+                        },
 
-                            ]
-                        }
                     }
 
                 ]
             };
-
-            // 为echarts对象加载数据 
+    // 为echarts对象加载数据 
             myChart.setOption(option);
 
         }
