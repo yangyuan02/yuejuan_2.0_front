@@ -1416,6 +1416,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                                             success: function (data) {
                                                 alert("保存成功")
                                                 console.log(data)
+                                                modelParam.length=0
                                             }
                                         }
                                     )
@@ -1461,6 +1462,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                                 },
                                 success: function (data) {
                                     alert("保存成功")
+                                    modelParam.length=0
                                     console.log(data)
                                 }
                             }
