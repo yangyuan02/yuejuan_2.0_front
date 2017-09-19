@@ -134,9 +134,20 @@ $(function() {
 		var subjects_length = detail_data.subjects.length;
 		for (var i = 0; i < subjects_length; i++) {
 			// 表格列表信息
-			var list_tr = '<tr><td exam_subject_id="' + detail_data.subjects[i].exam_subject_id + '" batch-id="' + detail_data.subjects[i].batch_id + '" data-id="' + detail_data.subjects[i].id + '" class="subject-name">' + detail_data.subjects[i].name + '</td><td class="count">' + detail_data.student_total + '</td><td class="operation"><a href="javascript:(0);" class="set setAnswer"><i class="iconfont">&#xe60f;</i>试卷设置</a><a href="javascript:;" class="sign"><i class="iconfont">&#xe612;</i>权限分配</a><a href="javascript:;" class="dele"><i class="iconfont">&#xe616;</i>删除科目</a><a class="look-paper"><i class="iconfont">&#xe61e;</i>查看试卷</a></td></tr>';
+			var list_tr = '<tr  class="tr-'+i+'" customer_id="'+detail_data.subjects[i].customer_id+'"><td exam_subject_id="' + detail_data.subjects[i].exam_subject_id + '" batch-id="' + detail_data.subjects[i].batch_id + '" data-id="' + detail_data.subjects[i].id + '" class="subject-name">' + detail_data.subjects[i].name + '</td><td class="count">' + detail_data.student_total + '</td><td class="operation"><a href="javascript:(0);" class="set setAnswer"><i class="iconfont">&#xe60f;</i>试卷设置</a><a href="javascript:;" class="sign"><i class="iconfont">&#xe612;</i>权限分配</a><a href="javascript:;" class="dele"><i class="iconfont">&#xe616;</i>删除科目</a><a class="look-paper"><i class="iconfont">&#xe61e;</i>查看试卷</a></td></tr>';
 			$('.subject-list tbody').append(list_tr);
 			on_checked[i] = detail_data.subjects[i].id;
+			var c_id = $('#wrap').attr('customer_id');
+			if(c_id==detail_data.subjects[i].customer_id){
+				console.log($('.tr-'+i+'').children('.operation').html())
+				$('.tr-'+i+'').find('.operation').show();
+				$('.tr-'+i+'').siblings('tr').find('.operation').html('');
+				$('#operation-th').show();
+			}else{
+				$('.tr-'+i+'').find('.operation').html('');
+				$('#operation-th').hide();
+			}
+
 		};
 		// 考试角色判断是否有权限操作修改删除功能
 		console.log(!detail_data.is_modify)
@@ -144,13 +155,13 @@ $(function() {
 			// $('.dele').hide();
 			// $('#edit').hide();
 			// $('#new-create').hide();
-			$('#operation-th').hide();
-			$('.operation').hide();
+			// $('#operation-th').hide();
+			// $('.operation').hide();
 			$('.request-school').hide();
 			$('#dele-test').hide();
 		} else {
-			$('.operation').show();
-			$('#operation-th').show();
+			// $('.operation').show();
+			// $('#operation-th').show();
 			$('.request-school').show();
 			$('#dele-test').show();
 		}
