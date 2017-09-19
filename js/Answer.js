@@ -299,32 +299,21 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         var Q_type = ['单选题', '是非题', '填空题', '作文题', '其他题', '多选题']
         var param = {}
-        param["answer[exam_subject_id]"] = getUrlParam(url, 'examubjeId')//考试科目id
-        param["answer[item]"] = Q_type[data.type - 1]//试题类型
-        param["answer[name]"] = data.name//题组名称
-        param["answer_setting[count]"] = data.type == 4 ? 1 : data.numbel//试题数量 panduan
-        param["answer_setting[num]"] = data.startNo//起始序号
+        param["answer[][exam_subject_id]"] = getUrlParam(url, 'examubjeId')//考试科目id
+        param["answer[][item]"] = Q_type[data.type - 1]//试题类型
+        param["answer[][name]"] = data.name//题组名称
+        param["answer_setting[][count]"] = data.type == 4 ? 1 : data.numbel//试题数量 panduan
+        param["answer_setting[][num]"] = data.startNo//起始序号
         // param["answer_setting[page]"] = data.currentPage == undefined ? 1 : data.currentPage//所在页码
-        param["answer_setting[score]"] = data.type == 4 ? data.totalCores : data.itemCores//每题分值 panduan
-        param["answer_setting[type_count]"] = data.itemNumber//选项个数 panduan
+        param["answer_setting[][score]"] = data.type == 4 ? data.totalCores : data.itemCores//每题分值 panduan
+        param["answer_setting[][type_count]"] = data.itemNumber//选项个数 panduan
         if (data.type == 4) {
-            param["answer_setting[template_format]"] = data.articleType//作文模版格式 panduan
-            param["answer_setting[lattice_columns]"] = data.row//格子列数 panduan
-            param["answer_setting[lattice_total]]"] = data.plaid//格子总数 panduan
+            param["answer_setting[][template_format]"] = data.articleType//作文模版格式 panduan
+            param["answer_setting[][lattice_columns]"] = data.row//格子列数 panduan
+            param["answer_setting[][lattice_total]]"] = data.plaid//格子总数 panduan
         }
         modelParam.push(param)
-        window.localStorage.setItem(getUrlParam(url, 'examubjeId'),JSON.stringify(modelParam))
-        $.ajax({
-                type: "POST",
-                url: ajaxIp + "/api/v2/answers",
-                headers: {'Authorization': "Bearer " + isLogin},
-                data: param,
-                success: function (data) {
-                    answer_id.push(data)
-                    $scope.newAnswerLen = answer_id.length
-                }
-            }
-        )
+        // window.localStorage.setItem(getUrlParam(url, 'examubjeId'),JSON.stringify(modelParam))
     }
     //确认添加
     $scope.btn1 = function () {
@@ -813,17 +802,18 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.beforeBigAns = data.answers//没有过滤前
                 if (type == 0) {
                     $scope.bigAnswer = data.answers.filter(function (ele) {//过滤出选择题是非题
-                        return ele.type == 'xz' || ele.type == 'sf' || ele.type == 'dx'
+                        return ele.item == '单选题' || ele.item == '是非题' || ele.item == '多选题'
                     })
                 }else if(type==2){
                     $scope.bigAnswer = data.answers.filter(function (ele) {//过滤出主观题
-                        return ele.type == 'qt' || ele.type == 'tk'
+                        return ele.item == '其他题' || ele.item == '填空题'
                     })
                 }
                 else {
                     $scope.bigAnswer = data.answers
                 }
                 $scope.answers = $scope.bigAnswer.slice($scope.start, $scope.end)//设置答案弹窗数组
+                console.log($scope.answers)
                 $scope.AnsLen = $scope.answers.length>0?$scope.answers[0].settings.length:0
             },
             error: function () {
@@ -848,7 +838,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         getAnswerInfoTask(type)
         if (type == 0) {//设置答案
-            if (!$scope.answers) {
+            if ($scope.answers.length==0) {
                 alert("暂无客观题")
                 return false
             }
@@ -1373,43 +1363,64 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             return
         }
         var isLogin = localStorage.getItem("token");
-        var answer_ids = []
-        for (var i = 0; i < answer_id.length; i++) {
-            answer_ids.push(answer_id[i].answers.answer_id)
-        }
-        if($scope.paperType==0){//手工阅卷
-            var allP = getBigQuestion(allPagePost())
-        }else{
-            var allP = filtrAnswerMode(getBigQuestion(allPagePost()))
-        }
-        console.log(allP)
-        $.ajax({
+        var param = ''
+        modelParam.forEach(function (item,index,arr) {
+            for(var k in arr[index]){
+                param+='&'+k+'='+ arr[index][k]
+            }
+        })
+        var a = param.substr(1)
+        $.ajax({//获取answer_id
                 type: "POST",
-                url: ajaxIp + "/api/v2/answer_regions",
+                url:"api/v2/answers/batch_create?"+param,
                 headers: {'Authorization': "Bearer " + isLogin},
+                // data: JSON.stringify(modelParam),
                 async: false,
-                data: {
-                    'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
-                    'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
-                    'answer_region[region_info]': JSON.stringify(allP),//所有坐标信息
-                    'answer_region[basic_info_region]': JSON.stringify(allList()),//存储页面题目
-                    'page': $(".A_R").length
-                },
-                success: function (data) {//绑定题组以便刷新后删除没用的
-                    $scope.oldAnswerLen = answer_id.length
+                success: function (data) {
+                    console.log(data)
+                    answer_id = data
+                    console.log(answer_id)
+                    $scope.newAnswerLen = answer_id.length
+                    var answer_ids = []
+                    for (var i = 0; i < answer_id.length; i++) {
+                        answer_ids.push(answer_id[i].answers.answer_id)
+                    }
+                    if($scope.paperType==0){//手工阅卷
+                        var allP = getBigQuestion(allPagePost())
+                    }else{
+                        var allP = filtrAnswerMode(getBigQuestion(allPagePost()))
+                    }
+                    console.log(allP)
                     $.ajax({
                             type: "POST",
-                            url: ajaxIp + "/api/v2/answer_region_binds",
+                            url: ajaxIp + "/api/v2/answer_regions",
                             headers: {'Authorization': "Bearer " + isLogin},
                             async: false,
                             data: {
-                                'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
-                                'answer_region_id': data.message,
-                                'answer_ids': answer_ids.join(",")
+                                'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
+                                'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
+                                'answer_region[region_info]': JSON.stringify(allP),//所有坐标信息
+                                'answer_region[basic_info_region]': JSON.stringify(allList()),//存储页面题目
+                                'page': $(".A_R").length
                             },
-                            success: function (data) {
-                                alert("保存成功")
-                                console.log(data)
+                            success: function (data) {//绑定题组以便刷新后删除没用的
+                                $scope.oldAnswerLen = answer_id.length
+                                $.ajax({
+                                        type: "POST",
+                                        url: ajaxIp + "/api/v2/answer_region_binds",
+                                        headers: {'Authorization': "Bearer " + isLogin},
+                                        async: false,
+                                        data: {
+                                            'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
+                                            'answer_region_id': data.message,
+                                            'answer_ids': answer_ids.join(",")
+                                        },
+                                        success: function (data) {
+                                            alert("保存成功")
+                                            console.log(data)
+                                        }
+                                    }
+                                )
                             }
                         }
                     )
