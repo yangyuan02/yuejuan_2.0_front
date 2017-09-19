@@ -46,7 +46,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var isLogin = localStorage.getItem("token");
         $.ajax({
             type: "GET",
-            url: ajaxIp + "/api/v2/answer_regions/basic_info_region",
+            url: "/api/v2/answer_regions/basic_info_region",
             headers: {'Authorization': "Bearer " + isLogin},
             data: {'exam_subject_id': getUrlParam(url, 'examubjeId')},
             async: false,
@@ -558,7 +558,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var answerNumber = parseInt(answerNumber)//选项个数
         var dot = $(".position_TL span").eq(1).offset();
         dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
-        var item_w = 14, itemMarginLeft = 11;
+        var item_w = 16, itemMarginLeft = 13;
         for (var i = 1; i <= qNumer; i++) {//循环每个小题
             var itme_obj = {}
             itme_obj.no = startNo + i - 1
@@ -575,8 +575,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     itme_obj.option_point_x = getItemPost(Answerindex)[i].left + 7 + (item_w + itemMarginLeft) * (j - 1) - dot.left//选项框中心点x坐标
                     itme_obj.option_point_y = getItemPost(Answerindex)[i].top + 5.5 - dot.top - 1126 * (current_page - 1)//同行option_point_y都是一样的 选项框中心点y坐标
                 } else if (answerModeType == 3) {
-                    itme_obj.option_point_x = parseInt(getFillPost(Answerindex)[i].left + 12 - dot.left)
-                    itme_obj.option_point_y = parseInt(getFillPost(Answerindex)[i].top + 7 - dot.top - 1126 * (current_page - 1))
+                    itme_obj.option_point_x = getFillPost(Answerindex)[i].left + 12.5 - dot.left
+                    itme_obj.option_point_y = getFillPost(Answerindex)[i].top + 7 - dot.top - 1126 * (current_page - 1)
                 }
                 question[i].option.push(itme_obj)
             }
@@ -793,7 +793,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.rightNub = ["T", "F"]
         $.ajax({
             type: "GET",
-            url: ajaxIp + "/api/v2/answers/" + getUrlParam(url, 'examubjeId'),
+            url:"/api/v2/answers/" + getUrlParam(url, 'examubjeId'),
             headers: {'Authorization': "Bearer " + isLogin},
             async: false,
             success: function (data) {
@@ -871,7 +871,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.start = 0, $scope.end = 1
         $.ajax({//关闭的时候进行绑定
             type: "POST",
-            url: ajaxIp+"/api/v2/answer_regions/update_basic_info_region",
+            url:"/api/v2/answer_regions/update_basic_info_region",
             headers: {'Authorization': "Bearer " + isLogin},
             data:{
                 'exam_subject_id':getUrlParam(url, 'examubjeId'),
@@ -938,7 +938,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var isLogin = localStorage.getItem("token");
         $.ajax({
             type: "POST",
-            url: ajaxIp + "/api/v2/answer_settings",
+            url:"/api/v2/answer_settings",
             headers: {'Authorization': "Bearer " + isLogin},
             data: param,
             async: false,
@@ -969,7 +969,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var setting_id = $scope.answers[0].settings[$scope.AnsLen].setting_id
         $.ajax({
             type: "POST",
-            url: ajaxIp + "/api/v2/answer_settings/" + setting_id + "/delete",
+            url:"/api/v2/answer_settings/" + setting_id + "/delete",
             headers: {'Authorization': "Bearer " + isLogin},
             async: false,
             success: function (data) {
@@ -1117,7 +1117,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var isLogin = localStorage.getItem("token");
         $.ajax({
             type: "POST",
-            url: ajaxIp + "/api/v2/answers/change_sort",
+            url:"/api/v2/answers/change_sort",
             headers: {'Authorization': "Bearer " + isLogin},
             data: {
                 'answer_id': answer_id_item,
@@ -1247,7 +1247,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         // count(-parseInt(answer_score))
         $.ajax({
             type: "POST",
-            url: ajaxIp+"/api/v2/answers/delete",
+            url:"/api/v2/answers/delete",
             headers: {'Authorization': "Bearer " + isLogin},
             data:{'id':answer_id_item},
             async: false,
@@ -1283,7 +1283,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var isLogin = localStorage.getItem("token");
         $.ajax({
             type: "POST",
-            url: ajaxIp + "/api/v2/answer_settings/" + setting_id,
+            url:"/api/v2/answer_settings/" + setting_id,
             headers: {'Authorization': "Bearer " + isLogin},
             data: {
                 'answer_setting[result]': result
@@ -1301,7 +1301,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var isLogin = localStorage.getItem("token");
             $.ajax({
                 type: "POST",
-                url: ajaxIp + "/api/v2/answer_settings/" + setting_id,
+                url:"/api/v2/answer_settings/" + setting_id,
                 headers: {'Authorization': "Bearer " + isLogin},
                 data: {
                     'answer_setting[score]': score
@@ -1331,7 +1331,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $timeout(function () {
             $.ajax({
                 type: "POST",
-                url: ajaxIp + "/api/v2/answer_settings/" + setting_id,
+                url:"/api/v2/answer_settings/" + setting_id,
                 headers: {'Authorization': "Bearer " + isLogin},
                 data: {
                     'answer_setting[num]': num
@@ -1356,12 +1356,139 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         })
         return filtrAnswer
     }
+
+    /**
+     * 获取年级
+     * @param is_extra
+     */
+    function getSchoolGrades(is_extra) {
+        $.ajax({
+            url:"/api/v2/commons/school_grades",
+            type:"GET",
+            headers: {'Authorization': "Bearer " + isLogin},
+            data:{"is_extra":is_extra},
+            success:function (data) {
+               console.log(data)
+               getGradeSubjects(data[1].id)
+            }
+        })
+    }
+
+    /**
+     * 获取科目
+     * @param id
+     */
+    function getGradeSubjects(id) {
+        $.ajax({
+            url:"/api/v2/commons/grade_subjects",
+            type:"GET",
+            headers: {'Authorization': "Bearer " + isLogin},
+            data:{"grade_id":id},
+            success:function (data) {
+                console.log(data)
+            }
+        })
+    }
+
+    /**
+     * 另存为模板
+     * @param templateId  模板id
+     * @param subjectId   科目id
+     * @param gradeId     年级id
+     * @param name        模板名称
+     * @param basicInfoRegion  json页面模板
+     */
+    function saveTemplate(templateId,subjectId,gradeId,name,basicInfoRegion) {
+        $.ajax({
+            url:"/api/v2/answer_region_templates/save_template",
+            type:"POST",
+            headers: {'Authorization': "Bearer " + isLogin},
+            data:{
+                "answer_region_template_id":templateId,
+                "subject_id":subjectId,
+                "grade_id":grade_id,
+                "name":name,
+                "basic_info_region":basicInfoRegion
+            },
+            success:function (data) {
+                console.log(data)
+            }
+        })
+    }
+
+    /**
+     * 导入模板
+     * @param templateId   模板id
+     * @param subjectId    考试科目id
+     */
+    function importTemplate(templateId,subjectId) {
+        $.ajax({
+            url:"/api/v2/answer_region_templates/import_template",
+            type:"POST",
+            headers: {'Authorization': "Bearer " + isLogin},
+            data:{
+                "answer_region_template_id":templateId,
+                "exam_subject_id":subjectId
+            },
+            success:function (data) {
+                console.log(data)
+            }
+        })
+    }
+
+    getSchoolGrades(false)
+
     $scope.save = function () {//保存模板
         if ($scope.listObj.length <= 0) {
             alert("请添加题组")
             return
         }
         var isLogin = localStorage.getItem("token");
+        function bindRegion() {
+            var answer_ids = []
+            for (var i = 0; i < answer_id.length; i++) {
+                answer_ids.push(answer_id[i].answers.answer_id)
+            }
+            if($scope.paperType==0){//手工阅卷
+                var allP = getBigQuestion(allPagePost())
+            }else{
+                var allP = filtrAnswerMode(getBigQuestion(allPagePost()))
+            }
+            console.log(allP)
+            $.ajax({
+                    type: "POST",
+                    url:"/api/v2/answer_regions",
+                    headers: {'Authorization': "Bearer " + isLogin},
+                    async: false,
+                    data: {
+                        'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
+                        'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
+                        'answer_region[region_info]': JSON.stringify(allP),//所有坐标信息
+                        'answer_region[basic_info_region]': JSON.stringify(allList()),//存储页面题目
+                        'page': $(".A_R").length
+                    },
+                    success: function (data) {//绑定题组以便刷新后删除没用的
+                        $.ajax({
+                                type: "POST",
+                                url:"/api/v2/answer_region_binds",
+                                headers: {'Authorization': "Bearer " + isLogin},
+                                async: false,
+                                data: {
+                                    'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
+                                    'answer_region_id': data.message,//模板ID
+                                    'answer_ids': answer_ids.join(",")
+                                },
+                                success: function (data) {
+                                    alert("保存成功")
+                                    modelParam.length=0
+                                    console.log(data)
+                                }
+                            }
+                        )
+                    }
+                }
+            )
+        }
         if(modelParam.length>0){
             var param = ''
             modelParam.forEach(function (item,index,arr) {
@@ -1379,97 +1506,12 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     success: function (data) {
                         console.log(data)
                         answer_id = data
-                        console.log(answer_id)
-                        var answer_ids = []
-                        for (var i = 0; i < answer_id.length; i++) {
-                            answer_ids.push(answer_id[i].answers.answer_id)
-                        }
-                        if($scope.paperType==0){//手工阅卷
-                            var allP = getBigQuestion(allPagePost())
-                        }else{
-                            var allP = filtrAnswerMode(getBigQuestion(allPagePost()))
-                        }
-                        console.log(allP)
-                        $.ajax({
-                                type: "POST",
-                                url: ajaxIp + "/api/v2/answer_regions",
-                                headers: {'Authorization': "Bearer " + isLogin},
-                                async: false,
-                                data: {
-                                    'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
-                                    'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
-                                    'answer_region[region_info]': JSON.stringify(allP),//所有坐标信息
-                                    'answer_region[basic_info_region]': JSON.stringify(allList()),//存储页面题目
-                                    'page': $(".A_R").length
-                                },
-                                success: function (data) {//绑定题组以便刷新后删除没用的
-                                    $.ajax({
-                                            type: "POST",
-                                            url: ajaxIp + "/api/v2/answer_region_binds",
-                                            headers: {'Authorization': "Bearer " + isLogin},
-                                            async: false,
-                                            data: {
-                                                'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
-                                                'answer_region_id': data.message,
-                                                'answer_ids': answer_ids.join(",")
-                                            },
-                                            success: function (data) {
-                                                alert("保存成功")
-                                                console.log(data)
-                                                modelParam.length=0
-                                            }
-                                        }
-                                    )
-                                }
-                            }
-                        )
+                        bindRegion()
                     }
                 }
             )
         }else{
-            var answer_ids = []
-            for (var i = 0; i < answer_id.length; i++) {
-                answer_ids.push(answer_id[i].answers.answer_id)
-            }
-            if($scope.paperType==0){//手工阅卷
-                var allP = getBigQuestion(allPagePost())
-            }else{
-                var allP = filtrAnswerMode(getBigQuestion(allPagePost()))
-            }
-            console.log(allP)
-            $.ajax({
-                    type: "POST",
-                    url: ajaxIp + "/api/v2/answer_regions",
-                    headers: {'Authorization': "Bearer " + isLogin},
-                    async: false,
-                    data: {
-                        'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
-                        'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
-                        'answer_region[region_info]': JSON.stringify(allP),//所有坐标信息
-                        'answer_region[basic_info_region]': JSON.stringify(allList()),//存储页面题目
-                        'page': $(".A_R").length
-                    },
-                    success: function (data) {//绑定题组以便刷新后删除没用的
-                        $.ajax({
-                                type: "POST",
-                                url: ajaxIp + "/api/v2/answer_region_binds",
-                                headers: {'Authorization': "Bearer " + isLogin},
-                                async: false,
-                                data: {
-                                    'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
-                                    'answer_region_id': data.message,
-                                    'answer_ids': answer_ids.join(",")
-                                },
-                                success: function (data) {
-                                    alert("保存成功")
-                                    modelParam.length=0
-                                    console.log(data)
-                                }
-                            }
-                        )
-                    }
-                }
-            )
+            bindRegion()
         }
     }
     window.onbeforeunload = function () {//离开刷新提醒
