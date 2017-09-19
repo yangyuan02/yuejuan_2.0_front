@@ -536,7 +536,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             var obj = {}
             obj.no = i
             obj.option_point_x = parseInt(fillScoreOptions[i - 1].left + 12 - dot.left)
-            obj.option_point_y = parseInt(fillScoreOptions[i - 1].top + 7 - dot.top - 1126 * (current_page - 1))
+            obj.option_point_y = parseInt(fillScoreOptions[i - 1].top - dot.top - 1126 * (current_page - 1))
             makrin.push(obj)
         }
         return makrin
@@ -576,7 +576,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     itme_obj.option_point_y = getItemPost(Answerindex)[i].top - dot.top - 1126 * (current_page - 1)//同行option_point_y都是一样的 选项框中心点y坐标
                 } else if (answerModeType == 3) {
                     itme_obj.option_point_x = getFillPost(Answerindex)[i].left + 12.5 - dot.left
-                    itme_obj.option_point_y = getFillPost(Answerindex)[i].top + 7 - dot.top - 1126 * (current_page - 1)
+                    itme_obj.option_point_y = getFillPost(Answerindex)[i].top - dot.top - 1126 * (current_page - 1)
                 }
                 question[i].option.push(itme_obj)
             }
