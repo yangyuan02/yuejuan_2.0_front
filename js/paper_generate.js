@@ -138,14 +138,17 @@ $(function() {
 			$('.subject-list tbody').append(list_tr);
 			on_checked[i] = detail_data.subjects[i].id;
 			var c_id = $('#wrap').attr('customer_id');
-			if(c_id==detail_data.subjects[i].customer_id){
-				console.log($('.tr-'+i+'').children('.operation').html())
+			if(c_id==detail_data.subjects[i].customer_id || detail_data.is_modify){
+				console.log(i)
 				$('.tr-'+i+'').find('.operation').show();
-				$('.tr-'+i+'').siblings('tr').find('.operation').html('');
-				$('#operation-th').show();
+				// $('.tr-'+i+'').siblings('tr').find('.operation').html('');
+				// if(i>=0){
+					$('#operation-th').show();
+				// }
 			}else{
+				console.log(i)
 				$('.tr-'+i+'').find('.operation').html('');
-				$('#operation-th').hide();
+				// $('#operation-th').hide();
 			}
 
 		};
