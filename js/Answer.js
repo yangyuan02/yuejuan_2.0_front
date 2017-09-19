@@ -71,7 +71,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         });
     }
     $scope.getAnswer()
-    $scope.oldAnswerLen = answer_id.length
     //点击显示
     $scope.add = function (index) {
         $scope.index = index
@@ -828,7 +827,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             alert("请添题组")
             return
         }
-        if ($scope.newAnswerLen > $scope.oldAnswerLen) {
+        if (modelParam.length>0) {
             var r = confirm("请保存答题卡")
             if (r) {
                 $scope.save()
@@ -1363,78 +1362,121 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             return
         }
         var isLogin = localStorage.getItem("token");
-        var param = ''
-        modelParam.forEach(function (item,index,arr) {
-            for(var k in arr[index]){
-                param+='&'+k+'='+ arr[index][k]
-            }
-        })
-        var a = param.substr(1)
-        $.ajax({//获取answer_id
-                type: "POST",
-                url:"api/v2/answers/batch_create?"+param,
-                headers: {'Authorization': "Bearer " + isLogin},
-                // data: JSON.stringify(modelParam),
-                async: false,
-                success: function (data) {
-                    console.log(data)
-                    answer_id = data
-                    console.log(answer_id)
-                    $scope.newAnswerLen = answer_id.length
-                    var answer_ids = []
-                    for (var i = 0; i < answer_id.length; i++) {
-                        answer_ids.push(answer_id[i].answers.answer_id)
-                    }
-                    if($scope.paperType==0){//手工阅卷
-                        var allP = getBigQuestion(allPagePost())
-                    }else{
-                        var allP = filtrAnswerMode(getBigQuestion(allPagePost()))
-                    }
-                    console.log(allP)
-                    $.ajax({
-                            type: "POST",
-                            url: ajaxIp + "/api/v2/answer_regions",
-                            headers: {'Authorization': "Bearer " + isLogin},
-                            async: false,
-                            data: {
-                                'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
-                                'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
-                                'answer_region[region_info]': JSON.stringify(allP),//所有坐标信息
-                                'answer_region[basic_info_region]': JSON.stringify(allList()),//存储页面题目
-                                'page': $(".A_R").length
-                            },
-                            success: function (data) {//绑定题组以便刷新后删除没用的
-                                $scope.oldAnswerLen = answer_id.length
-                                $.ajax({
-                                        type: "POST",
-                                        url: ajaxIp + "/api/v2/answer_region_binds",
-                                        headers: {'Authorization': "Bearer " + isLogin},
-                                        async: false,
-                                        data: {
-                                            'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
-                                            'answer_region_id': data.message,
-                                            'answer_ids': answer_ids.join(",")
-                                        },
-                                        success: function (data) {
-                                            alert("保存成功")
-                                            console.log(data)
-                                        }
-                                    }
-                                )
-                            }
-                        }
-                    )
+        if(modelParam.length>0){
+            var param = ''
+            modelParam.forEach(function (item,index,arr) {
+                for(var k in arr[index]){
+                    param+='&'+k+'='+ arr[index][k]
                 }
+            })
+            var a = param.substr(1)
+            $.ajax({//获取answer_id
+                    type: "POST",
+                    url:"api/v2/answers/batch_create?"+param,
+                    headers: {'Authorization': "Bearer " + isLogin},
+                    // data: JSON.stringify(modelParam),
+                    async: false,
+                    success: function (data) {
+                        console.log(data)
+                        answer_id = data
+                        console.log(answer_id)
+                        var answer_ids = []
+                        for (var i = 0; i < answer_id.length; i++) {
+                            answer_ids.push(answer_id[i].answers.answer_id)
+                        }
+                        if($scope.paperType==0){//手工阅卷
+                            var allP = getBigQuestion(allPagePost())
+                        }else{
+                            var allP = filtrAnswerMode(getBigQuestion(allPagePost()))
+                        }
+                        console.log(allP)
+                        $.ajax({
+                                type: "POST",
+                                url: ajaxIp + "/api/v2/answer_regions",
+                                headers: {'Authorization': "Bearer " + isLogin},
+                                async: false,
+                                data: {
+                                    'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
+                                    'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
+                                    'answer_region[region_info]': JSON.stringify(allP),//所有坐标信息
+                                    'answer_region[basic_info_region]': JSON.stringify(allList()),//存储页面题目
+                                    'page': $(".A_R").length
+                                },
+                                success: function (data) {//绑定题组以便刷新后删除没用的
+                                    $.ajax({
+                                            type: "POST",
+                                            url: ajaxIp + "/api/v2/answer_region_binds",
+                                            headers: {'Authorization': "Bearer " + isLogin},
+                                            async: false,
+                                            data: {
+                                                'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
+                                                'answer_region_id': data.message,
+                                                'answer_ids': answer_ids.join(",")
+                                            },
+                                            success: function (data) {
+                                                alert("保存成功")
+                                                console.log(data)
+                                            }
+                                        }
+                                    )
+                                }
+                            }
+                        )
+                    }
+                }
+            )
+        }else{
+            var answer_ids = []
+            for (var i = 0; i < answer_id.length; i++) {
+                answer_ids.push(answer_id[i].answers.answer_id)
             }
-        )
+            if($scope.paperType==0){//手工阅卷
+                var allP = getBigQuestion(allPagePost())
+            }else{
+                var allP = filtrAnswerMode(getBigQuestion(allPagePost()))
+            }
+            console.log(allP)
+            $.ajax({
+                    type: "POST",
+                    url: ajaxIp + "/api/v2/answer_regions",
+                    headers: {'Authorization': "Bearer " + isLogin},
+                    async: false,
+                    data: {
+                        'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
+                        'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
+                        'answer_region[region_info]': JSON.stringify(allP),//所有坐标信息
+                        'answer_region[basic_info_region]': JSON.stringify(allList()),//存储页面题目
+                        'page': $(".A_R").length
+                    },
+                    success: function (data) {//绑定题组以便刷新后删除没用的
+                        $.ajax({
+                                type: "POST",
+                                url: ajaxIp + "/api/v2/answer_region_binds",
+                                headers: {'Authorization': "Bearer " + isLogin},
+                                async: false,
+                                data: {
+                                    'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
+                                    'answer_region_id': data.message,
+                                    'answer_ids': answer_ids.join(",")
+                                },
+                                success: function (data) {
+                                    alert("保存成功")
+                                    console.log(data)
+                                }
+                            }
+                        )
+                    }
+                }
+            )
+        }
     }
     window.onbeforeunload = function () {//离开刷新提醒
-        if ($scope.newAnswerLen > $scope.oldAnswerLen) {
+        if (modelParam.length>0) {
             return "您修改了内容,请保存答题卡"
         }
     }
     $scope.closeUteroBox = function () {//关闭离开
-        if ($scope.newAnswerLen > $scope.oldAnswerLen) {
+        if (modelParam.length>0) {
             var r = confirm("请保存答题卡")
             if (r) {
                 $scope.save()
