@@ -3560,7 +3560,7 @@ angular.module("myApp.controller", [])
 
         /* Act on the event */
         function heng_zhong04() {
-            $(".exam_h_402_bo").html(" ");
+            // $(".exam_h_402_bo").html(" ");
             var exam_id = parseInt($(".exam_h_km01").children('option:selected').attr("data-id"));
             $(".exam_h_km02").attr("data-id", $(".exam_h_km02").children('option:selected').attr("data-id"));
             var class_id = parseInt($(".exam_h_km02").attr("data-id"));
@@ -3588,6 +3588,7 @@ angular.module("myApp.controller", [])
                 },
                 success: function(data) {
                     console.log(data);
+                    $(".exam_h_402_bo").html(" ");
                     var a = [];
                     var b = [];
                     var c = {};
