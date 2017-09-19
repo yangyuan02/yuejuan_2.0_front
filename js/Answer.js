@@ -535,8 +535,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for (var i = 1; i <= fillScoreOptions.length; i++) {
             var obj = {}
             obj.no = i
-            obj.option_point_x = parseInt(fillScoreOptions[i - 1].left + 12 - dot.left)
-            obj.option_point_y = parseInt(fillScoreOptions[i - 1].top - dot.top - 1126 * (current_page - 1))
+            obj.option_point_x = fillScoreOptions[i - 1].left + 12 - dot.left
+            obj.option_point_y = fillScoreOptions[i - 1].top - dot.top - 1126 * (current_page - 1)
             makrin.push(obj)
         }
         return makrin
