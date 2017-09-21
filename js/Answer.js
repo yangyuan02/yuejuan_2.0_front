@@ -40,6 +40,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.showItmeScore = ['不显示分数','显示分数'];
     $scope.result = {};//弹出框保存
     var modelParam = []//存储请求参数
+    // modelParam.answers = []
     var answer_id = []//大题answer_id
     var allHeight = [] //页面上所有table高度
     $scope.getAnswer = function () {//获取题目模板
@@ -298,20 +299,25 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         var Q_type = ['单选题', '是非题', '填空题', '作文题', '其他题', '多选题']
         var param = {}
-        param["answer[][exam_subject_id]"] = getUrlParam(url, 'examubjeId')//考试科目id
-        param["answer[][item]"] = Q_type[data.type - 1]//试题类型
-        param["answer[][name]"] = data.name//题组名称
-        param["answer_setting[][count]"] = data.type == 4 ? 1 : data.numbel//试题数量 panduan
-        param["answer_setting[][num]"] = data.startNo//起始序号
-        // param["answer_setting[page]"] = data.currentPage == undefined ? 1 : data.currentPage//所在页码
-        param["answer_setting[][score]"] = data.type == 4 ? data.totalCores : data.itemCores//每题分值 panduan
-        param["answer_setting[][type_count]"] = data.itemNumber//选项个数 panduan
+        param.answer = {}
+        param.answer_settings = {}
+        param.answer_settings.count = data.type == 4 ? 1 : data.numbel//试题数量 panduan
+        param.answer_settings.num = data.startNo//起始序号
+        param.answer_settings.score = data.type == 4 ? data.totalCores : data.itemCores//每题分值 panduan
+        param.answer_settings.type_count = data.itemNumber//选项个数 panduan
+
         if (data.type == 4) {
-            param["answer_setting[][template_format]"] = data.articleType//作文模版格式 panduan
-            param["answer_setting[][lattice_columns]"] = data.row//格子列数 panduan
-            param["answer_setting[][lattice_total]]"] = data.plaid//格子总数 panduan
+            param.answer_settings.template_format = data.articleType//作文模版格式 panduan
+            param.answer_settings.lattice_columns = data.row//格子列数 panduan
+            param.answer_settings.lattice_total = data.plaid//格子总数 panduan
         }
+
+        param.answer.exam_subject_id = getUrlParam(url, 'examubjeId')//考试科目id
+        param.answer.item = Q_type[data.type - 1]//试题类型
+        param.answer.name = data.name//题组名称
+
         modelParam.push(param)
+        console.log(modelParam)
         // window.localStorage.setItem(getUrlParam(url, 'examubjeId'),JSON.stringify(modelParam))
     }
     //确认添加
@@ -1365,11 +1371,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $.ajax({
             url:"/api/v2/commons/school_grades",
             type:"GET",
+            async: false,
             headers: {'Authorization': "Bearer " + isLogin},
             data:{"is_extra":is_extra},
             success:function (data) {
-               console.log(data)
-               getGradeSubjects(data[1].id)
+               $scope.gradesList = data
+               $scope.itmeGrades = $scope.gradesList[0]
+               getGradeSubjects($scope.itmeGrades.id)
             }
         })
     }
@@ -1382,40 +1390,74 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $.ajax({
             url:"/api/v2/commons/grade_subjects",
             type:"GET",
+            async: false,
             headers: {'Authorization': "Bearer " + isLogin},
             data:{"grade_id":id},
             success:function (data) {
+                $scope.subjects = data
+                $scope.itmeSubject = $scope.subjects[0]
+            }
+        })
+    }
+
+    /**
+     * 获取信息年级科目
+     */
+    $scope.getSchoolInfo = function (type) {
+        getSchoolGrades(false)
+        if(type==0){
+            $scope.add(6)
+        }else{
+            $scope.add(7)
+            $scope.chanGetTemplate()
+        }
+    }
+
+    /**
+     * 联动科目
+     * @param obj  年级id
+     */
+    $scope.changGrades = function (obj) {
+        getGradeSubjects(obj.id)
+    }
+
+    /**
+     * 另存为模板
+     * @param subjectId   科目id
+     * @param gradeId     年级id
+     * @param name        模板名称
+     * @param basicInfoRegion  json页面模板
+     */
+    function Template(subjectId,gradeId,name,basicInfoRegion) {
+        $.ajax({
+            url:"/api/v2/answer_region_templates/save_template",
+            type:"POST",
+            headers: {'Authorization': "Bearer " + isLogin},
+            data:{
+                "subject_id":subjectId,
+                "grade_id":gradeId,
+                "name":name,
+                "basic_info_region":basicInfoRegion
+            },
+            success:function (data) {
+                $scope.close()
                 console.log(data)
             }
         })
     }
 
     /**
-     * 另存为模板
-     * @param templateId  模板id
-     * @param subjectId   科目id
-     * @param gradeId     年级id
-     * @param name        模板名称
-     * @param basicInfoRegion  json页面模板
+     * 存为模板
      */
-    function saveTemplate(templateId,subjectId,gradeId,name,basicInfoRegion) {
-        $.ajax({
-            url:"/api/v2/answer_region_templates/save_template",
-            type:"POST",
-            headers: {'Authorization': "Bearer " + isLogin},
-            data:{
-                "answer_region_template_id":templateId,
-                "subject_id":subjectId,
-                "grade_id":grade_id,
-                "name":name,
-                "basic_info_region":basicInfoRegion
-            },
-            success:function (data) {
-                console.log(data)
-            }
-        })
+    $scope.saveTemplate = function () {
+        if(!$scope.templateName){
+            alert("请输入模板名称")
+            return
+        }
+        var obj = allList()
+        obj.modelParam = modelParam
+        Template($scope.itmeSubject.id,$scope.itmeGrades.id,$scope.templateName,JSON.stringify(obj))
     }
-
     /**
      * 导入模板
      * @param templateId   模板id
@@ -1436,8 +1478,27 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         })
     }
 
-    getSchoolGrades(false)
+    /**
+     * 获取模板
+     */
+    $scope.chanGetTemplate =  function () {
+        $.ajax({
+            url:"/api/v2/answer_region_templates",
+            type:"GET",
+            async: false,
+            headers: {'Authorization': "Bearer " + isLogin},
+            data:{"grade_id":$scope.itmeGrades.id,"subject_id":$scope.itmeSubject.id},
+            success:function (data) {
+                $scope.TemplateList = data
+                $scope.itmeTemplate = $scope.TemplateList[0]
+                console.log($scope.itmeTemplate)
+            }
+        })
+    }
 
+    $scope.importTemplate = function () {
+        importTemplate($scope.itmeTemplate.id,$scope.itmeSubject.id)
+    }
     $scope.save = function () {//保存模板
         if ($scope.listObj.length <= 0) {
             alert("请添加题组")
@@ -1454,7 +1515,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }else{
                 var allP = filtrAnswerMode(getBigQuestion(allPagePost()))
             }
-            console.log(allP)
             $.ajax({
                     type: "POST",
                     url:"/api/v2/answer_regions",
@@ -1468,6 +1528,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                         'page': $(".A_R").length
                     },
                     success: function (data) {//绑定题组以便刷新后删除没用的
+                        var TemplateId = data.message
                         $.ajax({
                                 type: "POST",
                                 url:"/api/v2/answer_region_binds",
@@ -1475,7 +1536,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                                 async: false,
                                 data: {
                                     'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
-                                    'answer_region_id': data.message,//模板ID
+                                    'answer_region_id': TemplateId,//模板ID
                                     'answer_ids': answer_ids.join(",")
                                 },
                                 success: function (data) {
@@ -1490,23 +1551,26 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             )
         }
         if(modelParam.length>0){
-            var param = ''
-            modelParam.forEach(function (item,index,arr) {
-                for(var k in arr[index]){
-                    param+='&'+k+'='+ arr[index][k]
-                }
-            })
-            var a = param.substr(1)
+            // var param = ''
+            // modelParam.forEach(function (item,index,arr) {
+            //     for(var k in arr[index]){
+            //         param+='&'+k+'='+ arr[index][k]
+            //     }
+            // })
+            // var a = param.substr(1)
             $.ajax({//获取answer_id
                     type: "POST",
-                    url:"api/v2/answers/batch_create?"+param,
+                    url:"api/v2/answers/batch_create",
                     headers: {'Authorization': "Bearer " + isLogin},
-                    // data: JSON.stringify(modelParam),
+                    data: {"answers":JSON.stringify(modelParam)},
                     async: false,
                     success: function (data) {
                         console.log(data)
                         answer_id = data
                         bindRegion()
+                    },
+                    error:function (data) {
+                        console.log(data)
                     }
                 }
             )
@@ -1531,6 +1595,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             window.location.href = 'paper_generate'
         }
     }
+
 
 })
 

@@ -32,7 +32,7 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
 .Answer .A_B{width: 1882px;margin: 52px auto;}
 
 /*左侧*/
-.Answer .A_L{width: 152px;height: 520px;background: #fff;float: left;}
+.Answer .A_L{width: 152px;background: #fff;float: left;}
 .Answer .L_ul{text-align: center;border: 1px solid #ccc;position: relative;}
 .Answer .L_ul h3{border-bottom: 1px solid #ccc;padding: 16px;}
 .Answer .L_ul li a{width: 100%; display: inline-block; padding: 10px 0 ;color: #999;font-size: 16px;text-align:center;}
@@ -628,4 +628,20 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
 .paperno{
     border-color:#fff !important;
     color:#fff !important;
+}
+/*导入模板样式*/
+.Answer .L_ul li .import{
+    width:400px;
+}
+.Answer .L_ul li .import select{
+    width:260px;
+}
+.Answer .L_ul li .import input{
+    margin-right:0px !important;
+}
+.Answer .L_ul li .addQ .pd .importBtn{
+    width:90px;
+}
+.Answer .L_ul li .addQ .pd .cancel{
+    background:#ccc;
 }
