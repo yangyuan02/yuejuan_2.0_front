@@ -40,7 +40,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.showItmeScore = ['不显示分数','显示分数'];
     $scope.result = {};//弹出框保存
     var modelParam = []//存储请求参数
-    // modelParam.answers = []
     var answer_id = []//大题answer_id
     var allHeight = [] //页面上所有table高度
     $scope.getAnswer = function () {//获取题目模板
@@ -1441,7 +1440,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             },
             success:function (data) {
                 $scope.close()
-                console.log(data)
             }
         })
     }
@@ -1455,6 +1453,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             return
         }
         var obj = allList()
+        delete obj.answer_id
         obj.modelParam = modelParam
         Template($scope.itmeSubject.id,$scope.itmeGrades.id,$scope.templateName,JSON.stringify(obj))
     }
@@ -1468,12 +1467,21 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             url:"/api/v2/answer_region_templates/import_template",
             type:"POST",
             headers: {'Authorization': "Bearer " + isLogin},
+            async: false,
             data:{
                 "answer_region_template_id":templateId,
                 "exam_subject_id":subjectId
             },
             success:function (data) {
-                console.log(data)
+                $scope.listObj =  data.page1 ? data.page1 : []
+                $scope.listObj2 = data.page2 ? data.page2 : []
+                $scope.listObj3 = data.page3 ? data.page3 : []
+                $scope.listObj4 = data.page4 ? data.page4 : []
+                $scope.paperType = data.paperType?data.paperType:0
+                $scope.myDayinType = data.myDayinType?data.myDayinType:0
+                $scope.showItmeScoreType = data.showItmeScoreType?data.showItmeScoreType:0
+                $scope.countScore = data.countScore?data.countScore:0
+                modelParam = data.modelParam?data.modelParam:[]
             }
         })
     }
@@ -1551,13 +1559,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             )
         }
         if(modelParam.length>0){
-            // var param = ''
-            // modelParam.forEach(function (item,index,arr) {
-            //     for(var k in arr[index]){
-            //         param+='&'+k+'='+ arr[index][k]
-            //     }
-            // })
-            // var a = param.substr(1)
             $.ajax({//获取answer_id
                     type: "POST",
                     url:"api/v2/answers/batch_create",
