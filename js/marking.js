@@ -432,7 +432,7 @@ $(function(){
   function show_pre_img(pre_img){
 		$('.move-paper').html('');
 		var img_url = pre_img.scanner_image_uri;
-		var img_html = '<img  src="'+ ajaxIp +''+img_url+'">';
+		var img_html = '<img  src="'+ ajaxIp +''+img_url+'" style="height:100%">';
 		$('.move-paper').append(img_html);
 		console.log(pre_img.section_crops.length)
 		var section_crops = pre_img.section_crops;
