@@ -40,6 +40,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.showItmeScore = ['不显示分数','显示分数'];
     $scope.result = {};//弹出框保存
     var modelParam = []//存储请求参数
+    // modelParam.answers = []
     var answer_id = []//大题answer_id
     var allHeight = [] //页面上所有table高度
     $scope.getAnswer = function () {//获取题目模板
@@ -298,20 +299,25 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         var Q_type = ['单选题', '是非题', '填空题', '作文题', '其他题', '多选题']
         var param = {}
-        param["answer[][exam_subject_id]"] = getUrlParam(url, 'examubjeId')//考试科目id
-        param["answer[][item]"] = Q_type[data.type - 1]//试题类型
-        param["answer[][name]"] = data.name//题组名称
-        param["answer_setting[][count]"] = data.type == 4 ? 1 : data.numbel//试题数量 panduan
-        param["answer_setting[][num]"] = data.startNo//起始序号
-        // param["answer_setting[page]"] = data.currentPage == undefined ? 1 : data.currentPage//所在页码
-        param["answer_setting[][score]"] = data.type == 4 ? data.totalCores : data.itemCores//每题分值 panduan
-        param["answer_setting[][type_count]"] = data.itemNumber//选项个数 panduan
+        param.answer = {}
+        param.answer_settings = {}
+        param.answer_settings.count = data.type == 4 ? 1 : data.numbel//试题数量 panduan
+        param.answer_settings.num = data.startNo//起始序号
+        param.answer_settings.score = data.type == 4 ? data.totalCores : data.itemCores//每题分值 panduan
+        param.answer_settings.type_count = data.itemNumber//选项个数 panduan
+
         if (data.type == 4) {
-            param["answer_setting[][template_format]"] = data.articleType//作文模版格式 panduan
-            param["answer_setting[][lattice_columns]"] = data.row//格子列数 panduan
-            param["answer_setting[][lattice_total]]"] = data.plaid//格子总数 panduan
+            param.answer_settings.template_format = data.articleType//作文模版格式 panduan
+            param.answer_settings.lattice_columns = data.row//格子列数 panduan
+            param.answer_settings.lattice_total = data.plaid//格子总数 panduan
         }
+
+        param.answer.exam_subject_id = getUrlParam(url, 'examubjeId')//考试科目id
+        param.answer.item = Q_type[data.type - 1]//试题类型
+        param.answer.name = data.name//题组名称
+
         modelParam.push(param)
+        console.log(modelParam)
         // window.localStorage.setItem(getUrlParam(url, 'examubjeId'),JSON.stringify(modelParam))
     }
     //确认添加
@@ -1545,23 +1551,26 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             )
         }
         if(modelParam.length>0){
-            var param = ''
-            modelParam.forEach(function (item,index,arr) {
-                for(var k in arr[index]){
-                    param+='&'+k+'='+ arr[index][k]
-                }
-            })
-            var a = param.substr(1)
+            // var param = ''
+            // modelParam.forEach(function (item,index,arr) {
+            //     for(var k in arr[index]){
+            //         param+='&'+k+'='+ arr[index][k]
+            //     }
+            // })
+            // var a = param.substr(1)
             $.ajax({//获取answer_id
                     type: "POST",
-                    url:"api/v2/answers/batch_create?"+param,
+                    url:"api/v2/answers/batch_create",
                     headers: {'Authorization': "Bearer " + isLogin},
-                    // data: JSON.stringify(modelParam),
+                    data: {"answers":JSON.stringify(modelParam)},
                     async: false,
                     success: function (data) {
                         console.log(data)
                         answer_id = data
                         bindRegion()
+                    },
+                    error:function (data) {
+                        console.log(data)
                     }
                 }
             )
@@ -1586,6 +1595,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             window.location.href = 'paper_generate'
         }
     }
+
 
 })
 
