@@ -1440,7 +1440,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             },
             success:function (data) {
                 $scope.close()
-                console.log(data)
             }
         })
     }
@@ -1468,12 +1467,21 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             url:"/api/v2/answer_region_templates/import_template",
             type:"POST",
             headers: {'Authorization': "Bearer " + isLogin},
+            async: false,
             data:{
                 "answer_region_template_id":templateId,
                 "exam_subject_id":subjectId
             },
             success:function (data) {
-                console.log(data)
+                $scope.listObj =  data.page1 ? data.page1 : []
+                $scope.listObj2 = data.page2 ? data.page2 : []
+                $scope.listObj3 = data.page3 ? data.page3 : []
+                $scope.listObj4 = data.page4 ? data.page4 : []
+                $scope.paperType = data.paperType?data.paperType:0
+                $scope.myDayinType = data.myDayinType?data.myDayinType:0
+                $scope.showItmeScoreType = data.showItmeScoreType?data.showItmeScoreType:0
+                $scope.countScore = data.countScore?data.countScore:0
+                modelParam = data.modelParam?data.modelParam:[]
             }
         })
     }
