@@ -40,7 +40,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.showItmeScore = ['不显示分数','显示分数'];
     $scope.result = {};//弹出框保存
     var modelParam = []//存储请求参数
-    // modelParam.answers = []
     var answer_id = []//大题answer_id
     var allHeight = [] //页面上所有table高度
     $scope.getAnswer = function () {//获取题目模板
@@ -1455,6 +1454,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             return
         }
         var obj = allList()
+        delete obj.answer_id
         obj.modelParam = modelParam
         Template($scope.itmeSubject.id,$scope.itmeGrades.id,$scope.templateName,JSON.stringify(obj))
     }
@@ -1551,13 +1551,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             )
         }
         if(modelParam.length>0){
-            // var param = ''
-            // modelParam.forEach(function (item,index,arr) {
-            //     for(var k in arr[index]){
-            //         param+='&'+k+'='+ arr[index][k]
-            //     }
-            // })
-            // var a = param.substr(1)
             $.ajax({//获取answer_id
                     type: "POST",
                     url:"api/v2/answers/batch_create",
