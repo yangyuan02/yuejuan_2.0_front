@@ -86,8 +86,6 @@
                         </div>
                     </div>
                 </li>
-
-
                 <li><a ng-click="add(2)" class="{{2==index?'active':''}}">判断题</a>
                     <!--添加题组-->
                     <div class="addQ {{2==index?'active':''}}" id="addQ2">
@@ -108,8 +106,6 @@
                         </div>
                     </div>
                 </li>
-
-
                 <li><a ng-click="add(3)" class="{{3==index?'active':''}}">填空题</a>
                     <!--添加题组-->
                     <div class="addQ {{3==index?'active':''}}" id="addQ3">
@@ -236,9 +232,53 @@
                 <h3>模板设置</h3>
                 <li class="import-button"><a>导入试卷</a>
                 </li>
-                <li><a>导入模板</a>
+                <li><a ng-click="getSchoolInfo(1)" class="{{7==index?'active':''}}">导入模板</a>
+                    <div class="addQ import {{7==index?'active':''}}">
+                        <h3>导入模板设置<span class="fr cous" ng-click="close()">X</span></h3>
+                        <div class="pd">
+                            <p>
+                                <span>年级</span>
+                                <select ng-model="itmeGrades" ng-options="Grades.name for Grades in gradesList" ng-change="chanGetTemplate()">
+                                </select>
+                            </p>
+                            <p>
+                                <span>科目</span>
+                                <select ng-model="itmeSubject" ng-options="Subject.name for Subject in subjects" ng-change="chanGetTemplate()">
+                                </select>
+                            </p>
+                            <p>
+                                <span>名称</span>
+                                <select ng-model="itmeTemplate" ng-options="Template.name for Template in TemplateList">
+                                </select>
+                            <p>
+                                <button ng-click="importTemplate()" class="importBtn">导入</button>
+                                <button ng-click="close()" class="importBtn cancel">取消</button>
+                            </p>
+                        </div>
+                    </div>
                 </li>
-                <li><a>另存为模板</a>
+                <li><a ng-click="getSchoolInfo(0)" class="{{6==index?'active':''}}">另存为模板</a>
+                    <!--添加题组-->
+                    <div class="addQ import {{6==index?'active':''}}">
+                        <h3>存为模板设置<span class="fr cous" ng-click="close()">X</span></h3>
+                        <div class="pd">
+                            <p><span>名称</span><input type="text" ng-model="templateName" placeholder="请输入模板名称"/></p>
+                            <p>
+                                <span>年级</span>
+                                <select ng-model="itmeGrades" ng-options="Grades.name for Grades in gradesList" ng-change="changGrades(itmeGrades)">
+                                </select>
+                            </p>
+                            <p>
+                                <span>科目</span>
+                                <select ng-model="itmeSubject" ng-options="Subject.name for Subject in subjects">
+                                </select>
+                            </p>
+                            <p>
+                                <button ng-click="saveTemplate()" class="importBtn">保存</button>
+                                <button ng-click="close()" class="importBtn cancel">取消</button>
+                            </p>
+                        </div>
+                    </div>
                 </li>
             </ul>
         </div>
