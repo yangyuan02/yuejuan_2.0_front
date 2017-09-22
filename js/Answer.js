@@ -1489,6 +1489,11 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.showItmeScoreType = data.showItmeScoreType?data.showItmeScoreType:0
                 $scope.countScore = data.countScore?data.countScore:0
                 modelParam = data.modelParam?data.modelParam:[]
+                if(modelParam){
+                    modelParam.forEach(function (itme,index,arr) {//替换当前的examubjeId
+                        arr[index].answer.exam_subject_id = getUrlParam(url, 'examubjeId')
+                    })
+                }
                 $scope.close()
             }
         })
