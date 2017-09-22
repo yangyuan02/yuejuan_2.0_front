@@ -298,20 +298,25 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         var Q_type = ['单选题', '是非题', '填空题', '作文题', '其他题', '多选题']
         var param = {}
-        param["answer[][exam_subject_id]"] = getUrlParam(url, 'examubjeId')//考试科目id
-        param["answer[][item]"] = Q_type[data.type - 1]//试题类型
-        param["answer[][name]"] = data.name//题组名称
-        param["answer_setting[][count]"] = data.type == 4 ? 1 : data.numbel//试题数量 panduan
-        param["answer_setting[][num]"] = data.startNo//起始序号
-        // param["answer_setting[page]"] = data.currentPage == undefined ? 1 : data.currentPage//所在页码
-        param["answer_setting[][score]"] = data.type == 4 ? data.totalCores : data.itemCores//每题分值 panduan
-        param["answer_setting[][type_count]"] = data.itemNumber//选项个数 panduan
+        param.answer = {}
+        param.answer_settings = {}
+        param.answer_settings.count = data.type == 4 ? 1 : data.numbel//试题数量 panduan
+        param.answer_settings.num = data.startNo//起始序号
+        param.answer_settings.score = data.type == 4 ? data.totalCores : data.itemCores//每题分值 panduan
+        param.answer_settings.type_count = data.itemNumber//选项个数 panduan
+
         if (data.type == 4) {
-            param["answer_setting[][template_format]"] = data.articleType//作文模版格式 panduan
-            param["answer_setting[][lattice_columns]"] = data.row//格子列数 panduan
-            param["answer_setting[][lattice_total]]"] = data.plaid//格子总数 panduan
+            param.answer_settings.template_format = data.articleType//作文模版格式 panduan
+            param.answer_settings.lattice_columns = data.row//格子列数 panduan
+            param.answer_settings.lattice_total = data.plaid//格子总数 panduan
         }
+
+        param.answer.exam_subject_id = getUrlParam(url, 'examubjeId')//考试科目id
+        param.answer.item = Q_type[data.type - 1]//试题类型
+        param.answer.name = data.name//题组名称
+
         modelParam.push(param)
+        console.log(modelParam)
         // window.localStorage.setItem(getUrlParam(url, 'examubjeId'),JSON.stringify(modelParam))
     }
     //确认添加
@@ -536,7 +541,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             var obj = {}
             obj.no = i
             obj.option_point_x = fillScoreOptions[i - 1].left + 11.5 - dot.left
-            obj.option_point_y = fillScoreOptions[i - 1].top - dot.top - 1126 * (current_page - 1)
+            obj.option_point_y = fillScoreOptions[i - 1].top + 6 - dot.top - 1126 * (current_page - 1)
             makrin.push(obj)
         }
         return makrin
@@ -573,10 +578,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 itme_obj.no = j//小题序号
                 if (answerModeType == 1 || answerModeType == 2 || answerModeType == 6) {//单选题/多选题/判断题
                     itme_obj.option_point_x = getItemPost(Answerindex)[i].left + 7 + (item_w + itemMarginLeft) * (j - 1) - dot.left//选项框中心点x坐标
-                    itme_obj.option_point_y = getItemPost(Answerindex)[i].top - dot.top - 1126 * (current_page - 1)//同行option_point_y都是一样的 选项框中心点y坐标
+                    itme_obj.option_point_y = getItemPost(Answerindex)[i].top + 5.5 - dot.top - 1126 * (current_page - 1)//同行option_point_y都是一样的 选项框中心点y坐标
                 } else if (answerModeType == 3) {
                     itme_obj.option_point_x = getFillPost(Answerindex)[i].left + 11.5 - dot.left
-                    itme_obj.option_point_y = getFillPost(Answerindex)[i].top - dot.top - 1126 * (current_page - 1)
+                    itme_obj.option_point_y = getFillPost(Answerindex)[i].top + 6 - dot.top - 1126 * (current_page - 1)
                 }
                 question[i].option.push(itme_obj)
             }
@@ -1435,7 +1440,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             },
             success:function (data) {
                 $scope.close()
-                console.log(data)
             }
         })
     }
@@ -1449,6 +1453,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             return
         }
         var obj = allList()
+        delete obj.answer_id
         obj.modelParam = modelParam
         Template($scope.itmeSubject.id,$scope.itmeGrades.id,$scope.templateName,JSON.stringify(obj))
     }
@@ -1462,12 +1467,21 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             url:"/api/v2/answer_region_templates/import_template",
             type:"POST",
             headers: {'Authorization': "Bearer " + isLogin},
+            async: false,
             data:{
                 "answer_region_template_id":templateId,
                 "exam_subject_id":subjectId
             },
             success:function (data) {
-                console.log(data)
+                $scope.listObj =  data.page1 ? data.page1 : []
+                $scope.listObj2 = data.page2 ? data.page2 : []
+                $scope.listObj3 = data.page3 ? data.page3 : []
+                $scope.listObj4 = data.page4 ? data.page4 : []
+                $scope.paperType = data.paperType?data.paperType:0
+                $scope.myDayinType = data.myDayinType?data.myDayinType:0
+                $scope.showItmeScoreType = data.showItmeScoreType?data.showItmeScoreType:0
+                $scope.countScore = data.countScore?data.countScore:0
+                modelParam = data.modelParam?data.modelParam:[]
             }
         })
     }
@@ -1545,23 +1559,19 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             )
         }
         if(modelParam.length>0){
-            var param = ''
-            modelParam.forEach(function (item,index,arr) {
-                for(var k in arr[index]){
-                    param+='&'+k+'='+ arr[index][k]
-                }
-            })
-            var a = param.substr(1)
             $.ajax({//获取answer_id
                     type: "POST",
-                    url:"api/v2/answers/batch_create?"+param,
+                    url:"api/v2/answers/batch_create",
                     headers: {'Authorization': "Bearer " + isLogin},
-                    // data: JSON.stringify(modelParam),
+                    data: {"answers":JSON.stringify(modelParam)},
                     async: false,
                     success: function (data) {
                         console.log(data)
                         answer_id = data
                         bindRegion()
+                    },
+                    error:function (data) {
+                        console.log(data)
                     }
                 }
             )
@@ -1586,6 +1596,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             window.location.href = 'paper_generate'
         }
     }
+
 
 })
 
