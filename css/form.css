@@ -128,12 +128,14 @@ width: 270px;
 	width:824px;
 	height: 46px;
 	color:#2daa82;
-  
    font-size:16px;
     line-height: 46px;
-    padding-left: 76px;
     border-bottom: 1px solid #cccccc;
     cursor: pointer;
+}
+.mark_02_ul li span{
+	display: block;
+	margin-left:76px;
 }
 .mark_li_01{
 	width: 900px;
