@@ -1740,6 +1740,8 @@ angular.module("myApp.controller", [])
 
         //查看答题卡
         $(".study_q_06_tab").on('click', 'span', function(event) {
+            $(".mask_layer02").css("height", $(document).height());
+            $(".mask_layer02").show();
             $(".ans").show();
             var exam_id = parseInt($(".study_q_km01").children('option:selected').attr("data-id"));
             $(".study_q_km02").attr("data-id", $(".study_q_km02").children('option:selected').attr("data-id"));
@@ -1789,6 +1791,7 @@ angular.module("myApp.controller", [])
             /* Act on the event */
 
             $(".ans").hide();
+            $(".mask_layer02").hide();
         });
         // <!--最新班级学情追踪 end-->
         function FixTable(TableID, FixColumnNumber, width, height) {
