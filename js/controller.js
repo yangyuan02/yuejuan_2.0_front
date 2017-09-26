@@ -3968,15 +3968,19 @@ angular.module("myApp.controller", [])
                     console.log(data);
                      $(".sc_102_he").html(" ");
                     $(".sc_102_bo").html(" ");
+                    if(data.titile!==null){
                     for(var i=0;i<data.titile.length;i++){
                         $(".sc_102_he").append('<th>'+data.titile[i]+'</th>');
                     }
+                };
+                if(data.data!==null){
                    for(var i=0;i<data.data.length;i++){
                         $(".sc_102_bo").append('<tr></tr>');
                         for(var a=0;a<data.data[i].length;a++){
                             $(".sc_102_bo tr").eq(i).append('<td>'+data.data[i][a]+'</td>');
                         }
                     }
+                     };
                 },
                 error: function() {
 
