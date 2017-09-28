@@ -66,7 +66,7 @@ angular.module("myApp.controller", [])
                     console.log(date);
                     for (var i = 0; i < date.length; i++) {
 
-                        $(".mark_02_ul").append('<li data-id="' + date[i].exam_id + '"><span>' + date[i].name + '<i class="iconfont" style="margin-left:11px;cursor: pointer;">&#xe622;</i><i class="iconfont" style="margin-left:11px;cursor: pointer;display:none;">&#xe624;</i></span></li><div class="mark_li_01"></div>')
+                        $(".mark_02_ul").append('<li data-id="' + date[i].exam_id + '"><span>' + date[i].name + '<i class="iconfont" style="margin-left:11px;cursor: pointer;">&#xe622;</i><i class="iconfont" style="margin-left:11px;cursor: pointer;display:none;">&#xe624;</i></span><div class="mark_li_01"></div></li>')
                         var b = date[i].exam_subjects.length;
 
                         for (var a = 0; a < b; a++) {
@@ -93,7 +93,7 @@ angular.module("myApp.controller", [])
 
 
         $(".mark_02_ul").on('click', 'span', function(event) {
-            $(this).parent().next().toggle();
+            $(this).parent().find('div').toggle();
             $(this).find('i').toggle();
         });
 
@@ -593,7 +593,12 @@ angular.module("myApp.controller", [])
                             if (data.grade_ranking_range.decline[i].grade_ranking_change == null) {
                                 data.grade_ranking_range.decline[i].grade_ranking_change = 0;
                             };
-                            $("#r5_11_tbody").append(' <tr><td>' + data.grade_ranking_range.rise[i].name + '</td><td>' + data.grade_ranking_range.rise[i].grade_rank + '</td><td>' + data.grade_ranking_range.rise[i].grade_ranking_change + '<i class="iconfont">&#xe627;</i></td></tr>');
+                            if(data.grade_ranking_range.rise[i].grade_ranking_change<0){
+                            var a=data.grade_ranking_range.rise[i].grade_ranking_change*(-1);
+                         }else{
+                            var a=data.grade_ranking_range.rise[i].grade_ranking_change;
+                         };
+                            $("#r5_11_tbody").append(' <tr><td>' + data.grade_ranking_range.rise[i].name + '</td><td>' + data.grade_ranking_range.rise[i].grade_rank + '</td><td>' + a + '<i class="iconfont">&#xe627;</i></td></tr>');
                             $("#r5_11_tbody02").append(' <tr><td>' + data.grade_ranking_range.decline[i].name + '</td><td>' + data.grade_ranking_range.decline[i].grade_rank + '</td><td>' + data.grade_ranking_range.decline[i].grade_ranking_change + '<i class="iconfont">&#xe628;</i></td></tr>');
                         }
                     };
@@ -1078,6 +1083,8 @@ angular.module("myApp.controller", [])
         //最新班级学情追踪函数
         // 缺考人数
         $(".study_q_zt").on('click', 'span', function(event) {
+            $(".study_q_qk span").html(" ");
+            $(".study_q_qk02").html(" ");
             $(".mask_layer").css("height", $(document).height());
             $(".study_q_qk").show();
             $(".mask_layer").show();
@@ -1112,8 +1119,10 @@ angular.module("myApp.controller", [])
                 },
                 success: function(data) {
                     console.log(data);
-                    $(".study_q_qk span").html(data[0].classroom_name + data[0].subject_name);
+                    $(".study_q_qk span").html(" ");
                     $(".study_q_qk02").html(" ");
+                    $(".study_q_qk span").html(data[0].classroom_name + data[0].subject_name);
+                   
                     for (var i = 0; i < data.length; i++) {
                         $(".study_q_qk02").append('<a>' + data[i].name + '</a>')
                     }
@@ -1164,6 +1173,8 @@ angular.module("myApp.controller", [])
                         $(".study_q_04_bo").hide();
                         $(".study_q_02_bo").hide();
                         $("#study_q_03_02").html(" ");
+                        $(".study_q_05_01").html(" ");
+                        $(".qk_a").html("0");
                     } else {
                         $(".study_q_04_bo").show();
                         $(".study_q_02_bo").show();
@@ -1174,6 +1185,7 @@ angular.module("myApp.controller", [])
                         $(".study_q_zt td").eq(4).html(data.class_basic_situation.pass_number);
                         $(".study_q_zt td").eq(5).html(data.class_basic_situation.fine_number);
                         $(".study_q_zt td").eq(6).html(data.class_basic_situation.student_total);
+                         $(".qk_a").html(data.class_basic_situation.absent_total);
                         // 分数段分布 
                         var a1 = [];
                         var b1 = [];
@@ -1194,7 +1206,12 @@ angular.module("myApp.controller", [])
                             if (data.class_ranking_range.rise[i].class_ranking_change == null) {
                                 data.class_ranking_range.rise[i].class_ranking_change = 0;
                             };
-                            c.find('td').eq(3).children('span').html(data.class_ranking_range.rise[i].class_ranking_change);
+                            if(data.class_ranking_range.rise[i].class_ranking_change<0){
+                            var a_rag=data.class_ranking_range.rise[i].class_ranking_change*(-1);
+                         }else{
+                            var a_rag=data.class_ranking_range.rise[i].class_ranking_change;
+                         };
+                            c.find('td').eq(3).children('span').html(a_rag);
                             var d = $(".study_q_dft tr").eq(a);
                             d.find('td').eq(1).html(data.class_ranking_range.decline[i].name);
                             d.find('td').eq(2).html(data.class_ranking_range.decline[i].class_rank);
@@ -1303,8 +1320,16 @@ angular.module("myApp.controller", [])
                         for (var i = 0; i < data.class_students.exam_subjects.length; i++) {
                             if (data.class_students.exam_subjects[i].class_ranking_change == null) {
                                 data.class_students.exam_subjects[i].class_ranking_change = 0;
+                            };
+                            if(data.class_students.exam_subjects[i].class_ranking_change<0){
+                              var a_rang=data.class_students.exam_subjects[i].class_ranking_change*(-1);
+                              $("#study_q_i_btn_05c").append('<tr><td>' + data.class_students.exam_subjects[i].name + '</td><td>' + data.class_students.exam_subjects[i].score + '</td><td>' + data.class_students.exam_subjects[i].level + '</td><td>' + data.class_students.exam_subjects[i].class_rank + '</td><td style="color:#fb7d8a" id="class_rang0'+i+'">' +a_rang+ '<i class="iconfont">&#xe627;</i></td><td><span data-exno="' + data.class_students.exam_subjects[i].exam_no + '">查看答题卡</span></td><td>点评</td></tr>');
+                            
+                            }else{
+                              $("#study_q_i_btn_05c").append('<tr><td>' + data.class_students.exam_subjects[i].name + '</td><td>' + data.class_students.exam_subjects[i].score + '</td><td>' + data.class_students.exam_subjects[i].level + '</td><td>' + data.class_students.exam_subjects[i].class_rank + '</td><td style="color:#31bc91">' +data.class_students.exam_subjects[i].class_ranking_change+ '<i class="iconfont">&#xe628;</i></td><td><span data-exno="' + data.class_students.exam_subjects[i].exam_no + '">查看答题卡</span></td><td>点评</td></tr>');
+                            
                             }
-                            $("#study_q_i_btn_05c").append('<tr><td>' + data.class_students.exam_subjects[i].name + '</td><td>' + data.class_students.exam_subjects[i].score + '</td><td>' + data.class_students.exam_subjects[i].level + '</td><td>' + data.class_students.exam_subjects[i].class_rank + '</td><td style="color:#fb7d8a">' + data.class_students.exam_subjects[i].class_ranking_change + '<i class="iconfont">&#xe627;</i></td><td><span data-exno="' + data.class_students.exam_subjects[i].exam_no + '">查看答题卡</span></td><td>点评</td></tr>');
+                           
                         }
                         // $(".study_q_i_btn_05").unbind("click");
                         $(".study_q_i_btn_05").attr('a', '2');
@@ -1347,6 +1372,7 @@ angular.module("myApp.controller", [])
             var xuan_z = $(this).parents().prev().prev().html();
             console.log(xuan_z);
             $(".study_q_ck_a2").html("正确答案" + $(this).parents().prev().prev().html());
+            $(".study_q_ck_a2").attr("data_ans",$(this).parents().prev().prev().html());
               $(".xiaoti_mark").attr("data-itm",$(this).parents().attr("data-itm"));
 
 
@@ -1379,8 +1405,9 @@ angular.module("myApp.controller", [])
                 },
                 success: function(data) {
                     console.log(data);
+                    var da_ans=$(".study_q_ck_a2").attr("data_ans");
                     $(".xiaoti_mark").html(" ");
-                     var x_zhe =[];
+                    var x_zhe =[];
                    for(var i=0;i<data.student_answer_setting_infos.length;i++){
                     var jsons=data.student_answer_setting_infos[i];
                     for(var key in jsons){
@@ -1398,8 +1425,12 @@ angular.module("myApp.controller", [])
                             console.log(data.student_answer_setting_infos[i][a]);
                             console.log(b);
                             for (var c = 0; c < b; c++) {
-                                $('#' + tda_id + ' td').eq(1).append('<a>' + data.student_answer_setting_infos[i][a][c].real_name + '</a>');
-                            } 
+                                if(x_zhe[i]==da_ans){
+                              $('#' + tda_id + ' td').eq(1).append('<a style="background:#fb7d8a;">' + data.student_answer_setting_infos[i][a][c].real_name + '</a>');
+                            }else{
+                            $('#' + tda_id + ' td').eq(1).append('<a>' + data.student_answer_setting_infos[i][a][c].real_name + '</a>');
+                            }
+                        }
                         };
                 },
                 error: function() {
@@ -1709,6 +1740,8 @@ angular.module("myApp.controller", [])
 
         //查看答题卡
         $(".study_q_06_tab").on('click', 'span', function(event) {
+            $(".mask_layer02").css("height", $(document).height());
+            $(".mask_layer02").show();
             $(".ans").show();
             var exam_id = parseInt($(".study_q_km01").children('option:selected').attr("data-id"));
             $(".study_q_km02").attr("data-id", $(".study_q_km02").children('option:selected').attr("data-id"));
@@ -1758,6 +1791,7 @@ angular.module("myApp.controller", [])
             /* Act on the event */
 
             $(".ans").hide();
+            $(".mask_layer02").hide();
         });
         // <!--最新班级学情追踪 end-->
         function FixTable(TableID, FixColumnNumber, width, height) {
@@ -2313,7 +2347,8 @@ angular.module("myApp.controller", [])
                     console.log(data);
                     $(".study_k_102_bo").html(" ");
                     for (var i = 0; i < data.length; i++) {
-                        $(".study_k_102_bo").append('<tr><td>' + data[i].class_name + '</td><td>' + data[i].subject_name + '</td><td>' + data[i].average + '</td><td>' + data[i].highest_score + '</td><td>' + data[i].lowest_score + '</td><td>' + data[i].range + '</td><td>' + data[i].fine_number + '</td><td>' + data[i].fine_rate + '</td><td>' + data[i].pass_number + '</td><td>' + data[i].pass_rate + '</td><td>' + data[i].fail_number + '</td><td>' + data[i].standard_deviation + '</td></tr>');
+                        var a_pass_rate=data[i].pass_rate+"%";
+                        $(".study_k_102_bo").append('<tr><td>' + data[i].class_name + '</td><td>' + data[i].subject_name + '</td><td>' + data[i].average + '</td><td>' + data[i].highest_score + '</td><td>' + data[i].lowest_score + '</td><td>' + data[i].range + '</td><td>' + data[i].fine_number + '</td><td>' + data[i].fine_rate + '</td><td>' + data[i].pass_number + '</td><td>' + a_pass_rate+ '</td><td>' + data[i].fail_number + '</td><td>' + data[i].standard_deviation + '</td></tr>');
                     }
 
 
@@ -3129,6 +3164,7 @@ angular.module("myApp.controller", [])
                      max:1
                 }],
                  // large:false,
+                 // itemStyle:{normal:{color:'#dc143c'}}
                 series: [{
                         name: '试题难度',
                         type: 'line',
@@ -3136,11 +3172,11 @@ angular.module("myApp.controller", [])
                         markLine : {
             
                       data : [
-                     [{value:0.4,xAxis:0, yAxis:0.4},      
-                      {xAxis:c, yAxis:0.4},             
+                     [{value:0.4,xAxis:0, yAxis:0.4,itemStyle:{normal:{color:'#31bc92'}}},      
+                      {xAxis:c, yAxis:0.4,itemStyle:{normal:{color:'#31bc92'}}},             
                       ],
-                      [{value:0.7,xAxis:0, yAxis:0.7},   
-                      {xAxis:c, yAxis:0.7},            
+                      [{value:0.7,xAxis:0, yAxis:0.7,itemStyle:{normal:{color:'#31bc92'}}},   
+                      {xAxis:c, yAxis:0.7,itemStyle:{normal:{color:'#31bc92'}}},            
                       ],
                       ]
                         },
@@ -3552,7 +3588,7 @@ angular.module("myApp.controller", [])
 
         /* Act on the event */
         function heng_zhong04() {
-            $(".exam_h_402_bo").html(" ");
+            // $(".exam_h_402_bo").html(" ");
             var exam_id = parseInt($(".exam_h_km01").children('option:selected').attr("data-id"));
             $(".exam_h_km02").attr("data-id", $(".exam_h_km02").children('option:selected').attr("data-id"));
             var class_id = parseInt($(".exam_h_km02").attr("data-id"));
@@ -3564,7 +3600,6 @@ angular.module("myApp.controller", [])
             if (sub_id == null) {
                 var sub_id = parseInt($(".exam_h_km03").attr("data-id"));
             }
-
             console.log(exam_id);
             console.log(class_id);
             console.log(sub_id);
@@ -3580,6 +3615,7 @@ angular.module("myApp.controller", [])
                 },
                 success: function(data) {
                     console.log(data);
+                    $(".exam_h_402_bo").html(" ");
                     var a = [];
                     var b = [];
                     var c = {};
@@ -3673,7 +3709,7 @@ angular.module("myApp.controller", [])
                 },
                 data: {
                     "exam_id": exam_id,
-                    "classroom_id": class_id
+                    "classroom_id":class_id
 
                 },
                 success: function(data) {
@@ -3849,8 +3885,6 @@ angular.module("myApp.controller", [])
                     data: b,
                 }]
             };
-
-
             // 为echarts对象加载数据 
             myChart.setOption(option);
 
@@ -3870,6 +3904,196 @@ angular.module("myApp.controller", [])
             $(".sc_left").hide();
         });
         var isLogin = localStorage.getItem("token");
+         // 科目
+        $.ajax({
+            type: "GET",
+            async: false,
+            url: ajaxIp + "/api/v2/reports/exams",
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            success: function(data) {
+                console.log(data);
+
+
+                for (var i = 0; i < data.length; i++) {
+                    $(".sc_km01").append('<option value="' + data[i].name + '" data-id=' + data[i].id + '>' + data[i].name + '</option>')
+                };
+                for (var i = 0; i < data[0].subjects.length; i++) {
+                    $(".sc_km02").append('<option value="" data-id=' + data[0].subjects[i].subject_id + '>' + data[0].subjects[i].name + '</option>')
+                    $(".sc_km02").attr("data-id", data[0].subjects[0].subject_id);
+                };
+                $(".sc_km01").change(function(event) {
+                    /* Act on the event */
+                    var index01 = $(".sc_km01").children('option:selected').index()
+                    var index02 = index01;
+                    // $(".study_q_km01 option").eq(0).remove();
+                    $(".sc_km02 option").remove();
+                  for (var i = 0; i < data[index02].subjects.length; i++) {
+                        $(".sc_km02").append('<option value="" data-id=' + data[index02].subjects[i].subject_id + '>' + data[index02].subjects[i].name + '</option>')
+                        $(".sc_km02").attr("data-id", data[index02].subjects[0].subject_id);
+                    }
+                });
+                kx01();
+            },
+            error: function() {
+
+            }
+
+        });
+        // 科目 end
+        // 横向对比
+        function kx01(){
+            var exam_id = $(".sc_km01").children('option:selected').attr("data-id");
+            $(".sc_km02").attr("data-id", $(".sc_km02").children('option:selected').attr("data-id"));
+            var sub_id = $(".sc_km02").attr("sc_km02");
+            if (sub_id == null) {
+                var sub_id = $(".sc_km02").attr("data-id");
+            }
+            console.log(exam_id);
+             console.log(sub_id);
+         $.ajax({
+                type: "POST",
+                async: false,
+                url: ajaxIp + "/api/v2/reports/overall_comparison",
+                headers: {
+                    'Authorization': "Bearer " + isLogin,
+                },
+                data: {
+                    "exam_id":exam_id,
+                    "subject_id":sub_id
+
+                },
+                success: function(data) {
+                    console.log(data);
+                     $(".sc_102_he").html(" ");
+                    $(".sc_102_bo").html(" ");
+                    for(var i=0;i<data.titile.length;i++){
+                        $(".sc_102_he").append('<th>'+data.titile[i]+'</th>');
+                    }
+                   for(var i=0;i<data.data.length;i++){
+                        $(".sc_102_bo").append('<tr></tr>');
+                        for(var a=0;a<data.data[i].length;a++){
+                            $(".sc_102_bo tr").eq(i).append('<td>'+data.data[i][a]+'</td>');
+                        }
+                    }
+                },
+                error: function() {
+
+                }
+
+            });
+     }
+function kx_bb01(){
+    var exam_id = $(".sc_km01").children('option:selected').attr("data-id");
+            $(".sc_km02").attr("data-id", $(".sc_km02").children('option:selected').attr("data-id"));
+            var sub_id = $(".sc_km02").attr("sc_km02");
+            if (sub_id == null) {
+                var sub_id = $(".sc_km02").attr("data-id");
+            }
+        console.log(exam_id);
+          console.log(sub_id);
+ $.ajax({
+                type: "POST",
+                async: false,
+                url: ajaxIp + "/api/v2/reports/export_overall_comparison",
+                headers: {
+                    'Authorization': "Bearer " + isLogin,
+                },
+                data: {
+                    "exam_id":exam_id,
+                    "subject_id":sub_id
+
+                },
+                success: function(data) {
+                    console.log(data);
+                    console.log(data.file_path);
+                    $(".sc_101 button").parent().attr("href", ajaxIp + data.file_path);
+
+                },
+                error: function() {
+
+                }
+
+            });
+
+     };
+        // 等级人数对比
+            function kx02(){
+            var exam_id = $(".sc_km01").children('option:selected').attr("data-id");
+            $(".sc_km02").attr("data-id", $(".sc_km02").children('option:selected').attr("data-id"));
+            var sub_id = $(".sc_km02").attr("sc_km02");
+            if (sub_id == null) {
+                var sub_id = $(".sc_km02").attr("data-id");
+            }
+            console.log(exam_id);
+             console.log(sub_id);
+         $.ajax({
+                type: "POST",
+                async: false,
+                url: ajaxIp + "/api/v2/reports/rank_comparison",
+                headers: {
+                    'Authorization': "Bearer " + isLogin,
+                },
+                data: {
+                    "exam_id":exam_id,
+                    "subject_id":sub_id
+
+                },
+                success: function(data) {
+                    console.log(data);
+                     $(".sc_201_he").html(" ");
+                    $(".sc_201_bo").html(" ");
+                    for(var i=0;i<data.titile.length;i++){
+                        $(".sc_201_he").append('<th>'+data.titile[i]+'</th>');
+                    }
+                   for(var i=0;i<data.data.length;i++){
+                        $(".sc_201_bo").append('<tr></tr>');
+                        for(var a=0;a<data.data[i].length;a++){
+                            $(".sc_201_bo tr").eq(i).append('<td>'+data.data[i][a]+'</td>');
+                        }
+                    }
+                },
+                error: function() {
+
+                }
+
+            });
+     }
+    function kx_bb02(){
+    var exam_id = $(".sc_km01").children('option:selected').attr("data-id");
+            $(".sc_km02").attr("data-id", $(".sc_km02").children('option:selected').attr("data-id"));
+            var sub_id = $(".sc_km02").attr("sc_km02");
+            if (sub_id == null) {
+                var sub_id = $(".sc_km02").attr("data-id");
+            }
+        console.log(exam_id);
+          console.log(sub_id);
+ $.ajax({
+                type: "POST",
+                async: false,
+                url: ajaxIp + "/api/v2/reports/export_rank_comparison",
+                headers: {
+                    'Authorization': "Bearer " + isLogin,
+                },
+                data: {
+                    "exam_id":exam_id,
+                    "subject_id":sub_id
+
+                },
+                success: function(data) {
+                    console.log(data);
+                    console.log(data.file_path);
+                    $(".sc_101 button").parent().attr("href", ajaxIp + data.file_path);
+
+                },
+                error: function() {
+
+                }
+
+            });
+
+     };
         /*<!-- 跨校对比分析  start-->*/
         $(".sc_left li").eq(0).css("color", "#31bc91").siblings().css("color", "#999999");
         $(".sc_left li").click(function(event) {
@@ -3877,7 +4101,47 @@ angular.module("myApp.controller", [])
             $(this).css("color", "#31bc91").siblings().css("color", "#999999");
             $(".sc_b").html($(this).html());
             $(".sc_tab").children("div").eq($(this).index()).show().siblings().hide();
+            $(".sc_101 button").attr("data-id",$(this).index());
+            if($(this).index()==0){
+                kx01();
+            };
+             if($(this).index()==1){
+                kx02();
+            };
+            
         });
+
+  $(".sc_101 select").change(function(event) {
+            /* Act on the event */
+             $(".sc_102_he").html(" ");
+            $(".sc_102_bo").html(" ");
+            $(".sc_201_he").html(" ");
+            $(".sc_201_bo").html(" ");
+            var a = $(".sc_101 button").attr("data-id");
+            if (a == 0) {
+                kx01();
+            };
+            if (a == 1) {
+                 kx02();
+            };
+          
+        });
+
+$(".sc_101 button").click(function(event) {
+    /* Act on the event */
+     var a = $(this).attr("data-id");
+            if (a == 0) {
+                kx_bb01();
+            };
+            if (a == 1) {
+            kx_bb02();
+            };
+});
+
+
+
+
+
 
         /*<!-- 跨校对比分析  end-->*/
 

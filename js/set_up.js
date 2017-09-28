@@ -3077,7 +3077,7 @@ $(function() {
 		$('.set-score-wrap .set-table tbody').html('');
 		$('.set-score-wrap .set-table').attr('data-id',import_score_id);
 		for (var i = 0; i < item.length; i++) {
-			var set_li = '<tr class="item-tr-'+i+'"><td width="50%">'+item[i].answer_name+'</td><td width="30%"><select name="" class="set-select"><option value="单选题">单选题</option><option value="多选题">多选题</option><option value="填空题">填空题</option><option value="是非题">是非题</option><option value="作文题">作文题</option><option value="其他题">其他题</option><option value="填空题">填空题</option></select></td><td width="20%"><input type="text" value="'+item[i].score+'" data-id="'+item[i].answer_id+'"></td></tr>'
+			var set_li = '<tr class="item-tr-'+i+'"><td width="50%">'+item[i].answer_name+'</td><td width="30%"><select name="" class="set-select"><option value="单选题">单选题</option><option value="多选题">多选题</option><option value="填空题">填空题</option><option value="是非题">是非题</option><option value="作文题">作文题</option><option value="其他题">其他题</option></select></td><td width="20%"><input type="text" value="'+item[i].score+'" data-id="'+item[i].answer_id+'"></td></tr>'
 			$('.set-score-wrap .set-table tbody').append(set_li);
 			if(!item[i].score){
 				$('.item-tr-'+i+'').find('input').val('');

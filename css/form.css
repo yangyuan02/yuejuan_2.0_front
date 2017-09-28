@@ -125,15 +125,14 @@ line-height: 44px;
 width: 270px;
 }
 .mark_02_ul li{
-	width:824px;
-	height: 46px;
 	color:#2daa82;
-  
    font-size:16px;
     line-height: 46px;
-    padding-left: 76px;
     border-bottom: 1px solid #cccccc;
     cursor: pointer;
+}
+.mark_02_ul li span{
+	margin-left:76px;
 }
 .mark_li_01{
 	width: 900px;
@@ -301,6 +300,15 @@ margin-bottom: 15px;
     background:#999999;
     opacity: 0.5;
     display: none;
+}
+.mask_layer02{
+	position: absolute;
+    top: 0px;
+    width: 100%;
+    background:#999999;
+    opacity: 0.5;
+    display: none;
+    z-index: 11111;
 }
 /*分析数据的的确定*/
 .t_f{
@@ -1126,7 +1134,6 @@ font-size: 14px;
 	box-sizing: border-box;
 	position: absolute;
 bottom:205px;
-left: 240px;
 background: #f5f5f5;
 display: none;
 z-index:1111111;

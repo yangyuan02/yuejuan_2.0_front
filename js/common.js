@@ -43,7 +43,8 @@ $(function() {
 	        		$('#wrap').attr('customer_id',data.customer_id);
 
 	        		if(isAction){
-						if(window.location.pathname!='/yuejuan2.0_front/user_information'){
+	        			console.log(isAction)
+						if(window.location.pathname!='/user_information'){
 							window.location.href = './user_information'
 						}
 					}

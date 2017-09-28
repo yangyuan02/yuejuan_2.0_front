@@ -436,8 +436,18 @@ $(function(){
 		$('.move-paper').append(img_html);
 		console.log(pre_img.section_crops.length)
 		var section_crops = pre_img.section_crops;
+		var imgSrc = $(".move-paper img").attr("src");
+		// var paper_height;
+		getImageWidth(imgSrc,function(w,h){
+			var ww=w;
+			var hh=h;
+			console.log(ww,hh)
+			var pp = 697/ww*hh;
+			console.log(pp)
+			var paper_height =pp;
+
 		var paper_width = $('.move-paper img').width();
-		var paper_height = $('.move-paper img').height();
+		// var paper_height = $('.move-paper img').height();
 		console.log(paper_width,paper_height);
 		for (var i = 0; i < section_crops.length; i++) {
 			section_crops[i].position.width =(section_crops[i].position.width/section_crops[i].position.w)*paper_width;
@@ -448,7 +458,21 @@ $(function(){
 			var section_info = '<div class="section_crop" style="background:#fff;width:'+section_crops[i].position.width+'px; height:'+section_crops[i].position.height+'px;position:absolute;left:'+section_crops[i].position.x+'px;top:'+section_crops[i].position.y+'px"></div>'
 			$('.move-paper').append(section_info);
 		};
+		});
   }
+	function getImageWidth(url,callback){
+		var img = new Image();
+		img.src = url;
+		// 如果图片被缓存，则直接返回缓存数据
+		if(img.complete){
+		    callback(img.width, img.height);
+		}else{
+          // 完全加载完毕的事件
+    	img.onload = function(){
+				callback(img.width, img.height);
+    	}
+    }
+	}
 
 
 
