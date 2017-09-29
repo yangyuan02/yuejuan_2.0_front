@@ -315,8 +315,11 @@
 							<option value="0">所有科目</option>
 						</select>
 					</div>
+					<!-- <div class="look-paper-cont">
+					</div> -->
 					<div class="set-input-wrap">
-						<input id="search-num" class="search-input" type="text" placeholder="请输入考试名称">
+						<div class="look-button determine" style="display: none">查看试卷结构</div>
+						<input id="search-num" class="search-input" type="text" placeholder="请输入考试名称" style="margin:0 14px 0 10px">
 						<!-- <input class="student-search-input" type="text" placeholder="请输入学生姓名"> -->
 						<div class="student-search-button iconfont">&#xe610;</div>
 						<div class="import-button determine">导入</div>
@@ -747,15 +750,15 @@
 			</div>
 		</div>
 	</div>
-	<!-- 设置总分 -->
-	<div class="modal-wrap set-score-wrap">
+	<!-- 查看试卷结构 -->
+	<div class="modal-wrap look-score-wrap">
 		<div class="modal-shadow modal-exit"></div>
 		<div class="modal-main" style="width:700px">
 			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
-			<div class="modal-title">输入分值</div>
+			<div class="modal-title">查看试卷结构</div>
 			<div class="modal-content">
 				<div class="set-box" style="max-height: 600px;overflow-y: auto">
-					<table class="set-table">
+					<table class="set-table" style="width:100%">
 						<thead>
 							<tr>
 								<th>题号</th>
@@ -790,6 +793,60 @@
 							</tr> -->
 						</tbody>
 					</table>
+				</div>
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine modal-exit">保存</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 设置总分 -->
+	<div class="modal-wrap set-score-wrap">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main" style="width:700px">
+			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
+			<div class="modal-title">输入分值</div>
+			<div class="modal-content">
+				<div class="set-box" style="max-height: 600px;overflow-y: auto">
+					<table class="set-table" style="width:100%">
+						<thead>
+							<tr>
+								<th>题号</th>
+								<th>设置题型</th>
+								<th>总分值</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- <tr>
+								<td width="88%">一、选择题</td>
+								<td>
+									<input type="text">
+								</td>
+							</tr>
+							<tr>
+								<td width="88%">一、选择题</td>
+								<td>
+									<input type="text">
+								</td>
+							</tr>
+							<tr>
+								<td width="88%">一、选择题</td>
+								<td>
+									<input type="text">
+								</td>
+							</tr>
+							<tr>
+								<td width="88%">一、选择题</td>
+								<td>
+									<input type="text">
+								</td>
+							</tr> -->
+						</tbody>
+					</table>
+					<div class="paper-total-box">
+						<p class="paper-total"><span>总分：</span><span class="total-num"></span></p>
+					</div>
 				</div>
 				<div class="modal-bottom">
 					<div class="modal-bottom-button modal-exit">取消</div>
