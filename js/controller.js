@@ -3377,6 +3377,7 @@ angular.module("myApp.controller", [])
             $(".exam_h_201_bo").html(" ");
             $(".exam_h_301_bo").html(" ");
             $(".exam_h_402_bo").html(" ");
+            $("#manyColumn").html(" ");
             var a = $(".exam_h_101 button").attr("data-id");
             if (a == 0) {
                 heng_zhong01();
@@ -3471,6 +3472,8 @@ angular.module("myApp.controller", [])
                     for (var i = 0; i < b.length; i++) {
                         $(".exam_h_102_bo").append('<tr><td>' + b[i].id + '</td><td>' + b[i].class_name + '</td><td>' + b[i].subject_name + '</td><td>' + b[i].class_average + '</td><td>' + b[i].ranking + '</td><td>' + b[i].highest_score + '</td><td>' + b[i].lowest_score + '</td><td>' + b[i].standard_deviation + '</td><td>' + b[i].average_range + '</td></tr>');
                     }
+
+
                 },
                 error: function(data) {
 
@@ -3483,6 +3486,7 @@ angular.module("myApp.controller", [])
         };
         // 班级等级
         function heng_zhong02() {
+             
             var exam_id = parseInt($(".exam_h_km01").children('option:selected').attr("data-id"));
             $(".exam_h_km02").attr("data-id", $(".exam_h_km02").children('option:selected').attr("data-id"));
             var class_id = parseInt($(".exam_h_km02").attr("data-id"));
@@ -3500,6 +3504,7 @@ angular.module("myApp.controller", [])
             console.log(sub_id);
             $.ajax({
                 type: "POST",
+                async:false,
                 url: ajaxIp + "/api/v2/reports/class_level_distribute",
                 headers: {
                     'Authorization': "Bearer " + isLogin
@@ -3510,10 +3515,15 @@ angular.module("myApp.controller", [])
                 },
                 success: function(data) {
                     console.log(data);
+                    $("#manyColumn").html(" ");
                     $(".exam_h_201_he").html(" ");
                     $(".exam_h_201_bo").html(" ");
+                    var columName =[];
                     for (var i = 0; i < data.titile.length; i++) {
+                        // var a=i+2;
                         $(".exam_h_201_he").append('<th>' + data.titile[i] + '</th>');
+                        // columName.push(data.titile[a]);
+
                     };
                     for (var i = 0; i < data.data.length; i++) {
                         var a = data.data[i];
@@ -3523,7 +3533,35 @@ angular.module("myApp.controller", [])
                             $(".exam_h_201_bo tr").eq(i).append('<td>' + a[c] + '</td>');
                         }
 
-                    }
+                    };
+                   // 图表
+                   var columName =[];
+                   var columLabel =[];
+                   var arrData=[];
+                   var columName_lengh=data.titile.length;
+                    for (var i = 2; i < columName_lengh; i++){ 
+                       columName.push(data.titile[i]);
+
+                    };
+                    console.log(columName);
+                    for (var i = 0; i < data.data.length; i++) {
+                        var a = data.data[i];
+                        columLabel.push(a[0]);
+                    };
+                     console.log(columLabel);
+
+                    for (var i = 0; i < data.data.length; i++) {
+                        var a = data.data[i];
+                        var arrData01=[];
+                        for (var c = 2; c < a.length; c++) {
+                          arrData01.push(a[c]);
+                           
+                        }
+                        arrData.push(arrData01);
+                    }; 
+                     console.log(arrData);
+                     buildData(columLabel,columName,arrData);
+
                 },
                 error: function() {
 
@@ -3611,7 +3649,8 @@ angular.module("myApp.controller", [])
                 },
                 data: {
                     "exam_id": exam_id,
-                    "subject_id": sub_id
+                    "subject_id": sub_id,
+                    "number":"10"
                 },
                 success: function(data) {
                     console.log(data);
@@ -3751,6 +3790,7 @@ angular.module("myApp.controller", [])
         // 控制select的数量
 
         $(".exam_h_101 span").eq(1).hide();
+         $(".exam_h_101 span").eq(3).hide();
         // $(".exam_h_101 span").eq(2).hide();
 
         $("#exam_h_left_1l").click(function(event) {
@@ -3764,12 +3804,14 @@ angular.module("myApp.controller", [])
             /* Act on the event */
             $(".exam_h_101 span").eq(1).hide();
             $(".exam_h_101 span").eq(2).show();
+            $(".exam_h_101 span").eq(3).hide();
 
         });
         $("#exam_h_left_3l").click(function(event) {
             /* Act on the event */
             $(".exam_h_101 span").eq(1).show();
             $(".exam_h_101 span").eq(2).hide();
+            $(".exam_h_101 span").eq(3).hide();
             // $(".exam_h_101 span").eq(2).show();
 
         });
@@ -3777,6 +3819,7 @@ angular.module("myApp.controller", [])
             /* Act on the event */
             $(".exam_h_101 span").eq(1).hide();
             $(".exam_h_101 span").eq(2).show();
+            $(".exam_h_101 span").eq(3).show();
 
         });
 
@@ -3889,6 +3932,64 @@ angular.module("myApp.controller", [])
             myChart.setOption(option);
 
         };
+       
+            
+            //生成数据
+            function buildData(columLabel,columName,arrData)
+            {
+                var columnValue = new Array();
+                for(var i=0;i<columLabel.length;i++) 
+                {
+                    columnValue.push(eval('(' + ("{'name':'"+columLabel[i]+"','type':'bar','data':["+arrData[i]+"]}") + ')'));
+                }
+                
+                buildChart(columLabel,columName,columnValue);
+            }
+            //生成图形
+            function buildChart(columLabel,columName,columnValue)
+            {
+                var chart = document.getElementById('manyColumn');  
+                var echart = echarts.init(chart);  
+                var option = {
+                    tooltip : {
+                        trigger: 'axis',
+                        axisPointer : {            
+                            type : 'shadow'        
+                        }
+                    },
+                     toolbox: {
+                        show : true,
+                        feature : {
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    legend: {
+                        data:columLabel
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis : [
+                        {
+                            min:0,
+                            type : 'category',
+                            data : columName
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            min:0,
+                            type : 'value'
+                        }
+                    ],
+                    series : columnValue
+                };
+                
+                echart.setOption(option);
+            }
         // <!-- 考试横向分析 end -->
 
 
