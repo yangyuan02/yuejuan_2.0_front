@@ -66,7 +66,7 @@ angular.module("myApp.controller", [])
                     console.log(date);
                     for (var i = 0; i < date.length; i++) {
 
-                        $(".mark_02_ul").append('<li data-id="' + date[i].exam_id + '"><span>' + date[i].name + '<i class="iconfont" style="margin-left:11px;cursor: pointer;">&#xe622;</i><i class="iconfont" style="margin-left:11px;cursor: pointer;display:none;">&#xe624;</i></span></li><div class="mark_li_01"></div>')
+                        $(".mark_02_ul").append('<li data-id="' + date[i].exam_id + '"><span>' + date[i].name + '<i class="iconfont" style="margin-left:11px;cursor: pointer;">&#xe622;</i><i class="iconfont" style="margin-left:11px;cursor: pointer;display:none;">&#xe624;</i></span><div class="mark_li_01"></div></li>')
                         var b = date[i].exam_subjects.length;
 
                         for (var a = 0; a < b; a++) {
@@ -93,7 +93,7 @@ angular.module("myApp.controller", [])
 
 
         $(".mark_02_ul").on('click', 'span', function(event) {
-            $(this).parent().next().toggle();
+            $(this).parent().find('div').toggle();
             $(this).find('i').toggle();
         });
 
@@ -1740,6 +1740,8 @@ angular.module("myApp.controller", [])
 
         //查看答题卡
         $(".study_q_06_tab").on('click', 'span', function(event) {
+            $(".mask_layer02").css("height", $(document).height());
+            $(".mask_layer02").show();
             $(".ans").show();
             var exam_id = parseInt($(".study_q_km01").children('option:selected').attr("data-id"));
             $(".study_q_km02").attr("data-id", $(".study_q_km02").children('option:selected').attr("data-id"));
@@ -1789,6 +1791,7 @@ angular.module("myApp.controller", [])
             /* Act on the event */
 
             $(".ans").hide();
+            $(".mask_layer02").hide();
         });
         // <!--最新班级学情追踪 end-->
         function FixTable(TableID, FixColumnNumber, width, height) {
