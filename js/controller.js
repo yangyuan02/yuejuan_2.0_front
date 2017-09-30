@@ -619,50 +619,10 @@ angular.module("myApp.controller", [])
                         }
                     };
                     for (var i = 0; i < data.grade_rank_ten.top_ten.length; i++) {
-                            $("#r5_11_tbody03").append(' <tr><td>' + data.grade_rank_ten.top_ten[i].name + '</td><td>' + data.grade_rank_ten.top_ten[i].grade_rank + '</td><td style="color: #fb7d89;">' +data.grade_rank_ten.top_ten[i].class_name+ '<i class="iconfont">&#xe627;</i></td></tr>');
-                            $("#r5_11_tbody04").append(' <tr><td>' + data.grade_rank_ten.after_ten[i].name + '</td><td>' + data.grade_rank_ten.after_ten[i].grade_rank + '</td><td style="color: #31bc92;">' + data.grade_rank_ten.after_ten[i].class_name + '<i class="iconfont">&#xe628;</i></td></tr>');
+                            $("#r5_11_tbody03").append(' <tr><td>' + data.grade_rank_ten.top_ten[i].name + '</td><td>' + data.grade_rank_ten.top_ten[i].grade_rank + '</td><td>' +data.grade_rank_ten.top_ten[i].class_name+ '</td></tr>');
+                            $("#r5_11_tbody04").append(' <tr><td>' + data.grade_rank_ten.after_ten[i].name + '</td><td>' + data.grade_rank_ten.after_ten[i].grade_rank + '</td><td>' + data.grade_rank_ten.after_ten[i].class_name + '</td></tr>');
                      
                     };
-
-
-                    //         $.ajax({
-                    //             type: "GET",
-                    //             url: ajaxIp + "/api/v2/reports/socre_distribution",
-                    //             headers: {
-                    //                 'Authorization': "Bearer " + isLogin
-                    //             },
-                    //             data: {
-                    //                 "exam_id": exam_id,
-                    //                 "subject_id": sub_id,
-                    //                 "step_eq": 10,
-                    //             },
-                    //             success: function(data) {
-                    //                 console.log(data);
-                    //                 var a = [];
-                    //                 // s
-                    //                 // console.log(data[0].rate);
-                    //                 var b = [];
-
-                    //                 if (data.error_code !== 500) {
-                    //                     for (var i = 0; i < data.socre_distributions.length; i++) {
-                    //                         a.push(data.socre_distributions[i].range_text);
-                    //                         b.push(data.socre_distributions[i].count);
-                    //                     };
-                    //                 }
-                    //                 mark_fb(a, b);
-                    //                 if (data.error_code == 500) {
-                    //                     mark_fb(a, b);
-                    //                 };
-
-                    //             },
-                    //             error: function() {
-
-                    //             }
-
-
-                    //         });
-
-
                 },
                 error: function() {
 
@@ -710,83 +670,6 @@ angular.module("myApp.controller", [])
             kaoshizk($("#myselect").val(),a);
 
         });
-
-        // function chengjifd(a) {
-
-
-        //     var exam_id = parseInt($(".exam_name").children('option:selected').attr("data-id"));
-        //     var sub_id = parseInt($(".exam_sub").children('option:selected').attr("data-id"));
-        //     var num_r = parseInt(a);
-        //     $.ajax({
-        //         type: "GET",
-        //         url: ajaxIp + "/api/v2/reports/grade_ranking_range",
-        //         headers: {
-        //             'Authorization': "Bearer " + isLogin
-        //         },
-        //         data: {
-        //             "exam_id": exam_id,
-        //             "subject_id": sub_id,
-        //             "number": num_r
-        //         },
-        //         success: function(data) {
-        //             console.log(data);
-        //             if (data.error_code !== 500) {
-        //                 $("#r5_11_tbody").html(' ');
-        //                 $("#r5_11_tbody02").html(' ');
-        //                 for (var i = 0; i < data.rise.length; i++) {
-        //                     if (data.rise[i].grade_ranking_change == null) {
-        //                         data.rise[i].grade_ranking_change = 0;
-        //                     };
-        //                     if (data.decline[i].grade_ranking_change == null) {
-        //                         data.decline[i].grade_ranking_change = 0;
-        //                     };
-        //                     $("#r5_11_tbody").append(' <tr><td>' + data.rise[i].name + '</td><td>' + data.rise[i].grade_rank + '</td><td>' + data.rise[i].grade_ranking_change + '<i class="iconfont">&#xe627;</i></td></tr>');
-        //                     $("#r5_11_tbody02").append(' <tr><td>' + data.decline[i].name + '</td><td>' + data.decline[i].grade_rank + '</td><td>' + data.decline[i].grade_ranking_change + '<i class="iconfont">&#xe628;</i></td></tr>');
-        //                 }
-        //             }
-
-        //         },
-        //         error: function() {
-
-        //         }
-        //     });
-        //     // 年级学科趋势
-        //     $.ajax({
-        //         type: "get",
-        //         // analyse:false,
-        //         url: ajaxIp + "/api/v2/reports/grade_socre_trend",
-        //         headers: {
-        //             'Authorization': "Bearer " + isLogin
-        //         },
-        //         data: {
-        //             "exam_id": exam_id,
-        //             "subject_id": sub_id
-        //         },
-        //         success: function(data) {
-
-        //             console.log(data);
-        //             if (data.length !== 0) {
-        //                 var a = [];
-        //                 var b = [];
-        //                 for (var i = 0; i < data.length; i++) {
-        //                     var nub = "第" + (i + 1) + "考试"
-        //                     a.push(nub);
-        //                     b.push(data[i].average);
-        //                 }
-        //                 console.log(a);
-
-        //                 njxk(a, b);
-        //             }
-        //         },
-        //         error: function() {
-        //             /* Act on the event */
-        //         }
-
-
-        //     });
-        // }
-
-
 
         // 基本情况
         function basic_y(a, b, c) {
@@ -3706,13 +3589,14 @@ angular.module("myApp.controller", [])
                         b.push(c);
 
                     }
-
-                    heng_m(a, b);
+                  var exam_h_nub=$(".exam_h_rs").children('option:selected').val();
+                    heng_m(a, b,exam_h_nub);
                 },
                 error: function() {
                     var a = [];
                     var b = [];
-                    heng_m(a, b);
+                    var exam_h_nub=$(".exam_h_rs").children('option:selected').val();
+                    heng_m(a,b,exam_h_nub);
                 }
 
             });
@@ -3936,13 +3820,13 @@ angular.module("myApp.controller", [])
             myChart.setOption(option);
         };
 
-        function heng_m(a, b) {
+        function heng_m(a,b,c) {
             // 名次各班分布
             var myChart = echarts.init(document.getElementById('exam_h_402'));
             // 指定图表的配置项和数据
             var option = {
                 title: {
-                    text: '前100名各个班级的分布情况',
+                    text: '前'+c+'名各个班级的分布情况',
                     subtext: '相当对于整个考试',
                     x: 'center'
                 },
