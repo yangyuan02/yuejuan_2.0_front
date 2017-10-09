@@ -1115,8 +1115,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var index = getAllIndex()
         $scope.listObj = allList_1.slice(0,index[0])
         $scope.listObj2 = allList_1.slice(index[0],index[0]+index[1])
-        $scope.listObj3 = allList.slice(index[0]+index[1],index[0]+index[1]+index[2])
-        $scope.listObj4 = allList.slice(index[0]+index[1]+index[2],index[0]+index[1]+index[2]+index[3])
+        $scope.listObj3 = allList_1.slice(index[0]+index[1],index[0]+index[1]+index[2])
+        $scope.listObj4 = allList_1.slice(index[0]+index[1]+index[2],index[0]+index[1]+index[2]+index[3])
     }
     //设置当前排序
     function setAnswerSor() {
