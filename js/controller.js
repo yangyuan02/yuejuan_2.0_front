@@ -854,10 +854,13 @@ angular.module("myApp.controller", [])
                 grid: {
                     x: 28,
                     y: 45,
-                    x2: 20,
+                    x2: 30,
                     y2: 25,
                     borderWidth: 1
                 },
+                legend: {
+                 data:['年级平分数','班级平分数']
+                 },
                 // calculable: true,
                 xAxis: [{
                     type: 'category',
@@ -872,7 +875,7 @@ angular.module("myApp.controller", [])
                     // interval:20,
                 }],
                 series: [{
-                        name: '最高分数',
+                        name: '年级平分数',
                         type: 'line',
                         data: b,
                         markPoint: {
@@ -883,7 +886,7 @@ angular.module("myApp.controller", [])
                         }
                     },
                     {
-                        name: '最高分数',
+                        name: '班级平分数',
                         type: 'line',
                         data:d,
                         markPoint: {
