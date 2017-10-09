@@ -43,9 +43,9 @@ $(function() {
 	        		$('#wrap').attr('customer_id',data.customer_id);
 
 	        		if(isAction){
-						if(window.location.pathname!='/user_information.html')
-					{	window.location.href = './user_information'
-						}	
+						if(window.location.pathname!='/user_information'){
+							window.location.href = './user_information'
+						}
 					}
 	    		}else{
 	    			alert('账号已在其他地方登录');
