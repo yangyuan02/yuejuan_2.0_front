@@ -348,7 +348,7 @@
 
 .student-search-button{
 	position: absolute;
-	left: 190px;
+	right: 100px;
 	top: 2px;
 	cursor: pointer;
 }
@@ -452,7 +452,7 @@
 }
 #search-num{
 	width: 200px;
-	margin-right: 80px;
+	margin-right: 14px;
 }
 .dele-button{
 	width: 70px;
@@ -472,6 +472,14 @@
   height: 30px;
   text-align: center;
   line-height: 30px;
+}
+.look-button{
+	width: 82px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  position: relative;
+  left: -12px;
 }
 .set{
 	display: inline-block;
@@ -593,6 +601,38 @@
 	color: #999;
 	line-height: 30px;
 }
+.set-table tr i{
+	color: #31bc91;
+	position: relative;
+	left: 5px;
+	top: 2px;
+}
+.set-table .child-box{
+	background: #f0f0f0;
+	overflow: hidden;
+	padding: 0 10px;
+}
+.set-table .child-box ul li{
+	float: left;
+/* 	width: 33.33%; */
+}
+.child-cont li{
+	width: 100%;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+.child-cont li .item-name{
+	float: left;
+	width: 50%;
+}
+.child-cont li .item-op{
+	float: left;
+	width: 30%;
+}
+.child-cont li .item-score{
+	float: left;
+	width: 20%;
+}
 .set-table input{
 	width: 120px;
 	height: 30px;
@@ -631,6 +671,18 @@
 	line-height: 24px!important;
 	word-wrap:break-word;
 	word-break:break-all;
+}
+.paper-total-box{
+	padding-top: 15px;
+	text-align: right;
+	border-top:1px solid #e6e6e6;
+}
+.paper-total{
+	position: relative;
+	right: 110px;
+}
+.paper-total .total-num{
+	color: #31bc91;
 }
 
 

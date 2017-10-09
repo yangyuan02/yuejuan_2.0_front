@@ -316,9 +316,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         param.answer.name = data.name//题组名称
 
         modelParam.push(param)
-        console.log(modelParam)
-        // window.localStorage.setItem(getUrlParam(url, 'examubjeId'),JSON.stringify(modelParam))
+        window.localStorage.setItem(getUrlParam(url, 'examubjeId'),JSON.stringify(modelParam))
+        console.log(window.localStorage.getItem(getUrlParam(url, 'examubjeId')))
     }
+    console.log(window.localStorage.getItem(getUrlParam(url, 'examubjeId')))
     //确认添加
     $scope.btn1 = function () {
         //添加选择题的存储
@@ -1405,6 +1406,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.getSchoolInfo = function (type) {
         getSchoolGrades(false)
         if(type==0){
+            if($scope.listObj.length==0){
+                alert("页面暂无内容")
+                return
+            }
             $scope.add(6)
         }else{
             $scope.add(7)
@@ -1431,6 +1436,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $.ajax({
             url:"/api/v2/answer_region_templates/save_template",
             type:"POST",
+            async: false,
             headers: {'Authorization': "Bearer " + isLogin},
             data:{
                 "subject_id":subjectId,
@@ -1440,6 +1446,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             },
             success:function (data) {
                 $scope.close()
+                alert("存入模板成功!")
             }
         })
     }
@@ -1454,7 +1461,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         var obj = allList()
         delete obj.answer_id
-        obj.modelParam = modelParam
+        obj.modelParam = JSON.parse(window.localStorage.getItem(getUrlParam(url, 'examubjeId')))
         Template($scope.itmeSubject.id,$scope.itmeGrades.id,$scope.templateName,JSON.stringify(obj))
     }
     /**
@@ -1482,6 +1489,12 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.showItmeScoreType = data.showItmeScoreType?data.showItmeScoreType:0
                 $scope.countScore = data.countScore?data.countScore:0
                 modelParam = data.modelParam?data.modelParam:[]
+                if(modelParam){
+                    modelParam.forEach(function (itme,index,arr) {//替换当前的examubjeId
+                        arr[index].answer.exam_subject_id = getUrlParam(url, 'examubjeId')
+                    })
+                }
+                $scope.close()
             }
         })
     }
