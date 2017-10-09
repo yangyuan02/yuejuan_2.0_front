@@ -527,7 +527,9 @@ angular.module("myApp.controller", [])
                         $("#r5_11_tbody02").html(' ');
                          $("#r5_11_tbody03").html(' ');
                         $("#r5_11_tbody04").html(' ');
-                        $(".r2_02_01").html("0");
+                        $(".r2_02_01_i01").html("0");
+                         $(".r2_02_01_i02").html(" ");
+                         $(".r2_02_01_i02").append('(缺考0人)');
                         $(".r2_02_02").html("0");
                         $(".r2_02_06").html("0");
                         $(".r2_02_03").html("0");
@@ -538,7 +540,9 @@ angular.module("myApp.controller", [])
                         $("#right_02_r").show();
                         // $("#right_03").show();
                         // $("#right_04").show();
-                        $(".r2_02_01").html(data.basic_situation.statistics_total);
+                        $(".r2_02_01_i01").html(data.basic_situation.statistics_total);
+                        $(".r2_02_01_i02").html(" ");
+                        $(".r2_02_01_i02").append('(缺考'+data.basic_situation.absent_total+'人)');
                         $(".r2_02_02").html(data.basic_situation.average);
                         $(".r2_02_03").html(data.basic_situation.average_rate + "%");
                         $(".r2_02_04").html(data.basic_situation.pass_rate + "%");
@@ -627,8 +631,6 @@ angular.module("myApp.controller", [])
                 error: function() {
 
                 }
-
-
             });
 
         };
@@ -1212,10 +1214,10 @@ angular.module("myApp.controller", [])
                                 var zq_rate=Math.round(data.class_answer_setting_statistic[i].content[c].correct_rate*100)+"%";
                                 if(c==0){
                                 console.log(c);
-                                $('#' + tab_bo[i] + ' tr').eq(c).append('<td style="border:0px;">' + data.class_answer_setting_statistic[i].answer_name + '</td><td>' + data.class_answer_setting_statistic[i].content[c].average + '</td><td>' + data.class_answer_setting_statistic[i].content[c].num + '</td><td>' + data.class_answer_setting_statistic[i].content[c].correct + '</td><td>' +zq_rate+ '</td><td data-itm="' + data.class_answer_setting_statistic[i].content[c].item + '"><span data_ans="' + data.class_answer_setting_statistic[i].content[c].answer_setting_id + '">查看</span></td></tr>'); 
+                                $('#' + tab_bo[i] + ' tr').eq(c).append('<td style="border:0px;">' + data.class_answer_setting_statistic[i].answer_name + '</td><td>' + data.class_answer_setting_statistic[i].content[c].average + '</td><td>' + data.class_answer_setting_statistic[i].content[c].num + '</td><td>' + data.class_answer_setting_statistic[i].content[c].correct + '</td><td>' +zq_rate+ '</td><td data-itm="' + data.class_answer_setting_statistic[i].content[c].item + '"><span data_ans="' + data.class_answer_setting_statistic[i].content[c].answer_setting_id + '"  data-id="'+data.class_answer_setting_statistic[i].content[c].num +'">查看</span></td></tr>'); 
                                 
                                 }else{
-                                $('#' + tab_bo[i] + ' tr').eq(c).append('<td style="border:0px;"></td><td>' + data.class_answer_setting_statistic[i].content[c].average + '</td><td>' + data.class_answer_setting_statistic[i].content[c].num + '</td><td>' + data.class_answer_setting_statistic[i].content[c].correct + '</td><td>' +zq_rate+ '</td><td data-itm="' + data.class_answer_setting_statistic[i].content[c].item + '"><span data_ans="' + data.class_answer_setting_statistic[i].content[c].answer_setting_id + '">查看</span></td></tr>'); 
+                                $('#' + tab_bo[i] + ' tr').eq(c).append('<td style="border:0px;"></td><td>' + data.class_answer_setting_statistic[i].content[c].average + '</td><td>' + data.class_answer_setting_statistic[i].content[c].num + '</td><td>' + data.class_answer_setting_statistic[i].content[c].correct + '</td><td>' +zq_rate+ '</td><td data-itm="' + data.class_answer_setting_statistic[i].content[c].item + '"><span data_ans="' + data.class_answer_setting_statistic[i].content[c].answer_setting_id + '"  data-id="'+data.class_answer_setting_statistic[i].content[c].num +'">查看</span></td></tr>'); 
                                 }
                                 for (var d = 0; d < data.class_answer_setting_statistic[i].content[0].result.length; d++) {
                                     var f = data.class_answer_setting_statistic[i].content[0].result.length - 1 - d;
@@ -1227,7 +1229,7 @@ angular.module("myApp.controller", [])
                                 // console.log($('#'+tab_bo[i]+'').children('tr').children('td').attr("data-id"));
                             }
                             // console.log(bo_td);
-                        }
+                        } 
                          for (var i = 0; i < data.class_answer_setting_statistic.length; i++) {
                         FixTable(''+tab[i]+'', 1, 936, 200);
                     }
