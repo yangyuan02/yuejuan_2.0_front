@@ -1088,7 +1088,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var heights = []
         $("body").find("table").each(function(){
             heights.push($(this).height())
-            var getHighg = $(this).height()
         })
         return heights
     }
@@ -1100,6 +1099,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     function getAllIndex(){
         var indexList = []
         var allTableHeigh = getAllTableHeight()
+        console.log(allTableHeigh)
         var index = getSliceIndex(525,allTableHeigh)
         var allTableHeigh2 = allTableHeigh.slice(index)
         var index2 = getSliceIndex(870,allTableHeigh2)
@@ -1107,12 +1107,19 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var index3 = getSliceIndex(870,allTableHeigh3)
         var allTableHeigh4 = allTableHeigh3.slice(index3)
         var index4 = getSliceIndex(870,allTableHeigh4)
+        index = allTableHeigh[index-1]>=allTableHeigh2[0]?index:index-1
+
+        // index2 = allTableHeigh2[index2-1]>=allTableHeigh3[0]?index2:index2-1
+
+        // index3 = allTableHeigh3[index3-1]>=allTableHeigh4[0]?index3:index3-1
+
         indexList = [index,index2,index3,index4]
         return indexList
     }
     function deleRender(currentIndex) {
-        allList_1.splice(currentIndex, 1)
+        allList_1.splice(currentIndex,1)
         var index = getAllIndex()
+        console.log(index)
         $scope.listObj = allList_1.slice(0,index[0])
         $scope.listObj2 = allList_1.slice(index[0],index[0]+index[1])
         $scope.listObj3 = allList_1.slice(index[0]+index[1],index[0]+index[1]+index[2])
@@ -1246,10 +1253,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 index = i
             }
         }
-        // $scope.bigAnswer.splice($scope.sortIndex,1)
-        // findScopeListDele($scope.sortIndex)
-        // answer_id.splice(index,1)
-        // count(-parseInt(answer_score))
         $.ajax({
             type: "POST",
             url:"/api/v2/answers/delete",
@@ -1257,7 +1260,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             data:{'id':answer_id_item},
             async: false,
             success: function(data){
-                console.log(data)
                 $scope.bigAnswer.splice($scope.sortIndex,1)
                 findScopeListDele($scope.sortIndex)
                 answer_id.splice(index,1)
