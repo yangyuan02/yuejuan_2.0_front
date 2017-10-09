@@ -1246,27 +1246,27 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 index = i
             }
         }
-        $scope.bigAnswer.splice($scope.sortIndex,1)
-        findScopeListDele($scope.sortIndex)
-        answer_id.splice(index,1)
-        count(-parseInt(answer_score))
-        // $.ajax({
-        //     type: "POST",
-        //     url:"/api/v2/answers/delete",
-        //     headers: {'Authorization': "Bearer " + isLogin},
-        //     data:{'id':answer_id_item},
-        //     async: false,
-        //     success: function(data){
-        //         console.log(data)
-        //         $scope.bigAnswer.splice($scope.sortIndex,1)
-        //         findScopeListDele($scope.sortIndex)
-        //         answer_id.splice(index,1)
-        //         count(-parseInt(answer_score))
-        //     },
-        //     error: function(){
-        //
-        //     }
-        // });
+        // $scope.bigAnswer.splice($scope.sortIndex,1)
+        // findScopeListDele($scope.sortIndex)
+        // answer_id.splice(index,1)
+        // count(-parseInt(answer_score))
+        $.ajax({
+            type: "POST",
+            url:"/api/v2/answers/delete",
+            headers: {'Authorization': "Bearer " + isLogin},
+            data:{'id':answer_id_item},
+            async: false,
+            success: function(data){
+                console.log(data)
+                $scope.bigAnswer.splice($scope.sortIndex,1)
+                findScopeListDele($scope.sortIndex)
+                answer_id.splice(index,1)
+                count(-parseInt(answer_score))
+            },
+            error: function(){
+
+            }
+        });
         if($scope.bigAnswer.length==0){
             $scope.closeAnswerModel()
         }
