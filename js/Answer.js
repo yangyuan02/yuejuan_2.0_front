@@ -1107,7 +1107,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var index3 = getSliceIndex(870,allTableHeigh3)
         var allTableHeigh4 = allTableHeigh3.slice(index3)
         var index4 = getSliceIndex(870,allTableHeigh4)
-        index = allTableHeigh[index-1]>=allTableHeigh2[0]?index:index-1
+        // index = allTableHeigh[index-1]>=allTableHeigh2[0]?index:index-1
 
         // index2 = allTableHeigh2[index2-1]>=allTableHeigh3[0]?index2:index2-1
 
