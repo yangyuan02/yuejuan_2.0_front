@@ -1095,7 +1095,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
 
     /**
      * 获取最后的切割节点
-     * @returns {Array}
+     * @returns {Array}///
      */
     function getAllIndex(){
         var indexList = []
@@ -1115,8 +1115,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var index = getAllIndex()
         $scope.listObj = allList_1.slice(0,index[0])
         $scope.listObj2 = allList_1.slice(index[0],index[0]+index[1])
-        $scope.listObj3 = allList.slice(index[0]+index[1],index[0]+index[1]+index[2])
-        $scope.listObj4 = allList.slice(index[0]+index[1]+index[2],index[0]+index[1]+index[2]+index[3])
+        $scope.listObj3 = allList_1.slice(index[0]+index[1],index[0]+index[1]+index[2])
+        $scope.listObj4 = allList_1.slice(index[0]+index[1]+index[2],index[0]+index[1]+index[2]+index[3])
     }
     //设置当前排序
     function setAnswerSor() {
@@ -1246,27 +1246,27 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 index = i
             }
         }
-        $scope.bigAnswer.splice($scope.sortIndex,1)
-        findScopeListDele($scope.sortIndex)
-        answer_id.splice(index,1)
-        count(-parseInt(answer_score))
-        // $.ajax({
-        //     type: "POST",
-        //     url:"/api/v2/answers/delete",
-        //     headers: {'Authorization': "Bearer " + isLogin},
-        //     data:{'id':answer_id_item},
-        //     async: false,
-        //     success: function(data){
-        //         console.log(data)
-        //         $scope.bigAnswer.splice($scope.sortIndex,1)
-        //         findScopeListDele($scope.sortIndex)
-        //         answer_id.splice(index,1)
-        //         count(-parseInt(answer_score))
-        //     },
-        //     error: function(){
-        //
-        //     }
-        // });
+        // $scope.bigAnswer.splice($scope.sortIndex,1)
+        // findScopeListDele($scope.sortIndex)
+        // answer_id.splice(index,1)
+        // count(-parseInt(answer_score))
+        $.ajax({
+            type: "POST",
+            url:"/api/v2/answers/delete",
+            headers: {'Authorization': "Bearer " + isLogin},
+            data:{'id':answer_id_item},
+            async: false,
+            success: function(data){
+                console.log(data)
+                $scope.bigAnswer.splice($scope.sortIndex,1)
+                findScopeListDele($scope.sortIndex)
+                answer_id.splice(index,1)
+                count(-parseInt(answer_score))
+            },
+            error: function(){
+
+            }
+        });
         if($scope.bigAnswer.length==0){
             $scope.closeAnswerModel()
         }
