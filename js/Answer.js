@@ -1095,7 +1095,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
 
     /**
      * 获取最后的切割节点
-     * @returns {Array}
+     * @returns {Array}///
      */
     function getAllIndex(){
         var indexList = []
