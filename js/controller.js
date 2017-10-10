@@ -791,15 +791,21 @@ angular.module("myApp.controller", [])
                 grid: {
                     x: 28,
                     y: 40,
-                    x2: 5,
+                    x2: 45,
                     y2: 45,
                     borderWidth: 1,
                 },
-
+                toolbox: {
+                        show : true,
+                        feature : {
+                            saveAsImage : {show: true}
+                        }
+                    },
                 calculable: false,
                 xAxis: [{
                     type: 'category',
                     data: a,
+                    name:'分数段',
                     axisLabel: {
                         rotate: 40,
                         margin: 5,
@@ -814,27 +820,14 @@ angular.module("myApp.controller", [])
                 }],
                 yAxis: [{
                     type: 'value',
+                    name:'人数',
 
                 }],
                 series: [{
                     name: '人数',
                     type: 'bar',
                     data: b,
-                    markPoint: {
-                        data: [{
-                            type: 'max',
-                            name: '最大值'
-                        }, {
-                            type: 'min',
-                            name: '最小值'
-                        }]
-                    },
-                    markLine: {
-                        data: [{
-                            type: 'average',
-                            name: '平均值'
-                        }]
-                    }
+                    itemStyle : { normal: {label : {show: true, position: 'top'}}},
                 }]
             };
             // 为echarts对象加载数据 
@@ -858,6 +851,12 @@ angular.module("myApp.controller", [])
                     y2: 25,
                     borderWidth: 1
                 },
+                toolbox: {
+                        show : true,
+                        feature : {
+                            saveAsImage : {show: true}
+                        }
+                    },
                 legend: {
                  data:['年级平分数','班级平分数']
                  },
@@ -866,10 +865,12 @@ angular.module("myApp.controller", [])
                     type: 'category',
                     boundaryGap: false,
                     data: a,
+                    name:'考试',
                 }],
                 yAxis:[{
 
                     type: 'value',
+                    name:'平均分',
                     // --min: 0,
                     //max: 100,
                     // interval:20,
@@ -878,23 +879,13 @@ angular.module("myApp.controller", [])
                         name: '年级平分数',
                         type: 'line',
                         data: b,
-                        markPoint: {
-                            data: [{
-                                type: 'max',
-                                name: '最大值'
-                            }]
-                        }
+                        itemStyle : { normal: {label : {show: true, position: 'top'}}},
                     },
                     {
                         name: '班级平分数',
                         type: 'line',
                         data:d,
-                        markPoint: {
-                             data: [{
-                                type: 'max',
-                                name: '最大值'
-                            }]
-                        }
+                        itemStyle : { normal: {label : {show: true, position: 'bottom'}}},
                     }
 
                 ]
@@ -1559,17 +1550,23 @@ angular.module("myApp.controller", [])
                 tooltip: {
                     trigger: 'axis'
                 },
+                toolbox: {
+                        show : true,
+                        feature : {
+                            saveAsImage : {show: true}
+                        }
+                    },
                 grid: {
                     x: 28,
                     y: 23,
-                    x2: 30,
+                    x2: 50,
                     y2: 45,
                     borderWidth: 1,
                 },
-
                 calculable: false,
                 xAxis: [{
                     type: 'category',
+                     name:'分数段',
                     // boundaryGap : false,
                     data: a,
                     axisLabel: {
@@ -1587,53 +1584,18 @@ angular.module("myApp.controller", [])
 
                 yAxis: [{
                     type: 'value',
+                    name:'人数',
                 }],
                 series: [{
                     name: '人数',
                     type: 'bar',
                     data: b,
-                    markPoint: {
-                        data: [{
-                            type: 'max',
-                            name: '最大值'
-                        }, {
-                            type: 'min',
-                            name: '最小值'
-                        }]
-                    },
-                    markLine: {
-                        data: [{
-                            type: 'average',
-                            name: '平均值'
-                        }]
-                    }
+                    itemStyle : { normal: {label : {show: true, position: 'top'}}},
                 }]
             };
             // 为echarts对象加载数据 
             myChart.setOption(option);
         };
-
-
-
-        // 查看答题卡
-        //  $.ajax({
-        //     type: "POST",
-        //     url: ajaxIp + "/api/v2/scanner_images/student_scanner_images",
-        //     headers: {
-        //         'Authorization': "Bearer " + isLogin
-        //     },
-        //     data: {
-        //          "exam_id": exam_id,
-        //         "subject_id":sub_id,
-        //         "classroom_id":class_id,
-        //     },
-        //     success: function(data) {
-        //         console.log(data);
-        //     },
-        //     error: function() {}
-        // });
-
-
 
         $("#img_add").click(function(event) {
             /* Act on the event */
@@ -3068,21 +3030,29 @@ angular.module("myApp.controller", [])
                 grid: {
                     x: 68,
                     y: 30,
-                    x2: 25,
+                    x2: 35,
                     y2: 25,
                     borderWidth: 1
                 },
                 tooltip: {
                     trigger: 'axis'
                 },
+                toolbox: {
+                        show : true,
+                        feature : {
+                            saveAsImage : {show: true}
+                        }
+                    },
                 calculable: false,
                 xAxis: [{
                     type: 'category',
                     boundaryGap: false,
                     data: a,
+                    name:'题号',
                 }],
                 yAxis: [{
                     type: 'value',
+                     name:'难度系数',
                      min: 0,
                      max:1
                 }],
@@ -3092,6 +3062,7 @@ angular.module("myApp.controller", [])
                         name: '试题难度',
                         type: 'line',
                         data:b,
+                        itemStyle : { normal: {label : {show: true, position: 'bottom'}}},
                         markLine : {
             
                       data : [
@@ -3773,15 +3744,18 @@ angular.module("myApp.controller", [])
             var myChart = echarts.init(document.getElementById('exam_h_301'));
             // 指定图表的配置项和数据
             var option = {
-                title: {
-                    subtext: '百分比%'
-                },
                 tooltip: {
                     trigger: 'axis'
                 },
                 legend: {
                     data: ['本校', '本班']
                 },
+                toolbox: {
+                        show : true,
+                        feature : {
+                            saveAsImage : {show: true}
+                        }
+                    },
                 grid: {
 
                     x2: 50,
@@ -3793,30 +3767,22 @@ angular.module("myApp.controller", [])
                 xAxis: [{
                     type: 'category',
                     data: a,
+                    name:'分数段',
                 }],
                 yAxis: [{
-                    type: 'value'
+                    type: 'value',
+                     name:'百分比%',
                 }],
                 series: [{
                     name: '本校',
                     type: 'bar',
                     data: b,
-                    markLine: {
-                        data: [{
-                            type: 'average',
-                            name: '平均值'
-                        }]
-                    }
+                    itemStyle : { normal: {label : {show: true, position: 'top'}}},
                 }, {
                     name: '本班',
                     type: 'bar',
                     data: c,
-                    markLine: {
-                        data: [{
-                            type: 'average',
-                            name: '平均值'
-                        }]
-                    }
+                   itemStyle : { normal: {label : {show: true, position: 'top'}}},
                 }]
             };
 
@@ -3839,6 +3805,12 @@ angular.module("myApp.controller", [])
                     trigger: 'item',
                     formatter: "{a} <br/>{b} : {c} ({d}%)"
                 },
+                toolbox: {
+                        show : true,
+                        feature : {
+                            saveAsImage : {show: true}
+                        }
+                    },
                 legend: {
                     orient: 'vertical',
                     x: 'left',
@@ -3866,7 +3838,7 @@ angular.module("myApp.controller", [])
                 var columnValue = new Array();
                 for(var i=0;i<columLabel.length;i++) 
                 {
-                    columnValue.push(eval('(' + ("{'name':'"+columLabel[i]+"','type':'bar','data':["+arrData[i]+"]}") + ')'));
+                    columnValue.push(eval('(' + ("{'name':'"+columLabel[i]+"','type':'bar','data':["+arrData[i]+"],'itemStyle':{normal:{label:{show:true,position:'top'}}}} ") + ')'));
                 }
                 
                 buildChart(columLabel,columName,columnValue);
@@ -3902,13 +3874,15 @@ angular.module("myApp.controller", [])
                         {
                             min:0,
                             type : 'category',
-                            data : columName
+                            data : columName,
+                            name:'等级',
                         }
                     ],
                     yAxis : [
                         {
                             min:0,
-                            type : 'value'
+                            type : 'value',
+                            name:'人数',
                         }
                     ],
                     series : columnValue
