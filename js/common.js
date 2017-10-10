@@ -3,13 +3,42 @@ $(function() {
 	$('#footer').load('footer');
 
 	$.ajaxSetup ({
-        cache: false
+        cache: true
     });
 	var isLogin = localStorage.getItem("token");
 	var isAction = localStorage.getItem("action");
 	console.log(window.location.pathname)
 
 console.log(isLogin);
+
+	// 获取当前页面的URL参数
+	var url = window.location;
+  function getUrlParam(url,name){
+    var pattern = new RegExp("[?&]" + name +"\=([^&]+)","g");
+    var matcher = pattern.exec(url);
+    var items = null;
+    if(matcher != null){
+      try{
+          items = decodeURIComponent(decodeURIComponent(matcher[1]));
+      }catch(e){
+          try{
+              items = decodeURIComponent(matcher[1]);
+          }catch(e){
+              items = matcher[1];
+          }
+      }
+    }
+    return items;
+  }
+
+  // console.log(getUrlParam(url,'id')); // bath_id
+  // console.log(getUrlParam(url,'test_id')); // bath_id
+  // console.log(getUrlParam(url,'exam_name')); // exam_name
+  // console.log(getUrlParam(url,'subject_name')); // subject_name
+  var isLogin2 = getUrlParam(url,'isLogin');
+  console.log(isLogin2)
+
+
 	var role_name;
 
 	if(!isLogin){
