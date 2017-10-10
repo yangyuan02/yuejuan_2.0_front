@@ -3815,6 +3815,7 @@ angular.module("myApp.controller", [])
                     orient: 'vertical',
                     x: 'left',
                     data: a,
+
                 },
 
                 calculable: false,
@@ -3824,6 +3825,15 @@ angular.module("myApp.controller", [])
                     radius: '55%',
                     center: ['50%', '60%'],
                     data: b,
+                    itemStyle:{ 
+                            normal:{ 
+                                label:{ 
+                                   show: true, 
+                                   formatter: '{b} : {c}人({d}%)' 
+                                }, 
+                                labelLine :{show:true}
+                            } 
+                        } 
                 }]
             };
             // 为echarts对象加载数据 
