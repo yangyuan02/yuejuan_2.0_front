@@ -41,9 +41,9 @@ console.log(isLogin);
 
 	var role_name;
 
-	if(!isLogin){
+	if(!isLogin && !isLogin2){
 		window.location.href = './login'
-	}else{
+	}else if(isLogin || isLogin2){
 		var user_name,school_name;
 
 		$.ajax({
