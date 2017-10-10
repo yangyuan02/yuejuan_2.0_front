@@ -9,7 +9,7 @@ $(function() {
 	var isAction = localStorage.getItem("action");
 	console.log(window.location.pathname)
 
-
+console.log(isLogin);
 	var role_name;
 
 	if(!isLogin){
