@@ -684,5 +684,33 @@
 .paper-total .total-num{
 	color: #31bc91;
 }
+.word-operation{
+	overflow: hidden;
+	margin: 4px 0;
+}
+.word-operation li{
+	float: left;
+	margin-right: 10px;
+}
+.word-operation li a.a-btn{
+	font-size: 14px;
+}
+.word-operation .a-btn i{
+	padding-right: 6px;
+}
+.word-operation .look-btn{
+	color: #eb9754;
+}
+.word-operation .up-btn{
+	color: #31bc91;
+}
+.word-operation .dele-btn{
+	color: #fb7d8a;
+}
+.word-operation .look-two-btn{
+	color: #5fa3ed;
+}
+
+
 
 
