@@ -1593,6 +1593,25 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             bindRegion()
         }
     }
+
+    /*****************************************************************************
+     *定义右击功能
+     * @returns {string}
+     */
+    var menu = document.getElementById("menu")
+    document.addEventListener("contextmenu",function (event) {
+        event.preventDefault()
+        menu.style.display = 'block'
+        menu.style.left = event.pageX + "px";
+        menu.style.top = event.pageY + "px";
+    },false)
+    menu.addEventListener("click",function (evevt) {
+        evevt.stopPropagation()
+    },false)
+    window.addEventListener("click",function (event) {
+        menu.style.display = 'none'
+    },false)
+
     window.onbeforeunload = function () {//离开刷新提醒
         if (modelParam.length>0) {
             return "您修改了内容,请保存答题卡"
