@@ -1601,6 +1601,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     var menu = document.getElementById("menu")
     document.addEventListener("contextmenu",function (event) {
         event.preventDefault()
+        if(event.target.className.toLowerCase()=='meun_navbar'){
+            return
+        }
         menu.style.display = 'block'
         menu.style.left = event.pageX + "px";
         menu.style.top = event.pageY + "px";
@@ -1611,6 +1614,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     window.addEventListener("click",function (event) {
         menu.style.display = 'none'
     },false)
+
 
     window.onbeforeunload = function () {//离开刷新提醒
         if (modelParam.length>0) {
