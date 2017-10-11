@@ -36,7 +36,7 @@ $(function() {
   // console.log(getUrlParam(url,'exam_name')); // exam_name
   // console.log(getUrlParam(url,'subject_name')); // subject_name
   var isLogin2 = getUrlParam(url,'isLogin');
-  console.log(isLogin2)
+  console.log(decodeURI(isLogin2))
   if(isLogin2){
   	isLogin=isLogin2;
   	localStorage.setItem("token", isLogin);
