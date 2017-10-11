@@ -1617,9 +1617,11 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         if(event.target.className.toLowerCase()=='meun_navbar'){
             return
         }
-        menu.style.display = 'block'
-        menu.style.left = event.pageX + "px";
-        menu.style.top = event.pageY + "px";
+        if($scope.showMenuFlag){
+            menu.style.display = 'block'
+            menu.style.left = event.pageX + "px";
+            menu.style.top = event.pageY + "px";
+        }
     },false)
     menu.addEventListener("click",function (evevt) {
         evevt.stopPropagation()
@@ -1665,7 +1667,22 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.candNumber = result
         $(".cand").hide()
     }
+    /**
+     * 聚焦table
+     * @param parentIndex  $scope.list
+     * @param index   题组索引
+     */
+    $scope.getTableIndex = function (tabParentIndex,tabIndex) {
+        $scope.tabParentIndex = tabParentIndex
+        $scope.tabIndex = tabIndex
+        $scope.showMenuFlag = true
+    }
+    /**
+     * 插入图片
+     */
+    $scope.insertPic = function () {
 
+    }
 })
 
 
