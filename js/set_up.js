@@ -126,36 +126,35 @@ $(function() {
 	        }
 	    });
 
-	    $('.modal-wrap-class .determine').on('click' , function(){
-	    	var new_grade = $('#add-class-grade').val();
-	    	var class_count = $('#class-name').val();
-
-	    	$.ajax({
-		     	type: "POST",
-		     	url: ajaxIp+"/api/v2/students/add_classroom",
-		    	dataType: "JSON",
-		    	headers: {'Authorization': "Bearer " + isLogin},
-		    	data:{
-		    		'grade_id':new_grade,
-		    		'count':class_count,
-		    	},
-		    	success: function(data){
-		    		console.log(data)
-		  			if (data.success) {
-		  				alert(data.message)
-		  			}else{
-		  				alert(data.message)
-		  			}
-		        },
-		        error: function(){
-		        	// alert('请稍后从新尝试登录或者联系管理员');
-		        	// localStorage.clear();
-		        	// window.location.href = './login.html'
-		        }
-		    });
-	    })
-
 	})
+
+	$('.modal-wrap-class .determine').on('click' , function(){
+  	var new_grade = $('#add-class-grade').val();
+  	var class_count = $('#class-name').val();
+  	$.ajax({
+     	type: "POST",
+     	url: ajaxIp+"/api/v2/students/add_classroom",
+    	dataType: "JSON",
+    	headers: {'Authorization': "Bearer " + isLogin},
+    	data:{
+    		'grade_id':new_grade,
+    		'count':class_count,
+    	},
+    	success: function(data){
+    		console.log(data)
+  			if (data.success) {
+  				alert(data.message)
+  			}else{
+  				alert(data.message)
+  			}
+        },
+        error: function(){
+        	// alert('请稍后从新尝试登录或者联系管理员');
+        	// localStorage.clear();
+        	// window.location.href = './login.html'
+        }
+    });
+  })
 
 
 
