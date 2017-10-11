@@ -73,6 +73,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.getAnswer()
     //点击显示
     $scope.add = function (index) {
+        if(index==4){
+            $("#menu").css({"display": "none"})
+        }
         $scope.index = index
         clear()
         $scope.result.isradio = 1//单选题、多选题
@@ -107,6 +110,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.showItmeScoreType = 0
             }
         }
+        $("#menu").css({"display": "none"})
     }
     $scope.Q_number = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十']
     var isLine = function (page_num) {//是否换行
@@ -779,6 +783,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
 
     $scope.dayin = function () {//打印
         $(".A_Nav").css({"display": "none"})
+        $("#menu").css({"display": "none"})
         $(".Answer .A_L").css({"display": "none"})
         $(".Answer .A_B").css({"margin-top": 0, "margin-bottom": 0, "width": 1596})
         $(".Answer .A_R").css({"border-width": 0})
@@ -1088,7 +1093,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var heights = []
         $("body").find("table").each(function(){
             heights.push($(this).height())
-            var getHighg = $(this).height()
         })
         return heights
     }
@@ -1100,6 +1104,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     function getAllIndex(){
         var indexList = []
         var allTableHeigh = getAllTableHeight()
+        console.log(allTableHeigh)
         var index = getSliceIndex(525,allTableHeigh)
         var allTableHeigh2 = allTableHeigh.slice(index)
         var index2 = getSliceIndex(870,allTableHeigh2)
@@ -1107,12 +1112,19 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var index3 = getSliceIndex(870,allTableHeigh3)
         var allTableHeigh4 = allTableHeigh3.slice(index3)
         var index4 = getSliceIndex(870,allTableHeigh4)
+        // index = allTableHeigh[index-1]>=allTableHeigh2[0]?index:index-1
+
+        // index2 = allTableHeigh2[index2-1]>=allTableHeigh3[0]?index2:index2-1
+
+        // index3 = allTableHeigh3[index3-1]>=allTableHeigh4[0]?index3:index3-1
+
         indexList = [index,index2,index3,index4]
         return indexList
     }
     function deleRender(currentIndex) {
-        allList_1.splice(currentIndex, 1)
+        allList_1.splice(currentIndex,1)
         var index = getAllIndex()
+        console.log(index)
         $scope.listObj = allList_1.slice(0,index[0])
         $scope.listObj2 = allList_1.slice(index[0],index[0]+index[1])
         $scope.listObj3 = allList_1.slice(index[0]+index[1],index[0]+index[1]+index[2])
@@ -1246,10 +1258,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 index = i
             }
         }
-        // $scope.bigAnswer.splice($scope.sortIndex,1)
-        // findScopeListDele($scope.sortIndex)
-        // answer_id.splice(index,1)
-        // count(-parseInt(answer_score))
         $.ajax({
             type: "POST",
             url:"/api/v2/answers/delete",
@@ -1257,7 +1265,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             data:{'id':answer_id_item},
             async: false,
             success: function(data){
-                console.log(data)
                 $scope.bigAnswer.splice($scope.sortIndex,1)
                 findScopeListDele($scope.sortIndex)
                 answer_id.splice(index,1)
@@ -1591,6 +1598,29 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             bindRegion()
         }
     }
+
+    /*****************************************************************************
+     *定义右击功能
+     * @returns {string}
+     */
+    var menu = document.getElementById("menu")
+    document.addEventListener("contextmenu",function (event) {
+        event.preventDefault()
+        if(event.target.className.toLowerCase()=='meun_navbar'){
+            return
+        }
+        menu.style.display = 'block'
+        menu.style.left = event.pageX + "px";
+        menu.style.top = event.pageY + "px";
+    },false)
+    menu.addEventListener("click",function (evevt) {
+        evevt.stopPropagation()
+    },false)
+    window.addEventListener("click",function (event) {
+        menu.style.display = 'none'
+    },false)
+
+
     window.onbeforeunload = function () {//离开刷新提醒
         if (modelParam.length>0) {
             return "您修改了内容,请保存答题卡"

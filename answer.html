@@ -1150,6 +1150,26 @@
         </div>
     </div>
     <!--设置主观题弹窗结束-->
+    <!--右击菜单开始-->
+    <div id="menu">
+        <ul>
+            <li class="meun_navbar" ng-click="dayin()">打印</li>
+            <li class="meun_navbar">文档类型</li>
+            <li class="meun_navbar">插入图片</li>
+            <li class="meun_navbar">信息栏置于左侧</li>
+            <li class="meun_navbar" ng-click="checkTestType(1)">打印方式:{{myDayinType==0?'单面':'双面'}}</li>
+            <li class="meun_navbar">信息框置于左侧</li>
+            <li class="meun_navbar">插入单元格</li>
+            <li class="meun_navbar" ng-click="add(4)">插入语文作文格</li>
+            <li class="meun_navbar" ng-click="add(4)">插入英文作文行线</li>
+            <li class="meun_navbar" ng-click="add(4)">插入英文单词间隔行线</li>
+            <li class="meun_navbar" ng-click="checkTestType(2)">{{showItmeScoreType==0?'标注':'隐藏'}}小题分值</li>
+            <li class="meun_navbar" ng-bind="paperType==0?'手工阅卷模式':'网上阅卷模式'" ng-click="checkTestType(0)"></li>
+            <li class="meun_navbar">插入题目分割线</li>
+            <li class="meun_navbar" ng-click="save()">保存排版</li>
+        </ul>
+    </div>
+    <!--右击菜单结束-->
 </div>
 
 <script src="js/Answer.js" type="text/javascript" charset="utf-8"></script>
