@@ -879,7 +879,7 @@ angular.module("myApp.controller", [])
                         name: '年级平分数',
                         type: 'line',
                         data: b,
-                        itemStyle : { normal: {label : {show: true, position: 'top'}}},
+                        itemStyle : { normal: {label : {show: true, position: 'bottom'}}},
                     },
                     {
                         name: '班级平分数',
