@@ -98,6 +98,7 @@ $(function() {
 
 		$('.modal-wrap-class .modal-title').text('创建班级');
 		$('.modal-wrap-class #add-class-grade').html('');
+		$('#class-name').val('')
 		var is_extra;
 		if ($(this).parents('.user-right').hasClass('user-change-password')) {
 			is_extra = false;
@@ -776,7 +777,7 @@ $(function() {
 		}else{
 			ii_num=Math.ceil(num/10);
 		}
-		if(iData[1]==true){
+		if(iData[0]==true){
 			console.log('truetrue');
 			$.jqPaginator('#temporary-pagination', {
 	        totalPages:ii_num,
