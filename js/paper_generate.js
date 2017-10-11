@@ -168,6 +168,25 @@ $(function() {
 			$('.request-school').show();
 			$('#dele-test').show();
 		}
+
+		if(detail_data.flag==false){
+			console.log(88)
+			$('.request-school').hide();
+			$('#dele-test').hide();
+			$('#edit').hide();
+			$('#new-create').hide();
+			$('.setAnswer').hide();
+			$('.dele').hide();
+		}
+		if(detail_data.flag==true){
+			console.log(99)
+			$('.request-school').show();
+			$('#dele-test').show();
+			$('#edit').show();
+			$('#new-create').show();
+			$('.set setAnswer').show();
+			$('.dele').show();
+		}
 	}
 
 
