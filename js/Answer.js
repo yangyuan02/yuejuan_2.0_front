@@ -73,6 +73,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.getAnswer()
     //点击显示
     $scope.add = function (index) {
+        if(index==4){
+            $("#menu").css({"display": "none"})
+        }
         $scope.index = index
         clear()
         $scope.result.isradio = 1//单选题、多选题
@@ -107,6 +110,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.showItmeScoreType = 0
             }
         }
+        $("#menu").css({"display": "none"})
     }
     $scope.Q_number = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十']
     var isLine = function (page_num) {//是否换行
@@ -779,6 +783,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
 
     $scope.dayin = function () {//打印
         $(".A_Nav").css({"display": "none"})
+        $("#menu").css({"display": "none"})
         $(".Answer .A_L").css({"display": "none"})
         $(".Answer .A_B").css({"margin-top": 0, "margin-bottom": 0, "width": 1596})
         $(".Answer .A_R").css({"border-width": 0})
@@ -1593,6 +1598,29 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             bindRegion()
         }
     }
+
+    /*****************************************************************************
+     *定义右击功能
+     * @returns {string}
+     */
+    var menu = document.getElementById("menu")
+    document.addEventListener("contextmenu",function (event) {
+        event.preventDefault()
+        if(event.target.className.toLowerCase()=='meun_navbar'){
+            return
+        }
+        menu.style.display = 'block'
+        menu.style.left = event.pageX + "px";
+        menu.style.top = event.pageY + "px";
+    },false)
+    menu.addEventListener("click",function (evevt) {
+        evevt.stopPropagation()
+    },false)
+    window.addEventListener("click",function (event) {
+        menu.style.display = 'none'
+    },false)
+
+
     window.onbeforeunload = function () {//离开刷新提醒
         if (modelParam.length>0) {
             return "您修改了内容,请保存答题卡"
