@@ -9,7 +9,7 @@ $(function() {
 	var isAction = localStorage.getItem("action");
 	console.log(window.location.pathname)
 
-console.log(isLogin);
+// console.log(isLogin);
 
 	// 获取当前页面的URL参数
 	var url = window.location;
@@ -37,14 +37,17 @@ console.log(isLogin);
   // console.log(getUrlParam(url,'subject_name')); // subject_name
   var isLogin2 = getUrlParam(url,'isLogin');
   console.log(isLogin2)
+  if(isLogin2){
+  	isLogin=isLogin2;
+  }
 
 
 	var role_name;
 
-	if(!isLogin && !isLogin2){
+	if(!isLogin){
 		window.location.href = './login'
 	}
-	if(isLogin || isLogin2){
+	if(isLogin){
 		var user_name,school_name;
 
 		$.ajax({
