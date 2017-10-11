@@ -879,7 +879,7 @@ angular.module("myApp.controller", [])
                         name: '年级平分数',
                         type: 'line',
                         data: b,
-                        itemStyle : { normal: {label : {show: true, position: 'top'}}},
+                        itemStyle : { normal: {label : {show: true, position: 'bottom'}}},
                     },
                     {
                         name: '班级平分数',
@@ -969,6 +969,13 @@ angular.module("myApp.controller", [])
             /* Act on the event */
             study_q_bb01();
         });
+         $(".study_q_i_btn_02").mouseover(function()
+    {
+         $(".study_q_i_btn_02_img").show();
+    }).mouseout(function()   
+    {
+        $(".study_q_i_btn_02_img").hide();       
+    });
         $(".study_q_i_btn_02").click(function(event) {
             /* Act on the event */
             study_q_bb02();
@@ -996,7 +1003,7 @@ angular.module("myApp.controller", [])
 
         //最新班级学情追踪函数
         // 缺考人数
-        $(".study_q_zt").on('click', 'span', function(event) {
+        $(".study_q_qkck").click(function(event) {
             $(".study_q_qk span").html(" ");
             $(".study_q_qk02").html(" ");
             $(".mask_layer").css("height", $(document).height());

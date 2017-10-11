@@ -98,6 +98,7 @@ $(function() {
 
 		$('.modal-wrap-class .modal-title').text('创建班级');
 		$('.modal-wrap-class #add-class-grade').html('');
+		$('#class-name').val('')
 		var is_extra;
 		if ($(this).parents('.user-right').hasClass('user-change-password')) {
 			is_extra = false;
@@ -125,36 +126,35 @@ $(function() {
 	        }
 	    });
 
-	    $('.modal-wrap-class .determine').on('click' , function(){
-	    	var new_grade = $('#add-class-grade').val();
-	    	var class_count = $('#class-name').val();
-
-	    	$.ajax({
-		     	type: "POST",
-		     	url: ajaxIp+"/api/v2/students/add_classroom",
-		    	dataType: "JSON",
-		    	headers: {'Authorization': "Bearer " + isLogin},
-		    	data:{
-		    		'grade_id':new_grade,
-		    		'count':class_count,
-		    	},
-		    	success: function(data){
-		    		console.log(data)
-		  			if (data.success) {
-		  				alert(data.message)
-		  			}else{
-		  				alert(data.message)
-		  			}
-		        },
-		        error: function(){
-		        	// alert('请稍后从新尝试登录或者联系管理员');
-		        	// localStorage.clear();
-		        	// window.location.href = './login.html'
-		        }
-		    });
-	    })
-
 	})
+
+	$('.modal-wrap-class .determine').on('click' , function(){
+  	var new_grade = $('#add-class-grade').val();
+  	var class_count = $('#class-name').val();
+  	$.ajax({
+     	type: "POST",
+     	url: ajaxIp+"/api/v2/students/add_classroom",
+    	dataType: "JSON",
+    	headers: {'Authorization': "Bearer " + isLogin},
+    	data:{
+    		'grade_id':new_grade,
+    		'count':class_count,
+    	},
+    	success: function(data){
+    		console.log(data)
+  			if (data.success) {
+  				alert(data.message)
+  			}else{
+  				alert(data.message)
+  			}
+        },
+        error: function(){
+        	// alert('请稍后从新尝试登录或者联系管理员');
+        	// localStorage.clear();
+        	// window.location.href = './login.html'
+        }
+    });
+  })
 
 
 
@@ -776,7 +776,7 @@ $(function() {
 		}else{
 			ii_num=Math.ceil(num/10);
 		}
-		if(iData[1]==true){
+		if(iData[0]==true){
 			console.log('truetrue');
 			$.jqPaginator('#temporary-pagination', {
 	        totalPages:ii_num,

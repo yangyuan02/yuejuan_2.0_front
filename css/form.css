@@ -697,11 +697,10 @@ line-height: 48px;
 .r5_3{
 
 	width:410px;
-   float: left;
-   margin-top: 40px;  
+   float:left;
+   margin-top:70px;  
 }
 .r5_30{
-
 	width:410px;
    height:50px;
    background: #eb9754;
@@ -725,7 +724,7 @@ line-height: 48px;
 	width:410px;
    float:right;
    margin-right:40px;
-  margin-top: 40px;
+  margin-top: 20px;
   
 }
 
