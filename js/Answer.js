@@ -448,7 +448,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         itme_obj.region_rect_x = studentRegionRect.region_rect_x - 10
         itme_obj.region_rect_y = 10
         itme_obj.region_rect_width = 698
-        itme_obj.region_rect_height = studentRegionRect.region_rect_height + 8 + 180
+        itme_obj.region_rect_height = studentRegionRect.region_rect_height + 8 + 180//框选个人信息框
         itme_obj.question = []
         for (var i = 1; i <= ulLen; i++) {
             var a = {}
@@ -1526,6 +1526,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.importTemplate = function () {
         importTemplate($scope.itmeTemplate.id,$scope.itmeSubject.id)
     }
+
     $scope.save = function () {//保存模板
         if ($scope.listObj.length <= 0) {
             alert("请添加题组")
