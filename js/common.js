@@ -39,6 +39,7 @@ $(function() {
   console.log(isLogin2)
   if(isLogin2){
   	isLogin=isLogin2;
+  	localStorage.setItem("token", isLogin);
   }
 
 
