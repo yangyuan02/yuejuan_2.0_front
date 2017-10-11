@@ -32,6 +32,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.listObj2 = [];//定义全局数组保存所有题目
     $scope.listObj3 = [];
     $scope.listObj4 = [];
+    $scope.candNumber = [0,1,2,3,4,5,6,7],$scope.candlen = $scope.candNumber.length
     $scope.paperType = 0;//阅卷方式/0代表手工1代表网络默认0
     $scope.myPaper = ['手工阅卷','网络阅卷'];
     $scope.myDayinType = 0
@@ -63,6 +64,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     $scope.myDayinType = data.message.myDayinType?data.message.myDayinType:0
                     $scope.showItmeScoreType = data.message.showItmeScoreType?data.message.showItmeScoreType:0
                     $scope.countScore = data.message.countScore?data.message.countScore:0
+                    $scope.candNumber = data.message.candNumber?data.message.candNumber:[0,1,2,3,4,5,6,7]
+                    $scope.candlen = $scope.candNumber.length
                 }
             },
             error: function () {
@@ -719,6 +722,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         allList.myDayinType = $scope.myDayinType
         allList.showItmeScoreType = $scope.showItmeScoreType
         allList.countScore = $scope.countScore
+        allList.candNumber = $scope.candNumber
         return allList
     }
 
@@ -783,6 +787,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
 
     $scope.dayin = function () {//打印
         $(".A_Nav").css({"display": "none"})
+        $(".cand").hide()
         $("#menu").css({"display": "none"})
         $(".Answer .A_L").css({"display": "none"})
         $(".Answer .A_B").css({"margin-top": 0, "margin-bottom": 0, "width": 1596})
@@ -1494,6 +1499,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.myDayinType = data.myDayinType?data.myDayinType:0
                 $scope.showItmeScoreType = data.showItmeScoreType?data.showItmeScoreType:0
                 $scope.countScore = data.countScore?data.countScore:0
+                $scope.candNumber = data.candNumber?data.candNumber:[0,1,2,3,4,5,6,7]
+                $scope.candlen = $scope.candNumber.length
                 modelParam = data.modelParam?data.modelParam:[]
                 if(modelParam){
                     modelParam.forEach(function (itme,index,arr) {//替换当前的examubjeId
@@ -1639,7 +1646,25 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             window.location.href = 'paper_generate'
         }
     }
-
+    /**
+     * 设置考号
+     * @param length  考号长度
+     */
+    $scope.showCandNumber = function () {
+        $(".cand").show()
+        $("#menu").hide()
+    }
+    $scope.closeCand = function () {
+        $(".cand").hide()
+    }
+    $scope.setCandNumber = function (candlen) {
+        var result = []
+        for(var i = 0;i<candlen;i++){
+            result.push(i)
+        }
+        $scope.candNumber = result
+        $(".cand").hide()
+    }
 
 })
 
