@@ -728,3 +728,6 @@ input:focus{
     padding-left:6px;
     border:1px solid #31bc91;
 }
+.table_focus{
+    border:1px solid #31bc91!important;
+}
