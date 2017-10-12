@@ -1653,7 +1653,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
      * @param length  考号长度
      */
     $scope.showCandNumber = function () {
-        $(".cand").show()
+        $(".cand_box").show()
         $("#menu").hide()
     }
     $scope.closeCand = function () {
@@ -1680,9 +1680,28 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     /**
      * 插入图片
      */
-    $scope.insertPic = function () {
-
+    $scope.showPicAlert = function () {
+        $(".pic_box").show()
+        $("#menu").hide()
     }
+
+    var file = document.getElementById("imgOne")
+    file.onchange = function () {
+        var url;
+        if (navigator.userAgent.indexOf("MSIE")>=1) { // IE
+            url = document.getElementById("imgOne").value;
+        } else if(navigator.userAgent.indexOf("Firefox")>0) { // Firefox
+            url = window.URL.createObjectURL(document.getElementById("imgOne").files.item(0));
+        } else if(navigator.userAgent.indexOf("Chrome")>0) { // Chrome
+            url = window.URL.createObjectURL(document.getElementById("imgOne").files.item(0));
+        }
+        // $scope.listObj[0].imgurl = url
+        console.log($scope.listObj)
+    }
+    $scope.insertPic = function () {
+        console.log(11111)
+    }
+
 })
 
 

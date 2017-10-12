@@ -467,7 +467,9 @@
                                                 </div>
                                                 <!--网络阅卷打分框end-->
                                             </div>
-                                            <div class="other_c"></div>
+                                            <div class="other_c">
+                                                <img ng-src="{{a.imgurl}}" alt="">
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -1065,7 +1067,7 @@
             <li class="meun_navbar" ng-click="dayin()">打印</li>
             <li class="meun_navbar" ng-click="showCandNumber()">设置考号</li>
             <li class="meun_navbar">文档类型</li>
-            <li class="meun_navbar" ng-click="insertPic()">插入图片</li>
+            <li class="meun_navbar" ng-click="showPicAlert()">插入图片</li>
             <li class="meun_navbar">信息栏置于左侧</li>
             <li class="meun_navbar" ng-click="checkTestType(1)">打印方式:{{myDayinType==0?'单面':'双面'}}</li>
             <li class="meun_navbar">信息框置于左侧</li>
@@ -1081,7 +1083,7 @@
     </div>
     <!--右击菜单结束-->
     <!--设置考号弹窗开始-->
-    <div class="cand">
+    <div class="cand cand_box">
         <div class="cand_title">设置考号信息框</div>
         <div class="cand_con clearfix">
             <p class="fl">考号长度</p>
@@ -1091,6 +1093,17 @@
         <div class="cand_close" ng-click="closeCand()">x</div>
     </div>
     <!--设置考号弹窗结束-->
+    <!--设置插入图片弹窗开始-->
+    <div class="cand pic_box" style="display:block">
+        <div class="cand_title">添加图片</div>
+        <div class="cand_con clearfix">
+            <p class="fl">选择图片</p>
+            <p class="fl"><input type="file" name="imgOne" id="imgOne"></p>
+        </div>
+        <div class="cand_btn"><a ng-click="insertPic()">确定</a></div>
+        <div class="cand_close" ng-click="closeCand()">x</div>
+    </div>
+    <!--设置插入图片弹窗结束-->
 </div>
 
 <script src="js/Answer.js" type="text/javascript" charset="utf-8"></script>
