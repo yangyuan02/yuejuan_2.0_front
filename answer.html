@@ -333,107 +333,16 @@
                             <div class="school_title">
                                 <h2 ng-bind="subjectName+'试卷答题纸'"></h2>
                             </div>
-                            <div class="student">
+                            <div class="student {{tabParentIndex==-1&&tabIndex==-1?'table_focus':''}}" ng-click="getTableIndex(-1,-1)">
                                 <div class="student_L">
                                     <div class="student_number">考生号</div>
                                     <div class="student_number1">
                                         <ul>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
+                                            <li ng-repeat="cand in candNumber" style="width:{{100/candlen+'%'}}"></li>
                                         </ul>
                                     </div>
                                     <div class="student_number3">
-                                        <ul>
-                                            <li>0</li>
-                                            <li>1</li>
-                                            <li>2</li>
-                                            <li>3</li>
-                                            <li>4</li>
-                                            <li>5</li>
-                                            <li>6</li>
-                                            <li>7</li>
-                                            <li>8</li>
-                                            <li>9</li>
-                                        </ul>
-                                        <ul>
-                                            <li>0</li>
-                                            <li>1</li>
-                                            <li>2</li>
-                                            <li>3</li>
-                                            <li>4</li>
-                                            <li>5</li>
-                                            <li>6</li>
-                                            <li>7</li>
-                                            <li>8</li>
-                                            <li>9</li>
-                                        </ul>
-                                        <ul>
-                                            <li>0</li>
-                                            <li>1</li>
-                                            <li>2</li>
-                                            <li>3</li>
-                                            <li>4</li>
-                                            <li>5</li>
-                                            <li>6</li>
-                                            <li>7</li>
-                                            <li>8</li>
-                                            <li>9</li>
-                                        </ul>
-                                        <ul>
-                                            <li>0</li>
-                                            <li>1</li>
-                                            <li>2</li>
-                                            <li>3</li>
-                                            <li>4</li>
-                                            <li>5</li>
-                                            <li>6</li>
-                                            <li>7</li>
-                                            <li>8</li>
-                                            <li>9</li>
-                                        </ul>
-                                        <ul>
-                                            <li>0</li>
-                                            <li>1</li>
-                                            <li>2</li>
-                                            <li>3</li>
-                                            <li>4</li>
-                                            <li>5</li>
-                                            <li>6</li>
-                                            <li>7</li>
-                                            <li>8</li>
-                                            <li>9</li>
-                                        </ul>
-                                        <ul>
-                                            <li>0</li>
-                                            <li>1</li>
-                                            <li>2</li>
-                                            <li>3</li>
-                                            <li>4</li>
-                                            <li>5</li>
-                                            <li>6</li>
-                                            <li>7</li>
-                                            <li>8</li>
-                                            <li>9</li>
-                                        </ul>
-                                        <ul>
-                                            <li>0</li>
-                                            <li>1</li>
-                                            <li>2</li>
-                                            <li>3</li>
-                                            <li>4</li>
-                                            <li>5</li>
-                                            <li>6</li>
-                                            <li>7</li>
-                                            <li>8</li>
-                                            <li>9</li>
-                                        </ul>
-                                        <ul>
+                                        <ul ng-repeat="cand in candNumber">
                                             <li>0</li>
                                             <li>1</li>
                                             <li>2</li>
@@ -471,7 +380,7 @@
                         </div>
                         <!--考试个人信息结束-->
                         <div class="A_Rone_child">
-                            <table ng-repeat="a in listObj">
+                            <table ng-repeat="a in listObj" ng-click="getTableIndex(0,$index)" class="{{tabParentIndex==0&&tabIndex==$index?'table_focus':''}}">
                                 <thead>
                                 <tr>
                                     <th>
@@ -595,7 +504,7 @@
                             <p>请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效</p>
                         </div>
                         <div class="A_Rone_child">
-                            <table ng-repeat="a in listObj2">
+                            <table ng-repeat="a in listObj2" ng-click="getTableIndex(1,$index)" class="{{tabParentIndex==1&&tabIndex==$index?'table_focus':''}}">
                                 <thead>
                                 <tr>
                                     <th>
@@ -771,7 +680,7 @@
                             <p>请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效</p>
                         </div>
                         <div class="A_Rone_child">
-                            <table ng-repeat="a in listObj3">
+                            <table ng-repeat="a in listObj3" ng-click="getTableIndex(2,$index)" class="{{tabParentIndex==2&&tabIndex==$index?'table_focus':''}}">
                                 <thead>
                                 <tr>
                                     <th>
@@ -895,7 +804,7 @@
                             <p>请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效</p>
                         </div>
                         <div class="A_Rone_child">
-                            <table ng-repeat="a in listObj4">
+                            <table ng-repeat="a in listObj4" ng-click="getTableIndex(3,$index)" class="{{tabParentIndex==3&&tabIndex==$index?'table_focus':''}}">
                                 <thead>
                                 <tr>
                                     <th>
@@ -1154,8 +1063,9 @@
     <div id="menu">
         <ul>
             <li class="meun_navbar" ng-click="dayin()">打印</li>
+            <li class="meun_navbar" ng-click="showCandNumber()">设置考号</li>
             <li class="meun_navbar">文档类型</li>
-            <li class="meun_navbar">插入图片</li>
+            <li class="meun_navbar" ng-click="insertPic()">插入图片</li>
             <li class="meun_navbar">信息栏置于左侧</li>
             <li class="meun_navbar" ng-click="checkTestType(1)">打印方式:{{myDayinType==0?'单面':'双面'}}</li>
             <li class="meun_navbar">信息框置于左侧</li>
@@ -1170,6 +1080,17 @@
         </ul>
     </div>
     <!--右击菜单结束-->
+    <!--设置考号弹窗开始-->
+    <div class="cand">
+        <div class="cand_title">设置考号信息框</div>
+        <div class="cand_con clearfix">
+            <p class="fl">考号长度</p>
+            <p class="fl"><input type="text" ng-model="candlen"></p>
+        </div>
+        <div class="cand_btn"><a ng-click="setCandNumber(candlen)">确定</a></div>
+        <div class="cand_close" ng-click="closeCand()">x</div>
+    </div>
+    <!--设置考号弹窗结束-->
 </div>
 
 <script src="js/Answer.js" type="text/javascript" charset="utf-8"></script>

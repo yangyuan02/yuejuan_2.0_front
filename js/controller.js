@@ -634,7 +634,72 @@ angular.module("myApp.controller", [])
             });
 
         };
-
+        // 年级状况导出
+        $(".mark_btn_01").click(function(event) {
+            /* Act on the event */
+            mark_btn_01($("#myselect").val());
+        });
+        $(".mark_btn_02").click(function(event) {
+            mark_btn_02($("#myselect").val());
+        });    
+   function mark_btn_01(nub){
+          var exam_id = parseInt($(".exam_name").children('option:selected').attr("data-id"));
+            $(".exam_sub").attr("data-id", $(".exam_sub").children('option:selected').attr("data-id"));
+            var sub_id = parseInt($(".exam_sub").attr("data-id"));
+            if (sub_id == null) {
+                var sub_id = parseInt($(".exam_sub").attr("data-id"));
+            }
+             $.ajax({
+                type: "POST",
+                async:false,
+                url: ajaxIp + "api/v2/reports/export_grade_ranking_range",
+                headers: {
+                    'Authorization': "Bearer " + isLogin
+                },
+                data: {
+                    "exam_id":exam_id,
+                    "subject_id":sub_id,
+                    "number":nub, 
+                },
+                success: function(data) {
+                    console.log(data);
+                     $(".mark_btn_01").parent().attr("href", ajaxIp + data.file_path);
+                },
+                error:function() {
+                   
+                }
+                });
+      
+        }
+           function mark_btn_02(nub){
+            var exam_id = parseInt($(".exam_name").children('option:selected').attr("data-id"));
+            $(".exam_sub").attr("data-id", $(".exam_sub").children('option:selected').attr("data-id"));
+            var sub_id = parseInt($(".exam_sub").attr("data-id"));
+            if (sub_id == null) {
+                var sub_id = parseInt($(".exam_sub").attr("data-id"));
+            }
+             $.ajax({
+                type: "POST",
+                async:false,
+                url: ajaxIp + "api/v2/reports/export_grade_rank_ten",
+                headers: {
+                    'Authorization': "Bearer " + isLogin
+                },
+                data: {
+                    "exam_id":exam_id,
+                    "subject_id":sub_id,
+                    "number":nub, 
+                },
+                success: function(data) {
+                    console.log(data);
+                     $(".mark_btn_02").parent().attr("href", ajaxIp + data.file_path);
+                },
+                error:function() {
+                   
+                }
+                });
+      
+        }
         // $(".i1").html($(".u_1 li").eq(0).html());
         // $(".i2").html("数学");
         $(".sn_1").hide();
@@ -795,12 +860,6 @@ angular.module("myApp.controller", [])
                     y2: 45,
                     borderWidth: 1,
                 },
-                toolbox: {
-                        show : true,
-                        feature : {
-                            saveAsImage : {show: true}
-                        }
-                    },
                 calculable: false,
                 xAxis: [{
                     type: 'category',
@@ -814,6 +873,7 @@ angular.module("myApp.controller", [])
                             align: 'left',
                             fontWeight: '300',
                             fontFamily: 'Arial',
+                            // fontSize:14,
                             // fontStyle: 'normal',
                         }
                     },
@@ -821,6 +881,12 @@ angular.module("myApp.controller", [])
                 yAxis: [{
                     type: 'value',
                     name:'人数',
+                     axisLabel: {
+                        textStyle: {
+                            // fontSize:14,
+                            // fontStyle: 'normal',
+                        }
+                    },
 
                 }],
                 series: [{
@@ -851,12 +917,6 @@ angular.module("myApp.controller", [])
                     y2: 25,
                     borderWidth: 1
                 },
-                toolbox: {
-                        show : true,
-                        feature : {
-                            saveAsImage : {show: true}
-                        }
-                    },
                 legend: {
                  data:['年级平分数','班级平分数']
                  },
@@ -879,7 +939,7 @@ angular.module("myApp.controller", [])
                         name: '年级平分数',
                         type: 'line',
                         data: b,
-                        itemStyle : { normal: {label : {show: true, position: 'top'}}},
+                        itemStyle : { normal: {label : {show: true, position: 'bottom'}}},
                     },
                     {
                         name: '班级平分数',
@@ -969,6 +1029,13 @@ angular.module("myApp.controller", [])
             /* Act on the event */
             study_q_bb01();
         });
+         $(".study_q_i_btn_02").mouseover(function()
+    {
+         $(".study_q_i_btn_02_img").show();
+    }).mouseout(function()   
+    {
+        $(".study_q_i_btn_02_img").hide();       
+    });
         $(".study_q_i_btn_02").click(function(event) {
             /* Act on the event */
             study_q_bb02();
@@ -996,7 +1063,7 @@ angular.module("myApp.controller", [])
 
         //最新班级学情追踪函数
         // 缺考人数
-        $(".study_q_zt").on('click', 'span', function(event) {
+        $(".study_q_qkck").click(function(event) {
             $(".study_q_qk span").html(" ");
             $(".study_q_qk02").html(" ");
             $(".mask_layer").css("height", $(document).height());
@@ -1550,12 +1617,6 @@ angular.module("myApp.controller", [])
                 tooltip: {
                     trigger: 'axis'
                 },
-                toolbox: {
-                        show : true,
-                        feature : {
-                            saveAsImage : {show: true}
-                        }
-                    },
                 grid: {
                     x: 28,
                     y: 23,
@@ -3037,12 +3098,6 @@ angular.module("myApp.controller", [])
                 tooltip: {
                     trigger: 'axis'
                 },
-                toolbox: {
-                        show : true,
-                        feature : {
-                            saveAsImage : {show: true}
-                        }
-                    },
                 calculable: false,
                 xAxis: [{
                     type: 'category',
@@ -3750,12 +3805,6 @@ angular.module("myApp.controller", [])
                 legend: {
                     data: ['本校', '本班']
                 },
-                toolbox: {
-                        show : true,
-                        feature : {
-                            saveAsImage : {show: true}
-                        }
-                    },
                 grid: {
 
                     x2: 50,
@@ -3805,12 +3854,6 @@ angular.module("myApp.controller", [])
                     trigger: 'item',
                     formatter: "{a} <br/>{b} : {c} ({d}%)"
                 },
-                toolbox: {
-                        show : true,
-                        feature : {
-                            saveAsImage : {show: true}
-                        }
-                    },
                 legend: {
                     orient: 'vertical',
                     x: 'left',
@@ -3863,12 +3906,6 @@ angular.module("myApp.controller", [])
                         trigger: 'axis',
                         axisPointer : {            
                             type : 'shadow'        
-                        }
-                    },
-                     toolbox: {
-                        show : true,
-                        feature : {
-                            saveAsImage : {show: true}
                         }
                     },
                     legend: {
