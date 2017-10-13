@@ -7,6 +7,7 @@ var m1 = angular.module("pro", []);
 m1.controller("demo", function ($scope, $timeout, $http) {
     var url = window.location;
     var isLogin = localStorage.getItem("token");
+    console.log(window.localStorage.getItem("exam_id"))
     $scope.subjectName = window.localStorage.getItem("test_name") + window.localStorage.getItem("subjectname")
     $(".Answer .A_Nav").width($(document).width())
     function getUrlParam(url, name) {//获取页面参数
@@ -1534,79 +1535,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         importTemplate($scope.itmeTemplate.id,$scope.itmeSubject.id)
     }
 
-    $scope.save = function () {//保存模板
-        if ($scope.listObj.length <= 0) {
-            alert("请添加题组")
-            return
-        }
-        var isLogin = localStorage.getItem("token");
-        function bindRegion() {
-            var answer_ids = []
-            for (var i = 0; i < answer_id.length; i++) {
-                answer_ids.push(answer_id[i].answers.answer_id)
-            }
-            if($scope.paperType==0){//手工阅卷
-                var allP = getBigQuestion(allPagePost())
-            }else{
-                var allP = filtrAnswerMode(getBigQuestion(allPagePost()))
-            }
-            $.ajax({
-                    type: "POST",
-                    url:"/api/v2/answer_regions",
-                    headers: {'Authorization': "Bearer " + isLogin},
-                    async: false,
-                    data: {
-                        'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
-                        'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
-                        'answer_region[region_info]': JSON.stringify(allP),//所有坐标信息
-                        'answer_region[basic_info_region]': JSON.stringify(allList()),//存储页面题目
-                        'page': $(".A_R").length
-                    },
-                    success: function (data) {//绑定题组以便刷新后删除没用的
-                        var TemplateId = data.message
-                        $.ajax({
-                                type: "POST",
-                                url:"/api/v2/answer_region_binds",
-                                headers: {'Authorization': "Bearer " + isLogin},
-                                async: false,
-                                data: {
-                                    'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
-                                    'answer_region_id': TemplateId,//模板ID
-                                    'answer_ids': answer_ids.join(",")
-                                },
-                                success: function (data) {
-                                    alert("保存成功")
-                                    modelParam.length=0
-                                    console.log(data)
-                                }
-                            }
-                        )
-                    }
-                }
-            )
-        }
-        if(modelParam.length>0){
-            $.ajax({//获取answer_id
-                    type: "POST",
-                    url:"api/v2/answers/batch_create",
-                    headers: {'Authorization': "Bearer " + isLogin},
-                    data: {"answers":JSON.stringify(modelParam)},
-                    async: false,
-                    success: function (data) {
-                        console.log(data)
-                        answer_id = data
-                        bindRegion()
-                    },
-                    error:function (data) {
-                        console.log(data)
-                    }
-                }
-            )
-        }else{
-            bindRegion()
-        }
-    }
-
     /*****************************************************************************
      *定义右击功能
      * @returns {string}
@@ -1676,6 +1604,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.tabParentIndex = tabParentIndex
         $scope.tabIndex = tabIndex
         $scope.showMenuFlag = true
+        console.log($scope.tabParentIndex,$scope.tabIndex)
     }
     /**
      * 插入图片
@@ -1684,24 +1613,128 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $(".pic_box").show()
         $("#menu").hide()
     }
+    var figures = []
+    var eleFile = document.getElementById("imgOne")
 
-    var file = document.getElementById("imgOne")
-    file.onchange = function () {
+    eleFile.onchange = function (event) {
+        var formdata = new FormData()
+        var file = event.target.files[0];
+        formdata.append("figures[]figure",file)
+        var data = {}
+        data["figures[]name"] = file.name
+        data["figures[]figure"] = formdata
+        figures.push(data)
+        console.log(figures)
         var url;
         if (navigator.userAgent.indexOf("MSIE")>=1) { // IE
-            url = document.getElementById("imgOne").value;
+            url = document.getElementById("imgOne").value
         } else if(navigator.userAgent.indexOf("Firefox")>0) { // Firefox
-            url = window.URL.createObjectURL(document.getElementById("imgOne").files.item(0));
+            url = window.URL.createObjectURL(document.getElementById("imgOne").files.item(0))
         } else if(navigator.userAgent.indexOf("Chrome")>0) { // Chrome
-            url = window.URL.createObjectURL(document.getElementById("imgOne").files.item(0));
+            url = window.URL.createObjectURL(document.getElementById("imgOne").files.item(0))
         }
-        // $scope.listObj[0].imgurl = url
-        console.log($scope.listObj)
+        if($scope.tabParentIndex==0){
+            $scope.listObj[$scope.tabIndex].imgurl = url
+        }
+        if($scope.tabParentIndex==1){
+            $scope.listObj2[$scope.tabIndex].imgurl = url
+        }
+        if($scope.tabParentIndex==2){
+            $scope.listObj3[$scope.tabIndex].imgurl = url
+        }
+        if($scope.tabParentIndex==3){
+            $scope.listObj4[$scope.tabIndex].imgurl = url
+        }
+        $scope.$apply()
     }
-    $scope.insertPic = function () {
-        console.log(11111)
+    /*******************************保存*************************************************/
+    $scope.save = function () {//保存模板
+        if ($scope.listObj.length <= 0) {
+            alert("请添加题组")
+            return
+        }
+        var isLogin = localStorage.getItem("token");
+        function bindRegion() {
+            var answer_ids = []
+            for (var i = 0; i < answer_id.length; i++) {
+                answer_ids.push(answer_id[i].answers.answer_id)
+            }
+            if($scope.paperType==0){//手工阅卷
+                var allP = getBigQuestion(allPagePost())
+            }else{
+                var allP = filtrAnswerMode(getBigQuestion(allPagePost()))
+            }
+            $.ajax({
+                    type: "POST",
+                    url:"/api/v2/answer_regions",
+                    headers: {'Authorization': "Bearer " + isLogin},
+                    async: false,
+                    data: {
+                        'answer_region[exam_subject_id]': getUrlParam(url, 'examubjeId'),//科目ID
+                        'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
+                        'answer_region[region_info]': JSON.stringify(allP),//所有坐标信息
+                        'answer_region[basic_info_region]': JSON.stringify(allList()),//存储页面题目
+                        'page': $(".A_R").length
+                    },
+                    success: function (data) {//绑定题组以便刷新后删除没用的
+                        var TemplateId = data.message
+                        $.ajax({
+                                type: "POST",
+                                url:"/api/v2/answer_region_binds",
+                                headers: {'Authorization': "Bearer " + isLogin},
+                                async: false,
+                                data: {
+                                    'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
+                                    'answer_region_id': TemplateId,//模板ID
+                                    'answer_ids': answer_ids.join(",")
+                                },
+                                success: function (data) {
+                                    alert("保存成功")
+                                    modelParam.length=0
+                                    console.log(data)
+                                }
+                            }
+                        )
+                        insertImg(TemplateId)
+                    }
+                }
+            )
+        }
+        function insertImg(answer_region_id) {
+            console.log()
+            // $.ajax({
+            //     type:"POST",
+            //     headers: {'Authorization': "Bearer " + isLogin},
+            //     url:"/api/v2/answer_regions/subject_image",
+            //     // data:formData,
+            //     // processData: false,  // 不处理数据
+            //     // contentType: false,   // 不设置内容类型
+            //     success:function (data) {
+            //         console.log(data)
+            //     }
+            // })
+        }
+        if(modelParam.length>0){
+            $.ajax({//获取answer_id
+                    type: "POST",
+                    url:"api/v2/answers/batch_create",
+                    headers: {'Authorization': "Bearer " + isLogin},
+                    data: {"answers":JSON.stringify(modelParam)},
+                    async: false,
+                    success: function (data) {
+                        console.log(data)
+                        answer_id = data
+                        bindRegion()
+                    },
+                    error:function (data) {
+                        console.log(data)
+                    }
+                }
+            )
+        }else{
+            bindRegion()
+        }
     }
-
 })
 
 
