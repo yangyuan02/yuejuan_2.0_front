@@ -2331,18 +2331,18 @@ $(function() {
 
   // 导入成绩
   $('.import-button').on('click', function() {
+  	var exam_id = $('.score-import-right #select-exam').attr('data-id');
   	var subject_id = $('.score-import-right #select-sujects').attr('data-id');
-  	if(subject_id!=0 && look_infos!=undefined){
+		if(exam_id&&subject_id!=0){
 			$('.modal-main').animate({'top': '50%','opacity': 1},500);
 			$('.modal-shadow').animate({'opacity': 0.3},500);
 			$('.import-grade-wrap').show();
-  	}
-  	if(look_infos==undefined && subject_id!=0 ){
-  		alert('请先查看试卷结构再按照格式上传')
-  	}
-  	if(subject_id==0){
-  		alert('请先选择科目')
-  	}
+			get_score_info(exam_id,subject_id);
+			$('.set-box').show();
+		}
+		if(subject_id==0){
+			alert('请先选择科目');
+		}
   });
  // 设置分值
   $('body').on('click', '.set', function() {
@@ -2959,22 +2959,17 @@ $(function() {
 	$('.score-import-right #select-sujects').change(function(){
 		var sub_id = $(this).find("option:selected").data('id');
 		$(this).attr('data-id',sub_id);
-		if(sub_id!==0){
-			$('.look-button').show();
-		}else{
-			$('.look-button').hide();
-		}
 	})
 
 	// 查看试卷结构
-	$('body').on('click','.look-button',function(){
-		$('.look-score-wrap .modal-main').animate({'top': '50%','opacity': 1},500);
-		$('.look-score-wrap .modal-shadow').animate({'opacity': 0.3},500);
-		$('.look-score-wrap').show();
-		var exam_id = $('.score-import-right #select-exam').attr('data-id');
-		var subject_id = $('.score-import-right #select-sujects').attr('data-id');
-		get_score_info(exam_id,subject_id)
-	})
+	// $('body').on('click','.look-button',function(){
+	// 	$('.look-score-wrap .modal-main').animate({'top': '50%','opacity': 1},500);
+	// 	$('.look-score-wrap .modal-shadow').animate({'opacity': 0.3},500);
+	// 	$('.look-score-wrap').show();
+	// 	var exam_id = $('.score-import-right #select-exam').attr('data-id');
+	// 	var subject_id = $('.score-import-right #select-sujects').attr('data-id');
+	// 	get_score_info(exam_id,subject_id)
+	// })
 
 	function get_score_info(e_id,s_id){
 		$.ajax({
@@ -2984,8 +2979,8 @@ $(function() {
 	  	headers: {'Authorization': "Bearer " + isLogin},
 	  	data:{'exam_id':e_id,'subject_id':s_id},
 	  	success: function(data){
-	  		console.log(data);
-	  		look_infos=data;
+	  		console.log(data,e_id,s_id);
+	  		// look_infos=data;
 	  		show_scroe_group(data);
       },
       error: function(){
@@ -2997,10 +2992,10 @@ $(function() {
 	}
 
 	function show_scroe_group(item){
-		$('.look-score-wrap .set-table tbody').html('');
+		$('.import-wrap .set-table tbody').html('');
 		for (var i = 0; i < item.length; i++) {
 			var set_li = '<tr class="item-tr-'+i+'"><td width="50%">'+item[i].answer_name+'</td><td width="30%">'+item[i].answer_item+'</td><td width="20%">'+item[i].score+'</td></tr>'
-			$('.look-score-wrap .set-table tbody').append(set_li);
+			$('.import-wrap .set-table tbody').append(set_li);
 			if(!item[i].score){
 				$('.item-tr-'+i+'').find('input').val('');
 			}
@@ -3017,7 +3012,7 @@ $(function() {
 	$('.score-import-right .student-search-button').click(function(){
 		$('.score-import-right #search-num').change();
 	})
-	var look_infos;
+	// var look_infos;
 
 	// 导入成绩按钮
 	$('.import-button').click(function(){
@@ -3456,6 +3451,19 @@ $(function() {
 		  });
 	});
 
+
+
+  // 导入word试卷
+  $('.import-word-button').on('click', function() {
+		$('.import-word-wrap .modal-main').animate({'top': '50%','opacity': 1},500);
+		$('.import-word-wrap .modal-shadow').animate({'opacity': 0.3},500);
+		$('.import-word-wrap').show();
+  });
+  $('body').on('click', '.look-paper-btn', function() {
+  	$(this).attr('href', 'edit_paper');
+  	console.log(99)
+
+  });
 
 
 })
