@@ -759,3 +759,9 @@ table{
 .english_line{
     height:0px;
 }
+.Answer .A_R .A_Rone .A_Rone_child table .english .english_line{
+    height:10px;
+}
+.Answer .A_R .A_Rone .A_Rone_child table thead tr th{
+    padding-top:0px;
+}
