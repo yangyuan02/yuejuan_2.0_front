@@ -755,12 +755,16 @@ table thead tr:last-child{
 }
 table{
     margin-bottom:0px !important;
+    border-bottom:none;
+}
+table:last-child{
+    border-bottom:1px solid #000;
 }
 .english_line{
     height:0px;
 }
 .Answer .A_R .A_Rone .A_Rone_child table .english .english_line{
-    height:10px;
+    height:18px;
 }
 .Answer .A_R .A_Rone .A_Rone_child table thead tr th{
     padding-top:0px;
