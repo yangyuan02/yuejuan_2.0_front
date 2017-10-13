@@ -143,7 +143,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 result = remain - title_h - padding - score_h - row * rowItme_h > 0 ? true : false
             }
             if ($scope.index == 4) {//作文题
-                var rowItme_h = 0, score_h = 0;/*语文试卷*/
+                var rowItme_h = 35, score_h = 36;/*语文试卷*/
                 if ($scope.result.writIsradio == 1) {
                     var row = Math.ceil($scope.result.plaid / 20)
                     result = remain - title_h - padding - score_h - row * rowItme_h > 0 ? true : false
