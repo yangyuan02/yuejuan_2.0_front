@@ -209,7 +209,7 @@ body{
 	outline: none;
 	border: 1px solid #ccc;
 }
-.rows .grade-name{
+.rows .grade-name,.rows .grade-type{
 	width: 188px!important;
 	height: 28px;
 	font-size: 14px;
