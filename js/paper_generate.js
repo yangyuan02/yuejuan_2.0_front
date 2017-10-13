@@ -60,6 +60,7 @@ $(function() {
 					$('.list-ul li').eq(0).addClass('active');
 					console.log(local_id)
 					show_test_cont($('.list-ul li').eq(0).data('id'),$('.list-ul li').eq(0).attr('data-page'));
+					window.localStorage.setItem("exam_id",exam_list[0].id)//考试id
 				}
 				// else{
 				// 	show_test_cont(local_id,list_page)
@@ -199,6 +200,8 @@ $(function() {
 
 	// 考试列表切换
 	$('body').on('click', '.list-ul li', function() {
+		var exam_id = $(this).attr('data-id')
+		window.localStorage.setItem("exam_id",$(this).attr('data-id'))//考试id
 		$('.first-new').hide();
 		$('.teacher-set').hide();
 		$('.second-new').show();
@@ -1923,8 +1926,9 @@ $(function() {
 	$('body').on('click', '.setAnswer', function() {
 		var $_this = $(this);
 		var examubjeId = $_this.parents('tr').find('.subject-name').attr('exam_subject_id');
+		var subjectId = $_this.parents('tr').find('.subject-name').attr('data-id');
 		var subjectName = $_this.parents('tr').find('.subject-name').text()
 		window.localStorage.setItem("subjectname",subjectName)
-		$_this.attr('href', 'answer?examubjeId=' + examubjeId);
+		$_this.attr('href', 'answer?examubjeId=' + examubjeId+'&subjectId='+subjectId);
 	});
 })
