@@ -754,10 +754,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
             if(obj.type==3){//修改分数
                 var oldScore = obj.list[obj.index].itemCoresArr[obj.itmeIndex]//最开始的分数
-                obj.list[obj.index].itemCoresArr[obj.itmeIndex] = parseInt(obj.score)
-                console.log($scope.listObj)
-                obj.list[obj.index].totalCores = obj.list[obj.index].totalCores - parseInt(oldScore) + parseInt(obj.score)
-                $scope.countScore = $scope.countScore - parseInt(oldScore) + parseInt(obj.score)
+                obj.list[obj.index].itemCoresArr[obj.itmeIndex] = obj.score
+                obj.list[obj.index].totalCores = obj.list[obj.index].totalCores - oldScore + obj.score
+                $scope.countScore = $scope.countScore - oldScore + obj.score
             }
         }
         function setAnswerGrounp(index){
