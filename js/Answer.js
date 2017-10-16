@@ -118,6 +118,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
     $scope.Q_number = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十']
     var isLine = function (page_num) {//是否换行
+        console.log(page_num)
         var outerBox = $(".A_Rone").outerHeight()//最外层距离
         var result;
         if ($(".A_Rone").eq(page_num).find("table:last").position()) {//不是第一次插入
@@ -153,6 +154,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 } else {
                     var row = Math.ceil($scope.result.word / 8)
                     result = remain - title_h - padding - score_h - row * rowItme_h > 0 ? true : false
+                    console.log(result+'111')
                 }
             }
             if ($scope.index == 5) {//其他题
@@ -286,6 +288,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         if (isLine(0)) {
             obj.current_page = 1
             $scope.listObj.push(obj);
+            console.log(2222)
         } else if (isLine(1)) {
             obj.current_page = 1
             $scope.listObj2.push(obj);
@@ -296,7 +299,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             obj.current_page = 2
             $scope.listObj4.push(obj);
         }
-        console.log($scope.listObj)
     }
     $scope.createAsswer = function (data) {//添加题组
         var data = data
