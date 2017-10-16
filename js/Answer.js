@@ -118,17 +118,18 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
     $scope.Q_number = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十']
     var isLine = function (page_num) {//是否换行
+        console.log(page_num)
         var outerBox = $(".A_Rone").outerHeight()//最外层距离
         var result;
         if ($(".A_Rone").eq(page_num).find("table:last").position()) {//不是第一次插入
             var lastTabPosi = $(".A_Rone").eq(page_num).find("table:last").position().top + $(".A_Rone").eq(page_num).find("table:last").height() + 30//已经占用高度
             var remain = outerBox - lastTabPosi
-            var title_h = 40, padding = 10
+            var title_h = 40, padding = 0
             if ($scope.index == 1 || $scope.index == 2) {//选择题、判断题
                 var rowItme_h = 27;
                 if ($scope.result.thr <= 4) {//判断几个为一行
                     var row_h = 4
-                } else if ($scope.result.thr > 4 && $scope.result.thr <= 10) {
+                } else if ($scope.result.thr > 4 && $scope.result.thr <= 11) {
                     var row_h = 2
                 } else {
                     var row_h = 1
@@ -145,7 +146,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             if ($scope.index == 4) {//作文题
                 var rowItme_h = 35, score_h = 36;/*语文试卷*/
                 if ($scope.result.writIsradio == 1) {
-                    var row = Math.ceil($scope.result.plaid / 20)
+                    var row = Math.ceil($scope.result.plaid / 21)
                     result = remain - title_h - padding - score_h - row * rowItme_h > 0 ? true : false
                 } else if ($scope.result.writIsradio == 2) {
                     var row = parseInt($scope.result.enLine)
@@ -153,6 +154,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 } else {
                     var row = Math.ceil($scope.result.word / 8)
                     result = remain - title_h - padding - score_h - row * rowItme_h > 0 ? true : false
+                    console.log(result+'111')
                 }
             }
             if ($scope.index == 5) {//其他题
@@ -296,7 +298,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             obj.current_page = 2
             $scope.listObj4.push(obj);
         }
-        console.log($scope.listObj)
     }
     $scope.createAsswer = function (data) {//添加题组
         var data = data
@@ -348,7 +349,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             var itemNumber = $scope.result.thr
         }
         if ($scope.result.writIsradio == 1) {
-            var row = Math.ceil($scope.result.plaid / 20)
+            var row = Math.ceil($scope.result.plaid / 21)
         }
         if ($scope.result.writIsradio == 2) {
             var row = $scope.result.enLine
@@ -381,7 +382,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         if ($scope.index == 4) {
             obj.articleType = $scope.result.writIsradio
             obj.rows = rosItem
-            obj.plaids = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+            obj.plaids = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,20]
             obj.row = row
             obj.plaid = $scope.result.plaid
         }
@@ -401,7 +402,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.setWidth
         if (itemNumber.length <= 4) {
             $scope.setWidth = 25 + '%'
-        } else if (itemNumber.length > 4 && itemNumber.length <= 10) {
+        } else if (itemNumber.length > 4 && itemNumber.length <= 11) {
             $scope.setWidth = 50 + '%'
         } else {
             $scope.setWidth = 100 + '%'
@@ -496,7 +497,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
         var dom = $(".conten").find("table").eq(index).find("thead").find("tr").eq(1).offset()
         scoreRect.score_rect_width = 698
-        scoreRect.score_rect_height = 40
+        scoreRect.score_rect_height = 20
         scoreRect.score_rect_x = parseInt(dom.left - dot.left)
         scoreRect.score_rect_y = parseInt(dom.top - dot.top)
         return scoreRect
@@ -572,7 +573,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var answerNumber = parseInt(answerNumber)//选项个数
         var dot = $(".position_TL span").eq(1).offset();
         dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
-        var item_w = 16, itemMarginLeft = 13;
+        var item_w = 16, itemMarginLeft = 11;
         for (var i = 1; i <= qNumer; i++) {//循环每个小题
             var itme_obj = {}
             itme_obj.no = startNo + i - 1
@@ -656,13 +657,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 itme_obj.block_height = 12//选项高度
                 itme_obj.score_rect_options = otherFillScoreRect(i - 1, obj[i - 1].current_page)//打分框区域的x坐标
                 itme_obj.score_rect_width = 690//打分框区域的宽度
-                itme_obj.score_rect_height = 40//打分框区域的高度
+                itme_obj.score_rect_height = 20//打分框区域的高度
                 itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page)
             } else {//作文题
                 itme_obj.block_width = 23//选项宽度
                 itme_obj.block_height = 12//选项高度
                 itme_obj.score_rect_width = 690//打分框区域的宽度
-                itme_obj.score_rect_height = 40//打分框区域的高度
+                itme_obj.score_rect_height = 20//打分框区域的高度
                 itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page)
             }
             BigQuestion.push(itme_obj)
@@ -753,11 +754,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 console.log($scope.listObj)
             }
             if(obj.type==3){//修改分数
-                var oldScore = obj.list[obj.index].itemCoresArr[obj.itmeIndex]//最开始的分数
-                obj.list[obj.index].itemCoresArr[obj.itmeIndex] = parseInt(obj.score)
-                console.log($scope.listObj)
-                obj.list[obj.index].totalCores = obj.list[obj.index].totalCores - parseInt(oldScore) + parseInt(obj.score)
-                $scope.countScore = $scope.countScore - parseInt(oldScore) + parseInt(obj.score)
+                var oldScore = Number(obj.list[obj.index].itemCoresArr[obj.itmeIndex])//最开始的分数
+                obj.list[obj.index].itemCoresArr[obj.itmeIndex] = Number(obj.score)
+                obj.list[obj.index].totalCores = Number(obj.list[obj.index].totalCores) - oldScore + Number(obj.score)
+                $scope.countScore = $scope.countScore - oldScore + Number(obj.score)
             }
         }
         function setAnswerGrounp(index){
@@ -1615,18 +1615,18 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $(".pic_box").show()
         $("#menu").hide()
     }
-    var figures = []
+    // var figures = []
     var eleFile = document.getElementById("imgOne")
 
+    var formdata = new FormData()
     eleFile.onchange = function (event) {
-        var formdata = new FormData()
         var file = event.target.files[0];
         formdata.append("figures[]figure",file)
-        var data = {}
-        data["figures[]name"] = file.name
-        data["figures[]figure"] = formdata
-        figures.push(data)
-        console.log(figures)
+        // var data = {}
+        // data["figures[]name"] = file.name
+        // data["figures[]figure"] = formdata
+        // figures.push(data)
+        // console.log(figures)
         var url;
         if (navigator.userAgent.indexOf("MSIE")>=1) { // IE
             url = document.getElementById("imgOne").value
@@ -1697,24 +1697,23 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                                 }
                             }
                         )
-                        insertImg(TemplateId)
+                        insertImg()
                     }
                 }
             )
         }
-        function insertImg(answer_region_id) {
-            console.log()
-            // $.ajax({
-            //     type:"POST",
-            //     headers: {'Authorization': "Bearer " + isLogin},
-            //     url:"/api/v2/answer_regions/subject_image",
-            //     // data:formData,
-            //     // processData: false,  // 不处理数据
-            //     // contentType: false,   // 不设置内容类型
-            //     success:function (data) {
-            //         console.log(data)
-            //     }
-            // })
+        function insertImg() {
+            $.ajax({
+                type:"POST",
+                headers: {'Authorization': "Bearer " + isLogin},
+                url:"/api/v2/answer_regions/subject_image?answer_region_id=111&figures[]answer_id=2792&figures[]name=阳园",
+                data:formdata,
+                processData: false,  // 不处理数据
+                contentType: false,   // 不设置内容类型
+                success:function (data) {
+                    console.log(data)
+                }
+            })
         }
         if(modelParam.length>0){
             $.ajax({//获取answer_id
