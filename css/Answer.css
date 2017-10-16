@@ -318,6 +318,13 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
 .Answer .A_R .A_Rone .A_Rone_child table tbody .other_c{
     width:100%;
     height:150px;
+    position:relative;
+}
+.Answer .A_R .A_Rone .A_Rone_child table tbody .other_c img{
+    position:absolute;
+    top:10px;
+    right:0px;
+    height:140px;
 }
 .Answer .A_R .A_Rone .A_Rone_child table tbody .other_h{
     width:100%;
@@ -624,8 +631,10 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
 .paper a{
     border-color:#fff !important;
     color:#fff !important;
+    /*display:none;*/
 }
 .paperno{
+    /*display:none;*/
     border-color:#fff !important;
     color:#fff !important;
 }
@@ -731,3 +740,32 @@ input:focus{
 .table_focus{
     border:1px solid #31bc91!important;
 }
+.pic_box input[type="file"]{
+    height: auto !important;
+    line-height:0px !important;
+    padding:8px 0px;
+    padding-left:6px;
+}
+
+
+
+/********************语文试卷样式***************/
+/*table thead tr:last-child{*/
+    /*display:none!important;*/
+/*}*/
+/*table{*/
+    /*margin-bottom:0px !important;*/
+    /*border-bottom:none;*/
+/*}*/
+/*table:last-child{*/
+    /*border-bottom:1px solid #000;*/
+/*}*/
+/*.english_line{*/
+    /*height:0px;*/
+/*}*/
+/*.Answer .A_R .A_Rone .A_Rone_child table .english .english_line{*/
+    /*height:18px;*/
+/*}*/
+/*.Answer .A_R .A_Rone .A_Rone_child table thead tr th{*/
+    /*padding-top:0px;*/
+/*}*/

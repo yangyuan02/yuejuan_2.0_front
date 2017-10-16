@@ -7,6 +7,7 @@ var m1 = angular.module("pro", []);
 m1.controller("demo", function ($scope, $timeout, $http) {
     var url = window.location;
     var isLogin = localStorage.getItem("token");
+    console.log(window.localStorage.getItem("exam_id"))
     $scope.subjectName = window.localStorage.getItem("test_name") + window.localStorage.getItem("subjectname")
     $(".Answer .A_Nav").width($(document).width())
     function getUrlParam(url, name) {//获取页面参数
@@ -142,7 +143,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 result = remain - title_h - padding - score_h - row * rowItme_h > 0 ? true : false
             }
             if ($scope.index == 4) {//作文题
-                var rowItme_h = 36, score_h = 35;
+                var rowItme_h = 35, score_h = 36;/*语文试卷*/
                 if ($scope.result.writIsradio == 1) {
                     var row = Math.ceil($scope.result.plaid / 20)
                     result = remain - title_h - padding - score_h - row * rowItme_h > 0 ? true : false
@@ -565,6 +566,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
      * @returns {Array}
      */
     function getQuestion(qNumer, answerNumber, Answerindex, answerModeType, itemCores, current_page, startNo) {//获取每个小题目
+        console.log(itemCores)
         var question = []
         var qNumer = parseInt(qNumer)
         var answerNumber = parseInt(answerNumber)//选项个数
@@ -753,6 +755,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             if(obj.type==3){//修改分数
                 var oldScore = obj.list[obj.index].itemCoresArr[obj.itmeIndex]//最开始的分数
                 obj.list[obj.index].itemCoresArr[obj.itmeIndex] = parseInt(obj.score)
+                console.log($scope.listObj)
                 obj.list[obj.index].totalCores = obj.list[obj.index].totalCores - parseInt(oldScore) + parseInt(obj.score)
                 $scope.countScore = $scope.countScore - parseInt(oldScore) + parseInt(obj.score)
             }
@@ -1534,6 +1537,119 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         importTemplate($scope.itmeTemplate.id,$scope.itmeSubject.id)
     }
 
+    /*****************************************************************************
+     *定义右击功能
+     * @returns {string}
+     */
+    var menu = document.getElementById("menu")
+    document.addEventListener("contextmenu",function (event) {
+        event.preventDefault()
+        if(event.target.className.toLowerCase()=='meun_navbar'){
+            return
+        }
+        if($scope.showMenuFlag){
+            menu.style.display = 'block'
+            menu.style.left = event.pageX + "px";
+            menu.style.top = event.pageY + "px";
+        }
+    },false)
+    menu.addEventListener("click",function (evevt) {
+        evevt.stopPropagation()
+    },false)
+    window.addEventListener("click",function (event) {
+        menu.style.display = 'none'
+    },false)
+
+
+    window.onbeforeunload = function () {//离开刷新提醒
+        if (modelParam.length>0) {
+            return "您修改了内容,请保存答题卡"
+        }
+    }
+    $scope.closeUteroBox = function () {//关闭离开
+        if (modelParam.length>0) {
+            var r = confirm("请保存答题卡")
+            if (r) {
+                $scope.save()
+            } else {
+                window.location.href = 'paper_generate'
+            }
+        } else {
+            window.location.href = 'paper_generate'
+        }
+    }
+    /**
+     * 设置考号
+     * @param length  考号长度
+     */
+    $scope.showCandNumber = function () {
+        $(".cand_box").show()
+        $("#menu").hide()
+    }
+    $scope.closeCand = function () {
+        $(".cand").hide()
+    }
+    $scope.setCandNumber = function (candlen) {
+        var result = []
+        for(var i = 0;i<candlen;i++){
+            result.push(i)
+        }
+        $scope.candNumber = result
+        $(".cand").hide()
+    }
+    /**
+     * 聚焦table
+     * @param parentIndex  $scope.list
+     * @param index   题组索引
+     */
+    $scope.getTableIndex = function (tabParentIndex,tabIndex) {
+        $scope.tabParentIndex = tabParentIndex
+        $scope.tabIndex = tabIndex
+        $scope.showMenuFlag = true
+        console.log($scope.tabParentIndex,$scope.tabIndex)
+    }
+    /**
+     * 插入图片
+     */
+    $scope.showPicAlert = function () {
+        $(".pic_box").show()
+        $("#menu").hide()
+    }
+    var figures = []
+    var eleFile = document.getElementById("imgOne")
+
+    eleFile.onchange = function (event) {
+        var formdata = new FormData()
+        var file = event.target.files[0];
+        formdata.append("figures[]figure",file)
+        var data = {}
+        data["figures[]name"] = file.name
+        data["figures[]figure"] = formdata
+        figures.push(data)
+        console.log(figures)
+        var url;
+        if (navigator.userAgent.indexOf("MSIE")>=1) { // IE
+            url = document.getElementById("imgOne").value
+        } else if(navigator.userAgent.indexOf("Firefox")>0) { // Firefox
+            url = window.URL.createObjectURL(document.getElementById("imgOne").files.item(0))
+        } else if(navigator.userAgent.indexOf("Chrome")>0) { // Chrome
+            url = window.URL.createObjectURL(document.getElementById("imgOne").files.item(0))
+        }
+        if($scope.tabParentIndex==0){
+            $scope.listObj[$scope.tabIndex].imgurl = url
+        }
+        if($scope.tabParentIndex==1){
+            $scope.listObj2[$scope.tabIndex].imgurl = url
+        }
+        if($scope.tabParentIndex==2){
+            $scope.listObj3[$scope.tabIndex].imgurl = url
+        }
+        if($scope.tabParentIndex==3){
+            $scope.listObj4[$scope.tabIndex].imgurl = url
+        }
+        $scope.$apply()
+    }
+    /*******************************保存*************************************************/
     $scope.save = function () {//保存模板
         if ($scope.listObj.length <= 0) {
             alert("请添加题组")
@@ -1581,9 +1697,24 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                                 }
                             }
                         )
+                        insertImg(TemplateId)
                     }
                 }
             )
+        }
+        function insertImg(answer_region_id) {
+            console.log()
+            // $.ajax({
+            //     type:"POST",
+            //     headers: {'Authorization': "Bearer " + isLogin},
+            //     url:"/api/v2/answer_regions/subject_image",
+            //     // data:formData,
+            //     // processData: false,  // 不处理数据
+            //     // contentType: false,   // 不设置内容类型
+            //     success:function (data) {
+            //         console.log(data)
+            //     }
+            // })
         }
         if(modelParam.length>0){
             $.ajax({//获取answer_id
@@ -1605,83 +1736,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }else{
             bindRegion()
         }
-    }
-
-    /*****************************************************************************
-     *定义右击功能
-     * @returns {string}
-     */
-    var menu = document.getElementById("menu")
-    document.addEventListener("contextmenu",function (event) {
-        event.preventDefault()
-        if(event.target.className.toLowerCase()=='meun_navbar'){
-            return
-        }
-        if($scope.showMenuFlag){
-            menu.style.display = 'block'
-            menu.style.left = event.pageX + "px";
-            menu.style.top = event.pageY + "px";
-        }
-    },false)
-    menu.addEventListener("click",function (evevt) {
-        evevt.stopPropagation()
-    },false)
-    window.addEventListener("click",function (event) {
-        menu.style.display = 'none'
-    },false)
-
-
-    window.onbeforeunload = function () {//离开刷新提醒
-        if (modelParam.length>0) {
-            return "您修改了内容,请保存答题卡"
-        }
-    }
-    $scope.closeUteroBox = function () {//关闭离开
-        if (modelParam.length>0) {
-            var r = confirm("请保存答题卡")
-            if (r) {
-                $scope.save()
-            } else {
-                window.location.href = 'paper_generate'
-            }
-        } else {
-            window.location.href = 'paper_generate'
-        }
-    }
-    /**
-     * 设置考号
-     * @param length  考号长度
-     */
-    $scope.showCandNumber = function () {
-        $(".cand").show()
-        $("#menu").hide()
-    }
-    $scope.closeCand = function () {
-        $(".cand").hide()
-    }
-    $scope.setCandNumber = function (candlen) {
-        var result = []
-        for(var i = 0;i<candlen;i++){
-            result.push(i)
-        }
-        $scope.candNumber = result
-        $(".cand").hide()
-    }
-    /**
-     * 聚焦table
-     * @param parentIndex  $scope.list
-     * @param index   题组索引
-     */
-    $scope.getTableIndex = function (tabParentIndex,tabIndex) {
-        $scope.tabParentIndex = tabParentIndex
-        $scope.tabIndex = tabIndex
-        $scope.showMenuFlag = true
-    }
-    /**
-     * 插入图片
-     */
-    $scope.insertPic = function () {
-
     }
 })
 

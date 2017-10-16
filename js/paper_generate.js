@@ -60,6 +60,7 @@ $(function() {
 					$('.list-ul li').eq(0).addClass('active');
 					console.log(local_id)
 					show_test_cont($('.list-ul li').eq(0).data('id'),$('.list-ul li').eq(0).attr('data-page'));
+					window.localStorage.setItem("exam_id",exam_list[0].id)//考试id
 				}
 				// else{
 				// 	show_test_cont(local_id,list_page)
@@ -116,6 +117,28 @@ $(function() {
 		// $('.test-grade').val(detail_data.grade.name); //考试班级
 		// $('.test-grade').attr('data-id', detail_data.grade.id);
 		$('.range').val(detail_data.range); //查看范围
+		var x = detail_data.exam_type;
+		switch (x){
+			case 'monthly':
+			  x="月考";
+			  break;
+			case 'mid':
+			  x="期中考试";
+			  break;
+			case 'final':
+			  x="期末考试";
+			  break;
+			case 'joint':
+			  x="联考";
+			  break;
+			case 'unit':
+			  x="单元测试";
+			  break;
+			case 'mock':
+			  x="模拟考";
+			  break;
+		}
+		$('.grade-type').val(x); //考试类型
 		// 班级信息
 
 		// $('#show-class').html('');
@@ -199,6 +222,8 @@ $(function() {
 
 	// 考试列表切换
 	$('body').on('click', '.list-ul li', function() {
+		var exam_id = $(this).attr('data-id')
+		window.localStorage.setItem("exam_id",$(this).attr('data-id'))//考试id
 		$('.first-new').hide();
 		$('.teacher-set').hide();
 		$('.second-new').show();
@@ -435,6 +460,8 @@ $(function() {
 		var school_name = $('input[name="school"]').val();
 		// var test_grade = $('#test-grade').find("option:selected").data('id');
 		var test_range = $('#test-range').val();
+
+		var exam_type = $('#test-type').val();
 		// var test_class = $('#grade').find("input[type='checkbox']:checked").length;
 		var test_subject = $('#subject').find("input[type='checkbox']:checked").length;
 		// var class_arr = [];
@@ -457,13 +484,17 @@ $(function() {
 		if (!school_name) {
 			alert("请填写考试名称");
 		}
-		if (school_name && test_range && test_subject != 0) {
+		if(test_subject==0&&school_name){
+			alert("请选择考试科目");
+		}
+		if (school_name && test_range && test_subject != 0 && exam_type) {
 			var test_json = {
 					'name': school_name,
 					// 'grade_id': test_grade,
 					'range': test_range,
 					// 'exam_classrooms': class_arr,
 					'subjects': sub_arr,
+					'exam_type': exam_type
 				}
 				// console.log(test_json);
 			$.ajax({
@@ -1923,8 +1954,9 @@ $(function() {
 	$('body').on('click', '.setAnswer', function() {
 		var $_this = $(this);
 		var examubjeId = $_this.parents('tr').find('.subject-name').attr('exam_subject_id');
+		var subjectId = $_this.parents('tr').find('.subject-name').attr('data-id');
 		var subjectName = $_this.parents('tr').find('.subject-name').text()
 		window.localStorage.setItem("subjectname",subjectName)
-		$_this.attr('href', 'answer?examubjeId=' + examubjeId);
+		$_this.attr('href', 'answer?examubjeId=' + examubjeId+'&subjectId='+subjectId);
 	});
 })
