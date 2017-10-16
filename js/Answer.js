@@ -1614,18 +1614,18 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $(".pic_box").show()
         $("#menu").hide()
     }
-    var figures = []
+    // var figures = []
     var eleFile = document.getElementById("imgOne")
 
+    var formdata = new FormData()
     eleFile.onchange = function (event) {
-        var formdata = new FormData()
         var file = event.target.files[0];
         formdata.append("figures[]figure",file)
-        var data = {}
-        data["figures[]name"] = file.name
-        data["figures[]figure"] = formdata
-        figures.push(data)
-        console.log(figures)
+        // var data = {}
+        // data["figures[]name"] = file.name
+        // data["figures[]figure"] = formdata
+        // figures.push(data)
+        // console.log(figures)
         var url;
         if (navigator.userAgent.indexOf("MSIE")>=1) { // IE
             url = document.getElementById("imgOne").value
@@ -1696,24 +1696,23 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                                 }
                             }
                         )
-                        insertImg(TemplateId)
+                        insertImg()
                     }
                 }
             )
         }
-        function insertImg(answer_region_id) {
-            console.log()
-            // $.ajax({
-            //     type:"POST",
-            //     headers: {'Authorization': "Bearer " + isLogin},
-            //     url:"/api/v2/answer_regions/subject_image",
-            //     // data:formData,
-            //     // processData: false,  // 不处理数据
-            //     // contentType: false,   // 不设置内容类型
-            //     success:function (data) {
-            //         console.log(data)
-            //     }
-            // })
+        function insertImg() {
+            $.ajax({
+                type:"POST",
+                headers: {'Authorization': "Bearer " + isLogin},
+                url:"/api/v2/answer_regions/subject_image?answer_region_id=111&figures[]answer_id=2792&figures[]name=阳园",
+                data:formdata,
+                processData: false,  // 不处理数据
+                contentType: false,   // 不设置内容类型
+                success:function (data) {
+                    console.log(data)
+                }
+            })
         }
         if(modelParam.length>0){
             $.ajax({//获取answer_id
