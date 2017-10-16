@@ -123,12 +123,12 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         if ($(".A_Rone").eq(page_num).find("table:last").position()) {//不是第一次插入
             var lastTabPosi = $(".A_Rone").eq(page_num).find("table:last").position().top + $(".A_Rone").eq(page_num).find("table:last").height() + 30//已经占用高度
             var remain = outerBox - lastTabPosi
-            var title_h = 40, padding = 10
+            var title_h = 40, padding = 0
             if ($scope.index == 1 || $scope.index == 2) {//选择题、判断题
                 var rowItme_h = 27;
                 if ($scope.result.thr <= 4) {//判断几个为一行
                     var row_h = 4
-                } else if ($scope.result.thr > 4 && $scope.result.thr <= 10) {
+                } else if ($scope.result.thr > 4 && $scope.result.thr <= 11) {
                     var row_h = 2
                 } else {
                     var row_h = 1
@@ -145,7 +145,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             if ($scope.index == 4) {//作文题
                 var rowItme_h = 35, score_h = 36;/*语文试卷*/
                 if ($scope.result.writIsradio == 1) {
-                    var row = Math.ceil($scope.result.plaid / 20)
+                    var row = Math.ceil($scope.result.plaid / 21)
                     result = remain - title_h - padding - score_h - row * rowItme_h > 0 ? true : false
                 } else if ($scope.result.writIsradio == 2) {
                     var row = parseInt($scope.result.enLine)
@@ -348,7 +348,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             var itemNumber = $scope.result.thr
         }
         if ($scope.result.writIsradio == 1) {
-            var row = Math.ceil($scope.result.plaid / 20)
+            var row = Math.ceil($scope.result.plaid / 21)
         }
         if ($scope.result.writIsradio == 2) {
             var row = $scope.result.enLine
@@ -381,7 +381,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         if ($scope.index == 4) {
             obj.articleType = $scope.result.writIsradio
             obj.rows = rosItem
-            obj.plaids = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+            obj.plaids = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,20]
             obj.row = row
             obj.plaid = $scope.result.plaid
         }
@@ -401,7 +401,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.setWidth
         if (itemNumber.length <= 4) {
             $scope.setWidth = 25 + '%'
-        } else if (itemNumber.length > 4 && itemNumber.length <= 10) {
+        } else if (itemNumber.length > 4 && itemNumber.length <= 11) {
             $scope.setWidth = 50 + '%'
         } else {
             $scope.setWidth = 100 + '%'
@@ -496,7 +496,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
         var dom = $(".conten").find("table").eq(index).find("thead").find("tr").eq(1).offset()
         scoreRect.score_rect_width = 698
-        scoreRect.score_rect_height = 40
+        scoreRect.score_rect_height = 20
         scoreRect.score_rect_x = parseInt(dom.left - dot.left)
         scoreRect.score_rect_y = parseInt(dom.top - dot.top)
         return scoreRect
@@ -572,7 +572,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var answerNumber = parseInt(answerNumber)//选项个数
         var dot = $(".position_TL span").eq(1).offset();
         dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
-        var item_w = 16, itemMarginLeft = 13;
+        var item_w = 16, itemMarginLeft = 11;
         for (var i = 1; i <= qNumer; i++) {//循环每个小题
             var itme_obj = {}
             itme_obj.no = startNo + i - 1
@@ -656,13 +656,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 itme_obj.block_height = 12//选项高度
                 itme_obj.score_rect_options = otherFillScoreRect(i - 1, obj[i - 1].current_page)//打分框区域的x坐标
                 itme_obj.score_rect_width = 690//打分框区域的宽度
-                itme_obj.score_rect_height = 40//打分框区域的高度
+                itme_obj.score_rect_height = 20//打分框区域的高度
                 itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page)
             } else {//作文题
                 itme_obj.block_width = 23//选项宽度
                 itme_obj.block_height = 12//选项高度
                 itme_obj.score_rect_width = 690//打分框区域的宽度
-                itme_obj.score_rect_height = 40//打分框区域的高度
+                itme_obj.score_rect_height = 20//打分框区域的高度
                 itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page)
             }
             BigQuestion.push(itme_obj)
