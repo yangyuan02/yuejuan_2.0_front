@@ -288,7 +288,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         if (isLine(0)) {
             obj.current_page = 1
             $scope.listObj.push(obj);
-            console.log(2222)
         } else if (isLine(1)) {
             obj.current_page = 1
             $scope.listObj2.push(obj);
