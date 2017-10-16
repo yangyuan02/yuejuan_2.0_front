@@ -753,10 +753,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 console.log($scope.listObj)
             }
             if(obj.type==3){//修改分数
-                var oldScore = obj.list[obj.index].itemCoresArr[obj.itmeIndex]//最开始的分数
-                obj.list[obj.index].itemCoresArr[obj.itmeIndex] = obj.score
-                obj.list[obj.index].totalCores = obj.list[obj.index].totalCores - oldScore + obj.score
-                $scope.countScore = $scope.countScore - oldScore + obj.score
+                var oldScore = Number(obj.list[obj.index].itemCoresArr[obj.itmeIndex])//最开始的分数
+                obj.list[obj.index].itemCoresArr[obj.itmeIndex] = Number(obj.score)
+                obj.list[obj.index].totalCores = Number(obj.list[obj.index].totalCores) - oldScore + Number(obj.score)
+                $scope.countScore = $scope.countScore - oldScore + Number(obj.score)
             }
         }
         function setAnswerGrounp(index){
