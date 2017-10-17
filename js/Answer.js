@@ -823,7 +823,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     })
                 }else if(type==2){
                     $scope.bigAnswer = data.answers.filter(function (ele) {//过滤出主观题
-                        return ele.item == '其他题' || ele.item == '填空题'
+                        return ele.item == '其他题' || ele.item == '填空题'|| ele.item == '作文题'
                     })
                 }
                 else {
