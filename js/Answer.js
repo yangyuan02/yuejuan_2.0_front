@@ -337,7 +337,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         obj.no = [];
         var nub = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
         $scope.nubarray = nub.slice(0, $scope.result.thr);//选项个数
-        var totaltwo = parseInt($scope.result.numbel) * parseInt($scope.result.itemcoreS)//总分数
+        var totaltwo = parseInt($scope.result.numbel) * Number($scope.result.itemcoreS)//总分数
         for (var i = 0; i < parseInt($scope.result.numbel); i++) {//多少个小题
             noarray.push(i + parseInt($scope.result.no));
         }
@@ -370,7 +370,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             no: noarray,//选项个数数组,
             itemNumber: itemNumber,//选项个数
             totalCores: $scope.index == 4 ? parseInt($scope.result.writscore) : totaltwo,//总分
-            itemCores: parseInt($scope.result.itemcoreS),//每小题分
+            itemCores: Number($scope.result.itemcoreS),//每小题分
             thr : $scope.index == 1 ? $scope.nubarray : ['T', 'F'], //选项ABCD(选择题和判断题)
             type: $scope.result.isradio == 2 ? 6 : $scope.index//题目类型
         }
