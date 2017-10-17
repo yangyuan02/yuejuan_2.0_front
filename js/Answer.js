@@ -126,7 +126,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             var remain = outerBox - lastTabPosi
             var title_h = 40, padding = 0
             if ($scope.index == 1 || $scope.index == 2) {//选择题、判断题
-                var rowItme_h = 27;
+                var rowItme_h = 27;//每行的高度
                 if ($scope.result.thr <= 4) {//判断几个为一行
                     var row_h = 4
                 } else if ($scope.result.thr > 4 && $scope.result.thr <= 11) {
@@ -382,7 +382,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         if ($scope.index == 4) {
             obj.articleType = $scope.result.writIsradio
             obj.rows = rosItem
-            obj.plaids = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,20]
+            obj.plaids = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,20]//21长度
             obj.row = row
             obj.plaid = $scope.result.plaid
         }
