@@ -369,7 +369,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             isradio: $scope.result.isradio,//单选多选
             startNo: parseInt($scope.result.no),//起始序号
             // currentPage: $scope.result.page == undefined ? 1 : $scope.result.page,//所在页码
-            no: noarray,//选项个数数组,
+            no: noarray,//序号数组,
             itemNumber: itemNumber,//选项个数
             totalCores: $scope.index == 4 ? parseInt($scope.result.writscore) : totaltwo,//总分
             itemCores: Number($scope.result.itemcoreS),//每小题分
@@ -762,11 +762,15 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 obj.list[obj.index].totalCores = Number(obj.list[obj.index].totalCores) - oldScore + Number(obj.score)
                 $scope.countScore = $scope.countScore - oldScore + Number(obj.score)
             }
+            if (obj.type == 4) {//修改标题
+                obj.list[obj.index].no[obj.itmeIndex] = obj.title_no
+            }
         }
 
         function setAnswerGrounp(index) {
             var config = {}
             config.name = options.name
+            config.title_no = options.title_no
             config.no = options.no
             config.type = options.type
             config.score = options.score
@@ -1327,7 +1331,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         });
     }
     $scope.setItmeScore = function (setting_id, score, itmeIndex) {//设置每小题分数
-        var isLogin = localStorage.getItem("token");
         $.ajax({
             type: "POST",
             url: "/api/v2/answer_settings/" + setting_id,
@@ -1355,19 +1358,29 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
         })
     }
-    $scope.setItmeNum = function (setting_id, num) {//设置题目序号
-        var isLogin = localStorage.getItem("token");
+    $scope.setItmeNum = function (setting_id, title_no,itmeIndex) {//设置题目序号
         $timeout(function () {
             $.ajax({
                 type: "POST",
                 url: "/api/v2/answer_settings/" + setting_id,
                 headers: {'Authorization': "Bearer " + isLogin},
                 data: {
-                    'answer_setting[num]': num
+                    'answer_setting[num]': title_no
                 },
                 async: false,
                 success: function (data) {
                     console.log(data)
+                    var options = {}
+                    options.type = 4
+                    options.title_no = title_no
+                    options.itmeIndex = itmeIndex
+                    var index;
+                    for (var i = 0; i < $scope.beforeBigAns.length; i++) {
+                        if ($scope.answers[0].answer_id == $scope.beforeBigAns[i].answer_id) {
+                            index = i
+                        }
+                    }
+                    findScopeList(index, options)
                 },
                 error: function () {
 
