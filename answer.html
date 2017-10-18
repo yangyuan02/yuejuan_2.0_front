@@ -479,8 +479,9 @@
                                     <td>
                                         <div class="chinese" ng-if="a.articleType==1">
                                             <div class="wirt_outer">
-                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows">
-                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids"></div>
+                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows" ng-init="plaidIndex = $index">
+                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids">
+                                                        <span ng-if="plaidIndex*21+$index==199||plaidIndex*21+$index==399||plaidIndex*21+$index==599||plaidIndex*21+$index==799||plaidIndex*21+$index==999">{{plaidIndex*21+$index+1}}</span>                                                    </div>
                                                 </div>
                                             </div>
                                         </div><!--语文作文题-->
@@ -488,7 +489,9 @@
                                             <div class="english_line" ng-repeat="row in a.rows"></div>
                                         </div><!-- 外语作文题-->
                                         <div class="en_word" ng-if="a.articleType==3">
-                                            <div class="word_itme" ng-repeat="row in a.rows"></div>
+                                            <div class="word_itme" ng-repeat="row in a.rows">
+                                                <span ng-if="$index==49||$index==59">{{$index+1}}</span>
+                                            </div>
                                         </div><!--单词隔行线-->
                                     </td>
                                 </tr>
@@ -598,7 +601,9 @@
                                                 </div>
                                                 <!--网络阅卷打分框end-->
                                             </div>
-                                            <div class="other_c"></div>
+                                            <div class="other_c">
+                                                <img ng-src="{{a.imgurl}}" alt="">
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -608,8 +613,9 @@
                                     <td>
                                         <div class="chinese" ng-if="a.articleType==1">
                                             <div class="wirt_outer">
-                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows">
-                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids"></div>
+                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows" ng-init="plaidIndex = $index">
+                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids">
+                                                        <span ng-if="plaidIndex*21+$index==199||plaidIndex*21+$index==399||plaidIndex*21+$index==599||plaidIndex*21+$index==799||plaidIndex*21+$index==999">{{plaidIndex*21+$index+1}}</span>                                                    </div>
                                                 </div>
                                             </div>
                                         </div><!--语文作文题-->
@@ -617,7 +623,9 @@
                                             <div class="english_line" ng-repeat="row in a.rows"></div>
                                         </div><!-- 外语作文题-->
                                         <div class="en_word" ng-if="a.articleType==3">
-                                            <div class="word_itme" ng-repeat="row in a.rows"></div>
+                                            <div class="word_itme" ng-repeat="row in a.rows">
+                                                <span ng-if="$index==49||$index==59">{{$index+1}}</span>
+                                            </div>
                                         </div><!--单词隔行线-->
                                     </td>
                                 </tr>
@@ -769,7 +777,9 @@
                                                 </div>
                                                 <!--网络阅卷打分框end-->
                                             </div>
-                                            <div class="other_c"></div>
+                                            <div class="other_c">
+                                                <img ng-src="{{a.imgurl}}" alt="">
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -779,8 +789,10 @@
                                     <td>
                                         <div class="chinese" ng-if="a.articleType==1">
                                             <div class="wirt_outer">
-                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows">
-                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids"></div>
+                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows" ng-init="plaidIndex = $index">
+                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids">
+                                                        <span ng-if="plaidIndex*21+$index==199||plaidIndex*21+$index==399||plaidIndex*21+$index==599||plaidIndex*21+$index==799||plaidIndex*21+$index==999">{{plaidIndex*21+$index+1}}</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div><!--语文作文题-->
@@ -788,7 +800,9 @@
                                             <div class="english_line" ng-repeat="row in a.rows"></div>
                                         </div><!-- 外语作文题-->
                                         <div class="en_word" ng-if="a.articleType==3">
-                                            <div class="word_itme" ng-repeat="row in a.rows"></div>
+                                            <div class="word_itme" ng-repeat="row in a.rows">
+                                                <span ng-if="$index==49||$index==59">{{$index+1}}</span>
+                                            </div>
                                         </div><!--单词隔行线-->
                                     </td>
                                 </tr>
@@ -898,7 +912,9 @@
                                                 </div>
                                                 <!--网络阅卷打分框end-->
                                             </div>
-                                            <div class="other_c"></div>
+                                            <div class="other_c">
+                                                <img ng-src="{{a.imgurl}}" alt="">
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -908,8 +924,10 @@
                                     <td>
                                         <div class="chinese" ng-if="a.articleType==1">
                                             <div class="wirt_outer">
-                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows">
-                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids"></div>
+                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows" ng-init="plaidIndex = $index">
+                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids">
+                                                        <span ng-if="plaidIndex*21+$index==199||plaidIndex*21+$index==399||plaidIndex*21+$index==599||plaidIndex*21+$index==799||plaidIndex*21+$index==999">{{plaidIndex*21+$index+1}}</span> <span ng-if="plaidIndex*21+$index+1==200||plaidIndex*21+$index+1==400||plaidIndex*21+$index+1==600||plaidIndex*21+$index+1==800||plaidIndex*21+$index+1==1000">{{plaidIndex*21+$index+1}}</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div><!--语文作文题-->
@@ -917,7 +935,9 @@
                                             <div class="english_line" ng-repeat="row in a.rows"></div>
                                         </div><!-- 外语作文题-->
                                         <div class="en_word" ng-if="a.articleType==3">
-                                            <div class="word_itme" ng-repeat="row in a.rows"></div>
+                                            <div class="word_itme" ng-repeat="row in a.rows">
+                                                <span ng-if="$index==49||$index==59">{{$index+1}}</span>
+                                            </div>
                                         </div><!--单词隔行线-->
                                     </td>
                                 </tr>
@@ -946,7 +966,7 @@
                         <div class="q_title"><p ng-bind="ans.answer_name"></p></div>
                         <div class="q_content clearfix">
                             <div class="set_q_item fl clearfix" ng-repeat="itmes in ans.settings">
-                                <div class="set_number fl"><input type="text" ng-keyup="setItmeNum(itmes.setting_id,itmes.setting_num)" ng-model="itmes.setting_num"></div>
+                                <div class="set_number fl"><input type="text" ng-keyup="setItmeNum(itmes.setting_id,itmes.setting_num,$index)" ng-model="itmes.setting_num"></div>
                                 <div class="set_options_itme fl clearfix">
                                     <div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.item=='单选题'" ng-repeat="itme in nub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>
                                     <div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.item=='多选题'" ng-repeat="itme in nub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>
@@ -1029,7 +1049,7 @@
                         <div class="q_title"><p ng-bind="ans.answer_name"></p></div>
                         <div class="q_content clearfix">
                             <div class="set_q_item fl clearfix" ng-repeat="itmes in ans.settings">
-                                <div class="set_number fl"><input type="text" ng-keyup="setItmeNum(itmes.setting_id,itmes.setting_num)" ng-model="itmes.setting_num"></div>
+                                <div class="set_number fl"><input type="text" ng-keyup="setItmeNum(itmes.setting_id,itmes.setting_num,$index)" ng-model="itmes.setting_num"></div>
                                 <div class="set_options_itme fl clearfix">
                                     <!--<div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.type=='xz'" ng-repeat="itme in nub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>-->
                                     <!--<div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.type=='sf'" ng-repeat="itme in rightNub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>-->
