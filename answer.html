@@ -479,8 +479,9 @@
                                     <td>
                                         <div class="chinese" ng-if="a.articleType==1">
                                             <div class="wirt_outer">
-                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows">
-                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids"></div>
+                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows" ng-init="plaidIndex = $index">
+                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids">
+                                                        <span ng-if="plaidIndex*21+$index==199||plaidIndex*21+$index==399||plaidIndex*21+$index==599||plaidIndex*21+$index==799||plaidIndex*21+$index==999">{{plaidIndex*21+$index+1}}</span>                                                    </div>
                                                 </div>
                                             </div>
                                         </div><!--语文作文题-->
@@ -488,7 +489,9 @@
                                             <div class="english_line" ng-repeat="row in a.rows"></div>
                                         </div><!-- 外语作文题-->
                                         <div class="en_word" ng-if="a.articleType==3">
-                                            <div class="word_itme" ng-repeat="row in a.rows"></div>
+                                            <div class="word_itme" ng-repeat="row in a.rows">
+                                                <span ng-if="$index==49||$index==59">{{$index+1}}</span>
+                                            </div>
                                         </div><!--单词隔行线-->
                                     </td>
                                 </tr>
@@ -610,8 +613,9 @@
                                     <td>
                                         <div class="chinese" ng-if="a.articleType==1">
                                             <div class="wirt_outer">
-                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows">
-                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids"></div>
+                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows" ng-init="plaidIndex = $index">
+                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids">
+                                                        <span ng-if="plaidIndex*21+$index==199||plaidIndex*21+$index==399||plaidIndex*21+$index==599||plaidIndex*21+$index==799||plaidIndex*21+$index==999">{{plaidIndex*21+$index+1}}</span>                                                    </div>
                                                 </div>
                                             </div>
                                         </div><!--语文作文题-->
@@ -619,7 +623,9 @@
                                             <div class="english_line" ng-repeat="row in a.rows"></div>
                                         </div><!-- 外语作文题-->
                                         <div class="en_word" ng-if="a.articleType==3">
-                                            <div class="word_itme" ng-repeat="row in a.rows"></div>
+                                            <div class="word_itme" ng-repeat="row in a.rows">
+                                                <span ng-if="$index==49||$index==59">{{$index+1}}</span>
+                                            </div>
                                         </div><!--单词隔行线-->
                                     </td>
                                 </tr>
@@ -783,8 +789,10 @@
                                     <td>
                                         <div class="chinese" ng-if="a.articleType==1">
                                             <div class="wirt_outer">
-                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows">
-                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids"></div>
+                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows" ng-init="plaidIndex = $index">
+                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids">
+                                                        <span ng-if="plaidIndex*21+$index==199||plaidIndex*21+$index==399||plaidIndex*21+$index==599||plaidIndex*21+$index==799||plaidIndex*21+$index==999">{{plaidIndex*21+$index+1}}</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div><!--语文作文题-->
@@ -792,7 +800,9 @@
                                             <div class="english_line" ng-repeat="row in a.rows"></div>
                                         </div><!-- 外语作文题-->
                                         <div class="en_word" ng-if="a.articleType==3">
-                                            <div class="word_itme" ng-repeat="row in a.rows"></div>
+                                            <div class="word_itme" ng-repeat="row in a.rows">
+                                                <span ng-if="$index==49||$index==59">{{$index+1}}</span>
+                                            </div>
                                         </div><!--单词隔行线-->
                                     </td>
                                 </tr>
@@ -914,8 +924,10 @@
                                     <td>
                                         <div class="chinese" ng-if="a.articleType==1">
                                             <div class="wirt_outer">
-                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows">
-                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids"></div>
+                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows" ng-init="plaidIndex = $index">
+                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids">
+                                                        <span ng-if="plaidIndex*21+$index==199||plaidIndex*21+$index==399||plaidIndex*21+$index==599||plaidIndex*21+$index==799||plaidIndex*21+$index==999">{{plaidIndex*21+$index+1}}</span> <span ng-if="plaidIndex*21+$index+1==200||plaidIndex*21+$index+1==400||plaidIndex*21+$index+1==600||plaidIndex*21+$index+1==800||plaidIndex*21+$index+1==1000">{{plaidIndex*21+$index+1}}</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div><!--语文作文题-->
@@ -923,7 +935,9 @@
                                             <div class="english_line" ng-repeat="row in a.rows"></div>
                                         </div><!-- 外语作文题-->
                                         <div class="en_word" ng-if="a.articleType==3">
-                                            <div class="word_itme" ng-repeat="row in a.rows"></div>
+                                            <div class="word_itme" ng-repeat="row in a.rows">
+                                                <span ng-if="$index==49||$index==59">{{$index+1}}</span>
+                                            </div>
                                         </div><!--单词隔行线-->
                                     </td>
                                 </tr>

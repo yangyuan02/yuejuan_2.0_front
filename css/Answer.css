@@ -747,7 +747,20 @@ input:focus{
     padding:8px 0px;
     padding-left:6px;
 }
-
+/*下标*/
+.Answer .A_R .A_Rone .A_Rone_child table .chinese .plaid,
+.Answer .A_R .A_Rone .A_Rone_child table .en_word .word_itme
+{
+    position:relative;
+}
+.Answer .A_R .A_Rone .A_Rone_child table .chinese .plaid span,
+.Answer .A_R .A_Rone .A_Rone_child table .en_word .word_itme span
+{
+    position: absolute;
+    right: 0px;
+    bottom: -6px;
+    transform: scale(0.9);
+}
 
 
 /********************语文试卷样式***************/
