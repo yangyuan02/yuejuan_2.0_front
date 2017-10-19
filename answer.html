@@ -334,7 +334,7 @@
                                 <h2 ng-bind="subjectName+'试卷答题纸'"></h2>
                             </div>
                             <div class="student {{tabParentIndex==-1&&tabIndex==-1?'table_focus':''}}" ng-click="getTableIndex(-1,-1)">
-                                <div class="student_L">
+                                <div class="student_L" style="width:{{candlen>9?'100%':'50%'}}">
                                     <div class="student_number">考生号</div>
                                     <div class="student_number1">
                                         <ul>
@@ -356,7 +356,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="student_R">
+                                <div class="student_R" ng-if="candlen>9?false:true">
                                     <div class="bar_code">
                                         <div class="code_box_dashed">
                                             <div class="code_box_line">
