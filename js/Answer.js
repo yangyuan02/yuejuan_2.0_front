@@ -340,8 +340,12 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var nub = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
         $scope.nubarray = nub.slice(0, $scope.result.thr);//选项个数
         var totaltwo = parseInt($scope.result.numbel) * Number($scope.result.itemcoreS)//总分数
+        var otherHeight = []
         for (var i = 0; i < parseInt($scope.result.numbel); i++) {//多少个小题
             noarray.push(i + parseInt($scope.result.no));
+            if($scope.index==5){
+                otherHeight.push(150)//其他题默认150px
+            }
         }
         if ($scope.index == 2) {
             var itemNumber = 2
@@ -374,7 +378,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             totalCores: $scope.index == 4 ? parseInt($scope.result.writscore) : totaltwo,//总分
             itemCores: Number($scope.result.itemcoreS),//每小题分
             thr: $scope.index == 1 ? $scope.nubarray : ['T', 'F'], //选项ABCD(选择题和判断题)
-            type: $scope.result.isradio == 2 ? 6 : $scope.index//题目类型
+            type: $scope.result.isradio == 2 ? 6 : $scope.index,//题目类型
+            otherHeight:otherHeight//其他题高度
         }
         var itemCoresArr = []//每题分数数组
         for (var i = 0; i < obj.numbel; i++) {
@@ -399,6 +404,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.createAsswer(obj)
         clear()
         close()
+        console.log($scope.listObj)
     };
     $scope.setItmeWidth = function (itemNumber) {
         $scope.setWidth
@@ -1628,7 +1634,19 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.tabParentIndex = tabParentIndex
         $scope.tabIndex = tabIndex
         $scope.showMenuFlag = true
-        console.log($scope.tabParentIndex, $scope.tabIndex)
+        if ($scope.tabParentIndex == 0) {
+            $scope.otherHeight = $scope.listObj[$scope.tabIndex].otherHeight
+        }
+        if ($scope.tabParentIndex == 1) {
+            $scope.otherHeight = $scope.listObj2[$scope.tabIndex].otherHeight
+        }
+        if ($scope.tabParentIndex == 2) {
+            $scope.otherHeight = $scope.listObj3[$scope.tabIndex].otherHeight
+        }
+        if ($scope.tabParentIndex == 3) {
+            $scope.otherHeight = $scope.listObj4[$scope.tabIndex].otherHeight
+        }
+        console.log($scope.tabParentIndex,$scope.tabIndex)
     }
 
     var eleFile = document.getElementById("imgOne")
@@ -1663,8 +1681,20 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         })
     }
     /*设置题组高度*/
-    $scope.setGroupHeigh = function (height) {
-        
+    $scope.setGroupHeigh = function (heights) {
+        if ($scope.tabParentIndex == 0) {
+            $scope.listObj[$scope.tabIndex].otherHeight = heights.split(',')
+        }
+        if ($scope.tabParentIndex == 1) {
+            $scope.listObj2[$scope.tabIndex].otherHeight = heights.split(',')
+        }
+        if ($scope.tabParentIndex == 2) {
+            $scope.listObj3[$scope.tabIndex].otherHeight = heights.split(',')
+        }
+        if ($scope.tabParentIndex == 3) {
+            $scope.listObj4[$scope.tabIndex].otherHeight = heights.split(',')
+        }
+        $scope.closeCand()
     }
     /*******************************保存*************************************************/
     $scope.save = function () {//保存模板

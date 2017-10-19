@@ -467,7 +467,7 @@
                                                 </div>
                                                 <!--网络阅卷打分框end-->
                                             </div>
-                                            <div class="other_c">
+                                            <div class="other_c" style="height: {{a.otherHeight[$index]+'px'}};">
                                                 <img ng-src="{{a.imgurl}}" alt="">
                                             </div>
                                         </div>
@@ -601,7 +601,7 @@
                                                 </div>
                                                 <!--网络阅卷打分框end-->
                                             </div>
-                                            <div class="other_c">
+                                            <div class="other_c" style="height: {{a.otherHeight[$index]+'px'}};">
                                                 <img ng-src="{{a.imgurl}}" alt="">
                                             </div>
                                         </div>
@@ -777,7 +777,7 @@
                                                 </div>
                                                 <!--网络阅卷打分框end-->
                                             </div>
-                                            <div class="other_c">
+                                            <div class="other_c" style="height: {{a.otherHeight[$index]+'px'}};">
                                                 <img ng-src="{{a.imgurl}}" alt="">
                                             </div>
                                         </div>
@@ -912,7 +912,7 @@
                                                 </div>
                                                 <!--网络阅卷打分框end-->
                                             </div>
-                                            <div class="other_c">
+                                            <div class="other_c" style="height: {{a.otherHeight[$index]+'px'}};">
                                                 <img ng-src="{{a.imgurl}}" alt="">
                                             </div>
                                         </div>
@@ -1130,7 +1130,7 @@
         <div class="cand_title">设置题组高度</div>
         <div class="cand_con clearfix">
             <p class="fl">题组高度</p>
-            <p class="fl"><input type="text" ng-model="GroupHeigh"></p>
+            <p class="fl"><input type="text" ng-model="GroupHeigh" placeholder="当前题组高度为{{otherHeight.join(',')}}"></p>
         </div>
         <div class="cand_btn"><a ng-click="setGroupHeigh(GroupHeigh)">确定</a></div>
         <div class="cand_close" ng-click="closeCand()">x</div>
