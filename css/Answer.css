@@ -502,7 +502,7 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     line-height:20px;
 }
 .nomal .mian-cont .bigquestion .q_content .set_q_item .set_number input{
-    width:100%;
+    width:79%;
     height:100%;
     border:none;
     color: #31bc91;
