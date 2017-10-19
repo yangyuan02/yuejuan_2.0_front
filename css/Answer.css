@@ -82,11 +82,11 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     margin-left:10px;
 }
 .Answer .A_R .A_Rone {width:720px;box-sizing:border-box;height:910px;padding: 10px;border: 1px solid #ddd;border-radius: 10px;float:left;position:relative;overflow:hidden}
-.Answer .A_R .A_Rone .A_Rone_child table{width: 100%;margin-bottom: 14px;border: 1px solid black;padding:0px 10px;}
-.Answer .A_R .A_Rone .A_Rone_child table thead tr th{height: 20px;padding: 0px 5px;font-size: 12px;text-align: left;padding-top:10px;}
-.Answer .A_R .A_Rone .A_Rone_child table tbody tr td{height: 20px;padding: 5px 5px;font-size: 12px;}
+.Answer .A_R .A_Rone .A_Rone_child table{width: 100%;margin-bottom: 4px;border: 1px solid black;padding:0px 10px;}
+.Answer .A_R .A_Rone .A_Rone_child table thead tr th{height: 20px;font-size: 12px;text-align: left;}
+.Answer .A_R .A_Rone .A_Rone_child table tbody tr td{height: 20px;font-size: 12px;}
 .Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c {width: 25%;display: inline-block;padding: 5px 0;}
-.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span {margin-right: 13px;}
+.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span {margin-right: 11px;}
 .Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span:first-child{
     width:16.8px;
 }
@@ -318,6 +318,13 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
 .Answer .A_R .A_Rone .A_Rone_child table tbody .other_c{
     width:100%;
     height:150px;
+    position:relative;
+}
+.Answer .A_R .A_Rone .A_Rone_child table tbody .other_c img{
+    position:absolute;
+    top:10px;
+    right:0px;
+    height:140px;
 }
 .Answer .A_R .A_Rone .A_Rone_child table tbody .other_h{
     width:100%;
@@ -346,11 +353,12 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     margin-bottom:2px;
 }
 .Answer .A_R .A_Rone .A_Rone_child table .chinese:last-child{
+    width:652px;
     border-bottom:1px solid black;
 }
 .Answer .A_R .A_Rone .A_Rone_child table .chinese .plaid{
-    width:32px;
-    height:33px;
+    width:30px;
+    height:29px;
     border:1px solid black;
     border-right:0px;
     border-bottom:0px;
@@ -362,13 +370,13 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
 .Answer .A_R .A_Rone .A_Rone_child table .english .english_line{
     width:100%;
     border-bottom:1px solid black;
-    height:40px;
+    height:36px;
 }
 /*单词间隔线*/
 .Answer .A_R .A_Rone .A_Rone_child table .en_word .word_itme{
-    width:76px;
+    width:75px;
     border-bottom:1px dashed black;
-    height:40px;
+    height:34px;
     float:left;
     margin-right:10px;
 }
@@ -624,8 +632,10 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
 .paper a{
     border-color:#fff !important;
     color:#fff !important;
+    /*display:none;*/
 }
 .paperno{
+    /*display:none;*/
     border-color:#fff !important;
     color:#fff !important;
 }
@@ -645,3 +655,131 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
 .Answer .L_ul li .addQ .pd .cancel{
     background:#ccc;
 }
+/*右击菜单功能*/
+#menu{
+    width:200px;
+    height:auto;
+    background:#fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    border:1px solid #eeeeee;
+    position: absolute;
+    z-index: 1000;
+    display:none;
+}
+#menu ul li{
+    height: 32px;
+    line-height: 32px;
+    text-align: left;
+    font-size: 14px;
+    padding-left:24px;
+    cursor:pointer;
+}
+#menu ul li:hover{
+    background:#e1e1e1;
+}
+.cand{
+    width:360px;
+    height:130px;
+    background:#fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    border:1px solid #eeeeee;
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    z-index: 1000;
+    display:none;
+    font-size: 16px;
+    font-weight:bold;
+}
+.cand .cand_title{
+    padding:10px 0px;
+    text-align:center;
+}
+.cand .cand_con{
+    padding:0px 20px;
+}
+.cand .cand_con p:first-child
+{
+    height:30px;
+    line-height:30px;
+    margin-right:20px;
+}
+.cand .cand_con p:last-child input{
+    height:30px;
+    line-height:30px;
+    width:228px;
+}
+.cand .cand_btn{
+    margin-top:10px;
+}
+.cand .cand_btn a{
+    padding:6px 18px;
+    background:#fff;
+    border:1px solid #eee;
+    font-size: 12px;
+    color: #000;
+    border-radius:4px;
+    float: right;
+    margin-right:20px;
+    cursor:pointer;
+}
+.cand .cand_close{
+    position:absolute;
+    right:10px;
+    top:10px;
+    cursor: pointer;
+}
+input{
+    border:1px solid #eee;
+    padding-left:6px;
+}
+input:focus{
+    padding-left:6px;
+    border:1px solid #31bc91;
+}
+.table_focus{
+    border:1px solid #31bc91!important;
+}
+.pic_box input[type="file"]{
+    height: auto !important;
+    line-height:0px !important;
+    padding:8px 0px;
+    padding-left:6px;
+}
+/*下标*/
+.Answer .A_R .A_Rone .A_Rone_child table .chinese .plaid,
+.Answer .A_R .A_Rone .A_Rone_child table .en_word .word_itme
+{
+    position:relative;
+}
+.Answer .A_R .A_Rone .A_Rone_child table .chinese .plaid span,
+.Answer .A_R .A_Rone .A_Rone_child table .en_word .word_itme span
+{
+    position: absolute;
+    right: 0px;
+    bottom: -6px;
+    transform: scale(0.9);
+}
+
+
+/********************语文试卷样式***************/
+/*table thead tr:last-child{*/
+    /*display:none!important;*/
+/*}*/
+/*table{*/
+    /*margin-bottom:0px !important;*/
+    /*border-bottom:none;*/
+/*}*/
+/*table:last-child{*/
+    /*border-bottom:1px solid #000;*/
+/*}*/
+/*.english_line{*/
+    /*height:0px;*/
+/*}*/
+/*.Answer .A_R .A_Rone .A_Rone_child table .english .english_line{*/
+    /*height:18px;*/
+/*}*/
+/*.Answer .A_R .A_Rone .A_Rone_child table thead tr th{*/
+    /*padding-top:0px;*/
+/*}*/

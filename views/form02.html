@@ -28,7 +28,7 @@
 <img src="img/form02.png" alt="">
 <div class="r2_02">
 <ul>
-	<li><a>考试人数<span class="r2_02_01">0</span></a></li>
+	<li><a>考试人数<span class="r2_02_01"><i class="r2_02_01_i01" style="font-style:normal;">0</i><i class="r2_02_01_i02" style="font-style:normal;"></i></span></a></li>
 	<li><a>平均分<span class="r2_02_02">0</span></a></li>
 
 </ul>	
@@ -58,18 +58,18 @@
 <i class="mark_i"></i>
 <span>分数段分布</span>	
 </div>
-<div style="position: relative;"><span style="position: absolute;top: 10px;left: 40px;font-size: 14px;color: #666666;">人数</span></div>
 <div class="right_03" id="right_03" style="width:900px;
    height: 335px;"> 
 </div>
- <div style="position: relative;"><span style="position: absolute;top:-30px;right:10px;font-size: 14px;color: #666666;">分数段</span></div> 
-
 <div class="tab">
 <div class="mark_03">
 <i class="mark_i"></i>
 <span>年级学科趋势</span>	
+<select id="mark_bj">
+  
+</select>
+<span>班级</span> 
 </div>
-<div style="position: relative;"><span style="position: absolute;top: 10px;left:0px;font-size:14px;color: #666666;">分数</span></div>
 <div class="right_04" id="right_04" style="width:900px;
    height: 272px;">
 </div>
@@ -78,6 +78,8 @@
 <div class="mark_03">
 <i class="mark_i"></i>
 <span>年级成绩大幅变化</span>
+<a><button type="" class="mark_btn_01 determine" style="float:right;">导出
+    </button></a>
 <select id="myselect">
 
   <option value="10">10</option>
@@ -87,6 +89,7 @@
    <option value="50">50</option>
 </select>
 <span>显示人数</span>	
+
 </div>
 <div class="right_05" id="right_5">
 <div class="r5_1">
@@ -94,7 +97,6 @@
 <span>年级成绩大幅进步</span>
 </div>
 <div class="r5_11" id="r5_11">
-
 <table cellspacing="0" border="1" style="border-collapse:collapse;width:411px;border-color:#cccccc"  bordercolor="#cccccc" >
 <thead>
   <tr>
@@ -135,12 +137,71 @@
   </tbody>
 </table>
 </div>
+</div>
+<div class="r5_3">
+<div class="r5_30">
+<span>年级前<a style="color: #ffffff;">10</a>名</span>
+</div>
+<div class="r5_31" id="r5_11">
+<table cellspacing="0" border="1" style="border-collapse:collapse;width:411px;border-color:#cccccc"  bordercolor="#cccccc" >
+<thead>
+  <tr>
+    <th>姓名</th>
+     <th>年级排名</th>
+     <th>班级</th>
+  </tr>
+  </thead>
+  </table>
+<div style="width: 441px;max-height: 441px;overflow-x:auto;">
+<table cellspacing="0" border="1" style="border-collapse:collapse;width:411px;border-color:#cccccc"  bordercolor="#cccccc" >
+  <tbody id="r5_11_tbody03">
+    
+  </tbody>
+</table>
+</div>
+
+</div>
+
+</div>
+<div class="r5_4">
+<div style="padding-left:380px;margin-bottom:20px;">
+<a><button type="" class="mark_btn_02 determine">导出
+    </button></a></div>
+<div class="r5_41">
+<span>年级后<a style="color: #ffffff;">10</a>名</span>
+</div>
+<table cellspacing="0" border="1" style="border-collapse:collapse;width:411px;border-color:#cccccc"  bordercolor="#cccccc">
+  <thead>
+  <tr>
+    <th>姓名</th>
+     <th>年级排名</th>
+     <th>班级</th>
+  </tr>
+  </thead>
+  </table>
+  <div style="width: 441px;max-height:441px;overflow-x:auto;">
+<table cellspacing="0" border="1" style="border-collapse:collapse;width:411px;border-color:#cccccc"  bordercolor="#cccccc">
+ 
+  <tbody id="r5_11_tbody04">
+  </tbody>
+</table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
 
 </div>
 
 
 
-</div>
 
 
 

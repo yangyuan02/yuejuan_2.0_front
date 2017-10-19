@@ -333,107 +333,16 @@
                             <div class="school_title">
                                 <h2 ng-bind="subjectName+'试卷答题纸'"></h2>
                             </div>
-                            <div class="student">
-                                <div class="student_L">
+                            <div class="student {{tabParentIndex==-1&&tabIndex==-1?'table_focus':''}}" ng-click="getTableIndex(-1,-1)">
+                                <div class="student_L" style="width:{{candlen>9?'100%':'50%'}}">
                                     <div class="student_number">考生号</div>
                                     <div class="student_number1">
                                         <ul>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
+                                            <li ng-repeat="cand in candNumber" style="width:{{100/candlen+'%'}}"></li>
                                         </ul>
                                     </div>
                                     <div class="student_number3">
-                                        <ul>
-                                            <li>0</li>
-                                            <li>1</li>
-                                            <li>2</li>
-                                            <li>3</li>
-                                            <li>4</li>
-                                            <li>5</li>
-                                            <li>6</li>
-                                            <li>7</li>
-                                            <li>8</li>
-                                            <li>9</li>
-                                        </ul>
-                                        <ul>
-                                            <li>0</li>
-                                            <li>1</li>
-                                            <li>2</li>
-                                            <li>3</li>
-                                            <li>4</li>
-                                            <li>5</li>
-                                            <li>6</li>
-                                            <li>7</li>
-                                            <li>8</li>
-                                            <li>9</li>
-                                        </ul>
-                                        <ul>
-                                            <li>0</li>
-                                            <li>1</li>
-                                            <li>2</li>
-                                            <li>3</li>
-                                            <li>4</li>
-                                            <li>5</li>
-                                            <li>6</li>
-                                            <li>7</li>
-                                            <li>8</li>
-                                            <li>9</li>
-                                        </ul>
-                                        <ul>
-                                            <li>0</li>
-                                            <li>1</li>
-                                            <li>2</li>
-                                            <li>3</li>
-                                            <li>4</li>
-                                            <li>5</li>
-                                            <li>6</li>
-                                            <li>7</li>
-                                            <li>8</li>
-                                            <li>9</li>
-                                        </ul>
-                                        <ul>
-                                            <li>0</li>
-                                            <li>1</li>
-                                            <li>2</li>
-                                            <li>3</li>
-                                            <li>4</li>
-                                            <li>5</li>
-                                            <li>6</li>
-                                            <li>7</li>
-                                            <li>8</li>
-                                            <li>9</li>
-                                        </ul>
-                                        <ul>
-                                            <li>0</li>
-                                            <li>1</li>
-                                            <li>2</li>
-                                            <li>3</li>
-                                            <li>4</li>
-                                            <li>5</li>
-                                            <li>6</li>
-                                            <li>7</li>
-                                            <li>8</li>
-                                            <li>9</li>
-                                        </ul>
-                                        <ul>
-                                            <li>0</li>
-                                            <li>1</li>
-                                            <li>2</li>
-                                            <li>3</li>
-                                            <li>4</li>
-                                            <li>5</li>
-                                            <li>6</li>
-                                            <li>7</li>
-                                            <li>8</li>
-                                            <li>9</li>
-                                        </ul>
-                                        <ul>
+                                        <ul ng-repeat="cand in candNumber">
                                             <li>0</li>
                                             <li>1</li>
                                             <li>2</li>
@@ -447,7 +356,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="student_R">
+                                <div class="student_R" ng-if="candlen>9?false:true">
                                     <div class="bar_code">
                                         <div class="code_box_dashed">
                                             <div class="code_box_line">
@@ -471,7 +380,7 @@
                         </div>
                         <!--考试个人信息结束-->
                         <div class="A_Rone_child">
-                            <table ng-repeat="a in listObj">
+                            <table ng-repeat="a in listObj" ng-click="getTableIndex(0,$index)" class="{{tabParentIndex==0&&tabIndex==$index?'table_focus':''}}">
                                 <thead>
                                 <tr>
                                     <th>
@@ -558,7 +467,9 @@
                                                 </div>
                                                 <!--网络阅卷打分框end-->
                                             </div>
-                                            <div class="other_c"></div>
+                                            <div class="other_c">
+                                                <img ng-src="{{a.imgurl}}" alt="">
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -568,8 +479,9 @@
                                     <td>
                                         <div class="chinese" ng-if="a.articleType==1">
                                             <div class="wirt_outer">
-                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows">
-                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids"></div>
+                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows" ng-init="plaidIndex = $index">
+                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids">
+                                                        <span ng-if="plaidIndex*21+$index==199||plaidIndex*21+$index==399||plaidIndex*21+$index==599||plaidIndex*21+$index==799||plaidIndex*21+$index==999">{{plaidIndex*21+$index+1}}</span>                                                    </div>
                                                 </div>
                                             </div>
                                         </div><!--语文作文题-->
@@ -577,7 +489,9 @@
                                             <div class="english_line" ng-repeat="row in a.rows"></div>
                                         </div><!-- 外语作文题-->
                                         <div class="en_word" ng-if="a.articleType==3">
-                                            <div class="word_itme" ng-repeat="row in a.rows"></div>
+                                            <div class="word_itme" ng-repeat="row in a.rows">
+                                                <span ng-if="$index==49||$index==59">{{$index+1}}</span>
+                                            </div>
                                         </div><!--单词隔行线-->
                                     </td>
                                 </tr>
@@ -595,7 +509,7 @@
                             <p>请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效</p>
                         </div>
                         <div class="A_Rone_child">
-                            <table ng-repeat="a in listObj2">
+                            <table ng-repeat="a in listObj2" ng-click="getTableIndex(1,$index)" class="{{tabParentIndex==1&&tabIndex==$index?'table_focus':''}}">
                                 <thead>
                                 <tr>
                                     <th>
@@ -687,7 +601,9 @@
                                                 </div>
                                                 <!--网络阅卷打分框end-->
                                             </div>
-                                            <div class="other_c"></div>
+                                            <div class="other_c">
+                                                <img ng-src="{{a.imgurl}}" alt="">
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -697,8 +613,9 @@
                                     <td>
                                         <div class="chinese" ng-if="a.articleType==1">
                                             <div class="wirt_outer">
-                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows">
-                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids"></div>
+                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows" ng-init="plaidIndex = $index">
+                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids">
+                                                        <span ng-if="plaidIndex*21+$index==199||plaidIndex*21+$index==399||plaidIndex*21+$index==599||plaidIndex*21+$index==799||plaidIndex*21+$index==999">{{plaidIndex*21+$index+1}}</span>                                                    </div>
                                                 </div>
                                             </div>
                                         </div><!--语文作文题-->
@@ -706,7 +623,9 @@
                                             <div class="english_line" ng-repeat="row in a.rows"></div>
                                         </div><!-- 外语作文题-->
                                         <div class="en_word" ng-if="a.articleType==3">
-                                            <div class="word_itme" ng-repeat="row in a.rows"></div>
+                                            <div class="word_itme" ng-repeat="row in a.rows">
+                                                <span ng-if="$index==49||$index==59">{{$index+1}}</span>
+                                            </div>
                                         </div><!--单词隔行线-->
                                     </td>
                                 </tr>
@@ -771,7 +690,7 @@
                             <p>请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效</p>
                         </div>
                         <div class="A_Rone_child">
-                            <table ng-repeat="a in listObj3">
+                            <table ng-repeat="a in listObj3" ng-click="getTableIndex(2,$index)" class="{{tabParentIndex==2&&tabIndex==$index?'table_focus':''}}">
                                 <thead>
                                 <tr>
                                     <th>
@@ -858,7 +777,9 @@
                                                 </div>
                                                 <!--网络阅卷打分框end-->
                                             </div>
-                                            <div class="other_c"></div>
+                                            <div class="other_c">
+                                                <img ng-src="{{a.imgurl}}" alt="">
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -868,8 +789,10 @@
                                     <td>
                                         <div class="chinese" ng-if="a.articleType==1">
                                             <div class="wirt_outer">
-                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows">
-                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids"></div>
+                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows" ng-init="plaidIndex = $index">
+                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids">
+                                                        <span ng-if="plaidIndex*21+$index==199||plaidIndex*21+$index==399||plaidIndex*21+$index==599||plaidIndex*21+$index==799||plaidIndex*21+$index==999">{{plaidIndex*21+$index+1}}</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div><!--语文作文题-->
@@ -877,7 +800,9 @@
                                             <div class="english_line" ng-repeat="row in a.rows"></div>
                                         </div><!-- 外语作文题-->
                                         <div class="en_word" ng-if="a.articleType==3">
-                                            <div class="word_itme" ng-repeat="row in a.rows"></div>
+                                            <div class="word_itme" ng-repeat="row in a.rows">
+                                                <span ng-if="$index==49||$index==59">{{$index+1}}</span>
+                                            </div>
                                         </div><!--单词隔行线-->
                                     </td>
                                 </tr>
@@ -895,7 +820,7 @@
                             <p>请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效</p>
                         </div>
                         <div class="A_Rone_child">
-                            <table ng-repeat="a in listObj4">
+                            <table ng-repeat="a in listObj4" ng-click="getTableIndex(3,$index)" class="{{tabParentIndex==3&&tabIndex==$index?'table_focus':''}}">
                                 <thead>
                                 <tr>
                                     <th>
@@ -987,7 +912,9 @@
                                                 </div>
                                                 <!--网络阅卷打分框end-->
                                             </div>
-                                            <div class="other_c"></div>
+                                            <div class="other_c">
+                                                <img ng-src="{{a.imgurl}}" alt="">
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -997,8 +924,10 @@
                                     <td>
                                         <div class="chinese" ng-if="a.articleType==1">
                                             <div class="wirt_outer">
-                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows">
-                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids"></div>
+                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows" ng-init="plaidIndex = $index">
+                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids">
+                                                        <span ng-if="plaidIndex*21+$index==199||plaidIndex*21+$index==399||plaidIndex*21+$index==599||plaidIndex*21+$index==799||plaidIndex*21+$index==999">{{plaidIndex*21+$index+1}}</span> <span ng-if="plaidIndex*21+$index+1==200||plaidIndex*21+$index+1==400||plaidIndex*21+$index+1==600||plaidIndex*21+$index+1==800||plaidIndex*21+$index+1==1000">{{plaidIndex*21+$index+1}}</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div><!--语文作文题-->
@@ -1006,7 +935,9 @@
                                             <div class="english_line" ng-repeat="row in a.rows"></div>
                                         </div><!-- 外语作文题-->
                                         <div class="en_word" ng-if="a.articleType==3">
-                                            <div class="word_itme" ng-repeat="row in a.rows"></div>
+                                            <div class="word_itme" ng-repeat="row in a.rows">
+                                                <span ng-if="$index==49||$index==59">{{$index+1}}</span>
+                                            </div>
                                         </div><!--单词隔行线-->
                                     </td>
                                 </tr>
@@ -1035,7 +966,7 @@
                         <div class="q_title"><p ng-bind="ans.answer_name"></p></div>
                         <div class="q_content clearfix">
                             <div class="set_q_item fl clearfix" ng-repeat="itmes in ans.settings">
-                                <div class="set_number fl"><input type="text" ng-keyup="setItmeNum(itmes.setting_id,itmes.setting_num)" ng-model="itmes.setting_num"></div>
+                                <div class="set_number fl"><input type="text" ng-keyup="setItmeNum(itmes.setting_id,itmes.setting_num,$index)" ng-model="itmes.setting_num"></div>
                                 <div class="set_options_itme fl clearfix">
                                     <div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.item=='单选题'" ng-repeat="itme in nub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>
                                     <div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.item=='多选题'" ng-repeat="itme in nub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>
@@ -1118,7 +1049,7 @@
                         <div class="q_title"><p ng-bind="ans.answer_name"></p></div>
                         <div class="q_content clearfix">
                             <div class="set_q_item fl clearfix" ng-repeat="itmes in ans.settings">
-                                <div class="set_number fl"><input type="text" ng-keyup="setItmeNum(itmes.setting_id,itmes.setting_num)" ng-model="itmes.setting_num"></div>
+                                <div class="set_number fl"><input type="text" ng-keyup="setItmeNum(itmes.setting_id,itmes.setting_num,$index)" ng-model="itmes.setting_num"></div>
                                 <div class="set_options_itme fl clearfix">
                                     <!--<div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.type=='xz'" ng-repeat="itme in nub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>-->
                                     <!--<div class="child_option_itme fl {{itmes.setting_result.split(',')[$index]==1?'active':''}}" ng-show="ans.type=='sf'" ng-repeat="itme in rightNub.slice(0,itmes.setting_result.split(',').length)" ng-click="setItemAnswer(outerIndex,$parent.$index,$index,itmes.setting_result,itmes.setting_id)" ng-bind="itme"></div>-->
@@ -1150,6 +1081,49 @@
         </div>
     </div>
     <!--设置主观题弹窗结束-->
+    <!--右击菜单开始-->
+    <div id="menu">
+        <ul>
+            <li class="meun_navbar" ng-click="dayin()">打印</li>
+            <li class="meun_navbar" ng-click="showCandNumber()">设置考号</li>
+            <li class="meun_navbar">文档类型</li>
+            <li class="meun_navbar" ng-click="showPicAlert()">插入图片</li>
+            <li class="meun_navbar">信息栏置于左侧</li>
+            <li class="meun_navbar" ng-click="checkTestType(1)">打印方式:{{myDayinType==0?'单面':'双面'}}</li>
+            <li class="meun_navbar">信息框置于左侧</li>
+            <li class="meun_navbar">插入单元格</li>
+            <li class="meun_navbar" ng-click="add(4)">插入语文作文格</li>
+            <li class="meun_navbar" ng-click="add(4)">插入英文作文行线</li>
+            <li class="meun_navbar" ng-click="add(4)">插入英文单词间隔行线</li>
+            <li class="meun_navbar" ng-click="checkTestType(2)">{{showItmeScoreType==0?'标注':'隐藏'}}小题分值</li>
+            <li class="meun_navbar" ng-bind="paperType==0?'手工阅卷模式':'网上阅卷模式'" ng-click="checkTestType(0)"></li>
+            <li class="meun_navbar">插入题目分割线</li>
+            <li class="meun_navbar" ng-click="save()">保存排版</li>
+        </ul>
+    </div>
+    <!--右击菜单结束-->
+    <!--设置考号弹窗开始-->
+    <div class="cand cand_box">
+        <div class="cand_title">设置考号信息框</div>
+        <div class="cand_con clearfix">
+            <p class="fl">考号长度</p>
+            <p class="fl"><input type="text" ng-model="candlen"></p>
+        </div>
+        <div class="cand_btn"><a ng-click="setCandNumber(candlen)">确定</a></div>
+        <div class="cand_close" ng-click="closeCand()">x</div>
+    </div>
+    <!--设置考号弹窗结束-->
+    <!--设置插入图片弹窗开始-->
+    <div class="cand pic_box">
+        <div class="cand_title">添加图片</div>
+        <div class="cand_con clearfix">
+            <p class="fl">选择图片</p>
+            <p class="fl"><input type="file" name="imgOne" id="imgOne"></p>
+        </div>
+        <div class="cand_btn"><a ng-click="insertPic()">确定</a></div>
+        <div class="cand_close" ng-click="closeCand()">x</div>
+    </div>
+    <!--设置插入图片弹窗结束-->
 </div>
 
 <script src="js/Answer.js" type="text/javascript" charset="utf-8"></script>
