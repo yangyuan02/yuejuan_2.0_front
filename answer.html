@@ -334,7 +334,7 @@
                                 <h2 ng-bind="subjectName+'试卷答题纸'"></h2>
                             </div>
                             <div class="student {{tabParentIndex==-1&&tabIndex==-1?'table_focus':''}}" ng-click="getTableIndex(-1,-1)">
-                                <div class="student_L" style="width:{{candlen>9?'100%':'50%'}}">
+                                <div class="student_L" style="width:{{candlen>10?'100%':'50%'}}">
                                     <div class="student_number">考生号</div>
                                     <div class="student_number1">
                                         <ul>
@@ -356,7 +356,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="student_R" ng-if="candlen>9?false:true">
+                                <div class="student_R" ng-if="candlen>10?false:true">
                                     <div class="bar_code">
                                         <div class="code_box_dashed">
                                             <div class="code_box_line">
@@ -1085,19 +1085,20 @@
     <div id="menu">
         <ul>
             <li class="meun_navbar" ng-click="dayin()">打印</li>
-            <li class="meun_navbar" ng-click="showCandNumber()">设置考号</li>
-            <li class="meun_navbar">文档类型</li>
-            <li class="meun_navbar" ng-click="showPicAlert()">插入图片</li>
-            <li class="meun_navbar">信息栏置于左侧</li>
+            <li class="meun_navbar" ng-click="showModel('cand_box')">设置考号</li>
+            <!--<li class="meun_navbar">文档类型</li>-->
+            <li class="meun_navbar" ng-click="showModel('pic_box')">插入图片</li>
+            <li class="meun_navbar" ng-click="showModel('setGroupHeigh')">修改题组高度</li>
+            <!--<li class="meun_navbar">信息栏置于左侧</li>-->
             <li class="meun_navbar" ng-click="checkTestType(1)">打印方式:{{myDayinType==0?'单面':'双面'}}</li>
-            <li class="meun_navbar">信息框置于左侧</li>
-            <li class="meun_navbar">插入单元格</li>
-            <li class="meun_navbar" ng-click="add(4)">插入语文作文格</li>
-            <li class="meun_navbar" ng-click="add(4)">插入英文作文行线</li>
-            <li class="meun_navbar" ng-click="add(4)">插入英文单词间隔行线</li>
+            <!--<li class="meun_navbar">信息框置于左侧</li>-->
+            <!--<li class="meun_navbar">插入单元格</li>-->
+            <!--<li class="meun_navbar" ng-click="add(4)">插入语文作文格</li>-->
+            <!--<li class="meun_navbar" ng-click="add(4)">插入英文作文行线</li>-->
+            <!--<li class="meun_navbar" ng-click="add(4)">插入英文单词间隔行线</li>-->
             <li class="meun_navbar" ng-click="checkTestType(2)">{{showItmeScoreType==0?'标注':'隐藏'}}小题分值</li>
             <li class="meun_navbar" ng-bind="paperType==0?'手工阅卷模式':'网上阅卷模式'" ng-click="checkTestType(0)"></li>
-            <li class="meun_navbar">插入题目分割线</li>
+            <!--<li class="meun_navbar">插入题目分割线</li>-->
             <li class="meun_navbar" ng-click="save()">保存排版</li>
         </ul>
     </div>
@@ -1124,6 +1125,17 @@
         <div class="cand_close" ng-click="closeCand()">x</div>
     </div>
     <!--设置插入图片弹窗结束-->
+    <!--设置题组高度弹窗开始-->
+    <div class="cand setGroupHeigh">
+        <div class="cand_title">设置题组高度</div>
+        <div class="cand_con clearfix">
+            <p class="fl">题组高度</p>
+            <p class="fl"><input type="text" ng-model="GroupHeigh"></p>
+        </div>
+        <div class="cand_btn"><a ng-click="setGroupHeigh(GroupHeigh)">确定</a></div>
+        <div class="cand_close" ng-click="closeCand()">x</div>
+    </div>
+    <!--设置题组高度弹窗结束-->
 </div>
 
 <script src="js/Answer.js" type="text/javascript" charset="utf-8"></script>

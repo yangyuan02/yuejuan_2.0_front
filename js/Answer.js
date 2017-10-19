@@ -1604,8 +1604,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
      * 设置考号
      * @param length  考号长度
      */
-    $scope.showCandNumber = function () {
-        $(".cand_box").show()
+    $scope.showModel = function (className) {
+        $("."+className).show()
         $("#menu").hide()
     }
     $scope.closeCand = function () {
@@ -1629,13 +1629,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.tabIndex = tabIndex
         $scope.showMenuFlag = true
         console.log($scope.tabParentIndex, $scope.tabIndex)
-    }
-    /**
-     * 插入图片
-     */
-    $scope.showPicAlert = function () {
-        $(".pic_box").show()
-        $("#menu").hide()
     }
 
     var eleFile = document.getElementById("imgOne")
@@ -1668,6 +1661,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             },
 
         })
+    }
+    /*设置题组高度*/
+    $scope.setGroupHeigh = function (height) {
+        
     }
     /*******************************保存*************************************************/
     $scope.save = function () {//保存模板
