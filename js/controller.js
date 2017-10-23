@@ -475,7 +475,8 @@ angular.module("myApp.controller", [])
                 }
                  
                 var class_id=$("#mark_bj").children('option:selected').attr("data-id");
-                kaoshizk(10,class_id);
+                kaoshizk02(class_id);
+                kaoshizk(10);
             },
             error: function() {}
 
@@ -483,18 +484,18 @@ angular.module("myApp.controller", [])
         // 考试状况的选择事件
         $(".study_q_01_mark select").change(function(event) {
             var a=$("#mark_bj").children('option:selected').attr("data-id");
-            kaoshizk(10,a);
+            kaoshizk(a);
         });
         // 班级
         $("#mark_bj").change(function(event) {
 
            $(this).attr("data-id",$(this).children('option:selected').attr("data-id"));
             var a=$("#mark_bj").children('option:selected').attr("data-id");
-            kaoshizk(10,a);
+            kaoshizk02(a);
         });
         // 考试状况的函数
 
-        function kaoshizk(num_r,class_id) {
+        function kaoshizk(num_r) {
             var exam_id = parseInt($(".exam_name").children('option:selected').attr("data-id"));
             $(".exam_sub").attr("data-id", $(".exam_sub").children('option:selected').attr("data-id"));
             var sub_id = parseInt($(".exam_sub").attr("data-id"));
@@ -513,7 +514,6 @@ angular.module("myApp.controller", [])
                     "exam_id": exam_id,
                     "subject_id": sub_id,
                     "number": num_r,
-                    "classroom_id":class_id,
                 },
                 success: function(data) {
                     console.log(data);
@@ -554,24 +554,24 @@ angular.module("myApp.controller", [])
                         console.log(a, b);
                         basic_y(a, b, c);
                         // 年级学科趋势
-                        var nub_c = [];
-                        var nub_m = [];
-                        var nub_bj = [];
-                        if (data.grade_socre_trend.grade_trend.length !== 0) {
+                    //     var nub_c = [];
+                    //     var nub_m = [];
+                    //     var nub_bj = [];
+                    //     if (data.grade_socre_trend.grade_trend.length !== 0) {
 
-                            for (var i = 0; i < data.grade_socre_trend.grade_trend.length; i++) {
-                                var nub = "第" + (i + 1) + "次考试"
-                                nub_c.push(nub);
-                                nub_m.push(data.grade_socre_trend.grade_trend[i].average);
+                    //         for (var i = 0; i < data.grade_socre_trend.grade_trend.length; i++) {
+                    //             var nub = "第" + (i + 1) + "次考试"
+                    //             nub_c.push(nub);
+                    //             nub_m.push(data.grade_socre_trend.grade_trend[i].average);
                               
-                            };
-                            for (var i = 0; i < data.grade_socre_trend.class_trend.length; i++) {
-                                nub_bj.push(data.grade_socre_trend.class_trend[i].average);
-                            };
-                            console.log(nub_c);
+                    //         };
+                    //         for (var i = 0; i < data.grade_socre_trend.class_trend.length; i++) {
+                    //             nub_bj.push(data.grade_socre_trend.class_trend[i].average);
+                    //         };
+                    //         console.log(nub_c);
 
-                            njxk(nub_c,nub_m,nub_bj);
-                        };
+                    //         njxk(nub_c,nub_m,nub_bj);
+                    //     };
                     }
 
                     // 分数段分布
@@ -627,6 +627,61 @@ angular.module("myApp.controller", [])
                             $("#r5_11_tbody04").append(' <tr><td>' + data.grade_rank_ten.after_ten[i].name + '</td><td>' + data.grade_rank_ten.after_ten[i].grade_rank + '</td><td>' + data.grade_rank_ten.after_ten[i].class_name + '</td></tr>');
                      
                     };
+                },
+                error: function() {
+
+                }
+            });
+
+        };
+        function kaoshizk02(class_id) {
+            var exam_id = parseInt($(".exam_name").children('option:selected').attr("data-id"));
+            $(".exam_sub").attr("data-id", $(".exam_sub").children('option:selected').attr("data-id"));
+            var sub_id = parseInt($(".exam_sub").attr("data-id"));
+            if (sub_id == null) {
+                var sub_id = parseInt($(".exam_sub").attr("data-id"));
+            }
+            console.log(exam_id);
+            console.log(sub_id);
+            $.ajax({
+                type: "POST",
+                url: ajaxIp + "/api/v2/reports/grade_index",
+                headers: {
+                    'Authorization': "Bearer " + isLogin
+                },
+                data: {
+                    "exam_id": exam_id,
+                    "subject_id": sub_id,
+                    "classroom_id":class_id,
+                },
+                success: function(data) {
+                    
+                    // 基本概况
+                    if (data.error_code == 500) {
+                       
+                    } else {
+                       
+                        // 年级学科趋势
+                        var nub_c = [];
+                        var nub_m = [];
+                        var nub_bj = [];
+                        if (data.grade_socre_trend.grade_trend.length !== 0) {
+
+                            for (var i = 0; i < data.grade_socre_trend.grade_trend.length; i++) {
+                                var nub = "第" + (i + 1) + "次考试"
+                                nub_c.push(nub);
+                                nub_m.push(data.grade_socre_trend.grade_trend[i].average);
+                              
+                            };
+                            for (var i = 0; i < data.grade_socre_trend.class_trend.length; i++) {
+                                nub_bj.push(data.grade_socre_trend.class_trend[i].average);
+
+                            };
+                            console.log(nub_c);
+                            console.log(nub_bj);
+                            njxk(nub_c,nub_m,nub_bj);
+                        };
+                    }
                 },
                 error: function() {
 
