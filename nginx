@@ -19,7 +19,7 @@ server {
     }
 
     location ~ .*\.(js|css)$ {
-     root /work/yuejuan2.0_front;
+     root /work/yuejuan2.0_fronit;
      if (-f $request_filename) {
         expires 1d;
         break;
