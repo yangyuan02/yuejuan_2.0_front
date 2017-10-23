@@ -419,7 +419,7 @@
                                 <tr ng-if="a.type!=5&&a.type!=4"><!--选择题/判断题/多选题/填空题-->
                                     <td>
                                         <div ng-repeat="item in a.no" class="q_c"
-                                             ng-style="{'width':'{{a.type==3?'48%':setItmeWidth(a.thr)}}'}">
+                                             ng-style="{'width':'{{a.type==3?'auto':setItmeWidth(a.thr)}}'}">
                                             <a class="numberNo {{paperType==1?'paperno':''}}" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
@@ -431,7 +431,7 @@
                                         </span>
                                             <!--选择题模版end-->
                                             <!--填空题模板start-->
-                                            <span class="fill_line" ng-show="a.type==3"></span>
+                                            <span class="fill_line" ng-show="a.type==3" style="width:{{a.fillWidth[$index]+'px'}}"></span>
                                             <!--填空题模版end-->
                                         </div>
                                     </td>
@@ -548,7 +548,7 @@
                                 <tr ng-if="a.type!=5&&a.type!=4">
                                     <td>
                                         <div ng-repeat="item in a.no" class="q_c"
-                                             ng-style="{'width':'{{a.type==3?'48%':setItmeWidth(a.thr)}}'}">
+                                             ng-style="{'width':'{{a.type==3?'auto':setItmeWidth(a.thr)}}'}">
                                             <a class="numberNo {{paperType==1?'paperno':''}}" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
@@ -560,7 +560,7 @@
                                         </span>
                                             <!--选择题模版end-->
                                             <!--填空题模板start-->
-                                            <span class="fill_line" ng-show="a.type==3"></span>
+                                            <span class="fill_line" ng-show="a.type==3" style="width:{{a.fillWidth[$index]+'px'}}"></span>
                                             <!--填空题模版end-->
                                             <!--英语作文题模板start-->
                                             <span class="writing" ng-show="a.type==4">
@@ -729,7 +729,7 @@
                                 <tr ng-if="a.type!=5&&a.type!=4"><!--选择题/判断题/多选题/填空题-->
                                     <td>
                                         <div ng-repeat="item in a.no" class="q_c"
-                                             ng-style="{'width':'{{a.type==3?'48%':setItmeWidth(a.thr)}}'}">
+                                             ng-style="{'width':'{{a.type==3?'auto':setItmeWidth(a.thr)}}'}">
                                             <a class="numberNo {{paperType==1?'paperno':''}}" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
@@ -741,7 +741,7 @@
                                         </span>
                                             <!--选择题模版end-->
                                             <!--填空题模板start-->
-                                            <span class="fill_line" ng-show="a.type==3"></span>
+                                            <span class="fill_line" ng-show="a.type==3" style="width:{{a.fillWidth[$index]+'px'}}"></span>
                                             <!--填空题模版end-->
                                         </div>
                                     </td>
@@ -859,7 +859,7 @@
                                 <tr ng-if="a.type!=5&&a.type!=4">
                                     <td>
                                         <div ng-repeat="item in a.no" class="q_c"
-                                             ng-style="{'width':'{{a.type==3?'48%':setItmeWidth(a.thr)}}'}">
+                                             ng-style="{'width':'{{a.type==3?'auto':setItmeWidth(a.thr)}}'}">
                                             <a class="numberNo {{paperType==1?'paperno':''}}" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
@@ -871,7 +871,7 @@
                                         </span>
                                             <!--选择题模版end-->
                                             <!--填空题模板start-->
-                                            <span class="fill_line" ng-show="a.type==3"></span>
+                                            <span class="fill_line" ng-show="a.type==3" style="width:{{a.fillWidth[$index]+'px'}}"></span>
                                             <!--填空题模版end-->
                                             <!--英语作文题模板start-->
                                             <span class="writing" ng-show="a.type==4">
@@ -1089,7 +1089,7 @@
             <!--<li class="meun_navbar">文档类型</li>-->
             <li class="meun_navbar" ng-click="showModel('pic_box')">插入图片</li>
             <li class="meun_navbar" ng-click="showModel('setGroupHeigh')">修改题组高度</li>
-            <!--<li class="meun_navbar">信息栏置于左侧</li>-->
+            <li class="meun_navbar" ng-click="setFillQuestion()">修改填空题</li>
             <li class="meun_navbar" ng-click="checkTestType(1)">打印方式:{{myDayinType==0?'单面':'双面'}}</li>
             <!--<li class="meun_navbar">信息框置于左侧</li>-->
             <!--<li class="meun_navbar">插入单元格</li>-->
@@ -1136,6 +1136,22 @@
         <div class="cand_close" ng-click="closeCand()">x</div>
     </div>
     <!--设置题组高度弹窗结束-->
+    <!--设置填空题格式弹窗开始-->
+    <div class="cand setFill_q">
+        <div class="cand_title">设置填空题格式</div>
+        <div class="cand_con clearfix">
+            <ul>
+                <li class="clearfix" ng-repeat="fillList in fillLists" ng-init="a">
+                    <div class="fill_no" ng-bind="$index+1"></div>
+                    <div class="fill_num"><span>横线个数</span><input type="text" ng-model="fillList.fill_num"></div>
+                    <div class="fill_width"><span>横线宽度</span><input type="text" ng-model="fillList.fill_w"></div>
+                </li>
+            </ul>
+        </div>
+        <div class="cand_btn"><a ng-click="sureFillQuestion(a)">确定</a></div>
+        <div class="cand_close" ng-click="closeCand()">x</div>
+    </div>
+    <!--设置填空题格式弹窗结束-->
 </div>
 
 <script src="js/Answer.js" type="text/javascript" charset="utf-8"></script>
