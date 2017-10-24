@@ -98,19 +98,53 @@
         </script>
        <div class="edit_box_btm">
        	<ul>
-       		<li>答案输入<button type="">编辑</button></li>
-       		<li>设置解答输入<button type="">编辑</button></li>
-       		<li>添加知识点<button type="">编辑</button></li>
+       		<li>答案输入<button type="" class="edit_li_btn01">编辑</button><script id="container02" name="content" type="text/plain" style="display:none;"></script></li>
+       		<script type="text/javascript">
+            var ue = UE.getEditor('container02', {
+        toolbars: [[
+             'source', '|',
+             'italic', 'underline', 'kityformula', 'preview', 'cleardoc','simpleupload','insertimage'
+        ]]
+    });
+            $(".edit_li_btn01").click(function(event) {
+            
+            	$("#container02").show();
+            });
+    </script>
+       		<li>设置解答输入<button type="" class="edit_li_btn02">编辑</button>
+        <div class="edit_li_div01"><script id="container03" name="content" type="text/plain" style=""></script><p class="edit_li_div_p"><button type="" class="edit_li_div01_btn01 determine">保存</button><button type="" class="edit_li_div01_btn02">取消</button></p></div></li>
+       		<script type="text/javascript">
+            var ue = UE.getEditor('container03', {
+        toolbars: [[
+             'source', '|',
+             'italic', 'underline', 'kityformula', 'preview', 'cleardoc','simpleupload','insertimage'
+        ]]
+    });
+            $(".edit_li_btn02").click(function(event) {
+            
+            	$(".edit_li_div01").show();
+            });
+    </script>
+       		<li>添加知识点<button type="" class="edit_li_btn03">编辑</button></li>
        		<li>设置难度</li>
-       		<li>设置能力标签<button type="">编辑</button></li>
-       		<li>设置错因标签<button type="">编辑</button></li>
-       		<li>添加新标签<button type="">添加</button></li>
+       		<li>设置能力标签<button type="" class="edit_li_btn04">编辑</button></li>
+       		<li>设置错因标签<button type="" class="edit_li_btn05">编辑</button></li>
+       		<li>添加新标签<button type="" class="edit_li_btn06">添加</button></li>
        	</ul>
-       <div class="edit_box_btm_tc" style="width: 361px;height: 201px;border: 1px solid #ccc;">
-       	<p style="width: 361px;height:40px;background:#31bc91;text-align: center;line-height: 40px;color: #f5f5f5;font-size: 16px;">编辑答案输入
-       	<a style="display:inline-block;width:29px;height:29px;background: #f5f5f5;border-radius: 50%;border: 1px solid #31bc91;position:absolute;"></a></p>
-
-
+       <div class="edit_box_btm_tc">
+       	<p class="edit_box_btm_tc_p01">编辑答案输入
+       	<a><i class="iconfont">&#xe61b;</i></a></p>
+    <p  class="edit_box_btm_tc_p02">题型<select class="edit_select">
+    	<option value="">选择题</option>
+    	<option value="">多选题</option>
+    </select></p>
+<p class="edit_box_btm_tc_p03">选项个数
+    <input type="" name="" value="" placeholder="请输入选项个数">
+    </p>
+    <p class="edit_box_btm_tc_p04">
+    <button class="edit_box_btm_btn01" type="">取消</button>
+    <button  class="edit_box_btm_btn02 determine" type="">保存</button>
+    </p>
        </div>
        </div>
    

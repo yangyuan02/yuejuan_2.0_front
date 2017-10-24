@@ -3715,6 +3715,7 @@ angular.module("myApp.controller", [])
                 },
                 data: {
                     "exam_id": exam_id,
+                    "subject_id":sub_id,
                 },
                 success: function(data) {
                     console.log(data);
