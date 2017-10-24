@@ -1645,6 +1645,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.showMenuFlag = true
         if ($scope.tabParentIndex == 0) {
             $scope.otherHeight = $scope.listObj[$scope.tabIndex].otherHeight
+            $scope.meunType = $scope.listObj[$scope.tabIndex].type//右键菜单显示控制
         }
         if ($scope.tabParentIndex == 1) {
             $scope.otherHeight = $scope.listObj2[$scope.tabIndex].otherHeight

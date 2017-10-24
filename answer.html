@@ -1087,9 +1087,9 @@
             <li class="meun_navbar" ng-click="dayin()">打印</li>
             <li class="meun_navbar" ng-click="showModel('cand_box')">设置考号</li>
             <!--<li class="meun_navbar">文档类型</li>-->
-            <li class="meun_navbar" ng-click="showModel('pic_box')">插入图片</li>
-            <li class="meun_navbar" ng-click="showModel('setGroupHeigh')">修改题组高度</li>
-            <li class="meun_navbar" ng-click="setFillQuestion()">修改填空题</li>
+            <li class="meun_navbar" ng-click="showModel('pic_box')" ng-show="meunType==5">插入图片</li>
+            <li class="meun_navbar" ng-click="showModel('setGroupHeigh')" ng-show="meunType==5">修改题组高度</li>
+            <li class="meun_navbar" ng-click="setFillQuestion()" ng-show="meunType==3">修改填空题</li>
             <li class="meun_navbar" ng-click="checkTestType(1)">打印方式:{{myDayinType==0?'单面':'双面'}}</li>
             <!--<li class="meun_navbar">信息框置于左侧</li>-->
             <!--<li class="meun_navbar">插入单元格</li>-->
