@@ -761,7 +761,22 @@ input:focus{
     bottom: -6px;
     transform: scale(0.9);
 }
-
+/*************修改填空题格式******************/
+.setFill_q{
+    height:auto;
+}
+.setFill_q .cand_con ul li{
+    width:100%;
+    line-height:24px;
+    font-weight:normal;
+    font-size:12px;
+}
+.setFill_q .cand_con ul li > div{
+    float:left;
+}
+.setFill_q .cand_con ul li input{
+    width:40px;
+}
 
 /********************语文试卷样式***************/
 /*table thead tr:last-child{*/
