@@ -342,6 +342,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var totaltwo = parseInt($scope.result.numbel) * Number($scope.result.itemcoreS)//总分数
         var otherHeight = []
         var fillWidth = []
+        var fillsNum = []
+        var childNum = [0]
         for (var i = 0; i < parseInt($scope.result.numbel); i++) {//多少个小题
             noarray.push(i + parseInt($scope.result.no));
             if($scope.index==5){
@@ -349,6 +351,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
             if($scope.index==3){
                 fillWidth.push(180)
+                fillsNum.push(childNum)
             }
         }
         if ($scope.index == 2) {
@@ -384,7 +387,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             thr: $scope.index == 1 ? $scope.nubarray : ['T', 'F'], //选项ABCD(选择题和判断题)
             type: $scope.result.isradio == 2 ? 6 : $scope.index,//题目类型
             otherHeight:otherHeight,//其他题高度
-            fillWidth:fillWidth//填空题宽度
+            fillWidth:fillWidth,//填空题宽度
+            fillsNum:fillsNum//填空题横线个数
         }
         var itemCoresArr = []//每题分数数组
         for (var i = 0; i < obj.numbel; i++) {
@@ -1725,10 +1729,11 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         function getNo(obj) {//获取当前答题有几个小题
             var len = obj[$scope.tabIndex].no.length
             var fillWidth = obj[$scope.tabIndex].fillWidth
+            var fillsNum = obj[$scope.tabIndex].fillsNum
             $scope.fillLists = []
             for(var i = 0;i< len;i++){
                 var obj = {
-                    "fill_num":1,
+                    "fill_num":fillsNum[i].length,
                     "fill_w":fillWidth[i],
                     "no":i
                 }
@@ -1741,19 +1746,31 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.fillLists.forEach(function (item,index,arr) {
             if ($scope.tabParentIndex == 0) {
                 $scope.listObj[$scope.tabIndex].fillWidth[index] = arr[index].fill_w
+                $scope.listObj[$scope.tabIndex].fillsNum[index] = getfillChildNums(arr[index].fill_num)
             }
             if ($scope.tabParentIndex == 1) {
                 $scope.listObj2[$scope.tabIndex].fillWidth[index] = arr[index].fill_w
+                $scope.listObj2[$scope.tabIndex].fillsNum[index] = getfillChildNums(arr[index].fill_num)
             }
             if ($scope.tabParentIndex == 2) {
                 $scope.listObj3[$scope.tabIndex].fillWidth[index] = arr[index].fill_w
+                $scope.listObj3[$scope.tabIndex].fillsNum[index] = getfillChildNums(arr[index].fill_num)
             }
             if ($scope.tabParentIndex == 3) {
                 $scope.listObj4[$scope.tabIndex].fillWidth[index] = arr[index].fill_w
+                $scope.listObj4[$scope.tabIndex].fillsNum[index] = getfillChildNums(arr[index].fill_num)
+            }
+            function getfillChildNums(num) {
+                var resutl = []
+                for(var i = 0;i<num;i++){
+                    resutl.push(i)
+                }
+                return resutl
             }
             $scope.closeCand()
         })
     }
+    // $scope.listObj[0].fillsNum = [[1,2,3]]
     /*******************************保存*************************************************/
     $scope.save = function () {//保存模板
         if ($scope.listObj.length <= 0) {
