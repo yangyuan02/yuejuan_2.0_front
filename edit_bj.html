@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit">
+	<title>阅卷</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/user_information.css">
+	<link rel="stylesheet" href="css/edit_bj.css">
+	<!-- <link href="style/default.css" rel="stylesheet" media="screen" type="text/css" /> -->
+	<script type="text/javascript" src='js/jquery.min.js'></script>
+	<script type="text/javascript" src='js/common.js'></script>
+</head>
+<body>
+	<div id="wrap">
+		<div id='header'>
+
+		</div>
+
+		<div class="user-title">
+			<div class="user-title-back">
+				<i class="iconfont">&#xe618;</i>
+				当前位置：
+				<a href="index">首页</a>
+				>
+				<a href="set_up">管理</a>
+				>
+				<span>编辑试卷</span>			</div>
+			
+		</div>
+	<div style="width: 1200px;height: 1000px;border: 1px solid #ccc;background: #fff;margin: 0 auto;padding:27px 0px 0px 38px;box-sizing: border-box;">
+	<p class="p_top"><i class="iconfont">&#xe61c;</i><p>
+	<script id="container" name="content" type="text/plain">
+                                <p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （    ）</p>
+
+								<p>A．粒子带正电</p>
+
+								<p>B．粒子的动能一直变大</p>
+
+								<p>C．粒子的加速度先变小后变大</p>
+
+								<p>D．粒子在电场中的电势能先变小后变大</p>
+    </script>
+    <!-- 配置文件 -->
+    <script type="text/javascript" src="ueditor/ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="ueditor/ueditor.all.js"></script>
+    <!-- 实例化编辑器 -->
+      <script type="text/javascript" charset="utf-8" src="ueditor/kityformula-plugin/addKityFormulaDialog.js"></script>
+    <script type="text/javascript" charset="utf-8" src="ueditor/kityformula-plugin/getKfContent.js"></script>
+    <script type="text/javascript" charset="utf-8" src="ueditor/kityformula-plugin/defaultFilterFix.js"></script>
+     
+    <script type="text/javascript">
+            var ue = UE.getEditor('container', {
+        toolbars: [[
+             'source', '|',
+             'italic', 'underline', '|', 'fontsize', '|', 'kityformula', 'preview', 'cleardoc','simpleupload','insertimage'
+        ]]
+    });
+    </script>
+    <!--   <form action="getContent.php" id="form" method="post">
+        <script id="editor" type="text/plain" name="content" style="width:1024px;height:500px;"></script>
+    </form> -->
+    <!-- <script type="text/javascript">
+    var form = document.getElementById('form');
+     
+    form.onsubmit = function(){
+        kfSubmit();
+        return false;
+    };
+     
+    var kfSubmit = function(){
+        ue.getKfContent(function(content){
+            // form.submit();
+            alert(UE.getEditor('container').getContent());
+        })
+    }
+    </script> -->
+       <!--  <button onclick="kfSubmit()">通过js调用submit提交</button>
+        <button id="btn"></button> -->
+      <!--   <div id="box"></div> -->
+        <script>
+        	 $("#btn").click(function(event) {
+    	/* Act on the event */
+    	// alert("1123"); 
+    	// $("#box").append(UE.getEditor('container').getContent());
+    });
+        </script>
+       <p class="edit_bj_btn_p">
+      <button class="edit_bj_btn01 determine">保存</button>
+       <button class="edit_bj_btn02">取消</button>
+        </p>
+      <script>
+       $(".edit_bj_btn01").click(function(event) {
+    	/* Act on the event */
+    	alert(UE.getEditor('container').getContent());
+       });
+        </script>
+       <div class="edit_box_btm">
+       	<ul>
+       		<li>答案输入<button type="">编辑</button></li>
+       		<li>设置解答输入<button type="">编辑</button></li>
+       		<li>添加知识点<button type="">编辑</button></li>
+       		<li>设置难度</li>
+       		<li>设置能力标签<button type="">编辑</button></li>
+       		<li>设置错因标签<button type="">编辑</button></li>
+       		<li>添加新标签<button type="">添加</button></li>
+       	</ul>
+       <div class="edit_box_btm_tc" style="width: 361px;height: 201px;border: 1px solid #ccc;">
+       	<p style="width: 361px;height:40px;background:#31bc91;text-align: center;line-height: 40px;color: #f5f5f5;font-size: 16px;">编辑答案输入
+       	<a style="display:inline-block;width:29px;height:29px;background: #f5f5f5;border-radius: 50%;border: 1px solid #31bc91;position:absolute;"></a></p>
+
+
+       </div>
+       </div>
+   
+
+	    </div>
+		<div id="footer">
+
+		</div>
+
+	</div>
+</body>
+</html>

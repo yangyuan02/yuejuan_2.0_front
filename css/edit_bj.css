@@ -1,0 +1,65 @@
+.edui-editor-bottomContainer .edui-default{
+  display: none;
+}
+#container{
+  width: 936px;
+}
+.edit_bj_btn01{
+	margin-top: 13px;
+	float: right;
+}
+.edit_bj_btn02{
+	margin-top: 13px;
+	float: right;
+	margin-right: 10px;
+	background: #ffffff;
+    border: 1px solid #31bc91;
+    color: #31bc91;
+}
+.edit_bj_btn_p{
+	width: 936px;
+	height: 62px;
+}
+.p_top{
+	width:936px;
+	height:45px;
+	border:1px solid #ccc;
+	border-bottom: none;
+	line-height: 45px;
+	padding-left:22px;
+	color:#31bc91;
+	font-size: 20px;
+	box-sizing: border-box;
+}
+.edit_box_btm{
+	width:936px;
+	height:auto;
+	border: 1px solid #ccc;
+	padding: 0px 32px 10px 32px;
+	box-sizing: border-box;
+}
+.edit_box_btm ul li{
+	width:100%;
+	height:48px;
+	border-bottom:1px solid #ccc;
+	color: #31bc91;
+    line-height: 48px;
+    font-size: 14px;
+}
+.edit_box_btm ul li button{
+	background: #ffffff;
+    border: 1px solid #31bc91;
+    color: #31bc91;
+    font-size: 14px;
+    float: right;
+    margin-top: 10px;
+}
+
+
+
+
+
+
+
+
+

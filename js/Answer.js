@@ -341,10 +341,14 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.nubarray = nub.slice(0, $scope.result.thr);//选项个数
         var totaltwo = parseInt($scope.result.numbel) * Number($scope.result.itemcoreS)//总分数
         var otherHeight = []
+        var fillWidth = []
         for (var i = 0; i < parseInt($scope.result.numbel); i++) {//多少个小题
             noarray.push(i + parseInt($scope.result.no));
             if($scope.index==5){
                 otherHeight.push(150)//其他题默认150px
+            }
+            if($scope.index==3){
+                fillWidth.push(180)
             }
         }
         if ($scope.index == 2) {
@@ -379,7 +383,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             itemCores: Number($scope.result.itemcoreS),//每小题分
             thr: $scope.index == 1 ? $scope.nubarray : ['T', 'F'], //选项ABCD(选择题和判断题)
             type: $scope.result.isradio == 2 ? 6 : $scope.index,//题目类型
-            otherHeight:otherHeight//其他题高度
+            otherHeight:otherHeight,//其他题高度
+            fillWidth:fillWidth//填空题宽度
         }
         var itemCoresArr = []//每题分数数组
         for (var i = 0; i < obj.numbel; i++) {
@@ -747,6 +752,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
             if (obj.type == 1) {//增加小题
                 obj.list[obj.index].no.push(obj.no)
+                obj.list[obj.index].otherHeight.push(150)
+                obj.list[obj.index].fillWidth.push(180)
                 obj.list[obj.index].itemCoresArr.push(obj.score)
                 obj.list[obj.index].numbel++  //题目数量
                 // obj.list[obj.index].itemCores = obj.score  //当前小题分值
@@ -757,6 +764,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             if (obj.type == 2) {//删除小题
                 obj.list[obj.index].numbel--
                 obj.list[obj.index].no.pop()
+                obj.list[obj.index].otherHeight.pop()
+                obj.list[obj.index].fillWidth.pop()
                 var delScore = obj.list[obj.index].itemCoresArr.pop()
                 obj.list[obj.index].totalCores = obj.list[obj.index].totalCores - delScore
                 $scope.countScore = $scope.countScore - delScore
@@ -1695,6 +1704,54 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             $scope.listObj4[$scope.tabIndex].otherHeight = heights.split(',')
         }
         $scope.closeCand()
+    }
+    /**设置填空题格式**/
+    $scope.setFillQuestion= function () {
+        $(".setFill_q").show()
+        $("#menu").hide()
+        if ($scope.tabParentIndex == 0) {
+            getNo($scope.listObj)
+        }
+        if ($scope.tabParentIndex == 1) {
+            getNo($scope.listObj2)
+        }
+        if ($scope.tabParentIndex == 2) {
+            getNo($scope.listObj3)
+        }
+        if ($scope.tabParentIndex == 3) {
+            getNo($scope.listObj4)
+        }
+        function getNo(obj) {//获取当前答题有几个小题
+            var len = obj[$scope.tabIndex].no.length
+            var fillWidth = obj[$scope.tabIndex].fillWidth
+            $scope.fillLists = []
+            for(var i = 0;i< len;i++){
+                var obj = {
+                    "fill_num":1,
+                    "fill_w":fillWidth[i],
+                    "no":i
+                }
+                $scope.fillLists.push(obj)
+            }
+        }
+    }
+    /*************确定**************/
+    $scope.sureFillQuestion = function () {
+        $scope.fillLists.forEach(function (item,index,arr) {
+            if ($scope.tabParentIndex == 0) {
+                $scope.listObj[$scope.tabIndex].fillWidth[index] = arr[index].fill_w
+            }
+            if ($scope.tabParentIndex == 1) {
+                $scope.listObj2[$scope.tabIndex].fillWidth[index] = arr[index].fill_w
+            }
+            if ($scope.tabParentIndex == 2) {
+                $scope.listObj3[$scope.tabIndex].fillWidth[index] = arr[index].fill_w
+            }
+            if ($scope.tabParentIndex == 3) {
+                $scope.listObj4[$scope.tabIndex].fillWidth[index] = arr[index].fill_w
+            }
+            $scope.closeCand()
+        })
     }
     /*******************************保存*************************************************/
     $scope.save = function () {//保存模板
