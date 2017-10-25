@@ -84,10 +84,12 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.index = index
         clear()
         $scope.result.isradio = 1//单选题、多选题
+        $scope.result.otherisradio = 3//单选题、多选题
         $scope.result.writIsradio = 1//作文题
     };
     $scope.checkbox = function (index) {//切换单选多选
         $scope.result.isradio = index
+        $scope.result.otherisradio = index
     }
     $scope.checkWrit = function (index) {
         $scope.result.writIsradio = index//作文题
@@ -160,9 +162,16 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 }
             }
             if ($scope.index == 5) {//其他题
-                var rowItme_h = 164;
-                var row = $scope.result.numbel
-                result = remain - title_h - padding - row * rowItme_h > 0 ? true : false
+                if($scope.result.otherisradio==3){
+                    var rowItme_h = 164;
+                    var row = $scope.result.numbel
+                    result = remain - title_h - padding - row * rowItme_h > 0 ? true : false
+                }
+                if($scope.result.otherisradio==4){
+                    var rowItme_h = 20;
+                    var row = $scope.result.numbel
+                    result = remain  - row * rowItme_h > 0 ? true : false
+                }
             }
         } else {//第一次添加
             console.log("第一添加")
@@ -342,6 +351,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var totaltwo = parseInt($scope.result.numbel) * Number($scope.result.itemcoreS)//总分数
         var otherHeight = []
         var fillWidth = []
+        var fillsNum = []
+        var childNum = [0]
         for (var i = 0; i < parseInt($scope.result.numbel); i++) {//多少个小题
             noarray.push(i + parseInt($scope.result.no));
             if($scope.index==5){
@@ -349,6 +360,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
             if($scope.index==3){
                 fillWidth.push(180)
+                fillsNum.push(childNum)
             }
         }
         if ($scope.index == 2) {
@@ -384,19 +396,23 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             thr: $scope.index == 1 ? $scope.nubarray : ['T', 'F'], //选项ABCD(选择题和判断题)
             type: $scope.result.isradio == 2 ? 6 : $scope.index,//题目类型
             otherHeight:otherHeight,//其他题高度
-            fillWidth:fillWidth//填空题宽度
+            fillWidth:fillWidth,//填空题宽度
+            fillsNum:fillsNum//填空题横线个数
         }
         var itemCoresArr = []//每题分数数组
         for (var i = 0; i < obj.numbel; i++) {
             itemCoresArr.push(obj.itemCores)
         }
-        obj.itemCoresArr = itemCoresArr
+        obj.itemCoresArr = $scope.result.otherisradio==4?[]:itemCoresArr
         if ($scope.index == 4) {
             obj.articleType = $scope.result.writIsradio
             obj.rows = rosItem
             obj.plaids = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]//21长度
             obj.row = row
             obj.plaid = $scope.result.plaid
+        }
+        if($scope.index==5){
+            obj.otherisradio = $scope.result.otherisradio
         }
         if (!checkIsNUll()) {
             return false
@@ -431,7 +447,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     //清空选择题的内容
     var clear = function () {
         $scope.result = {
-            name: '', numbel: '', isradio: '',
+            name: '', numbel: '', isradio: '',otherisradio:'',
             no: '', one: '', two: '', thr: '',
         };
     };
@@ -1725,10 +1741,11 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         function getNo(obj) {//获取当前答题有几个小题
             var len = obj[$scope.tabIndex].no.length
             var fillWidth = obj[$scope.tabIndex].fillWidth
+            var fillsNum = obj[$scope.tabIndex].fillsNum
             $scope.fillLists = []
             for(var i = 0;i< len;i++){
                 var obj = {
-                    "fill_num":1,
+                    "fill_num":fillsNum[i].length,
                     "fill_w":fillWidth[i],
                     "no":i
                 }
@@ -1741,15 +1758,26 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.fillLists.forEach(function (item,index,arr) {
             if ($scope.tabParentIndex == 0) {
                 $scope.listObj[$scope.tabIndex].fillWidth[index] = arr[index].fill_w
+                $scope.listObj[$scope.tabIndex].fillsNum[index] = getfillChildNums(arr[index].fill_num)
             }
             if ($scope.tabParentIndex == 1) {
                 $scope.listObj2[$scope.tabIndex].fillWidth[index] = arr[index].fill_w
+                $scope.listObj2[$scope.tabIndex].fillsNum[index] = getfillChildNums(arr[index].fill_num)
             }
             if ($scope.tabParentIndex == 2) {
                 $scope.listObj3[$scope.tabIndex].fillWidth[index] = arr[index].fill_w
+                $scope.listObj3[$scope.tabIndex].fillsNum[index] = getfillChildNums(arr[index].fill_num)
             }
             if ($scope.tabParentIndex == 3) {
                 $scope.listObj4[$scope.tabIndex].fillWidth[index] = arr[index].fill_w
+                $scope.listObj4[$scope.tabIndex].fillsNum[index] = getfillChildNums(arr[index].fill_num)
+            }
+            function getfillChildNums(num) {
+                var resutl = []
+                for(var i = 0;i<num;i++){
+                    resutl.push(i)
+                }
+                return resutl
             }
             $scope.closeCand()
         })

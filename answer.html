@@ -200,7 +200,14 @@
                             <p><span>题组名称</span><span class="Red">*</span><input class="mF" type="text"
                                                                                  placeholder="请输入题组名称"
                                                                                  ng-model="result.name"/></p>
-                            <p><span>试题数量</span><input type="text" placeholder="请输入试题数量" ng-model="result.numbel"/></p>
+                            <p><span>试题类型</span>
+                                <input type="radio" ng-checked="result.otherisradio==3" ng-click="checkbox(3)"/>
+                                <span style="float: left;margin-right: 20px;">矩形类</span>
+                                <input type="radio" ng-checked="result.otherisradio==4" ng-click="checkbox(4)" ／>
+                                <span style="float: left;">横线类</span>
+                            </p>
+                            <p ng-show="result.otherisradio==3"><span>试题数量</span><input type="text" placeholder="请输入试题数量" ng-model="result.numbel"/></p>
+                            <p ng-show="result.otherisradio==4"><span>横线数量</span><input type="text" placeholder="请输入试题数量" ng-model="result.numbel"/></p>
                             <p><span>起始序号</span><input type="text" placeholder="请输入起始序号" ng-model="result.no"/></p>
                             <!--<p><span>所在页码</span><input type="text" placeholder="请输入所在页码" ng-model="result.page"/></p>-->
                             <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/>
@@ -382,7 +389,7 @@
                         <div class="A_Rone_child">
                             <table ng-repeat="a in listObj" ng-click="getTableIndex(0,$index)" class="{{tabParentIndex==0&&tabIndex==$index?'table_focus':''}}">
                                 <thead>
-                                <tr>
+                                <tr ng-if="a.otherisradio!=4">
                                     <th>
                                         <span>{{Q_number[$index]}}、</span>
                                         {{a.name}}(共{{a.totalCores}}分<span ng-hide="a.type==4">，每题{{a.itemCores}}分</span>)
@@ -431,7 +438,7 @@
                                         </span>
                                             <!--选择题模版end-->
                                             <!--填空题模板start-->
-                                            <span class="fill_line" ng-show="a.type==3" style="width:{{a.fillWidth[$index]+'px'}}"></span>
+                                            <span class="fill_line" ng-show="a.type==3" style="width:{{a.fillWidth[$parent.$index]+'px'}}" ng-repeat="fills in a.fillsNum[$index]"></span>
                                             <!--填空题模版end-->
                                         </div>
                                     </td>
@@ -439,7 +446,7 @@
                                 <!--其他题模板开始-->
                                 <tr ng-if="a.type==5" class="other"><!--其他题-->
                                     <td>
-                                        <div ng-repeat="item in a.no">
+                                        <div ng-repeat="item in a.no" ng-if="a.otherisradio==3">
                                             <!--其他题头部-->
                                             <div class="other_h clearfix">
                                                 <div class="other_number {{a.type==5 && showItmeScoreType ==1?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
@@ -470,6 +477,10 @@
                                             <div class="other_c" style="height: {{a.otherHeight[$index]+'px'}};">
                                                 <img ng-src="{{a.imgurl}}" alt="">
                                             </div>
+                                        </div>
+                                        <div ng-if="a.otherisradio==4" class="other_first_position">
+                                            <div>{{a.name}}</div>
+                                            <div class="other_line" ng-repeat="item in a.no"></div>
                                         </div>
                                     </td>
                                 </tr>
@@ -511,7 +522,7 @@
                         <div class="A_Rone_child">
                             <table ng-repeat="a in listObj2" ng-click="getTableIndex(1,$index)" class="{{tabParentIndex==1&&tabIndex==$index?'table_focus':''}}">
                                 <thead>
-                                <tr>
+                                <tr ng-if="a.otherisradio!=4">
                                     <th>
                                         <span>{{Q_number[$index+listObj.length]}}、</span>
                                         {{a.name}}(共{{a.totalCores}}分<span ng-hide="a.type==4">，每题{{a.itemCores}}分</span>)
@@ -573,7 +584,7 @@
                                 <!--其他题模板开始-->
                                 <tr ng-if="a.type==5" class="other">
                                     <td>
-                                        <div ng-repeat="item in a.no">
+                                        <div ng-repeat="item in a.no" ng-if="a.otherisradio==3">
                                             <!--其他题头部-->
                                             <div class="other_h clearfix">
                                                 <div class="other_number {{a.type==5 && showItmeScoreType ==1?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
@@ -604,6 +615,10 @@
                                             <div class="other_c" style="height: {{a.otherHeight[$index]+'px'}};">
                                                 <img ng-src="{{a.imgurl}}" alt="">
                                             </div>
+                                        </div>
+                                        <div ng-if="a.otherisradio==4" class="other_first_position">
+                                            <div>{{a.name}}</div>
+                                            <div class="other_line" ng-repeat="item in a.no"></div>
                                         </div>
                                     </td>
                                 </tr>
@@ -692,7 +707,7 @@
                         <div class="A_Rone_child">
                             <table ng-repeat="a in listObj3" ng-click="getTableIndex(2,$index)" class="{{tabParentIndex==2&&tabIndex==$index?'table_focus':''}}">
                                 <thead>
-                                <tr>
+                                <tr ng-if="a.otherisradio!=4">
                                     <th>
                                         <span>{{Q_number[$index+listObj.length+listObj2.length]}}、</span>
                                         {{a.name}}(共{{a.totalCores}}分<span ng-hide="a.type==4">，每题{{a.itemCores}}分</span>)
@@ -749,7 +764,7 @@
                                 <!--其他题模板开始-->
                                 <tr ng-if="a.type==5" class="other"><!--其他题-->
                                     <td>
-                                        <div ng-repeat="item in a.no">
+                                        <div ng-repeat="item in a.no" ng-if="a.otherisradio==3">
                                             <!--其他题头部-->
                                             <div class="other_h clearfix">
                                                 <div class="other_number {{a.type==5 && showItmeScoreType ==1?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
@@ -780,6 +795,10 @@
                                             <div class="other_c" style="height: {{a.otherHeight[$index]+'px'}};">
                                                 <img ng-src="{{a.imgurl}}" alt="">
                                             </div>
+                                        </div>
+                                        <div ng-if="a.otherisradio==4" class="other_first_position">
+                                            <div>{{a.name}}</div>
+                                            <div class="other_line" ng-repeat="item in a.no"></div>
                                         </div>
                                     </td>
                                 </tr>
@@ -822,7 +841,7 @@
                         <div class="A_Rone_child">
                             <table ng-repeat="a in listObj4" ng-click="getTableIndex(3,$index)" class="{{tabParentIndex==3&&tabIndex==$index?'table_focus':''}}">
                                 <thead>
-                                <tr>
+                                <tr ng-if="a.otherisradio!=4">
                                     <th>
                                         <span>{{Q_number[$index+listObj.length+listObj2.length+listObj3.length]}}、</span>
                                         {{a.name}}(共{{a.totalCores}}分<span ng-hide="a.type==4">，每题{{a.itemCores}}分</span>)
@@ -884,7 +903,7 @@
                                 <!--其他题模板开始-->
                                 <tr ng-if="a.type==5" class="other">
                                     <td>
-                                        <div ng-repeat="item in a.no">
+                                        <div ng-repeat="item in a.no" ng-if="a.otherisradio==3">
                                             <!--其他题头部-->
                                             <div class="other_h clearfix">
                                                 <div class="other_number {{a.type==5 && showItmeScoreType ==1?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
@@ -915,6 +934,10 @@
                                             <div class="other_c" style="height: {{a.otherHeight[$index]+'px'}};">
                                                 <img ng-src="{{a.imgurl}}" alt="">
                                             </div>
+                                        </div>
+                                        <div ng-if="a.otherisradio==4" class="other_first_position">
+                                            <div>{{a.name}}</div>
+                                            <div class="other_line" ng-repeat="item in a.no"></div>
                                         </div>
                                     </td>
                                 </tr>
