@@ -214,7 +214,7 @@
                             <p ng-show="result.otherisradio==4"><span>横线数量</span><input type="text" placeholder="请输入试题数量" ng-model="result.numbel"/></p>
                             <p><span>起始序号</span><input type="text" placeholder="请输入起始序号" ng-model="result.no"/></p>
                             <!--<p><span>所在页码</span><input type="text" placeholder="请输入所在页码" ng-model="result.page"/></p>-->
-                            <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/>
+                            <p ng-show="result.otherisradio==3"><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/>
                             </p>
                             <hr class="hr"/>
                             <p>
@@ -1175,6 +1175,17 @@
         <div class="cand_close" ng-click="closeCand()">x</div>
     </div>
     <!--设置填空题格式弹窗结束-->
+    <!--设置元素内间距弹窗开始-->
+    <div class="cand vertical">
+        <div class="cand_title">设置当前题组行间距</div>
+        <div class="cand_con clearfix">
+            <p class="fl">行间距</p>
+            <p class="fl"><input type="text" ng-model="vertical"></p>
+        </div>
+        <div class="cand_btn"><a ng-click="setCandNumber(candlen)">确定</a></div>
+        <div class="cand_close" ng-click="closeCand()">x</div>
+    </div>
+    <!--设置元素内间距弹窗结束-->
 </div>
 
 <script src="js/Answer.js" type="text/javascript" charset="utf-8"></script>
