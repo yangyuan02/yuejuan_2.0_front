@@ -1677,12 +1677,15 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         if ($scope.tabParentIndex == 1) {
             $scope.otherHeight = $scope.listObj2[$scope.tabIndex].otherHeight
+            $scope.meunType = $scope.listObj2[$scope.tabIndex].type//右键菜单显示控制
         }
         if ($scope.tabParentIndex == 2) {
             $scope.otherHeight = $scope.listObj3[$scope.tabIndex].otherHeight
+            $scope.meunType = $scope.listObj3[$scope.tabIndex].type//右键菜单显示控制
         }
         if ($scope.tabParentIndex == 3) {
             $scope.otherHeight = $scope.listObj4[$scope.tabIndex].otherHeight
+            $scope.meunType = $scope.listObj4[$scope.tabIndex].type//右键菜单显示控制
         }
         console.log($scope.tabParentIndex,$scope.tabIndex)
     }
