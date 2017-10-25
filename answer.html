@@ -39,6 +39,10 @@
 							</select>
 						</span>
         <span class="mR clear">
+                        <span>
+                            <select ng-init="selectedName3 = showTableLine[showTableLineTyep]" ng-model="selectedName3" ng-options="x for x in showTableLine" ng-change="checkTestType(3)">
+							</select>
+                        </span>
 						<span>
                             <select ng-init="selectedName = myPaper[paperType]" ng-model="selectedName" ng-options="x for x in myPaper" ng-change="checkTestType(0)">
 							</select>
@@ -387,18 +391,17 @@
                         </div>
                         <!--考试个人信息结束-->
                         <div class="A_Rone_child">
-                            <table ng-repeat="a in listObj" ng-click="getTableIndex(0,$index)" class="{{tabParentIndex==0&&tabIndex==$index?'table_focus':''}}">
+                            <table ng-repeat="a in listObj" ng-click="getTableIndex(0,$index)" class="{{tabParentIndex==0&&tabIndex==$index?'table_focus':''}} {{showTableLineTyep==0?'':'hideTab'}}">
                                 <thead>
                                 <tr ng-if="a.otherisradio!=4">
                                     <th>
-                                        <span>{{Q_number[$index]}}、</span>
-                                        {{a.name}}(共{{a.totalCores}}分<span ng-hide="a.type==4">，每题{{a.itemCores}}分</span>)
+                                        {{a.name}}
                                     </th>
                                 </tr>
-                                <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5">
+                                <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5" class="{{paperType==1?'paper':''}}">
                                     <th>
                                         <!--网络阅卷打分框start-->
-                                        <div class="marking {{paperType==1?'paper':''}}">
+                                        <div class="marking">
                                             <a href="">1</a>
                                             <a href="">2</a>
                                             <a href="">3</a>
@@ -446,7 +449,7 @@
                                 <!--其他题模板开始-->
                                 <tr ng-if="a.type==5" class="other"><!--其他题-->
                                     <td>
-                                        <div ng-repeat="item in a.no" ng-if="a.otherisradio==3">
+                                        <div ng-repeat="item in a.no" ng-if="a.otherisradio==3" class="{{paperType==1?'other_box':''}}">
                                             <!--其他题头部-->
                                             <div class="other_h clearfix">
                                                 <div class="other_number {{a.type==5 && showItmeScoreType ==1?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
@@ -520,18 +523,17 @@
                             <p>请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效</p>
                         </div>
                         <div class="A_Rone_child">
-                            <table ng-repeat="a in listObj2" ng-click="getTableIndex(1,$index)" class="{{tabParentIndex==1&&tabIndex==$index?'table_focus':''}}">
+                            <table ng-repeat="a in listObj2" ng-click="getTableIndex(1,$index)" class="{{tabParentIndex==1&&tabIndex==$index?'table_focus':''}} {{showTableLineTyep==0?'':'hideTab'}}">
                                 <thead>
                                 <tr ng-if="a.otherisradio!=4">
                                     <th>
-                                        <span>{{Q_number[$index+listObj.length]}}、</span>
-                                        {{a.name}}(共{{a.totalCores}}分<span ng-hide="a.type==4">，每题{{a.itemCores}}分</span>)
+                                        {{a.name}}
                                     </th>
                                 </tr>
-                                <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5">
+                                <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5" class="{{paperType==1?'paper':''}}">
                                     <th>
                                         <!--网络阅卷打分框start-->
-                                        <div class="marking {{paperType==1?'paper':''}}">
+                                        <div class="marking">
                                             <a href="">1</a>
                                             <a href="">2</a>
                                             <a href="">3</a>
@@ -584,7 +586,7 @@
                                 <!--其他题模板开始-->
                                 <tr ng-if="a.type==5" class="other">
                                     <td>
-                                        <div ng-repeat="item in a.no" ng-if="a.otherisradio==3">
+                                        <div ng-repeat="item in a.no" ng-if="a.otherisradio==3" class="{{paperType==1?'other_box':''}}">
                                             <!--其他题头部-->
                                             <div class="other_h clearfix">
                                                 <div class="other_number {{a.type==5 && showItmeScoreType ==1?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
@@ -705,18 +707,17 @@
                             <p>请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效</p>
                         </div>
                         <div class="A_Rone_child">
-                            <table ng-repeat="a in listObj3" ng-click="getTableIndex(2,$index)" class="{{tabParentIndex==2&&tabIndex==$index?'table_focus':''}}">
+                            <table ng-repeat="a in listObj3" ng-click="getTableIndex(2,$index)" class="{{tabParentIndex==2&&tabIndex==$index?'table_focus':''}} {{showTableLineTyep==0?'':'hideTab'}}">
                                 <thead>
                                 <tr ng-if="a.otherisradio!=4">
                                     <th>
-                                        <span>{{Q_number[$index+listObj.length+listObj2.length]}}、</span>
-                                        {{a.name}}(共{{a.totalCores}}分<span ng-hide="a.type==4">，每题{{a.itemCores}}分</span>)
+                                        {{a.name}}
                                     </th>
                                 </tr>
-                                <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5">
+                                <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5" class="{{paperType==1?'paper':''}}">
                                     <th>
                                         <!--网络阅卷打分框start-->
-                                        <div class="marking {{paperType==1?'paper':''}}">
+                                        <div class="marking">
                                             <a href="">1</a>
                                             <a href="">2</a>
                                             <a href="">3</a>
@@ -764,7 +765,7 @@
                                 <!--其他题模板开始-->
                                 <tr ng-if="a.type==5" class="other"><!--其他题-->
                                     <td>
-                                        <div ng-repeat="item in a.no" ng-if="a.otherisradio==3">
+                                        <div ng-repeat="item in a.no" ng-if="a.otherisradio==3" class="{{paperType==1?'other_box':''}}">
                                             <!--其他题头部-->
                                             <div class="other_h clearfix">
                                                 <div class="other_number {{a.type==5 && showItmeScoreType ==1?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
@@ -839,18 +840,17 @@
                             <p>请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效</p>
                         </div>
                         <div class="A_Rone_child">
-                            <table ng-repeat="a in listObj4" ng-click="getTableIndex(3,$index)" class="{{tabParentIndex==3&&tabIndex==$index?'table_focus':''}}">
+                            <table ng-repeat="a in listObj4" ng-click="getTableIndex(3,$index)" class="{{tabParentIndex==3&&tabIndex==$index?'table_focus':''}} {{showTableLineTyep==0?'':'hideTab'}}">
                                 <thead>
                                 <tr ng-if="a.otherisradio!=4">
                                     <th>
-                                        <span>{{Q_number[$index+listObj.length+listObj2.length+listObj3.length]}}、</span>
-                                        {{a.name}}(共{{a.totalCores}}分<span ng-hide="a.type==4">，每题{{a.itemCores}}分</span>)
+                                        {{a.name}}
                                     </th>
                                 </tr>
-                                <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5">
+                                <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5" class="{{paperType==1?'paper':''}}">
                                     <th>
                                         <!--网络阅卷打分框start-->
-                                        <div class="marking {{paperType==1?'paper':''}}">
+                                        <div class="marking">
                                             <a href="">1</a>
                                             <a href="">2</a>
                                             <a href="">3</a>
@@ -903,7 +903,7 @@
                                 <!--其他题模板开始-->
                                 <tr ng-if="a.type==5" class="other">
                                     <td>
-                                        <div ng-repeat="item in a.no" ng-if="a.otherisradio==3">
+                                        <div ng-repeat="item in a.no" ng-if="a.otherisradio==3" >
                                             <!--其他题头部-->
                                             <div class="other_h clearfix">
                                                 <div class="other_number {{a.type==5 && showItmeScoreType ==1?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
