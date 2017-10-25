@@ -41,6 +41,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.myDayin = ['单面打印', '双面打印'];
     $scope.showItmeScoreType = 0
     $scope.showItmeScore = ['不显示分数', '显示分数'];
+    $scope.showTableLineTyep = 0
+    $scope.showTableLine = ['显示题组外框', '不显示题组外框'];
     $scope.result = {};//弹出框保存
     var modelParam = []//存储请求参数
     var answer_id = []//大题answer_id
@@ -63,6 +65,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     answer_id = data.message.answer_id
                     allHeight = data.message.allHeight ? data.message.allHeight : []
                     $scope.paperType = data.message.paperType ? data.message.paperType : 0
+                    $scope.showTableLineTyep = data.message.showTableLineTyep ? data.message.showTableLineTyep : 0
                     $scope.myDayinType = data.message.myDayinType ? data.message.myDayinType : 0
                     $scope.showItmeScoreType = data.message.showItmeScoreType ? data.message.showItmeScoreType : 0
                     $scope.countScore = data.message.countScore ? data.message.countScore : 0
@@ -117,6 +120,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.showItmeScoreType = 0
             }
         }
+        if (type == 3) {
+            if ($scope.showTableLineTyep == 0) {
+                $scope.showTableLineTyep = 1
+            } else {
+                $scope.showTableLineTyep = 0
+            }
+        }
         $("#menu").css({"display": "none"})
     }
     $scope.Q_number = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十']
@@ -141,13 +151,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 result = remain - title_h - padding - row * rowItme_h > 0 ? true : false
             }
             if ($scope.index == 3) {//填空题
-                var rowItme_h = 27, score_h = 38
+                var rowItme_h = 27, score_h = $scope.paperType == 0?40:20
                 var row = Math.ceil($scope.result.numbel / 2)
                 console.log(remain - title_h - padding - score_h - row * rowItme_h)
                 result = remain - title_h - padding - score_h - row * rowItme_h > 0 ? true : false
             }
             if ($scope.index == 4) {//作文题
-                var rowItme_h = 35, score_h = 36;
+                var rowItme_h = 35, score_h = $scope.paperType == 0?40:20;
                 /*语文试卷*/
                 if ($scope.result.writIsradio == 1) {
                     var row = Math.ceil($scope.result.plaid / 21)
@@ -359,7 +369,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 otherHeight.push(150)//其他题默认150px
             }
             if($scope.index==3){
-                fillWidth.push(180)
+                fillWidth.push(230)
                 fillsNum.push(childNum)
             }
         }
@@ -751,6 +761,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         allList.page4 = $scope.listObj4
         allList.answer_id = answer_id
         allList.paperType = $scope.paperType
+        allList.showTableLineTyep = $scope.showTableLineTyep
         allList.myDayinType = $scope.myDayinType
         allList.showItmeScoreType = $scope.showItmeScoreType
         allList.countScore = $scope.countScore
@@ -769,7 +780,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             if (obj.type == 1) {//增加小题
                 obj.list[obj.index].no.push(obj.no)
                 obj.list[obj.index].otherHeight.push(150)
-                obj.list[obj.index].fillWidth.push(180)
+                obj.list[obj.index].fillWidth.push(230)
                 obj.list[obj.index].itemCoresArr.push(obj.score)
                 obj.list[obj.index].numbel++  //题目数量
                 // obj.list[obj.index].itemCores = obj.score  //当前小题分值
@@ -1552,6 +1563,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.listObj3 = data.page3 ? data.page3 : []
                 $scope.listObj4 = data.page4 ? data.page4 : []
                 $scope.paperType = data.paperType ? data.paperType : 0
+                $scope.showTableLineTyep = data.showTableLineTyep ? data.showTableLineTyep : 0
                 $scope.myDayinType = data.myDayinType ? data.myDayinType : 0
                 $scope.showItmeScoreType = data.showItmeScoreType ? data.showItmeScoreType : 0
                 $scope.countScore = data.countScore ? data.countScore : 0
