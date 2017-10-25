@@ -151,13 +151,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 result = remain - title_h - padding - row * rowItme_h > 0 ? true : false
             }
             if ($scope.index == 3) {//填空题
-                var rowItme_h = 27, score_h = 38
+                var rowItme_h = 27, score_h = $scope.paperType == 0?40:20
                 var row = Math.ceil($scope.result.numbel / 2)
                 console.log(remain - title_h - padding - score_h - row * rowItme_h)
                 result = remain - title_h - padding - score_h - row * rowItme_h > 0 ? true : false
             }
             if ($scope.index == 4) {//作文题
-                var rowItme_h = 35, score_h = 36;
+                var rowItme_h = 35, score_h = $scope.paperType == 0?40:20;
                 /*语文试卷*/
                 if ($scope.result.writIsradio == 1) {
                     var row = Math.ceil($scope.result.plaid / 21)
@@ -369,7 +369,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 otherHeight.push(150)//其他题默认150px
             }
             if($scope.index==3){
-                fillWidth.push(180)
+                fillWidth.push(230)
                 fillsNum.push(childNum)
             }
         }
@@ -780,7 +780,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             if (obj.type == 1) {//增加小题
                 obj.list[obj.index].no.push(obj.no)
                 obj.list[obj.index].otherHeight.push(150)
-                obj.list[obj.index].fillWidth.push(180)
+                obj.list[obj.index].fillWidth.push(230)
                 obj.list[obj.index].itemCoresArr.push(obj.score)
                 obj.list[obj.index].numbel++  //题目数量
                 // obj.list[obj.index].itemCores = obj.score  //当前小题分值
