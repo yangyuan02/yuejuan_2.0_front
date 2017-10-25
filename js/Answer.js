@@ -41,6 +41,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.myDayin = ['单面打印', '双面打印'];
     $scope.showItmeScoreType = 0
     $scope.showItmeScore = ['不显示分数', '显示分数'];
+    $scope.showTableLineTyep = 0
+    $scope.showTableLine = ['显示题组外框', '不显示题组外框'];
     $scope.result = {};//弹出框保存
     var modelParam = []//存储请求参数
     var answer_id = []//大题answer_id
@@ -63,6 +65,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     answer_id = data.message.answer_id
                     allHeight = data.message.allHeight ? data.message.allHeight : []
                     $scope.paperType = data.message.paperType ? data.message.paperType : 0
+                    $scope.showTableLineTyep = data.message.showTableLineTyep ? data.message.showTableLineTyep : 0
                     $scope.myDayinType = data.message.myDayinType ? data.message.myDayinType : 0
                     $scope.showItmeScoreType = data.message.showItmeScoreType ? data.message.showItmeScoreType : 0
                     $scope.countScore = data.message.countScore ? data.message.countScore : 0
@@ -115,6 +118,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.showItmeScoreType = 1
             } else {
                 $scope.showItmeScoreType = 0
+            }
+        }
+        if (type == 3) {
+            if ($scope.showTableLineTyep == 0) {
+                $scope.showTableLineTyep = 1
+            } else {
+                $scope.showTableLineTyep = 0
             }
         }
         $("#menu").css({"display": "none"})
@@ -751,6 +761,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         allList.page4 = $scope.listObj4
         allList.answer_id = answer_id
         allList.paperType = $scope.paperType
+        allList.showTableLineTyep = $scope.showTableLineTyep
         allList.myDayinType = $scope.myDayinType
         allList.showItmeScoreType = $scope.showItmeScoreType
         allList.countScore = $scope.countScore
@@ -1552,6 +1563,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.listObj3 = data.page3 ? data.page3 : []
                 $scope.listObj4 = data.page4 ? data.page4 : []
                 $scope.paperType = data.paperType ? data.paperType : 0
+                $scope.showTableLineTyep = data.showTableLineTyep ? data.showTableLineTyep : 0
                 $scope.myDayinType = data.myDayinType ? data.myDayinType : 0
                 $scope.showItmeScoreType = data.showItmeScoreType ? data.showItmeScoreType : 0
                 $scope.countScore = data.countScore ? data.countScore : 0

@@ -779,7 +779,8 @@ input:focus{
 }
 .Answer .A_R .A_Rone .A_Rone_child table tbody tr td .other_line{
     height:20px;
-    width:100%;border-bottom:1px solid #000000
+    width:100%;
+    border-bottom:1px solid #000000
 }
 .Answer .A_R .A_Rone .A_Rone_child table tbody tr td .other_first_position{
     position:relative;
@@ -789,6 +790,9 @@ input:focus{
     left: 41px;
     top: -5px;
     width: 631px;
+}
+.Answer .A_R .A_Rone .A_Rone_child table.hideTab{
+    border-color: #fff;
 }
 /********************语文试卷样式***************/
 /*table thead tr:last-child{*/
