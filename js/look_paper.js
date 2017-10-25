@@ -440,9 +440,10 @@ $(function(){
 		$(this).find('.edit-item').click();
 	});
 	$('body').on('click','.edit-item',function() {
-		$('.modal-main').animate({'top': '50%','opacity': 1},500);
+		$('.modal-main').animate({'top': '50%','opacity': 1});
 		$('.modal-shadow').animate({'opacity': 0},500);
 		$('#change-modal').show();
+		$('.modal-main').css('cursor', 'pointer').draggable();
 
 		var p_id = $(this).parent().attr('id');
 		$('.modal-main').attr('id', p_id);
@@ -485,6 +486,7 @@ $(function(){
 		}else{
 			$('#item-list').html('');
 			get_item_info();
+			var is_arr = JSON.parse(localStorage.getItem("data_arr"));
 			console.log(is_arr)
 			append_section(is_arr);
 		}
@@ -916,7 +918,7 @@ $(function(){
     $(the_id).mouseup(function(e){//松开鼠标左键，初始化标志位
       down_flag=false;
       original_flag=true;
-      $("div[name='"+num+"']").draggable({containment: ".bg-img", scroll: false });;
+      $("div[name='"+num+"']").draggable({containment: ".bg-img", scroll: false });
       $("div[name='"+num+"']").resizable({ handles: "n, e, s, w, ne, se, sw, nw" });
 
 
@@ -989,17 +991,14 @@ $(function(){
       	// var num_index = parseInt($("div[name='"+(num-1)+"']").children('.title').text());
       	var current_page =parseInt($('.page .on').text());
       	var crop_type = 1;
+      	var positions=[];
+      	var objj = {'w':w,'h':h,'width':width,'height':height,'x':x,'y':y,'current_page':current_page};
+				positions.push(objj)
       	var data_arr={
-      		'w':w,
-        	'h':h,
-        	'width':width,
-        	'height':height,
-        	'x':x,
-        	'y':y,
+      		'positions':JSON.stringify(positions),
         	// 'index':num_index,
         	'exam_subject_batch_id':bath_id,
         	'crop_type':crop_type,
-        	'current_page':current_page,
         	'exam_subject_id':exam_subject_id,
       	}
       	var data_id = $("div[name='"+(num-1)+"']").attr('data-id');
@@ -1008,6 +1007,7 @@ $(function(){
       		console.log(data_id)
 					// update_select_info(data_id,data_arr);
       	}else{
+      		console.log(data_arr)
 	      	$.ajax({
 	      	  type: "POST",
 	      	  async:false,
@@ -1015,8 +1015,8 @@ $(function(){
 	      	  headers: {'Authorization': "Bearer " + isLogin},
 	      	  data: data_arr,
 	      	  success: function(data){
-	      	  	console.log(data,data.id);
-	      	  	show_id_info(data,p_id);
+	      	  	console.log(data,data[0].id,p_id);
+	      	  	show_hide_info(data,p_id);
 	      	   },
 	      	   error: function(){
 	      	      // alert('请稍后从新尝试登录或者联系管理员');
@@ -1032,6 +1032,13 @@ $(function(){
     });
 	}
 
+	function show_hide_info(info_id,area_id){
+		var answer_id =info_id[0].answer_id;
+		var data_id = info_id[0].id;
+		$('#'+area_id+'').attr('answer-id',answer_id);
+		$('#'+area_id+'').attr('data-id',data_id);
+	}
+
 	var items_all_info;
 	$(document).on('mouseup', '.bg-type-sec .select-area', function() {
 		// event.stopPropagation()
@@ -1045,7 +1052,7 @@ $(function(){
     var h = $('.img-box img').height();
 		var x = $(this).position().left;
 		var y = $(this).position().top;
-		position={'w':w,'h':h,'width':width,'height':height,'x':x,'y':y,};
+		var position={'w':w,'h':h,'width':width,'height':height,'x':x,'y':y,};
 		var num_index = parseInt($(this).children('.title').text());
 		var current_page =parseInt($('.page .on').text());
 		var answer_id = $(this).attr('answer-id');
@@ -1118,13 +1125,10 @@ $(function(){
 		var y = $(this).position().top;
 		var current_page =parseInt($('.page .on').text());
   	var crop_type = 1;
+  	var position={'w':w,'h':h,'width':width,'height':height,'x':x,'y':y,};
+
   	var data_arr={
-  		'w':w,
-    	'h':h,
-    	'width':width,
-    	'height':height,
-    	'x':x,
-    	'y':y,
+  		'position':position,
     	'exam_subject_batch_id':bath_id,
     	'crop_type':crop_type,
     	'current_page':current_page,
