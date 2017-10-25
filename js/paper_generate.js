@@ -834,6 +834,7 @@ $(function() {
 
 	function show_item_detail(data_teacher) {
 		console.log(data_teacher)
+		console.log(item_groups)
 		var items_length = item_groups.length;
 		var teacher_length = data_teacher.length;
 		for (var i = 0; i < items_length; i++) {
@@ -842,7 +843,7 @@ $(function() {
 				if (item_groups[i].id == data_teacher[j].answer_id) {
 					arr_num.push(j);
 				}
-                var item_li = '<tr><td width="80"  class="item-name" data-id="' + item_groups[i].id + '">' + item_groups[i].name + '</td><td width="375"><ul class="teacher-list examination examination_' + item_groups[i].id + '" teacher-type="examination"></ul><a class="add add-one" id="examination-add-' + i + '" href="javascript:;"><i class="iconfont">&#xe61a;</i>添加</a></td><td width="375"><ul class="teacher-list reviewed reviewed_' + item_groups[i].id + '" teacher-type="reviewed"></ul><a class="add add-one" id="reviewed-add-' + i + '" href="javascript:;"><i class="iconfont">&#xe61a;</i>添加</a></td></tr>';
+        var item_li = '<tr><td width="80"  class="item-name" data-id="' + item_groups[i].id + '">' + item_groups[i].name + '</td><td width="375"><ul class="teacher-list examination examination_' + item_groups[i].id + '" teacher-type="examination"></ul><a class="add add-one" id="examination-add-' + i + '" href="javascript:;"><i class="iconfont">&#xe61a;</i>添加</a></td><td width="375"><ul class="teacher-list reviewed reviewed_' + item_groups[i].id + '" teacher-type="reviewed"></ul><a class="add add-one" id="reviewed-add-' + i + '" href="javascript:;"><i class="iconfont">&#xe61a;</i>添加</a></td></tr>';
 			};
 			$('.look-table tbody').append(item_li);
 			console.log(arr_num, i, j);
