@@ -84,10 +84,12 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.index = index
         clear()
         $scope.result.isradio = 1//单选题、多选题
+        $scope.result.otherisradio = 3//单选题、多选题
         $scope.result.writIsradio = 1//作文题
     };
     $scope.checkbox = function (index) {//切换单选多选
         $scope.result.isradio = index
+        $scope.result.otherisradio = index
     }
     $scope.checkWrit = function (index) {
         $scope.result.writIsradio = index//作文题
@@ -160,9 +162,16 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 }
             }
             if ($scope.index == 5) {//其他题
-                var rowItme_h = 164;
-                var row = $scope.result.numbel
-                result = remain - title_h - padding - row * rowItme_h > 0 ? true : false
+                if($scope.result.otherisradio==3){
+                    var rowItme_h = 164;
+                    var row = $scope.result.numbel
+                    result = remain - title_h - padding - row * rowItme_h > 0 ? true : false
+                }
+                if($scope.result.otherisradio==4){
+                    var rowItme_h = 20;
+                    var row = $scope.result.numbel
+                    result = remain  - row * rowItme_h > 0 ? true : false
+                }
             }
         } else {//第一次添加
             console.log("第一添加")
@@ -394,13 +403,16 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for (var i = 0; i < obj.numbel; i++) {
             itemCoresArr.push(obj.itemCores)
         }
-        obj.itemCoresArr = itemCoresArr
+        obj.itemCoresArr = $scope.result.otherisradio==4?[]:itemCoresArr
         if ($scope.index == 4) {
             obj.articleType = $scope.result.writIsradio
             obj.rows = rosItem
             obj.plaids = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]//21长度
             obj.row = row
             obj.plaid = $scope.result.plaid
+        }
+        if($scope.index==5){
+            obj.otherisradio = $scope.result.otherisradio
         }
         if (!checkIsNUll()) {
             return false
@@ -435,7 +447,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     //清空选择题的内容
     var clear = function () {
         $scope.result = {
-            name: '', numbel: '', isradio: '',
+            name: '', numbel: '', isradio: '',otherisradio:'',
             no: '', one: '', two: '', thr: '',
         };
     };
@@ -1770,7 +1782,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             $scope.closeCand()
         })
     }
-    // $scope.listObj[0].fillsNum = [[1,2,3]]
     /*******************************保存*************************************************/
     $scope.save = function () {//保存模板
         if ($scope.listObj.length <= 0) {
