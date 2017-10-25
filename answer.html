@@ -398,10 +398,10 @@
                                         {{a.name}}
                                     </th>
                                 </tr>
-                                <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5">
+                                <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5" class="{{paperType==1?'paper':''}}">
                                     <th>
                                         <!--网络阅卷打分框start-->
-                                        <div class="marking {{paperType==1?'paper':''}}">
+                                        <div class="marking">
                                             <a href="">1</a>
                                             <a href="">2</a>
                                             <a href="">3</a>
@@ -449,7 +449,7 @@
                                 <!--其他题模板开始-->
                                 <tr ng-if="a.type==5" class="other"><!--其他题-->
                                     <td>
-                                        <div ng-repeat="item in a.no" ng-if="a.otherisradio==3">
+                                        <div ng-repeat="item in a.no" ng-if="a.otherisradio==3" class="{{paperType==1?'other_box':''}}">
                                             <!--其他题头部-->
                                             <div class="other_h clearfix">
                                                 <div class="other_number {{a.type==5 && showItmeScoreType ==1?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
@@ -530,10 +530,10 @@
                                         {{a.name}}
                                     </th>
                                 </tr>
-                                <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5">
+                                <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5" class="{{paperType==1?'paper':''}}">
                                     <th>
                                         <!--网络阅卷打分框start-->
-                                        <div class="marking {{paperType==1?'paper':''}}">
+                                        <div class="marking">
                                             <a href="">1</a>
                                             <a href="">2</a>
                                             <a href="">3</a>
@@ -586,7 +586,7 @@
                                 <!--其他题模板开始-->
                                 <tr ng-if="a.type==5" class="other">
                                     <td>
-                                        <div ng-repeat="item in a.no" ng-if="a.otherisradio==3">
+                                        <div ng-repeat="item in a.no" ng-if="a.otherisradio==3" class="{{paperType==1?'other_box':''}}">
                                             <!--其他题头部-->
                                             <div class="other_h clearfix">
                                                 <div class="other_number {{a.type==5 && showItmeScoreType ==1?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
@@ -714,10 +714,10 @@
                                         {{a.name}}
                                     </th>
                                 </tr>
-                                <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5">
+                                <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5" class="{{paperType==1?'paper':''}}">
                                     <th>
                                         <!--网络阅卷打分框start-->
-                                        <div class="marking {{paperType==1?'paper':''}}">
+                                        <div class="marking">
                                             <a href="">1</a>
                                             <a href="">2</a>
                                             <a href="">3</a>
@@ -765,7 +765,7 @@
                                 <!--其他题模板开始-->
                                 <tr ng-if="a.type==5" class="other"><!--其他题-->
                                     <td>
-                                        <div ng-repeat="item in a.no" ng-if="a.otherisradio==3">
+                                        <div ng-repeat="item in a.no" ng-if="a.otherisradio==3" class="{{paperType==1?'other_box':''}}">
                                             <!--其他题头部-->
                                             <div class="other_h clearfix">
                                                 <div class="other_number {{a.type==5 && showItmeScoreType ==1?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
@@ -847,10 +847,10 @@
                                         {{a.name}}
                                     </th>
                                 </tr>
-                                <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5">
+                                <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5" class="{{paperType==1?'paper':''}}">
                                     <th>
                                         <!--网络阅卷打分框start-->
-                                        <div class="marking {{paperType==1?'paper':''}}">
+                                        <div class="marking">
                                             <a href="">1</a>
                                             <a href="">2</a>
                                             <a href="">3</a>
@@ -903,7 +903,7 @@
                                 <!--其他题模板开始-->
                                 <tr ng-if="a.type==5" class="other">
                                     <td>
-                                        <div ng-repeat="item in a.no" ng-if="a.otherisradio==3">
+                                        <div ng-repeat="item in a.no" ng-if="a.otherisradio==3" >
                                             <!--其他题头部-->
                                             <div class="other_h clearfix">
                                                 <div class="other_number {{a.type==5 && showItmeScoreType ==1?'show_score':''}}">{{item<10?'0'+item:item}}{{a.type==5?'、':''}}
