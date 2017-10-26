@@ -409,7 +409,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             fillWidth:fillWidth,//填空题宽度
             fillsNum:fillsNum,//填空题横线个数
             verticalHeigth:$scope.index==4?35:20,//题组行间距
-            LineType:0//线类型0代表实线非0虚线
+            LineType:0,//线类型0代表实线非0虚线
+            hideLineType:0//线类型0代表显示非1隐藏
         }
         var itemCoresArr = []//每题分数数组
         for (var i = 0; i < obj.numbel; i++) {
@@ -1689,9 +1690,12 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.tabParentIndex = tabParentIndex
         $scope.tabIndex = tabIndex
         $scope.showMenuFlag = true
-        $scope.otherHeight = getOBjList()[$scope.tabIndex].otherHeight
-        $scope.LineTypeWord = getOBjList()[$scope.tabIndex].LineType==0?'虚线':'实线'
-        $scope.meunType = getOBjList()[$scope.tabIndex].type//右键菜单显示控制
+        if($scope.tabParentIndex!=-1){
+            $scope.otherHeight = getOBjList()[$scope.tabIndex].otherHeight
+            $scope.LineTypeWord = getOBjList()[$scope.tabIndex].LineType==0?'虚线':'实线'
+            $scope.LineTypeShow = getOBjList()[$scope.tabIndex].hideLineType==0?'隐藏':'显示'
+            $scope.meunType = getOBjList()[$scope.tabIndex].type//右键菜单显示控制
+        }
     }
     var eleFile = document.getElementById("imgOne")
     $scope.insertPic = function () {
@@ -1770,6 +1774,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
      */
     $scope.toggleLineType = function () {
         getOBjList()[$scope.tabIndex].LineType = !getOBjList()[$scope.tabIndex].LineType
+        $("#menu").hide()
+    }
+    /**
+     * 切换隐藏其他题横线
+     */
+    $scope.toggleLineDisplay = function () {
+        getOBjList()[$scope.tabIndex].hideLineType = !getOBjList()[$scope.tabIndex].hideLineType
         $("#menu").hide()
     }
     /*******************************保存*************************************************/
