@@ -35,7 +35,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.listObj3 = [];
     $scope.listObj4 = [];
     $scope.candNumber = [0, 1, 2, 3, 4, 5, 6, 7], $scope.candlen = $scope.candNumber.length
-    $scope.paperType = 0;//阅卷方式/0代表手工1代表网络默认0
+    $scope.paperType = 1;//阅卷方式/0代表手工1代表网络默认0
     $scope.myPaper = ['手工阅卷', '网络阅卷'];
     $scope.myDayinType = 0
     $scope.myDayin = ['单面打印', '双面打印'];
