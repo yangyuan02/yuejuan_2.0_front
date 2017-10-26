@@ -1127,7 +1127,7 @@ $(function(){
 			}
 		}else{
 			var c_id=$(this).attr('id');
-			var new_data={'crop_type':crop_type,'id':c_id,'w':w,'h':h,'width':width,'x':x,'y':y,'height':height,'current_page':current_page}
+			var new_data={'num':num_index,'crop_type':crop_type,'id':c_id,'w':w,'h':h,'width':width,'x':x,'y':y,'height':height,'current_page':current_page}
 			var is_arr = JSON.parse(localStorage.getItem("data_arr"));
 			console.log(is_arr)
 			if(is_arr){
