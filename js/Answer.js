@@ -35,7 +35,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.listObj3 = [];
     $scope.listObj4 = [];
     $scope.candNumber = [0, 1, 2, 3, 4, 5, 6, 7], $scope.candlen = $scope.candNumber.length
-    $scope.paperType = 0;//阅卷方式/0代表手工1代表网络默认0
+    $scope.paperType = 1;//阅卷方式/0代表手工1代表网络默认0
     $scope.myPaper = ['手工阅卷', '网络阅卷'];
     $scope.myDayinType = 0
     $scope.myDayin = ['单面打印', '双面打印'];
@@ -407,7 +407,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             type: $scope.result.isradio == 2 ? 6 : $scope.index,//题目类型
             otherHeight:otherHeight,//其他题高度
             fillWidth:fillWidth,//填空题宽度
-            fillsNum:fillsNum//填空题横线个数
+            fillsNum:fillsNum,//填空题横线个数
+            verticalHeigth:$scope.index==4?35:20//题组行间距
         }
         var itemCoresArr = []//每题分数数组
         for (var i = 0; i < obj.numbel; i++) {
@@ -1796,6 +1797,40 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
             $scope.closeCand()
         })
+    }
+    /**
+     * 设置横线间距
+     */
+    $scope.showVertical = function () {
+        $(".vertical").show()
+        $("#menu").hide()
+        if ($scope.tabParentIndex == 0) {
+            $scope.vertical = $scope.listObj[$scope.tabIndex].verticalHeigth
+        }
+        if ($scope.tabParentIndex == 1) {
+            $scope.vertical = $scope.listObj2[$scope.tabIndex].verticalHeigth
+        }
+        if ($scope.tabParentIndex == 2) {
+            $scope.vertical = $scope.listObj3[$scope.tabIndex].verticalHeigth
+        }
+        if ($scope.tabParentIndex == 3) {
+            $scope.vertical = $scope.listObj4[$scope.tabIndex].verticalHeigth
+        }
+    }
+    $scope.setVertical = function (verticalHeigth) {
+        if ($scope.tabParentIndex == 0) {
+            $scope.listObj[$scope.tabIndex].verticalHeigth = verticalHeigth
+        }
+        if ($scope.tabParentIndex == 1) {
+            $scope.listObj2[$scope.tabIndex].verticalHeigth = verticalHeigth
+        }
+        if ($scope.tabParentIndex == 2) {
+            $scope.listObj3[$scope.tabIndex].verticalHeigth = verticalHeigth
+        }
+        if ($scope.tabParentIndex == 3) {
+            $scope.listObj4[$scope.tabIndex].verticalHeigth = verticalHeigth
+        }
+        $scope.closeCand()
     }
     /*******************************保存*************************************************/
     $scope.save = function () {//保存模板
