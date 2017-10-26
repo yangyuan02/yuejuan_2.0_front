@@ -408,7 +408,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             otherHeight:otherHeight,//其他题高度
             fillWidth:fillWidth,//填空题宽度
             fillsNum:fillsNum,//填空题横线个数
-            verticalHeigth:$scope.index==4?35:20//题组行间距
+            verticalHeigth:$scope.index==4?35:20,//题组行间距
+            LineType:0//线类型0代表实线非0虚线
         }
         var itemCoresArr = []//每题分数数组
         for (var i = 0; i < obj.numbel; i++) {
@@ -1689,6 +1690,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.tabIndex = tabIndex
         $scope.showMenuFlag = true
         $scope.otherHeight = getOBjList()[$scope.tabIndex].otherHeight
+        $scope.LineTypeWord = getOBjList()[$scope.tabIndex].LineType==0?'虚线':'实线'
         $scope.meunType = getOBjList()[$scope.tabIndex].type//右键菜单显示控制
     }
     var eleFile = document.getElementById("imgOne")
@@ -1762,6 +1764,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.setVertical = function (verticalHeigth) {
         getOBjList()[$scope.tabIndex].verticalHeigth = verticalHeigth
         $scope.closeCand()
+    }
+    /**
+     * 切换实线和虚线转换
+     */
+    $scope.toggleLineType = function () {
+        getOBjList()[$scope.tabIndex].LineType = !getOBjList()[$scope.tabIndex].LineType
+        $("#menu").hide()
     }
     /*******************************保存*************************************************/
     $scope.save = function () {//保存模板

@@ -441,7 +441,7 @@
                                         </span>
                                             <!--选择题模版end-->
                                             <!--填空题模板start-->
-                                            <span class="fill_line" ng-show="a.type==3" style="width:{{a.fillWidth[$parent.$index]+'px'}}" ng-repeat="fills in a.fillsNum[$index]"></span>
+                                            <span class="fill_line {{a.LineType==0?'':'dashed_line'}}" ng-show="a.type==3" style="width:{{a.fillWidth[$parent.$index]+'px'}}" ng-repeat="fills in a.fillsNum[$index]"></span>
                                             <!--填空题模版end-->
                                         </div>
                                     </td>
@@ -482,7 +482,7 @@
                                             </div>
                                         </div>
                                         <div ng-if="a.otherisradio==4" class="other_first_position">
-                                            <div class="other_line" ng-repeat="item in a.no" style="height:{{a.verticalHeigth+'px'}}">{{$index==0?a.name:''}}</div>
+                                            <div class="other_line {{a.LineType==0?'':'dashed_line'}}" ng-repeat="item in a.no" style="height:{{a.verticalHeigth+'px'}}">{{$index==0?a.name:''}}</div>
                                         </div>
                                     </td>
                                 </tr>
@@ -572,7 +572,7 @@
                                         </span>
                                             <!--选择题模版end-->
                                             <!--填空题模板start-->
-                                            <span class="fill_line" ng-show="a.type==3" style="width:{{a.fillWidth[$index]+'px'}}"></span>
+                                            <span class="fill_line {{a.LineType==0?'':'dashed_line'}}" ng-show="a.type==3" style="width:{{a.fillWidth[$index]+'px'}}"></span>
                                             <!--填空题模版end-->
                                             <!--英语作文题模板start-->
                                             <span class="writing" ng-show="a.type==4">
@@ -618,7 +618,7 @@
                                             </div>
                                         </div>
                                         <div ng-if="a.otherisradio==4" class="other_first_position">
-                                            <div class="other_line" ng-repeat="item in a.no" style="height:{{a.verticalHeigth+'px'}}">{{$index==0?a.name:''}}</div>
+                                            <div class="other_line {{a.LineType==0?'':'dashed_line'}}" ng-repeat="item in a.no" style="height:{{a.verticalHeigth+'px'}}">{{$index==0?a.name:''}}</div>
                                         </div>
                                     </td>
                                 </tr>
@@ -755,7 +755,7 @@
                                         </span>
                                             <!--选择题模版end-->
                                             <!--填空题模板start-->
-                                            <span class="fill_line" ng-show="a.type==3" style="width:{{a.fillWidth[$index]+'px'}}"></span>
+                                            <span class="fill_line {{a.LineType==0?'':'dashed_line'}}" ng-show="a.type==3" style="width:{{a.fillWidth[$index]+'px'}}"></span>
                                             <!--填空题模版end-->
                                         </div>
                                     </td>
@@ -796,7 +796,7 @@
                                             </div>
                                         </div>
                                         <div ng-if="a.otherisradio==4" class="other_first_position">
-                                            <div class="other_line" ng-repeat="item in a.no" style="height:{{a.verticalHeigth+'px'}}">{{$index==0?a.name:''}}</div>
+                                            <div class="other_line {{a.LineType==0?'':'dashed_line'}}" ng-repeat="item in a.no" style="height:{{a.verticalHeigth+'px'}}">{{$index==0?a.name:''}}</div>
                                         </div>
                                     </td>
                                 </tr>
@@ -887,7 +887,7 @@
                                         </span>
                                             <!--选择题模版end-->
                                             <!--填空题模板start-->
-                                            <span class="fill_line" ng-show="a.type==3" style="width:{{a.fillWidth[$index]+'px'}}"></span>
+                                            <span class="fill_line {{a.LineType==0?'':'dashed_line'}}" ng-show="a.type==3" style="width:{{a.fillWidth[$index]+'px'}}"></span>
                                             <!--填空题模版end-->
                                             <!--英语作文题模板start-->
                                             <span class="writing" ng-show="a.type==4">
@@ -933,7 +933,7 @@
                                             </div>
                                         </div>
                                         <div ng-if="a.otherisradio==4" class="other_first_position">
-                                            <div class="other_line" ng-repeat="item in a.no" style="height:{{a.verticalHeigth+'px'}}">{{$index==0?a.name:''}}</div>
+                                            <div class="other_line {{a.LineType==0?'':'dashed_line'}}" ng-repeat="item in a.no" style="height:{{a.verticalHeigth+'px'}}">{{$index==0?a.name:''}}</div>
                                         </div>
                                     </td>
                                 </tr>
@@ -1110,7 +1110,7 @@
             <li class="meun_navbar" ng-click="showModel('setGroupHeigh')" ng-show="meunType==5">修改题组高度</li>
             <li class="meun_navbar" ng-click="setFillQuestion()" ng-show="meunType==3">修改填空题</li>
             <li class="meun_navbar" ng-click="checkTestType(1)">打印方式:{{myDayinType==0?'单面':'双面'}}</li>
-            <!--<li class="meun_navbar">信息框置于左侧</li>-->
+            <li class="meun_navbar" ng-show="meunType==3||meunType==5" ng-click="toggleLineType()">转换为{{LineTypeWord}}</li>
             <!--<li class="meun_navbar">插入单元格</li>-->
             <!--<li class="meun_navbar" ng-click="add(4)">插入语文作文格</li>-->
             <!--<li class="meun_navbar" ng-click="add(4)">插入英文作文行线</li>-->
