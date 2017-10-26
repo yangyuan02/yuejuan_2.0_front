@@ -786,6 +786,16 @@ input:focus{
 }
 .Answer .A_R .A_Rone .A_Rone_child table tbody .other_box:last-child{
     border-bottom:none;
+    border-bottom-style:none!important;
+}
+.full_line{
+    border-bottom-style: solid!important;
+}
+.dashed_line{
+    border-bottom-style: dashed!important;
+}
+.hide_line{
+    border:none!important;
 }
 /********************语文试卷样式***************/
 /*table thead tr:last-child{*/
