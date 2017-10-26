@@ -271,7 +271,7 @@ $(function(){
 			  		};
 			  	}
 			  	console.log(a_settings);
-			  	s_i_id = data.scanner_image_id;
+			  	s_i_id = data.scanner_image_id[0];
 			  	e_s_id = data.exam_subject_id;
 			  	current_index = data.finished_count;
 			  	show_img_info(data,name,index);
