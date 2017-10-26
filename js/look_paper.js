@@ -170,9 +170,13 @@ $(function(){
     var jj_html = '<li id="'+arr[j].id+'" sec_num = "'+arr[j].current_page+'_'+arr[j].num+'"><input type="hidden" width="'+arr[j].width+'" height="'+arr[j].height+'" w="'+arr[j].w+'" h="'+arr[j].h+'" x="'+arr[j].x+'" y="'+arr[j].y+'" current_page="'+arr[j].current_page+'" /><span>'+arr[j].num+'</span>( 第<em>'+arr[j].current_page+'</em>页 )</li>';
     	$('body').find('#all-section-list').append(jj_html);
     }
+    console.log(new_arr);
     for (var i = 0; i < new_arr.length; i++) {
-			var first_string="<div class='select-area' style='position: absolute;left:"+new_arr[i].x+"px;top:"+new_arr[i].y+"px;"+"width:"+new_arr[i].width+"px;height:"
-		      +new_arr[i].height+"px' id='select-area"+(i+1)+"' name='"+i+"'><a href='javascript:;' class='edit-item'>编辑</a><i class='iconfont close'>&#xe61b;</i><span class='title' " +
+    	var l_width=new_arr[i].w/1044;
+	    var l_height=new_arr[i].h/734;
+	    // console.log(new_arr[i].w,l_width,l_height)
+			var first_string="<div class='select-area' style='position: absolute;left:"+(new_arr[i].x/l_width)+"px;top:"+(new_arr[i].y/l_height)+"px;"+"width:"+(new_arr[i].width/l_width)+"px;height:"
+		      +(new_arr[i].height/l_height)+"px' id='select-area"+(i+1)+"' name='"+i+"'><a href='javascript:;' class='edit-item'>编辑</a><i class='iconfont close'>&#xe61b;</i><span class='title' " +
 		  		" style='background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 2px;'>"+(i+1)+"</span>'</div>";
   		$('.bg-img').append(first_string);
   		$(".select-area").draggable({containment: ".bg-img", scroll: false });;
@@ -443,7 +447,7 @@ $(function(){
 		$('.modal-main').animate({'top': '50%','opacity': 1});
 		$('.modal-shadow').animate({'opacity': 0},500);
 		$('#change-modal').show();
-		$('.modal-main').css('cursor', 'pointer').draggable();
+		$('#change-modal').find('.modal-main').css('cursor', 'pointer').draggable();
 
 		var p_id = $(this).parent().attr('id');
 		$('.modal-main').attr('id', p_id);
@@ -827,7 +831,21 @@ $(function(){
 	$('body').on('click', '.close', function() {
 		$(this).parent().remove();
 		num--;
-		console.log('select-num',num)
+    var current_page =parseInt($('.page .on').text());
+    var c_id = $(this).parent().attr('id');
+		var is_arr = JSON.parse(localStorage.getItem("data_arr"));
+		console.log('select-num',num,is_arr)
+		if(is_arr){
+			for (var i = 0; i < is_arr.length; i++) {
+				if(c_id==is_arr[i].id&&current_page==is_arr[i].current_page){
+					is_arr.splice(i,1);
+				}
+				var storage=window.localStorage;
+				storage.setItem("data_arr",JSON.stringify(is_arr));
+			};
+		}
+		data_arr_all=is_arr;
+
 	 	var select_id = $(this).parent().attr('data-id');
 	 	console.log(select_id);
 	 	if(select_id){
@@ -1090,7 +1108,7 @@ $(function(){
 			  url: ajaxIp+"/api/v2/section_crops/"+update_select_id+"",
 			  headers: {'Authorization': "Bearer " + isLogin},
 			  success: function(data){
-			  	// console.log(data);
+			  	console.log(data);
 			  	pre_info = data;
 			   },
 			   error: function(){
@@ -1107,6 +1125,22 @@ $(function(){
 			if(width-pre_width!=0 || height-pre_height!=0 || x-pre_x!=0 || y-pre_y!=0){
 				update_select_info(update_select_id,data_arr);
 			}
+		}else{
+			var c_id=$(this).attr('id');
+			var new_data={'crop_type':crop_type,'id':c_id,'w':w,'h':h,'width':width,'x':x,'y':y,'height':height,'current_page':current_page}
+			var is_arr = JSON.parse(localStorage.getItem("data_arr"));
+			console.log(is_arr)
+			if(is_arr){
+			for (var i = 0; i < is_arr.length; i++) {
+				if(c_id==is_arr[i].id&&current_page==is_arr[i].current_page){
+					is_arr.splice(i,1,new_data);
+				}
+				var storage=window.localStorage;
+				storage.setItem("data_arr",JSON.stringify(is_arr));
+			};
+		}
+		data_arr_all=is_arr;
+
 		}
 	});
 
