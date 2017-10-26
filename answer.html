@@ -482,8 +482,7 @@
                                             </div>
                                         </div>
                                         <div ng-if="a.otherisradio==4" class="other_first_position">
-                                            <div>{{a.name}}</div>
-                                            <div class="other_line" ng-repeat="item in a.no"></div>
+                                            <div class="other_line" ng-repeat="item in a.no">{{$index==0?a.name:''}}</div>
                                         </div>
                                     </td>
                                 </tr>

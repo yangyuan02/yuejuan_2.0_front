@@ -778,15 +778,6 @@ input:focus{
     width:100%;
     border-bottom:1px solid #000000
 }
-.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .other_first_position{
-    position:relative;
-}
-.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .other_line:nth-of-type(2){
-    position: absolute;
-    left: 41px;
-    top: -5px;
-    width: 631px;
-}
 .Answer .A_R .A_Rone .A_Rone_child table.hideTab{
     border-color: #fff;
 }
