@@ -1668,29 +1668,29 @@ m1.controller("demo", function ($scope, $timeout, $http) {
      * @param parentIndex  $scope.list
      * @param index   题组索引
      */
+    function getOBjList() {
+        var obj
+        if ($scope.tabParentIndex == 0) {
+            obj = $scope.listObj
+        }
+        if ($scope.tabParentIndex == 1) {
+            obj = $scope.listObj2
+        }
+        if ($scope.tabParentIndex == 2) {
+            obj = $scope.listObj3
+        }
+        if ($scope.tabParentIndex == 3) {
+            obj = $scope.listObj4
+        }
+        return obj
+    }
     $scope.getTableIndex = function (tabParentIndex, tabIndex) {
         $scope.tabParentIndex = tabParentIndex
         $scope.tabIndex = tabIndex
         $scope.showMenuFlag = true
-        if ($scope.tabParentIndex == 0) {
-            $scope.otherHeight = $scope.listObj[$scope.tabIndex].otherHeight
-            $scope.meunType = $scope.listObj[$scope.tabIndex].type//右键菜单显示控制
-        }
-        if ($scope.tabParentIndex == 1) {
-            $scope.otherHeight = $scope.listObj2[$scope.tabIndex].otherHeight
-            $scope.meunType = $scope.listObj2[$scope.tabIndex].type//右键菜单显示控制
-        }
-        if ($scope.tabParentIndex == 2) {
-            $scope.otherHeight = $scope.listObj3[$scope.tabIndex].otherHeight
-            $scope.meunType = $scope.listObj3[$scope.tabIndex].type//右键菜单显示控制
-        }
-        if ($scope.tabParentIndex == 3) {
-            $scope.otherHeight = $scope.listObj4[$scope.tabIndex].otherHeight
-            $scope.meunType = $scope.listObj4[$scope.tabIndex].type//右键菜单显示控制
-        }
-        console.log($scope.tabParentIndex,$scope.tabIndex)
+        $scope.otherHeight = getOBjList()[$scope.tabIndex].otherHeight
+        $scope.meunType = getOBjList()[$scope.tabIndex].type//右键菜单显示控制
     }
-
     var eleFile = document.getElementById("imgOne")
     $scope.insertPic = function () {
         var formdata = new FormData()
@@ -1705,18 +1705,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             processData: false,  // 不处理数据
             contentType: false,   // 不设置内容类型
             success: function (data) {
-                if ($scope.tabParentIndex == 0) {
-                    $scope.listObj[$scope.tabIndex].imgurl = data[0].figure
-                }
-                if ($scope.tabParentIndex == 1) {
-                    $scope.listObj2[$scope.tabIndex].imgurl = data[0].figure
-                }
-                if ($scope.tabParentIndex == 2) {
-                    $scope.listObj3[$scope.tabIndex].imgurl = data[0].figure
-                }
-                if ($scope.tabParentIndex == 3) {
-                    $scope.listObj4[$scope.tabIndex].imgurl = data[0].figure
-                }
+                getOBjList()[$scope.tabIndex].imgurl = data[0].figure
                 $scope.closeCand()
             },
 
@@ -1724,36 +1713,14 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
     /*设置题组高度*/
     $scope.setGroupHeigh = function (heights) {
-        if ($scope.tabParentIndex == 0) {
-            $scope.listObj[$scope.tabIndex].otherHeight = heights.split(',')
-        }
-        if ($scope.tabParentIndex == 1) {
-            $scope.listObj2[$scope.tabIndex].otherHeight = heights.split(',')
-        }
-        if ($scope.tabParentIndex == 2) {
-            $scope.listObj3[$scope.tabIndex].otherHeight = heights.split(',')
-        }
-        if ($scope.tabParentIndex == 3) {
-            $scope.listObj4[$scope.tabIndex].otherHeight = heights.split(',')
-        }
+        getOBjList()[$scope.tabIndex].otherHeight = heights.split(',')
         $scope.closeCand()
     }
     /**设置填空题格式**/
     $scope.setFillQuestion= function () {
         $(".setFill_q").show()
         $("#menu").hide()
-        if ($scope.tabParentIndex == 0) {
-            getNo($scope.listObj)
-        }
-        if ($scope.tabParentIndex == 1) {
-            getNo($scope.listObj2)
-        }
-        if ($scope.tabParentIndex == 2) {
-            getNo($scope.listObj3)
-        }
-        if ($scope.tabParentIndex == 3) {
-            getNo($scope.listObj4)
-        }
+        getNo(getOBjList())
         function getNo(obj) {//获取当前答题有几个小题
             var len = obj[$scope.tabIndex].no.length
             var fillWidth = obj[$scope.tabIndex].fillWidth
@@ -1772,22 +1739,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     /*************确定**************/
     $scope.sureFillQuestion = function () {
         $scope.fillLists.forEach(function (item,index,arr) {
-            if ($scope.tabParentIndex == 0) {
-                $scope.listObj[$scope.tabIndex].fillWidth[index] = arr[index].fill_w
-                $scope.listObj[$scope.tabIndex].fillsNum[index] = getfillChildNums(arr[index].fill_num)
-            }
-            if ($scope.tabParentIndex == 1) {
-                $scope.listObj2[$scope.tabIndex].fillWidth[index] = arr[index].fill_w
-                $scope.listObj2[$scope.tabIndex].fillsNum[index] = getfillChildNums(arr[index].fill_num)
-            }
-            if ($scope.tabParentIndex == 2) {
-                $scope.listObj3[$scope.tabIndex].fillWidth[index] = arr[index].fill_w
-                $scope.listObj3[$scope.tabIndex].fillsNum[index] = getfillChildNums(arr[index].fill_num)
-            }
-            if ($scope.tabParentIndex == 3) {
-                $scope.listObj4[$scope.tabIndex].fillWidth[index] = arr[index].fill_w
-                $scope.listObj4[$scope.tabIndex].fillsNum[index] = getfillChildNums(arr[index].fill_num)
-            }
+            getOBjList()[$scope.tabIndex].fillWidth[index] = arr[index].fill_w
+            getOBjList()[$scope.tabIndex].fillsNum[index] = getfillChildNums(arr[index].fill_num)
             function getfillChildNums(num) {
                 var resutl = []
                 for(var i = 0;i<num;i++){
@@ -1804,32 +1757,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.showVertical = function () {
         $(".vertical").show()
         $("#menu").hide()
-        if ($scope.tabParentIndex == 0) {
-            $scope.vertical = $scope.listObj[$scope.tabIndex].verticalHeigth
-        }
-        if ($scope.tabParentIndex == 1) {
-            $scope.vertical = $scope.listObj2[$scope.tabIndex].verticalHeigth
-        }
-        if ($scope.tabParentIndex == 2) {
-            $scope.vertical = $scope.listObj3[$scope.tabIndex].verticalHeigth
-        }
-        if ($scope.tabParentIndex == 3) {
-            $scope.vertical = $scope.listObj4[$scope.tabIndex].verticalHeigth
-        }
+        $scope.vertical = getOBjList()[$scope.tabIndex].verticalHeigth
     }
     $scope.setVertical = function (verticalHeigth) {
-        if ($scope.tabParentIndex == 0) {
-            $scope.listObj[$scope.tabIndex].verticalHeigth = verticalHeigth
-        }
-        if ($scope.tabParentIndex == 1) {
-            $scope.listObj2[$scope.tabIndex].verticalHeigth = verticalHeigth
-        }
-        if ($scope.tabParentIndex == 2) {
-            $scope.listObj3[$scope.tabIndex].verticalHeigth = verticalHeigth
-        }
-        if ($scope.tabParentIndex == 3) {
-            $scope.listObj4[$scope.tabIndex].verticalHeigth = verticalHeigth
-        }
+        getOBjList()[$scope.tabIndex].verticalHeigth = verticalHeigth
         $scope.closeCand()
     }
     /*******************************保存*************************************************/
