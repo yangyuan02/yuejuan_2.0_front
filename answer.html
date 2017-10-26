@@ -482,7 +482,7 @@
                                             </div>
                                         </div>
                                         <div ng-if="a.otherisradio==4" class="other_first_position">
-                                            <div class="other_line" ng-repeat="item in a.no">{{$index==0?a.name:''}}</div>
+                                            <div class="other_line" ng-repeat="item in a.no" style="height:{{a.verticalHeigth+'px'}}">{{$index==0?a.name:''}}</div>
                                         </div>
                                     </td>
                                 </tr>
@@ -499,10 +499,10 @@
                                             </div>
                                         </div><!--语文作文题-->
                                         <div class="english" ng-if="a.articleType==2">
-                                            <div class="english_line" ng-repeat="row in a.rows"></div>
+                                            <div class="english_line" ng-repeat="row in a.rows" style="height:{{a.verticalHeigth+'px'}}"></div>
                                         </div><!-- 外语作文题-->
                                         <div class="en_word" ng-if="a.articleType==3">
-                                            <div class="word_itme" ng-repeat="row in a.rows">
+                                            <div class="word_itme" ng-repeat="row in a.rows" style="height:{{a.verticalHeigth+'px'}}">
                                                 <span ng-if="$index==49||$index==59">{{$index+1}}</span>
                                             </div>
                                         </div><!--单词隔行线-->
@@ -618,8 +618,7 @@
                                             </div>
                                         </div>
                                         <div ng-if="a.otherisradio==4" class="other_first_position">
-                                            <div>{{a.name}}</div>
-                                            <div class="other_line" ng-repeat="item in a.no"></div>
+                                            <div class="other_line" ng-repeat="item in a.no" style="height:{{a.verticalHeigth+'px'}}">{{$index==0?a.name:''}}</div>
                                         </div>
                                     </td>
                                 </tr>
@@ -636,10 +635,10 @@
                                             </div>
                                         </div><!--语文作文题-->
                                         <div class="english" ng-if="a.articleType==2">
-                                            <div class="english_line" ng-repeat="row in a.rows"></div>
+                                            <div class="english_line" ng-repeat="row in a.rows" style="height:{{a.verticalHeigth+'px'}}"></div>
                                         </div><!-- 外语作文题-->
                                         <div class="en_word" ng-if="a.articleType==3">
-                                            <div class="word_itme" ng-repeat="row in a.rows">
+                                            <div class="word_itme" ng-repeat="row in a.rows" style="height:{{a.verticalHeigth+'px'}}">
                                                 <span ng-if="$index==49||$index==59">{{$index+1}}</span>
                                             </div>
                                         </div><!--单词隔行线-->
@@ -797,8 +796,7 @@
                                             </div>
                                         </div>
                                         <div ng-if="a.otherisradio==4" class="other_first_position">
-                                            <div>{{a.name}}</div>
-                                            <div class="other_line" ng-repeat="item in a.no"></div>
+                                            <div class="other_line" ng-repeat="item in a.no" style="height:{{a.verticalHeigth+'px'}}">{{$index==0?a.name:''}}</div>
                                         </div>
                                     </td>
                                 </tr>
@@ -816,10 +814,10 @@
                                             </div>
                                         </div><!--语文作文题-->
                                         <div class="english" ng-if="a.articleType==2">
-                                            <div class="english_line" ng-repeat="row in a.rows"></div>
+                                            <div class="english_line" ng-repeat="row in a.rows" style="height:{{a.verticalHeigth+'px'}}"></div>
                                         </div><!-- 外语作文题-->
                                         <div class="en_word" ng-if="a.articleType==3">
-                                            <div class="word_itme" ng-repeat="row in a.rows">
+                                            <div class="word_itme" ng-repeat="row in a.rows" style="height:{{a.verticalHeigth+'px'}}">
                                                 <span ng-if="$index==49||$index==59">{{$index+1}}</span>
                                             </div>
                                         </div><!--单词隔行线-->
@@ -935,8 +933,7 @@
                                             </div>
                                         </div>
                                         <div ng-if="a.otherisradio==4" class="other_first_position">
-                                            <div>{{a.name}}</div>
-                                            <div class="other_line" ng-repeat="item in a.no"></div>
+                                            <div class="other_line" ng-repeat="item in a.no" style="height:{{a.verticalHeigth+'px'}}">{{$index==0?a.name:''}}</div>
                                         </div>
                                     </td>
                                 </tr>
@@ -954,10 +951,10 @@
                                             </div>
                                         </div><!--语文作文题-->
                                         <div class="english" ng-if="a.articleType==2">
-                                            <div class="english_line" ng-repeat="row in a.rows"></div>
+                                            <div class="english_line" ng-repeat="row in a.rows" style="height:{{a.verticalHeigth+'px'}}"></div>
                                         </div><!-- 外语作文题-->
                                         <div class="en_word" ng-if="a.articleType==3">
-                                            <div class="word_itme" ng-repeat="row in a.rows">
+                                            <div class="word_itme" ng-repeat="row in a.rows" style="height:{{a.verticalHeigth+'px'}}">
                                                 <span ng-if="$index==49||$index==59">{{$index+1}}</span>
                                             </div>
                                         </div><!--单词隔行线-->
@@ -1108,7 +1105,7 @@
         <ul>
             <li class="meun_navbar" ng-click="dayin()">打印</li>
             <li class="meun_navbar" ng-click="showModel('cand_box')">设置考号</li>
-            <!--<li class="meun_navbar">文档类型</li>-->
+            <li class="meun_navbar" ng-show="meunType==5||meunType==4" ng-click="showVertical()">设置行间距</li>
             <li class="meun_navbar" ng-click="showModel('pic_box')" ng-show="meunType==5">插入图片</li>
             <li class="meun_navbar" ng-click="showModel('setGroupHeigh')" ng-show="meunType==5">修改题组高度</li>
             <li class="meun_navbar" ng-click="setFillQuestion()" ng-show="meunType==3">修改填空题</li>
@@ -1181,7 +1178,7 @@
             <p class="fl">行间距</p>
             <p class="fl"><input type="text" ng-model="vertical"></p>
         </div>
-        <div class="cand_btn"><a ng-click="setCandNumber(candlen)">确定</a></div>
+        <div class="cand_btn"><a ng-click="setVertical(vertical)">确定</a></div>
         <div class="cand_close" ng-click="closeCand()">x</div>
     </div>
     <!--设置元素内间距弹窗结束-->
