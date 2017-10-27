@@ -805,6 +805,8 @@ $(function(){
 	});
 
 	function show_id_info(id_info,id_area,is_arr){
+		var is_arr = JSON.parse(localStorage.getItem("data_arr"));
+		console.log(is_arr)
 		for (var i = 0; i < id_info.length; i++) {
 			for (var j = 0; j < id_area.length; j++) {
 				if(i==j){
