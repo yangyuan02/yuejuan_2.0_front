@@ -2161,6 +2161,9 @@ $(function() {
 			is_extra = false;
 		};
 		printBarcode(is_extra);
+		var gg=$(this).parents('.set-up-search').find('#select-grade  option:selected').text();
+		var ss=$(this).parents('.set-up-search').find('#select-sujects  option:selected').text().substr(0,2);
+		document.title = $('#school-name').val()+gg+ss;
 	})
 
 	function printBarcode(is_extra) {
@@ -2265,14 +2268,15 @@ $(function() {
 	        barCode.style['padding-left']=margin+"px";
 	        barCode.style['padding-right']=margin+"px";
 	        str = list[i];
-	        $(bmp).barcode(str, "code128",{barWidth:1, barHeight:30,showHRI:false,output:'bmp'});
+	        $(bmp).barcode(str.exam_no, "code128",{barWidth:1, barHeight:30,showHRI:false,output:'bmp'});
 	        var w=parseInt(bmp.style.width);
 	        var wscale=stdW/w;
 	        bmp.style.transform="scale("+wscale+",1)";
 	        barCode.appendChild(bmp);
 	        text.style['font-size'] = '8px';
-	        text.innerText = str + ' ';
+	        text.innerText = str.name+' '+str.exam_no + ' ';
 	        text.style['white-space']='nowrap';
+	        text.style['padding-top']='6px';
 	        barCode.appendChild(text);
 	        var rowDIV=document.createElement('div');
 	        rowDIV.style['margin-left']="auto";

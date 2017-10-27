@@ -271,7 +271,7 @@ $(function(){
 			  		};
 			  	}
 			  	console.log(a_settings);
-			  	s_i_id = data.scanner_image_id;
+			  	s_i_id = data.scanner_image_id[0];
 			  	e_s_id = data.exam_subject_id;
 			  	current_index = data.finished_count;
 			  	show_img_info(data,name,index);
@@ -293,11 +293,16 @@ $(function(){
 	function show_img_info(img_info,section_crop_name,index){
 		$('.move-paper').html('');
 		if(section_crop_name){
+			console.log(section_crop_name)
 			var img_url = img_info.section_crop_image_uri;
 			var img_id = img_info.section_crop_image_id;
-			var img_html = '<img data-id="'+img_id+'" id="img-'+img_id+'" src="'+ ajaxIp +''+img_url+'">';
+			if(img_url){
+				for (var ww = 0; ww < img_url.length; ww++) {
+					var img_html = '<img data-id="'+img_id+'" id="img-'+img_id+'" src="'+ ajaxIp +''+img_url[ww]+'">';
+					$('.move-paper').append(img_html);
+				};
+			}
 		}
-		$('.move-paper').append(img_html);
 			console.log(total_paper)
 			if(img_info.personal){
 				$('.move-paper img').css({
