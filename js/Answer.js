@@ -1318,7 +1318,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             $scope.listObj4.splice(index - len1 - len2 - len3, 1)
             console.log("删除list4")
         }
-        deleRender(index)
+        // deleRender(index)
     }
 
     //删除题组
