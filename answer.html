@@ -211,7 +211,7 @@
                                 <span style="float: left;">横线类</span>
                             </p>
                             <p ng-show="result.otherisradio==3"><span>试题数量</span><input type="text" placeholder="请输入试题数量" ng-model="result.numbel"/></p>
-                            <p ng-show="result.otherisradio==4"><span>横线数量</span><input type="text" placeholder="请输入试题数量" ng-model="result.numbel"/></p>
+                            <p ng-show="result.otherisradio==4"><span>横线数量</span><input type="text" placeholder="请输入试题数量" ng-model="result.Linenumbel"/></p>
                             <p><span>起始序号</span><input type="text" placeholder="请输入起始序号" ng-model="result.no"/></p>
                             <!--<p><span>所在页码</span><input type="text" placeholder="请输入所在页码" ng-model="result.page"/></p>-->
                             <p><span>每题分值</span><input type="text" placeholder="请输入每题分值" ng-model="result.itemcoreS"/>
@@ -482,7 +482,7 @@
                                             </div>
                                         </div>
                                         <div ng-if="a.otherisradio==4" class="other_first_position">
-                                            <div class="other_line {{a.LineType==0?'':'dashed_line'}}" ng-repeat="item in a.no" style="height:{{a.verticalHeigth+'px'}}">{{$index==0?a.name:''}}</div>
+                                            <div class="other_line {{a.LineType==0?'':'dashed_line'}}" ng-repeat="item in a.Linenumbel" style="height:{{a.verticalHeigth+'px'}}">{{$index==0?a.name:''}}</div>
                                         </div>
                                     </td>
                                 </tr>
@@ -618,7 +618,7 @@
                                             </div>
                                         </div>
                                         <div ng-if="a.otherisradio==4" class="other_first_position">
-                                            <div class="other_line {{a.LineType==0?'':'dashed_line'}}" ng-repeat="item in a.no" style="height:{{a.verticalHeigth+'px'}}">{{$index==0?a.name:''}}</div>
+                                            <div class="other_line {{a.LineType==0?'':'dashed_line'}}" ng-repeat="item in a.Linenumbel" style="height:{{a.verticalHeigth+'px'}}">{{$index==0?a.name:''}}</div>
                                         </div>
                                     </td>
                                 </tr>
@@ -796,7 +796,7 @@
                                             </div>
                                         </div>
                                         <div ng-if="a.otherisradio==4" class="other_first_position">
-                                            <div class="other_line {{a.LineType==0?'':'dashed_line'}}" ng-repeat="item in a.no" style="height:{{a.verticalHeigth+'px'}}">{{$index==0?a.name:''}}</div>
+                                            <div class="other_line {{a.LineType==0?'':'dashed_line'}}" ng-repeat="item in a.Linenumbel" style="height:{{a.verticalHeigth+'px'}}">{{$index==0?a.name:''}}</div>
                                         </div>
                                     </td>
                                 </tr>
@@ -933,7 +933,7 @@
                                             </div>
                                         </div>
                                         <div ng-if="a.otherisradio==4" class="other_first_position">
-                                            <div class="other_line {{a.LineType==0?'':'dashed_line'}}" ng-repeat="item in a.no" style="height:{{a.verticalHeigth+'px'}}">{{$index==0?a.name:''}}</div>
+                                            <div class="other_line {{a.LineType==0?'':'dashed_line'}}" ng-repeat="item in a.Linenumbel" style="height:{{a.verticalHeigth+'px'}}">{{$index==0?a.name:''}}</div>
                                         </div>
                                     </td>
                                 </tr>
@@ -1105,13 +1105,13 @@
         <ul>
             <li class="meun_navbar" ng-click="dayin()">打印</li>
             <li class="meun_navbar" ng-click="showModel('cand_box')" ng-show="tabParentIndex==-1">设置考号</li>
-            <li class="meun_navbar" ng-show="(meunType==5||meunType==4)&&tabParentIndex!=-1" ng-click="showVertical()">设置行间距</li>
-            <li class="meun_navbar" ng-click="showModel('pic_box')" ng-show="meunType==5&&tabParentIndex!=-1">插入图片</li>
-            <li class="meun_navbar" ng-click="showModel('setGroupHeigh')" ng-show="meunType==5&&tabParentIndex!=-1">修改题组高度</li>
-            <li class="meun_navbar" ng-click="setFillQuestion()" ng-show="meunType==3&&tabParentIndex!=-1">修改填空题</li>
+            <li class="meun_navbar" ng-show="meunType==5||meunType==4" ng-click="showVertical()">设置行间距</li>
+            <li class="meun_navbar" ng-click="showModel('pic_box')" ng-show="meunType==5">插入图片</li>
+            <li class="meun_navbar" ng-click="showModel('setGroupHeigh')" ng-show="meunType==5">修改题组高度</li>
+            <li class="meun_navbar" ng-click="setFillQuestion()" ng-show="meunType==3">修改填空题</li>
             <li class="meun_navbar" ng-click="checkTestType(1)">打印方式:{{myDayinType==0?'单面':'双面'}}</li>
-            <li class="meun_navbar" ng-show="(meunType==3||meunType==5&&LineTypeShow=='隐藏')&&tabParentIndex!=-1" ng-click="toggleLineType()">转换为{{LineTypeWord}}</li>
-            <li class="meun_navbar" ng-show="meunType==5&&tabParentIndex!=-1" ng-click="toggleLineDisplay()">{{LineTypeShow}}分割线</li>
+            <li class="meun_navbar" ng-show="meunType==3||meunType==5&&LineTypeShow=='隐藏'" ng-click="toggleLineType()">转换为{{LineTypeWord}}</li>
+            <li class="meun_navbar" ng-show="meunType==5" ng-click="toggleLineDisplay()">{{LineTypeShow}}分割线</li>
             <!--<li class="meun_navbar">插入单元格</li>-->
             <!--<li class="meun_navbar" ng-click="add(4)">插入语文作文格</li>-->
             <!--<li class="meun_navbar" ng-click="add(4)">插入英文作文行线</li>-->
