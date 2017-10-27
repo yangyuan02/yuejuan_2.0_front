@@ -393,9 +393,15 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for (var i = 0; i < row; i++) {
             rosItem.push(i)
         }
+        if($scope.result.otherisradio==4){
+            var Linenumbel  =[]
+            for (var i = 0; i < $scope.result.Linenumbel; i++) {
+                Linenumbel.push(i)
+            }
+        }
         obj = {
             name: $scope.result.name,//题组名称
-            numbel: $scope.index == 4 ? 1 : parseInt($scope.result.numbel),//试题数量
+            numbel: $scope.index == 4 ||$scope.result.otherisradio==4 ? 1 : parseInt($scope.result.numbel),//试题数量
             isradio: $scope.result.isradio,//单选多选
             startNo: parseInt($scope.result.no),//起始序号
             // currentPage: $scope.result.page == undefined ? 1 : $scope.result.page,//所在页码
@@ -410,7 +416,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             fillsNum:fillsNum,//填空题横线个数
             verticalHeigth:$scope.index==4?35:20,//题组行间距
             LineType:0,//线类型0代表实线非0虚线
-            hideLineType:0//线类型0代表显示非1隐藏
+            hideLineType:0,//线类型0代表显示非1隐藏
+            Linenumbel:Linenumbel//横线类数量
         }
         var itemCoresArr = []//每题分数数组
         for (var i = 0; i < obj.numbel; i++) {
