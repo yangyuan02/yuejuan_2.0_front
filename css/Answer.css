@@ -330,13 +330,13 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     width:100%;
 }
 .Answer .A_R .A_Rone .A_Rone_child table tbody .other_h .other_number{
-    width:24px;
+    /*width:24px;*/
     height: 12px;
     float:left;
 }
-.Answer .A_R .A_Rone .A_Rone_child table tbody .other_h .other_number.show_score{
-    width:60px;
-}
+/*.Answer .A_R .A_Rone .A_Rone_child table tbody .other_h .other_number.show_score{*/
+    /*width:60px;*/
+/*}*/
 .Answer .A_R .A_Rone .A_Rone_child table tbody .other_h .marking{
     float:left;
 }
