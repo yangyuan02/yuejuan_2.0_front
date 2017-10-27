@@ -248,9 +248,11 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             "作文格数不能为空",
             "格子行数不能为空",
             "单词个数不能为空",
+            "横线数量不能为空",
         ]
         var checkIsEmpty = function (array) {//检测是否为空
             for (var i = 0; i < array.length; i++) {
+                console.log(array[i].type)
                 if (array[i].type == '') {
                     alert(tips[array[i].index])
                     result = false
@@ -270,7 +272,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         if ($scope.index == 2 || $scope.index == 3 || $scope.index == 5) {
             var input = [
                 {"type": $scope.result.name, "index": 0},//题组名称
-                {"type": $scope.result.numbel, "index": 1},//试题数量
+                {"type": $scope.result.numbel||$scope.result.Linenumbel, "index": 1},//试题数量
                 {"type": $scope.result.no, "index": 2},//起始序号
                 {"type": $scope.result.itemcoreS, "index": 3},//每题分值
                 {"type": $scope.result.page, "index": 5}//所在页码
