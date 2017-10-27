@@ -447,8 +447,6 @@ $(function(){
 		$('.modal-main').animate({'top': '50%','opacity': 1});
 		$('.modal-shadow').animate({'opacity': 0},500);
 		$('#change-modal').show();
-		$('#change-modal').find('.modal-main').css('cursor', 'pointer').draggable();
-
 		var p_id = $(this).parent().attr('id');
 		$('.modal-main').attr('id', p_id);
 		var parent_id = $(this).parent().attr('data-id');
@@ -847,6 +845,7 @@ $(function(){
 			};
 		}
 		data_arr_all=is_arr;
+		console.log(data_arr_all)
 
 	 	var select_id = $(this).parent().attr('data-id');
 	 	console.log(select_id);
