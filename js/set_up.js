@@ -2161,6 +2161,9 @@ $(function() {
 			is_extra = false;
 		};
 		printBarcode(is_extra);
+		var gg=$(this).parents('.set-up-search').find('#select-grade  option:selected').text();
+		var ss=$(this).parents('.set-up-search').find('#select-sujects  option:selected').text().substr(0,2);
+		document.title = $('#school-name').val()+gg+ss;
 	})
 
 	function printBarcode(is_extra) {

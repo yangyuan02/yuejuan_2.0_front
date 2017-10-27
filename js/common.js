@@ -62,6 +62,7 @@ $(function() {
 	    		// console.log(role_name)
 	    		console.log(role_name);
 	    		$('#role-name').val(role_name);
+	    		$('#school-name').val(data.school_name);
               // 成绩生成控制代码 end
 	    		console.log(data)
 	    		if(data.error){
