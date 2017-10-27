@@ -1,11 +1,5 @@
 $(function(){
 	var isLogin = localStorage.getItem("token");
-	var is_arr;
-	var is_arr_info = JSON.parse(localStorage.getItem("data_arr"));
-	console.log(is_arr_info)
-	if (is_arr_info) {
-			localStorage.removeItem("data_arr");
-	};
 	// 获取当前页面的URL参数
 	var url = window.location;
   function getUrlParam(url,name){
@@ -63,6 +57,17 @@ $(function(){
    	// show_test_cont(parseInt(localStorage.test_local_id));
 	});
 	get_info();
+	var is_arr;
+	var index_id=$('#sub-name').attr('exam_subject_id');
+	console.log(index_id)
+	var is_arr_info = JSON.parse(localStorage.getItem("data_arr"+index_id+""));
+	console.log(is_arr_info)
+	if (is_arr_info) {
+			localStorage.removeItem("data_arr"+index_id+"");
+	};
+	var is_arr_num = JSON.parse(localStorage.getItem("data_arr_num"+index_id+""));
+	console.log(is_arr_num)
+	// localStorage.removeItem("data_arr_num"+index_id+"");
 	// 获取消息
 	function get_info(){
 		$.ajax({
@@ -124,17 +129,18 @@ $(function(){
 			var img_html = '<img data-id="'+img_id+'" id="img-'+img_id+'" src="'+ ajaxIp +''+img_url+'"><div class="bg-img"><div class="crop">题组切割</div></div>';
 			$('.img-box').append(img_html);
 		}
-		
+		console.log(index_id)
 
 		if($('.has-bg').hasClass('active')){
 			$('.bg-img').show();
 			$('.bg-img').addClass('bg-type-sec');
 			$(".bg-img").addClass('dd');
-				 is_arr = JSON.parse(localStorage.getItem("data_arr"));
-				console.log(is_arr)
+				 is_arr = JSON.parse(localStorage.getItem("data_arr"+index_id+""));
+				 is_arr_num = JSON.parse(localStorage.getItem("data_arr_num"+index_id+""));
+				console.log(is_arr,is_arr_num)
 				if(is_arr&&is_arr.length>0){
 					console.log(99)
-					append_first(is_arr);
+					append_first(is_arr_num);
 					drow_rect('.dd')
 
 				}else{
@@ -325,7 +331,7 @@ $(function(){
       //$('.bg-img div').eq(i).addClass('select-area');
       var select_area = $('.select-area');
       //添加区域块的id
-      $(select_area[i]).attr('id', 'select-area' + i);
+      $(select_area[i]).attr('id', 'select-area' + (i+1));
       //区域可拖动
       $(select_area[i]).draggable({containment: ".bg-img", scroll: false });
       //区域可各个方向缩放(上下左右四角)
@@ -336,7 +342,6 @@ $(function(){
       var select_height = arr[i]['height'];//140
       var select_left = arr[i]['x'];
       var select_top = arr[i]['y'];
-			
 			// $('.img-box img, .bg-img').css({
 			// 	'width': arr[0].w+'px',
 			// 	'height': arr[0].h+'px'
@@ -468,6 +473,7 @@ $(function(){
 		x = p_left;
 		y = p_top;
 		num_index = span_num;
+		console.log(parent_id)
 		if(parent_id){
 			$.ajax({
 			  type: "GET",
@@ -486,11 +492,12 @@ $(function(){
 			  }
 			});
 		}else{
+			console.log('iiii')
 			$('#item-list').html('');
 			get_item_info();
-			var is_arr = JSON.parse(localStorage.getItem("data_arr"));
-			console.log(is_arr)
-			append_section(is_arr);
+			var is_arr_num = JSON.parse(localStorage.getItem("data_arr_num"+index_id+""));
+			console.log(is_arr_num)
+			append_section(is_arr_num);
 		}
 		return false;
 	// 显示所选择的信息
@@ -512,6 +519,11 @@ $(function(){
 				console.log(m);
 				$(li_op[m]).attr('selected', true);
 				$(li_op[m]).siblings().attr('selected', false);
+				$('#type-list').prop("disabled","disabled");
+				$('#type-list').css({
+					'opacity': .5,
+					'cursor': 'not-allowed'
+				});
 				get_num_list(answer_id);
 				// var on_checked_info_length = on_checked_info.length;
 				// var new_arr = [];
@@ -539,16 +551,20 @@ $(function(){
 				};
 			}
 		};
-		$('.all-section-box').hide();
+		var is_arr_num = JSON.parse(localStorage.getItem("data_arr_num"+index_id+""));
+		console.log(is_arr_num)
+		append_section(is_arr_num);
 
 	}
 
 	function append_section (arr) {
 		console.log(arr)
-		$('body').find('#all-section-list').html('');
-		for (var j = 0; j < arr.length; j++) {
-    	var jj_html = '<li id="'+arr[j].id+'" sec_num = "'+arr[j].current_page+'_'+arr[j].num+'"><input type="hidden" width="'+arr[j].width+'" height="'+arr[j].height+'" w="'+arr[j].w+'" h="'+arr[j].h+'" x="'+arr[j].x+'" y="'+arr[j].y+'" current_page="'+arr[j].current_page+'" /><span>'+arr[j].num+'</span>( 第<em>'+arr[j].current_page+'</em>页 )</li>';
-    	$('body').find('#all-section-list').append(jj_html);
+		if(arr){
+			$('body').find('#all-section-list').html('');
+			for (var j = 0; j < arr.length; j++) {
+	    	var jj_html = '<li id="'+arr[j].id+'" sec_num = "'+arr[j].current_page+'_'+arr[j].num+'"><input type="hidden" width="'+arr[j].width+'" height="'+arr[j].height+'" w="'+arr[j].w+'" h="'+arr[j].h+'" x="'+arr[j].x+'" y="'+arr[j].y+'" current_page="'+arr[j].current_page+'" /><span>'+arr[j].num+'</span>( 第<em>'+arr[j].current_page+'</em>页 )</li>';
+	    	$('body').find('#all-section-list').append(jj_html);
+	    }
     }
 	}
 
@@ -803,7 +819,7 @@ $(function(){
 	});
 
 	function show_id_info(id_info,id_area,is_arr){
-		var is_arr = JSON.parse(localStorage.getItem("data_arr"));
+		var is_arr = JSON.parse(localStorage.getItem("data_arr"+index_id+""));
 		console.log(is_arr)
 		for (var i = 0; i < id_info.length; i++) {
 			for (var j = 0; j < id_area.length; j++) {
@@ -817,11 +833,13 @@ $(function(){
 						}
 						console.log(is_arr)
 						var storage=window.localStorage;
-						storage.setItem("data_arr",JSON.stringify(is_arr));
+						storage.setItem("data_arr"+index_id+"",JSON.stringify(is_arr));
 					};
 				}
 			};
 		};
+		var is_arr_num = JSON.parse(localStorage.getItem("data_arr_num"+index_id+""));
+		console.log(is_arr_num)
 	}
 
 
@@ -833,7 +851,7 @@ $(function(){
 		num--;
     var current_page =parseInt($('.page .on').text());
     var c_id = $(this).parent().attr('id');
-		var is_arr = JSON.parse(localStorage.getItem("data_arr"));
+		var is_arr = JSON.parse(localStorage.getItem("data_arr"+index_id+""));
 		console.log('select-num',num,is_arr)
 		if(is_arr){
 			for (var i = 0; i < is_arr.length; i++) {
@@ -841,22 +859,56 @@ $(function(){
 					is_arr.splice(i,1);
 				}
 				var storage=window.localStorage;
-				storage.setItem("data_arr",JSON.stringify(is_arr));
+				storage.setItem("data_arr"+index_id+"",JSON.stringify(is_arr));
 			};
 		}
 		data_arr_all=is_arr;
 		console.log(data_arr_all)
+
+
+		var is_arr_num = JSON.parse(localStorage.getItem("data_arr_num"+index_id+""));
+		console.log('select-num',num,is_arr_num)
+		if(is_arr_num){
+			for (var i = 0; i < is_arr_num.length; i++) {
+				if(c_id==is_arr_num[i].id&&current_page==is_arr_num[i].current_page){
+					is_arr_num.splice(i,1);
+				}
+				var storage=window.localStorage;
+				storage.setItem("data_arr_num"+index_id+"",JSON.stringify(is_arr_num));
+			};
+		}
+		data_arr_num=is_arr_num;
+		console.log(data_arr_num)
+
 
 	 	var select_id = $(this).parent().attr('data-id');
 	 	console.log(select_id);
 	 	if(select_id){
 		 	$.ajax({
 			  type: "DELETE",
+			  async: false,
 			  url: ajaxIp+"/api/v2/section_crops/"+ select_id +"",
 			  headers: {'Authorization': "Bearer " +  isLogin},
 			  success: function(data){
 			  	console.log(data);
-			  	get_select_info();
+			  	// 删除储存区域的信息
+			  	var is_arr_num = JSON.parse(localStorage.getItem("data_arr_num"+index_id+""));
+					console.log('select-num',num,is_arr_num)
+					if(is_arr_num){
+						console.log(c_id)
+						for (var i = 0; i < is_arr_num.length; i++) {
+							if(c_id==is_arr_num[i].id&&current_page==is_arr_num[i].current_page){
+								is_arr_num.splice(i,1);
+								console.log(c_id,is_arr_num[i].id)
+							}
+							var storage=window.localStorage;
+							storage.setItem("data_arr_num"+index_id+"",JSON.stringify(is_arr_num));
+						};
+					}
+					data_arr_num=is_arr_num;
+					console.log(is_arr_num)
+					get_select_info();
+
 			   },
 			   error: function(){
 			      // alert('请稍后从新尝试登录或者联系管理员');
@@ -872,6 +924,7 @@ $(function(){
   var num;
 	// 画区域块
 	var data_arr_all=[];
+	var data_arr_num=[];
 	$('body').find('#all-section-list').html('');
   function drow_rect(the_id){//theid表示用作画布的层
     var x_down=0,y_down=0;
@@ -988,8 +1041,15 @@ $(function(){
 			  	var jj_html = '<li id="select-area'+(num-1)+'" sec_num = "'+current_page+'_'+(num-1)+'"><input type="hidden" width="'+$("div[name='"+(num-1)+"']").width()+'" height="'+$("div[name='"+(num-1)+"']").height()+'" w="'+w+'" h="'+h+'" x="'+$("div[name='"+(num-1)+"']").position().left+'" y="'+$("div[name='"+(num-1)+"']").position().top+'" current_page="'+current_page+'" /><span>'+(num-1)+'</span>( 第<em>'+current_page+'</em>页 )</li>';
 	      	console.log(jj_html)
 	      	$('body').find('#all-section-list').append(jj_html);
+	      	// console.log(index_id);
+	      	if(is_arr_num){
+	      		data_arr_num=is_arr_num;
+	      	}
+	      	data_arr_num.push(arr_obj);
+	      	console.log(data_arr_num)
 			  	var storage=window.localStorage;
-					storage.setItem("data_arr",JSON.stringify(data_arr_all));
+					storage.setItem("data_arr"+index_id+"",JSON.stringify(data_arr_all));
+					storage.setItem("data_arr_num"+index_id+"",JSON.stringify(data_arr_num));
 			  });
 	            			  	// console.log(data_arr_all)
 
@@ -1129,7 +1189,7 @@ $(function(){
 		}else{
 			var c_id=$(this).attr('id');
 			var new_data={'num':num_index,'crop_type':crop_type,'id':c_id,'w':w,'h':h,'width':width,'x':x,'y':y,'height':height,'current_page':current_page}
-			var is_arr = JSON.parse(localStorage.getItem("data_arr"));
+			var is_arr = JSON.parse(localStorage.getItem("data_arr"+index_id+""));
 			console.log(is_arr)
 			if(is_arr){
 			for (var i = 0; i < is_arr.length; i++) {
@@ -1137,7 +1197,7 @@ $(function(){
 					is_arr.splice(i,1,new_data);
 				}
 				var storage=window.localStorage;
-				storage.setItem("data_arr",JSON.stringify(is_arr));
+				storage.setItem("data_arr"+index_id+"",JSON.stringify(is_arr));
 			};
 		}
 		data_arr_all=is_arr;
