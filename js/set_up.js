@@ -2164,7 +2164,7 @@ $(function() {
 	})
 
 	function printBarcode(is_extra) {
-	    var colNum=4;
+	    var colNum=8;
 	    var rowNum=17;
 	    var stdW=200;
 	    var margin=25;
@@ -2188,7 +2188,7 @@ $(function() {
 	      document.body.appendChild(iframe);
 	      var headEl = iframe.contentDocument.getElementsByTagName('head')[0];
 	      var style = document.createElement('style');
-	      style.innerHTML='@page{margin:20px;}';
+	      style.innerHTML='@page{margin:25px;}';
 	      headEl.appendChild(style);
 	      idoc = iframe.contentDocument.body;
 	    }
