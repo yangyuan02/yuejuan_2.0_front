@@ -2156,18 +2156,23 @@ $(function() {
 		var is_extra;
 		if ($(this).parents('.user-right').hasClass('temporary-student-right')) {
 			is_extra = true;
-		};
+		}; 
 		if ($(this).parents('.user-right').hasClass('user-change-password')) {
 			is_extra = false;
 		};
-		printBarcode(is_extra);
+		
+		var gg=$(this).parents('.set-up-search').find('#select-grade  option:selected').text();
+		var ss=$(this).parents('.set-up-search').find('#select-sujects  option:selected').text().substr(0,2);
+		// alert(ss);
+		document.title = $('#school-name').val()+gg+ss;
+		printBarcode(is_extra,gg,ss);
 	})
 
-	function printBarcode(is_extra) {
-	    var colNum=8;
-	    var rowNum=17;
-	    var stdW=200;
-	    var margin=25;
+	function printBarcode(is_extra,gg,ss) {
+	    var colNum=6;
+	    var rowNum=24;
+	    var stdW=170;
+	    var margin=5;
 	    var iframe = document.body.querySelector('#printfbarcode');
 	    var idoc;
 	    if (iframe) {
@@ -2254,7 +2259,8 @@ $(function() {
 	        var pageDIV=document.createElement('div');
 	        pageDIV.style['margin-left']="auto";
 	        pageDIV.style['margin-right']="auto";
-	        pageDIV.style['margin-top']="40px";
+	        pageDIV.style['margin-top']="0px";
+	        // pageDIV.style['border']="1px solid #31bc91";
 	        if(i<list.length-1)
 	          pageDIV.style.pageBreakAfter="always";
 	        var bmp=document.createElement('div');
@@ -2264,21 +2270,23 @@ $(function() {
 	        barCode.style.width=stdW+'px';
 	        barCode.style['padding-left']=margin+"px";
 	        barCode.style['padding-right']=margin+"px";
+	        barCode.style['padding-top']=margin+"px";
 	        str = list[i];
-	        $(bmp).barcode(str, "code128",{barWidth:1, barHeight:30,showHRI:false,output:'bmp'});
+	        $(bmp).barcode(str.exam_no, "code128",{barWidth:1, barHeight:30,showHRI:false,output:'bmp'});
 	        var w=parseInt(bmp.style.width);
 	        var wscale=stdW/w;
 	        bmp.style.transform="scale("+wscale+",1)";
 	        barCode.appendChild(bmp);
 	        text.style['font-size'] = '8px';
-	        text.innerText = str + ' ';
+	        text.innerText =gg+' '+ss+' '+str.name+' '+str.exam_no + ' ';
 	        text.style['white-space']='nowrap';
+	        text.style['padding-top']='6px';
 	        barCode.appendChild(text);
 	        var rowDIV=document.createElement('div');
 	        rowDIV.style['margin-left']="auto";
 	        rowDIV.style['margin-right']="auto";
 	        rowDIV.style.width=(colNum*blockW)+'px';
-	        rowDIV.style.height='80px';
+	        rowDIV.style.height='67px';
 	        rowDIV.appendChild(barCode);
 	        pageDIV.appendChild(rowDIV);
 	        idoc.appendChild(pageDIV);

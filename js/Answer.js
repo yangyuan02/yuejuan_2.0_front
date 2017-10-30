@@ -35,12 +35,14 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.listObj3 = [];
     $scope.listObj4 = [];
     $scope.candNumber = [0, 1, 2, 3, 4, 5, 6, 7], $scope.candlen = $scope.candNumber.length
-    $scope.paperType = 0;//阅卷方式/0代表手工1代表网络默认0
+    $scope.paperType = 1;//阅卷方式/0代表手工1代表网络默认0
     $scope.myPaper = ['手工阅卷', '网络阅卷'];
     $scope.myDayinType = 0
     $scope.myDayin = ['单面打印', '双面打印'];
     $scope.showItmeScoreType = 0
     $scope.showItmeScore = ['不显示分数', '显示分数'];
+    $scope.showTableLineTyep = 0
+    $scope.showTableLine = ['显示题组外框', '不显示题组外框'];
     $scope.result = {};//弹出框保存
     var modelParam = []//存储请求参数
     var answer_id = []//大题answer_id
@@ -63,6 +65,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     answer_id = data.message.answer_id
                     allHeight = data.message.allHeight ? data.message.allHeight : []
                     $scope.paperType = data.message.paperType ? data.message.paperType : 0
+                    $scope.showTableLineTyep = data.message.showTableLineTyep ? data.message.showTableLineTyep : 0
                     $scope.myDayinType = data.message.myDayinType ? data.message.myDayinType : 0
                     $scope.showItmeScoreType = data.message.showItmeScoreType ? data.message.showItmeScoreType : 0
                     $scope.countScore = data.message.countScore ? data.message.countScore : 0
@@ -84,10 +87,12 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.index = index
         clear()
         $scope.result.isradio = 1//单选题、多选题
+        $scope.result.otherisradio = 3//单选题、多选题
         $scope.result.writIsradio = 1//作文题
     };
     $scope.checkbox = function (index) {//切换单选多选
         $scope.result.isradio = index
+        $scope.result.otherisradio = index
     }
     $scope.checkWrit = function (index) {
         $scope.result.writIsradio = index//作文题
@@ -115,6 +120,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.showItmeScoreType = 0
             }
         }
+        if (type == 3) {
+            if ($scope.showTableLineTyep == 0) {
+                $scope.showTableLineTyep = 1
+            } else {
+                $scope.showTableLineTyep = 0
+            }
+        }
         $("#menu").css({"display": "none"})
     }
     $scope.Q_number = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十']
@@ -139,13 +151,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 result = remain - title_h - padding - row * rowItme_h > 0 ? true : false
             }
             if ($scope.index == 3) {//填空题
-                var rowItme_h = 27, score_h = 38
+                var rowItme_h = 27, score_h = $scope.paperType == 0?40:20
                 var row = Math.ceil($scope.result.numbel / 2)
                 console.log(remain - title_h - padding - score_h - row * rowItme_h)
                 result = remain - title_h - padding - score_h - row * rowItme_h > 0 ? true : false
             }
             if ($scope.index == 4) {//作文题
-                var rowItme_h = 35, score_h = 36;
+                var rowItme_h = 35, score_h = $scope.paperType == 0?40:20;
                 /*语文试卷*/
                 if ($scope.result.writIsradio == 1) {
                     var row = Math.ceil($scope.result.plaid / 21)
@@ -160,9 +172,16 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 }
             }
             if ($scope.index == 5) {//其他题
-                var rowItme_h = 164;
-                var row = $scope.result.numbel
-                result = remain - title_h - padding - row * rowItme_h > 0 ? true : false
+                if($scope.result.otherisradio==3){
+                    var rowItme_h = 164;
+                    var row = $scope.result.numbel
+                    result = remain - title_h - padding - row * rowItme_h > 0 ? true : false
+                }
+                if($scope.result.otherisradio==4){
+                    var rowItme_h = 20;
+                    var row = $scope.result.numbel
+                    result = remain  - row * rowItme_h > 0 ? true : false
+                }
             }
         } else {//第一次添加
             console.log("第一添加")
@@ -229,9 +248,11 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             "作文格数不能为空",
             "格子行数不能为空",
             "单词个数不能为空",
+            "横线数量不能为空",
         ]
         var checkIsEmpty = function (array) {//检测是否为空
             for (var i = 0; i < array.length; i++) {
+                console.log(array[i].type)
                 if (array[i].type == '') {
                     alert(tips[array[i].index])
                     result = false
@@ -251,7 +272,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         if ($scope.index == 2 || $scope.index == 3 || $scope.index == 5) {
             var input = [
                 {"type": $scope.result.name, "index": 0},//题组名称
-                {"type": $scope.result.numbel, "index": 1},//试题数量
+                {"type": $scope.result.numbel||$scope.result.Linenumbel, "index": 1},//试题数量
                 {"type": $scope.result.no, "index": 2},//起始序号
                 {"type": $scope.result.itemcoreS, "index": 3},//每题分值
                 {"type": $scope.result.page, "index": 5}//所在页码
@@ -342,13 +363,16 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var totaltwo = parseInt($scope.result.numbel) * Number($scope.result.itemcoreS)//总分数
         var otherHeight = []
         var fillWidth = []
+        var fillsNum = []
+        var childNum = [0]
         for (var i = 0; i < parseInt($scope.result.numbel); i++) {//多少个小题
             noarray.push(i + parseInt($scope.result.no));
             if($scope.index==5){
                 otherHeight.push(150)//其他题默认150px
             }
             if($scope.index==3){
-                fillWidth.push(180)
+                fillWidth.push(230)
+                fillsNum.push(childNum)
             }
         }
         if ($scope.index == 2) {
@@ -371,9 +395,15 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         for (var i = 0; i < row; i++) {
             rosItem.push(i)
         }
+        if($scope.result.otherisradio==4){
+            var Linenumbel  =[]
+            for (var i = 0; i < $scope.result.Linenumbel; i++) {
+                Linenumbel.push(i)
+            }
+        }
         obj = {
             name: $scope.result.name,//题组名称
-            numbel: $scope.index == 4 ? 1 : parseInt($scope.result.numbel),//试题数量
+            numbel: $scope.index == 4 ||$scope.result.otherisradio==4 ? 1 : parseInt($scope.result.numbel),//试题数量
             isradio: $scope.result.isradio,//单选多选
             startNo: parseInt($scope.result.no),//起始序号
             // currentPage: $scope.result.page == undefined ? 1 : $scope.result.page,//所在页码
@@ -384,19 +414,27 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             thr: $scope.index == 1 ? $scope.nubarray : ['T', 'F'], //选项ABCD(选择题和判断题)
             type: $scope.result.isradio == 2 ? 6 : $scope.index,//题目类型
             otherHeight:otherHeight,//其他题高度
-            fillWidth:fillWidth//填空题宽度
+            fillWidth:fillWidth,//填空题宽度
+            fillsNum:fillsNum,//填空题横线个数
+            verticalHeigth:$scope.index==4?35:20,//题组行间距
+            LineType:0,//线类型0代表实线非0虚线
+            hideLineType:0,//线类型0代表显示非1隐藏
+            Linenumbel:Linenumbel//横线类数量
         }
         var itemCoresArr = []//每题分数数组
         for (var i = 0; i < obj.numbel; i++) {
             itemCoresArr.push(obj.itemCores)
         }
-        obj.itemCoresArr = itemCoresArr
+        obj.itemCoresArr = $scope.result.otherisradio==4?[]:itemCoresArr
         if ($scope.index == 4) {
             obj.articleType = $scope.result.writIsradio
             obj.rows = rosItem
             obj.plaids = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]//21长度
             obj.row = row
             obj.plaid = $scope.result.plaid
+        }
+        if($scope.index==5){
+            obj.otherisradio = $scope.result.otherisradio
         }
         if (!checkIsNUll()) {
             return false
@@ -431,7 +469,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     //清空选择题的内容
     var clear = function () {
         $scope.result = {
-            name: '', numbel: '', isradio: '',
+            name: '', numbel: '', isradio: '',otherisradio:'',
             no: '', one: '', two: '', thr: '',
         };
     };
@@ -735,6 +773,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         allList.page4 = $scope.listObj4
         allList.answer_id = answer_id
         allList.paperType = $scope.paperType
+        allList.showTableLineTyep = $scope.showTableLineTyep
         allList.myDayinType = $scope.myDayinType
         allList.showItmeScoreType = $scope.showItmeScoreType
         allList.countScore = $scope.countScore
@@ -753,7 +792,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             if (obj.type == 1) {//增加小题
                 obj.list[obj.index].no.push(obj.no)
                 obj.list[obj.index].otherHeight.push(150)
-                obj.list[obj.index].fillWidth.push(180)
+                obj.list[obj.index].fillWidth.push(230)
                 obj.list[obj.index].itemCoresArr.push(obj.score)
                 obj.list[obj.index].numbel++  //题目数量
                 // obj.list[obj.index].itemCores = obj.score  //当前小题分值
@@ -1098,72 +1137,72 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.listObj4 = allList.slice(len1 + len2 + len3, len1 + len2 + len3 + len4)
     }
 
-    /**
-     * 获取切割节点
-     * @param max  最大值
-     * @param arr  当前数组
-     * @returns {number} 节点索引
-     */
-    function getSliceIndex(max, arr) {
-        var sum = 0, index = 0
-        for (var i = 0; i < arr.length; i++) {
-            sum += arr[i]
-            if (sum >= max) {
-                index = i
-                break
-            } else {
-                index = arr.length
-            }
-        }
-        return index
-    }
-
-    /**
-     * 获取页面所有高度
-     * @returns {Array}
-     */
-    function getAllTableHeight() {
-        var heights = []
-        $("body").find("table").each(function () {
-            heights.push($(this).height())
-        })
-        return heights
-    }
-
-    /**
-     * 获取最后的切割节点
-     * @returns {Array}///
-     */
-    function getAllIndex() {
-        var indexList = []
-        var allTableHeigh = getAllTableHeight()
-        console.log(allTableHeigh)
-        var index = getSliceIndex(525, allTableHeigh)
-        var allTableHeigh2 = allTableHeigh.slice(index)
-        var index2 = getSliceIndex(870, allTableHeigh2)
-        var allTableHeigh3 = allTableHeigh2.slice(index2)
-        var index3 = getSliceIndex(870, allTableHeigh3)
-        var allTableHeigh4 = allTableHeigh3.slice(index3)
-        var index4 = getSliceIndex(870, allTableHeigh4)
-        // index = allTableHeigh[index-1]>=allTableHeigh2[0]?index:index-1
-
-        // index2 = allTableHeigh2[index2-1]>=allTableHeigh3[0]?index2:index2-1
-
-        // index3 = allTableHeigh3[index3-1]>=allTableHeigh4[0]?index3:index3-1
-
-        indexList = [index, index2, index3, index4]
-        return indexList
-    }
-
-    function deleRender(currentIndex) {
-        allList_1.splice(currentIndex, 1)
-        var index = getAllIndex()
-        console.log(index)
-        $scope.listObj = allList_1.slice(0, index[0])
-        $scope.listObj2 = allList_1.slice(index[0], index[0] + index[1])
-        $scope.listObj3 = allList_1.slice(index[0] + index[1], index[0] + index[1] + index[2])
-        $scope.listObj4 = allList_1.slice(index[0] + index[1] + index[2], index[0] + index[1] + index[2] + index[3])
-    }
+    // /**
+    //  * 获取切割节点
+    //  * @param max  最大值
+    //  * @param arr  当前数组
+    //  * @returns {number} 节点索引
+    //  */
+    // function getSliceIndex(max, arr) {
+    //     var sum = 0, index = 0
+    //     for (var i = 0; i < arr.length; i++) {
+    //         sum += arr[i]
+    //         if (sum >= max) {
+    //             index = i
+    //             break
+    //         } else {
+    //             index = arr.length
+    //         }
+    //     }
+    //     return index
+    // }
+    //
+    // /**
+    //  * 获取页面所有高度
+    //  * @returns {Array}
+    //  */
+    // function getAllTableHeight() {
+    //     var heights = []
+    //     $("body").find("table").each(function () {
+    //         heights.push($(this).height())
+    //     })
+    //     return heights
+    // }
+    //
+    // /**
+    //  * 获取最后的切割节点
+    //  * @returns {Array}///
+    //  */
+    // function getAllIndex() {
+    //     var indexList = []
+    //     var allTableHeigh = getAllTableHeight()
+    //     console.log(allTableHeigh)
+    //     var index = getSliceIndex(525, allTableHeigh)
+    //     var allTableHeigh2 = allTableHeigh.slice(index)
+    //     var index2 = getSliceIndex(870, allTableHeigh2)
+    //     var allTableHeigh3 = allTableHeigh2.slice(index2)
+    //     var index3 = getSliceIndex(870, allTableHeigh3)
+    //     var allTableHeigh4 = allTableHeigh3.slice(index3)
+    //     var index4 = getSliceIndex(870, allTableHeigh4)
+    //     // index = allTableHeigh[index-1]>=allTableHeigh2[0]?index:index-1
+    //
+    //     // index2 = allTableHeigh2[index2-1]>=allTableHeigh3[0]?index2:index2-1
+    //
+    //     // index3 = allTableHeigh3[index3-1]>=allTableHeigh4[0]?index3:index3-1
+    //
+    //     indexList = [index, index2, index3, index4]
+    //     return indexList
+    // }
+    //
+    // function deleRender(currentIndex) {
+    //     allList_1.splice(currentIndex, 1)
+    //     var index = getAllIndex()
+    //     console.log(index)
+    //     $scope.listObj = allList_1.slice(0, index[0])
+    //     $scope.listObj2 = allList_1.slice(index[0], index[0] + index[1])
+    //     $scope.listObj3 = allList_1.slice(index[0] + index[1], index[0] + index[1] + index[2])
+    //     $scope.listObj4 = allList_1.slice(index[0] + index[1] + index[2], index[0] + index[1] + index[2] + index[3])
+    // }
 
     //设置当前排序
     function setAnswerSor() {
@@ -1279,7 +1318,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             $scope.listObj4.splice(index - len1 - len2 - len3, 1)
             console.log("删除list4")
         }
-        deleRender(index)
+        // deleRender(index)
     }
 
     //删除题组
@@ -1536,6 +1575,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.listObj3 = data.page3 ? data.page3 : []
                 $scope.listObj4 = data.page4 ? data.page4 : []
                 $scope.paperType = data.paperType ? data.paperType : 0
+                $scope.showTableLineTyep = data.showTableLineTyep ? data.showTableLineTyep : 0
                 $scope.myDayinType = data.myDayinType ? data.myDayinType : 0
                 $scope.showItmeScoreType = data.showItmeScoreType ? data.showItmeScoreType : 0
                 $scope.countScore = data.countScore ? data.countScore : 0
@@ -1588,6 +1628,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             menu.style.display = 'block'
             menu.style.left = event.pageX + "px";
             menu.style.top = event.pageY + "px";
+            $scope.LineTypeWord = $scope.LineTypeWord=='实线'?'虚线':'实线'
         }
     }, false)
     menu.addEventListener("click", function (evevt) {
@@ -1639,26 +1680,33 @@ m1.controller("demo", function ($scope, $timeout, $http) {
      * @param parentIndex  $scope.list
      * @param index   题组索引
      */
+    function getOBjList() {
+        var obj
+        if ($scope.tabParentIndex == 0) {
+            obj = $scope.listObj
+        }
+        if ($scope.tabParentIndex == 1) {
+            obj = $scope.listObj2
+        }
+        if ($scope.tabParentIndex == 2) {
+            obj = $scope.listObj3
+        }
+        if ($scope.tabParentIndex == 3) {
+            obj = $scope.listObj4
+        }
+        return obj
+    }
     $scope.getTableIndex = function (tabParentIndex, tabIndex) {
         $scope.tabParentIndex = tabParentIndex
         $scope.tabIndex = tabIndex
         $scope.showMenuFlag = true
-        if ($scope.tabParentIndex == 0) {
-            $scope.otherHeight = $scope.listObj[$scope.tabIndex].otherHeight
-            $scope.meunType = $scope.listObj[$scope.tabIndex].type//右键菜单显示控制
+        if($scope.tabParentIndex!=-1){
+            $scope.otherHeight = getOBjList()[$scope.tabIndex].otherHeight
+            $scope.LineTypeWord = getOBjList()[$scope.tabIndex].LineType==0?'虚线':'实线'
+            $scope.LineTypeShow = getOBjList()[$scope.tabIndex].hideLineType==0?'隐藏':'显示'
+            $scope.meunType = getOBjList()[$scope.tabIndex].type//右键菜单显示控制
         }
-        if ($scope.tabParentIndex == 1) {
-            $scope.otherHeight = $scope.listObj2[$scope.tabIndex].otherHeight
-        }
-        if ($scope.tabParentIndex == 2) {
-            $scope.otherHeight = $scope.listObj3[$scope.tabIndex].otherHeight
-        }
-        if ($scope.tabParentIndex == 3) {
-            $scope.otherHeight = $scope.listObj4[$scope.tabIndex].otherHeight
-        }
-        console.log($scope.tabParentIndex,$scope.tabIndex)
     }
-
     var eleFile = document.getElementById("imgOne")
     $scope.insertPic = function () {
         var formdata = new FormData()
@@ -1673,18 +1721,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             processData: false,  // 不处理数据
             contentType: false,   // 不设置内容类型
             success: function (data) {
-                if ($scope.tabParentIndex == 0) {
-                    $scope.listObj[$scope.tabIndex].imgurl = data[0].figure
-                }
-                if ($scope.tabParentIndex == 1) {
-                    $scope.listObj2[$scope.tabIndex].imgurl = data[0].figure
-                }
-                if ($scope.tabParentIndex == 2) {
-                    $scope.listObj3[$scope.tabIndex].imgurl = data[0].figure
-                }
-                if ($scope.tabParentIndex == 3) {
-                    $scope.listObj4[$scope.tabIndex].imgurl = data[0].figure
-                }
+                getOBjList()[$scope.tabIndex].imgurl = data[0].figure
                 $scope.closeCand()
             },
 
@@ -1692,43 +1729,22 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
     /*设置题组高度*/
     $scope.setGroupHeigh = function (heights) {
-        if ($scope.tabParentIndex == 0) {
-            $scope.listObj[$scope.tabIndex].otherHeight = heights.split(',')
-        }
-        if ($scope.tabParentIndex == 1) {
-            $scope.listObj2[$scope.tabIndex].otherHeight = heights.split(',')
-        }
-        if ($scope.tabParentIndex == 2) {
-            $scope.listObj3[$scope.tabIndex].otherHeight = heights.split(',')
-        }
-        if ($scope.tabParentIndex == 3) {
-            $scope.listObj4[$scope.tabIndex].otherHeight = heights.split(',')
-        }
+        getOBjList()[$scope.tabIndex].otherHeight = heights.split(',')
         $scope.closeCand()
     }
     /**设置填空题格式**/
     $scope.setFillQuestion= function () {
         $(".setFill_q").show()
         $("#menu").hide()
-        if ($scope.tabParentIndex == 0) {
-            getNo($scope.listObj)
-        }
-        if ($scope.tabParentIndex == 1) {
-            getNo($scope.listObj2)
-        }
-        if ($scope.tabParentIndex == 2) {
-            getNo($scope.listObj3)
-        }
-        if ($scope.tabParentIndex == 3) {
-            getNo($scope.listObj4)
-        }
+        getNo(getOBjList())
         function getNo(obj) {//获取当前答题有几个小题
             var len = obj[$scope.tabIndex].no.length
             var fillWidth = obj[$scope.tabIndex].fillWidth
+            var fillsNum = obj[$scope.tabIndex].fillsNum
             $scope.fillLists = []
             for(var i = 0;i< len;i++){
                 var obj = {
-                    "fill_num":1,
+                    "fill_num":fillsNum[i].length,
                     "fill_w":fillWidth[i],
                     "no":i
                 }
@@ -1739,20 +1755,43 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     /*************确定**************/
     $scope.sureFillQuestion = function () {
         $scope.fillLists.forEach(function (item,index,arr) {
-            if ($scope.tabParentIndex == 0) {
-                $scope.listObj[$scope.tabIndex].fillWidth[index] = arr[index].fill_w
-            }
-            if ($scope.tabParentIndex == 1) {
-                $scope.listObj2[$scope.tabIndex].fillWidth[index] = arr[index].fill_w
-            }
-            if ($scope.tabParentIndex == 2) {
-                $scope.listObj3[$scope.tabIndex].fillWidth[index] = arr[index].fill_w
-            }
-            if ($scope.tabParentIndex == 3) {
-                $scope.listObj4[$scope.tabIndex].fillWidth[index] = arr[index].fill_w
+            getOBjList()[$scope.tabIndex].fillWidth[index] = arr[index].fill_w
+            getOBjList()[$scope.tabIndex].fillsNum[index] = getfillChildNums(arr[index].fill_num)
+            function getfillChildNums(num) {
+                var resutl = []
+                for(var i = 0;i<num;i++){
+                    resutl.push(i)
+                }
+                return resutl
             }
             $scope.closeCand()
         })
+    }
+    /**
+     * 设置横线间距
+     */
+    $scope.showVertical = function () {
+        $(".vertical").show()
+        $("#menu").hide()
+        $scope.vertical = getOBjList()[$scope.tabIndex].verticalHeigth
+    }
+    $scope.setVertical = function (verticalHeigth) {
+        getOBjList()[$scope.tabIndex].verticalHeigth = verticalHeigth
+        $scope.closeCand()
+    }
+    /**
+     * 切换实线和虚线转换
+     */
+    $scope.toggleLineType = function () {
+        getOBjList()[$scope.tabIndex].LineType = !getOBjList()[$scope.tabIndex].LineType
+        $("#menu").hide()
+    }
+    /**
+     * 切换隐藏其他题横线
+     */
+    $scope.toggleLineDisplay = function () {
+        getOBjList()[$scope.tabIndex].hideLineType = !getOBjList()[$scope.tabIndex].hideLineType
+        $("#menu").hide()
     }
     /*******************************保存*************************************************/
     $scope.save = function () {//保存模板
