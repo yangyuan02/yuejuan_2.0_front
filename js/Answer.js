@@ -1628,6 +1628,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             menu.style.display = 'block'
             menu.style.left = event.pageX + "px";
             menu.style.top = event.pageY + "px";
+            $scope.LineTypeWord = $scope.LineTypeWord=='实线'?'虚线':'实线'
         }
     }, false)
     menu.addEventListener("click", function (evevt) {
