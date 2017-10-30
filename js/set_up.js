@@ -2167,10 +2167,10 @@ $(function() {
 	})
 
 	function printBarcode(is_extra) {
-	    var colNum=4;
+	    var colNum=6;
 	    var rowNum=17;
 	    var stdW=200;
-	    var margin=25;
+	    var margin=15;
 	    var iframe = document.body.querySelector('#printfbarcode');
 	    var idoc;
 	    if (iframe) {
