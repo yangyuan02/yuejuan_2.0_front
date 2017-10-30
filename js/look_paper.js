@@ -498,6 +498,11 @@ $(function(){
 			var is_arr_num = JSON.parse(localStorage.getItem("data_arr_num"+index_id+""));
 			console.log(is_arr_num)
 			append_section(is_arr_num);
+			$('#type-list').prop("disabled",false);
+				$('#type-list').css({
+					'opacity': 1,
+					'cursor': 'pointor'
+				});
 		}
 		return false;
 	// 显示所选择的信息
