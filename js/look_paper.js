@@ -320,46 +320,59 @@ $(function(){
     	console.log('yes');
     	// $('.bg-img').append('<div class="crop">题组切割</div>');
     }
+    var current_page =parseInt($('.page .on').text());
+    console.log(current_page);
+    var new_arr=[];
     for(var i = 0;i < eg; i++){
-    	if(arr[eg-1].crop_type==4){
-    		var select_area_a='<div class="select-area" name="'+(i+1)+'" answer-id="'+arr[i].answer_id+'" data-id="'+arr[i].id+'"><a href="javascript:;" class="edit-item">编辑</a><i class="iconfont close">&#xe61b;</i><span class="title" style="background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 0px;">'+arr[i].index+'</span></div>';
+    	if(current_page==arr[i].current_page){
+    		console.log(i)
+    		new_arr.push(arr[i]);
+    		console.log(new_arr);
+    		console.log(new_arr.length)
+
     	}
-    	if(arr[eg-1].crop_type==1){
-    		var select_area_a='<div class="select-area" name="'+(i+1)+'" answer-id="'+arr[i].answer_id+'" data-id="'+arr[i].id+'"><i class="iconfont close">&#xe61b;</i><span class="title" style="background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 0px;">'+arr[i].index+'</span></div>';
-    	}
-      $('.bg-img').append(select_area_a);
-      //$('.bg-img div').eq(i).addClass('select-area');
+    }
+		for (var j = 0; j < new_arr.length; j++) {
+  		if(arr[eg-1].crop_type==4){
+  			var select_area_a='<div id="select-area'+(j+1)+'" style="width:'+(new_arr[j].width)/(new_arr[j].w/1044)+'px;height:'+(new_arr[j].height)/(new_arr[j].h/734)+'px;left:'+(new_arr[j].x)/(new_arr[j].w/1044)+'px;top:'+(new_arr[j].y)/(new_arr[j].h/734)+'px" class="select-area" name="'+(j+1)+'" answer-id="'+new_arr[j].answer_id+'" data-id="'+new_arr[j].id+'"><a href="javascript:;" class="edit-item">编辑</a><i class="iconfont close">&#xe61b;</i><span class="title" style="background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 0px;">'+new_arr[j].index+'</span></div>';
+  		}
+  		if(arr[eg-1].crop_type==1){
+				var select_area_a='<div id="select-area'+(j+1)+'" style="width:'+(new_arr[j].width)/(new_arr[j].w/1044)+'px;height:'+(new_arr[j].height)/(new_arr[j].h/734)+'px;left:'+(new_arr[j].x)/(new_arr[j].w/1044)+'px;top:'+(new_arr[j].y)/(new_arr[j].h/734)+'px" class="select-area" name="'+(j+1)+'" answer-id="'+new_arr[j].answer_id+'" data-id="'+new_arr[j].id+'"><i class="iconfont close">&#xe61b;</i><span class="title" style="background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 0px;">'+new_arr[j].index+'</span></div>';
+			}
+			$('.bg-img').append(select_area_a);
+			//$('.bg-img div').eq(i).addClass('select-area');
       var select_area = $('.select-area');
       //添加区域块的id
-      $(select_area[i]).attr('id', 'select-area' + (i+1));
+      // $(select_area[j]).attr('id', 'select-area' + (j+1));
       //区域可拖动
-      $(select_area[i]).draggable({containment: ".bg-img", scroll: false });
+      $(select_area[j]).draggable({containment: ".bg-img", scroll: false });
       //区域可各个方向缩放(上下左右四角)
-      $('#select-area'+i).resizable({ handles: "n, e, s, w, ne, se, sw, nw" });
+      $('#select-area'+j).resizable({ handles: "n, e, s, w, ne, se, sw, nw" });
       //获取区域的位置
-      // console.log(arr[i].width)
-      var select_width = arr[i]['width'];
-      var select_height = arr[i]['height'];//140
-      var select_left = arr[i]['x'];
-      var select_top = arr[i]['y'];
+      // console.log(arr[j].width)
+      // var select_width = new_arr[j]['width'];
+      // var select_height = new_arr[j]['height'];//140
+      // var select_left = new_arr[j]['x'];
+      // var select_top = new_arr[j]['y'];
 			// $('.img-box img, .bg-img').css({
 			// 	'width': arr[0].w+'px',
 			// 	'height': arr[0].h+'px'
 			// });
 			// $('.img-box .bg-img').css('marginTop', -arr[0].h+'px');
 
-      //获取当前试卷的宽度和高度比例
-      var l_width=arr[i].w/1044;
-      var l_height=arr[i].h/734;
-      console.log(l_width,l_height)
-      //显示区域所在位置
-      $(select_area[i]).css({
-        "width": select_width/l_width + 'px',
-        "height": select_height/l_height + 'px',
-        "left": select_left/l_width + 'px',
-        "top": select_top/l_height + 'px'
-      });
-    }
+      // //获取当前试卷的宽度和高度比例
+      // var l_width=new_arr[j].w/1044;
+      // var l_height=new_arr[j].h/734;
+      // console.log(l_width,l_height)
+      // //显示区域所在位置
+      // $(select_area[j]).css({
+      //   "width": select_width/l_width + 'px',
+      //   "height": select_height/l_height + 'px',
+      //   "left": select_left/l_width + 'px',
+      //   "top": select_top/l_height + 'px'
+      // });
+
+		};
     //如果区域块的数量大于2，显示区域块的个数，添加span_title
     // for(i = 0;i < eg;i++){
     //   var span_title="<span class='title' " + " style='background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 0px;'>"+(i+1)+"</span>";
@@ -372,7 +385,13 @@ $(function(){
 		// 获取图片id
 		// var scanner_image_id = $('.img-box img').attr('data-id');
 	  // 获取当前页数
-	  var current_page =parseInt($('.page .on').text());
+	  var current_page=[];
+	  var page_list = $('.page a');
+	  for (var pp = 0; pp < page_list.length; pp++) {
+	  	var page_a_num = parseInt($(page_list[pp]).text());
+	  	current_page.push(page_a_num)
+	  };
+	  // var current_page =parseInt($('.page .on').text());
 	  // 获取区域类型
 	  var crop_type;
 	  if($('.hide-sec').hasClass('active')){
@@ -437,6 +456,7 @@ $(function(){
 			select_arr[i].answer_setting_ids=select_info[i].answer_setting_ids;
 			select_arr[i].index=select_info[i].index;
 			select_arr[i].crop_type=select_info[i].crop_type;
+			select_arr[i].current_page=select_info[i].current_page;
 		};
 		console.log(select_arr)
 		append_select(select_info_length,select_arr);
@@ -453,7 +473,9 @@ $(function(){
 		$('.modal-shadow').animate({'opacity': 0},500);
 		$('#change-modal').show();
 		var p_id = $(this).parent().attr('id');
+		var answer_id = $(this).parent().attr('answer-id');
 		$('.modal-main').attr('id', p_id);
+		$('.modal-main').attr('answer_id', answer_id);
 		var parent_id = $(this).parent().attr('data-id');
 		console.log(parent_id);
 		$('#change-modal').attr('data-id', parent_id);
@@ -511,7 +533,8 @@ $(function(){
 		// console.log(answer_id)
 	});
 	function show_onchecked_info(info,parent_id){
-		console.log(parent_id)
+		console.log(on_checked_info)
+		console.log(info,parent_id)
 		var answer_id = info.answer_id;
 		var li_op = $('#type-list option');
 		for (var m = 0; m < li_op.length; m++) {
@@ -559,6 +582,26 @@ $(function(){
 		var is_arr_num = JSON.parse(localStorage.getItem("data_arr_num"+index_id+""));
 		console.log(is_arr_num)
 		append_section(is_arr_num);
+		var a_answer_id = $('.modal-main').attr('answer_id');
+		console.log(a_answer_id)
+		var new_num_arr=[];
+		for (var kk = 0; kk < on_checked_info.length; kk++) {
+			if(a_answer_id==on_checked_info[kk].answer_id){
+				var obb= new Object();
+				obb={'sec_num':on_checked_info[kk].current_page +'_'+ on_checked_info[kk].index};
+				new_num_arr.push(obb);
+			}
+		};
+		var all_list = $('body').find('#all-section-list li')
+		for (var ll = 0; ll < new_num_arr.length; ll++) {
+			for (var nn = 0; nn < all_list.length; nn++) {
+				if(new_num_arr[ll].sec_num==$(all_list[nn]).attr('sec_num')){
+					$(all_list[nn]).addClass('on');
+				}
+			};
+		};
+
+		// 获取所有区域块
 
 	}
 
@@ -799,8 +842,20 @@ $(function(){
 
 	  // 新建区域
 	  if(select_id!='undefined'){
-	  	console.log(typeof(select_id))
-	  	// console.log(data_arr)
+	  	console.log(typeof(select_id));
+	  	var position={'w':w,'h':h,'width':width,'height':height,'x':x,'y':y,};
+	  	data_arr={
+			'position':position,
+	  	'index':num_index,
+	  	'exam_subject_batch_id':bath_id,
+	  	'crop_type':crop_type,
+	  	'current_page':current_page,
+	  	// 'scanner_image_id':scanner_image_id,
+	  	'exam_subject_id':exam_subject_id,
+	  	'answer_id':answer_id,
+	  	'answer_setting_ids':answer_setting_ids,
+	  	'section_ul':section_ul
+		}
 			update_select_info(select_id,data_arr);
 	  }else{
 	  	console.log(data_arr)

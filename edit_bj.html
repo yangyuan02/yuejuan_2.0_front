@@ -10,6 +10,16 @@
 	<!-- <link href="style/default.css" rel="stylesheet" media="screen" type="text/css" /> -->
 	<script type="text/javascript" src='js/jquery.min.js'></script>
 	<script type="text/javascript" src='js/common.js'></script>
+	<script type="text/javascript" src='js/edit_bj.js'></script>
+	 <!-- 配置文件 -->
+    <script type="text/javascript" src="ueditor/ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="ueditor/ueditor.all.js"></script>
+    <!-- 实例化编辑器 -->
+      <script type="text/javascript" charset="utf-8" src="ueditor/kityformula-plugin/addKityFormulaDialog.js"></script>
+    <script type="text/javascript" charset="utf-8" src="ueditor/kityformula-plugin/getKfContent.js"></script>
+    <script type="text/javascript" charset="utf-8" src="ueditor/kityformula-plugin/defaultFilterFix.js"></script>
+     
 </head>
 <body>
 	<div id="wrap">
@@ -28,7 +38,7 @@
 				<span>编辑试卷</span>			</div>
 			
 		</div>
-	<div style="width: 1200px;height: 1000px;border: 1px solid #ccc;background: #fff;margin: 0 auto;padding:27px 0px 0px 38px;box-sizing: border-box;">
+	<div style="width: 1200px;height:auto;border: 1px solid #ccc;background: #fff;margin: 0 auto;padding:27px 0px 300px 38px;box-sizing: border-box;">
 	<p class="p_top"><i class="iconfont">&#xe61c;</i><p>
 	<script id="container" name="content" type="text/plain">
                                 <p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （    ）</p>
@@ -41,20 +51,11 @@
 
 								<p>D．粒子在电场中的电势能先变小后变大</p>
     </script>
-    <!-- 配置文件 -->
-    <script type="text/javascript" src="ueditor/ueditor.config.js"></script>
-    <!-- 编辑器源码文件 -->
-    <script type="text/javascript" src="ueditor/ueditor.all.js"></script>
-    <!-- 实例化编辑器 -->
-      <script type="text/javascript" charset="utf-8" src="ueditor/kityformula-plugin/addKityFormulaDialog.js"></script>
-    <script type="text/javascript" charset="utf-8" src="ueditor/kityformula-plugin/getKfContent.js"></script>
-    <script type="text/javascript" charset="utf-8" src="ueditor/kityformula-plugin/defaultFilterFix.js"></script>
-     
+   
     <script type="text/javascript">
             var ue = UE.getEditor('container', {
         toolbars: [[
-             'source', '|',
-             'italic', 'underline', '|', 'fontsize', '|', 'kityformula', 'preview', 'cleardoc','simpleupload','insertimage'
+            'insertimage','horizontal','edittable','mergecells','inserttable'
         ]]
     });
     </script>
@@ -90,20 +91,19 @@
       <button class="edit_bj_btn01 determine">保存</button>
        <button class="edit_bj_btn02">取消</button>
         </p>
-      <script>
+    <!--   <script>
        $(".edit_bj_btn01").click(function(event) {
     	/* Act on the event */
     	alert(UE.getEditor('container').getContent());
        });
-        </script>
+        </script> -->
        <div class="edit_box_btm">
        	<ul>
-       		<li>答案输入<button type="" class="edit_li_btn01">编辑</button><script id="container02" name="content" type="text/plain" style="display:none;"></script></li>
+       		<li>答案输入<button type="" class="edit_li_btn01">编辑</button><div class="edit_li_div01"><script id="container02" name="content" type="text/plain"></script><p class="edit_li_div_p"><button type="" class="edit_li_div01_btn01 determine">保存</button><button type="" class="edit_li_div01_btn02">取消</button></p></div></li>
        		<script type="text/javascript">
             var ue = UE.getEditor('container02', {
         toolbars: [[
-             'source', '|',
-             'italic', 'underline', 'kityformula', 'preview', 'cleardoc','simpleupload','insertimage'
+              'insertimage','horizontal','edittable','mergecells','inserttable'
         ]]
     });
             $(".edit_li_btn01").click(function(event) {
@@ -112,23 +112,277 @@
             });
     </script>
        		<li>设置解答输入<button type="" class="edit_li_btn02">编辑</button>
-        <div class="edit_li_div01"><script id="container03" name="content" type="text/plain" style=""></script><p class="edit_li_div_p"><button type="" class="edit_li_div01_btn01 determine">保存</button><button type="" class="edit_li_div01_btn02">取消</button></p></div></li>
+        <div class="edit_li_div02"><script id="container03" name="content" type="text/plain" style=""></script><p class="edit_li_div_p"><button type="" class="edit_li_div02_btn01 determine">保存</button><button type="" class="edit_li_div02_btn02">取消</button></p></div></li>
        		<script type="text/javascript">
             var ue = UE.getEditor('container03', {
-        toolbars: [[
-             'source', '|',
-             'italic', 'underline', 'kityformula', 'preview', 'cleardoc','simpleupload','insertimage'
+         toolbars: [[
+              'insertimage','horizontal','edittable','mergecells','inserttable'
         ]]
     });
-            $(".edit_li_btn02").click(function(event) {
-            
-            	$(".edit_li_div01").show();
-            });
+          
     </script>
-       		<li>添加知识点<button type="" class="edit_li_btn03">编辑</button></li>
-       		<li>设置难度</li>
-       		<li>设置能力标签<button type="" class="edit_li_btn04">编辑</button></li>
-       		<li>设置错因标签<button type="" class="edit_li_btn05">编辑</button></li>
+       		<li>添加知识点<button type="" class="edit_li_btn03">编辑</button><div class="edit_li_div03"><p class="edit_li_div03_p01">选择知识点</p>
+               <p class="edit_li_div03_p02"><a>版本<select>
+               	<option value="">人教版</option>
+               </select></a>
+               <a>学科<select>
+               	<option value="">物理</option>
+               </select></a>
+               <a>年级<select>
+               	<option value="">高一</option>
+               </select></a>
+               <input type="" name="" placeholder="请输入搜索知识点">
+               
+               <a class="edit_li_div03_p02_a"><i class="iconfont">&#xe610;</i></a>
+               </p><div class="edit_li_div03_box">
+               	<div class="edit_li_div03_box01">
+               	<p class="edit_li_div03_box01_p">添加知识点</p>
+               	<div>
+               		<ul class="edit_zs">
+               			<li style="border:none;line-height:38px;color: #999999;"><i class="iconfont" style="margin-left:10px;margin-right:10px;">&#xe6ca;</i>第一章 机械运动
+               			<ul class="edit_zs02" style="display: none;">
+               			<li style="border:none;line-height:20px;padding-left:12px;color: #999999;"><i class="iconfont" style="margin-left:10px;margin-right:10px;">&#xe6ca;</i>运动的描述
+           
+               			<ul class="edit_zs03" style="display: none;">
+               			<li class="edit_zs03_li01" style="border:none;line-height:20px;padding-left:30px;color: #999999;"><i class="iconfont" style="margin-left:10px;margin-right:10px;">&#xe64b;</i><a>质点</a>
+               			</li>
+               			<li class="edit_zs03_li02" style="border:none;line-height:20px;padding-left:30px;color: #999999;"><i class="iconfont" style="margin-left:10px;margin-right:10px;">&#xe64b;</i><a>参考系</a>
+               			</li>	
+               		</ul>
+               			</li>	
+               		</ul></li>
+
+               		</ul>
+               	</div>
+               	</div>
+                 <div class="edit_li03_box">
+                 	<p class="edit_li03_box_p">已选择知识点</p>
+
+                 </div>
+               </div><p style="padding-right:40px;"><button type="" class="edit_li_div03_btn01 determine">保存</button>
+               <button class="edit_li_div03_btn02" type="">取消</button></p>
+       		</div></li>
+       		<script>
+       		var a =$(".edit_zs").children('li');
+       			a.children('i').click(function(event) {
+       				/* Act on the event */
+       				$(".edit_zs02").toggle();
+       			});
+       			var b =$(".edit_zs02").children('li');
+       			b.children('i').click(function(event) {
+       				/* Act on the event */
+       				$(".edit_zs03").toggle();
+       			});
+       			var c =$(".edit_zs03").children('li');
+       			c.children('i').click(function(event) {
+       				/* Act on the event */
+       				// $(this).html("&#xe6ca;");
+       				// $(this).addClass('box01');
+       				// alert($(this).attr("id"));
+       				if($(this).attr("id")==undefined){
+                       $(this).attr("id","i_class");
+                      // $(this).attr("class");
+                       $(".edit_li03_box").append('<a id="'+$(this).parent("li").attr("class")+'"style="width:82px;height:29px;background:#31bc91;display: block;line-height: 29px;text-align:center;margin:12px 0px 0px 12px;float:left;color:#f5f5f5;cursor: pointer;">'+$(this).next().text()+'<i data-id="'+$(this).parent("li").attr("class")+'"class="edit_li03_box_a_i iconfont" style="font-size: 12px;margin-left:12px;">&#xe61b;</i></a>')
+       				}else{
+                       $(this).removeAttr("id");
+                        // alert($(this).parent("li").attr("class"));
+                       $('#'+$(this).parent("li").attr("class")+'').remove();
+       				}
+       				
+       				// alert($(this).next().text());
+       				
+       				
+       			});
+       			$('.edit_li03_box').on('click', '.edit_li03_box_a_i', function(event) {
+       				// alert();
+       				$(this).parent("a").remove();
+       				// alert($('.'+$(this).attr("data-id")+'').text());
+       				$('.'+$(this).attr("data-id")+'').children('i').removeAttr("id");
+       				
+       			});
+            $(".edit_li_div03_btn01").click(function(event) {
+              /* Act on the event */
+              $(".edit_li_div03").hide();
+            });
+       			$(".edit_li_btn03").click(function(event) {
+              /* Act on the event */
+              $(".edit_li_div03").show();
+            });
+       		</script>
+       		<li>设置难度<a class="dif_i"><i class="iconfont">&#xe600;</i><i class="iconfont">&#xe600;</i><i class="iconfont">&#xe600;</i>
+          <i class="iconfont">&#xe639;</i>
+          <i class="iconfont">&#xe639;</i>
+          </a></li>
+       		<li>设置能力标签<button type="" class="edit_li_btn04">编辑</button>
+          <div class="nengli_box">
+            <p class="nengli_box_p01">
+              设置能力标签
+            </p>
+             <p class="nengli_box_p02">
+               <a>学段<select>
+                <option value="">高中</option>
+               </select></a>
+               <a>年级<select>
+                <option value="">物理</option>
+               </select></a>
+               </p>
+               <div class= "neng_box" ><div class= "neng_box01">
+                 <p class= "neng_box01_p">能力列表<i style="float: right;margin-right: 20px;">全选<i class="nengl_quan iconfont" data-id="0" style="margin-left: 12px;">&#xe63b;</i></i><p>
+              <a class="neng_a1" ><i>理解能力</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe619;</i></a>
+               <a class="neng_a2"><i>推理能力</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe619;</i></a>
+                
+
+
+
+               </div><div class="neng_box02" id="box_a" style="">
+                 <p class="neng_box02_p">已选择</p>
+
+
+
+               </div></div>
+               <p style="padding-right:40px;"><button class="neng_btn01 determine" type="">保存</button>
+               <button  class="neng_btn02"  type="">取消</button></p>
+          </div></li>
+          <script type="text/javascript">
+            $(".neng_box a").click(function(event) {
+              /* Act on the event */
+              // alert($(this).attr("id"));
+              var a=$(this).attr("id");
+              $(".nengl_quan").css("color","#666666");
+              if(a==undefined){
+                $(this).attr("id","nengli_a");
+                $("#box_a").append('<a id="'+$(this).attr("class")+'"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;"><i>'+$(this).find('i').eq(0).html()+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
+              }else{
+                $(this).removeAttr("id");
+                $('#'+$(this).attr("class")+'').remove();
+                // alert($('#'+$(this).attr("class")+'').html());
+
+              }
+            
+            });
+            // var a=
+          $('.neng_box02').on('click', '.iconfont', function(event) {
+              // alert();
+               $(".nengl_quan").css("color","#666666");
+                $(this).parent('a').remove();
+                $('.'+$(this).parent('a').attr("id")+'').removeAttr("id");
+
+             });
+          $(".nengl_quan").click(function(event) {
+            /* Act on the event */
+            // alert();
+            if($(this).attr("data-id")==0){
+            $(this).css("color","#31bc91");
+            $(this).attr("data-id","1");
+             $(".neng_box a").attr("id","nengli_a");
+              $("#box_a a").remove();
+             for(var i=0;i<2;i++){
+                    $("#box_a").append('<a id="'+ $(".neng_box a").eq(i).attr("class")+'"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;"><i>'+ $(".neng_box a").eq(i).find('i').eq(0).html()+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
+             }
+           }else{
+               $(this).css("color","#666666");
+               $(".neng_box a").removeAttr("id");
+               $("#box_a a").remove();
+                $(this).attr("data-id","0");
+           }
+          });
+          $(".edit_li_btn04").click(function(event) {
+            /* Act on the event */
+            $(".nengli_box").show();
+          });
+          $(".neng_btn01").click(function(event) {
+            /* Act on the event */
+            $(".nengli_box").hide();
+          });
+          </script>
+       		<li>设置错因标签<button type="" class="edit_li_btn05">编辑</button>
+          <div class="wrong_box">
+          <p class="wrong_box_p01">
+              设置错因标签
+            </p>
+             <p class="wrong_box_p02">
+               <a>学段<select>
+                <option value="">高中</option>
+               </select></a>
+               <a>学科<select>
+                <option value="">物理</option>
+               </select></a>
+               </p>
+            <div class="wrong_box01">
+               <div class="wrong_box01_l"">
+                 <p>智力因素 Z</p>
+                  <a class="wrong_box01_a01"><i>Z1:知识残缺</i><i class="iconfont">&#xe619;</i></a>
+                   <a class="wrong_box01_a02"><i>Z2:基础不实</i><i class="iconfont" >&#xe619;</i></a>
+               </div>
+
+               <div class="wrong_box01_r">
+                 <p>已选因素</p>
+               </div>
+
+            </div>
+            <!-- 非智力 -->
+             <div class="wrong_box02">
+               <div class="wrong_box02_l">
+                 <p>非智力因素 FZ</p>
+                  <a class="wrong_box02_a01"><i>FZ1:题错误</i><i class="iconfont">&#xe619;</i></a>
+                   <a class="wrong_box02_a02"><i>FZ2:技能不熟</i><i class="iconfont">&#xe619;</i></a>
+
+               </div>
+
+               <div class="wrong_box02_r">
+                 <p>已选因素</p>
+               </div>
+             <p style="display: inline-block;width: 100%;"><button type="" class="wrong_box_btn01 determine">保存</button>
+               <button class="wrong_box_btn02" type="">取消</button></p>
+            </div>
+           <!-- 非智力end -->
+          </div>
+
+          </li>
+          <script>
+            $(".wrong_box01_l a").click(function(event) {
+               var a=$(this).attr("id");
+              if(a==undefined){
+                $(this).attr("id","wrong_a");
+                $(".wrong_box01_r").append('<a id="'+$(this).attr("class")+'"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;"><i>'+$(this).find('i').eq(0).html()+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
+              }else{
+                $(this).removeAttr("id");
+                $('#'+$(this).attr("class")+'').remove();
+                // alert($('#'+$(this).attr("class")+'').html());
+
+              }
+            });
+            $(".wrong_box02_l a").click(function(event) {
+               var a=$(this).attr("id");
+              if(a==undefined){
+                $(this).attr("id","wrong_a");
+                $(".wrong_box02_r").append('<a id="'+$(this).attr("class")+'"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;"><i>'+$(this).find('i').eq(0).html()+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
+              }else{
+                $(this).removeAttr("id");
+                $('#'+$(this).attr("class")+'').remove();
+                // alert($('#'+$(this).attr("class")+'').html());
+
+              }
+            });
+        $('.wrong_box01_r').on('click', '.iconfont', function(event) {
+              // alert();
+                $(this).parent('a').remove();
+                $('.'+$(this).parent('a').attr("id")+'').removeAttr("id");
+
+             });
+        $('.wrong_box02_r').on('click', '.iconfont', function(event) {
+              // alert();
+                $(this).parent('a').remove();
+                $('.'+$(this).parent('a').attr("id")+'').removeAttr("id");
+
+             });
+           $(".edit_li_btn05").click(function(event) {
+            $(".wrong_box").show();
+           });
+             $(".wrong_box_btn01").click(function(event) {
+            $(".wrong_box").hide();
+           });
+          </script>
        		<li>添加新标签<button type="" class="edit_li_btn06">添加</button></li>
        	</ul>
        <div class="edit_box_btm_tc">
@@ -150,6 +404,24 @@
    
 
 	    </div>
+	    <script>
+	    	$(".edit_li_btn02").click(function(event) {
+	    		/* Act on the event */
+	    		$(".edit_li_div02").show();
+	    	});
+	    	$(".edit_li_div02_btn01").click(function(event) {
+	    		/* Act on the event */
+	    		$(".edit_li_div02").hide();
+	    	});
+	    	$(".edit_li_btn01").click(function(event) {
+	    		/* Act on the event */
+	    		$(".edit_li_div01").show();
+	    	});
+	    	$(".edit_li_div01_btn01").click(function(event) {
+	    		/* Act on the event */
+	    		$(".edit_li_div01").hide();
+	    	});
+	    </script>
 		<div id="footer">
 
 		</div>

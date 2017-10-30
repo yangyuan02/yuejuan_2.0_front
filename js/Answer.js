@@ -1629,6 +1629,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             menu.style.left = event.pageX + "px";
             menu.style.top = event.pageY + "px";
             $scope.LineTypeWord = $scope.LineTypeWord=='实线'?'虚线':'实线'
+            $scope.LineTypeShow = $scope.LineTypeWord=='隐藏'?'显示':'隐藏'
         }
     }, false)
     menu.addEventListener("click", function (evevt) {
