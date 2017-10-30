@@ -429,7 +429,7 @@
                                 <tr ng-if="a.type!=5&&a.type!=4"><!--选择题/判断题/多选题/填空题-->
                                     <td>
                                         <div ng-repeat="item in a.no" class="q_c"
-                                             ng-style="{'width':'{{a.type==3?'auto':setItmeWidth(a.thr)}}'}">
+                                             ng-style="{'width':'{{a.type==3?'auto':setItmeWidth(a.thr)}}'}" style="padding-top:{{a.verticalHeigth+'px'}};width:auto">
                                             <a class="numberNo {{paperType==1?'paperno':''}}" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
@@ -560,7 +560,7 @@
                                 <tr ng-if="a.type!=5&&a.type!=4">
                                     <td>
                                         <div ng-repeat="item in a.no" class="q_c"
-                                             ng-style="{'width':'{{a.type==3?'auto':setItmeWidth(a.thr)}}'}">
+                                             ng-style="{'width':'{{a.type==3?'auto':setItmeWidth(a.thr)}}'}" style="padding-top:{{a.verticalHeigth+'px'}};width:auto">
                                             <a class="numberNo {{paperType==1?'paperno':''}}" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
@@ -743,7 +743,7 @@
                                 <tr ng-if="a.type!=5&&a.type!=4"><!--选择题/判断题/多选题/填空题-->
                                     <td>
                                         <div ng-repeat="item in a.no" class="q_c"
-                                             ng-style="{'width':'{{a.type==3?'auto':setItmeWidth(a.thr)}}'}">
+                                             ng-style="{'width':'{{a.type==3?'auto':setItmeWidth(a.thr)}}'}" style="padding-top:{{a.verticalHeigth+'px'}};width:auto">
                                             <a class="numberNo {{paperType==1?'paperno':''}}" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
@@ -875,7 +875,7 @@
                                 <tr ng-if="a.type!=5&&a.type!=4">
                                     <td>
                                         <div ng-repeat="item in a.no" class="q_c"
-                                             ng-style="{'width':'{{a.type==3?'auto':setItmeWidth(a.thr)}}'}">
+                                             ng-style="{'width':'{{a.type==3?'auto':setItmeWidth(a.thr)}}'}" style="padding-top:{{a.verticalHeigth+'px'}};width:auto">
                                             <a class="numberNo {{paperType==1?'paperno':''}}" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
@@ -1105,7 +1105,7 @@
         <ul>
             <li class="meun_navbar" ng-click="dayin()">打印</li>
             <li class="meun_navbar" ng-click="showModel('cand_box')" ng-show="tabParentIndex==-1">设置考号</li>
-            <li class="meun_navbar" ng-show="meunType==5||meunType==4" ng-click="showVertical()">设置行间距</li>
+            <li class="meun_navbar" ng-show="meunType==5||meunType==4||meunType==3" ng-click="showVertical()">设置行间距</li>
             <li class="meun_navbar" ng-click="showModel('pic_box')" ng-show="meunType==5">插入图片</li>
             <li class="meun_navbar" ng-click="showModel('setGroupHeigh')" ng-show="meunType==5">修改题组高度</li>
             <li class="meun_navbar" ng-click="setFillQuestion()" ng-show="meunType==3">修改填空题</li>
