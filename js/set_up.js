@@ -2168,6 +2168,7 @@ $(function() {
 		printBarcode(is_extra,gg,ss);
 	})
 
+
 	function printBarcode(is_extra,gg,ss) {
 	    var colNum=6;
 	    var rowNum=24;
