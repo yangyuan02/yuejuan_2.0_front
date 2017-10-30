@@ -8,6 +8,7 @@
     zoom: 1;
     width:auto;
     height:auto;
+    line-height: 0px;
 }
 
 .edui-default .edui-toolbar .edui-button,

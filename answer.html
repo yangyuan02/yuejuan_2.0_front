@@ -141,7 +141,7 @@
                            </div>
                             <div class="writItem clearfix">
                                 <p>试题总分</p>
-                                <p><input type="text" ng-model="result.writscore"></p>
+                                <p><input type="text" ng-model="result.writscore" placeholder="请输入题组总分"></p>
                             </div>
                             <div class="writItem clearfix">
                                 <p>作文格式</p>
@@ -172,19 +172,19 @@
                             <!--</div>-->
                             <div class="writItem clearfix" ng-show="result.writIsradio==1">
                                 <p>作文格数</p>
-                                <p><input type="text" ng-model="result.plaid"></p>
+                                <p><input type="text" ng-model="result.plaid" placeholder="请输入作文总格数"></p>
                             </div>
                             <div class="writItem clearfix" ng-show="result.writIsradio==2"><!--外语作文-->
                                 <p>格子行数</p>
-                                <p><input type="text" ng-model="result.enLine"></p>
+                                <p><input type="text" ng-model="result.enLine" placeholder="请输入作文行数"></p>
                             </div>
                             <div class="writItem clearfix" ng-show="result.writIsradio==3"><!--单词间隔-->
                                 <p>单词个数</p>
-                                <p><input type="text" ng-model="result.word"></p>
+                                <p><input type="text" ng-model="result.word" placeholder="请输入单词个数"></p>
                             </div>
                             <div class="writItem clearfix">
                                 <p>起始序号</p>
-                                <p><input type="text" ng-model="result.no"></p>
+                                <p><input type="text" ng-model="result.no" placeholder="请输入起始序号"></p>
                             </div>
                             <!--<div class="writItem clearfix">-->
                                 <!--<p>所在页码</p>-->
@@ -429,7 +429,7 @@
                                 <tr ng-if="a.type!=5&&a.type!=4"><!--选择题/判断题/多选题/填空题-->
                                     <td>
                                         <div ng-repeat="item in a.no" class="q_c"
-                                             ng-style="{'width':'{{a.type==3?'auto':setItmeWidth(a.thr)}}'}">
+                                             ng-style="{'width':'{{a.type==3?'auto':setItmeWidth(a.thr)}}'}" style="padding-top:{{a.verticalHeigth+'px'}};width:auto">
                                             <a class="numberNo {{paperType==1?'paperno':''}}" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
@@ -560,7 +560,7 @@
                                 <tr ng-if="a.type!=5&&a.type!=4">
                                     <td>
                                         <div ng-repeat="item in a.no" class="q_c"
-                                             ng-style="{'width':'{{a.type==3?'auto':setItmeWidth(a.thr)}}'}">
+                                             ng-style="{'width':'{{a.type==3?'auto':setItmeWidth(a.thr)}}'}" style="padding-top:{{a.verticalHeigth+'px'}};width:auto">
                                             <a class="numberNo {{paperType==1?'paperno':''}}" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
@@ -743,7 +743,7 @@
                                 <tr ng-if="a.type!=5&&a.type!=4"><!--选择题/判断题/多选题/填空题-->
                                     <td>
                                         <div ng-repeat="item in a.no" class="q_c"
-                                             ng-style="{'width':'{{a.type==3?'auto':setItmeWidth(a.thr)}}'}">
+                                             ng-style="{'width':'{{a.type==3?'auto':setItmeWidth(a.thr)}}'}" style="padding-top:{{a.verticalHeigth+'px'}};width:auto">
                                             <a class="numberNo {{paperType==1?'paperno':''}}" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
@@ -875,7 +875,7 @@
                                 <tr ng-if="a.type!=5&&a.type!=4">
                                     <td>
                                         <div ng-repeat="item in a.no" class="q_c"
-                                             ng-style="{'width':'{{a.type==3?'auto':setItmeWidth(a.thr)}}'}">
+                                             ng-style="{'width':'{{a.type==3?'auto':setItmeWidth(a.thr)}}'}" style="padding-top:{{a.verticalHeigth+'px'}};width:auto">
                                             <a class="numberNo {{paperType==1?'paperno':''}}" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
@@ -1105,7 +1105,7 @@
         <ul>
             <li class="meun_navbar" ng-click="dayin()">打印</li>
             <li class="meun_navbar" ng-click="showModel('cand_box')" ng-show="tabParentIndex==-1">设置考号</li>
-            <li class="meun_navbar" ng-show="meunType==5||meunType==4" ng-click="showVertical()">设置行间距</li>
+            <li class="meun_navbar" ng-show="meunType==5||meunType==4||meunType==3" ng-click="showVertical()">设置行间距</li>
             <li class="meun_navbar" ng-click="showModel('pic_box')" ng-show="meunType==5">插入图片</li>
             <li class="meun_navbar" ng-click="showModel('setGroupHeigh')" ng-show="meunType==5">修改题组高度</li>
             <li class="meun_navbar" ng-click="setFillQuestion()" ng-show="meunType==3">修改填空题</li>
