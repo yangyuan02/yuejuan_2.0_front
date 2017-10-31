@@ -347,7 +347,7 @@ $(function(){
       //区域可拖动
       $(select_area[j]).draggable({containment: ".bg-img", scroll: false });
       //区域可各个方向缩放(上下左右四角)
-      $('#select-area'+j).resizable({ handles: "n, e, s, w, ne, se, sw, nw" });
+      $(select_area[j]).resizable({ handles: "n, e, s, w, ne, se, sw, nw" });
       //获取区域的位置
       // console.log(arr[j].width)
       // var select_width = new_arr[j]['width'];
@@ -497,6 +497,7 @@ $(function(){
 		num_index = span_num;
 		console.log(parent_id)
 		if(parent_id){
+			get_select_info();
 			$.ajax({
 			  type: "GET",
 			  async:false,
@@ -592,6 +593,7 @@ $(function(){
 				new_num_arr.push(obb);
 			}
 		};
+		console.log(on_checked_info,new_num_arr);
 		var all_list = $('body').find('#all-section-list li')
 		for (var ll = 0; ll < new_num_arr.length; ll++) {
 			for (var nn = 0; nn < all_list.length; nn++) {
