@@ -3467,12 +3467,130 @@ $(function() {
 		$('.import-word-wrap .modal-main').animate({'top': '50%','opacity': 1},500);
 		$('.import-word-wrap .modal-shadow').animate({'opacity': 0.3},500);
 		$('.import-word-wrap').show();
+		$('.import-word-wrap #paper-grade').html('<option value="0">全部年级</option>');
+		// 获取所有年级
+		$.ajax({
+     	type: "GET",
+     	url: ajaxIp+"/api/v2/commons/school_grades",
+    	dataType: "JSON",
+    	headers: {'Authorization': "Bearer " + isLogin},
+    	success: function(data){
+    		console.log(data)
+  			for (var i = 0; i < data.length; i++) {
+					var iOption = '<option value="'+data[i].id+'">'+data[i].name+'</option>'
+					$('.import-word-wrap #paper-grade').append(iOption);
+					$('.import-word-wrap #paper-subject').html('<option value="0">全部科目</option>');
+				}
+       },
+        error: function(){
+        	// alert('请稍后从新尝试登录或者联系管理员');
+        	// localStorage.clear();
+        	// window.location.href = './login.html'
+        }
+    });
+
+		// 获取考试列表
+
+		$.ajax({
+	   	type: "GET",
+	   	url: ajaxIp+"/api/v2/exams",
+	  	dataType: "JSON",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	success: function(data){
+	  		console.log(data)
+				show_exams_list(data);
+      },
+      error: function(){
+      	// alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login'
+      }
+	  });
+		// 显示考试列表
+		function show_exams_list(exam){
+			var exam_length = exam.length;
+			$('.import-word-wrap #paper-exam').html('');
+			for (var i = 0; i < exam_length; i++) {
+				var exam_option = '<option data-id="'+exam[i].id+'">'+exam[i].name+'</option>';
+				$('.import-word-wrap #paper-exam').append(exam_option);
+			};
+			$('.import-word-wrap #paper-exam').attr('data-id',exam[0].id);
+
+		}
   });
+  // 根据年级获取科目
+  $('.import-word-wrap #paper-grade').change(function(){
+  	console.log(222)
+  	$('.import-word-wrap #paper-subject').html('<option value="0">全部科目</option>');
+		if($(this).val()!=0){
+			$.ajax({
+	     	type: "GET",
+	     	url: ajaxIp+"/api/v2/commons/grade_subjects",
+	     	data:{'grade_id':$(this).val()},
+	    	dataType: "JSON",
+	    	headers: {'Authorization': "Bearer " + isLogin},
+	    	success: function(data){
+	    		console.log(data);
+	    		for (var i = 0; i < data.length; i++) {
+						var iOption = '<option value="'+data[i].id+'">'+data[i].name+'</option>'
+						$('.import-word-wrap #paper-subject').append(iOption);
+					}
+	      },
+	      error: function(){
+	        	// alert('请稍后从新尝试登录或者联系管理员');
+	        	// localStorage.clear();
+	        	// window.location.href = './login.html'
+	      }
+	    });
+		}else{
+			// batch_export('.user-information-right',null);
+			$('.import-word-wrap #paper-subject').html('<option value="0">全部科目</option>');
+		}
+	});
+
+	// 确认导入试卷
+	$('body').on('click', '.import-word-btn', function() {
+		var formData = new FormData();
+		formData.append("import_word_file",$("#inPathw")[0].files[0]);
+		console.log(isStudent)
+		var i_string = $('#upfilew div').html();
+		i_string_i = i_string.lastIndexOf(".");
+		i_string = i_string.substring(i_string_i+1);
+		console.log(i_string+'aaaaaaaaaaaaaaaaaaaa')
+		console.log(formData)
+		if(i_string!='docx' && i_string!='doc'){
+			alert('文件格式不对，请选择docx或者doc文件！')
+		}
+	});
   $('body').on('click', '.look-paper-btn', function() {
   	$(this).attr('href', 'edit_paper');
   	console.log(99)
 
   });
+
+	$('#inPathw').change(function(){
+		inputFlileNamew()
+	})
+
+	function inputFlileNamew(){
+		var file = $("#inPathw").val();
+		var fileName = getFileName(file);
+		$("#upfilew").html('未选择任何文件');
+		function getFileName(o){
+		    var pos=o.lastIndexOf("\\");
+		    return o.substring(pos+1);
+		}
+		if(($("#upfilew div").length)==0){
+			$("#upfilew").html('');
+		}
+		var iDiv = $('<div data-url='+file+'></div>')
+		iDiv.text(fileName);
+		// iDiv.data('url',file);
+		iDiv.css({'display':'inline-block','color':'#666','background':'#dcf5f0','padding':'0 10px','height':'26px','border-radius':'2px','margin-right':'5px'});
+		$('#upfilew').append(iDiv);
+
+	}
+
 
 
 })

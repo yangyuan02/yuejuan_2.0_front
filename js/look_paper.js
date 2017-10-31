@@ -497,7 +497,7 @@ $(function(){
 		num_index = span_num;
 		console.log(parent_id)
 		if(parent_id){
-			get_select_info();
+			// get_select_info();
 			$.ajax({
 			  type: "GET",
 			  async:false,
@@ -584,10 +584,11 @@ $(function(){
 		console.log(is_arr_num)
 		append_section(is_arr_num);
 		var a_answer_id = $('.modal-main').attr('answer_id');
-		console.log(a_answer_id)
+		console.log(a_answer_id,info.answer_setting_ids)
 		var new_num_arr=[];
 		for (var kk = 0; kk < on_checked_info.length; kk++) {
-			if(a_answer_id==on_checked_info[kk].answer_id){
+			if(a_answer_id==on_checked_info[kk].answer_id&&info.answer_setting_ids.sort().toString()==on_checked_info[kk].answer_setting_ids.sort().toString()){
+				console.log(88)
 				var obb= new Object();
 				obb={'sec_num':on_checked_info[kk].current_page +'_'+ on_checked_info[kk].index};
 				new_num_arr.push(obb);
