@@ -970,31 +970,32 @@
 					</select>
 				</div>
 				<div class="rows">
-					<label>科目</label>
-					<select id="paper-subject" name="paper-subject">
-						<option value="语文" checked>语文</option>
-						<option value="数学">数学</option>
-					</select>
-				</div>
-				<div class="rows">
 					<label>年级</label>
 					<select id="paper-grade" name="paper-grade">
-						<option value="高三" checked>高三</option>
-						<option value="高二">高二</option>
+						<!-- <option value="高三" checked>高三</option>
+						<option value="高二">高二</option> -->
 					</select>
 				</div>
 				<div class="rows">
+					<label>科目</label>
+					<select id="paper-subject" name="paper-subject">
+						<!-- <option value="语文" checked>语文</option>
+						<option value="数学">数学</option> -->
+					</select>
+				</div>
+				
+				<div class="rows">
 					<label>选择文件</label>
-					<!-- <div id="upfiles" onclick="inPaths.click()">
+					<div id="upfilew" onclick="inPathw.click()">
 						未选择任何文件
-					</div> -->
-					<!-- <input enctype="multipart/form-data" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" id="inPaths" style="display:none"> -->
+					</div>
+					<input enctype="multipart/form-data" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" id="inPathw" style="display:none">
 				</div>
 				<div class="rows">
 					<label>绑定考试</label>
-					<select id="paper-grade" name="paper-grade">
-						<option value="期末考试1" checked>期末考试1</option>
-						<option value="期末考试二">期末考试二</option>
+					<select id="paper-exam" name="paper-exam">
+						<!-- <option value="期末考试1" checked>期末考试1</option>
+						<option value="期末考试二">期末考试二</option> -->
 					</select>
 				</div>
 				
@@ -1003,7 +1004,7 @@
 				
 				<div class="modal-bottom">
 					<div class="modal-bottom-button modal-exit">关闭</div>
-					<div class="modal-bottom-button determine">保存</div>
+					<div class="modal-bottom-button determine import-word-btn">确定</div>
 				</div>
 			</div>
 		</div>
