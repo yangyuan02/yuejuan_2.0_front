@@ -107,10 +107,10 @@
              'spechars','simpleupload','horizontal','edittable','inserttable'
         ]]
     });
-            $(".edit_li_btn01").click(function(event) {
+            // $(".edit_li_btn01").click(function(event) {
             
-            	$("#container02").show();
-            });
+            // 	$("#container02").slideDown(1000);
+            // });
     </script>
        		<li>设置解答输入<button type="" class="edit_li_btn02">编辑</button>
         <div class="edit_li_div02">
@@ -143,7 +143,7 @@
           $(this).attr("data-id","0");
          
         }
-        $(".edit_li_div02_box").toggle();
+        $(".edit_li_div02_box").slideToggle(1000);
       });
     </script>
        		<li>添加知识点<button type="" class="edit_li_btn03">编辑</button><div class="edit_li_div03"><p class="edit_li_div03_p01">选择知识点</p>
@@ -436,7 +436,7 @@
             $(".edit_li_btn06").show();
           });
         </script>
-       <div class="edit_box_btm_tc">
+       <!-- <div class="edit_box_btm_tc">
        	<p class="edit_box_btm_tc_p01">编辑答案输入
        	<a><i class="iconfont">&#xe61b;</i></a></p>
     <p  class="edit_box_btm_tc_p02">题型<select class="edit_select">
@@ -450,7 +450,7 @@
     <button class="edit_box_btm_btn01" type="">取消</button>
     <button  class="edit_box_btm_btn02 determine" type="">保存</button>
     </p>
-       </div>
+       </div> -->
        </div>
    
 
@@ -466,7 +466,7 @@
 	    	});
 	    	$(".edit_li_btn01").click(function(event) {
 	    		/* Act on the event */
-	    		$(".edit_li_div01").show();
+	    		$(".edit_li_div01").slideDown(1000);
 	    	});
 	    	$(".edit_li_div01_btn01").click(function(event) {
 	    		/* Act on the event */
