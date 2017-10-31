@@ -737,6 +737,12 @@ input:focus{
 .table_focus{
     border:1px solid #31bc91!important;
 }
+.pic_box{
+    height:180px;
+}
+.pic_box .cand_con{
+    margin-bottom:16px;
+}
 .pic_box input[type="file"]{
     height: auto !important;
     line-height:0px !important;
