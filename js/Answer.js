@@ -401,6 +401,15 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 Linenumbel.push(i)
             }
         }
+        if($scope.index==3){
+            var verticalHeigth = 5
+        }
+        if($scope.index==4){
+            var verticalHeigth = 35
+        }
+        if($scope.index==5){
+            var verticalHeigth = 20
+        }
         obj = {
             name: $scope.result.name,//题组名称
             numbel: $scope.index == 4 ||$scope.result.otherisradio==4 ? 1 : parseInt($scope.result.numbel),//试题数量
@@ -416,7 +425,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             otherHeight:otherHeight,//其他题高度
             fillWidth:fillWidth,//填空题宽度
             fillsNum:fillsNum,//填空题横线个数
-            verticalHeigth:$scope.index==4?35:20,//题组行间距
+            verticalHeigth:verticalHeigth,//题组行间距
             LineType:0,//线类型0代表实线非0虚线
             hideLineType:0,//线类型0代表显示非1隐藏
             Linenumbel:Linenumbel//横线类数量
@@ -447,7 +456,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.createAsswer(obj)
         clear()
         close()
-        console.log($scope.listObj)
+        // $scope.listObj4.push(obj)
     };
     $scope.setItmeWidth = function (itemNumber) {
         $scope.setWidth
