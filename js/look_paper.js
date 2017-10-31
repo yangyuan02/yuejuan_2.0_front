@@ -165,8 +165,7 @@ $(function(){
 	}
 	function append_first(arr){
 		var current_page =parseInt($('.page .on').text());
-		$('.bg-img').html('');
-		$('.bg-img').append('<div class="crop">题组切割</div>');
+		console.log(on_checked_info)
 		$('body').find('#all-section-list').html('');
 		var new_arr = new Array();
 		for (var j = 0; j < arr.length; j++) {
@@ -177,17 +176,42 @@ $(function(){
     	$('body').find('#all-section-list').append(jj_html);
     }
     console.log(new_arr);
-    for (var i = 0; i < new_arr.length; i++) {
-    	var l_width=new_arr[i].w/1044;
-	    var l_height=new_arr[i].h/734;
-	    // console.log(new_arr[i].w,l_width,l_height)
-			var first_string="<div class='select-area' style='position: absolute;left:"+(new_arr[i].x/l_width)+"px;top:"+(new_arr[i].y/l_height)+"px;"+"width:"+(new_arr[i].width/l_width)+"px;height:"
-		      +(new_arr[i].height/l_height)+"px' id='select-area"+(i+1)+"' name='"+i+"'><a href='javascript:;' class='edit-item'>编辑</a><i class='iconfont close'>&#xe61b;</i><span class='title' " +
-		  		" style='background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 2px;'>"+(i+1)+"</span>'</div>";
-  		$('.bg-img').append(first_string);
-  		$(".select-area").draggable({containment: ".bg-img", scroll: false });;
-      $(".select-area").resizable({ handles: "n, e, s, w, ne, se, sw, nw" });
-    };
+    if(on_checked_info){
+    	var new_info=[];
+    	for (var dd = 0; dd < on_checked_info.length; dd++) {
+    		if (current_page==on_checked_info[dd].current_page) {
+					new_info.push(on_checked_info[dd]);
+    		};
+
+    	};
+    	// append_select(on_checked_info.length,on_checked_info);
+			for (var i = 0; i < (new_arr.length); i++) {
+	    	var l_width=new_arr[i].w/1044;
+		    var l_height=new_arr[i].h/734;
+		    // console.log(new_arr[i].w,l_width,l_height)
+				var first_string="<div class='select-area' style='position: absolute;left:"+(new_arr[i].x/l_width)+"px;top:"+(new_arr[i].y/l_height)+"px;"+"width:"+(new_arr[i].width/l_width)+"px;height:"
+			      +(new_arr[i].height/l_height)+"px' id='select-area"+(i+new_info.length+1)+"' name='"+(i+new_info.length+1)+"'><a href='javascript:;' class='edit-item'>编辑</a><i class='iconfont close'>&#xe61b;</i><span class='title' " +
+			  		" style='background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 2px;'>"+(i+new_info.length+1)+"</span>'</div>";
+	  		$('.bg-img').append(first_string);
+	  		$(".select-area").draggable({containment: ".bg-img", scroll: false });;
+	      $(".select-area").resizable({ handles: "n, e, s, w, ne, se, sw, nw" });
+	    };
+    }else{
+    	$('.bg-img').html('');
+			$('.bg-img').append('<div class="crop">题组切割</div>');
+    	for (var i = 0; i < new_arr.length; i++) {
+	    	var l_width=new_arr[i].w/1044;
+		    var l_height=new_arr[i].h/734;
+		    // console.log(new_arr[i].w,l_width,l_height)
+				var first_string="<div class='select-area' style='position: absolute;left:"+(new_arr[i].x/l_width)+"px;top:"+(new_arr[i].y/l_height)+"px;"+"width:"+(new_arr[i].width/l_width)+"px;height:"
+			      +(new_arr[i].height/l_height)+"px' id='select-area"+(i+1)+"' name='"+i+"'><a href='javascript:;' class='edit-item'>编辑</a><i class='iconfont close'>&#xe61b;</i><span class='title' " +
+			  		" style='background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 2px;'>"+(i+1)+"</span>'</div>";
+	  		$('.bg-img').append(first_string);
+	  		$(".select-area").draggable({containment: ".bg-img", scroll: false });;
+	      $(".select-area").resizable({ handles: "n, e, s, w, ne, se, sw, nw" });
+	    };
+    }
+    
 	}
 	// 点击页数切换
 	$('.page').on('click', 'a', function() {
@@ -315,10 +339,27 @@ $(function(){
  //添加区域块
   function append_select(eg,arr){
   	console.log(eg,arr);
+  	var is_arr_info = JSON.parse(localStorage.getItem("data_arr"+index_id+""));
+		console.log(is_arr_info)
     $('.bg-img').html('');
+    if(arr.length && arr[eg-1].crop_type==1){
+    	$('.bg-img').html('');
+    }
     if(arr.length && arr[eg-1].crop_type==4){
-    	console.log('yes');
-    	// $('.bg-img').append('<div class="crop">题组切割</div>');
+    	if(is_arr_info){
+			console.log(is_arr_info,is_arr_info.length)
+			var current_page =parseInt($('.page .on').text());
+			var new_is_arr=[];
+			for (var ff = 0; ff < is_arr_info.length; ff++) {
+				if(current_page==is_arr_info[ff].current_page){
+					new_is_arr.push(is_arr_info[ff])
+				}
+			};
+			append_first(new_is_arr);
+    	}
+    	// else{
+    	// 	$('.bg-img').html('');
+    	// }
     }
     var current_page =parseInt($('.page .on').text());
     console.log(current_page);
@@ -497,7 +538,7 @@ $(function(){
 		num_index = span_num;
 		console.log(parent_id)
 		if(parent_id){
-			// get_select_info();
+			get_select_info();
 			$.ajax({
 			  type: "GET",
 			  async:false,
