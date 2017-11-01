@@ -12,6 +12,7 @@
 <div class="Answer" id="Answer">
     <!--头部导航-->
     <div class="A_Nav">
+        <span ng-click="showModel('total_score')" style="position:absolute;left:0px;top:0px;color:#f1f1f1">修改总分</span>
         <span>总分:<span class="Red" ng-bind="countScore"></span>分</span>
         <span class="bord mL">
 							<span class="iconfont" ng-click="dayin()">&#xe688;</span>
@@ -394,7 +395,7 @@
                             <table ng-repeat="a in listObj" ng-click="getTableIndex(0,$index)" class="{{tabParentIndex==0&&tabIndex==$index?'table_focus':''}} {{showTableLineTyep==0?'':'hideTab'}}">
                                 <thead>
                                 <tr ng-if="a.otherisradio!=4">
-                                    <th>
+                                    <th contenteditable="true" ng-model="a.name" class="Group_title">
                                         {{a.name}}
                                     </th>
                                 </tr>
@@ -525,7 +526,7 @@
                             <table ng-repeat="a in listObj2" ng-click="getTableIndex(1,$index)" class="{{tabParentIndex==1&&tabIndex==$index?'table_focus':''}} {{showTableLineTyep==0?'':'hideTab'}}">
                                 <thead>
                                 <tr ng-if="a.otherisradio!=4">
-                                    <th>
+                                    <th contenteditable="true" ng-model="a.name" class="Group_title">
                                         {{a.name}}
                                     </th>
                                 </tr>
@@ -708,7 +709,7 @@
                             <table ng-repeat="a in listObj3" ng-click="getTableIndex(2,$index)" class="{{tabParentIndex==2&&tabIndex==$index?'table_focus':''}} {{showTableLineTyep==0?'':'hideTab'}}">
                                 <thead>
                                 <tr ng-if="a.otherisradio!=4">
-                                    <th>
+                                    <th contenteditable="true" ng-model="a.name" class="Group_title">
                                         {{a.name}}
                                     </th>
                                 </tr>
@@ -840,7 +841,7 @@
                             <table ng-repeat="a in listObj4" ng-click="getTableIndex(3,$index)" class="{{tabParentIndex==3&&tabIndex==$index?'table_focus':''}} {{showTableLineTyep==0?'':'hideTab'}}">
                                 <thead>
                                 <tr ng-if="a.otherisradio!=4">
-                                    <th>
+                                    <th contenteditable="true" ng-model="a.name" class="Group_title">
                                         {{a.name}}
                                     </th>
                                 </tr>
@@ -1105,13 +1106,13 @@
         <ul>
             <li class="meun_navbar" ng-click="dayin()">打印</li>
             <li class="meun_navbar" ng-click="showModel('cand_box')" ng-show="tabParentIndex==-1">设置考号</li>
-            <li class="meun_navbar" ng-show="meunType==5||meunType==4||meunType==3" ng-click="showVertical()">设置行间距</li>
-            <li class="meun_navbar" ng-click="showModel('pic_box')" ng-show="meunType==5">插入图片</li>
-            <li class="meun_navbar" ng-click="showModel('setGroupHeigh')" ng-show="meunType==5">修改题组高度</li>
-            <li class="meun_navbar" ng-click="setFillQuestion()" ng-show="meunType==3">修改填空题</li>
+            <li class="meun_navbar" ng-show="(meunType==5||meunType==4||meunType==3)&&tabParentIndex!=-1" ng-click="showVertical()">设置行间距</li>
+            <li class="meun_navbar" ng-click="showModel('pic_box')" ng-show="meunType==5&&tabParentIndex!=-1">插入图片</li>
+            <li class="meun_navbar" ng-click="showModel('setGroupHeigh')" ng-show="meunType==5&&tabParentIndex!=-1">修改题组高度</li>
+            <li class="meun_navbar" ng-click="setFillQuestion()" ng-show="meunType==3&&tabParentIndex!=-1">修改填空题</li>
             <!--<li class="meun_navbar" ng-click="checkTestType(1)">打印方式:{{myDayinType==0?'单面':'双面'}}</li>-->
-            <li class="meun_navbar" ng-show="meunType==3||meunType==5&&LineTypeShow=='隐藏'" ng-click="toggleLineType()">转换为{{LineTypeWord}}</li>
-            <li class="meun_navbar" ng-show="meunType==5" ng-click="toggleLineDisplay()">{{LineTypeShow}}分割线</li>
+            <li class="meun_navbar" ng-show="(meunType==3||meunType==5&&LineTypeShow=='隐藏')&&tabParentIndex!=-1" ng-click="toggleLineType()">转换为{{LineTypeWord}}</li>
+            <li class="meun_navbar" ng-show="meunType==5&&tabParentIndex!=-1" ng-click="toggleLineDisplay()">{{LineTypeShow}}分割线</li>
             <!--<li class="meun_navbar">插入单元格</li>-->
             <!--<li class="meun_navbar" ng-click="add(4)">插入语文作文格</li>-->
             <!--<li class="meun_navbar" ng-click="add(4)">插入英文作文行线</li>-->
@@ -1187,6 +1188,17 @@
         <div class="cand_close" ng-click="closeCand()">x</div>
     </div>
     <!--设置元素内间距弹窗结束-->
+    <!--设置总分弹窗开始-->
+    <div class="cand total_score">
+        <div class="cand_title">修改总分</div>
+        <div class="cand_con clearfix">
+            <p class="fl">总分</p>
+            <p class="fl"><input type="text" ng-model="countScore"></p>
+        </div>
+        <div class="cand_btn"><a ng-click="setCountScore()">确定</a></div>
+        <div class="cand_close" ng-click="closeCand()">x</div>
+    </div>
+    <!--设置总分弹窗结束-->
 </div>
 
 <script src="js/Answer.js" type="text/javascript" charset="utf-8"></script>
