@@ -39,8 +39,8 @@
 			
 		</div>
 	<div style="width: 1200px;height:auto;border: 1px solid #ccc;background: #fff;margin: 0 auto;padding:27px 0px 300px 38px;box-sizing: border-box;">
-	<p class="p_top"><i class="iconfont">&#xe61c;</i><p>
-	<script id="container" name="content" type="text/plain">
+	<p class="p_top"><a href="edit_paper" style="color:#31bc91;"><i class="iconfont">&#xe61c;</i></a><p>
+	<script id="container" name="content" type="text/plain" >
                                 <p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （    ）</p>
 
 								<p>A．粒子带正电</p>
@@ -55,7 +55,7 @@
     <script type="text/javascript">
             var ue = UE.getEditor('container', {
         toolbars: [[
-            'insertimage','horizontal','edittable','mergecells','inserttable'
+            'spechars','simpleupload','horizontal','edittable','inserttable'
         ]]
     });
     </script>
@@ -91,35 +91,60 @@
       <button class="edit_bj_btn01 determine">保存</button>
        <button class="edit_bj_btn02">取消</button>
         </p>
-    <!--   <script>
+      <script>
        $(".edit_bj_btn01").click(function(event) {
     	/* Act on the event */
     	alert(UE.getEditor('container').getContent());
        });
-        </script> -->
+        </script>
        <div class="edit_box_btm">
        	<ul>
-       		<li>答案输入<button type="" class="edit_li_btn01">编辑</button><div class="edit_li_div01"><script id="container02" name="content" type="text/plain"></script><p class="edit_li_div_p"><button type="" class="edit_li_div01_btn01 determine">保存</button><button type="" class="edit_li_div01_btn02">取消</button></p></div></li>
+       		<li>答案输入<button type="" class="edit_li_btn01">编辑</button><div class="edit_li_div01">
+          <script id="container02" name="content" type="text/plain"></script><p class="edit_li_div_p"><button type="" class="edit_li_div01_btn01 determine">保存</button><button type="" class="edit_li_div01_btn02">取消</button></p></div></li>
        		<script type="text/javascript">
             var ue = UE.getEditor('container02', {
         toolbars: [[
-              'insertimage','horizontal','edittable','mergecells','inserttable'
+             'spechars','simpleupload','horizontal','edittable','inserttable'
         ]]
     });
-            $(".edit_li_btn01").click(function(event) {
+            // $(".edit_li_btn01").click(function(event) {
             
-            	$("#container02").show();
-            });
+            // 	$("#container02").slideDown(1000);
+            // });
     </script>
        		<li>设置解答输入<button type="" class="edit_li_btn02">编辑</button>
-        <div class="edit_li_div02"><script id="container03" name="content" type="text/plain" style=""></script><p class="edit_li_div_p"><button type="" class="edit_li_div02_btn01 determine">保存</button><button type="" class="edit_li_div02_btn02">取消</button></p></div></li>
+        <div class="edit_li_div02">
+        <p>分析<i  data-id="0" class="edit_li_div02_i iconfont" style="margin-left:11px;cursor: pointer;font-size: 14px;">&#xe622;</i></p>
+        <div class="edit_li_div02_box" style="width:870px;height: auto;border-bottom: 1px solid #d4d4d4;margin-bottom:10px;padding-bottom: 30px;box-sizing: border-box;display: none;">
+         <div style="width:870px;height:auto;border: 1px solid #d4d4d4;margin: 0 auto;padding:20px;box-sizing:border-box;color: #333333;" contenteditable="true">本题是带电粒子在电场中的偏转</div>
+         </div>
+          <p>解答</p>
+        <script id="container03" name="content" type="text/plain" style="">
+        </script><p class="edit_li_div_p"><button type="" class="edit_li_div02_btn01 determine">保存</button><button type="" class="edit_li_div02_btn02">取消</button></p></div></li>
        		<script type="text/javascript">
             var ue = UE.getEditor('container03', {
          toolbars: [[
-              'insertimage','horizontal','edittable','mergecells','inserttable'
+             'spechars','simpleupload','horizontal','edittable','inserttable'
         ]]
     });
           
+    </script>
+    <script>
+      $(".edit_li_div02_i").click(function(event) {
+        /* Act on the event */
+        var a=$(this).attr("data-id");
+        // alert($(this).attr("data-id"));
+        if(a==0){
+          $(this).html("&#xe624;");
+          $(this).attr("data-id","1");
+         
+        }else{
+          $(this).html("&#xe622;");
+          $(this).attr("data-id","0");
+         
+        }
+        $(".edit_li_div02_box").slideToggle(1000);
+      });
     </script>
        		<li>添加知识点<button type="" class="edit_li_btn03">编辑</button><div class="edit_li_div03"><p class="edit_li_div03_p01">选择知识点</p>
                <p class="edit_li_div03_p02"><a>版本<select>
@@ -209,10 +234,26 @@
               $(".edit_li_div03").show();
             });
        		</script>
-       		<li>设置难度<a class="dif_i"><i class="iconfont">&#xe600;</i><i class="iconfont">&#xe600;</i><i class="iconfont">&#xe600;</i>
-          <i class="iconfont">&#xe639;</i>
-          <i class="iconfont">&#xe639;</i>
+       		<li>设置难度<a class="dif_i"><i class="iconfont" data-id="1">&#xe600;</i><i class="iconfont" data-id="1">&#xe600;</i><i class="iconfont" data-id="1">&#xe600;</i>
+          <i class="iconfont" data-id="0">&#xe639;</i>
+          <i class="iconfont" data-id="0">&#xe639;</i>
           </a></li>
+          <script>
+          for(var i=0;i<5;i++){
+              $(".dif_i i").eq(i).click(function(event) {
+                 var a=$(this).attr("data-id");
+                 if(a==0){
+                  $(this).html("&#xe600;");
+                  $(this).attr("data-id","1");
+                 }else{
+                    $(this).html("&#xe639;");
+                    $(this).attr("data-id","0");
+                 }
+              });
+          }
+            
+         
+          </script>
        		<li>设置能力标签<button type="" class="edit_li_btn04">编辑</button>
           <div class="nengli_box">
             <p class="nengli_box_p01">
@@ -383,9 +424,19 @@
             $(".wrong_box").hide();
            });
           </script>
-       		<li>添加新标签<button type="" class="edit_li_btn06">添加</button></li>
+       		<li>添加新标签<a class="edit_li_btn06_a" style="display: none;"><input type="" name="" placeholder="请输入要添加的标签" style="height:32px;width:190px;padding-left: 8px;    box-sizing: border-box;margin-left: 20px;"><button type="" class="determine" style="margin-left:30px;">保存</button></a><button type="" class="edit_li_btn06">添加</button></li>
        	</ul>
-       <div class="edit_box_btm_tc">
+        <script>
+          $(".edit_li_btn06").click(function(event) {
+            $(".edit_li_btn06_a").show();
+            $(".edit_li_btn06").hide();
+          });
+         $(".edit_li_btn06_a button").click(function(event) {
+            $(this).parent('a').hide();
+            $(".edit_li_btn06").show();
+          });
+        </script>
+       <!-- <div class="edit_box_btm_tc">
        	<p class="edit_box_btm_tc_p01">编辑答案输入
        	<a><i class="iconfont">&#xe61b;</i></a></p>
     <p  class="edit_box_btm_tc_p02">题型<select class="edit_select">
@@ -399,7 +450,7 @@
     <button class="edit_box_btm_btn01" type="">取消</button>
     <button  class="edit_box_btm_btn02 determine" type="">保存</button>
     </p>
-       </div>
+       </div> -->
        </div>
    
 
@@ -415,7 +466,7 @@
 	    	});
 	    	$(".edit_li_btn01").click(function(event) {
 	    		/* Act on the event */
-	    		$(".edit_li_div01").show();
+	    		$(".edit_li_div01").slideDown(1000);
 	    	});
 	    	$(".edit_li_div01_btn01").click(function(event) {
 	    		/* Act on the event */
