@@ -379,11 +379,13 @@ $(function() {
 				beforeSend:function(){
 					console.log("正在进行，请稍候");
 					$('.modal-main').animate({'top': '45%','opacity': 0},500);
+					 $(".load-bg").show();
+					 $(".load-animate p").html("正在进行，请稍候");
 				},
 				success : function(data) {
 					console.log(data)
 					alert(data.message)
-					
+					$(".load-bg").hide();
 					$('.modal-shadow').animate({'opacity': 0},500);
 					setTimeout(function(){
 						$('.modal-wrap').hide();
@@ -407,11 +409,13 @@ $(function() {
 				beforeSend:function(){
 					console.log("正在进行，请稍候");
 					$('.modal-main').animate({'top': '45%','opacity': 0},500);
+				    $(".load-bg").show();
+				     $(".load-animate p").html("正在进行，请稍候");
 				},
 				success : function(data) {
 					console.log(data);
 					alert(data.message)
-					
+					 $(".load-bg").hide();
 					$('.modal-shadow').animate({'opacity': 0},500);
 					setTimeout(function(){
 						$('.modal-wrap').hide();
