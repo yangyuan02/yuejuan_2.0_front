@@ -802,9 +802,12 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 obj.list[obj.index].name = obj.name
             }
             if (obj.type == 1) {//增加小题
+                var childNum = [0]
                 obj.list[obj.index].no.push(obj.no)
                 obj.list[obj.index].otherHeight.push(150)
                 obj.list[obj.index].fillWidth.push(230)
+                obj.list[obj.index].fillsNum.push(childNum)
+                obj.list[obj.index].imgurl.push(undefined)
                 obj.list[obj.index].itemCoresArr.push(obj.score)
                 obj.list[obj.index].numbel++  //题目数量
                 // obj.list[obj.index].itemCores = obj.score  //当前小题分值
@@ -864,6 +867,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
 
     $scope.dayin = function () {//打印
+        $("table").removeClass("table_focus")
+        $(".student").removeClass("table_focus")
         $(".A_Nav").css({"display": "none"})
         $(".cand").hide()
         $("#menu").css({"display": "none"})
@@ -1768,6 +1773,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     /*************确定**************/
     $scope.sureFillQuestion = function () {
         $scope.fillLists.forEach(function (item,index,arr) {
+            if(arr[index].fill_w>597){
+                alert("第"+(index+1)+'大于597,最大为597')
+                return false
+            }
             getOBjList()[$scope.tabIndex].fillWidth[index] = arr[index].fill_w
             getOBjList()[$scope.tabIndex].fillsNum[index] = getfillChildNums(arr[index].fill_num)
             function getfillChildNums(num) {
@@ -1805,6 +1814,11 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.toggleLineDisplay = function () {
         getOBjList()[$scope.tabIndex].hideLineType = !getOBjList()[$scope.tabIndex].hideLineType
         $("#menu").hide()
+    }
+    /*****修改标题******/
+
+    $scope.changeTitle = function () {
+        console.log(1111)
     }
     /*******************************保存*************************************************/
     $scope.save = function () {//保存模板
@@ -1882,6 +1896,36 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             bindRegion()
         }
     }
-})
+    /********************************************************隐藏功能修改总分********************************/
+    $scope.setCountScore = function () {
+        $scope.countScore = Number($scope.countScore)
+        $scope.closeCand()
+    }
+ })
+
+m1.directive('contenteditable', function() {
+    return {
+        restrict: 'A',
+        require: '?ngModel',
+        link: function(scope, element, attrs, ngModel) {
+            if (!ngModel) {
+                return;
+            }
+            ngModel.$render = function() {
+                element.html(ngModel.$viewValue || '');
+            };
+            element.on('blur keyup change', function() {
+                scope.$apply(readViewText);
+            });
+            function readViewText() {
+                var html = element.html();
+                if (attrs.stripBr && html === '<br>') {
+                    html = '';
+                }
+                ngModel.$setViewValue(html);
+            }
+        }
+    };
+});
 
 
