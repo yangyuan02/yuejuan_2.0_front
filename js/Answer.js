@@ -365,10 +365,12 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var fillWidth = []
         var fillsNum = []
         var childNum = [0]
+        var imgurl = []
         for (var i = 0; i < parseInt($scope.result.numbel); i++) {//多少个小题
             noarray.push(i + parseInt($scope.result.no));
             if($scope.index==5){
                 otherHeight.push(150)//其他题默认150px
+                imgurl.push(undefined)
             }
             if($scope.index==3){
                 fillWidth.push(230)
@@ -444,6 +446,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         if($scope.index==5){
             obj.otherisradio = $scope.result.otherisradio
+            obj.imgurl = imgurl
         }
         if (!checkIsNUll()) {
             return false
@@ -1731,7 +1734,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             processData: false,  // 不处理数据
             contentType: false,   // 不设置内容类型
             success: function (data) {
-                getOBjList()[$scope.tabIndex].imgurl = data[0].figure
+                getOBjList()[$scope.tabIndex].imgurl[$scope.img_no-1] = data[0].figure
                 $scope.closeCand()
             },
 
