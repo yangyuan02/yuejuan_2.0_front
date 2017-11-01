@@ -815,6 +815,22 @@ input:focus{
 .hide_line{
     border:none!important;
 }
+.set_sort_btn .sort_prev,
+.set_sort_btn .sort_next
+{
+    width:50px;
+    height:22px;
+    line-height:22px;
+    color:#31bc91;
+    border-radius:4px;
+    border:1px solid #31bc91;
+    text-align:center;
+    margin-right:10px;
+}
+.set_sort_btn .sort_prev a,
+.set_sort_btn .sort_next a{
+    color:#31bc91;
+}
 /********************语文试卷样式***************/
 /*table thead tr:last-child{*/
     /*display:none!important;*/
