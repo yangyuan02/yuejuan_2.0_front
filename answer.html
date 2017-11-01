@@ -394,7 +394,7 @@
                             <table ng-repeat="a in listObj" ng-click="getTableIndex(0,$index)" class="{{tabParentIndex==0&&tabIndex==$index?'table_focus':''}} {{showTableLineTyep==0?'':'hideTab'}}">
                                 <thead>
                                 <tr ng-if="a.otherisradio!=4">
-                                    <th>
+                                    <th contenteditable="true" ng-model="a.name" class="Group_title">
                                         {{a.name}}
                                     </th>
                                 </tr>
@@ -525,7 +525,7 @@
                             <table ng-repeat="a in listObj2" ng-click="getTableIndex(1,$index)" class="{{tabParentIndex==1&&tabIndex==$index?'table_focus':''}} {{showTableLineTyep==0?'':'hideTab'}}">
                                 <thead>
                                 <tr ng-if="a.otherisradio!=4">
-                                    <th>
+                                    <th contenteditable="true" ng-model="a.name" class="Group_title">
                                         {{a.name}}
                                     </th>
                                 </tr>
@@ -708,7 +708,7 @@
                             <table ng-repeat="a in listObj3" ng-click="getTableIndex(2,$index)" class="{{tabParentIndex==2&&tabIndex==$index?'table_focus':''}} {{showTableLineTyep==0?'':'hideTab'}}">
                                 <thead>
                                 <tr ng-if="a.otherisradio!=4">
-                                    <th>
+                                    <th contenteditable="true" ng-model="a.name" class="Group_title">
                                         {{a.name}}
                                     </th>
                                 </tr>
@@ -840,7 +840,7 @@
                             <table ng-repeat="a in listObj4" ng-click="getTableIndex(3,$index)" class="{{tabParentIndex==3&&tabIndex==$index?'table_focus':''}} {{showTableLineTyep==0?'':'hideTab'}}">
                                 <thead>
                                 <tr ng-if="a.otherisradio!=4">
-                                    <th>
+                                    <th contenteditable="true" ng-model="a.name" class="Group_title">
                                         {{a.name}}
                                     </th>
                                 </tr>

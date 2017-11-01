@@ -1806,6 +1806,11 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         getOBjList()[$scope.tabIndex].hideLineType = !getOBjList()[$scope.tabIndex].hideLineType
         $("#menu").hide()
     }
+    /*****修改标题******/
+
+    $scope.changeTitle = function () {
+        console.log(1111)
+    }
     /*******************************保存*************************************************/
     $scope.save = function () {//保存模板
         if ($scope.listObj.length <= 0) {
@@ -1883,5 +1888,30 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
     }
 })
+
+m1.directive('contenteditable', function() {
+    return {
+        restrict: 'A',
+        require: '?ngModel',
+        link: function(scope, element, attrs, ngModel) {
+            if (!ngModel) {
+                return;
+            }
+            ngModel.$render = function() {
+                element.html(ngModel.$viewValue || '');
+            };
+            element.on('blur keyup change', function() {
+                scope.$apply(readViewText);
+            });
+            function readViewText() {
+                var html = element.html();
+                if (attrs.stripBr && html === '<br>') {
+                    html = '';
+                }
+                ngModel.$setViewValue(html);
+            }
+        }
+    };
+});
 
 
