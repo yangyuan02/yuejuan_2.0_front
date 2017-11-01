@@ -162,6 +162,7 @@ $(function(){
 			$('.bg-img').show();
 			// $(".bg-img").addClass('dd');
       get_select_info();
+      drow_rect('.dd');
 		}
 
 	}
@@ -486,9 +487,9 @@ $(function(){
 		  		// $('.bg-img').show();
 		    	$('.bg-img').addClass('bg-type-sec').removeClass('bg-type-hide');
 					$('.bg-img').append('<div class="crop">题组切割</div>');
-					if(!$('.bg-img').hasClass('dd')){
-						$('.bg-img').addClass('dd');
-    			}
+					// if(!$('.bg-img').hasClass('dd')){
+					// 	$('.bg-img').addClass('dd');
+    	// 		}
 					// drow_rect(".bg-type-sec");
 
 		  	}
@@ -558,10 +559,10 @@ $(function(){
 			console.log(on_checked_info)
 			var is_arr = JSON.parse(localStorage.getItem("data_arr"+index_id+""));
 			console.log(is_arr)
-			if(!get_select_info()){
-				console.log(89898)
-				get_select_info();
-			}
+			// if(!on_checked_info){
+			// 	// console.log(89898)
+			// 	get_select_info();
+			// }
 			console.log(on_checked_info);
 			$.ajax({
 			  type: "GET",
@@ -570,6 +571,9 @@ $(function(){
 			  headers: {'Authorization': "Bearer " + isLogin},
 			  success: function(data){
 			  	console.log(data);
+			  	$('.bg-img').removeClass('dd');
+					get_select_info();
+					drow_rect('.dd');
 			  	// check_all_info=data;
 			  	show_onchecked_info(data,parent_id);
 			   },
