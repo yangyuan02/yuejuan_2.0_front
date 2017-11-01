@@ -286,9 +286,9 @@ $(function() {
 		    });
 		})
 
+	})
 
-
-	    $('.modal-wrap-class-management .determine').on('click' , function(){
+	 $('.modal-wrap-class-management .determine').on('click' , function(){
 	    	var del_grade = $('.modal-wrap-class-management #del-class-name').val();
 	    	// var class_count = $('#class-name').val();
 	    	var is_extra = $('.modal-wrap-class-management').attr('is_extra')
@@ -324,8 +324,6 @@ $(function() {
 		    });
 	    })
 
-	})
-
 	function inputFlileName(){
 		var file = $("#inPath").val();
 		var fileName = getFileName(file);
@@ -347,7 +345,6 @@ $(function() {
 
 
 	$('.import-wrap .determine').click(function(){
-
 		var formData = new FormData();
 		formData.append("import_student",$("#inPath")[0].files[0]);
 		console.log(isStudent)
@@ -378,14 +375,11 @@ $(function() {
 				contentType : false,
 				beforeSend:function(){
 					console.log("正在进行，请稍候");
-					$('.modal-main').animate({'top': '45%','opacity': 0},500);
-					 $(".load-bg").show();
-					 $(".load-animate p").html("正在进行，请稍候");
 				},
 				success : function(data) {
 					console.log(data)
 					alert(data.message)
-					$(".load-bg").hide();
+					$('.modal-main').animate({'top': '45%','opacity': 0},500);
 					$('.modal-shadow').animate({'opacity': 0},500);
 					setTimeout(function(){
 						$('.modal-wrap').hide();
@@ -408,14 +402,11 @@ $(function() {
 				contentType : false,
 				beforeSend:function(){
 					console.log("正在进行，请稍候");
-					$('.modal-main').animate({'top': '45%','opacity': 0},500);
-				    $(".load-bg").show();
-				     $(".load-animate p").html("正在进行，请稍候");
 				},
 				success : function(data) {
 					console.log(data);
 					alert(data.message)
-					 $(".load-bg").hide();
+					$('.modal-main').animate({'top': '45%','opacity': 0},500);
 					$('.modal-shadow').animate({'opacity': 0},500);
 					setTimeout(function(){
 						$('.modal-wrap').hide();
@@ -428,7 +419,7 @@ $(function() {
 		}
 
 	})
-	
+
 	$('.batch-import').click(function(){
 		isStudent = $(this).attr('data-name');
 		console.log(isStudent)
