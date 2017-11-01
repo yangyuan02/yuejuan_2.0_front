@@ -347,6 +347,7 @@ $(function() {
 
 
 	$('.import-wrap .determine').click(function(){
+
 		var formData = new FormData();
 		formData.append("import_student",$("#inPath")[0].files[0]);
 		console.log(isStudent)
@@ -377,11 +378,14 @@ $(function() {
 				contentType : false,
 				beforeSend:function(){
 					console.log("正在进行，请稍候");
+					$('.modal-main').animate({'top': '45%','opacity': 0},500);
+					 $(".load-bg").show();
+					 $(".load-animate p").html("正在进行，请稍候");
 				},
 				success : function(data) {
 					console.log(data)
 					alert(data.message)
-					$('.modal-main').animate({'top': '45%','opacity': 0},500);
+					$(".load-bg").hide();
 					$('.modal-shadow').animate({'opacity': 0},500);
 					setTimeout(function(){
 						$('.modal-wrap').hide();
@@ -404,11 +408,14 @@ $(function() {
 				contentType : false,
 				beforeSend:function(){
 					console.log("正在进行，请稍候");
+					$('.modal-main').animate({'top': '45%','opacity': 0},500);
+				    $(".load-bg").show();
+				     $(".load-animate p").html("正在进行，请稍候");
 				},
 				success : function(data) {
 					console.log(data);
 					alert(data.message)
-					$('.modal-main').animate({'top': '45%','opacity': 0},500);
+					 $(".load-bg").hide();
 					$('.modal-shadow').animate({'opacity': 0},500);
 					setTimeout(function(){
 						$('.modal-wrap').hide();
@@ -421,7 +428,7 @@ $(function() {
 		}
 
 	})
-
+	
 	$('.batch-import').click(function(){
 		isStudent = $(this).attr('data-name');
 		console.log(isStudent)
