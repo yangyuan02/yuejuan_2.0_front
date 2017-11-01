@@ -63,7 +63,7 @@ $(function(){
 	var is_arr_info = JSON.parse(localStorage.getItem("data_arr"+index_id+""));
 	console.log(is_arr_info)
 	if (is_arr_info) {
-			localStorage.removeItem("data_arr"+index_id+"");
+			// localStorage.removeItem("data_arr"+index_id+"");
 	};
 	var is_arr_num = JSON.parse(localStorage.getItem("data_arr_num"+index_id+""));
 	console.log(is_arr_num)
@@ -139,12 +139,14 @@ $(function(){
 				 is_arr_num = JSON.parse(localStorage.getItem("data_arr_num"+index_id+""));
 				console.log(is_arr,is_arr_num)
 				if(is_arr&&is_arr.length>0){
+					get_select_info();
 					console.log(99)
-					append_first(is_arr_num);
+					// append_first(is_arr);
 					drow_rect('.dd')
 
 				}else{
 					get_select_info();
+					drow_rect('.dd')
 				}
 
 			// if(is_arr&&is_arr.length>0){
@@ -197,6 +199,7 @@ $(function(){
 	      $(".select-area").resizable({ handles: "n, e, s, w, ne, se, sw, nw" });
 	    };
     }else{
+    	console.log(99)
     	$('.bg-img').html('');
 			$('.bg-img').append('<div class="crop">题组切割</div>');
     	for (var i = 0; i < new_arr.length; i++) {
@@ -360,6 +363,19 @@ $(function(){
     	// else{
     	// 	$('.bg-img').html('');
     	// }
+    }else{
+    	if(is_arr_info){
+			console.log(is_arr_info,is_arr_info.length)
+			var current_page =parseInt($('.page .on').text());
+			var new_is_arr=[];
+			for (var ff = 0; ff < is_arr_info.length; ff++) {
+				if(current_page==is_arr_info[ff].current_page){
+					new_is_arr.push(is_arr_info[ff])
+				}
+			};
+			append_first(new_is_arr);
+    	}
+
     }
     var current_page =parseInt($('.page .on').text());
     console.log(current_page);
@@ -386,9 +402,10 @@ $(function(){
       //添加区域块的id
       // $(select_area[j]).attr('id', 'select-area' + (j+1));
       //区域可拖动
-      $(select_area[j]).draggable({containment: ".bg-img", scroll: false });
+      console.log($(select_area[j]))
+      select_area.draggable({containment: ".bg-img", scroll: false });
       //区域可各个方向缩放(上下左右四角)
-      $(select_area[j]).resizable({ handles: "n, e, s, w, ne, se, sw, nw" });
+      select_area.resizable({ handles: "n, e, s, w, ne, se, sw, nw" });
       //获取区域的位置
       // console.log(arr[j].width)
       // var select_width = new_arr[j]['width'];
@@ -475,7 +492,7 @@ $(function(){
 					// drow_rect(".bg-type-sec");
 
 		  	}
-		  	drow_rect(".dd")
+		  	// drow_rect(".dd")
 		   },
 		   error: function(){
 		      // alert('请稍后从新尝试登录或者联系管理员');
@@ -538,7 +555,14 @@ $(function(){
 		num_index = span_num;
 		console.log(parent_id)
 		if(parent_id){
-			get_select_info();
+			console.log(on_checked_info)
+			var is_arr = JSON.parse(localStorage.getItem("data_arr"+index_id+""));
+			console.log(is_arr)
+			if(!get_select_info()){
+				console.log(89898)
+				get_select_info();
+			}
+			console.log(on_checked_info);
 			$.ajax({
 			  type: "GET",
 			  async:false,
@@ -565,7 +589,7 @@ $(function(){
 			$('#type-list').prop("disabled",false);
 				$('#type-list').css({
 					'opacity': 1,
-					'cursor': 'pointor'
+					'cursor': 'pointer'
 				});
 		}
 		return false;

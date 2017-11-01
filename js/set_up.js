@@ -3488,9 +3488,7 @@ $(function() {
         	// window.location.href = './login.html'
         }
     });
-
 		// 获取考试列表
-
 		$.ajax({
 	   	type: "GET",
 	   	url: ajaxIp+"/api/v2/exams",
@@ -3517,6 +3515,25 @@ $(function() {
 			$('.import-word-wrap #paper-exam').attr('data-id',exam[0].id);
 
 		}
+		// 获取可以绑定的考试科目列表
+		var exam_type = $('#paper-type').val();
+		var grade_id = 14;
+		var subject_id = 11;
+		$.ajax({
+	   	type: "POST",
+	   	url: ajaxIp+"/api/v2/exam_subjects/doc_exam_subjects",
+	  	dataType: "JSON",
+	  	data:{'grade_id':grade_id,'subject_id':subject_id,'exam_type':exam_type},
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	success: function(data){
+	  		console.log(data)
+      },
+      error: function(){
+      	// alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login'
+      }
+	  });
   });
   // 根据年级获取科目
   $('.import-word-wrap #paper-grade').change(function(){
@@ -3547,6 +3564,10 @@ $(function() {
 			$('.import-word-wrap #paper-subject').html('<option value="0">全部科目</option>');
 		}
 	});
+
+
+
+
 
 	// 确认导入试卷
 	$('body').on('click', '.import-word-btn', function() {
@@ -3613,6 +3634,20 @@ $(function() {
 		$('#upfilew').append(iDiv);
 
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	// 编辑试卷
 	 $('body').on('click', '.look-paper-btn', function() {
