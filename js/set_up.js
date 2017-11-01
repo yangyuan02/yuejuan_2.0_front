@@ -3551,8 +3551,7 @@ $(function() {
 	// 确认导入试卷
 	$('body').on('click', '.import-word-btn', function() {
 		var formData = new FormData();
-		formData.append("import_word_file",$("#inPathw")[0].files[0]);
-		console.log(isStudent)
+		formData.append("name",$("#inPathw")[0].files[0]);
 		var i_string = $('#upfilew div').html();
 		i_string_i = i_string.lastIndexOf(".");
 		i_string = i_string.substring(i_string_i+1);
@@ -3561,14 +3560,38 @@ $(function() {
 		if(i_string!='docx' && i_string!='doc'){
 			alert('文件格式不对，请选择docx或者doc文件！')
 		}
+		var grade_id = $('#paper-grade').val();
+		var subject_id = $('#paper-subject').val();
+		var exam_subject_id = $('#paper-subject').val();
+		get_word_info(formData,grade_id,subject_id,exam_subject_id);
+		$('.import-word-wrap').hide();
 	});
-  $('body').on('click', '.look-paper-btn', function() {
-  	$(this).attr('href', 'edit_paper');
-  	console.log(99)
 
-  });
+	function get_word_info (formData,g_id,s_id,e_id) {
+		$.ajax({
+	   	type: "POST",
+	   	url: ajaxIp+"/api/v2/ddocxes?token=TOKEN?exam_subject_id="+e_id+"&subject_id="+s_id+"&grade_id="+g_id+"",
+	  	dataType: "JSON",
+	  	data: formData,
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	processData : false,
+			contentType : false,
+	  	beforeSend:function(){
+					console.log("正在进行，请稍候");
+			},
+			success : function(data) {
+				console.log(data);
+				// get_grade_all_list(null,null);
+			},
+			error : function() {
+				console.log("error");
+			}
+	  });
+	}
+
 
 	$('#inPathw').change(function(){
+		console.log(22)
 		inputFlileNamew()
 	})
 
@@ -3590,6 +3613,13 @@ $(function() {
 		$('#upfilew').append(iDiv);
 
 	}
+
+	// 编辑试卷
+	 $('body').on('click', '.look-paper-btn', function() {
+  	$(this).attr('href', 'edit_paper');
+  	console.log(99)
+
+  });
 
 
 
