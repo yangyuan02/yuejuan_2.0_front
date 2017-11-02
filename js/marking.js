@@ -257,6 +257,9 @@ $(function(){
 		  data:data_value,
 		  success: function(data){
 		  	console.log(data);
+		  	if(data.ok){
+		  		alert(data.ok);
+		  	}
 		  	console.log(data.ok=="完成阅卷！")
 		  	if(data.ok=="完成阅卷！"){
 		  		var cur_index = parseInt($('.finished').text());
