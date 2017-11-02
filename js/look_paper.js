@@ -62,9 +62,9 @@ $(function(){
 	console.log(index_id)
 	var is_arr_info = JSON.parse(localStorage.getItem("data_arr"+index_id+""));
 	console.log(is_arr_info)
-	if (is_arr_info) {
-			// localStorage.removeItem("data_arr"+index_id+"");
-	};
+	// if (is_arr_info) {
+	// 		localStorage.removeItem("data_arr"+index_id+"");
+	// };
 	var is_arr_num = JSON.parse(localStorage.getItem("data_arr_num"+index_id+""));
 	console.log(is_arr_num)
 	// localStorage.removeItem("data_arr_num"+index_id+"");
@@ -364,7 +364,8 @@ $(function(){
     	// else{
     	// 	$('.bg-img').html('');
     	// }
-    }else if(!arr&&arr[eg-1].crop_type==4){
+    }
+    if(!arr.length && $('.has-bg').hasClass('active')){
     	if(is_arr_info){
 			console.log(is_arr_info,is_arr_info.length)
 			var current_page =parseInt($('.page .on').text());
@@ -929,24 +930,33 @@ $(function(){
 	  	'section_ul':section_ul
 		}
 			update_select_info(select_id,data_arr);
-	  }else{
-	  	console.log(data_arr)
-	  	$.ajax({
-			  "type": "POST",
-			  "async":false,
-			  "url": ajaxIp+"/api/v2/section_crops",
-			  "headers": {'Authorization': "Bearer " + isLogin},
-			  "data": data_arr,
-			  success: function(data){
-			  	console.log(data,section_ul);
-			  	show_id_info(data,section_ul,is_arr);
-			   },
-			   error: function(){
-			      // alert('请稍后从新尝试登录或者联系管理员');
-		      	// localStorage.clear();
-		      	// window.location.href = './login';
-			  }
-			});
+	  }
+	  if(select_id=='undefined'){
+		  if(answer_setting_ids.length && section_ul.length){
+		  	console.log(data_arr)
+		  	$.ajax({
+				  "type": "POST",
+				  "async":false,
+				  "url": ajaxIp+"/api/v2/section_crops",
+				  "headers": {'Authorization': "Bearer " + isLogin},
+				  "data": data_arr,
+				  success: function(data){
+				  	console.log(data,section_ul);
+				  	show_id_info(data,section_ul,is_arr);
+				   },
+				   error: function(){
+				      // alert('请稍后从新尝试登录或者联系管理员');
+			      	// localStorage.clear();
+			      	// window.location.href = './login';
+				  }
+				});
+		  }
+		  if(!answer_setting_ids.length){
+				alert('请选择题号');
+				$('#change-modal').show();
+		  }else if(!section_ul.length){
+				alert('请选择区域块');
+		  }
 	  }
 	});
 
@@ -1023,7 +1033,9 @@ $(function(){
 			  headers: {'Authorization': "Bearer " +  isLogin},
 			  success: function(data){
 			  	console.log(data);
+
 			  	// 删除储存区域的信息
+			  	if($(this).parents('.bg-img').hasClass('bg-type-sec')){
 			  	var is_arr_num = JSON.parse(localStorage.getItem("data_arr_num"+index_id+""));
 					console.log('select-num',num,is_arr_num)
 					if(is_arr_num){
@@ -1039,7 +1051,10 @@ $(function(){
 					}
 					data_arr_num=is_arr_num;
 					console.log(is_arr_num)
-					get_select_info();
+					
+						console.log(88)
+						get_select_info();
+					}
 
 			   },
 			   error: function(){
@@ -1168,6 +1183,9 @@ $(function(){
 	      	arr_obj['crop_type']=crop_type;
 	      	arr_obj['id']='select-area'+(num-1)+'';
 	      	arr_obj['num']=parseInt(num-1);
+	      	if(is_arr_info){
+	      		data_arr_all=is_arr_info
+	      	}
 			  	data_arr_all.push(arr_obj);
 			  	console.log(data_arr_all)
 			  	var jj_html = '<li id="select-area'+(num-1)+'" sec_num = "'+current_page+'_'+(num-1)+'"><input type="hidden" width="'+$("div[name='"+(num-1)+"']").width()+'" height="'+$("div[name='"+(num-1)+"']").height()+'" w="'+w+'" h="'+h+'" x="'+$("div[name='"+(num-1)+"']").position().left+'" y="'+$("div[name='"+(num-1)+"']").position().top+'" current_page="'+current_page+'" /><span>'+(num-1)+'</span>( 第<em>'+current_page+'</em>页 )</li>';
@@ -1239,7 +1257,7 @@ $(function(){
       }
       // console.log(data_arr_all)
 
-
+		
     });
 	}
 
@@ -1252,6 +1270,7 @@ $(function(){
 
 	var items_all_info;
 	$(document).on('mouseup', '.bg-type-sec .select-area', function() {
+		console.log(8888)
 		// event.stopPropagation()
 		// 更新区域块信息
 		var update_select_id = $(this).attr('data-id');
@@ -1342,6 +1361,7 @@ $(function(){
 	// 遮蔽区域更新
 	$(document).on('mouseup', '.bg-type-hide .select-area', function() {
 		// event.stopPropagation()
+		console.log(999999999)
 		// 更新区域块信息
 		var update_select_id = $(this).attr('data-id');
 		var width = $(this).width();
@@ -1364,7 +1384,30 @@ $(function(){
 		console.log(update_select_id)
 		if(update_select_id){
 			console.log(data_arr);
-			update_select_info(update_select_id,data_arr);
+			var pre_info;
+			$.ajax({
+			  type: "GET",
+			  async:false,
+			  url: ajaxIp+"/api/v2/section_crops/"+update_select_id+"",
+			  headers: {'Authorization': "Bearer " + isLogin},
+			  success: function(data){
+			  	console.log(data);
+			  	pre_info = data;
+			   },
+			   error: function(){
+			      // alert('请稍后从新尝试登录或者联系管理员');
+		      	// localStorage.clear();
+		      	// window.location.href = './login';
+			  }
+			});
+			console.log(data_arr);
+			var pre_width = pre_info.position.width;
+			var pre_height = pre_info.position.height;
+			var pre_x = pre_info.position.x;
+			var pre_y = pre_info.position.y;
+			if(width-pre_width!=0 || height-pre_height!=0 || x-pre_x!=0 || y-pre_y!=0){
+				update_select_info(update_select_id,data_arr);
+			}
 		}
 	});
 
