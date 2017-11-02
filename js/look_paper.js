@@ -1217,9 +1217,11 @@ $(function(){
 	      	// console.log(index_id);
 	      	console.log(is_arr_num)
 	      	if(is_arr_num){
+	      		console.log('is_arr')
 	      		data_arr_num=is_arr_num;
 	      	}
-	      	var is_on = JSON.parse(localStorage.getItem("data_arr_on"+index_id+""));
+	      	// var is_on = JSON.parse(localStorage.getItem("data_arr_on"+index_id+""));
+	      	console.log(is_on.length);
 	      	if(!is_arr_num&&is_on){
 	      		console.log('is_on',is_on)
 	      		data_arr_num=is_on;
