@@ -364,7 +364,7 @@ $(function(){
     	// else{
     	// 	$('.bg-img').html('');
     	// }
-    }else{
+    }else if(!arr&&arr[eg-1].crop_type==4){
     	if(is_arr_info){
 			console.log(is_arr_info,is_arr_info.length)
 			var current_page =parseInt($('.page .on').text());
