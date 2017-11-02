@@ -333,9 +333,9 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
 }
 .Answer .A_R .A_Rone .A_Rone_child table tbody .other_c img{
     position:absolute;
-    top:10px;
-    right:0px;
-    height:140px;
+    /*top:10px;*/
+    /*right:0px;*/
+    /*height:140px;*/
 }
 .Answer .A_R .A_Rone .A_Rone_child table tbody .other_h{
     width:100%;
@@ -830,6 +830,17 @@ input:focus{
 .set_sort_btn .sort_prev a,
 .set_sort_btn .sort_next a{
     color:#31bc91;
+}
+.imgFormat .img_info li{
+    float:left;
+    margin-right:6px;
+}
+.imgFormat .img_info li span{
+    font-size: 14px;
+    font-weight: normal;
+}
+.imgFormat .img_info input{
+    width:24px;
 }
 /********************语文试卷样式***************/
 /*table thead tr:last-child{*/
