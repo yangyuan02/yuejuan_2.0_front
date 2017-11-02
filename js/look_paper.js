@@ -62,12 +62,17 @@ $(function(){
 	console.log(index_id)
 	var is_arr_info = JSON.parse(localStorage.getItem("data_arr"+index_id+""));
 	console.log(is_arr_info)
-	// if (is_arr_info) {
-	// 		localStorage.removeItem("data_arr"+index_id+"");
-	// };
+	if (is_arr_info) {
+			localStorage.removeItem("data_arr"+index_id+"");
+	};
 	var is_arr_num = JSON.parse(localStorage.getItem("data_arr_num"+index_id+""));
 	console.log(is_arr_num)
-	// localStorage.removeItem("data_arr_num"+index_id+"");
+	if(is_arr_num){
+		localStorage.removeItem("data_arr_num"+index_id+"");
+	}
+	var is_on = JSON.parse(localStorage.getItem("data_arr_on"+index_id+""));
+	console.log(is_on)
+	// localStorage.removeItem("data_arr_on"+index_id+"");
 	// 获取消息
 	function get_info(){
 		$.ajax({
@@ -365,7 +370,7 @@ $(function(){
     	// 	$('.bg-img').html('');
     	// }
     }
-    if(!arr.length && $('.has-bg').hasClass('active')){
+    if(arr.length==0&&$('.has-bg').hasClass('active')){
     	if(is_arr_info){
 			console.log(is_arr_info,is_arr_info.length)
 			var current_page =parseInt($('.page .on').text());
@@ -589,8 +594,15 @@ $(function(){
 			$('#item-list').html('');
 			get_item_info();
 			var is_arr_num = JSON.parse(localStorage.getItem("data_arr_num"+index_id+""));
-			console.log(is_arr_num)
-			append_section(is_arr_num);
+			var is_on = JSON.parse(localStorage.getItem("data_arr_on"+index_id+""));
+			console.log(is_arr_num,is_on)
+			if(is_arr_num){
+				append_section(is_arr_num);
+			}
+			// if(is_arr_num&&is_on){
+			// 	append_section(is_on);
+			// 	// append_section(is_arr_num);
+			// }
 			$('#type-list').prop("disabled",false);
 				$('#type-list').css({
 					'opacity': 1,
@@ -651,8 +663,13 @@ $(function(){
 			}
 		};
 		var is_arr_num = JSON.parse(localStorage.getItem("data_arr_num"+index_id+""));
-		console.log(is_arr_num)
-		append_section(is_arr_num);
+		var is_on = JSON.parse(localStorage.getItem("data_arr_on"+index_id+""));
+		console.log(is_arr_num,is_on)
+		if(is_arr_num){
+			append_section(is_arr_num);
+		}else{
+			append_section(is_on);
+		}
 		var a_answer_id = $('.modal-main').attr('answer_id');
 		console.log(a_answer_id,info.answer_setting_ids)
 		var new_num_arr=[];
@@ -932,6 +949,8 @@ $(function(){
 			update_select_info(select_id,data_arr);
 	  }
 	  if(select_id=='undefined'){
+
+		  console.log(select_id,!position,!answer_setting_ids.length,!section_ul)
 		  if(answer_setting_ids.length && section_ul.length){
 		  	console.log(data_arr)
 		  	$.ajax({
@@ -953,16 +972,19 @@ $(function(){
 		  }
 		  if(!answer_setting_ids.length){
 				alert('请选择题号');
-				$('#change-modal').show();
 		  }else if(!section_ul.length){
 				alert('请选择区域块');
 		  }
 	  }
 	});
-
+	var is_on_info=[];
 	function show_id_info(id_info,id_area,is_arr){
 		var is_arr = JSON.parse(localStorage.getItem("data_arr"+index_id+""));
 		console.log(is_arr)
+		var is_on = JSON.parse(localStorage.getItem("data_arr_on"+index_id+""));
+		if(is_on){
+			is_on_info=is_on;
+		}
 		for (var i = 0; i < id_info.length; i++) {
 			for (var j = 0; j < id_area.length; j++) {
 				if(i==j){
@@ -971,11 +993,13 @@ $(function(){
 					$('#'+id_area[j]+'').attr('answer-id',id_info[i].answer_id);
 					for (var q = 0; q < is_arr.length; q++) {
 						if(is_arr[q].id==id_area[j]&&is_arr[q].current_page==id_info[i].current_page){
+							 is_on_info.push(is_arr[q]);
 							 is_arr.splice(q,1);
 						}
-						console.log(is_arr)
+						console.log(is_arr,is_on_info)
 						var storage=window.localStorage;
 						storage.setItem("data_arr"+index_id+"",JSON.stringify(is_arr));
+						storage.setItem("data_arr_on"+index_id+"",JSON.stringify(is_on_info));
 					};
 				}
 			};
@@ -993,34 +1017,36 @@ $(function(){
 		num--;
     var current_page =parseInt($('.page .on').text());
     var c_id = $(this).parent().attr('id');
-		var is_arr = JSON.parse(localStorage.getItem("data_arr"+index_id+""));
-		console.log('select-num',num,is_arr)
-		if(is_arr){
-			for (var i = 0; i < is_arr.length; i++) {
-				if(c_id==is_arr[i].id&&current_page==is_arr[i].current_page){
-					is_arr.splice(i,1);
-				}
-				var storage=window.localStorage;
-				storage.setItem("data_arr"+index_id+"",JSON.stringify(is_arr));
-			};
-		}
-		data_arr_all=is_arr;
-		console.log(data_arr_all)
+    if($('.bg-img').hasClass('bg-type-sec')){
+			var is_arr = JSON.parse(localStorage.getItem("data_arr"+index_id+""));
+			console.log('select-num',num,is_arr)
+			if(is_arr){
+				for (var i = 0; i < is_arr.length; i++) {
+					if(c_id==is_arr[i].id&&current_page==is_arr[i].current_page){
+						is_arr.splice(i,1);
+					}
+					var storage=window.localStorage;
+					storage.setItem("data_arr"+index_id+"",JSON.stringify(is_arr));
+				};
+			}
+			data_arr_all=is_arr;
+			console.log(data_arr_all)
 
 
-		var is_arr_num = JSON.parse(localStorage.getItem("data_arr_num"+index_id+""));
-		console.log('select-num',num,is_arr_num)
-		if(is_arr_num){
-			for (var i = 0; i < is_arr_num.length; i++) {
-				if(c_id==is_arr_num[i].id&&current_page==is_arr_num[i].current_page){
-					is_arr_num.splice(i,1);
-				}
-				var storage=window.localStorage;
-				storage.setItem("data_arr_num"+index_id+"",JSON.stringify(is_arr_num));
-			};
-		}
-		data_arr_num=is_arr_num;
-		console.log(data_arr_num)
+			var is_arr_num = JSON.parse(localStorage.getItem("data_arr_num"+index_id+""));
+			console.log('select-num',num,is_arr_num)
+			if(is_arr_num){
+				for (var i = 0; i < is_arr_num.length; i++) {
+					if(c_id==is_arr_num[i].id&&current_page==is_arr_num[i].current_page){
+						is_arr_num.splice(i,1);
+					}
+					var storage=window.localStorage;
+					storage.setItem("data_arr_num"+index_id+"",JSON.stringify(is_arr_num));
+				};
+			}
+			data_arr_num=is_arr_num;
+			console.log(data_arr_num)
+	}
 
 
 	 	var select_id = $(this).parent().attr('data-id');
@@ -1035,23 +1061,23 @@ $(function(){
 			  	console.log(data);
 
 			  	// 删除储存区域的信息
-			  	if($(this).parents('.bg-img').hasClass('bg-type-sec')){
-			  	var is_arr_num = JSON.parse(localStorage.getItem("data_arr_num"+index_id+""));
-					console.log('select-num',num,is_arr_num)
-					if(is_arr_num){
+			  	if($('.bg-img').hasClass('bg-type-sec')){
+			  	var is_on = JSON.parse(localStorage.getItem("data_arr_on"+index_id+""));
+					console.log('select-num',num,is_on)
+					if(is_on){
 						console.log(c_id)
-						for (var i = 0; i < is_arr_num.length; i++) {
-							if(c_id==is_arr_num[i].id&&current_page==is_arr_num[i].current_page){
-								is_arr_num.splice(i,1);
-								console.log(c_id,is_arr_num[i].id)
+						for (var i = 0; i < is_on.length; i++) {
+							if(c_id==is_on[i].id&&current_page==is_on[i].current_page){
+								is_on.splice(i,1);
+								// console.log(c_id,is_on[i].id)
 							}
+							console.log(is_on);
 							var storage=window.localStorage;
-							storage.setItem("data_arr_num"+index_id+"",JSON.stringify(is_arr_num));
+							storage.setItem("data_arr_on"+index_id+"",JSON.stringify(is_on));
 						};
 					}
-					data_arr_num=is_arr_num;
-					console.log(is_arr_num)
-					
+					data_arr_num=is_on;
+					console.log(is_on)
 						console.log(88)
 						get_select_info();
 					}
@@ -1183,17 +1209,20 @@ $(function(){
 	      	arr_obj['crop_type']=crop_type;
 	      	arr_obj['id']='select-area'+(num-1)+'';
 	      	arr_obj['num']=parseInt(num-1);
-	      	if(is_arr_info){
-	      		data_arr_all=is_arr_info
-	      	}
 			  	data_arr_all.push(arr_obj);
 			  	console.log(data_arr_all)
 			  	var jj_html = '<li id="select-area'+(num-1)+'" sec_num = "'+current_page+'_'+(num-1)+'"><input type="hidden" width="'+$("div[name='"+(num-1)+"']").width()+'" height="'+$("div[name='"+(num-1)+"']").height()+'" w="'+w+'" h="'+h+'" x="'+$("div[name='"+(num-1)+"']").position().left+'" y="'+$("div[name='"+(num-1)+"']").position().top+'" current_page="'+current_page+'" /><span>'+(num-1)+'</span>( 第<em>'+current_page+'</em>页 )</li>';
 	      	console.log(jj_html)
 	      	$('body').find('#all-section-list').append(jj_html);
 	      	// console.log(index_id);
+	      	console.log(is_arr_num)
 	      	if(is_arr_num){
 	      		data_arr_num=is_arr_num;
+	      	}
+	      	var is_on = JSON.parse(localStorage.getItem("data_arr_on"+index_id+""));
+	      	if(!is_arr_num&&is_on){
+	      		console.log('is_on',is_on)
+	      		data_arr_num=is_on;
 	      	}
 	      	data_arr_num.push(arr_obj);
 	      	console.log(data_arr_num)
