@@ -479,7 +479,7 @@
                                                 <!--网络阅卷打分框end-->
                                             </div>
                                             <div class="other_c" style="height: {{a.otherHeight[$index]+'px'}};">
-                                                <img ng-src="{{a.img[$index].url}}" alt="" ng-style="setImgStyle(a.img[$index])" ng-click="selectImg($index)" class="{{$index==imgIndex?'table_focus':''}}">
+                                                <img ng-src="{{a.img[$index].url}}" alt="" ng-style="setImgStyle(a.img[$index])" ng-click="selectImg($index)" class="{{$index==imgIndex&&tabParentIndex==0&&tabIndex==$parent.$parent.$index?'table_focus':''}}">
                                             </div>
                                         </div>
                                         <div ng-if="a.otherisradio==4" class="other_first_position">
@@ -615,7 +615,7 @@
                                                 <!--网络阅卷打分框end-->
                                             </div>
                                             <div class="other_c" style="height: {{a.otherHeight[$index]+'px'}};">
-                                                <img ng-src="{{a.img[$index].url}}" alt="" ng-style="setImgStyle(a.img[$index])" ng-click="selectImg($index)" class="{{$index==imgIndex?'table_focus':''}}">
+                                                <img ng-src="{{a.img[$index].url}}" alt="" ng-style="setImgStyle(a.img[$index])" ng-click="selectImg($index)" class="{{$index==imgIndex&&tabParentIndex==1&&tabIndex==$parent.$parent.$index?'table_focus':''}}">
                                             </div>
                                         </div>
                                         <div ng-if="a.otherisradio==4" class="other_first_position">
@@ -793,7 +793,7 @@
                                                 <!--网络阅卷打分框end-->
                                             </div>
                                             <div class="other_c" style="height: {{a.otherHeight[$index]+'px'}};">
-                                                <img ng-src="{{a.img[$index].url}}" alt="" ng-style="setImgStyle(a.img[$index])" ng-click="selectImg($index)" class="{{$index==imgIndex?'table_focus':''}}">
+                                                <img ng-src="{{a.img[$index].url}}" alt="" ng-style="setImgStyle(a.img[$index])" ng-click="selectImg($index)" class="{{$index==imgIndex&&tabParentIndex==2&&tabIndex==$parent.$parent.$index?'table_focus':''}}">
                                             </div>
                                         </div>
                                         <div ng-if="a.otherisradio==4" class="other_first_position">
@@ -930,7 +930,7 @@
                                                 <!--网络阅卷打分框end-->
                                             </div>
                                             <div class="other_c" style="height: {{a.otherHeight[$index]+'px'}};">
-                                                <img ng-src="{{a.img[$index].url}}" alt="" ng-style="setImgStyle(a.img[$index])" ng-click="selectImg($index)" class="{{$index==imgIndex?'table_focus':''}}">
+                                                <img ng-src="{{a.img[$index].url}}" alt="" ng-style="setImgStyle(a.img[$index])" ng-click="selectImg($index)" class="{{$index==imgIndex&&tabParentIndex==3&&tabIndex==$parent.$parent.$index?'table_focus':''}}">
                                             </div>
                                         </div>
                                         <div ng-if="a.otherisradio==4" class="other_first_position">

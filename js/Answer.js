@@ -474,7 +474,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         return $scope.setWidth
     }
     $scope.setImgStyle = function (obj) {
-        console.log(obj)
         var ImgStyle = {
             "top":obj.top+'px',
             "left":obj.left+'px',
@@ -835,7 +834,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 var delScore = obj.list[obj.index].itemCoresArr.pop()
                 obj.list[obj.index].totalCores = obj.list[obj.index].totalCores - delScore
                 $scope.countScore = $scope.countScore - delScore
-                console.log($scope.listObj)
+                if(obj.list[obj.index].no.length==0){
+                    obj.list.splice(obj.index,1)
+                }
             }
             if (obj.type == 3) {//修改分数
                 var oldScore = Number(obj.list[obj.index].itemCoresArr[obj.itmeIndex])//最开始的分数
