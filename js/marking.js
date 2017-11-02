@@ -204,15 +204,11 @@ $(function(){
 	var current_index;
 	var parent_infos;
 	$('body').on('click', '.mark-btn', function() {
-		$(this).parents('#wrap').siblings('.marking-paper-box').show();
-		$(this).parents('#wrap').hide();
-		parent_infos = $(this).parents('.child-tr').prev('.parent-tr');
-		var id = parent_infos.find('.test-name').attr('data-id');
-		$(this).parents('#wrap').siblings('.marking-paper-box').attr('data-id',id);
 		// 获取题组信息ID,name
+		var $this=$(this);
 		var section_crop_id = $(this).parent().parent().find('.item-name').attr('data-id');
 		var section_crop_name = $(this).parent().parent().find('.item-name').text();
-		get_info_request(section_crop_id,section_crop_name,null);
+		get_info_request(section_crop_id,section_crop_name,null,$this);
 		get_paper_info(section_crop_id);
 		
 	});
@@ -242,7 +238,7 @@ $(function(){
 	}
 
 	// 获取当前试卷所有信息
-	function get_info_request(id,name,index){
+	function get_info_request(id,name,index,$this){
 		if(index!==null){
 			var data_value = {'section_crop_id':id,'index':index};
 			console.log(data_value)
@@ -259,6 +255,13 @@ $(function(){
 		  	console.log(data);
 		  	if(data.ok){
 		  		alert(data.ok);
+		  	}else{
+		  		console.log(99)
+		  		$this.parents('#wrap').siblings('.marking-paper-box').show();
+					$this.parents('#wrap').hide();
+					parent_infos = $this.parents('.child-tr').prev('.parent-tr');
+					var id = parent_infos.find('.test-name').attr('data-id');
+					$this.parents('#wrap').siblings('.marking-paper-box').attr('data-id',id);
 		  	}
 		  	console.log(data.ok=="完成阅卷！")
 		  	if(data.ok=="完成阅卷！"){

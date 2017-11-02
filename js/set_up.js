@@ -3465,6 +3465,7 @@ $(function() {
 		$('.import-word-wrap .modal-main').animate({'top': '50%','opacity': 1},500);
 		$('.import-word-wrap .modal-shadow').animate({'opacity': 0.3},500);
 		$('.import-word-wrap').show();
+		$('.import-word-wrap #paper-exam').html('');
 		$('.import-word-wrap #paper-grade').html('<option value="0">全部年级</option>');
 		// 获取所有年级
 		$.ajax({
@@ -3486,53 +3487,45 @@ $(function() {
         	// window.location.href = './login.html'
         }
     });
-		// 获取考试列表
-		$.ajax({
-	   	type: "GET",
-	   	url: ajaxIp+"/api/v2/exams",
-	  	dataType: "JSON",
-	  	headers: {'Authorization': "Bearer " + isLogin},
-	  	success: function(data){
-	  		console.log(data)
-				show_exams_list(data);
-      },
-      error: function(){
-      	// alert('请稍后从新尝试登录或者联系管理员');
-      	// localStorage.clear();
-      	// window.location.href = './login'
-      }
-	  });
-		// 显示考试列表
-		function show_exams_list(exam){
-			var exam_length = exam.length;
-			$('.import-word-wrap #paper-exam').html('');
-			for (var i = 0; i < exam_length; i++) {
-				var exam_option = '<option data-id="'+exam[i].id+'">'+exam[i].name+'</option>';
-				$('.import-word-wrap #paper-exam').append(exam_option);
-			};
-			$('.import-word-wrap #paper-exam').attr('data-id',exam[0].id);
 
-		}
+		
+  });
+	$('body').on('change', '#paper-subject', function() {
 		// 获取可以绑定的考试科目列表
 		var exam_type = $('#paper-type').val();
-		var grade_id = 14;
-		var subject_id = 11;
-		$.ajax({
-	   	type: "POST",
-	   	url: ajaxIp+"/api/v2/exam_subjects/doc_exam_subjects",
-	  	dataType: "JSON",
-	  	data:{'grade_id':grade_id,'subject_id':subject_id,'exam_type':exam_type},
-	  	headers: {'Authorization': "Bearer " + isLogin},
-	  	success: function(data){
-	  		console.log(data)
-      },
-      error: function(){
-      	// alert('请稍后从新尝试登录或者联系管理员');
-      	// localStorage.clear();
-      	// window.location.href = './login'
-      }
-	  });
-  });
+		var grade_id = $('#paper-grade').val();
+		var subject_id = $('#paper-subject').val();
+		if(grade_id!=0&&subject_id!=0){
+			$.ajax({
+		   	type: "POST",
+		   	url: ajaxIp+"/api/v2/exam_subjects/doc_exam_subjects",
+		  	dataType: "JSON",
+		  	data:{'grade_id':grade_id,'subject_id':subject_id,'exam_type':exam_type},
+		  	headers: {'Authorization': "Bearer " + isLogin},
+		  	success: function(data){
+		  		console.log(data);
+		  		show_exams_list(data);
+	      },
+	      error: function(){
+	      	// alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login'
+	      }
+		  });
+	  }
+	});
+
+			// 显示考试列表
+	function show_exams_list(exam){
+		var exam_length = exam.length;
+		$('.import-word-wrap #paper-exam').html('');
+		for (var i = 0; i < exam_length; i++) {
+			var exam_option = '<option value="'+exam[i].exam_subject_id+'">'+exam[i].exam_name+'</option>';
+			$('.import-word-wrap #paper-exam').append(exam_option);
+		};
+		$('.import-word-wrap #paper-exam').attr('value',exam[0].id);
+
+		}
   // 根据年级获取科目
   $('.import-word-wrap #paper-grade').change(function(){
   	console.log(222)
@@ -3581,15 +3574,19 @@ $(function() {
 		}
 		var grade_id = $('#paper-grade').val();
 		var subject_id = $('#paper-subject').val();
-		var exam_subject_id = $('#paper-subject').val();
+		var exam_subject_id = $('#paper-exam').val();
+		formData.append("exam_subject_id",exam_subject_id);
+		formData.append("subject_id",subject_id);
+		formData.append("grade_id",grade_id);
+		console.log(grade_id,subject_id,exam_subject_id);
 		get_word_info(formData,grade_id,subject_id,exam_subject_id);
 		$('.import-word-wrap').hide();
 	});
 
-	function get_word_info (formData,g_id,s_id,e_id) {
+	function get_word_info (formData) {
 		$.ajax({
 	   	type: "POST",
-	   	url: ajaxIp+"/api/v2/ddocxes?token=TOKEN?exam_subject_id="+e_id+"&subject_id="+s_id+"&grade_id="+g_id+"",
+	   	url: ajaxIp+"/api/v2/ddocxes?token=TOKEN",
 	  	dataType: "JSON",
 	  	data: formData,
 	  	headers: {'Authorization': "Bearer " + isLogin},
