@@ -365,12 +365,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var fillWidth = []
         var fillsNum = []
         var childNum = [0]
-        var imgurl = []
+        var img = []
         for (var i = 0; i < parseInt($scope.result.numbel); i++) {//多少个小题
             noarray.push(i + parseInt($scope.result.no));
             if($scope.index==5){
+                var obj = {}
                 otherHeight.push(150)//其他题默认150px
-                imgurl.push(undefined)
+                img.push(obj)
             }
             if($scope.index==3){
                 fillWidth.push(230)
@@ -446,7 +447,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         if($scope.index==5){
             obj.otherisradio = $scope.result.otherisradio
-            obj.imgurl = imgurl
+            obj.img = img
         }
         if (!checkIsNUll()) {
             return false
@@ -471,6 +472,16 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             $scope.setWidth = 100 + '%'
         }
         return $scope.setWidth
+    }
+    $scope.setImgStyle = function (obj) {
+        console.log(obj)
+        var ImgStyle = {
+            "top":obj.top+'px',
+            "left":obj.left+'px',
+            "width":obj.width+'px',
+            "height":obj.height+'px',
+        }
+        return ImgStyle
     }
     //关闭
     var close = function () {
@@ -803,11 +814,12 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
             if (obj.type == 1) {//增加小题
                 var childNum = [0]
+                var a = {}
                 obj.list[obj.index].no.push(obj.no)
                 obj.list[obj.index].otherHeight.push(150)
                 obj.list[obj.index].fillWidth.push(230)
                 obj.list[obj.index].fillsNum.push(childNum)
-                obj.list[obj.index].imgurl.push(undefined)
+                obj.list[obj.index].img.push(a)
                 obj.list[obj.index].itemCoresArr.push(obj.score)
                 obj.list[obj.index].numbel++  //题目数量
                 // obj.list[obj.index].itemCores = obj.score  //当前小题分值
@@ -1720,9 +1732,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.showMenuFlag = true
         if($scope.tabParentIndex!=-1){
             $scope.otherHeight = getOBjList()[$scope.tabIndex].otherHeight
-            $scope.LineTypeWord = getOBjList()[$scope.tabIndex].LineType==0?'虚线':'实线'
-            $scope.LineTypeShow = getOBjList()[$scope.tabIndex].hideLineType==0?'隐藏':'显示'
             $scope.meunType = getOBjList()[$scope.tabIndex].type//右键菜单显示控制
+            $scope.meunOtherisradio = getOBjList()[$scope.tabIndex].otherisradio//右键菜单显示控制
+            $scope.meunrticleType = getOBjList()[$scope.tabIndex].articleType//右键菜单显示控制
         }
     }
     var eleFile = document.getElementById("imgOne")
@@ -1739,7 +1751,11 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             processData: false,  // 不处理数据
             contentType: false,   // 不设置内容类型
             success: function (data) {
-                getOBjList()[$scope.tabIndex].imgurl[$scope.img_no-1] = data[0].figure
+                getOBjList()[$scope.tabIndex].img[$scope.img_no-1].url = data[0].figure
+                getOBjList()[$scope.tabIndex].img[$scope.img_no-1].top = 10
+                getOBjList()[$scope.tabIndex].img[$scope.img_no-1].left = 0
+                getOBjList()[$scope.tabIndex].img[$scope.img_no-1].height = 140
+                getOBjList()[$scope.tabIndex].img[$scope.img_no-1].width = 'auto'
                 $scope.closeCand()
             },
 
@@ -1815,10 +1831,33 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         getOBjList()[$scope.tabIndex].hideLineType = !getOBjList()[$scope.tabIndex].hideLineType
         $("#menu").hide()
     }
-    /*****修改标题******/
 
-    $scope.changeTitle = function () {
-        console.log(1111)
+    /**
+     * 获取图片格式
+     */
+    $scope.selectImg = function (index) {
+        $scope.imgIndex = index
+    }
+    $scope.getImgFormat = function () {
+        $scope.imgObj  = {}
+        $scope.imgObj.topMargin = getOBjList()[$scope.tabIndex].img[$scope.imgIndex].top
+        $scope.imgObj.leftMargin = getOBjList()[$scope.tabIndex].img[$scope.imgIndex].left
+        $scope.imgObj.imgWidth = getOBjList()[$scope.tabIndex].img[$scope.imgIndex].width
+        $scope.imgObj.imgHeight = getOBjList()[$scope.tabIndex].img[$scope.imgIndex].height
+        $(".imgFormat").show()
+        $("#menu").hide()
+    }
+    /**
+     * 设置图片格式
+     * @param index   图片索引
+     * @param options
+     */
+    $scope.setImgFormat = function () {
+        getOBjList()[$scope.tabIndex].img[$scope.imgIndex].top= $scope.imgObj.topMargin
+        getOBjList()[$scope.tabIndex].img[$scope.imgIndex].left= $scope.imgObj.leftMargin
+        getOBjList()[$scope.tabIndex].img[$scope.imgIndex].width= $scope.imgObj.imgWidth
+        getOBjList()[$scope.tabIndex].img[$scope.imgIndex].height= $scope.imgObj.imgHeight
+        $(".imgFormat").hide()
     }
     /*******************************保存*************************************************/
     $scope.save = function () {//保存模板
@@ -1828,6 +1867,23 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         var isLogin = localStorage.getItem("token");
 
+        function batchTitle(answers){//批量修改题目
+            var allPage = allPagePost()
+            var answersData = []
+            for(var i = 0;i<allPage.length;i++){
+                var obj = {}
+                obj.answer_id = answers[i]
+                obj.name = allPage[i].name
+                answersData.push(obj)
+            }
+            $.ajax({
+                type:"PATCH",
+                url:"/api/v2/answers/batch_change_name",
+                headers: {'Authorization': "Bearer " + isLogin},
+                async: false,
+                data:{"answers": JSON.stringify(answersData)}
+            })
+        }
         function bindRegion() {
             var answer_ids = []
             for (var i = 0; i < answer_id.length; i++) {
@@ -1869,7 +1925,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                                 }
                             }
                         )
-                        // insertImg()
+                        batchTitle(answer_ids)
                     }
                 }
             )

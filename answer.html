@@ -70,7 +70,7 @@
                         <h3>添加题组<span class="fr cous" ng-click="close()">X</span></h3>
                         <div class="pd">
                             <p><span>题组名称</span><span class="Red">*</span>
-                                <input class="mF" type="text" ng-model="result.name" placeholder="请输入题组名称"/>
+                                <input class="mF" type="text" ng-model="result.name" autofocus="autofocus" placeholder="请输入题组名称"/>
                             </p>
                             <p><span>试题数量</span><input type="text" ng-model="result.numbel" placeholder="请输入试题数量"/></p>
                             <p><span>试题类型</span>
@@ -97,7 +97,7 @@
                         <h3>添加题组<span class="fr cous" ng-click="close()">X</span></h3>
                         <div class="pd">
                             <p><span>题组名称</span><span class="Red">*</span>
-                                <input class="mF" type="text" placeholder="请输入题组名称" ng-model="result.name"/>
+                                <input class="mF" type="text" placeholder="请输入题组名称" autofocus="autofocus" ng-model="result.name"/>
                             </p>
                             <p><span>试题数量</span><input type="text" placeholder="请输入试题数量" ng-model="result.numbel"/></p>
                             <p><span>起始序号</span><input type="text" placeholder="请输入起始序号" ng-model="result.no"/></p>
@@ -118,7 +118,7 @@
                         <div class="pd">
                             <p><span>题组名称</span><span class="Red">*</span><input class="mF" type="text"
                                                                                  placeholder="请输入题组名称"
-                                                                                 ng-model="result.name"/></p>
+                                                                                 ng-model="result.name" autofocus="autofocus"/></p>
                             <p><span>试题数量</span><input type="text" placeholder="请输入试题数量" ng-model="result.numbel"/></p>
                             <p><span>起始序号</span><input type="text" placeholder="请输入起始序号" ng-model="result.no"/></p>
                             <!--<p><span>所在页码</span><input type="text" placeholder="请输入所在页码" ng-model="result.page"/></p>-->
@@ -138,7 +138,7 @@
                         <div class="pd">
                            <div class="writItem clearfix">
                                <p>题组名称</p>
-                               <p><input type="text" placeholder="请输入题组名称" ng-model="result.name"></p>
+                               <p><input type="text" placeholder="请输入题组名称" ng-model="result.name" autofocus="autofocus"></p>
                            </div>
                             <div class="writItem clearfix">
                                 <p>试题总分</p>
@@ -204,7 +204,7 @@
                         <div class="pd">
                             <p><span>题组名称</span><span class="Red">*</span><input class="mF" type="text"
                                                                                  placeholder="请输入题组名称"
-                                                                                 ng-model="result.name"/></p>
+                                                                                 ng-model="result.name" autofocus="autofocus"/></p>
                             <p><span>试题类型</span>
                                 <input type="radio" ng-checked="result.otherisradio==3" ng-click="checkbox(3)"/>
                                 <span style="float: left;margin-right: 20px;">矩形类</span>
@@ -274,7 +274,7 @@
                     <div class="addQ import {{6==index?'active':''}}">
                         <h3>存为模板设置<span class="fr cous" ng-click="close()">X</span></h3>
                         <div class="pd">
-                            <p><span>名称</span><input type="text" ng-model="templateName" placeholder="请输入模板名称"/></p>
+                            <p><span>名称</span><input type="text" ng-model="templateName" placeholder="请输入模板名称" autofocus="autofocus"/></p>
                             <p>
                                 <span>年级</span>
                                 <select ng-model="itmeGrades" ng-options="Grades.name for Grades in gradesList" ng-change="changGrades(itmeGrades)">
@@ -479,7 +479,7 @@
                                                 <!--网络阅卷打分框end-->
                                             </div>
                                             <div class="other_c" style="height: {{a.otherHeight[$index]+'px'}};">
-                                                <img ng-src="{{a.imgurl[$index]}}" alt="">
+                                                <img ng-src="{{a.img[$index].url}}" alt="" ng-style="setImgStyle(a.img[$index])" ng-click="selectImg($index)" class="{{$index==imgIndex?'table_focus':''}}">
                                             </div>
                                         </div>
                                         <div ng-if="a.otherisradio==4" class="other_first_position">
@@ -615,7 +615,7 @@
                                                 <!--网络阅卷打分框end-->
                                             </div>
                                             <div class="other_c" style="height: {{a.otherHeight[$index]+'px'}};">
-                                                <img ng-src="{{a.imgurl[$index]}}" alt="">
+                                                <img ng-src="{{a.img[$index].url}}" alt="" ng-style="setImgStyle(a.img[$index])" ng-click="selectImg($index)" class="{{$index==imgIndex?'table_focus':''}}">
                                             </div>
                                         </div>
                                         <div ng-if="a.otherisradio==4" class="other_first_position">
@@ -793,7 +793,7 @@
                                                 <!--网络阅卷打分框end-->
                                             </div>
                                             <div class="other_c" style="height: {{a.otherHeight[$index]+'px'}};">
-                                                <img ng-src="{{a.imgurl[$index]}}" alt="">
+                                                <img ng-src="{{a.img[$index].url}}" alt="" ng-style="setImgStyle(a.img[$index])" ng-click="selectImg($index)" class="{{$index==imgIndex?'table_focus':''}}">
                                             </div>
                                         </div>
                                         <div ng-if="a.otherisradio==4" class="other_first_position">
@@ -930,7 +930,7 @@
                                                 <!--网络阅卷打分框end-->
                                             </div>
                                             <div class="other_c" style="height: {{a.otherHeight[$index]+'px'}};">
-                                                <img ng-src="{{a.imgurl[$index]}}" alt="">
+                                                <img ng-src="{{a.img[$index].url}}" alt="" ng-style="setImgStyle(a.img[$index])" ng-click="selectImg($index)" class="{{$index==imgIndex?'table_focus':''}}">
                                             </div>
                                         </div>
                                         <div ng-if="a.otherisradio==4" class="other_first_position">
@@ -1106,14 +1106,14 @@
         <ul>
             <li class="meun_navbar" ng-click="dayin()">打印</li>
             <li class="meun_navbar" ng-click="showModel('cand_box')" ng-show="tabParentIndex==-1">设置考号</li>
-            <li class="meun_navbar" ng-show="(meunType==5||meunType==4||meunType==3)&&tabParentIndex!=-1" ng-click="showVertical()">设置行间距</li>
-            <li class="meun_navbar" ng-click="showModel('pic_box')" ng-show="meunType==5&&tabParentIndex!=-1">插入图片</li>
-            <li class="meun_navbar" ng-click="showModel('setGroupHeigh')" ng-show="meunType==5&&tabParentIndex!=-1">修改题组高度</li>
+            <li class="meun_navbar" ng-show="((meunType==5&&meunOtherisradio==4)||(meunType==4&&meunArticleType!=1)||meunType==3)&&tabParentIndex!=-1" ng-click="showVertical()">设置行间距</li>
+            <li class="meun_navbar" ng-click="showModel('pic_box')" ng-show="meunType==5&&meunOtherisradio==3&&tabParentIndex!=-1">插入图片</li>
+            <li class="meun_navbar" ng-click="showModel('setGroupHeigh')" ng-show="meunType==5&&meunOtherisradio==3&&tabParentIndex!=-1">修改题组高度</li>
             <li class="meun_navbar" ng-click="setFillQuestion()" ng-show="meunType==3&&tabParentIndex!=-1">修改填空题</li>
             <!--<li class="meun_navbar" ng-click="checkTestType(1)">打印方式:{{myDayinType==0?'单面':'双面'}}</li>-->
-            <li class="meun_navbar" ng-show="(meunType==3||meunType==5&&LineTypeShow=='隐藏')&&tabParentIndex!=-1" ng-click="toggleLineType()">转换为{{LineTypeWord}}</li>
-            <li class="meun_navbar" ng-show="meunType==5&&tabParentIndex!=-1" ng-click="toggleLineDisplay()">{{LineTypeShow}}分割线</li>
-            <!--<li class="meun_navbar">插入单元格</li>-->
+            <li class="meun_navbar" ng-show="(meunType==3||meunType==5)&&tabParentIndex!=-1" ng-click="toggleLineType()">虚实线转换</li>
+            <li class="meun_navbar" ng-show="meunType==5&&meunOtherisradio==3&&tabParentIndex!=-1" ng-click="toggleLineDisplay()">分割线显示切换</li>
+            <li class="meun_navbar" ng-show="imgIndex!=undefind" ng-click="getImgFormat()">设置图片格式</li>
             <!--<li class="meun_navbar" ng-click="add(4)">插入语文作文格</li>-->
             <!--<li class="meun_navbar" ng-click="add(4)">插入英文作文行线</li>-->
             <!--<li class="meun_navbar" ng-click="add(4)">插入英文单词间隔行线</li>-->
@@ -1129,7 +1129,7 @@
         <div class="cand_title">设置考号信息框</div>
         <div class="cand_con clearfix">
             <p class="fl">考号长度</p>
-            <p class="fl"><input type="text" ng-model="candlen"></p>
+            <p class="fl"><input type="text" ng-model="candlen" autofocus="autofocus"></p>
         </div>
         <div class="cand_btn"><a ng-click="setCandNumber(candlen)">确定</a></div>
         <div class="cand_close" ng-click="closeCand()">x</div>
@@ -1144,7 +1144,7 @@
         </div>
         <div class="cand_con clearfix">
             <p class="fl">第几小题</p>
-            <p class="fl"><input type="text" ng-model="img_no" ng-init="img_no = 1"></p>
+            <p class="fl"><input type="text" ng-model="img_no" ng-init="img_no = 1" autofocus="autofocus"></p>
         </div>
         <div class="cand_btn"><a ng-click="insertPic()">确定</a></div>
         <div class="cand_close" ng-click="closeCand()">x</div>
@@ -1182,7 +1182,7 @@
         <div class="cand_title">设置当前题组行间距</div>
         <div class="cand_con clearfix">
             <p class="fl">行间距</p>
-            <p class="fl"><input type="text" ng-model="vertical"></p>
+            <p class="fl"><input type="text" ng-model="vertical" autofocus="autofocus"></p>
         </div>
         <div class="cand_btn"><a ng-click="setVertical(vertical)">确定</a></div>
         <div class="cand_close" ng-click="closeCand()">x</div>
@@ -1193,9 +1193,26 @@
         <div class="cand_title">修改总分</div>
         <div class="cand_con clearfix">
             <p class="fl">总分</p>
-            <p class="fl"><input type="text" ng-model="countScore"></p>
+            <p class="fl"><input type="text" ng-model="countScore" autofocus="autofocus"></p>
         </div>
         <div class="cand_btn"><a ng-click="setCountScore()">确定</a></div>
+        <div class="cand_close" ng-click="closeCand()">x</div>
+    </div>
+    <!--设置总分弹窗结束-->
+    <!--设置总分弹窗开始-->
+    <div class="cand imgFormat">
+        <div class="cand_title">设置图片格式</div>
+        <div class="cand_con clearfix">
+            <div class="img_info">
+                <ul>
+                    <li><span>上边距</span><input type="text" ng-model="imgObj.topMargin" autofocus="autofocus"></li>
+                    <li><span>左边距</span><input type="text" ng-model="imgObj.leftMargin"></li>
+                    <li><span>图片宽</span><input type="text" ng-model="imgObj.imgWidth"></li>
+                    <li><span>图片高</span><input type="text" ng-model="imgObj.imgHeight"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="cand_btn"><a ng-click="setImgFormat()">确定</a></div>
         <div class="cand_close" ng-click="closeCand()">x</div>
     </div>
     <!--设置总分弹窗结束-->
