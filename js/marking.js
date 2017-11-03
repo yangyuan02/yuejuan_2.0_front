@@ -687,7 +687,7 @@ $(function(){
 			'mark':coordinateArr,
 			'personal':{paper_data_width,paper_data_height}
 		}
-		var a = parseInt($('.on-num').text());
+		var a = parseInt($('.finished').text());
 		var b = parseInt($('.all-paper').text());
 		console.log(a,b);
 
