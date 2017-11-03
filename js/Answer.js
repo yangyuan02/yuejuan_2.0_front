@@ -363,6 +363,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var totaltwo = parseInt($scope.result.numbel) * Number($scope.result.itemcoreS)//总分数
         var otherHeight = []
         var fillWidth = []
+        var childWidth = [230]
         var fillsNum = []
         var childNum = [0]
         var img = []
@@ -374,7 +375,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 img.push(obj)
             }
             if($scope.index==3){
-                fillWidth.push(230)
+                fillWidth.push(childWidth)
                 fillsNum.push(childNum)
             }
         }
@@ -813,11 +814,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
             if (obj.type == 1) {//增加小题
                 var childNum = [0]
+                var childWidth = [230]
                 var a = {}
                 obj.list[obj.index].no.push(obj.no)
                 obj.list[obj.index].otherHeight.push(150)
                 obj.list[obj.index].fillWidth.push(230)
                 obj.list[obj.index].fillsNum.push(childNum)
+                obj.list[obj.index].fillWidth.push(childWidth)
 
                 obj.list[obj.index].img.push(a)
                 obj.list[obj.index].itemCoresArr.push(obj.score)
@@ -1769,7 +1772,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
     /*设置题组高度*/
     $scope.setGroupHeigh = function (heights) {
-        getOBjList()[$scope.tabIndex].otherHeight = heights.split(',')
+        getOBjList()[$scope.tabIndex].otherHeight = heights.split(/[,，]/)
         $scope.closeCand()
     }
     /**设置填空题格式**/
@@ -1791,6 +1794,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.fillLists.push(obj)
             }
         }
+        console.log($scope.fillLists)
     }
     /*************确定**************/
     $scope.sureFillQuestion = function () {
@@ -1799,14 +1803,18 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 alert("第"+(index+1)+'大于597,最大为597')
                 return false
             }
-            getOBjList()[$scope.tabIndex].fillWidth[index] = arr[index].fill_w
-            getOBjList()[$scope.tabIndex].fillsNum[index] = getfillChildNums(arr[index].fill_num)
+            getOBjList()[$scope.tabIndex].fillWidth[index] = typeof arr[index].fill_w === 'string'?arr[index].fill_w.split(/[,，]/):arr[index].fill_w
+            getOBjList()[$scope.tabIndex].fillsNum[index] = getfillChildNums(arr[index].fill_num).resutl
             function getfillChildNums(num) {
                 var resutl = []
+                var itmeWidth = []
                 for(var i = 0;i<num;i++){
+                    console.log(num)
                     resutl.push(i)
                 }
-                return resutl
+                return {
+                    resutl:resutl
+                }
             }
             $scope.closeCand()
         })
