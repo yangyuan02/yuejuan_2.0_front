@@ -1105,6 +1105,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         console.log(answer_id)
         findScopeList(index, options)
     }
+    $scope.sortIndex = 0
     $scope.selectBigQuestion = function (index) {//选中题目
         $scope.sortIndex = index
     }
@@ -1380,6 +1381,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
 
             }
         });
+        if($scope.bigAnswer.length == 1){
+            $scope.sortIndex = 0
+        }
         if ($scope.bigAnswer.length == 0) {
             $scope.closeAnswerModel()
         }
