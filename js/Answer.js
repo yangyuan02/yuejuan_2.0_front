@@ -431,7 +431,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             verticalHeigth:verticalHeigth,//题组行间距
             LineType:0,//线类型0代表实线非0虚线
             hideLineType:0,//线类型0代表显示非1隐藏
-            Linenumbel:Linenumbel//横线类数量
+            Linenumbel:Linenumbel,//横线类数量
+            img:img
         }
         var itemCoresArr = []//每题分数数组
         for (var i = 0; i < obj.numbel; i++) {
@@ -447,7 +448,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         if($scope.index==5){
             obj.otherisradio = $scope.result.otherisradio
-            obj.img = img
         }
         if (!checkIsNUll()) {
             return false
@@ -818,6 +818,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 obj.list[obj.index].otherHeight.push(150)
                 obj.list[obj.index].fillWidth.push(230)
                 obj.list[obj.index].fillsNum.push(childNum)
+
                 obj.list[obj.index].img.push(a)
                 obj.list[obj.index].itemCoresArr.push(obj.score)
                 obj.list[obj.index].numbel++  //题目数量
