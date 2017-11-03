@@ -442,7 +442,7 @@
                                         </span>
                                             <!--选择题模版end-->
                                             <!--填空题模板start-->
-                                            <span class="fill_line {{a.LineType==0?'':'dashed_line'}}" ng-show="a.type==3" style="width:{{a.fillWidth[$parent.$index]+'px'}}" ng-repeat="fills in a.fillsNum[$index]"></span>
+                                            <span class="fill_line {{a.LineType==0?'':'dashed_line'}}" ng-show="a.type==3" style="width:{{a.fillWidth[$parent.$index][$index]+'px'}}" ng-repeat="fills in a.fillsNum[$index]"></span>
                                             <!--填空题模版end-->
                                         </div>
                                     </td>
@@ -573,7 +573,7 @@
                                         </span>
                                             <!--选择题模版end-->
                                             <!--填空题模板start-->
-                                            <span class="fill_line {{a.LineType==0?'':'dashed_line'}}" ng-show="a.type==3" style="width:{{a.fillWidth[$parent.$index]+'px'}}" ng-repeat="fills in a.fillsNum[$index]"></span>
+                                            <span class="fill_line {{a.LineType==0?'':'dashed_line'}}" ng-show="a.type==3" style="width:{{a.fillWidth[$parent.$index][$index]+'px'}}" ng-repeat="fills in a.fillsNum[$index]"></span>
                                             <!--填空题模版end-->
                                             <!--英语作文题模板start-->
                                             <span class="writing" ng-show="a.type==4">
@@ -756,7 +756,7 @@
                                         </span>
                                             <!--选择题模版end-->
                                             <!--填空题模板start-->
-                                            <span class="fill_line {{a.LineType==0?'':'dashed_line'}}" ng-show="a.type==3" style="width:{{a.fillWidth[$parent.$index]+'px'}}" ng-repeat="fills in a.fillsNum[$index]"></span>
+                                            <span class="fill_line {{a.LineType==0?'':'dashed_line'}}" ng-show="a.type==3" style="width:{{a.fillWidth[$parent.$index][$index]+'px'}}" ng-repeat="fills in a.fillsNum[$index]"></span>
                                             <!--填空题模版end-->
                                         </div>
                                     </td>
@@ -888,7 +888,7 @@
                                         </span>
                                             <!--选择题模版end-->
                                             <!--填空题模板start-->
-                                            <span class="fill_line {{a.LineType==0?'':'dashed_line'}}" ng-show="a.type==3" style="width:{{a.fillWidth[$parent.$index]+'px'}}" ng-repeat="fills in a.fillsNum[$index]"></span>
+                                            <span class="fill_line {{a.LineType==0?'':'dashed_line'}}" ng-show="a.type==3" style="width:{{a.fillWidth[$parent.$index][$index]+'px'}}" ng-repeat="fills in a.fillsNum[$index]"></span>
                                             <!--填空题模版end-->
                                             <!--英语作文题模板start-->
                                             <span class="writing" ng-show="a.type==4">

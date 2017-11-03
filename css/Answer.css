@@ -795,6 +795,9 @@ input:focus{
 .setFill_q .cand_con ul li input{
     width:40px;
 }
+.setFill_q .cand_con ul li .fill_width input{
+    width:160px;
+}
 .Answer .A_R .A_Rone .A_Rone_child table tbody tr td .other_line{
     height:20px;
     width:100%;
