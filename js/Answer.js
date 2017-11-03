@@ -1794,7 +1794,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.fillLists.push(obj)
             }
         }
-        console.log($scope.fillLists)
     }
     /*************确定**************/
     $scope.sureFillQuestion = function () {
