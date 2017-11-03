@@ -274,10 +274,12 @@ $(function(){
 			  		};
 			  	}
 			  	console.log(a_settings);
-			  	s_i_id = data.scanner_image_id[0];
-			  	e_s_id = data.exam_subject_id;
-			  	current_index = data.finished_count;
-			  	show_img_info(data,name,index);
+			  	if(data.exam_subject_id){
+				  	s_i_id = data.scanner_image_id[0];
+				  	e_s_id = data.exam_subject_id;
+				  	current_index = data.finished_count;
+				  	show_img_info(data,name,index);
+			  	}
 		  	}
 		  	
 		  },
@@ -634,12 +636,14 @@ $(function(){
 		var name = $('.paper-item-name').text();
 		a_settings.answer_setting_score;
 		var input_value = $('#p-table tbody').children().find('.yuejuan_score');
-		console.log(input_value)
-		var input_length = input_value.length;
-		for (var i = 0; i < input_length; i++) {
-			var value = $(input_value[i]).val();
-			a_settings[i].answer_setting_score=value;
-		};
+		console.log(input_value,a_settings.length)
+		if(a_settings.length>0){
+			var input_length = input_value.length;
+			for (var i = 0; i < input_length; i++) {
+				var value = $(input_value[i]).val();
+				a_settings[i].answer_setting_score=value;
+			};
+		}
 		console.log(a_settings);
 
 		var coordinateArr = [];
