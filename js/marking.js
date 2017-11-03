@@ -637,13 +637,11 @@ $(function(){
 		a_settings.answer_setting_score;
 		var input_value = $('#p-table tbody').children().find('.yuejuan_score');
 		console.log(input_value,a_settings.length)
-		if(a_settings.length>0){
-			var input_length = input_value.length;
-			for (var i = 0; i < input_length; i++) {
-				var value = $(input_value[i]).val();
-				a_settings[i].answer_setting_score=value;
-			};
-		}
+		var input_length = input_value.length;
+		for (var i = 0; i < input_length; i++) {
+			var value = $(input_value[i]).val();
+			a_settings[i].answer_setting_score=value;
+		};
 		console.log(a_settings);
 
 		var coordinateArr = [];
