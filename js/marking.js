@@ -313,6 +313,7 @@ $(function(){
 					'height': img_info.personal.paper_data_height+'px'
 				});
 			}
+			console.log(img_info.finished_count)
 	
 			$('.on-num').text(img_info.finished_count);
 		// }else{
