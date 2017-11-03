@@ -313,9 +313,8 @@ $(function(){
 					'height': img_info.personal.paper_data_height+'px'
 				});
 			}
-			console.log(img_info.finished_count)
 	
-			$('.on-num').text(img_info.finished_count);
+			$('.on-num').text(img_info.index);
 		// }else{
 		// 	$('.on-num').text(img_info.finished_count);
 		// }//当前第几份试卷
