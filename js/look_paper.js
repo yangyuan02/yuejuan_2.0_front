@@ -670,6 +670,10 @@ $(function(){
 		}else{
 			append_section(is_on);
 		}
+		if (!is_on) {
+			console.log(99999);
+			append_section_on(on_checked_info);
+		};
 		var a_answer_id = $('.modal-main').attr('answer_id');
 		console.log(a_answer_id,info.answer_setting_ids)
 		var new_num_arr=[];
@@ -704,6 +708,16 @@ $(function(){
 	    	$('body').find('#all-section-list').append(jj_html);
 	    }
     }
+	}
+
+	function append_section_on(info){
+		if(info){
+			$('body').find('#all-section-list').html('');
+			for (var j = 0; j < info.length; j++) {
+	    	var jj_html = '<li id="'+info[j].id+'" sec_num = "'+info[j].current_page+'_'+info[j].index+'"><input type="hidden" width="'+info[j].position.width+'" height="'+info[j].position.height+'" w="'+info[j].position.w+'" h="'+info[j].position.h+'" x="'+info[j].position.x+'" y="'+info[j].position.y+'" current_page="'+info[j].current_page+'" /><span>'+info[j].index+'</span>( 第<em>'+info[j].current_page+'</em>页 )</li>';
+	    	$('body').find('#all-section-list').append(jj_html);
+	    }
+		}
 	}
 
 	// 获取试卷题号信息
