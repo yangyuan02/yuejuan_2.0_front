@@ -2990,7 +2990,7 @@ $(function() {
 	  	data:{'exam_id':e_id,'subject_id':s_id},
 	  	success: function(data){
 	  		console.log(data,e_id,s_id);
-	  		// look_infos=data;
+	  		look_infos=data;
 	  		show_scroe_group(data);
       },
       error: function(){
@@ -3070,6 +3070,9 @@ $(function() {
 		var subject_id = $('.score-import-right #select-sujects').attr('data-id');
 		var formData = new FormData();
 		formData.append("import_score_file",$("#inPaths")[0].files[0]);
+		formData.append("exam_id",exam_id);
+		formData.append("subject_id",subject_id);
+		formData.append("import_type",import_type);
 		var i_string = $('.import-grade-wrap #upfiles div').html();
 		i_string_i = i_string.lastIndexOf(".");
 		i_string = i_string.substring(i_string_i+1);
@@ -3077,16 +3080,16 @@ $(function() {
 			alert('文件格式不对，请选择xlsx或者xls文件！')
 		}
 		console.log(exam_id,subject_id,formData)
-		get_file_path(exam_id,subject_id,import_type,formData);
+		get_file_path(formData);
 	});
 
 
-	function get_file_path(e_id,s_id,type,formData){
-		console.log(e_id,s_id,formData);
-		if(s_id!=0){
+	function get_file_path(formData){
+		console.log(formData);
+		if(formData){
 			$.ajax({
 		   	type: "POST",
-		   	url: ajaxIp+"/api/v2/import_student_scores/import_excel?exam_id="+e_id+"&subject_id="+s_id+"&import_type="+type+"",
+		   	url: ajaxIp+"/api/v2/import_student_scores/import_excel",
 		  	dataType: "JSON",
 		  	data: formData,
 		  	// data:({'exam_id':e_id,'subject_id':s_id,'import_score':formData}),

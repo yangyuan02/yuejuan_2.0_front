@@ -172,6 +172,7 @@ $(function(){
 
 	}
 	function append_first(arr){
+		console.log(arr)
 		var current_page =parseInt($('.page .on').text());
 		console.log(on_checked_info)
 		$('body').find('#all-section-list').html('');
@@ -1223,15 +1224,18 @@ $(function(){
 	      	arr_obj['crop_type']=crop_type;
 	      	arr_obj['id']='select-area'+(num-1)+'';
 	      	arr_obj['num']=parseInt(num-1);
+	      	console.log(arr_obj,data_arr_all)
 			  	data_arr_all.push(arr_obj);
 			  	console.log(data_arr_all)
 			  	var jj_html = '<li id="select-area'+(num-1)+'" sec_num = "'+current_page+'_'+(num-1)+'"><input type="hidden" width="'+$("div[name='"+(num-1)+"']").width()+'" height="'+$("div[name='"+(num-1)+"']").height()+'" w="'+w+'" h="'+h+'" x="'+$("div[name='"+(num-1)+"']").position().left+'" y="'+$("div[name='"+(num-1)+"']").position().top+'" current_page="'+current_page+'" /><span>'+(num-1)+'</span>( 第<em>'+current_page+'</em>页 )</li>';
 	      	console.log(jj_html)
 	      	$('body').find('#all-section-list').append(jj_html);
 	      	// console.log(index_id);
-	      	console.log(is_arr_num)
+	      	console.log('is_arr',is_arr);
+	      	console.log('is_num',is_arr_num);
+	      	console.log('is_on',is_on);
 	      	if(is_arr_num){
-	      		console.log('is_arr')
+	      		console.log('is_num')
 	      		data_arr_num=is_arr_num;
 	      	}
 	      	// var is_on = JSON.parse(localStorage.getItem("data_arr_on"+index_id+""));
@@ -1395,6 +1399,7 @@ $(function(){
 				var storage=window.localStorage;
 				storage.setItem("data_arr"+index_id+"",JSON.stringify(is_arr));
 			};
+			console.log(is_arr)
 		}
 		data_arr_all=is_arr;
 
