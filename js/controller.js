@@ -484,7 +484,8 @@ angular.module("myApp.controller", [])
         // 考试状况的选择事件
         $(".study_q_01_mark select").change(function(event) {
             var a=$("#mark_bj").children('option:selected').attr("data-id");
-            kaoshizk(a);
+           kaoshizk02(a);
+           kaoshizk(10);
         });
         // 班级
         $("#mark_bj").change(function(event) {
@@ -606,27 +607,48 @@ angular.module("myApp.controller", [])
                         $("#r5_11_tbody02").html(' ');
                          $("#r5_11_tbody03").html(' ');
                         $("#r5_11_tbody04").html(' ');
+                         if(data.grade_ranking_range.rise!==null){
                         for (var i = 0; i < data.grade_ranking_range.rise.length; i++) {
                             if (data.grade_ranking_range.rise[i].grade_ranking_change == null) {
                                 data.grade_ranking_range.rise[i].grade_ranking_change = 0;
                             };
-                            if (data.grade_ranking_range.decline[i].grade_ranking_change == null) {
-                                data.grade_ranking_range.decline[i].grade_ranking_change = 0;
-                            };
+                            // if (data.grade_ranking_range.decline[i].grade_ranking_change == null) {
+                            //     data.grade_ranking_range.decline[i].grade_ranking_change = 0;
+                            // };
                             if(data.grade_ranking_range.rise[i].grade_ranking_change<0){
                             var a=data.grade_ranking_range.rise[i].grade_ranking_change*(-1);
                          }else{
                             var a=data.grade_ranking_range.rise[i].grade_ranking_change;
                          };
                             $("#r5_11_tbody").append(' <tr><td>' + data.grade_ranking_range.rise[i].name + '</td><td>' + data.grade_ranking_range.rise[i].grade_rank + '</td><td>' + a + '<i class="iconfont">&#xe627;</i></td></tr>');
-                            $("#r5_11_tbody02").append(' <tr><td>' + data.grade_ranking_range.decline[i].name + '</td><td>' + data.grade_ranking_range.decline[i].grade_rank + '</td><td>' + data.grade_ranking_range.decline[i].grade_ranking_change + '<i class="iconfont">&#xe628;</i></td></tr>');
+                            // $("#r5_11_tbody02").append(' <tr><td>' + data.grade_ranking_range.decline[i].name + '</td><td>' + data.grade_ranking_range.decline[i].grade_rank + '</td><td>' + data.grade_ranking_range.decline[i].grade_ranking_change + '<i class="iconfont">&#xe628;</i></td></tr>');
                         }
                     };
+                }
+                    // 大幅度退步
+                    if(data.grade_ranking_range.decline!==null){
+                    for (var i = 0; i < data.grade_ranking_range.decline.length; i++) {
+                
+                            if (data.grade_ranking_range.decline[i].grade_ranking_change == null) {
+                                data.grade_ranking_range.decline[i].grade_ranking_change = 0;
+                            }; 
+                            $("#r5_11_tbody02").append(' <tr><td>' + data.grade_ranking_range.decline[i].name + '</td><td>' + data.grade_ranking_range.decline[i].grade_rank + '</td><td>' + data.grade_ranking_range.decline[i].grade_ranking_change + '<i class="iconfont">&#xe628;</i></td></tr>');
+                        
+                       
+                    };
+                };
+                    // 年级前后10名
+                    if(data.grade_rank_ten.top_ten!==null){
                     for (var i = 0; i < data.grade_rank_ten.top_ten.length; i++) {
                             $("#r5_11_tbody03").append(' <tr><td>' + data.grade_rank_ten.top_ten[i].name + '</td><td>' + data.grade_rank_ten.top_ten[i].grade_rank + '</td><td>' +data.grade_rank_ten.top_ten[i].class_name+ '</td></tr>');
+                    };
+                };
+                if(data.grade_rank_ten.after_ten!==null){
+                    for (var i = 0; i < data.grade_rank_ten.after_ten.length; i++) {
                             $("#r5_11_tbody04").append(' <tr><td>' + data.grade_rank_ten.after_ten[i].name + '</td><td>' + data.grade_rank_ten.after_ten[i].grade_rank + '</td><td>' + data.grade_rank_ten.after_ten[i].class_name + '</td></tr>');
                      
                     };
+                }
                 },
                 error: function() {
 
@@ -1233,7 +1255,9 @@ angular.module("myApp.controller", [])
                     };
                     // 班级成绩大幅度变化
                     if (data.error_code !== 500) {
-                        for (var i = 0; i < 5; i++) {
+                        // 大幅度进步
+                        if(data.class_ranking_range.rise!==null){
+                        for (var i = 0; i < data.class_ranking_range.rise.length; i++) {
                             var a = i + 1;
                             var c = $(".study_q_dfj tr").eq(a);
                             c.find('td').eq(1).html(data.class_ranking_range.rise[i].name);
@@ -1248,6 +1272,19 @@ angular.module("myApp.controller", [])
                             var a_rag=data.class_ranking_range.rise[i].class_ranking_change;
                          };
                             c.find('td').eq(3).children('span').html(a_rag);
+                            // var d = $(".study_q_dft tr").eq(a);
+                            // d.find('td').eq(1).html(data.class_ranking_range.decline[i].name);
+                            // d.find('td').eq(2).html(data.class_ranking_range.decline[i].class_rank);
+                            // if (data.class_ranking_range.decline[i].class_ranking_change == null) {
+                            //     data.class_ranking_range.decline[i].class_ranking_change = 0;
+                            // };
+                            // d.find('td').eq(3).children('span').html(data.class_ranking_range.decline[i].class_ranking_change);
+                        }
+                    }
+                       // 大幅度退步
+                       if(data.class_ranking_range.decline!==null){
+                       for (var i = 0; i < data.class_ranking_range.decline.length; i++) {
+                            var a = i + 1;
                             var d = $(".study_q_dft tr").eq(a);
                             d.find('td').eq(1).html(data.class_ranking_range.decline[i].name);
                             d.find('td').eq(2).html(data.class_ranking_range.decline[i].class_rank);
@@ -1256,19 +1293,36 @@ angular.module("myApp.controller", [])
                             };
                             d.find('td').eq(3).children('span').html(data.class_ranking_range.decline[i].class_ranking_change);
                         }
+                    }
                     };
                     // 前后5名 
+                    if(data.class_rank_five.top_five!==null){
                     if (data.error_code !== 500) {
-                        for (var i = 0; i < 5; i++) {
-                            var i1 = 4 - i;
+                        for (var i = 0; i < data.class_rank_five.top_five.length; i++) {
+                            // var i1 = 3 - i;
                             var a = i + 1;
                             var c = $("#study_q_q5 tr").eq(a);
                             c.find('td').eq(0).html(data.class_rank_five.top_five[i].class_rank);
                             c.find('td').eq(1).html(data.class_rank_five.top_five[i].name);
+                            // var d = $("#study_q_h5 tr").eq(a);
+                            // d.find('td').eq(0).html(data.class_rank_five.after_five[i1].class_rank);
+                            // d.find('td').eq(1).html(data.class_rank_five.after_five[i1].name);
+                        }
+                    };
+                    };
+                    // 后五
+                    if(data.class_rank_five.after_five!==null){
+                    if (data.error_code !== 500) {
+                        var nub=data.class_rank_five.after_five.length-1;
+                        for (var i = 0; i < data.class_rank_five.after_five.length; i++) {
+                            var i1 = nub - i;
+                            var a = i + 1;
+                           
                             var d = $("#study_q_h5 tr").eq(a);
                             d.find('td').eq(0).html(data.class_rank_five.after_five[i1].class_rank);
                             d.find('td').eq(1).html(data.class_rank_five.after_five[i1].name);
                         }
+                    };
                     };
                     // 小得分详情
                     if (data.error_code !== 500) {
