@@ -782,6 +782,7 @@ input:focus{
 /*************修改填空题格式******************/
 .setFill_q{
     height:auto;
+    width:700px;
 }
 .setFill_q .cand_con ul li{
     width:100%;
@@ -796,7 +797,7 @@ input:focus{
     width:40px;
 }
 .setFill_q .cand_con ul li .fill_width input{
-    width:160px;
+    width:155px;
 }
 .Answer .A_R .A_Rone .A_Rone_child table tbody tr td .other_line{
     height:20px;
