@@ -3649,7 +3649,8 @@ $(function() {
 	  	success: function(data){
 	  		console.log(data);
 	  		// for (var i = 0; i < data.length; i++) {
-	  		// 	$('.word-import-right').append(data[i].content);
+	  		// 	var pp='<p>'+data[i].content+'</p>';
+	  		// 	$('.word-import-right').append(pp);
 
 	  		// };
 	  		word_exam_list(data);
