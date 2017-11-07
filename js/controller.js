@@ -20,7 +20,7 @@ angular.module("myApp.controller", [])
             headers: {
                 'Authorization': "Bearer " + isLogin
             },
-
+    
             success: function(data) {
                 console.log(data);
                 for (var i = 0; i < data.length; i++) {
@@ -106,6 +106,29 @@ angular.module("myApp.controller", [])
         //     $(this).siblings().show();
         // }); 
         // 分析
+         $(".mart_set_03_select").change(function(event) {
+            var a = $(this).children('option:selected').attr("data-id");
+            // $(this).attr('data-id', a);
+            // markxl(mark_01_select_a);
+            // var b=$(this).attr('data-id');
+            // alert(a);
+            if(a==1){
+             $("#ul_iLabel li").eq(0).find('.level_02').val("69");
+             $("#ul_iLabel li").eq(1).find('.level_02').val("62");
+             $("#ul_iLabel li").eq(2).find('.level_02').val("59");
+             $("#ul_iLabel li").eq(3).find('.level_02').val("55");
+             $("#ul_iLabel li").eq(4).find('.level_02').val("43");
+            
+          }
+          if(a==0){
+            $("#ul_iLabel li").eq(0).find('.level_02').val("15%");
+             $("#ul_iLabel li").eq(1).find('.level_02').val("30%");
+             $("#ul_iLabel li").eq(2).find('.level_02').val("30%");
+             $("#ul_iLabel li").eq(3).find('.level_02').val("20%");
+             $("#ul_iLabel li").eq(4).find('.level_02').val("5%");
+             
+          }
+        });
         $(".btn_1").click(function(event) {
 
             $(".mart_set").hide();
@@ -2008,7 +2031,30 @@ angular.module("myApp.controller", [])
             console.log(exam_id);
             console.log(class_id);
             console.log(sub_id);
-            $.ajax({
+            if(class_id==11111){
+               $.ajax({
+                type: "POST",
+                async: false,
+                url: ajaxIp + "/api/v2/reports/export_subject_integrated",
+                headers: {
+                    'Authorization': "Bearer " + isLogin,
+                },
+                data: {
+                    "exam_id": exam_id,
+                    "subject_id": sub_id,
+                    "classroom_id": null,
+                },
+                success: function(data) {
+                    console.log(data);
+                    console.log(data.file_path);
+                    $(".study_k_101 button").parent().attr("href", ajaxIp + data.file_path);
+
+                },
+                error: function() {}
+
+            });
+            }else{
+                $.ajax({
                 type: "POST",
                 async: false,
                 url: ajaxIp + "/api/v2/reports/export_subject_integrated",
@@ -2029,6 +2075,8 @@ angular.module("myApp.controller", [])
                 error: function() {}
 
             });
+            }
+            
 
         };
 
@@ -2045,7 +2093,32 @@ angular.module("myApp.controller", [])
             if (sub_id == null) {
                 var sub_id = parseInt($(".study_k_km03").attr("data-id"));
             }
-            $.ajax({
+            if(class_id==11111){
+          $.ajax({
+                type: "POST",
+                async: false,
+                url: ajaxIp + "/api/v2/reports/export_total_points_and_ranking",
+                headers: {
+                    'Authorization': "Bearer " + isLogin,
+                },
+                data: {
+                    "exam_id": exam_id,
+                    "subject_id": sub_id,
+                    "classroom_id":null,
+                },
+                success: function(data) {
+                    console.log(data);
+                    console.log(data.file_path);
+                    $(".study_k_101 button").parent().attr("href", ajaxIp + data.file_path);
+
+                },
+                error: function() {
+
+                }
+
+            });
+            }else{
+               $.ajax({
                 type: "POST",
                 async: false,
                 url: ajaxIp + "/api/v2/reports/export_total_points_and_ranking",
@@ -2067,7 +2140,9 @@ angular.module("myApp.controller", [])
 
                 }
 
-            });
+            }); 
+            }
+            
 
         };
 
@@ -2083,7 +2158,31 @@ angular.module("myApp.controller", [])
             if (sub_id == null) {
                 var sub_id = parseInt($(".study_k_km03").attr("data-id"));
             }
-            $.ajax({
+            if(class_id==11111){
+               $.ajax({
+                type: "POST",
+                async: false,
+                url: ajaxIp + "/api/v2/reports/export_single_and_level",
+                headers: {
+                    'Authorization': "Bearer " + isLogin,
+                },
+                data: {
+                    "exam_id": exam_id,
+                    "classroom_id": null,
+                },
+                success: function(data) {
+                    console.log(data);
+                    console.log(data.file_path);
+                    $(".study_k_101 button").parent().attr("href", ajaxIp + data.file_path);
+
+                },
+                error: function() {
+
+                }
+
+            });
+            }else{
+                 $.ajax({
                 type: "POST",
                 async: false,
                 url: ajaxIp + "/api/v2/reports/export_single_and_level",
@@ -2105,6 +2204,8 @@ angular.module("myApp.controller", [])
                 }
 
             });
+            }
+           
 
         };
 
@@ -2120,7 +2221,33 @@ angular.module("myApp.controller", [])
             if (sub_id == null) {
                 var sub_id = parseInt($(".study_k_km03").attr("data-id"));
             }
-            $.ajax({
+            if(class_id==11111){
+               $.ajax({
+                type: "POST",
+                async: false,
+                url: ajaxIp + "/api/v2/reports/export_all_subjects_ranking",
+                headers: {
+                    'Authorization': "Bearer " + isLogin,
+                },
+                data: {
+                    "exam_id": exam_id,
+                    "classroom_id": null,
+                    "subject_id": sub_id,
+                },
+                success: function(data) {
+                    console.log(data);
+                    console.log(data.file_path);
+                    $(".study_k_101 button").parent().attr("href", ajaxIp + data.file_path);
+
+                },
+                error: function() {
+
+                }
+
+            });
+
+            }else{
+             $.ajax({
                 type: "POST",
                 async: false,
                 url: ajaxIp + "/api/v2/reports/export_all_subjects_ranking",
@@ -2144,6 +2271,8 @@ angular.module("myApp.controller", [])
 
             });
 
+            }
+            
         };
 
         function study_k_bb05() {
@@ -2158,7 +2287,31 @@ angular.module("myApp.controller", [])
             if (sub_id == null) {
                 var sub_id = parseInt($(".study_k_km03").attr("data-id"));
             }
-            $.ajax({
+            if(class_id==11111){
+             $.ajax({
+                type: "POST",
+                async: false,
+                url: ajaxIp + "/api/v2/reports/export_chinese_math_english_ranking",
+                headers: {
+                    'Authorization': "Bearer " + isLogin,
+                },
+                data: {
+                    "exam_id": exam_id,
+                    "classroom_id": null,
+                },
+                success: function(data) {
+                    console.log(data);
+                    console.log(data.file_path);
+                    $(".study_k_101 button").parent().attr("href", ajaxIp + data.file_path);
+
+                },
+                error: function() {
+
+                }
+
+            });
+            }else{
+                 $.ajax({
                 type: "POST",
                 async: false,
                 url: ajaxIp + "/api/v2/reports/export_chinese_math_english_ranking",
@@ -2180,6 +2333,8 @@ angular.module("myApp.controller", [])
                 }
 
             });
+            }
+           
 
         };
 
@@ -2195,7 +2350,32 @@ angular.module("myApp.controller", [])
             if (sub_id == null) {
                 var sub_id = parseInt($(".study_k_km03").attr("data-id"));
             }
-            $.ajax({
+            if(class_id==11111){
+               $.ajax({
+                type: "POST",
+                async: false,
+                url: ajaxIp + "/api/v2/reports/export_student_details",
+                headers: {
+                    'Authorization': "Bearer " + isLogin,
+                },
+                data: {
+                    "exam_id": exam_id,
+                    "subject_id": sub_id,
+                    "classroom_id":null,
+                },
+                success: function(data) {
+                    console.log(data);
+                    console.log(data.file_path);
+                    $(".study_k_101 button").parent().attr("href", ajaxIp + data.file_path);
+
+                },
+                error: function() {
+
+                }
+
+            });
+            }else{
+                $.ajax({
                 type: "POST",
                 async: false,
                 url: ajaxIp + "/api/v2/reports/export_student_details",
@@ -2217,7 +2397,9 @@ angular.module("myApp.controller", [])
 
                 }
 
-            });
+            }); 
+            }
+           
 
         };
         $(".study_k_left_ul").on('click', 'li', function(event) {
@@ -2288,6 +2470,7 @@ angular.module("myApp.controller", [])
                 for (var i = 0; i < data.length; i++) {
                     $(".study_k_km01").append('<option value="' + data[i].name + '" data-id=' + data[i].id + '>' + data[i].name + '</option>')
                 };
+                $(".study_k_km02").append('<option value="" data-id="11111">全部科目</option>');
                 for (var i = 0; i < data[0].classrooms.length; i++) {
                     $(".study_k_km02").append('<option value="" data-id=' + data[0].classrooms[i].classroom_id + '>' + data[0].classrooms[i].classroom_name + '</option>')
                     $(".study_k_km02").attr("data-id", data[0].classrooms[0].classroom_id);
@@ -2304,9 +2487,12 @@ angular.module("myApp.controller", [])
                     // $(".study_q_km01 option").eq(0).remove();
                     $(".study_k_km02 option").remove();
                     $(".study_k_km03 option").remove();
+                    $(".study_k_km02").append('<option value="" data-id="11111">全部科目</option>');
+                  
+                    $(".study_k_km02").attr("data-id", $(".study_k_km01 option").eq(0).attr("data-id"));
                     for (var i = 0; i < data[index02].classrooms.length; i++) {
                         $(".study_k_km02").append('<option value="" data-id=' + data[index02].classrooms[i].classroom_id + '>' + data[index02].classrooms[i].classroom_name + '</option>')
-                        $(".study_k_km02").attr("data-id", data[index02].classrooms[0].classroom_id);
+                       
                     }
                     for (var i = 0; i < data[index02].subjects.length; i++) {
                         $(".study_k_km03").append('<option value="" data-id=' + data[index02].subjects[i].subject_id + '>' + data[index02].subjects[i].name + '</option>')
@@ -2387,6 +2573,33 @@ angular.module("myApp.controller", [])
             console.log(exam_id);
             console.log(class_id);
             console.log(sub_id);
+            if(class_id==11111){
+                 $.ajax({
+                type: "POST",
+                url: ajaxIp + "/api/v2/reports/subject_integrated",
+                headers: {
+                    'Authorization': "Bearer " + isLogin
+                },
+                data: {
+                    "exam_id": exam_id,
+                    "subject_id": sub_id,
+                    "classroom_id":null,
+                },
+                success: function(data) {
+                    console.log(data);
+                    $(".study_k_102_bo").html(" ");
+                    for (var i = 0; i < data.length; i++) {
+                        var a_pass_rate=data[i].pass_rate+"%";
+                        $(".study_k_102_bo").append('<tr><td>' + data[i].class_name + '</td><td>' + data[i].subject_name + '</td><td>' + data[i].average + '</td><td>' + data[i].highest_score + '</td><td>' + data[i].lowest_score + '</td><td>' + data[i].range + '</td><td>' + data[i].fine_number + '</td><td>' + data[i].fine_rate + '</td><td>' + data[i].pass_number + '</td><td>' + a_pass_rate+ '</td><td>' + data[i].fail_number + '</td><td>' + data[i].standard_deviation + '</td></tr>');
+                    }
+
+
+                },
+                error: function() {}
+
+            });
+               
+            }else{
             $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/reports/subject_integrated",
@@ -2411,6 +2624,8 @@ angular.module("myApp.controller", [])
                 error: function() {}
 
             });
+        }
+
         };
 
 
@@ -2431,6 +2646,41 @@ angular.module("myApp.controller", [])
             console.log(exam_id);
             console.log(class_id);
             console.log(sub_id);
+            if(class_id==11111){
+              $.ajax({
+                type: "POST",
+                url: ajaxIp + "/api/v2/reports/total_points_and_ranking",
+                headers: {
+                    'Authorization': "Bearer " + isLogin
+                },
+                data: {
+                    "exam_id": exam_id,
+                    "classroom_id": null,
+                },
+                success: function(data) {
+                    console.log(data);
+                    $(".study_k_201_he").html(" ");
+                    $(".study_k_201_bo").html(" ");
+                    for (var i = 0; i < data.titile.length; i++) {
+                        $(".study_k_201_he").append('<th>' + data.titile[i] + '</th>');
+                    };
+                    for (var i = 0; i < data.data.length; i++) {
+                        var a = data.data[i];
+                        $(".study_k_201_bo").append('<tr></tr>');
+                        for (var c = 0; c < a.length; c++) {
+                            $(".study_k_201_bo tr").eq(i).append('<td>' + a[c] + '</td>');
+                        }
+
+                    }
+
+
+                },
+                error: function() {
+
+                }
+
+            });
+            }else{
             $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/reports/total_points_and_ranking",
@@ -2464,6 +2714,7 @@ angular.module("myApp.controller", [])
                 }
 
             });
+        }
         };
 
 
@@ -2483,6 +2734,44 @@ angular.module("myApp.controller", [])
             console.log(exam_id);
             console.log(class_id);
             console.log(sub_id);
+            if(class_id==11111){
+              $.ajax({
+                type: "POST",
+                url: ajaxIp + "/api/v2/reports/single_and_level",
+                headers: {
+                    'Authorization': "Bearer " + isLogin
+                },
+                data: {
+                    "exam_id": exam_id,
+                    "classroom_id": null,
+                },
+                success: function(data) {
+                    console.log(data);
+                    $(".study_k_301_he").html(" ");
+                    $(".study_k_301_bo").html(" ");
+                    for (var i = 0; i < data.titile.length; i++) {
+
+                        $(".study_k_301_he").append('<th>' + data.titile[i] + '</th>');
+                    };
+
+
+                    for (var i = 0; i < data.data.length; i++) {
+                        var a = data.data[i];
+                        $(".study_k_301_bo").append('<tr></tr>');
+
+                        for (var c = 0; c < a.length; c++) {
+                            $(".study_k_301_bo tr").eq(i).append('<td>' + a[c] + '</td>');
+                        }
+
+                    }
+
+
+                },
+                error: function() {}
+
+            });
+            }else{   
+            
             $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/reports/single_and_level",
@@ -2518,6 +2807,7 @@ angular.module("myApp.controller", [])
                 error: function() {}
 
             });
+        }
         };
         // 各科成绩名次
         function study_k04() {
@@ -2535,6 +2825,46 @@ angular.module("myApp.controller", [])
             console.log(exam_id);
             console.log(class_id);
             console.log(sub_id);
+            if(class_id==11111){
+           $.ajax({
+                type: "POST",
+                url: ajaxIp + "/api/v2/reports/all_subjects_ranking",
+                headers: {
+                    'Authorization': "Bearer " + isLogin
+                },
+                data: {
+                    "exam_id": exam_id,
+                    "classroom_id": null,
+                    "subject_id": sub_id,
+                },
+                success: function(data) {
+                    console.log(data);
+                    $(".study_k_401_he").html(" ");
+                    $(".study_k_401_bo").html(" ");
+                    for (var i = 0; i < data.titile.length; i++) {
+
+                        $(".study_k_401_he").append('<th>' + data.titile[i] + '</th>');
+                    };
+
+
+                    for (var i = 0; i < data.data.length; i++) {
+                        var a = data.data[i];
+                        $(".study_k_401_bo").append('<tr></tr>');
+
+                         for (var c = 0; c < a.length; c++) {
+                            $(".study_k_401_bo tr").eq(i).append('<td>' + a[c] + '</td>');
+                        }
+
+                    }
+
+
+                },
+                error: function() {}
+
+            });
+            }else{
+
+
             $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/reports/all_subjects_ranking",
@@ -2560,7 +2890,7 @@ angular.module("myApp.controller", [])
                         var a = data.data[i];
                         $(".study_k_401_bo").append('<tr></tr>');
 
-                        for (var c = 0; c < a.length; c++) {
+                         for (var c = 0; c < a.length; c++) {
                             $(".study_k_401_bo tr").eq(i).append('<td>' + a[c] + '</td>');
                         }
 
@@ -2570,7 +2900,7 @@ angular.module("myApp.controller", [])
                 },
                 error: function() {}
 
-            });
+            });}
         };
         // 语数外综合名次
         function study_k05() {
@@ -2588,6 +2918,45 @@ angular.module("myApp.controller", [])
             console.log(exam_id);
             console.log(class_id);
             console.log(sub_id);
+            if(class_id==11111){
+               $.ajax({
+                type: "POST",
+                url: ajaxIp + "/api/v2/reports/chinese_math_english_ranking",
+                headers: {
+                    'Authorization': "Bearer " + isLogin
+                },
+                data: {
+                    "exam_id": exam_id,
+                    "classroom_id": null,
+                },
+                success: function(data) {
+                    console.log(data);
+                    $(".study_k_501_he").html(" ");
+                    $(".study_k_501_bo").html(" ");
+                    for (var i = 0; i < data.titile.length; i++) {
+
+                        $(".study_k_501_he").append('<th>' + data.titile[i] + '</th>');
+                    };
+
+
+                    for (var i = 0; i < data.data.length; i++) {
+                        var a = data.data[i];
+                        $(".study_k_501_bo").append('<tr></tr>');
+
+                        for (var c = 0; c < a.length; c++) {
+                            $(".study_k_501_bo tr").eq(i).append('<td>' + a[c] + '</td>');
+                        }
+
+                    }
+
+
+                },
+                error: function() {
+
+                }
+
+            });
+            }else{
             $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/reports/chinese_math_english_ranking",
@@ -2624,7 +2993,7 @@ angular.module("myApp.controller", [])
 
                 }
 
-            });
+            });}
         }
         // 学生详细成绩单
         function study_k06() {
@@ -2642,7 +3011,48 @@ angular.module("myApp.controller", [])
             console.log(exam_id);
             console.log(class_id);
             console.log(sub_id);
-            $.ajax({
+            if(class_id==11111){
+                  $.ajax({
+                type: "POST",
+                url: ajaxIp + "/api/v2/reports/student_details",
+                headers: {
+                    'Authorization': "Bearer " + isLogin
+                },
+                data: {
+                    "exam_id": exam_id,
+                    "subject_id": sub_id,
+                    "classroom_id":null,
+                },
+                success: function(data) {
+                    console.log(data);
+                    // $(".study_k_601_he").html(" ");
+                    // $(".study_k_601_bo").html(" ");
+                    $(".study_k_601").html(" ");
+                    $(".study_k_601").append('<table id="MyTable" style="width: 960px;font-size: medium;" border="1" cellspacing="0" cellpadding="0" bordercolor="#cccccc"><thead><tr class="study_k_601_he"></tr></tr></thead><tbody class="study_k_601_bo"></tbody></table>');
+
+                    for (var i = 0; i < data.titile.length; i++) {
+
+                        $(".study_k_601_he").append('<th>' + data.titile[i] + '</th>');
+                    };
+
+
+                    for (var i = 0; i < data.data.length; i++) {
+                        var a = data.data[i];
+                        $(".study_k_601_bo").append('<tr></tr>');
+                        for (var c = 0; c < a.length; c++) {
+                            $(".study_k_601_bo tr").eq(i).append('<td>' + a[c] + '</td>');
+                        }
+
+                    }
+                    FixTable("MyTable", 1, 900, 500);
+                },
+                error: function() {
+
+                }
+
+            });
+            }else{
+                    $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/reports/student_details",
                 headers: {
@@ -2681,6 +3091,8 @@ angular.module("myApp.controller", [])
                 }
 
             });
+            }
+        
         }
 
         function FixTable(TableID, FixColumnNumber, width, height) {
@@ -3530,7 +3942,7 @@ angular.module("myApp.controller", [])
                         $(".exam_h_102_he").append('<th>' + a[i] + '</th>');
                     }
                     for (var i = 0; i < b.length; i++) {
-                        $(".exam_h_102_bo").append('<tr><td>' + b[i].id + '</td><td>' + b[i].class_name + '</td><td>' + b[i].subject_name + '</td><td>' + b[i].class_average + '</td><td>' + b[i].ranking + '</td><td>' + b[i].highest_score + '</td><td>' + b[i].lowest_score + '</td><td>' + b[i].standard_deviation + '</td><td>' + b[i].average_range + '</td></tr>');
+                        $(".exam_h_102_bo").append('<tr><td>' + b[i].class_name + '</td><td>' + b[i].subject_name + '</td><td>' + b[i].class_average + '</td><td>' + b[i].ranking + '</td><td>' + b[i].highest_score + '</td><td>' + b[i].lowest_score + '</td><td>' + b[i].standard_deviation + '</td><td>' + b[i].standard_score + '</td><td>' + b[i].average_range + '</td></tr>');
                     }
 
 
