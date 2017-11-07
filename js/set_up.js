@@ -286,9 +286,9 @@ $(function() {
 		    });
 		})
 
+	})
 
-
-	    $('.modal-wrap-class-management .determine').on('click' , function(){
+	 $('.modal-wrap-class-management .determine').on('click' , function(){
 	    	var del_grade = $('.modal-wrap-class-management #del-class-name').val();
 	    	// var class_count = $('#class-name').val();
 	    	var is_extra = $('.modal-wrap-class-management').attr('is_extra')
@@ -324,8 +324,6 @@ $(function() {
 		    });
 	    })
 
-	})
-
 	function inputFlileName(){
 		var file = $("#inPath").val();
 		var fileName = getFileName(file);
@@ -347,7 +345,6 @@ $(function() {
 
 
 	$('.import-wrap .determine').click(function(){
-
 		var formData = new FormData();
 		formData.append("import_student",$("#inPath")[0].files[0]);
 		console.log(isStudent)
@@ -378,14 +375,11 @@ $(function() {
 				contentType : false,
 				beforeSend:function(){
 					console.log("正在进行，请稍候");
-					$('.modal-main').animate({'top': '45%','opacity': 0},500);
-					 $(".load-bg").show();
-					 $(".load-animate p").html("正在进行，请稍候");
 				},
 				success : function(data) {
 					console.log(data)
 					alert(data.message)
-					$(".load-bg").hide();
+					$('.modal-main').animate({'top': '45%','opacity': 0},500);
 					$('.modal-shadow').animate({'opacity': 0},500);
 					setTimeout(function(){
 						$('.modal-wrap').hide();
@@ -408,14 +402,11 @@ $(function() {
 				contentType : false,
 				beforeSend:function(){
 					console.log("正在进行，请稍候");
-					$('.modal-main').animate({'top': '45%','opacity': 0},500);
-				    $(".load-bg").show();
-				     $(".load-animate p").html("正在进行，请稍候");
 				},
 				success : function(data) {
 					console.log(data);
 					alert(data.message)
-					 $(".load-bg").hide();
+					$('.modal-main').animate({'top': '45%','opacity': 0},500);
 					$('.modal-shadow').animate({'opacity': 0},500);
 					setTimeout(function(){
 						$('.modal-wrap').hide();
@@ -428,7 +419,7 @@ $(function() {
 		}
 
 	})
-	
+
 	$('.batch-import').click(function(){
 		isStudent = $(this).attr('data-name');
 		console.log(isStudent)
@@ -2142,6 +2133,9 @@ $(function() {
   		students_selectALl(["is_extra",false]);
   		// batch_export('.user-change-password',null)
   	}
+  	if($(this).hasClass('word-import')){
+  		get_all_word_exam();
+  	}
   });
 
 	// $('.user-information').on('click', function(){
@@ -3474,6 +3468,7 @@ $(function() {
 		$('.import-word-wrap .modal-main').animate({'top': '50%','opacity': 1},500);
 		$('.import-word-wrap .modal-shadow').animate({'opacity': 0.3},500);
 		$('.import-word-wrap').show();
+		$('.import-word-wrap #paper-exam').html('');
 		$('.import-word-wrap #paper-grade').html('<option value="0">全部年级</option>');
 		// 获取所有年级
 		$.ajax({
@@ -3495,53 +3490,45 @@ $(function() {
         	// window.location.href = './login.html'
         }
     });
-		// 获取考试列表
-		$.ajax({
-	   	type: "GET",
-	   	url: ajaxIp+"/api/v2/exams",
-	  	dataType: "JSON",
-	  	headers: {'Authorization': "Bearer " + isLogin},
-	  	success: function(data){
-	  		console.log(data)
-				show_exams_list(data);
-      },
-      error: function(){
-      	// alert('请稍后从新尝试登录或者联系管理员');
-      	// localStorage.clear();
-      	// window.location.href = './login'
-      }
-	  });
-		// 显示考试列表
-		function show_exams_list(exam){
-			var exam_length = exam.length;
-			$('.import-word-wrap #paper-exam').html('');
-			for (var i = 0; i < exam_length; i++) {
-				var exam_option = '<option data-id="'+exam[i].id+'">'+exam[i].name+'</option>';
-				$('.import-word-wrap #paper-exam').append(exam_option);
-			};
-			$('.import-word-wrap #paper-exam').attr('data-id',exam[0].id);
 
-		}
+		
+  });
+	$('body').on('change', '#paper-subject', function() {
 		// 获取可以绑定的考试科目列表
 		var exam_type = $('#paper-type').val();
-		var grade_id = 14;
-		var subject_id = 11;
-		$.ajax({
-	   	type: "POST",
-	   	url: ajaxIp+"/api/v2/exam_subjects/doc_exam_subjects",
-	  	dataType: "JSON",
-	  	data:{'grade_id':grade_id,'subject_id':subject_id,'exam_type':exam_type},
-	  	headers: {'Authorization': "Bearer " + isLogin},
-	  	success: function(data){
-	  		console.log(data)
-      },
-      error: function(){
-      	// alert('请稍后从新尝试登录或者联系管理员');
-      	// localStorage.clear();
-      	// window.location.href = './login'
-      }
-	  });
-  });
+		var grade_id = $('#paper-grade').val();
+		var subject_id = $('#paper-subject').val();
+		if(grade_id!=0&&subject_id!=0){
+			$.ajax({
+		   	type: "POST",
+		   	url: ajaxIp+"/api/v2/exam_subjects/doc_exam_subjects",
+		  	dataType: "JSON",
+		  	data:{'grade_id':grade_id,'subject_id':subject_id,'exam_type':exam_type},
+		  	headers: {'Authorization': "Bearer " + isLogin},
+		  	success: function(data){
+		  		console.log(data);
+		  		show_exams_list(data);
+	      },
+	      error: function(){
+	      	// alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login'
+	      }
+		  });
+	  }
+	});
+
+			// 显示考试列表
+	function show_exams_list(exam){
+		var exam_length = exam.length;
+		$('.import-word-wrap #paper-exam').html('');
+		for (var i = 0; i < exam_length; i++) {
+			var exam_option = '<option value="'+exam[i].exam_subject_id+'">'+exam[i].exam_name+'</option>';
+			$('.import-word-wrap #paper-exam').append(exam_option);
+		};
+		$('.import-word-wrap #paper-exam').attr('value',exam[0].id);
+
+		}
   // 根据年级获取科目
   $('.import-word-wrap #paper-grade').change(function(){
   	console.log(222)
@@ -3590,15 +3577,19 @@ $(function() {
 		}
 		var grade_id = $('#paper-grade').val();
 		var subject_id = $('#paper-subject').val();
-		var exam_subject_id = $('#paper-subject').val();
+		var exam_subject_id = $('#paper-exam').val();
+		formData.append("exam_subject_id",exam_subject_id);
+		formData.append("subject_id",subject_id);
+		formData.append("grade_id",grade_id);
+		console.log(grade_id,subject_id,exam_subject_id);
 		get_word_info(formData,grade_id,subject_id,exam_subject_id);
 		$('.import-word-wrap').hide();
 	});
 
-	function get_word_info (formData,g_id,s_id,e_id) {
+	function get_word_info (formData) {
 		$.ajax({
 	   	type: "POST",
-	   	url: ajaxIp+"/api/v2/ddocxes?token=TOKEN?exam_subject_id="+e_id+"&subject_id="+s_id+"&grade_id="+g_id+"",
+	   	url: ajaxIp+"/api/v2/ddocxes?token=TOKEN",
 	  	dataType: "JSON",
 	  	data: formData,
 	  	headers: {'Authorization': "Bearer " + isLogin},
@@ -3642,7 +3633,85 @@ $(function() {
 
 	}
 
+	 // 获取试卷列表
+	function get_all_word_exam(){
+		var docx_id=25;
+	 	$.ajax({
+	   	type: "GET",
+	   	// url: ajaxIp+"/api/v2/question_banks?docx_id="+docx_id+"",
+	   	url: ajaxIp+"/api/v2/ddocxes",
+	  	dataType: "JSON",
+	  	data:{'limit':10,'page':1},
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	success: function(data){
+	  		console.log(data);
+	  		// for (var i = 0; i < data.length; i++) {
+	  		// 	$('.word-import-right').append(data[i].content);
 
+	  		// };
+	  		word_exam_list(data);
+      },
+      error: function(){
+      	// alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login'
+      }
+	  });
+	}
+
+	function word_exam_list(exam_info){
+		var num = exam_info.length;
+		var ii_num;
+		console.log(num+'2222222222222222222222')
+		if(num==0){
+			ii_num=1;
+		}else if(num>0 && num<10){
+			ii_num=1;
+		}else{
+			ii_num=Math.ceil(num/10);
+		}
+		$.jqPaginator('#exams-pagination', {
+	    totalPages: ii_num,
+	    visiblePages: 5,
+	    currentPage: 1,
+	    disableClass: 'disableClass',
+	    activeClass:'activeClass',
+	    prev: '<li class="prev"><a href="javascript:;" class="pagination-color">上一页</a></li>',
+	    next: '<li class="next"><a href="javascript:;" class="pagination-color">下一页</a></li>',
+	    first: '<li class="prev"><a href="javascript:;" class="pagination-color">首页</a></li>',
+	    last: '<li class="next"><a href="javascript:;" class="pagination-color">尾页</a></li>',
+	    page: '<li class="page"><a href="javascript:;" class="pagination-color">{{page}}</a></li>',
+	    onPageChange: function (num) {
+				var iDataI = {'page':num, 'limit': 10};
+        $.ajax({
+		     	type: "GET",
+		     	url: ajaxIp+"/api/v2/ddocxes",
+		    	dataType: "JSON",
+		    	headers: {'Authorization': "Bearer " + isLogin},
+		    	data: iDataI,
+		    	success: function(data){
+		    		console.log(data)
+		  			show_word_exam_list(data);
+		        },
+		        error: function(){
+		        	// alert('请稍后从新尝试登录或者联系管理员');
+		        	// localStorage.clear();
+		        	// window.location.href = './login.html'
+		        }
+		    });
+      }
+    });
+	}
+
+	function show_word_exam_list(exam_info){
+		$('.words-in-tabble tbody').html('');
+		if(exam_info){
+			for (var i = 0; i < exam_info.length; i++) {
+				var exam_tr='<tr style="border-bottom:1px solid #ccc;" docx_id="'+exam_info[i].docx_id+'" exam_subject_id="'+exam_info[i].exam_subject_id+'"><td>'+exam_info[i].exam_name+'</td><td>'+exam_info[i].exam_type_text+'</td><td>'+exam_info[i].grade_name+'</td><td>'+exam_info[i].subject_name+'</td><td><ul class="word-operation"><li><a href="javascript:;" class="a-btn look-btn look-paper-btn"><i class="iconfont">&#xe61e;</i>编辑试卷</a></li><li><a href="javascript:;" class="a-btn up-btn up-two-btn"><i class="iconfont">&#xe6a7;</i>上传双细</a></li><li><a href="javascript:;" class="a-btn look-two-btn">	<i class="iconfont">&#xe66d;</i>查看双细</a></li></ul><ul class="word-operation">	<li><a href="javascript:;" class="a-btn up-btn up-answer-btn">		<i class="iconfont">&#xe632;</i>上传答案</a>	</li>	<li><a href="javascript:;" class="a-btn look-btn look-answer-btn">		<i class="iconfont">&#xe683;</i>查看答案</a>	</li>	<li><a href="javascript:;" class="a-btn dele-btn"><i class="iconfont">&#xe616;</i>删除</a>	</li></ul></td></tr>';
+				$('.words-in-tabble tbody').append(exam_tr);
+			};
+		}
+	}
 
 
 

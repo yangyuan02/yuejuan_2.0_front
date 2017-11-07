@@ -257,6 +257,9 @@ $(function(){
 		  data:data_value,
 		  success: function(data){
 		  	console.log(data);
+		  	if(data.ok){
+		  		alert(data.ok);
+		  	}
 		  	console.log(data.ok=="完成阅卷！")
 		  	if(data.ok=="完成阅卷！"){
 		  		var cur_index = parseInt($('.finished').text());
@@ -271,10 +274,12 @@ $(function(){
 			  		};
 			  	}
 			  	console.log(a_settings);
-			  	s_i_id = data.scanner_image_id[0];
-			  	e_s_id = data.exam_subject_id;
-			  	current_index = data.finished_count;
-			  	show_img_info(data,name,index);
+			  	if(data.exam_subject_id){
+				  	s_i_id = data.scanner_image_id[0];
+				  	e_s_id = data.exam_subject_id;
+				  	current_index = data.finished_count;
+				  	show_img_info(data,name,index);
+			  	}
 		  	}
 		  	
 		  },
@@ -631,7 +636,7 @@ $(function(){
 		var name = $('.paper-item-name').text();
 		a_settings.answer_setting_score;
 		var input_value = $('#p-table tbody').children().find('.yuejuan_score');
-		console.log(input_value)
+		console.log(input_value,a_settings.length)
 		var input_length = input_value.length;
 		for (var i = 0; i < input_length; i++) {
 			var value = $(input_value[i]).val();
@@ -684,7 +689,7 @@ $(function(){
 			'mark':coordinateArr,
 			'personal':{paper_data_width,paper_data_height}
 		}
-		var a = parseInt($('.on-num').text());
+		var a = parseInt($('.finished').text());
 		var b = parseInt($('.all-paper').text());
 		console.log(a,b);
 

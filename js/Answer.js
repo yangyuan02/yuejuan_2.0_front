@@ -363,17 +363,19 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var totaltwo = parseInt($scope.result.numbel) * Number($scope.result.itemcoreS)//总分数
         var otherHeight = []
         var fillWidth = []
+        var childWidth = [230]
         var fillsNum = []
         var childNum = [0]
-        var imgurl = []
+        var img = []
         for (var i = 0; i < parseInt($scope.result.numbel); i++) {//多少个小题
             noarray.push(i + parseInt($scope.result.no));
             if($scope.index==5){
+                var obj = {}
                 otherHeight.push(150)//其他题默认150px
-                imgurl.push(undefined)
+                img.push(obj)
             }
             if($scope.index==3){
-                fillWidth.push(230)
+                fillWidth.push(childWidth)
                 fillsNum.push(childNum)
             }
         }
@@ -430,7 +432,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             verticalHeigth:verticalHeigth,//题组行间距
             LineType:0,//线类型0代表实线非0虚线
             hideLineType:0,//线类型0代表显示非1隐藏
-            Linenumbel:Linenumbel//横线类数量
+            Linenumbel:Linenumbel,//横线类数量
+            img:img
         }
         var itemCoresArr = []//每题分数数组
         for (var i = 0; i < obj.numbel; i++) {
@@ -446,7 +449,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         if($scope.index==5){
             obj.otherisradio = $scope.result.otherisradio
-            obj.imgurl = imgurl
         }
         if (!checkIsNUll()) {
             return false
@@ -471,6 +473,15 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             $scope.setWidth = 100 + '%'
         }
         return $scope.setWidth
+    }
+    $scope.setImgStyle = function (obj) {
+        var ImgStyle = {
+            "top":obj.top+'px',
+            "left":obj.left+'px',
+            "width":obj.width+'px',
+            "height":obj.height+'px',
+        }
+        return ImgStyle
     }
     //关闭
     var close = function () {
@@ -802,9 +813,16 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 obj.list[obj.index].name = obj.name
             }
             if (obj.type == 1) {//增加小题
+                var childNum = [0]
+                var childWidth = [230]
+                var a = {}
                 obj.list[obj.index].no.push(obj.no)
                 obj.list[obj.index].otherHeight.push(150)
                 obj.list[obj.index].fillWidth.push(230)
+                obj.list[obj.index].fillsNum.push(childNum)
+                obj.list[obj.index].fillWidth.push(childWidth)
+
+                obj.list[obj.index].img.push(a)
                 obj.list[obj.index].itemCoresArr.push(obj.score)
                 obj.list[obj.index].numbel++  //题目数量
                 // obj.list[obj.index].itemCores = obj.score  //当前小题分值
@@ -820,7 +838,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 var delScore = obj.list[obj.index].itemCoresArr.pop()
                 obj.list[obj.index].totalCores = obj.list[obj.index].totalCores - delScore
                 $scope.countScore = $scope.countScore - delScore
-                console.log($scope.listObj)
+                if(obj.list[obj.index].no.length==0){
+                    obj.list.splice(obj.index,1)
+                }
             }
             if (obj.type == 3) {//修改分数
                 var oldScore = Number(obj.list[obj.index].itemCoresArr[obj.itmeIndex])//最开始的分数
@@ -864,6 +884,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
 
     $scope.dayin = function () {//打印
+        $("table").removeClass("table_focus")
+        $(".student").removeClass("table_focus")
         $(".A_Nav").css({"display": "none"})
         $(".cand").hide()
         $("#menu").css({"display": "none"})
@@ -1086,6 +1108,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         console.log(answer_id)
         findScopeList(index, options)
     }
+    $scope.sortIndex = 0
     $scope.selectBigQuestion = function (index) {//选中题目
         $scope.sortIndex = index
     }
@@ -1361,6 +1384,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
 
             }
         });
+        if($scope.bigAnswer.length == 1){
+            $scope.sortIndex = 0
+        }
         if ($scope.bigAnswer.length == 0) {
             $scope.closeAnswerModel()
         }
@@ -1715,9 +1741,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.showMenuFlag = true
         if($scope.tabParentIndex!=-1){
             $scope.otherHeight = getOBjList()[$scope.tabIndex].otherHeight
-            $scope.LineTypeWord = getOBjList()[$scope.tabIndex].LineType==0?'虚线':'实线'
-            $scope.LineTypeShow = getOBjList()[$scope.tabIndex].hideLineType==0?'隐藏':'显示'
             $scope.meunType = getOBjList()[$scope.tabIndex].type//右键菜单显示控制
+            $scope.meunOtherisradio = getOBjList()[$scope.tabIndex].otherisradio//右键菜单显示控制
+            $scope.meunrticleType = getOBjList()[$scope.tabIndex].articleType//右键菜单显示控制
         }
     }
     var eleFile = document.getElementById("imgOne")
@@ -1734,7 +1760,11 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             processData: false,  // 不处理数据
             contentType: false,   // 不设置内容类型
             success: function (data) {
-                getOBjList()[$scope.tabIndex].imgurl[$scope.img_no-1] = data[0].figure
+                getOBjList()[$scope.tabIndex].img[$scope.img_no-1].url = data[0].figure
+                getOBjList()[$scope.tabIndex].img[$scope.img_no-1].top = 10
+                getOBjList()[$scope.tabIndex].img[$scope.img_no-1].left = 0
+                getOBjList()[$scope.tabIndex].img[$scope.img_no-1].height = 140
+                getOBjList()[$scope.tabIndex].img[$scope.img_no-1].width = 'auto'
                 $scope.closeCand()
             },
 
@@ -1742,7 +1772,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
     /*设置题组高度*/
     $scope.setGroupHeigh = function (heights) {
-        getOBjList()[$scope.tabIndex].otherHeight = heights.split(',')
+        getOBjList()[$scope.tabIndex].otherHeight = heights.split(/[,，]/)
         $scope.closeCand()
     }
     /**设置填空题格式**/
@@ -1764,18 +1794,27 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.fillLists.push(obj)
             }
         }
+        console.log($scope.fillLists)
     }
     /*************确定**************/
     $scope.sureFillQuestion = function () {
         $scope.fillLists.forEach(function (item,index,arr) {
-            getOBjList()[$scope.tabIndex].fillWidth[index] = arr[index].fill_w
-            getOBjList()[$scope.tabIndex].fillsNum[index] = getfillChildNums(arr[index].fill_num)
+            if(arr[index].fill_w>597){
+                alert("第"+(index+1)+'大于597,最大为597')
+                return false
+            }
+            getOBjList()[$scope.tabIndex].fillWidth[index] = typeof arr[index].fill_w === 'string'?arr[index].fill_w.split(/[,，]/):arr[index].fill_w
+            getOBjList()[$scope.tabIndex].fillsNum[index] = getfillChildNums(arr[index].fill_num).resutl
             function getfillChildNums(num) {
                 var resutl = []
+                var itmeWidth = []
                 for(var i = 0;i<num;i++){
+                    console.log(num)
                     resutl.push(i)
                 }
-                return resutl
+                return {
+                    resutl:resutl
+                }
             }
             $scope.closeCand()
         })
@@ -1806,6 +1845,34 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         getOBjList()[$scope.tabIndex].hideLineType = !getOBjList()[$scope.tabIndex].hideLineType
         $("#menu").hide()
     }
+
+    /**
+     * 获取图片格式
+     */
+    $scope.selectImg = function (index) {
+        $scope.imgIndex = index
+    }
+    $scope.getImgFormat = function () {
+        $scope.imgObj  = {}
+        $scope.imgObj.topMargin = getOBjList()[$scope.tabIndex].img[$scope.imgIndex].top
+        $scope.imgObj.leftMargin = getOBjList()[$scope.tabIndex].img[$scope.imgIndex].left
+        $scope.imgObj.imgWidth = getOBjList()[$scope.tabIndex].img[$scope.imgIndex].width
+        $scope.imgObj.imgHeight = getOBjList()[$scope.tabIndex].img[$scope.imgIndex].height
+        $(".imgFormat").show()
+        $("#menu").hide()
+    }
+    /**
+     * 设置图片格式
+     * @param index   图片索引
+     * @param options
+     */
+    $scope.setImgFormat = function () {
+        getOBjList()[$scope.tabIndex].img[$scope.imgIndex].top= $scope.imgObj.topMargin
+        getOBjList()[$scope.tabIndex].img[$scope.imgIndex].left= $scope.imgObj.leftMargin
+        getOBjList()[$scope.tabIndex].img[$scope.imgIndex].width= $scope.imgObj.imgWidth
+        getOBjList()[$scope.tabIndex].img[$scope.imgIndex].height= $scope.imgObj.imgHeight
+        $(".imgFormat").hide()
+    }
     /*******************************保存*************************************************/
     $scope.save = function () {//保存模板
         if ($scope.listObj.length <= 0) {
@@ -1814,6 +1881,23 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         var isLogin = localStorage.getItem("token");
 
+        function batchTitle(answers){//批量修改题目
+            var allPage = allPagePost()
+            var answersData = []
+            for(var i = 0;i<allPage.length;i++){
+                var obj = {}
+                obj.answer_id = answers[i]
+                obj.name = allPage[i].name
+                answersData.push(obj)
+            }
+            $.ajax({
+                type:"PATCH",
+                url:"/api/v2/answers/batch_change_name",
+                headers: {'Authorization': "Bearer " + isLogin},
+                async: false,
+                data:{"answers": JSON.stringify(answersData)}
+            })
+        }
         function bindRegion() {
             var answer_ids = []
             for (var i = 0; i < answer_id.length; i++) {
@@ -1855,7 +1939,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                                 }
                             }
                         )
-                        // insertImg()
+                        batchTitle(answer_ids)
                     }
                 }
             )
@@ -1882,6 +1966,36 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             bindRegion()
         }
     }
-})
+    /********************************************************隐藏功能修改总分********************************/
+    $scope.setCountScore = function () {
+        $scope.countScore = Number($scope.countScore)
+        $scope.closeCand()
+    }
+ })
+
+m1.directive('contenteditable', function() {
+    return {
+        restrict: 'A',
+        require: '?ngModel',
+        link: function(scope, element, attrs, ngModel) {
+            if (!ngModel) {
+                return;
+            }
+            ngModel.$render = function() {
+                element.html(ngModel.$viewValue || '');
+            };
+            element.on('blur keyup change', function() {
+                scope.$apply(readViewText);
+            });
+            function readViewText() {
+                var html = element.html();
+                if (attrs.stripBr && html === '<br>') {
+                    html = '';
+                }
+                ngModel.$setViewValue(html);
+            }
+        }
+    };
+});
 
 
