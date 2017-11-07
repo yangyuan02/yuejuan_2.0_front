@@ -2136,7 +2136,7 @@ $(function() {
   	if($(this).hasClass('word-import')){
   		get_all_word_exam();
   		var faye = new Faye.Client(fayeIp+'/api/v2/events');
-  		console.log(faye)
+  		console.log(fayeIp,faye)
 		    faye.subscribe("/docx/questions" , function (data) {
 	        console.log(data)
 	        if(data.message=='ok'){
