@@ -80,7 +80,7 @@
 								<a href="javascript:;" class="look-detail right"><i class="iconfont">&#xe699;</i>查看解析</a>
 							</div>
 							<div class="item-cont" contenteditable="true">
-								<p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （    ）</p>
+								<p>2.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （    ）</p>
 
 								<p>A．粒子带正电</p>
 
@@ -108,7 +108,7 @@
 								<a href="javascript:;" class="look-detail right"><i class="iconfont">&#xe699;</i>查看解析</a>
 							</div>
 							<div class="item-cont" contenteditable="true">
-								<p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （    ）</p>
+								<p>3.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （    ）</p>
 
 								<p>A．粒子带正电</p>
 
@@ -136,7 +136,7 @@
 								<a href="javascript:;" class="look-detail right"><i class="iconfont">&#xe699;</i>查看解析</a>
 							</div>
 							<div class="item-cont" contenteditable="true">
-								<p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （    ）</p>
+								<p>4.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （    ）</p>
 
 								<p>A．粒子带正电</p>
 
@@ -163,7 +163,276 @@
 						<ul class="pagination" id="pagination"></ul>
 					</div>
 				</div>
+				<script type="text/javascript">
+				//上移
+					$(".item-up").click(function(event) {
+					// alert($(this).parent().parent().prev().html());
+					var a=$(this).parent().parent().prev().html();
+					var b=$(this).parent().parent().parent().prev().children('.item-cont').html();
+					
+					$(this).parent().parent().parent().prev().children('.item-cont').html(a);
+					$(this).parent().parent().prev().html(b);
+
+					});
+					//下移
+					$(".item-down").click(function(event) {
+					alert($(this).parent().parent().prev().html());
+					var a=$(this).parent().parent().prev().html();
+					var b=$(this).parent().parent().parent().next().children('.item-cont').html();
+					
+					$(this).parent().parent().parent().next().children('.item-cont').html(a);
+					$(this).parent().parent().prev().html(b);
+
+					});
+					//删除
+					$(".item-dele").click(function(event) {
+						$(this).parent().parent().parent().remove();
+					});
+					//向下合并
+					$(".item-merge").click(function(event){
+						var a=$(this).parent().parent().prev().html();
+						
+						$(this).parent().parent().parent().next().children('.item-cont').append(a);
+						$(this).parent().parent().parent().remove(); 
+					});
+				</script>
+				<!-- 弹出 -->
+			<div class="sub_sz">
+				<p class="sub_sz_p">题组设置<div class="sub_sz_p_div"><i class="iconfont" style="">&#xe61b;</i></div></p>
+				<div class="sub_sz01" >
+					<ul>
+						<li>题型</li>
+						<li>题号</li>
+						<li>题组名称</li>
+						<li>分值</li>
+					</ul>
+				</div>
+				<div class="sub_sz02">
+				<ul class="sub_sz_ul02">
+					<li>
+					<select>
+						<option value="">选择题</option>	
+					</select>
+					
+					<input type="" name="" value="一.">
+                    <input type="" name="" value="一.单项选择题">
+                    <input type="" name="" value="10">
+                  
+                    <i class="iconfont" data-id="0">&#xe622;</i>
+                    <div style="width: 100%;height:89px;background: #cccccc;text-align:left;padding-left: 30px;box-sizing: border-box;display: none;">
+                    <p>
+                    	<select name="">
+                    		<option value="">单项选择题</option>
+                    	</select>
+                        <a style="margin-left: 37px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                        <a style="margin-left: 20px;">选项个数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                        <a style="margin-left: 60px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                    	</p>
+                    	<p>
+                    	<select name="">
+                    		<option value="">多项选择题</option>
+                    	</select>
+                        <a style="margin-left: 37px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                        <a style="margin-left: 20px;">选项个数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                        <a style="margin-left: 60px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                    	</p>
+                    </div>
+					</li>
+                    <li>
+					<select>
+						<option value="">填空题</option>	
+					</select>
+					<input type="" name="" value="二.">
+                    <input type="" name="" value="二.填空题">
+                    <input type="" name="" value="10">
+                    <i class="iconfont" data-id="0">&#xe622;</i>
+                    <div style="width: 100%;height:50px;background: #cccccc;text-align:left;padding-left: 30px;box-sizing: border-box;display: none;">
+                    	
+                     <p>
+                    	 <a style="margin-left: 10px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                        <a style="margin-left: 37px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                        <a style="margin-left: 30px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                        <a style="margin-left: 80px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                    	</p>
+                    </div>
+					</li>
+                    <li >
+					<select>
+						<option value="">判断题</option>	
+					</select>
+					<input type="" name="" value="三.">
+                    <input type="" name="" value="三.判断题">
+                    <input type="" name="" value="20">
+                    <i class="iconfont" data-id="0">&#xe622;</i>
+                     <div style="width: 100%;height:50px;background: #cccccc;text-align:left;padding-left: 30px;box-sizing: border-box;display: none;">
+
+                      <p>
+                    	 <a style="margin-left: 10px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                        <a style="margin-left: 37px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                        <a style="margin-left: 30px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                        <a style="margin-left: 80px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                    	</p>
+                     </div>
+					</li>
+                    <li>
+					<select>
+						<option value="">其他题</option>	
+					</select>
+					<input type="" name="" value="四.">
+                    <input type="" name="" value="四.计算题">
+                    <input type="" name="" value="20">
+                    <i class="iconfont" data-id="0">&#xe622;</i>
+                     <div style="width: 100%;height:50px;background: #cccccc;text-align:left;padding-left: 30px;box-sizing: border-box;display: none;">
+
+                      <p>
+
+                    	 <a style="margin-left: 10px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                        <a style="margin-left: 37px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                        <a style="margin-left: 30px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                        <a style="margin-left: 80px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                    	</p>
+                     </div>
+					</li>
+                     <li>
+					<select>
+						<option value="">写作题</option>	
+					</select>
+					<input type="" name="" value="五.">
+                    <input type="" name="" value="五.写作题">
+                    <input type="" name="" value="40">
+                    <i class="iconfont" data-id="0">&#xe622;</i>
+                    <div style="width: 100%;height:auto;background: #cccccc;text-align:left;padding-left: 30px;box-sizing: border-box;display: none;">
+
+                      <p>
+                      <select name="">
+                    		<option value="">方格</option>
+                    	</select>
+                    	 <a style="margin-left: 30px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                        <a style="margin-left: 30px;">格数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                        <a style="margin-left:80px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                    	</p>
+                    	<p>
+                      <select name="">
+                    		<option value="">行线</option>
+                    	</select>
+                    	 <a style="margin-left: 30px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                        <a style="margin-left: 30px;">行数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                        <a style="margin-left:80px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                    	</p>
+                    	<p>
+                      <select name="">
+                    		<option value="">方格</option>
+                    	</select>
+                    	 <a style="margin-left: 30px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                        <a style="margin-left:18px;">单词数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                        <a style="margin-left:80px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                    	</p>
+                     </div>
+					</li>
+				</ul>
+			 </div>
+			 <div class="sub_sz03" style=""><a class="sub_top"><i class="iconfont">&#xe631;</i>上移</a>
+			 <a class="sub_btm"><i class="iconfont">&#xe607;</i>下移</a>
+			 <a class="sub_hide"><i class="iconfont">&#xe616;</i>删除</a>
+			 </div>
+			 <p class="sub_sz_p02"><button  class="sub_t determine" type="">确定</button><button class="sub_f">取消</button></p>
+			 <div class="sub_sz_remove">
+			 	<p>删除题组</p>
+			 	<p>操作提示：</p>
+			 	<p class="sub_sz_remove_p03">你确定要删除<a style="color: #31bc91"></a>题组嘛 ？</p>
+			 	<p><i class="iconfont">&#xe63c;</i>删除后无法恢复</p>
+			 	 <p><button class="sub_sz_remove_f">取消</button><button  class="sub_sz_remove_t determine" type="">确定</button></p>
+			 	 <div class="sub_sz_remove_x"><i class="iconfont" style="">&#xe61b;</i></div>
+			 </div>
 			</div>
+			<!-- 上下移 -->
+			<script type="text/javascript">
+				$(".sub_sz_ul02 li").click(function(event) {
+					$(this).addClass('sub_li').siblings().removeClass('sub_li');
+				});
+				// 上移
+				$(".sub_top").click(function(event) {
+					var a=$(".sub_li").html();
+					var b=$(".sub_li").prev().html();
+					$(".sub_li").prev().html(a);
+					$(".sub_li").html(b);
+					$(".sub_li").prev().addClass('sub_li').siblings().removeClass('sub_li');
+					
+                    
+				});
+				// 下移
+				$(".sub_btm").click(function(event) {
+					var a=$(".sub_li").html();
+					var b=$(".sub_li").next().html();
+					$(".sub_li").next().html(a);
+					$(".sub_li").html(b);
+					$(".sub_li").next().addClass('sub_li').siblings().removeClass('sub_li');;
+				});
+				// 删除
+				$(".sub_hide").click(function(event) {
+					$(".sub_sz_remove").show();
+					$(".sub_sz_remove_p03 a").html($(".sub_li input").eq(1).val());
+
+				});
+				$(".sub_sz_remove_x").click(function(event) {
+					$(".sub_sz_remove").hide();
+				});
+				$(".sub_sz_remove_t").click(function(event) {
+					
+					$(".sub_li").remove();
+					$(".sub_sz_remove").hide();
+				});
+				$(".sub_sz_remove_f").click(function(event) {
+					$(".sub_sz_remove").hide();
+				});
+				// 下拉
+				$(".sub_sz_ul02 li i").click(function(event) {
+					if($(this).attr("data-id")==0){
+					$(this).html('&#xe624;');	
+					$(this).parent("li").addClass('sub_i_li');
+					$(this).next('div').show();
+					$(this).attr("data-id","1");
+				}else{
+					$(this).html('&#xe622;');	
+					$(this).parent("li").removeClass('sub_i_li');
+					$(this).next('div').hide();
+					$(this).attr("data-id","0");
+				}
+				});
+			</script>
+			<div class="sub_bd">
+				<p class="sub_bd_p" style="">绑定题组<div class="sub_bd_p_div" style=""><i class="iconfont" style="">&#xe61b;</i></div></p>
+				<p class="sub_bd_p02">将本题绑定至指定题组</p>
+				<div class="sub_bd02">
+					<ul class="sub_bd02_ul01">
+						<li><input value="一.单项选择题"></li>
+						<li ><input value="二.填空题" ></li>
+						<li><input value="三.判断题"></li>
+						<li><input value="四.计算题" ></li>
+						<li ><input value="五.写作"></li>
+					</ul>
+					<ul class="sub_bd02_ul02">
+						<li><i class="iconfont" style="">&#xe64b;</i></li>
+						<li><i class="iconfont" style="">&#xe64b;</i></li>
+						<li ><i class="iconfont" style="">&#xe64b;</i></li>
+						<li><i class="iconfont" style="">&#xe64b;</i></li>
+						<li ><i class="iconfont" style="">&#xe64b;</i></li>
+					</ul>
+
+				</div>
+				<div class="sub_bd03">
+					<button  class="sub_bd_t determine" type="">确定</button>
+					<button class="sub_bd_f">取消</button>
+				</div>
+			</div>
+			<script>
+				$(".sub_bd02_ul02 li").click(function(event) {
+					/* Act on the event */
+					$(this).addClass('sub_bd02_li').siblings().removeClass('sub_bd02_li');
+				});
+			</script>
+			</div>
+			
 		</div>
 		<div id="footer">
 
