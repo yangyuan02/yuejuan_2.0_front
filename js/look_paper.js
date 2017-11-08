@@ -1013,7 +1013,10 @@ $(function(){
 	var is_on_info=[];
 	function show_id_info(id_info,id_area,is_arr){
 		console.log(id_info,on_checked_info);
-		(on_checked_info.push(id_info[0]));
+		for (var dd = 0; dd < id_info.length; dd++) {
+			on_checked_info.push(id_info[dd])
+		};
+		// (on_checked_info.push(id_info[0]));
 		console.log(on_checked_info)
 		var is_arr = JSON.parse(localStorage.getItem("data_arr"+index_id+""));
 		console.log(is_arr)
@@ -1131,7 +1134,7 @@ $(function(){
 					data_arr_all=is_on;
 					console.log(is_on,data_arr_all)
 						console.log(88)
-						get_select_info();
+						// get_select_info();
 					}
 
 			   },
@@ -1347,7 +1350,8 @@ $(function(){
       	var current_page =parseInt($('.page .on').text());
       	var crop_type = 1;
       	var positions=[];
-      	var objj = {'w':w,'h':h,'width':width,'height':height,'x':x,'y':y,'current_page':current_page};
+      	var objj = {'w':w,'h':h,'width':width,'height':height,'x':x,'y':y,'current_page':current_page,'index':(num-1)};
+				console.log(objj)
 				positions.push(objj)
       	var data_arr={
       		'positions':JSON.stringify(positions),
