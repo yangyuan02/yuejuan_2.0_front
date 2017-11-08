@@ -112,7 +112,7 @@ angular.module("myApp.controller", [])
             // markxl(mark_01_select_a);
             // var b=$(this).attr('data-id');
             // alert(a);
-            if(a==1){
+            if(a==2){
              $("#ul_iLabel li").eq(0).find('.level_02').val("69");
              $("#ul_iLabel li").eq(1).find('.level_02').val("62");
              $("#ul_iLabel li").eq(2).find('.level_02').val("59");
@@ -120,7 +120,7 @@ angular.module("myApp.controller", [])
              $("#ul_iLabel li").eq(4).find('.level_02').val("43");
             
           }
-          if(a==0){
+          if(a==1){
             $("#ul_iLabel li").eq(0).find('.level_02').val("15%");
              $("#ul_iLabel li").eq(1).find('.level_02').val("30%");
              $("#ul_iLabel li").eq(2).find('.level_02').val("30%");
@@ -146,6 +146,7 @@ angular.module("myApp.controller", [])
             var yx_mark = $("#yx_mark").val();
             var z_mark = $("#z_mark").val();
             var a = $("#ul_iLabel li").length;
+            var level= $(".mart_set_03_select").children('option:selected').attr("data-id");
             var data_value = {
                 // 't[column_name_1]':"A",
                 // "t[column_value_1]":"10",
@@ -155,6 +156,7 @@ angular.module("myApp.controller", [])
                 "exam_subject_id": sub_id1,
                 "pass": jg_mark,
                 "fine": yx_mark,
+                'level_type':level,
             };
             console.log(data_value);
             for (var i = 0; i < a; i++) {
@@ -366,16 +368,15 @@ angular.module("myApp.controller", [])
         };
 
         $(".modal-exit").click(function(event) {
-            /* Act on the event */
             $(".mask_layer").hide();
         });
 
         $(".mark_02").on('click', ' button', function(event) {
             // $(this).parent().parent().prev().html();
-            console.log($(this).parent().parent().parent().prev().attr("data-id"));
+            console.log($(this).parent().parent().parent().parent().attr("data-id"));
             console.log($(this).attr("data-id"));
             $(".t_f").attr("data-id", $(this).attr("data-id"));
-            var a = $(this).parent().parent().parent().prev().attr("data-id");
+            var a = $(this).parent().parent().parent().parent().attr("data-id");
             var b = $(this).attr("data-id");
             var b1 = $(this).attr("data-sid");
             $(this).attr("data-s", a);
