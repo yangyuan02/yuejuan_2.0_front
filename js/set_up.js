@@ -2139,7 +2139,7 @@ $(function() {
   		console.log(fayeIp,faye)
 		    faye.subscribe("/docx/questions" , function (data) {
 	        console.log(data)
-	        if(data.message=='ok'){
+	        if(data.message=='done'){
 						$('.load-bg').hide();
 						get_all_word_exam();
 	        }
