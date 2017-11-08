@@ -146,6 +146,7 @@ angular.module("myApp.controller", [])
             var yx_mark = $("#yx_mark").val();
             var z_mark = $("#z_mark").val();
             var a = $("#ul_iLabel li").length;
+            var level= $(".mart_set_03_select").children('option:selected').attr("data-id");
             var data_value = {
                 // 't[column_name_1]':"A",
                 // "t[column_value_1]":"10",
@@ -155,6 +156,7 @@ angular.module("myApp.controller", [])
                 "exam_subject_id": sub_id1,
                 "pass": jg_mark,
                 "fine": yx_mark,
+                'level-type':level,
             };
             console.log(data_value);
             for (var i = 0; i < a; i++) {
