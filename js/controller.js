@@ -112,7 +112,7 @@ angular.module("myApp.controller", [])
             // markxl(mark_01_select_a);
             // var b=$(this).attr('data-id');
             // alert(a);
-            if(a==1){
+            if(a==2){
              $("#ul_iLabel li").eq(0).find('.level_02').val("69");
              $("#ul_iLabel li").eq(1).find('.level_02').val("62");
              $("#ul_iLabel li").eq(2).find('.level_02').val("59");
@@ -120,7 +120,7 @@ angular.module("myApp.controller", [])
              $("#ul_iLabel li").eq(4).find('.level_02').val("43");
             
           }
-          if(a==2){
+          if(a==1){
             $("#ul_iLabel li").eq(0).find('.level_02').val("15%");
              $("#ul_iLabel li").eq(1).find('.level_02').val("30%");
              $("#ul_iLabel li").eq(2).find('.level_02').val("30%");
