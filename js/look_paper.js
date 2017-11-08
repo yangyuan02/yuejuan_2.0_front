@@ -1012,7 +1012,7 @@ $(function(){
 	});
 	var is_on_info=[];
 	function show_id_info(id_info,id_area,is_arr){
-		console.log(id_info,on_checked_info);
+		console.log(id_info,on_checked_info,id_area);
 		for (var dd = 0; dd < id_info.length; dd++) {
 			on_checked_info.push(id_info[dd])
 		};
@@ -1131,7 +1131,7 @@ $(function(){
 						};
 					}
 					data_arr_num=is_on;
-					data_arr_all=is_on;
+					// data_arr_all=is_on;
 					console.log(is_on,data_arr_all)
 						console.log(88)
 						// get_select_info();
@@ -1308,13 +1308,13 @@ $(function(){
 		      	console.log('is_arr',is_arr);
 		      	console.log('is_num',is_arr_num);
 		      	console.log('is_on',is_on);
-		      	if(is_arr_num){
+		      	if(is_arr_num!=null&&is_arr_num.length>0){
 		      		console.log('is_num')
 		      		data_arr_num=is_arr_num;
 		      	}
 		      	// var is_on = JSON.parse(localStorage.getItem("data_arr_on"+index_id+""));
 		      	// console.log(is_on.length);
-		      	if(!is_arr_num&&is_on){
+		      	if((!is_arr_num||is_arr_num.length==0)&&is_on){
 		      		console.log('is_on',is_on)
 		      		data_arr_num=is_on;
 		      	}
@@ -1325,7 +1325,7 @@ $(function(){
 		      	// var on_ll = (2 > 3) ？2 :3;
 		      	console.log(on_ll);
 		      	console.log(on_checked_info)
-		      	if(!is_arr_num&&!is_on && on_ll && (on_checked_info&&on_checked_info.length>0)){
+		      	if((!is_arr_num||is_arr_num.length==0)&&!is_on && on_ll && (on_checked_info&&on_checked_info.length>0)){
 		      		console.log(on_checked_info);
 		      		// data_arr_num=[];
 		      		for (var kk = 0; kk < on_checked_info.length; kk++) {
