@@ -1315,8 +1315,9 @@ $(function(){
 		      	// var on_ll = (2 > 3) ？2 :3;
 		      	console.log(on_ll);
 		      	console.log(on_checked_info)
-		      	if(!is_on && on_ll && (on_checked_info&&on_checked_info.length>0)){
+		      	if(!is_arr_num&&!is_on && on_ll && (on_checked_info&&on_checked_info.length>0)){
 		      		console.log(on_checked_info);
+		      		// data_arr_num=[];
 		      		for (var kk = 0; kk < on_checked_info.length; kk++) {
 		      			data_arr_num.push(on_checked_info[kk].position)
 		      		};
