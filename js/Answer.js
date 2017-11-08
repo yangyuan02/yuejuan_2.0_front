@@ -29,6 +29,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
 
     $scope.countScore = 0//总分
+    $scope.infoLocation = 0//默认顶部
     $scope.page_num = 0 //页数
     $scope.listObj = [];//定义全局数组保存所有题目
     $scope.listObj2 = [];//定义全局数组保存所有题目
@@ -65,6 +66,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     answer_id = data.message.answer_id
                     allHeight = data.message.allHeight ? data.message.allHeight : []
                     $scope.paperType = data.message.paperType ? data.message.paperType : 0
+                    $scope.infoLocation = data.message.infoLocation ? data.message.infoLocation : 0
                     $scope.showTableLineTyep = data.message.showTableLineTyep ? data.message.showTableLineTyep : 0
                     $scope.myDayinType = data.message.myDayinType ? data.message.myDayinType : 0
                     $scope.showItmeScoreType = data.message.showItmeScoreType ? data.message.showItmeScoreType : 0
@@ -796,6 +798,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         allList.page4 = $scope.listObj4
         allList.answer_id = answer_id
         allList.paperType = $scope.paperType
+        allList.infoLocation = $scope.infoLocation
         allList.showTableLineTyep = $scope.showTableLineTyep
         allList.myDayinType = $scope.myDayinType
         allList.showItmeScoreType = $scope.showItmeScoreType
@@ -1613,6 +1616,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.listObj3 = data.page3 ? data.page3 : []
                 $scope.listObj4 = data.page4 ? data.page4 : []
                 $scope.paperType = data.paperType ? data.paperType : 0
+                $scope.infoLocation = data.infoLocation ? data.infoLocation : 0
                 $scope.showTableLineTyep = data.showTableLineTyep ? data.showTableLineTyep : 0
                 $scope.myDayinType = data.myDayinType ? data.myDayinType : 0
                 $scope.showItmeScoreType = data.showItmeScoreType ? data.showItmeScoreType : 0
@@ -1871,6 +1875,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         getOBjList()[$scope.tabIndex].img[$scope.imgIndex].width= $scope.imgObj.imgWidth
         getOBjList()[$scope.tabIndex].img[$scope.imgIndex].height= $scope.imgObj.imgHeight
         $(".imgFormat").hide()
+    }
+    /**
+     * 设置信息栏位置/顶部/左侧
+     */
+    $scope.setInfoLocation = function () {
+        $("#menu").hide()
+        $scope.infoLocation = $scope.infoLocation==0?1:0
     }
     /*******************************保存*************************************************/
     $scope.save = function () {//保存模板

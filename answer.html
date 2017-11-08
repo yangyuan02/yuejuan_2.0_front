@@ -300,7 +300,7 @@
                 <!--顶部学生信息开始-->
                 <div class="student_info clearfix">
                     <div class="ermai clearfix"><img src="../img/erwei.jpg" alt=""></div>
-                    <div class="person clearfix">
+                    <div class="person clearfix {{infoLocation==0?'':'location_left'}}">
                         <div class="person_item">
                             <span>学校:</span>
                             <span class="B_line"></span>
@@ -660,7 +660,7 @@
                 <!--顶部学生信息开始-->
                 <div class="student_info clearfix">
                     <div class="ermai clearfix {{myDayinType==0?'':'b0'}}"><img ng-if="myDayinType==0" src="../img/erwei.jpg" alt=""></div>
-                    <div class="person clearfix">
+                    <div class="person clearfix {{infoLocation==0?'':'location_left'}}">
                         <div class="person_item">
                             <span>学校:</span>
                             <span class="B_line"></span>
@@ -1114,7 +1114,7 @@
             <li class="meun_navbar" ng-show="(meunType==3||meunType==5)&&tabParentIndex!=-1" ng-click="toggleLineType()">虚实线转换</li>
             <li class="meun_navbar" ng-show="meunType==5&&meunOtherisradio==3&&tabParentIndex!=-1" ng-click="toggleLineDisplay()">分割线显示切换</li>
             <li class="meun_navbar" ng-show="imgIndex!=undefind" ng-click="getImgFormat()">设置图片格式</li>
-            <!--<li class="meun_navbar" ng-click="add(4)">插入语文作文格</li>-->
+            <li class="meun_navbar" ng-show="tabParentIndex==-1" ng-click="setInfoLocation()">信息栏位于{{infoLocation==0?'左侧':'顶部'}}</li>
             <!--<li class="meun_navbar" ng-click="add(4)">插入英文作文行线</li>-->
             <!--<li class="meun_navbar" ng-click="add(4)">插入英文单词间隔行线</li>-->
             <!--<li class="meun_navbar" ng-click="checkTestType(2)">{{showItmeScoreType==0?'标注':'隐藏'}}小题分值</li>-->
