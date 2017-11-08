@@ -2136,7 +2136,7 @@ $(function() {
   	if($(this).hasClass('word-import')){
   		get_all_word_exam();
   		var faye = new Faye.Client(fayeIp+'/api/v2/events');
-  		console.log(faye)
+  		console.log(fayeIp,faye)
 		    faye.subscribe("/docx/questions" , function (data) {
 	        console.log(data)
 	        if(data.message=='ok'){
@@ -3532,13 +3532,16 @@ $(function() {
 
 			// 显示考试列表
 	function show_exams_list(exam){
+		console.log(exam)
 		var exam_length = exam.length;
 		$('.import-word-wrap #paper-exam').html('');
 		for (var i = 0; i < exam_length; i++) {
 			var exam_option = '<option value="'+exam[i].exam_subject_id+'">'+exam[i].exam_name+'</option>';
 			$('.import-word-wrap #paper-exam').append(exam_option);
 		};
-		$('.import-word-wrap #paper-exam').attr('value',exam[0].id);
+		if(exam.length>0){
+			$('.import-word-wrap #paper-exam').attr('value',exam[0].id);
+		}
 
 		}
   // 根据年级获取科目

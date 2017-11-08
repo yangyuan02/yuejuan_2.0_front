@@ -181,7 +181,7 @@ $(function(){
 			if(current_page==parseInt(arr[j].current_page)){
 				new_arr.push(arr[j])
     }
-    var jj_html = '<li id="'+arr[j].id+'" sec_num = "'+arr[j].current_page+'_'+arr[j].num+'"><input type="hidden" width="'+arr[j].width+'" height="'+arr[j].height+'" w="'+arr[j].w+'" h="'+arr[j].h+'" x="'+arr[j].x+'" y="'+arr[j].y+'" current_page="'+arr[j].current_page+'" /><span>'+arr[j].num+'</span>( 第<em>'+arr[j].current_page+'</em>页 )</li>';
+    var jj_html = '<li class="s-li" id="'+arr[j].id+'" sec_num = "'+arr[j].current_page+'_'+arr[j].num+'"><input type="hidden" width="'+arr[j].width+'" height="'+arr[j].height+'" w="'+arr[j].w+'" h="'+arr[j].h+'" x="'+arr[j].x+'" y="'+arr[j].y+'" current_page="'+arr[j].current_page+'" /><span>'+arr[j].num+'</span>( 第<em>'+arr[j].current_page+'</em>页 )</li>';
     	$('body').find('#all-section-list').append(jj_html);
     }
     console.log(new_arr);
@@ -694,7 +694,12 @@ $(function(){
 		for (var ll = 0; ll < new_num_arr.length; ll++) {
 			for (var nn = 0; nn < all_list.length; nn++) {
 				if(new_num_arr[ll].sec_num==$(all_list[nn]).attr('sec_num')){
-					$(all_list[nn]).addClass('on');
+					$(all_list[nn]).addClass('on').removeClass('s-li');
+					$(all_list[nn]).siblings().removeClass('s-li');
+					$(all_list[nn]).siblings().css({
+						'opacity': 0.7,
+						'cursor': 'not-allowed'
+					});
 				}
 			};
 		};
@@ -708,7 +713,7 @@ $(function(){
 		if(arr){
 			$('body').find('#all-section-list').html('');
 			for (var j = 0; j < arr.length; j++) {
-	    	var jj_html = '<li id="'+arr[j].id+'" sec_num = "'+arr[j].current_page+'_'+arr[j].num+'"><input type="hidden" width="'+arr[j].width+'" height="'+arr[j].height+'" w="'+arr[j].w+'" h="'+arr[j].h+'" x="'+arr[j].x+'" y="'+arr[j].y+'" current_page="'+arr[j].current_page+'" /><span>'+arr[j].num+'</span>( 第<em>'+arr[j].current_page+'</em>页 )</li>';
+	    	var jj_html = '<li class="s-li" id="'+arr[j].id+'" sec_num = "'+arr[j].current_page+'_'+arr[j].num+'"><input type="hidden" width="'+arr[j].width+'" height="'+arr[j].height+'" w="'+arr[j].w+'" h="'+arr[j].h+'" x="'+arr[j].x+'" y="'+arr[j].y+'" current_page="'+arr[j].current_page+'" /><span>'+arr[j].num+'</span>( 第<em>'+arr[j].current_page+'</em>页 )</li>';
 	    	$('body').find('#all-section-list').append(jj_html);
 	    }
     }
@@ -718,7 +723,7 @@ $(function(){
 		if(info){
 			$('body').find('#all-section-list').html('');
 			for (var j = 0; j < info.length; j++) {
-	    	var jj_html = '<li id="'+info[j].id+'" sec_num = "'+info[j].current_page+'_'+info[j].index+'"><input type="hidden" width="'+info[j].position.width+'" height="'+info[j].position.height+'" w="'+info[j].position.w+'" h="'+info[j].position.h+'" x="'+info[j].position.x+'" y="'+info[j].position.y+'" current_page="'+info[j].current_page+'" /><span>'+info[j].index+'</span>( 第<em>'+info[j].current_page+'</em>页 )</li>';
+	    	var jj_html = '<li class="s-li" id="'+info[j].id+'" sec_num = "'+info[j].current_page+'_'+info[j].index+'"><input type="hidden" width="'+info[j].position.width+'" height="'+info[j].position.height+'" w="'+info[j].position.w+'" h="'+info[j].position.h+'" x="'+info[j].position.x+'" y="'+info[j].position.y+'" current_page="'+info[j].current_page+'" /><span>'+info[j].index+'</span>( 第<em>'+info[j].current_page+'</em>页 )</li>';
 	    	$('body').find('#all-section-list').append(jj_html);
 	    }
 		}
@@ -872,7 +877,7 @@ $(function(){
 	});
 
 	// 选择每题区域块
-	$('body').on('click','#all-section-list li',function(){
+	$('body').on('click','#all-section-list li.s-li',function(){
 		if ($(this).hasClass('on')) {
 			$(this).removeClass('on');
 		}else{
@@ -1242,7 +1247,7 @@ $(function(){
 		      	console.log(arr_obj,data_arr_all)
 				  	data_arr_all.push(arr_obj);
 				  	console.log(data_arr_all)
-				  	var jj_html = '<li id="select-area'+(num-1)+'" sec_num = "'+current_page+'_'+(num-1)+'"><input type="hidden" width="'+$("div[name='"+(num-1)+"']").width()+'" height="'+$("div[name='"+(num-1)+"']").height()+'" w="'+w+'" h="'+h+'" x="'+$("div[name='"+(num-1)+"']").position().left+'" y="'+$("div[name='"+(num-1)+"']").position().top+'" current_page="'+current_page+'" /><span>'+(num-1)+'</span>( 第<em>'+current_page+'</em>页 )</li>';
+				  	var jj_html = '<li class="s-li" id="select-area'+(num-1)+'" sec_num = "'+current_page+'_'+(num-1)+'"><input type="hidden" width="'+$("div[name='"+(num-1)+"']").width()+'" height="'+$("div[name='"+(num-1)+"']").height()+'" w="'+w+'" h="'+h+'" x="'+$("div[name='"+(num-1)+"']").position().left+'" y="'+$("div[name='"+(num-1)+"']").position().top+'" current_page="'+current_page+'" /><span>'+(num-1)+'</span>( 第<em>'+current_page+'</em>页 )</li>';
 		      	console.log(jj_html)
 		      	$('body').find('#all-section-list').append(jj_html);
 		      	// console.log(index_id);
