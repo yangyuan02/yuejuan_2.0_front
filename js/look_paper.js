@@ -1138,7 +1138,7 @@ $(function(){
 						console.log(on_checked_info);
 						for (var oo = 0; oo < on_checked_info.length; oo++) {
 							if(select_id==on_checked_info[oo].id){
-								on_checked_info.splice(i,1)
+								on_checked_info.splice(oo,1)
 							}
 						};
 						console.log(on_checked_info)
