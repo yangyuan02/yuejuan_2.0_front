@@ -2135,6 +2135,15 @@ $(function() {
   	}
   	if($(this).hasClass('word-import')){
   		get_all_word_exam();
+  		var faye = new Faye.Client(fayeIp+'/api/v2/events');
+  		console.log(faye)
+		    faye.subscribe("/docx/questions" , function (data) {
+	        console.log(data)
+	        if(data.message=='ok'){
+						$('.load-bg').hide();
+						get_all_word_exam();
+	        }
+		    });
   	}
   });
 
@@ -2990,7 +2999,7 @@ $(function() {
 	  	data:{'exam_id':e_id,'subject_id':s_id},
 	  	success: function(data){
 	  		console.log(data,e_id,s_id);
-	  		// look_infos=data;
+	  		look_infos=data;
 	  		show_scroe_group(data);
       },
       error: function(){
@@ -3070,6 +3079,9 @@ $(function() {
 		var subject_id = $('.score-import-right #select-sujects').attr('data-id');
 		var formData = new FormData();
 		formData.append("import_score_file",$("#inPaths")[0].files[0]);
+		formData.append("exam_id",exam_id);
+		formData.append("subject_id",subject_id);
+		formData.append("import_type",import_type);
 		var i_string = $('.import-grade-wrap #upfiles div').html();
 		i_string_i = i_string.lastIndexOf(".");
 		i_string = i_string.substring(i_string_i+1);
@@ -3077,16 +3089,16 @@ $(function() {
 			alert('文件格式不对，请选择xlsx或者xls文件！')
 		}
 		console.log(exam_id,subject_id,formData)
-		get_file_path(exam_id,subject_id,import_type,formData);
+		get_file_path(formData);
 	});
 
 
-	function get_file_path(e_id,s_id,type,formData){
-		console.log(e_id,s_id,formData);
-		if(s_id!=0){
+	function get_file_path(formData){
+		console.log(formData);
+		if(formData){
 			$.ajax({
 		   	type: "POST",
-		   	url: ajaxIp+"/api/v2/import_student_scores/import_excel?exam_id="+e_id+"&subject_id="+s_id+"&import_type="+type+"",
+		   	url: ajaxIp+"/api/v2/import_student_scores/import_excel",
 		  	dataType: "JSON",
 		  	data: formData,
 		  	// data:({'exam_id':e_id,'subject_id':s_id,'import_score':formData}),
@@ -3582,11 +3594,11 @@ $(function() {
 		formData.append("subject_id",subject_id);
 		formData.append("grade_id",grade_id);
 		console.log(grade_id,subject_id,exam_subject_id);
-		get_word_info(formData,grade_id,subject_id,exam_subject_id);
+		get_word_info(formData,exam_subject_id);
 		$('.import-word-wrap').hide();
 	});
 
-	function get_word_info (formData) {
+	function get_word_info (formData,exam_subject_id) {
 		$.ajax({
 	   	type: "POST",
 	   	url: ajaxIp+"/api/v2/ddocxes?token=TOKEN",
@@ -3600,7 +3612,7 @@ $(function() {
 			},
 			success : function(data) {
 				console.log(data);
-				// get_grade_all_list(null,null);
+				$('.load-bg').show();
 			},
 			error : function() {
 				console.log("error");
@@ -3646,7 +3658,8 @@ $(function() {
 	  	success: function(data){
 	  		console.log(data);
 	  		// for (var i = 0; i < data.length; i++) {
-	  		// 	$('.word-import-right').append(data[i].content);
+	  		// 	var pp='<p>'+data[i].content+'</p>';
+	  		// 	$('.word-import-right').append(pp);
 
 	  		// };
 	  		word_exam_list(data);
