@@ -120,7 +120,7 @@ angular.module("myApp.controller", [])
              $("#ul_iLabel li").eq(4).find('.level_02').val("43");
             
           }
-          if(a==0){
+          if(a==2){
             $("#ul_iLabel li").eq(0).find('.level_02').val("15%");
              $("#ul_iLabel li").eq(1).find('.level_02').val("30%");
              $("#ul_iLabel li").eq(2).find('.level_02').val("30%");
@@ -156,7 +156,7 @@ angular.module("myApp.controller", [])
                 "exam_subject_id": sub_id1,
                 "pass": jg_mark,
                 "fine": yx_mark,
-                'level-type':level,
+                'level_type':level,
             };
             console.log(data_value);
             for (var i = 0; i < a; i++) {
