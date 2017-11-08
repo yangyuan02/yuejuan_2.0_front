@@ -368,16 +368,15 @@ angular.module("myApp.controller", [])
         };
 
         $(".modal-exit").click(function(event) {
-            /* Act on the event */
             $(".mask_layer").hide();
         });
 
         $(".mark_02").on('click', ' button', function(event) {
             // $(this).parent().parent().prev().html();
-            console.log($(this).parent().parent().parent().prev().attr("data-id"));
+            console.log($(this).parent().parent().parent().parent().attr("data-id"));
             console.log($(this).attr("data-id"));
             $(".t_f").attr("data-id", $(this).attr("data-id"));
-            var a = $(this).parent().parent().parent().prev().attr("data-id");
+            var a = $(this).parent().parent().parent().parent().attr("data-id");
             var b = $(this).attr("data-id");
             var b1 = $(this).attr("data-sid");
             $(this).attr("data-s", a);
