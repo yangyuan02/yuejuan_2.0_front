@@ -294,14 +294,14 @@
                 </li>
             </ul>
         </div>
-        <div class="fl" style="width:1596px">
+        <div class="fl" style="width:1700px">
             <!--右侧区域-->
             <div class="A_R">
                 <!--左侧考号开始-->
                 <div class="candidate {{tabParentIndex==-1&&tabIndex==-1?'table_focus':''}}" ng-show="infoBox==1" ng-click="getTableIndex(-1,-1)">
                     <div class="full_card">
                         <ul>
-                            <li ng-repeat="card in leftcardNum"></li>
+                            <li ng-repeat="card in leftcardNum" style="width:{{100/leftcardNum.length+'%'}}"></li>
                         </ul>
                     </div>
                     <div class="full_card_number">
@@ -323,7 +323,7 @@
                 <!--顶部学生信息开始-->
                 <div class="student_info clearfix">
                     <div class="ermai clearfix"><img src="../img/erwei.jpg" alt=""></div>
-                    <div class="person clearfix {{infoLocation==0?'':'location_left'}}">
+                    <div class="person clearfix {{infoLocation==0?'':'location_left'}} {{infoBox==0?'':'location_left_f'}}">
                         <div class="person_item">
                             <span>学校:</span>
                             <span class="B_line"></span>
@@ -373,7 +373,7 @@
                                     <div class="student_number">考生号</div>
                                     <div class="student_number1">
                                         <ul>
-                                            <li ng-repeat="cand in candNumber" style="width:{{100/candlen+'%'}}"></li>
+                                            <li ng-repeat="cand in candNumber" style="width:{{100/candNumber.length+'%'}}"></li>
                                         </ul>
                                     </div>
                                     <div class="student_number3">
@@ -1128,7 +1128,7 @@
     <div id="menu">
         <ul>
             <li class="meun_navbar" ng-click="dayin()">打印</li>
-            <li class="meun_navbar" ng-click="showModel('cand_box')" ng-show="tabParentIndex==-1">设置考号</li>
+            <li class="meun_navbar" ng-click="showCandNumer()" ng-show="tabParentIndex==-1">设置考号</li>
             <li class="meun_navbar" ng-show="((meunType==5&&meunOtherisradio==4)||(meunType==4&&meunArticleType!=1)||meunType==3)&&tabParentIndex!=-1" ng-click="showVertical()">设置行间距</li>
             <li class="meun_navbar" ng-click="showModel('pic_box')" ng-show="meunType==5&&meunOtherisradio==3&&tabParentIndex!=-1">插入图片</li>
             <li class="meun_navbar" ng-click="showModel('setGroupHeigh')" ng-show="meunType==5&&meunOtherisradio==3&&tabParentIndex!=-1">修改题组高度</li>
