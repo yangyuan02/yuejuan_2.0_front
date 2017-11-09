@@ -181,7 +181,7 @@ $(function(){
 			if(current_page==parseInt(arr[j].current_page)){
 				new_arr.push(arr[j])
     }
-    var jj_html = '<li class="s-li" id="'+arr[j].id+'" sec_num = "'+arr[j].current_page+'_'+arr[j].num+'"><input type="hidden" width="'+arr[j].width+'" height="'+arr[j].height+'" w="'+arr[j].w+'" h="'+arr[j].h+'" x="'+arr[j].x+'" y="'+arr[j].y+'" current_page="'+arr[j].current_page+'" /><span>'+arr[j].num+'</span>( 第<em>'+arr[j].current_page+'</em>页 )</li>';
+    var jj_html = '<li class="s-li" id="'+arr[j].id+'" sec_num = "'+arr[j].current_page+'_'+arr[j].num+'"><input type="hidden" width="'+arr[j].width+'" height="'+arr[j].height+'" w="'+arr[j].w+'" h="'+arr[j].h+'" x="'+arr[j].x+'" y="'+arr[j].y+'" current_page="'+arr[j].current_page+'" index="'+arr[j].index+'" /><span>'+arr[j].num+'</span>( 第<em>'+arr[j].current_page+'</em>页 )</li>';
     	$('body').find('#all-section-list').append(jj_html);
     }
     console.log(new_arr);
@@ -674,7 +674,7 @@ $(function(){
 			console.log(2222)
 			append_section(is_on);
 		}
-		if (!is_on||!is_on.length) {
+		if (!is_arr_num&&(!is_on||!is_on.length)) {
 			console.log(99999);
 			append_section_on(on_checked_info);
 		};
@@ -709,12 +709,21 @@ $(function(){
 	}
 
 	function append_section (arr) {
-		console.log(arr)
+		console.log(arr,on_checked_info)
 		if(arr){
 			$('body').find('#all-section-list').html('');
 			for (var j = 0; j < arr.length; j++) {
-	    	var jj_html = '<li class="s-li" id="'+arr[j].id+'" sec_num = "'+arr[j].current_page+'_'+arr[j].num+'"><input type="hidden" width="'+arr[j].width+'" height="'+arr[j].height+'" w="'+arr[j].w+'" h="'+arr[j].h+'" x="'+arr[j].x+'" y="'+arr[j].y+'" current_page="'+arr[j].current_page+'" /><span>'+arr[j].num+'</span>( 第<em>'+arr[j].current_page+'</em>页 )</li>';
+	    	var jj_html = '<li class="s-li" id="'+arr[j].id+'" sec_num = "'+arr[j].current_page+'_'+arr[j].index+'"><input type="hidden" width="'+arr[j].width+'" height="'+arr[j].height+'" w="'+arr[j].w+'" h="'+arr[j].h+'" x="'+arr[j].x+'" y="'+arr[j].y+'" current_page="'+arr[j].current_page+'" index="'+arr[j].index+'"/><span>'+arr[j].index+'</span>( 第<em>'+arr[j].current_page+'</em>页 )</li>';
 	    	$('body').find('#all-section-list').append(jj_html);
+	    	for (var i = 0; i < on_checked_info.length; i++) {
+	    		if(on_checked_info[i].index==arr[j].index&&on_checked_info[i].current_page==arr[j].current_page){
+	    			$('#all-section-list li').eq(j).removeClass('s-li');
+	    			$('#all-section-list li').eq(j).css({
+	    				'opacity': .7,
+	    				'cursor': 'not-allowed'
+	    			});
+	    		}
+	    	};
 	    }
     }
 	}
@@ -723,7 +732,7 @@ $(function(){
 		if(info){
 			$('body').find('#all-section-list').html('');
 			for (var j = 0; j < info.length; j++) {
-	    	var jj_html = '<li class="s-li" id="'+info[j].id+'" sec_num = "'+info[j].current_page+'_'+info[j].index+'"><input type="hidden" width="'+info[j].position.width+'" height="'+info[j].position.height+'" w="'+info[j].position.w+'" h="'+info[j].position.h+'" x="'+info[j].position.x+'" y="'+info[j].position.y+'" current_page="'+info[j].current_page+'" /><span>'+info[j].index+'</span>( 第<em>'+info[j].current_page+'</em>页 )</li>';
+	    	var jj_html = '<li class="s-li" id="'+info[j].id+'" sec_num = "'+info[j].current_page+'_'+info[j].index+'"><input type="hidden" width="'+info[j].position.width+'" height="'+info[j].position.height+'" w="'+info[j].position.w+'" h="'+info[j].position.h+'" x="'+info[j].position.x+'" y="'+info[j].position.y+'" current_page="'+info[j].current_page+'" index="'+info[j].index+'"/><span>'+info[j].index+'</span>( 第<em>'+info[j].current_page+'</em>页 )</li>';
 	    	$('body').find('#all-section-list').append(jj_html);
 	    }
 		}
@@ -938,11 +947,12 @@ $(function(){
 			s_obj['x']=result.attr('x'),
 			s_obj['y']=result.attr('y'),
 			s_obj['current_page']=result.attr('current_page'),
+			s_obj['index']=result.attr('index'),
 			positions.push(s_obj)
 		};
 		var data_arr={
 			'positions':JSON.stringify(positions),
-	  	'index':num_index,
+	  	// 'index':num_index,
 	  	'exam_subject_batch_id':bath_id,
 	  	'crop_type':crop_type,
 	  	// 'scanner_image_id':scanner_image_id,
@@ -1002,8 +1012,11 @@ $(function(){
 	});
 	var is_on_info=[];
 	function show_id_info(id_info,id_area,is_arr){
-		console.log(id_info,on_checked_info);
-		(on_checked_info.push(id_info[0]));
+		console.log(id_info,on_checked_info,id_area);
+		for (var dd = 0; dd < id_info.length; dd++) {
+			on_checked_info.push(id_info[dd])
+		};
+		// (on_checked_info.push(id_info[0]));
 		console.log(on_checked_info)
 		var is_arr = JSON.parse(localStorage.getItem("data_arr"+index_id+""));
 		console.log(is_arr)
@@ -1040,7 +1053,21 @@ $(function(){
 	// 删除区域块
 	$('body').on('click', '.close', function() {
 		$(this).parent().remove();
+		var text_arr=[];
 		num--;
+		console.log(num)
+		  if($('.bg-img').find(".select-area span").text()){
+    	console.log(77777)
+    	var tt_text=$('.bg-img').find(".select-area")
+    	for (var tt = 0; tt < tt_text.length; tt++) {
+    		text_arr.push(parseInt($(tt_text[tt]).find('span').text()));
+    	};
+    	console.log(text_arr)
+    	num=Math.max.apply(null,text_arr)+1;
+    	console.log(num)
+    }else{
+    	num=1;
+    }
     var current_page =parseInt($('.page .on').text());
     var c_id = $(this).parent().attr('id');
     if($('.bg-img').hasClass('bg-type-sec')){
@@ -1104,10 +1131,17 @@ $(function(){
 						};
 					}
 					data_arr_num=is_on;
-					data_arr_all=is_on;
+					// data_arr_all=is_on;
 					console.log(is_on,data_arr_all)
 						console.log(88)
-						get_select_info();
+						// get_select_info();
+						console.log(on_checked_info);
+						for (var oo = 0; oo < on_checked_info.length; oo++) {
+							if(select_id==on_checked_info[oo].id){
+								on_checked_info.splice(oo,1)
+							}
+						};
+						console.log(on_checked_info)
 					}
 
 			   },
@@ -1141,7 +1175,24 @@ $(function(){
     var original_flag=true,down_flag=false;
     var x_point=0,y_point=0;
     var append_string;
-    num=$('.bg-img').find(".select-area").length+1;
+    var text_arr=[];
+    if($('.bg-img').find(".select-area span").text()){
+    	console.log(77777)
+    	var tt_text=$('.bg-img').find(".select-area")
+    	for (var tt = 0; tt < tt_text.length; tt++) {
+    		text_arr.push(parseInt($(tt_text[tt]).find('span').text()));
+    	};
+    	console.log(text_arr)
+    	num=Math.max.apply(null,text_arr)+1;
+    	console.log(num)
+    }else{
+    	num=1;
+    }
+    // if(num==NaN){
+    // 	num=1
+    // }else{
+    // 	num=num+1
+    // }
     console.log(num)
     var MouseDown=function(e){
         down_flag=true;
@@ -1215,7 +1266,7 @@ $(function(){
       // num++;
       //阻止区域块移动时，num也增加的情况（只有新建的时候才会增减num的值）;
       if($("div[name='"+num+"']").width()!=null){
-      	console.log(999)
+      	console.log(num,999)
           num++;
           console.log(num)
 
@@ -1243,11 +1294,11 @@ $(function(){
 		      	arr_obj['current_page']=current_page;
 		      	arr_obj['crop_type']=crop_type;
 		      	arr_obj['id']='select-area'+(num-1)+'';
-		      	arr_obj['num']=parseInt(num-1);
+		      	arr_obj['index']=parseInt(num-1);
 		      	console.log(arr_obj,data_arr_all)
 				  	data_arr_all.push(arr_obj);
 				  	console.log(data_arr_all)
-				  	var jj_html = '<li class="s-li" id="select-area'+(num-1)+'" sec_num = "'+current_page+'_'+(num-1)+'"><input type="hidden" width="'+$("div[name='"+(num-1)+"']").width()+'" height="'+$("div[name='"+(num-1)+"']").height()+'" w="'+w+'" h="'+h+'" x="'+$("div[name='"+(num-1)+"']").position().left+'" y="'+$("div[name='"+(num-1)+"']").position().top+'" current_page="'+current_page+'" /><span>'+(num-1)+'</span>( 第<em>'+current_page+'</em>页 )</li>';
+				  	var jj_html = '<li class="s-li" id="select-area'+(num-1)+'" sec_num = "'+current_page+'_'+(num-1)+'"><input type="hidden" width="'+$("div[name='"+(num-1)+"']").width()+'" height="'+$("div[name='"+(num-1)+"']").height()+'" w="'+w+'" h="'+h+'" x="'+$("div[name='"+(num-1)+"']").position().left+'" y="'+$("div[name='"+(num-1)+"']").position().top+'" current_page="'+current_page+'"  index="'+(num-1)+'"/><span>'+(num-1)+'</span>( 第<em>'+current_page+'</em>页 )</li>';
 		      	console.log(jj_html)
 		      	$('body').find('#all-section-list').append(jj_html);
 		      	// console.log(index_id);
@@ -1257,13 +1308,13 @@ $(function(){
 		      	console.log('is_arr',is_arr);
 		      	console.log('is_num',is_arr_num);
 		      	console.log('is_on',is_on);
-		      	if(is_arr_num){
+		      	if(is_arr_num!=null&&is_arr_num.length>0){
 		      		console.log('is_num')
 		      		data_arr_num=is_arr_num;
 		      	}
 		      	// var is_on = JSON.parse(localStorage.getItem("data_arr_on"+index_id+""));
 		      	// console.log(is_on.length);
-		      	if(!is_arr_num&&is_on){
+		      	if((!is_arr_num||is_arr_num.length==0)&&is_on){
 		      		console.log('is_on',is_on)
 		      		data_arr_num=is_on;
 		      	}
@@ -1274,9 +1325,13 @@ $(function(){
 		      	// var on_ll = (2 > 3) ？2 :3;
 		      	console.log(on_ll);
 		      	console.log(on_checked_info)
-		      	if(!is_on && on_ll && (on_checked_info&&on_checked_info.length>0)){
+		      	if((!is_arr_num||is_arr_num.length==0)&&!is_on && on_ll && (on_checked_info&&on_checked_info.length>0)){
 		      		console.log(on_checked_info);
-							data_arr_num=on_checked_info
+		      		// data_arr_num=[];
+		      		for (var kk = 0; kk < on_checked_info.length; kk++) {
+		      			data_arr_num.push(on_checked_info[kk].position)
+		      		};
+							// data_arr_num=on_checked_info
 		      	}
 		      	data_arr_num.push(arr_obj);
 		      	console.log(data_arr_num);
@@ -1302,7 +1357,8 @@ $(function(){
       	var current_page =parseInt($('.page .on').text());
       	var crop_type = 1;
       	var positions=[];
-      	var objj = {'w':w,'h':h,'width':width,'height':height,'x':x,'y':y,'current_page':current_page};
+      	var objj = {'w':w,'h':h,'width':width,'height':height,'x':x,'y':y,'current_page':current_page,'index':(num-1)};
+				console.log(objj)
 				positions.push(objj)
       	var data_arr={
       		'positions':JSON.stringify(positions),
@@ -1417,7 +1473,7 @@ $(function(){
 			}
 		}else{
 			var c_id=$(this).attr('id');
-			var new_data={'num':num_index,'crop_type':crop_type,'id':c_id,'w':w,'h':h,'width':width,'x':x,'y':y,'height':height,'current_page':current_page}
+			var new_data={'index':num_index,'crop_type':crop_type,'id':c_id,'w':w,'h':h,'width':width,'x':x,'y':y,'height':height,'current_page':current_page}
 			var is_arr = JSON.parse(localStorage.getItem("data_arr"+index_id+""));
 			var is_num = JSON.parse(localStorage.getItem("data_arr_num"+index_id+""));
 			console.log(is_arr,is_num)
