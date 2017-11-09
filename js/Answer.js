@@ -1,4 +1,4 @@
-var m1 = angular.module("pro", []);
+var m1 = angular.module("pro",[]);
 // m1.config(function ($httpProvider) {
 //     $httpProvider.defaults.useXDomain = true;
 //     delete $httpProvider.defaults.headers.common['X-Requested-With'];
@@ -7,7 +7,6 @@ var m1 = angular.module("pro", []);
 m1.controller("demo", function ($scope, $timeout, $http) {
     var url = window.location;
     var isLogin = localStorage.getItem("token");
-    console.log(window.localStorage.getItem("exam_id"))
     $scope.subjectName = window.localStorage.getItem("test_name") + window.localStorage.getItem("subjectname")
     $(".Answer .A_Nav").width($(document).width())
     function getUrlParam(url, name) {//获取页面参数
@@ -27,9 +26,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         return items;
     }
-
+    $scope.leftcardNum = [0,1,2,3,4]
     $scope.countScore = 0//总分
-    $scope.infoLocation = 0//默认顶部
+    $scope.infoLocation = 0//信息栏默认顶部
+    $scope.infoBox = 0//信息框默认顶部
     $scope.page_num = 0 //页数
     $scope.listObj = [];//定义全局数组保存所有题目
     $scope.listObj2 = [];//定义全局数组保存所有题目
@@ -67,6 +67,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     allHeight = data.message.allHeight ? data.message.allHeight : []
                     $scope.paperType = data.message.paperType ? data.message.paperType : 0
                     $scope.infoLocation = data.message.infoLocation ? data.message.infoLocation : 0
+                    $scope.infoBox = data.message.infoBox ? data.message.infoBox : 0
                     $scope.showTableLineTyep = data.message.showTableLineTyep ? data.message.showTableLineTyep : 0
                     $scope.myDayinType = data.message.myDayinType ? data.message.myDayinType : 0
                     $scope.showItmeScoreType = data.message.showItmeScoreType ? data.message.showItmeScoreType : 0
@@ -504,12 +505,12 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var studentRegionRect = {}//学号区域信息
         var dot = $(".position_TL span").eq(1).offset();
         dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
-        var studentInfo = $(".student_L")
+        var studentInfo = $scope.infoBox == 0?$(".student_L"):$(".candidate")
         studentRegionRect.region_rect_x = parseInt(studentInfo.offset().left - dot.left)
         studentRegionRect.region_rect_y = parseInt(studentInfo.offset().top - dot.top)
         studentRegionRect.region_rect_width = studentInfo.width()
         studentRegionRect.region_rect_height = studentInfo.height()
-        var ulP = $(".student_number3")
+        var ulP = $scope.infoBox == 0?$(".student_number3"):$(".full_card_number")
         var ulItem = ulP.find("ul"), ulLen = ulItem.length
         var len;
         var fristPost = []//第一个itme坐标
@@ -522,13 +523,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         itme_obj.no = 0
         itme_obj.score = 0
         itme_obj.string = "学号"
-        itme_obj.block_width = 18
+        itme_obj.block_width = $scope.infoBox == 0?18:10
         itme_obj.block_height = 12
         itme_obj.num_question = parseInt(ulLen)
         itme_obj.num_of_option = parseInt(len)
         itme_obj.region_rect_x = studentRegionRect.region_rect_x - 10
         itme_obj.region_rect_y = 10
-        itme_obj.region_rect_width = 698
+        itme_obj.region_rect_width = $scope.infoBox == 0?698:studentRegionRect.region_rect_width
         itme_obj.region_rect_height = studentRegionRect.region_rect_height + 8 + 180//框选个人信息框
         itme_obj.question = []
         for (var i = 1; i <= ulLen; i++) {
@@ -799,6 +800,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         allList.answer_id = answer_id
         allList.paperType = $scope.paperType
         allList.infoLocation = $scope.infoLocation
+        allList.infoBox = $scope.infoBox
         allList.showTableLineTyep = $scope.showTableLineTyep
         allList.myDayinType = $scope.myDayinType
         allList.showItmeScoreType = $scope.showItmeScoreType
@@ -889,6 +891,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.dayin = function () {//打印
         $("table").removeClass("table_focus")
         $(".student").removeClass("table_focus")
+        $("img").removeClass("table_focus")
+        $(".candidate").removeClass("table_focus")
         $(".A_Nav").css({"display": "none"})
         $(".cand").hide()
         $("#menu").css({"display": "none"})
@@ -1617,6 +1621,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.listObj4 = data.page4 ? data.page4 : []
                 $scope.paperType = data.paperType ? data.paperType : 0
                 $scope.infoLocation = data.infoLocation ? data.infoLocation : 0
+                $scope.infoBox = data.infoBox ? data.infoBox : 0
                 $scope.showTableLineTyep = data.showTableLineTyep ? data.showTableLineTyep : 0
                 $scope.myDayinType = data.myDayinType ? data.myDayinType : 0
                 $scope.showItmeScoreType = data.showItmeScoreType ? data.showItmeScoreType : 0
@@ -1740,6 +1745,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         return obj
     }
     $scope.getTableIndex = function (tabParentIndex, tabIndex) {
+        console.log(111)
         $scope.tabParentIndex = tabParentIndex
         $scope.tabIndex = tabIndex
         $scope.showMenuFlag = true
@@ -1882,6 +1888,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.setInfoLocation = function () {
         $("#menu").hide()
         $scope.infoLocation = $scope.infoLocation==0?1:0
+    }
+    /**
+     * 设置信息框位置
+     */
+    $scope.setInfoBox = function () {
+        $scope.infoBox = $scope.infoBox==0?1:0
+        $("#menu").hide()
     }
     /*******************************保存*************************************************/
     $scope.save = function () {//保存模板

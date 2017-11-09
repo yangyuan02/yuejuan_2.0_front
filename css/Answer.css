@@ -858,6 +858,45 @@ input:focus{
 .imgFormat .img_info input{
     width:24px;
 }
+/*左侧考号*/
+.Answer .A_R .candidate{
+    width:100px;
+    border:1px solid #000;
+    border-top:none;
+    position:absolute;
+    top:170px;
+}
+.Answer .A_R .candidate .full_card ul{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    border: 1px solid black;
+    border-left: none;
+    border-right: none;
+}
+.Answer .A_R .candidate .full_card ul li{
+    width:20%;
+    height: 19px;
+    border-right: 1px solid black;
+}
+.Answer .A_R .candidate .full_card ul li:last-child{
+    border-right:none;
+}
+.Answer .A_R .candidate .full_card_number{
+    display: flex;
+    justify-content: space-between;
+}
+.Answer .A_R .candidate .full_card_number ul{
+    width:20%;
+}
+.Answer .A_R .candidate .full_card_number ul li{
+    width: 10px;
+    height: 11px;
+    border: 1px solid black;
+    text-align: center;
+    line-height: 11px;
+    margin: 8px auto;
+}
 /********************语文试卷样式***************/
 /*table thead tr:last-child{*/
     /*display:none!important;*/
