@@ -106,29 +106,29 @@ angular.module("myApp.controller", [])
         //     $(this).siblings().show();
         // }); 
         // 分析
-         $(".mart_set_03_select").change(function(event) {
-            var a = $(this).children('option:selected').attr("data-id");
-            // $(this).attr('data-id', a);
-            // markxl(mark_01_select_a);
-            // var b=$(this).attr('data-id');
-            // alert(a);
-            if(a==2){
-             $("#ul_iLabel li").eq(0).find('.level_02').val("69");
-             $("#ul_iLabel li").eq(1).find('.level_02').val("62");
-             $("#ul_iLabel li").eq(2).find('.level_02').val("59");
-             $("#ul_iLabel li").eq(3).find('.level_02').val("55");
-             $("#ul_iLabel li").eq(4).find('.level_02').val("43");
+        //  $(".mart_set_03_select").change(function(event) {
+        //     var a = $(this).children('option:selected').attr("data-id");
+        //     // $(this).attr('data-id', a);
+        //     // markxl(mark_01_select_a);
+        //     // var b=$(this).attr('data-id');
+        //     // alert(a);
+        //     if(a==2){
+        //      $("#ul_iLabel li").eq(0).find('.level_02').val("69");
+        //      $("#ul_iLabel li").eq(1).find('.level_02').val("62");
+        //      $("#ul_iLabel li").eq(2).find('.level_02').val("59");
+        //      $("#ul_iLabel li").eq(3).find('.level_02').val("55");
+        //      $("#ul_iLabel li").eq(4).find('.level_02').val("43");
             
-          }
-          if(a==1){
-            $("#ul_iLabel li").eq(0).find('.level_02').val("15%");
-             $("#ul_iLabel li").eq(1).find('.level_02').val("30%");
-             $("#ul_iLabel li").eq(2).find('.level_02').val("30%");
-             $("#ul_iLabel li").eq(3).find('.level_02').val("20%");
-             $("#ul_iLabel li").eq(4).find('.level_02').val("5%");
+        //   }
+        //   if(a==1){
+        //     $("#ul_iLabel li").eq(0).find('.level_02').val("15%");
+        //      $("#ul_iLabel li").eq(1).find('.level_02').val("30%");
+        //      $("#ul_iLabel li").eq(2).find('.level_02').val("30%");
+        //      $("#ul_iLabel li").eq(3).find('.level_02').val("20%");
+        //      $("#ul_iLabel li").eq(4).find('.level_02').val("5%");
              
-          }
-        });
+        //   }
+        // });
         $(".btn_1").click(function(event) {
 
             $(".mart_set").hide();
@@ -156,7 +156,7 @@ angular.module("myApp.controller", [])
                 "exam_subject_id": sub_id1,
                 "pass": jg_mark,
                 "fine": yx_mark,
-                'level_type':level,
+                // 'level_type':level,
             };
             console.log(data_value);
             for (var i = 0; i < a; i++) {
@@ -3776,7 +3776,7 @@ angular.module("myApp.controller", [])
 
         $(".main_left a").eq(5).addClass('li_click').siblings().removeClass("li_click");
         $("#index_span").html($(".main_left a").eq(5).html());
-        $("#exam_h_left").css("margin-bottom", "150px");
+        $("#exam_h_left").css("margin-bottom", "230px");
         $(".exam_h_left").show();
         $("#exam_h_left").siblings("a").click(function(event) {
             /* Act on the event */
@@ -4298,7 +4298,20 @@ angular.module("myApp.controller", [])
 
         });
 
+      $("#exam_h_left_5l").click(function(event) {
+            /* Act on the event */
+            $(".exam_h_101 span").eq(1).hide();
+            $(".exam_h_101 span").eq(2).show();
+            $(".exam_h_101 span").eq(3).hide();
 
+        });
+      $("#exam_h_left_6l").click(function(event) {
+            /* Act on the event */
+            $(".exam_h_101 span").eq(1).hide();
+            $(".exam_h_101 span").eq(2).show();
+            $(".exam_h_101 span").eq(3).hide();
+
+        });
         // 班级等级分布详细
 
         $(".exam_h_201 tr span").click(function(event) {
