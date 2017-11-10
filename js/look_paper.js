@@ -695,6 +695,17 @@ $(function(){
 			for (var nn = 0; nn < all_list.length; nn++) {
 				if(new_num_arr[ll].sec_num==$(all_list[nn]).attr('sec_num')){
 					$(all_list[nn]).addClass('on').removeClass('s-li');
+					if(on_checked_info.length==all_list.length){
+						$(all_list[nn]).siblings().removeClass('s-li');
+						$(all_list[nn]).siblings().css({
+							'opacity': 0.7,
+							'cursor': 'not-allowed'
+						});
+					}
+				}
+			};
+			for (var uu = 0; uu < on_checked_info.length; uu++) {
+				if(on_checked_info[uu].index==$(all_list[nn]).find('input').attr('index')&&on_checked_info[uu].current_page==$(all_list[nn]).find('input').attr('current_page')){
 					$(all_list[nn]).siblings().removeClass('s-li');
 					$(all_list[nn]).siblings().css({
 						'opacity': 0.7,
@@ -715,16 +726,22 @@ $(function(){
 			for (var j = 0; j < arr.length; j++) {
 	    	var jj_html = '<li class="s-li" id="'+arr[j].id+'" sec_num = "'+arr[j].current_page+'_'+arr[j].index+'"><input type="hidden" width="'+arr[j].width+'" height="'+arr[j].height+'" w="'+arr[j].w+'" h="'+arr[j].h+'" x="'+arr[j].x+'" y="'+arr[j].y+'" current_page="'+arr[j].current_page+'" index="'+arr[j].index+'"/><span>'+arr[j].index+'</span>( 第<em>'+arr[j].current_page+'</em>页 )</li>';
 	    	$('body').find('#all-section-list').append(jj_html);
-	    	for (var i = 0; i < on_checked_info.length; i++) {
-	    		if(on_checked_info[i].index==arr[j].index&&on_checked_info[i].current_page==arr[j].current_page){
-	    			$('#all-section-list li').eq(j).removeClass('s-li');
-	    			$('#all-section-list li').eq(j).css({
-	    				'opacity': .7,
-	    				'cursor': 'not-allowed'
-	    			});
-	    		}
-	    	};
 	    }
+	    for (var i = 0; i < on_checked_info.length; i++) {
+	    	for (var j = 0; j < arr.length; j++) {
+	    		console.log(i,j)
+		  		if(on_checked_info[i].index==arr[j].index&&on_checked_info[i].current_page==arr[j].current_page){
+		  			console.log(on_checked_info[i].index,on_checked_info[i].current_page)
+		  			console.log(j)
+		  			console.log($('#all-section-list li').eq(j).html())
+		  			$('#all-section-list li').eq(j).removeClass('s-li');
+		  			$('#all-section-list li').eq(j).css({
+		  				'opacity': .7,
+		  				'cursor': 'not-allowed'
+		  			});
+		  		}
+	  		};
+	  	};
     }
 	}
 
@@ -1574,7 +1591,14 @@ $(function(){
 		  headers: {'Authorization': "Bearer " + isLogin},
 		  data:up_arr,
 		  success: function(data){
-		  	console.log(data);
+		  	console.log(data,on_checked_info);
+		  	for (var dd = 0; dd < on_checked_info.length; dd++) {
+					if(data.id==on_checked_info[dd].id){
+						on_checked_info.splice(dd,1);
+						on_checked_info.push(data);
+					}
+				}
+				console.log(on_checked_info)
 		  	// update_show_info(data,select_id);
 		   },
 		   error: function(){
