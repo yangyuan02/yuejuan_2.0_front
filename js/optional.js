@@ -12,6 +12,7 @@ $(document).ready(function () {
 		$('.import-course-wrap .modal-main').animate({'top': '50%','opacity': 1},500);
 		$('.import-course-wrap .modal-shadow').animate({'opacity': .3},500);
 		$('.import-course-wrap').show();
+		$('.table-template').attr('href', ajaxIp+'/template/课程导入（模板）.xlsx');
 	})
 
 	// 创建课程
@@ -21,10 +22,11 @@ $(document).ready(function () {
 		$('.modal-course-wrap').show();
 	})
 
-	// 导出当前课程列表
+	// 学生导入
 	$('.stu-import').click(function(){
 		$('.import-stu-wrap .modal-main').animate({'top': '50%','opacity': 1},500);
 		$('.import-stu-wrap .modal-shadow').animate({'opacity': .3},500);
 		$('.import-stu-wrap').show();
+		$('.table-template').attr('href', ajaxIp+'/template/课程学生导入（模板）.xlsx');
 	})
 })
