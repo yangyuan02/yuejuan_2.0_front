@@ -971,8 +971,8 @@ $(function() {
  		$('.teachers-tabble tbody').html('');
  		for (var i = 0; i < data.length; i++) {
  			var iGreads = [];
-			for (var j = 0; j < data[i].teacher_subjects.length; j++) {
-				iGreads[j] =data[i].teacher_subjects[j].name
+			for (var j = 0; j < data[i].grades.length; j++) {
+				iGreads[j] =data[i].grades[j].name
 			}
 
 			var iTr = '<tr class="tr-'+i+'" style="border-bottom:1px solid #ccc;"><td>'+data[i].real_name+'</td><td style="width:140px">'+iGreads+'</td><td>'+(data[i].subject==undefined?"":data[i].subject.name)+'</td><td>'+data[i].email+'</td><td>'+data[i].phone+'</td><td>'+data[i].role+'</td><td class="table-modify"><span class="iconfont table-span" data-id="'+data[i].id+'">&#xe614;&nbsp;修改</span></td><td class="table-reset-password"><span class="iconfont table-span" data-id="'+data[i].id+'" data-name="'+data[i].real_name+'">&#xe60d;&nbsp;重置密码</span></td><td class="table-delete iconfont"><span class="iconfont table-span" data-id="'+data[i].id+'" data-name="'+data[i].real_name+'">&#xe616;&nbsp;删除</span></td></tr>'
