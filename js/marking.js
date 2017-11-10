@@ -803,6 +803,24 @@ $(function(){
 		}
   });
 
+  // 左旋转
+  var left_value = -1;
+  $('.left-roa').click(function(){
+  	console.log(88)
+		$('.move-paper img').rotate({angle: left_value});
+		left_value--;
+  })
+  // 右旋转
+  var right_value=1;
+  $('.right-roa').click(function(){
+		$('.move-paper img').rotate({angle: right_value});
+		right_value++;
+		$('.move-paper img').css({
+			'transform': 'rotate('+right_value+')deg)',
+		});
+		console.log($('.move-paper img').css('transform'))
+  })
+
 
   function zoomIn(img_width,img_height,ch){
 		if(ch){
