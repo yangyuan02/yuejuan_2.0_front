@@ -199,8 +199,8 @@ $(function(){
 		    var l_height=new_arr[i].h/734;
 		    // console.log(new_arr[i].w,l_width,l_height)
 				var first_string="<div class='select-area' style='position: absolute;left:"+(new_arr[i].x/l_width)+"px;top:"+(new_arr[i].y/l_height)+"px;"+"width:"+(new_arr[i].width/l_width)+"px;height:"
-			      +(new_arr[i].height/l_height)+"px' id='select-area"+(i+new_info.length+1)+"' name='"+(i+new_info.length+1)+"'><a href='javascript:;' class='edit-item'>编辑</a><i class='iconfont close'>&#xe61b;</i><span class='title' " +
-			  		" style='background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 2px;'>"+(i+new_info.length+1)+"</span>'</div>";
+			      +(new_arr[i].height/l_height)+"px' id='select-area"+(new_arr[i].index)+"' name='"+(new_arr[i].index)+"'><a href='javascript:;' class='edit-item'>编辑</a><i class='iconfont close'>&#xe61b;</i><span class='title' " +
+			  		" style='background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 2px;'>"+(new_arr[i].index)+"</span>'</div>";
 	  		$('.bg-img').append(first_string);
 	  		$(".select-area").draggable({containment: ".bg-img", scroll: false });;
 	      $(".select-area").resizable({ handles: "n, e, s, w, ne, se, sw, nw" });
@@ -399,10 +399,10 @@ $(function(){
     }
 		for (var j = 0; j < new_arr.length; j++) {
   		if(arr[eg-1].crop_type==4){
-  			var select_area_a='<div id="select-area'+(j+1)+'" style="width:'+(new_arr[j].width)/(new_arr[j].w/1044)+'px;height:'+(new_arr[j].height)/(new_arr[j].h/734)+'px;left:'+(new_arr[j].x)/(new_arr[j].w/1044)+'px;top:'+(new_arr[j].y)/(new_arr[j].h/734)+'px" class="select-area" name="'+(j+1)+'" answer-id="'+new_arr[j].answer_id+'" data-id="'+new_arr[j].id+'"><a href="javascript:;" class="edit-item">编辑</a><i class="iconfont close">&#xe61b;</i><span class="title" style="background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 0px;">'+new_arr[j].index+'</span></div>';
+  			var select_area_a='<div id="select-area'+new_arr[j].index+'" style="width:'+(new_arr[j].width)/(new_arr[j].w/1044)+'px;height:'+(new_arr[j].height)/(new_arr[j].h/734)+'px;left:'+(new_arr[j].x)/(new_arr[j].w/1044)+'px;top:'+(new_arr[j].y)/(new_arr[j].h/734)+'px" class="select-area" name="'+new_arr[j].index+'" answer-id="'+new_arr[j].answer_id+'" data-id="'+new_arr[j].id+'"><a href="javascript:;" class="edit-item">编辑</a><i class="iconfont close">&#xe61b;</i><span class="title" style="background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 0px;">'+new_arr[j].index+'</span></div>';
   		}
   		if(arr[eg-1].crop_type==1){
-				var select_area_a='<div id="select-area'+(j+1)+'" style="width:'+(new_arr[j].width)/(new_arr[j].w/1044)+'px;height:'+(new_arr[j].height)/(new_arr[j].h/734)+'px;left:'+(new_arr[j].x)/(new_arr[j].w/1044)+'px;top:'+(new_arr[j].y)/(new_arr[j].h/734)+'px" class="select-area" name="'+(j+1)+'" answer-id="'+new_arr[j].answer_id+'" data-id="'+new_arr[j].id+'"><i class="iconfont close">&#xe61b;</i><span class="title" style="background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 0px;">'+new_arr[j].index+'</span></div>';
+				var select_area_a='<div id="select-area'+new_arr[j].index+'" style="width:'+(new_arr[j].width)/(new_arr[j].w/1044)+'px;height:'+(new_arr[j].height)/(new_arr[j].h/734)+'px;left:'+(new_arr[j].x)/(new_arr[j].w/1044)+'px;top:'+(new_arr[j].y)/(new_arr[j].h/734)+'px" class="select-area" name="'+new_arr[j].index+'" answer-id="'+new_arr[j].answer_id+'" data-id="'+new_arr[j].id+'"><i class="iconfont close">&#xe61b;</i><span class="title" style="background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 0px;">'+new_arr[j].index+'</span></div>';
 			}
 			$('.bg-img').append(select_area_a);
 			//$('.bg-img div').eq(i).addClass('select-area');
@@ -1031,6 +1031,7 @@ $(function(){
 					console.log(id_area[j],id_info[i].id)
 					$('#'+id_area[j]+'').attr('answer-id',id_info[i].answer_id);
 					for (var q = 0; q < is_arr.length; q++) {
+						console.log(is_arr[q].id,id_area[j],is_arr[q].current_page,id_info[i].current_page)
 						if(is_arr[q].id==id_area[j]&&is_arr[q].current_page==id_info[i].current_page){
 							 is_on_info.push(is_arr[q]);
 							 is_arr.splice(q,1);
@@ -1038,6 +1039,9 @@ $(function(){
 						console.log(is_arr,is_on_info)
 						var storage=window.localStorage;
 						storage.setItem("data_arr"+index_id+"",JSON.stringify(is_arr));
+						console.log(JSON.parse(localStorage.getItem("data_arr"+index_id+"")))
+						data_arr_all=is_arr;
+						console.log(data_arr_all)
 						storage.setItem("data_arr_on"+index_id+"",JSON.stringify(is_on_info));
 					};
 				}
@@ -1296,6 +1300,9 @@ $(function(){
 		      	arr_obj['id']='select-area'+(num-1)+'';
 		      	arr_obj['index']=parseInt(num-1);
 		      	console.log(arr_obj,data_arr_all)
+		      	if(data_arr_all==null){
+		      		data_arr_all=[];
+		      	}
 				  	data_arr_all.push(arr_obj);
 				  	console.log(data_arr_all)
 				  	var jj_html = '<li class="s-li" id="select-area'+(num-1)+'" sec_num = "'+current_page+'_'+(num-1)+'"><input type="hidden" width="'+$("div[name='"+(num-1)+"']").width()+'" height="'+$("div[name='"+(num-1)+"']").height()+'" w="'+w+'" h="'+h+'" x="'+$("div[name='"+(num-1)+"']").position().left+'" y="'+$("div[name='"+(num-1)+"']").position().top+'" current_page="'+current_page+'"  index="'+(num-1)+'"/><span>'+(num-1)+'</span>( 第<em>'+current_page+'</em>页 )</li>';
