@@ -83,9 +83,9 @@
 						<a href="javascript:;" id="clear">清除</a>
 					</div>
 					<div class="title-name-right"> 
-						<span class="batch-import iconfont" data-name="2">&#xe60c;&nbsp;课程导入</span>
-						<span class="add-teacher iconfont">&#xe613;&nbsp;创建课程</span>
-						<span class="Lead-in-teacher iconfont"><a target="_self">&#xe611;&nbsp;导出当前课程列表</a></span>
+						<span class="course-import iconfont" data-name="2">&#xe60c;&nbsp;课程导入</span>
+						<span class="add-course iconfont">&#xe613;&nbsp;创建课程</span>
+						<span class="lead-out-course iconfont"><a target="_self">&#xe611;&nbsp;导出当前课程列表</a></span>
 					</div>
 				</div>
 				<table class="search-tabble courses-tabble" cellpadding="0" cellspacing="0" style='border-collapse:collapse;margin-bottom: 15px'>
@@ -236,8 +236,8 @@
 						<a href="javascript:;" id="clear">清除</a>
 					</div>
 					<div class="title-name-right"> 
-						<span class="batch-import iconfont" data-name="1">&#xe60c;&nbsp;学生导入</span>
-						<span class="Lead-in-student iconfont"><a target="_self">&#xe611;&nbsp;导出当前学生列表</a></span>
+						<span class="stu-import iconfont" data-name="1">&#xe60c;&nbsp;学生导入</span>
+						<span class="lead-out-student iconfont"><a target="_self">&#xe611;&nbsp;导出当前学生列表</a></span>
 					</div>
 				</div>
 				<table class="search-tabble stu-tabble" cellpadding="0" cellspacing="0" style='border-collapse:collapse;margin-bottom: 15px'>
@@ -609,15 +609,13 @@
 				<table class="search-tabble item-score-tabble" cellpadding="0" cellspacing="0" style='border-collapse:collapse;margin-bottom: 15px'>
 					<thead>
 						<tr>
-							<th>题目</th>
-							<th>题分</th>
+							<th rowspan="2">题目</th>
+							<th rowspan="2">题分</th>
 							<th colspan="2">年级（119人）</th>
 							<th colspan="2">2016物理4（26人）</th>
 							<th colspan="2">2016物理1（32人）</th>
 						</tr>
 						<tr>
-							<th></th>
-							<th></th>
 							<th>平均分</th>
 							<th>得分率</th>
 							<th>平均分</th>
@@ -943,19 +941,78 @@
 
 	</div>
 
-	<div class="modal-wrap import-wrap">
+	<!-- 课程导入 -->
+	<div class="modal-wrap import-course-wrap">
 		<div class="modal-shadow modal-exit"></div>
 		<div class="modal-main">
 			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
-			<div class="modal-title">导入</div>
+			<div class="modal-title">课程导入</div>
 			<div class="modal-content" style="">
 					选择文件
 					<div id="upfile" onclick="inPath.click()">
 						未选择任何文件  
 					</div>
 					<input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" id="inPath" style="display:none">
-					<div style="color: #db4a4a;line-height: 60px;text-align: center;">请先点击：“教师（或学生）信息表格” <a class="table-template" style="color: #db4a4a;border: 1px solid #db4a4a">下载文件模板</a>，填入信息后再导入</div>
-				
+					<div style="color: #db4a4a;line-height: 60px;text-align: center;"><i class="iconfont">&#xe63c;</i>请先 <a class="table-template" style="color: #db4a4a;border: 1px solid #db4a4a">下载文件模板</a>，填入信息后再导入</div>
+				<!-- <input type="file" id="inPath" style="display:none" onchange="upfile.value=this.value"> -->
+				<!-- <input type="file"> -->
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 创建课程 -->
+		<div class="modal-wrap modal-course-wrap">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main">
+			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
+			<div class="modal-title">创建课程</div>
+			<div class="modal-content" style="text-align: left;">
+				<p style="text-align: left;font-size: 16px;font-weight: bold;padding-bottom: 10px;">课程信息：</p>
+
+				<label class="teachers-label" for="class-name">名&nbsp;&nbsp;称</label>
+				<input type="text" class="course-name input-class-i" placeholder="请输入课程名称">
+
+				<label class="teachers-label" for="class-name">代&nbsp;&nbsp;码</label>
+				<input type="text" class="course-num input-class-i" placeholder="请输入7位数字代码">
+
+				<label class="teachers-label" for="class-name">科&nbsp;&nbsp;目</label>
+				<select name="" class="course-sub select-class-i" placeholder="请选择科目">
+
+				</select>
+
+				<label class="teachers-label" for="grade-name">年&nbsp;&nbsp;级</label>
+				<select name="" class="course-grade select-class-i" placeholder="请选择年级">
+
+				</select>
+
+
+				<label class="teachers-label" for="class-name">名&nbsp;&nbsp;额</label>
+				<input type="text" class="student-code input-class-i" placeholder="请输入数字，最多允许学生报名数">
+
+
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 学生导入 -->
+	<div class="modal-wrap import-stu-wrap">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main">
+			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
+			<div class="modal-title">学生导入</div>
+			<div class="modal-content" style="">
+					选择文件
+					<div id="upfile" onclick="inPath.click()">
+						未选择任何文件  
+					</div>
+					<input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" id="inPath" style="display:none">
+					<div style="color: #db4a4a;line-height: 60px;text-align: center;"><i class="iconfont">&#xe63c;</i>请先 <a class="table-template" style="color: #db4a4a;border: 1px solid #db4a4a">下载文件模板</a>，填入信息后再导入</div>
 				<!-- <input type="file" id="inPath" style="display:none" onchange="upfile.value=this.value"> -->
 				<!-- <input type="file"> -->
 				<div class="modal-bottom">
@@ -966,14 +1023,4 @@
 		</div>
 	</div>
 </body>
-<script>
-	// $('.Lead-in-teacher').on('click', function(){
-	// 	$('.search-tabble').tableExport({
-	// 	filename: 'table_%DD%-%MM%-%YY%',
-	// 	format: 'xls',
-	// 	// cols: '1,2,3,4'
-	// 	ignoreCols: '1,2,3'
-	// });
-	// })
-</script>
 </html>
