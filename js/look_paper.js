@@ -199,8 +199,8 @@ $(function(){
 		    var l_height=new_arr[i].h/734;
 		    // console.log(new_arr[i].w,l_width,l_height)
 				var first_string="<div class='select-area' style='position: absolute;left:"+(new_arr[i].x/l_width)+"px;top:"+(new_arr[i].y/l_height)+"px;"+"width:"+(new_arr[i].width/l_width)+"px;height:"
-			      +(new_arr[i].height/l_height)+"px' id='select-area"+(i+new_info.length+1)+"' name='"+(i+new_info.length+1)+"'><a href='javascript:;' class='edit-item'>编辑</a><i class='iconfont close'>&#xe61b;</i><span class='title' " +
-			  		" style='background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 2px;'>"+(i+new_info.length+1)+"</span>'</div>";
+			      +(new_arr[i].height/l_height)+"px' id='select-area"+(new_arr[i].index)+"' name='"+(new_arr[i].index)+"'><a href='javascript:;' class='edit-item'>编辑</a><i class='iconfont close'>&#xe61b;</i><span class='title' " +
+			  		" style='background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 2px;'>"+(new_arr[i].index)+"</span>'</div>";
 	  		$('.bg-img').append(first_string);
 	  		$(".select-area").draggable({containment: ".bg-img", scroll: false });;
 	      $(".select-area").resizable({ handles: "n, e, s, w, ne, se, sw, nw" });
@@ -399,10 +399,10 @@ $(function(){
     }
 		for (var j = 0; j < new_arr.length; j++) {
   		if(arr[eg-1].crop_type==4){
-  			var select_area_a='<div id="select-area'+(j+1)+'" style="width:'+(new_arr[j].width)/(new_arr[j].w/1044)+'px;height:'+(new_arr[j].height)/(new_arr[j].h/734)+'px;left:'+(new_arr[j].x)/(new_arr[j].w/1044)+'px;top:'+(new_arr[j].y)/(new_arr[j].h/734)+'px" class="select-area" name="'+(j+1)+'" answer-id="'+new_arr[j].answer_id+'" data-id="'+new_arr[j].id+'"><a href="javascript:;" class="edit-item">编辑</a><i class="iconfont close">&#xe61b;</i><span class="title" style="background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 0px;">'+new_arr[j].index+'</span></div>';
+  			var select_area_a='<div id="select-area'+new_arr[j].index+'" style="width:'+(new_arr[j].width)/(new_arr[j].w/1044)+'px;height:'+(new_arr[j].height)/(new_arr[j].h/734)+'px;left:'+(new_arr[j].x)/(new_arr[j].w/1044)+'px;top:'+(new_arr[j].y)/(new_arr[j].h/734)+'px" class="select-area" name="'+new_arr[j].index+'" answer-id="'+new_arr[j].answer_id+'" data-id="'+new_arr[j].id+'"><a href="javascript:;" class="edit-item">编辑</a><i class="iconfont close">&#xe61b;</i><span class="title" style="background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 0px;">'+new_arr[j].index+'</span></div>';
   		}
   		if(arr[eg-1].crop_type==1){
-				var select_area_a='<div id="select-area'+(j+1)+'" style="width:'+(new_arr[j].width)/(new_arr[j].w/1044)+'px;height:'+(new_arr[j].height)/(new_arr[j].h/734)+'px;left:'+(new_arr[j].x)/(new_arr[j].w/1044)+'px;top:'+(new_arr[j].y)/(new_arr[j].h/734)+'px" class="select-area" name="'+(j+1)+'" answer-id="'+new_arr[j].answer_id+'" data-id="'+new_arr[j].id+'"><i class="iconfont close">&#xe61b;</i><span class="title" style="background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 0px;">'+new_arr[j].index+'</span></div>';
+				var select_area_a='<div id="select-area'+new_arr[j].index+'" style="width:'+(new_arr[j].width)/(new_arr[j].w/1044)+'px;height:'+(new_arr[j].height)/(new_arr[j].h/734)+'px;left:'+(new_arr[j].x)/(new_arr[j].w/1044)+'px;top:'+(new_arr[j].y)/(new_arr[j].h/734)+'px" class="select-area" name="'+new_arr[j].index+'" answer-id="'+new_arr[j].answer_id+'" data-id="'+new_arr[j].id+'"><i class="iconfont close">&#xe61b;</i><span class="title" style="background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 0px;">'+new_arr[j].index+'</span></div>';
 			}
 			$('.bg-img').append(select_area_a);
 			//$('.bg-img div').eq(i).addClass('select-area');
@@ -695,6 +695,17 @@ $(function(){
 			for (var nn = 0; nn < all_list.length; nn++) {
 				if(new_num_arr[ll].sec_num==$(all_list[nn]).attr('sec_num')){
 					$(all_list[nn]).addClass('on').removeClass('s-li');
+					if(on_checked_info.length==all_list.length){
+						$(all_list[nn]).siblings().removeClass('s-li');
+						$(all_list[nn]).siblings().css({
+							'opacity': 0.7,
+							'cursor': 'not-allowed'
+						});
+					}
+				}
+			};
+			for (var uu = 0; uu < on_checked_info.length; uu++) {
+				if(on_checked_info[uu].index==$(all_list[nn]).find('input').attr('index')&&on_checked_info[uu].current_page==$(all_list[nn]).find('input').attr('current_page')){
 					$(all_list[nn]).siblings().removeClass('s-li');
 					$(all_list[nn]).siblings().css({
 						'opacity': 0.7,
@@ -715,16 +726,22 @@ $(function(){
 			for (var j = 0; j < arr.length; j++) {
 	    	var jj_html = '<li class="s-li" id="'+arr[j].id+'" sec_num = "'+arr[j].current_page+'_'+arr[j].index+'"><input type="hidden" width="'+arr[j].width+'" height="'+arr[j].height+'" w="'+arr[j].w+'" h="'+arr[j].h+'" x="'+arr[j].x+'" y="'+arr[j].y+'" current_page="'+arr[j].current_page+'" index="'+arr[j].index+'"/><span>'+arr[j].index+'</span>( 第<em>'+arr[j].current_page+'</em>页 )</li>';
 	    	$('body').find('#all-section-list').append(jj_html);
-	    	for (var i = 0; i < on_checked_info.length; i++) {
-	    		if(on_checked_info[i].index==arr[j].index&&on_checked_info[i].current_page==arr[j].current_page){
-	    			$('#all-section-list li').eq(j).removeClass('s-li');
-	    			$('#all-section-list li').eq(j).css({
-	    				'opacity': .7,
-	    				'cursor': 'not-allowed'
-	    			});
-	    		}
-	    	};
 	    }
+	    for (var i = 0; i < on_checked_info.length; i++) {
+	    	for (var j = 0; j < arr.length; j++) {
+	    		console.log(i,j)
+		  		if(on_checked_info[i].index==arr[j].index&&on_checked_info[i].current_page==arr[j].current_page){
+		  			console.log(on_checked_info[i].index,on_checked_info[i].current_page)
+		  			console.log(j)
+		  			console.log($('#all-section-list li').eq(j).html())
+		  			$('#all-section-list li').eq(j).removeClass('s-li');
+		  			$('#all-section-list li').eq(j).css({
+		  				'opacity': .7,
+		  				'cursor': 'not-allowed'
+		  			});
+		  		}
+	  		};
+	  	};
     }
 	}
 
@@ -1012,7 +1029,7 @@ $(function(){
 	});
 	var is_on_info=[];
 	function show_id_info(id_info,id_area,is_arr){
-		console.log(id_info,on_checked_info);
+		console.log(id_info,on_checked_info,id_area);
 		for (var dd = 0; dd < id_info.length; dd++) {
 			on_checked_info.push(id_info[dd])
 		};
@@ -1031,6 +1048,7 @@ $(function(){
 					console.log(id_area[j],id_info[i].id)
 					$('#'+id_area[j]+'').attr('answer-id',id_info[i].answer_id);
 					for (var q = 0; q < is_arr.length; q++) {
+						console.log(is_arr[q].id,id_area[j],is_arr[q].current_page,id_info[i].current_page)
 						if(is_arr[q].id==id_area[j]&&is_arr[q].current_page==id_info[i].current_page){
 							 is_on_info.push(is_arr[q]);
 							 is_arr.splice(q,1);
@@ -1038,6 +1056,9 @@ $(function(){
 						console.log(is_arr,is_on_info)
 						var storage=window.localStorage;
 						storage.setItem("data_arr"+index_id+"",JSON.stringify(is_arr));
+						console.log(JSON.parse(localStorage.getItem("data_arr"+index_id+"")))
+						data_arr_all=is_arr;
+						console.log(data_arr_all)
 						storage.setItem("data_arr_on"+index_id+"",JSON.stringify(is_on_info));
 					};
 				}
@@ -1131,14 +1152,14 @@ $(function(){
 						};
 					}
 					data_arr_num=is_on;
-					data_arr_all=is_on;
+					// data_arr_all=is_on;
 					console.log(is_on,data_arr_all)
 						console.log(88)
 						// get_select_info();
 						console.log(on_checked_info);
 						for (var oo = 0; oo < on_checked_info.length; oo++) {
 							if(select_id==on_checked_info[oo].id){
-								on_checked_info.splice(i,1)
+								on_checked_info.splice(oo,1)
 							}
 						};
 						console.log(on_checked_info)
@@ -1296,6 +1317,9 @@ $(function(){
 		      	arr_obj['id']='select-area'+(num-1)+'';
 		      	arr_obj['index']=parseInt(num-1);
 		      	console.log(arr_obj,data_arr_all)
+		      	if(data_arr_all==null){
+		      		data_arr_all=[];
+		      	}
 				  	data_arr_all.push(arr_obj);
 				  	console.log(data_arr_all)
 				  	var jj_html = '<li class="s-li" id="select-area'+(num-1)+'" sec_num = "'+current_page+'_'+(num-1)+'"><input type="hidden" width="'+$("div[name='"+(num-1)+"']").width()+'" height="'+$("div[name='"+(num-1)+"']").height()+'" w="'+w+'" h="'+h+'" x="'+$("div[name='"+(num-1)+"']").position().left+'" y="'+$("div[name='"+(num-1)+"']").position().top+'" current_page="'+current_page+'"  index="'+(num-1)+'"/><span>'+(num-1)+'</span>( 第<em>'+current_page+'</em>页 )</li>';
@@ -1308,13 +1332,13 @@ $(function(){
 		      	console.log('is_arr',is_arr);
 		      	console.log('is_num',is_arr_num);
 		      	console.log('is_on',is_on);
-		      	if(is_arr_num){
+		      	if(is_arr_num!=null&&is_arr_num.length>0){
 		      		console.log('is_num')
 		      		data_arr_num=is_arr_num;
 		      	}
 		      	// var is_on = JSON.parse(localStorage.getItem("data_arr_on"+index_id+""));
 		      	// console.log(is_on.length);
-		      	if(!is_arr_num&&is_on){
+		      	if((!is_arr_num||is_arr_num.length==0)&&is_on){
 		      		console.log('is_on',is_on)
 		      		data_arr_num=is_on;
 		      	}
@@ -1325,7 +1349,7 @@ $(function(){
 		      	// var on_ll = (2 > 3) ？2 :3;
 		      	console.log(on_ll);
 		      	console.log(on_checked_info)
-		      	if(!is_arr_num&&!is_on && on_ll && (on_checked_info&&on_checked_info.length>0)){
+		      	if((!is_arr_num||is_arr_num.length==0)&&!is_on && on_ll && (on_checked_info&&on_checked_info.length>0)){
 		      		console.log(on_checked_info);
 		      		// data_arr_num=[];
 		      		for (var kk = 0; kk < on_checked_info.length; kk++) {
@@ -1567,7 +1591,14 @@ $(function(){
 		  headers: {'Authorization': "Bearer " + isLogin},
 		  data:up_arr,
 		  success: function(data){
-		  	console.log(data);
+		  	console.log(data,on_checked_info);
+		  	for (var dd = 0; dd < on_checked_info.length; dd++) {
+					if(data.id==on_checked_info[dd].id){
+						on_checked_info.splice(dd,1);
+						on_checked_info.push(data);
+					}
+				}
+				console.log(on_checked_info)
 		  	// update_show_info(data,select_id);
 		   },
 		   error: function(){

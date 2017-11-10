@@ -146,7 +146,7 @@ angular.module("myApp.controller", [])
             var yx_mark = $("#yx_mark").val();
             var z_mark = $("#z_mark").val();
             var a = $("#ul_iLabel li").length;
-            var level= $(".mart_set_03_select").children('option:selected').attr("data-id");
+            var level= parseInt($(".mart_set_03_select").children('option:selected').attr("data-id"));
             var data_value = {
                 // 't[column_name_1]':"A",
                 // "t[column_value_1]":"10",
@@ -156,18 +156,33 @@ angular.module("myApp.controller", [])
                 "exam_subject_id": sub_id1,
                 "pass": jg_mark,
                 "fine": yx_mark,
-                'level_type':level,
+                't[level_type]':level,
             };
             console.log(data_value);
             for (var i = 0; i < a; i++) {
                 var c = i + 1;
                 console.log($("#ul_iLabel li").eq(i).find('.level_01').val(), $("#ul_iLabel li").eq(i).find('.level_02').val());
-                var d = "t[column_name_" + c + "]";
+                var type=$(".mart_set_03_select").children('option:selected').attr("data-id");
+                 var d = "t[column_name_" + c + "]";
+                   var f = "t[column_value_" + c + "]";
+                if(type==1){
+               
                 var e = $("#ul_iLabel li").eq(i).find('.level_01').val();
-                var f = "t[column_value_" + c + "]";
+              
                 var g = $("#ul_iLabel li").eq(i).find('.level_02').val();
                 data_value[d] = e;
                 data_value[f] = g;
+                }else{
+                     var e = $("#ul_iLabel li").eq(i).find('.level_01').val();
+                if(i==0){
+               var g = $("#ul_iLabel li").eq(i).find('.level_02').val()+','+$("#z_mark").val();
+               }else{
+                var g = $("#ul_iLabel li").eq(i).find('.level_02').val()+','+$("#ul_iLabel li").eq(i-1).find('.level_02').val();
+               }
+               
+                data_value[d] = e;
+                data_value[f] = g; 
+                }
                 $(".tf_dj").append('<a>' + e + '：' + g + '</a>')
 
             };
@@ -3776,7 +3791,7 @@ angular.module("myApp.controller", [])
 
         $(".main_left a").eq(5).addClass('li_click').siblings().removeClass("li_click");
         $("#index_span").html($(".main_left a").eq(5).html());
-        $("#exam_h_left").css("margin-bottom", "150px");
+        $("#exam_h_left").css("margin-bottom", "230px");
         $(".exam_h_left").show();
         $("#exam_h_left").siblings("a").click(function(event) {
             /* Act on the event */
@@ -4298,7 +4313,20 @@ angular.module("myApp.controller", [])
 
         });
 
+      $("#exam_h_left_5l").click(function(event) {
+            /* Act on the event */
+            $(".exam_h_101 span").eq(1).hide();
+            $(".exam_h_101 span").eq(2).show();
+            $(".exam_h_101 span").eq(3).hide();
 
+        });
+      $("#exam_h_left_6l").click(function(event) {
+            /* Act on the event */
+            $(".exam_h_101 span").eq(1).hide();
+            $(".exam_h_101 span").eq(2).show();
+            $(".exam_h_101 span").eq(3).hide();
+
+        });
         // 班级等级分布详细
 
         $(".exam_h_201 tr span").click(function(event) {
