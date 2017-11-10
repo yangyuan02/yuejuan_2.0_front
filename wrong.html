@@ -27,51 +27,356 @@
 			</div>
 			</div>
 		<div class="content">
-			<div style="width: 1200px;height:800px;border: 1px solid red;margin:0 auto;margin-bottom:20px;margin-top:45px;">
+			<div style="width: 1200px;height:800px;margin:0 auto;margin-bottom:20px;margin-top:45px;">
 				<div style="width: 188px;float: left;">
-					<ul>
-						<li style="width:184px;height: 50px;text-align:center;line-height:50px;background: #ffffff;margin-bottom:13px;font-size: 14px;color: #999999;">考试错题集</li>
-						<li style="width:184px;height: 50px;text-align:center;line-height:50px;background: #ffffff;margin-bottom:13px;font-size: 14px;color: #999999;">班级错题集</li>
-						<li style="width:184px;height: 50px;text-align:center;line-height:50px;background: #ffffff;margin-bottom:13px;font-size: 14px;color: #999999;">学生错题集</li>
+					<ul class="wrong_left_ul">
+						<li id="wrong_left_li">考试错题集</li>
+						<li>班级错题集</li>
+						<li>学生错题集</li>
 					</ul>
 				</div>
-				<div style="width: 1000px;float:right;background: #ffffff;height:800px;padding:43px 40px 0px 35px;box-sizing: border-box;">
-					<p style="width:100%;height:46px;background:#dcf5f0;line-height: 46px;padding-left:15px;box-sizing: border-box;
+				<div style="width: 1000px;float:right;background: #ffffff;height:800px;padding:43px 40px 0px 35px;box-sizing: border-box;border: 1px solid #cccccc;">
+					<p class="wrong_top" style="width:100%;height:46px;background:#dcf5f0;line-height: 46px;padding-left:15px;box-sizing: border-box;
 					font-size: 16px;color: #2daa82;">考试错题集</p>
+					
+					<div class="wrong_main">
+					<!-- 考试错题集模块 -->
+					<!-- 年级级错题本-->
+					<div style="">
 					<p style="height: 57px;font-size:14px;line-height: 57px;color: #999999;">
-					   <a>考试<select style="width: 200px;height: 30px;margin-left: 10px;">
-						<option value="">11</option>
-						<option value="">11</option>
+					   <a>考试<select style="width: 200px;height: 30px;margin-left: 10px;color: #666666;font-size: 14px;">
+						<option value="">上海市一中期中考试</option>
 					   </select> </a>
-                       <a style="margin-left: 35px;"> 科目<select style="width: 100px;height: 30px;margin-left: 10px;">
-						<option value="">11</option>
-						<option value="">11</option>
+                       <a style="margin-left: 35px;"> 科目<select style="width: 100px;height: 30px;margin-left: 10px;color: #666666;font-size: 14px;">
+						<option value="">数学</option>
+						<option value="">语文</option>
 					   </select></a>
-					    <a style="float: right;">得分率（s）<select style="width: 100px;height: 30px;">
-						<option value="">11</option>
-						<option value="">11</option>
+					    <a style="float: right;">得分率（s）<select style="width: 100px;height: 30px;color: #666666;font-size: 14px;">
+						<option value="">80%</option>
+						<option value="">60%</option>
+						<option value="">40%</option>
+						<option value="">20%</option>
+						<option value="">0%</option>
+
 					   </select></a>
 					</p>
-					<p style="height: 58px;font-size: 14px;line-height: 58px;color: #666;cursor: pointer;">类型
-					<a style="padding: 2px 10px 2px 10px;background: #31bc91;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-left:10px;">全部<i class="iconfont" style="font-size: 10px;margin-left: 5px;">&#xe619;</i></a>
-					<a style="padding: 2px 10px 2px 10px;background: #cccccc;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-left:10px;">选择题<i class="iconfont" style="font-size: 10px;margin-left: 5px;">&#xe619;</i></a>
-					<a style="padding: 2px 10px 2px 10px;background: #cccccc;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-left:10px;">判断题<i class="iconfont" style="font-size: 10px;margin-left: 5px;">&#xe619;</i></a>
-					<a style="padding: 2px 10px 2px 10px;background: #cccccc;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-left:10px;">填空题<i class="iconfont" style="font-size: 10px;margin-left: 5px;">&#xe619;</i></a>
-					<a style="padding: 2px 10px 2px 10px;background: #cccccc;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-left:10px;">作文题<i class="iconfont" style="font-size: 10px;margin-left: 5px;">&#xe619;</i></a>
-					<a style="padding: 2px 10px 2px 10px;background: #cccccc;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-left:10px;">其他题<i class="iconfont" style="font-size: 10px;margin-left: 5px;">&#xe619;</i></a>
-                     <a style="float: right;"><button type="" style="background: #31bc91;font-size: 14px;">打印</button><button type="" style="margin-left:20px;background: #31bc91;font-size: 14px;">确定</button></a>
+					<p class="q_type" style="height: 58px;font-size: 14px;line-height: 58px;color: #666;cursor: pointer;">类型
+					<a data-id="0" class="type_all" style="padding: 2px 10px 2px 10px;background: #cccccc;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-left:10px;">全部<i class="iconfont" style="font-size: 10px;margin-left: 5px;">&#xe619;</i></a>
+					<i class="type_ever">
+					<a data-id="0" style="padding: 2px 10px 2px 10px;background: #cccccc;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-left:10px;font-style: normal;">选择题<i class="iconfont" style="font-size: 10px;margin-left: 5px;">&#xe619;</i></a>
+					<a data-id="0" style="padding: 2px 10px 2px 10px;background: #cccccc;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-left:10px;font-style: normal;">判断题<i class="iconfont" style="font-size: 10px;margin-left: 5px;">&#xe619;</i></a>
+					<a  data-id="0" style="padding: 2px 10px 2px 10px;background: #cccccc;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-left:10px;font-style: normal;">填空题<i class="iconfont" style="font-size: 10px;margin-left: 5px;">&#xe619;</i></a>
+					<a  data-id="0" style="padding: 2px 10px 2px 10px;background: #cccccc;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-left:10px;font-style: normal;">作文题<i class="iconfont" style="font-size: 10px;margin-left: 5px;">&#xe619;</i></a>
+					<a data-id="0" style="padding: 2px 10px 2px 10px;background: #cccccc;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-left:10px;font-style: normal;">其他题<i class="iconfont" style="font-size: 10px;margin-left: 5px;">&#xe619;</i></a></i>
+                     <a data-id="0" style="float: right;"><button type="" style="font-size: 14px;background: #ffffff;border: 1px solid #31bc91;color: #31bc91;box-sizing: border-box;">打印</button><button type="" style="margin-left:20px;font-size: 14px;" class="exam_sur determine">确定</button></a>
 					</p>
-					<div style="width:100%;padding-left: 590px;box-sizing: border-box;">
-					<div>
+					<!-- 答题情况 -->
+					<div class="ans" style="display: none;">
+					<div style="width:100%;padding-left: 575px;box-sizing: border-box;">
 						<p style="width:348px;font-size: 14px;position:relative;margin-bottom: 10px;">
 						<a style="width: 156px;display: inline-block;padding-left: 6px;box-sizing: border-box;">0.95-1 完全掌握<i style="width: 42px;height:20px;display:inline-block;background:#31bc91;position: absolute;margin-left: 8px; "></i></a>
 						<a style="width: 156px;display: inline-block;padding-left: 20px;">0.8-0.95 完全掌握<i style="width: 42px;height:20px;display:inline-block;background:#f7c07c;position: absolute;margin-left: 8px; "></i></a></p>
 						<p style="width:348px;font-size: 14px;position:relative;">
 						<a style="width: 156px;display: inline-block;">0.6-0.8 完全掌握<i style="width: 42px;height:20px;display:inline-block;background:#5fa3ed;position: absolute; margin-left: 8px;"></i></a>
-						<a style="width: 156px;display: inline-block;padding-left: 20px;">0-6 完全掌握<i style="width: 42px;height:20px;display:inline-block;background:#fb7d8a;position: absolute;margin-left: 8px; "></i></a>
+						<a style="width: 156px;display: inline-block;padding-left: 20px;padding-left: 40px;box-sizing: border-box;">0-0.6 完全掌握<i style="width: 42px;height:20px;display:inline-block;background:#fb7d8a;position: absolute;margin-left: 8px; "></i></a>
 						</p>
-						</div>
+
 					</div>
+					<p style="width:100%;height:32px;border-bottom:1px solid #ccc;line-height: 26px;font-size: 14px;"><i style="display: block;width: 3px;height: 18px;background: #31bc91;float: left;margin-right: 10px;margin-top: 4px;color: #666666;"></i>答题情况
+					<a style="margin-left: 20px;">排序
+					<select style="width: 100px;height: 30px;margin-left: 10px;outline: none;color: #666666;">
+						<option value="">按得分率</option>
+						<option value="">按平均分</option>
+					</select></a></p>
+
+					<div>
+						<p>
+						<a style="padding: 0px 25px 0px 25px;background: #31bc91;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-right: 10px;margin-top: 10px;">1</a>
+						<a style="padding: 0px 25px 0px 25px;background: #31bc91;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-right: 10px;">7</a>
+						<a style="padding: 0px 25px 0px 25px;background: #f7c07c;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-right: 10px;">15</a>
+						<a style="padding: 0px 25px 0px 25px;background: #f7c07c;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-right: 10px;">17</a>
+						<a style="padding: 0px 25px 0px 25px;background:#5fa3ed;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-right: 10px;">19</a>
+						<a style="padding: 0px 25px 0px 25px;background:#fb7d8a;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-right: 10px;">21</a>
+						<a style="float: right;margin-top:10px;cursor: pointer;"><button type="" class="determine">生成错题本</button><i class="iconfont" style="color: #31bc91;margin: 0px 0px 0px 10px;font-size: 16px;">&#xe622;</i></a>
+						</p>
+					</div>
+					</div>
+					<!-- 答题情况 end-->
+					</div>
+					<!-- 班级错题本-->
+					<div style="display: none">
+							<p style="height: 57px;font-size:14px;line-height: 57px;color: #999999;">
+					   <a>时间<select style="width: 100px;height: 30px;margin-left: 10px;">
+						<option value="">最近一周</option>
+						<option value="">最近一月</option>
+					   </select> </a>
+                       <a style="margin-left: 35px;"> 年级<select style="width: 100px;height: 30px;margin-left: 10px;color: #666666;font-size: 14px;">
+						<option value="">高一</option>
+						<option value="">高二</option>
+					   </select></a>
+					   <a style="margin-left: 35px;"> 班级<select style="width: 100px;height: 30px;margin-left: 10px;color: #666666;font-size: 14px;">
+						<option value="">1班</option>
+						<option value="">2班</option>
+					   </select></a>
+					   <a style="margin-left: 35px;">考试科目<select style="width: 100px;height: 30px;margin-left: 10px;color: #666666;font-size: 14px;">
+						<option value="">数学</option>
+						<option value="">语文</option>
+					   </select></a>
+					    <a style="float: right;">得分率（<=）<select style="width: 100px;height: 30px;color: #666666;font-size: 14px;">
+						<option value="">80%</option>
+						<option value="">60%</option>
+						<option value="">40%</option>
+						<option value="">20%</option>
+						<option value="">0%</option>
+					   </select></a>
+					</p>
+					<p class="q_type" style="height: 58px;font-size: 14px;line-height: 58px;color: #666;cursor: pointer;">类型
+					<a data-id="0" class="type_all" style="padding: 2px 10px 2px 10px;background: #cccccc;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-left:10px;">全部<i class="iconfont" style="font-size: 10px;margin-left: 5px;">&#xe619;</i></a>
+					<i class="type_ever">
+					<a data-id="0" style="padding: 2px 10px 2px 10px;background: #cccccc;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-left:10px;font-style: normal;">选择题<i class="iconfont" style="font-size: 10px;margin-left: 5px;">&#xe619;</i></a>
+					<a data-id="0" style="padding: 2px 10px 2px 10px;background: #cccccc;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-left:10px;font-style: normal;">判断题<i class="iconfont" style="font-size: 10px;margin-left: 5px;">&#xe619;</i></a>
+					<a  data-id="0" style="padding: 2px 10px 2px 10px;background: #cccccc;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-left:10px;font-style: normal;">填空题<i class="iconfont" style="font-size: 10px;margin-left: 5px;">&#xe619;</i></a>
+					<a  data-id="0" style="padding: 2px 10px 2px 10px;background: #cccccc;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-left:10px;font-style: normal;">作文题<i class="iconfont" style="font-size: 10px;margin-left: 5px;">&#xe619;</i></a>
+					<a data-id="0" style="padding: 2px 10px 2px 10px;background: #cccccc;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-left:10px;font-style: normal;">其他题<i class="iconfont" style="font-size: 10px;margin-left: 5px;">&#xe619;</i></a></i>
+                     <a data-id="0" style="float: right;"><button type="" style="font-size: 14px;background: #ffffff;border: 1px solid #31bc91;color: #31bc91;box-sizing: border-box;">打印</button><button type="" style="margin-left:20px;font-size: 14px;" class="exam_sur determine">确定</button></a>
+					</p>
+					<!-- 答题情况 -->
+					<div class="ans" style="display: none;">
+					<div style="width:100%;padding-left: 575px;box-sizing: border-box;">
+						<p style="width:348px;font-size: 14px;position:relative;margin-bottom: 10px;">
+						<a style="width: 156px;display: inline-block;padding-left: 6px;box-sizing: border-box;">0.95-1 完全掌握<i style="width: 42px;height:20px;display:inline-block;background:#31bc91;position: absolute;margin-left: 8px; "></i></a>
+						<a style="width: 156px;display: inline-block;padding-left: 20px;">0.8-0.95 完全掌握<i style="width: 42px;height:20px;display:inline-block;background:#f7c07c;position: absolute;margin-left: 8px; "></i></a></p>
+						<p style="width:348px;font-size: 14px;position:relative;">
+						<a style="width: 156px;display: inline-block;">0.6-0.8 完全掌握<i style="width: 42px;height:20px;display:inline-block;background:#5fa3ed;position: absolute; margin-left: 8px;"></i></a>
+						<a style="width: 156px;display: inline-block;padding-left: 20px;padding-left: 40px;box-sizing: border-box;">0-0.6 完全掌握<i style="width: 42px;height:20px;display:inline-block;background:#fb7d8a;position: absolute;margin-left: 8px; "></i></a>
+						</p>
+
+					</div>
+					<p style="width:100%;height: 37px;border-bottom:1px solid #ccc;line-height: 26px;font-size: 14px;"><i style="display: block;width: 3px;height: 18px;background: #31bc91;float: left;margin-right: 10px;margin-top: 4px;color: #666666;"></i>答题情况<a style="margin-left: 20px;">排序
+					<select style="width: 100px;height: 30px;margin-left: 10px;outline: none;color: #666666;">
+						<option value="">按得分率</option>
+						<option value="">按平均分</option>
+					</select></a></p>
+
+					<div>
+						<p>
+						<a style="padding: 0px 25px 0px 25px;background: #31bc91;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-right: 10px;margin-top: 10px;">1</a>
+						<a style="padding: 0px 25px 0px 25px;background: #31bc91;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-right: 10px;">7</a>
+						<a style="padding: 0px 25px 0px 25px;background: #f7c07c;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-right: 10px;">15</a>
+						<a style="padding: 0px 25px 0px 25px;background: #f7c07c;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-right: 10px;">17</a>
+						<a style="padding: 0px 25px 0px 25px;background:#5fa3ed;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-right: 10px;">19</a>
+						<a style="padding: 0px 25px 0px 25px;background:#fb7d8a;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-right: 10px;">21</a>
+						<a style="float: right;margin-top:10px;cursor: pointer;"><button type="" class="determine">生成错题本</button><i class="iconfont" style="color: #31bc91;margin: 0px 0px 0px 10px;font-size: 16px;">&#xe622;</i></a>
+						</p>
+					</div>
+					</div>
+
+					</div>
+					<!-- 班级错题本 end-->
+					<!-- 学生错题本-->
+					<div style="position: relative;display: none;">
+			             <!--  <p style="width:100%;line-height: 50px;font-size: 14px;"><i style="display: block;width: 3px;height: 18px;background: #31bc91;float: left;margin-right: 10px;margin-top: 16px;color: #666666;"></i>答题情况
+			              <a style="display:block;width:70px;height:32px;line-height: 32px;background:#cccccc;border:1px solid #cccccc;text-align:center;color: #ffffff;">张一帆</a> -->
+                           <!--  <a style="display:block;width:70px;height:32px;line-height: 32px;background:#cccccc;border:1px solid #cccccc;text-align:center;color: #ffffff;">张一帆</a> -->
+                         <!--   <a style="display:block;width:70px;height:32px;line-height: 32px;background:#cccccc;border:1px solid #cccccc;text-align:center;color: #ffffff;">张一帆</a>
+ -->
+			           <!--    </p> -->
+
+						<p style="height: 57px;font-size:14px;line-height: 57px;color: #999999;">
+					   <a>时间<select style="width: 100px;height: 30px;margin-left: 10px;color: #666;font-size: 14px;">
+						<option value="">最近一周</option>
+						<option value="">最近一个月</option>
+					   </select> </a>
+					   <a style="margin-left: 35px;">考试科目<select style="width: 100px;height: 30px;margin-left: 10px;color: #666;font-size: 14px;">
+						<option value="">数学</option>
+						<option value="">语文</option>
+					   </select></a>
+					    <a style="margin-left: 35px;">得分率（≤）<select style="width: 100px;height: 30px;color: #666;font-size: 14px;">
+						<option value="">80%</option>
+						<option value="">60%</option>
+						<option value="">40%</option>
+						<option value="">20%</option>
+						<option value="">0%</option>
+					   </select></a>
+	                   <a style="float: right;cursor: pointer;"><button type="" class="stu_choice_btn determine">学生筛选</button></a>
+					</p>
+					<p class="q_type" style="height: 58px;font-size: 14px;line-height: 58px;color: #666;cursor: pointer;">类型
+					<a data-id="0" class="type_all" style="padding: 2px 10px 2px 10px;background: #cccccc;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-left:10px;">全部<i class="iconfont" style="font-size: 10px;margin-left: 5px;">&#xe619;</i></a>
+					<i class="type_ever">
+					<a data-id="0" style="padding: 2px 10px 2px 10px;background: #cccccc;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-left:10px;font-style: normal;">选择题<i class="iconfont" style="font-size: 10px;margin-left: 5px;">&#xe619;</i></a>
+					<a data-id="0" style="padding: 2px 10px 2px 10px;background: #cccccc;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-left:10px;font-style: normal;">判断题<i class="iconfont" style="font-size: 10px;margin-left: 5px;">&#xe619;</i></a>
+					<a  data-id="0" style="padding: 2px 10px 2px 10px;background: #cccccc;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-left:10px;font-style: normal;">填空题<i class="iconfont" style="font-size: 10px;margin-left: 5px;">&#xe619;</i></a>
+					<a  data-id="0" style="padding: 2px 10px 2px 10px;background: #cccccc;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-left:10px;font-style: normal;">作文题<i class="iconfont" style="font-size: 10px;margin-left: 5px;">&#xe619;</i></a>
+					<a data-id="0" style="padding: 2px 10px 2px 10px;background: #cccccc;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-left:10px;font-style: normal;">其他题<i class="iconfont" style="font-size: 10px;margin-left: 5px;">&#xe619;</i></a></i>
+                     <a data-id="0" style="float: right;"><button type="" style="font-size: 14px;background: #ffffff;border: 1px solid #31bc91;color: #31bc91;box-sizing: border-box;">打印</button><button type="" style="margin-left:20px;font-size: 14px;" class="exam_sur determine">确定</button></a>
+					</p>
+					<!-- 答题情况 -->
+					<div class="ans" style="display: none;">
+					<div style="width:100%;padding-left: 575px;box-sizing: border-box;">
+						<p style="width:348px;font-size: 14px;position:relative;margin-bottom: 10px;">
+						<a style="width: 156px;display: inline-block;padding-left: 6px;box-sizing: border-box;">0.95-1 完全掌握<i style="width: 42px;height:20px;display:inline-block;background:#31bc91;position: absolute;margin-left: 8px; "></i></a>
+						<a style="width: 156px;display: inline-block;padding-left: 20px;">0.8-0.95 完全掌握<i style="width: 42px;height:20px;display:inline-block;background:#f7c07c;position: absolute;margin-left: 8px; "></i></a></p>
+						<p style="width:348px;font-size: 14px;position:relative;">
+						<a style="width: 156px;display: inline-block;">0.6-0.8 完全掌握<i style="width: 42px;height:20px;display:inline-block;background:#5fa3ed;position: absolute; margin-left: 8px;"></i></a>
+						<a style="width: 156px;display: inline-block;padding-left: 20px;padding-left: 40px;box-sizing: border-box;">0-0.6 完全掌握<i style="width: 42px;height:20px;display:inline-block;background:#fb7d8a;position: absolute;margin-left: 8px; "></i></a>
+						</p>
+
+					</div>
+					<p style="width:100%;height: 37px;border-bottom:1px solid #ccc;line-height: 26px;font-size: 14px;"><i style="display: block;width: 3px;height: 18px;background: #31bc91;float: left;margin-right: 10px;margin-top: 4px;color: #666666;"></i>答题情况<a style="margin-left: 20px;">排序
+					<select style="width: 100px;height: 30px;margin-left: 10px;outline: none;color: #666666;">
+						<option value="">按得分率</option>
+						<option value="">按平均分</option>
+					</select></a></p>
+
+					<div>
+						<p>
+						<a style="padding: 0px 25px 0px 25px;background: #31bc91;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-right: 10px;margin-top: 10px;">1</a>
+						<a style="padding: 0px 25px 0px 25px;background: #31bc91;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-right: 10px;">7</a>
+						<a style="padding: 0px 25px 0px 25px;background: #f7c07c;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-right: 10px;">15</a>
+						<a style="padding: 0px 25px 0px 25px;background: #f7c07c;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-right: 10px;">17</a>
+						<a style="padding: 0px 25px 0px 25px;background:#5fa3ed;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-right: 10px;">19</a>
+						<a style="padding: 0px 25px 0px 25px;background:#fb7d8a;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-right: 10px;">21</a>
+						<a style="float: right;margin-top:10px;cursor: pointer;"><button type="" class="determine">生成错题本</button><i class="iconfont" style="color: #31bc91;margin: 0px 0px 0px 10px;font-size: 16px;">&#xe622;</i></a>
+						</p>
+					</div>
+					</div>
+                    <div class="stu_wrong_tc" style="width:766px;height: 520px;border:1px solid #ccc;cursor: pointer;position:absolute;top:0px;background: #ffffff;display: none;">
+                    	<p style="width: 100%;height:40px;line-height:40px;font-size:16px;text-align: center;color:#f5f5f5;background:#31bc92; ">选择追踪错题的学生<div class="wrong_back_x" style="width: 25px;height: 25px;border-radius: 50%;border: 1px solid #31bc92;text-align: center;line-height: 25px;color: #31bc92;background: #f5f5f5; position: absolute;top: -15px;right: -10px;"><i class="iconfont" style="">&#xe61b;</i></div></p>
+                    	<p style="width: 100%;height:62px;line-height:62px;font-size:14px;color:#f5f5f5;">
+                    	<a style="margin-left: 35px;">考试科目<select style="width: 100px;height: 25px;margin-left: 10px;color: #666;font-size: 14px;outline: none;">
+						<option value="">数学</option>
+						<option value="">语文</option>
+					   </select></a>
+					   <a style="margin-left: 35px;">考试科目<select style="width: 100px;height: 25px;margin-left: 10px;color: #666;font-size: 14px;outline: none;">
+						<option value="">数学</option>
+						<option value="">语文</option>
+					   </select></a>
+					   <a style="margin-left: 35px;color: #cccccc;position: relative;">
+					   <input type="" name="" placeholder="请输入搜索学好" style="width:201px;height:28px;border-radius:2px;border: 1px solid #cccccc;padding-left: 10px;padding-right: 25px;box-sizing: border-box;">
+					   <i class="iconfont" style="position:absolute;right:8px;font-size:14px;">&#xe610;</i>
+					   </a>
+                    	</p>
+                    	<div style="width: 684px;height: 334px;border-bottom: 1px solid #cccccc;margin: 0 auto;box-sizing: border-box;">
+                    		<div style="width: 322px;height: 311px;border: 1px solid #cccccc;float: left;box-sizing: border-box;">
+                    		<p style="width:100%;height:47px;border-bottom: 1px solid #cccccc;background:#f5f5f5;font-size: 14px;line-height: 47px;color:#666;padding-left: 10px;box-sizing: border-box;">添加追踪学生
+                    		<a style="margin-left: 150px;">全选<i class="iconfont choice_all" data-id="0" style="margin-left: 10px;">&#xe64b;</i></a></p>
+                    		<ul class="stu_wrong_tc_ul">
+                    		
+                    			<li class="stu_01" data-id="0"><a>张一帆</a><i class="iconfont">&#xe64b;</i></li>
+                    			<li class="stu_02"  data-id="0"><a>王晓</a><i class="iconfont">&#xe64b;</i></li>
+                    			<li class="stu_03"  data-id="0"><a>赵四</a><i class="iconfont">&#xe64b;</i></li>
+
+                    		</ul>
+                    		</div>
+                    		<div class="choice_stu" style="width: 322px;height: 311px;border: 1px solid #cccccc;float: right;box-sizing: border-box;">
+                    		<p style="width:100%;height:47px;border-bottom: 1px solid #cccccc;background:#f5f5f5;font-size: 14px;line-height: 47px;color:#666;padding-left: 10px;box-sizing: border-box;">已选择学生</p>
+                    		</div>
+
+                    	</div>
+                    	<p class="stu_wrong_tc_btn" style="padding-top: 18px;text-align: right;"><button type="" style="font-size: 14px;
+    background: #ffffff;
+    border: 1px solid #31bc91;
+    color: #31bc91;
+    box-sizing: border-box;width: 120px;height: 30px;margin-right: 10px;">取消</button><button type="" class="determine" style="margin-right: 40px;width: 120px;height: 30px;border: 1px solid #31bc91;font-size: 14px;">确定</button></p>
+                    </div>
+					</div>
+					<!-- 学生错题本 end-->
+					</div>
+					<script type="text/javascript">
+						$(".exam_sur").click(function(event) {
+							$(".ans").slideDown('1000');
+						});
+						//全部
+						$(".type_all").click(function(event) {
+							var a=$(this).attr('data-id');
+                       	if(a==0){
+                       		$(this).css("background","#31bc91");
+							$(".type_ever a").css("background","#31bc91");
+							$(".type_ever a").attr('data-id','1');
+							$(this).attr('data-id','1');
+                       	}else{
+                       		$(this).css("background","#cccccc");
+                       		$(".type_ever a").css("background","#cccccc");
+                       		$(this).attr('data-id','0');
+                       	}
+						});
+						//每个
+        
+                       $(".type_ever a").click(function(event) {
+                       	var a=$(this).attr('data-id');
+                       
+                       	if(a==0){
+							$(this).css("background","#31bc91");
+							$(this).attr('data-id','1');
+							
+                       	}else{
+                       		$(this).css("background","#cccccc");
+                       		$(this).attr('data-id','0');
+                       		$(".type_all").css("background","#cccccc");
+                       	
+                       	}
+                      
+						});
+                     //切换模块
+                        $(".wrong_left_ul li").click(function(event) {
+                          var a=$(this).index();
+                          $(this).attr("id",'wrong_left_li').siblings().attr("id",'');
+                          $(".wrong_top").html($(this).html());
+                          // alert(a);
+                          $(".wrong_main").children('div').eq(a).show().siblings().hide();
+                          $(".wrong_main").children('div').eq(a).show().siblings().children('.ans').hide();
+                        });
+                      
+					</script>
+					<script type="text/javascript">
+						$(".stu_wrong_tc_ul li").click(function(event) {
+							var a=$(this).attr("data-id");
+						if (a==0) {
+							$(this).children('i').addClass('stu_wrong_tc_i');
+							$(this).attr("data-id","1");
+                            $(".choice_stu").append('<a id="'+$(this).attr("class")+'"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;">'+$(this).children('a').html()+'<i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
+						}else{
+							$(this).children('i').removeClass('stu_wrong_tc_i');
+							$(this).attr("data-id","0");
+							$('#'+$(this).attr("class")+'').remove();
+						}
+						$(".choice_all").removeClass('stu_wrong_tc_i');
+						});
+						$(".choice_stu").on('click', 'a', function(event) {
+							// alert();
+							$(this).remove();
+							$('.'+$(this).attr("id")+'').children('i').removeClass('stu_wrong_tc_i');
+							$(".choice_all").removeClass('stu_wrong_tc_i');
+						});
+
+						$(".choice_all").click(function(event) {
+						var a=$(this).attr("data-id");
+						if(a==0){
+                           $(this).addClass('stu_wrong_tc_i');
+                           $(this).attr("data-id","1");
+                          $(".stu_wrong_tc_ul li").attr("data-id","1");
+                           $(".stu_wrong_tc_ul li").children('i').addClass('stu_wrong_tc_i');
+                           for(var i=0;i<3;i++){
+                               $(".choice_stu").append('<a id="'+ $(".stu_wrong_tc_ul li").eq(i).attr("class")+'"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;">'+$(".stu_wrong_tc_ul li").eq(i).children('a').html()+'<i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
+                           }
+						}else{
+							 $(this).removeClass('stu_wrong_tc_i');
+							 $(this).attr("data-id","0");
+							 $(".stu_wrong_tc_ul li").attr("data-id","0");
+							  $(".stu_wrong_tc_ul li").children('i').removeClass('stu_wrong_tc_i');
+							  $(".choice_stu a").remove(); 
+						}
+						});
+						$(".stu_wrong_tc_btn button").click(function(event) {
+							$(".stu_wrong_tc").hide();
+						});
+						$(".wrong_back_x").click(function(event) {
+							$(".stu_wrong_tc").hide();
+						});
+						$(".stu_choice_btn").click(function(event) {
+							$(".stu_wrong_tc").show();
+						});
+					</script>
 				</div>
 			</div>
 		</div>
