@@ -106,29 +106,29 @@ angular.module("myApp.controller", [])
         //     $(this).siblings().show();
         // }); 
         // 分析
-        //  $(".mart_set_03_select").change(function(event) {
-        //     var a = $(this).children('option:selected').attr("data-id");
-        //     // $(this).attr('data-id', a);
-        //     // markxl(mark_01_select_a);
-        //     // var b=$(this).attr('data-id');
-        //     // alert(a);
-        //     if(a==2){
-        //      $("#ul_iLabel li").eq(0).find('.level_02').val("69");
-        //      $("#ul_iLabel li").eq(1).find('.level_02').val("62");
-        //      $("#ul_iLabel li").eq(2).find('.level_02').val("59");
-        //      $("#ul_iLabel li").eq(3).find('.level_02').val("55");
-        //      $("#ul_iLabel li").eq(4).find('.level_02').val("43");
+         $(".mart_set_03_select").change(function(event) {
+            var a = $(this).children('option:selected').attr("data-id");
+            // $(this).attr('data-id', a);
+            // markxl(mark_01_select_a);
+            // var b=$(this).attr('data-id');
+            // alert(a);
+            if(a==2){
+             $("#ul_iLabel li").eq(0).find('.level_02').val("69");
+             $("#ul_iLabel li").eq(1).find('.level_02').val("62");
+             $("#ul_iLabel li").eq(2).find('.level_02').val("59");
+             $("#ul_iLabel li").eq(3).find('.level_02').val("55");
+             $("#ul_iLabel li").eq(4).find('.level_02').val("43");
             
-        //   }
-        //   if(a==1){
-        //     $("#ul_iLabel li").eq(0).find('.level_02').val("15%");
-        //      $("#ul_iLabel li").eq(1).find('.level_02').val("30%");
-        //      $("#ul_iLabel li").eq(2).find('.level_02').val("30%");
-        //      $("#ul_iLabel li").eq(3).find('.level_02').val("20%");
-        //      $("#ul_iLabel li").eq(4).find('.level_02').val("5%");
+          }
+          if(a==1){
+            $("#ul_iLabel li").eq(0).find('.level_02').val("15%");
+             $("#ul_iLabel li").eq(1).find('.level_02').val("30%");
+             $("#ul_iLabel li").eq(2).find('.level_02').val("30%");
+             $("#ul_iLabel li").eq(3).find('.level_02').val("20%");
+             $("#ul_iLabel li").eq(4).find('.level_02').val("5%");
              
-        //   }
-        // });
+          }
+        });
         $(".btn_1").click(function(event) {
 
             $(".mart_set").hide();
@@ -146,7 +146,7 @@ angular.module("myApp.controller", [])
             var yx_mark = $("#yx_mark").val();
             var z_mark = $("#z_mark").val();
             var a = $("#ul_iLabel li").length;
-            var level= $(".mart_set_03_select").children('option:selected').attr("data-id");
+            var level= parseInt($(".mart_set_03_select").children('option:selected').attr("data-id"));
             var data_value = {
                 // 't[column_name_1]':"A",
                 // "t[column_value_1]":"10",
@@ -156,18 +156,33 @@ angular.module("myApp.controller", [])
                 "exam_subject_id": sub_id1,
                 "pass": jg_mark,
                 "fine": yx_mark,
-                // 'level_type':level,
+                't[level_type]':level,
             };
             console.log(data_value);
             for (var i = 0; i < a; i++) {
                 var c = i + 1;
                 console.log($("#ul_iLabel li").eq(i).find('.level_01').val(), $("#ul_iLabel li").eq(i).find('.level_02').val());
-                var d = "t[column_name_" + c + "]";
+                var type=$(".mart_set_03_select").children('option:selected').attr("data-id");
+                 var d = "t[column_name_" + c + "]";
+                   var f = "t[column_value_" + c + "]";
+                if(type==1){
+               
                 var e = $("#ul_iLabel li").eq(i).find('.level_01').val();
-                var f = "t[column_value_" + c + "]";
+              
                 var g = $("#ul_iLabel li").eq(i).find('.level_02').val();
                 data_value[d] = e;
                 data_value[f] = g;
+                }else{
+                     var e = $("#ul_iLabel li").eq(i).find('.level_01').val();
+                if(i==0){
+               var g = $("#ul_iLabel li").eq(i).find('.level_02').val();
+               }else{
+                var g = $("#ul_iLabel li").eq(i).find('.level_02').val()+','+$("#ul_iLabel li").eq(i-1).find('.level_02').val();
+               }
+               
+                data_value[d] = e;
+                data_value[f] = g; 
+                }
                 $(".tf_dj").append('<a>' + e + '：' + g + '</a>')
 
             };
