@@ -175,7 +175,7 @@ angular.module("myApp.controller", [])
                 }else{
                      var e = $("#ul_iLabel li").eq(i).find('.level_01').val();
                 if(i==0){
-               var g = $("#ul_iLabel li").eq(i).find('.level_02').val();
+               var g = $("#ul_iLabel li").eq(i).find('.level_02').val()+','+$("#z_mark").val();
                }else{
                 var g = $("#ul_iLabel li").eq(i).find('.level_02').val()+','+$("#ul_iLabel li").eq(i-1).find('.level_02').val();
                }
