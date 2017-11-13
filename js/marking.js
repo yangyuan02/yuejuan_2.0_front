@@ -303,7 +303,7 @@ $(function(){
 			var img_id = img_info.section_crop_image_id;
 			if(img_url){
 				for (var ww = 0; ww < img_url.length; ww++) {
-					var img_html = '<img data-id="'+img_id+'" id="img-'+img_id+'" src="'+ ajaxIp +''+img_url[ww]+'">';
+					var img_html = '<img data-id="'+img_id+'" style="transform: rotate(0deg); transform-origin: 50% 50% 0px;" id="img-'+img_id+'" src="'+ ajaxIp +''+img_url[ww]+'">';
 					$('.move-paper').append(img_html);
 				};
 			}
@@ -802,6 +802,63 @@ $(function(){
 			poplineText2(img_height,false);
 		}
   });
+
+  // 左旋转
+  var left_value;
+  $('.left-roa').click(function(){
+  	var obj=$('.move-paper img');
+  	var deg=eval('get'+obj.css('transform'));//构造getmatrix函数,返回上次旋转度数
+  	console.log(obj.css('transform'),deg);
+  	if(deg!=0){
+			left_value=deg-1;
+  	}else{
+			left_value=359;
+  	}
+  	console.log(left_value)
+		obj.rotate({angle: left_value});
+		left_value--;
+		console.log(left_value)
+		obj.css({
+			'transform': 'rotate('+left_value+')deg)',
+		});
+  })
+  // 右旋转
+  var right_value;
+  $('.right-roa').click(function(){
+  	var obj=$('.move-paper img');
+  	var deg=eval('get'+obj.css('transform'));//构造getmatrix函数,返回上次旋转度数
+  	console.log(obj.css('transform'),deg);
+  	if(deg!=0){
+			right_value=deg+1;
+  	}else{
+  		right_value=1;
+  	}
+		obj.rotate({angle: right_value});
+		right_value++;
+		console.log(right_value)
+		obj.css({
+			'transform': 'rotate('+right_value+')deg)',
+		});
+
+
+  })
+
+   function getmatrix(a,b,c,d,e,f){
+        var aa=Math.round(180*Math.asin(a)/ Math.PI);
+        var bb=Math.round(180*Math.acos(b)/ Math.PI);
+        var cc=Math.round(180*Math.asin(c)/ Math.PI);
+        var dd=Math.round(180*Math.acos(d)/ Math.PI);
+        var deg=0;
+        if(aa==bb||-aa==bb){
+            deg=dd;
+        }else if(-aa+bb==180){
+            deg=180+cc;
+        }else if(aa+bb==180){
+            deg=360-cc||360-dd;
+        }
+        return deg>=360?0:deg;
+        //return (aa+','+bb+','+cc+','+dd);
+    }
 
 
   function zoomIn(img_width,img_height,ch){

@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit">
+	<title>网阅星</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/user_information.css">
+	<link rel="stylesheet" href="css/optional.css">
+	<!-- <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.1.1/css/bootstrap.min.css"> -->
+	<script type="text/javascript" src='js/jquery.min.js'></script>
+	<script type="text/javascript" src='js/common.js'></script>
+	<script type="text/javascript" src='js/optional.js'></script>
+</head>
+<body>
+	<div id="wrap">
+		<div id='header'>
+
+		</div>
+
+		<div class="user-title">
+			<div class="user-title-back">
+				<i class="iconfont">&#xe618;</i>
+				当前位置：
+				<a href="index">首页</a>
+				>
+				<span>3+3 选考课程管理</span>
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="user-left">
+				<div class="user-left-button course-left user-on">
+					课程管理
+				</div>
+				<div class="user-left-button stu-left">
+					学生列表
+				</div>
+				<div class=" user-left-button stu-course-left">
+					学生课程设置
+				</div>
+				<div class=" user-left-button score-grade-left">
+					课程考分列表
+				</div>
+				<div class=" user-left-button item-score-left">
+					小题得分对比
+				</div>
+				<div class="user-left-button course-average-left">
+					课程均分统计
+				</div>
+			</div>
+			<div class="user-right courses-main">
+				<div class="table-tittle-name">课程管理
+					
+				</div>
+				<div class="set-up-search">
+					<div class="set-select-wrap">
+						<div>年级</div>
+						<select name="" id="select-grade">
+							<option value="0">全部年级</option>
+							<option value="11">初一</option>
+							<option value="12">初二</option>
+							<option value="13">初三</option>
+							<option value="1">高一</option>
+							<option value="2">高二</option>
+							<option value="3">高三</option>
+						</select>
+					</div>
+					<div class="set-select-wrap">
+						<div>科目</div>
+						<select name="" id="select-subjects">
+							<option value="0">全部科目</option>
+							<option value="1">语文</option>
+							<option value="1">数学</option>
+							<option value="1">英语</option>
+							<option value="1">化学</option>
+							<option value="1">物理</option>
+							<option value="1">生物</option>
+							<option value="1">历史</option>
+							<option value="1">政治</option>
+							<option value="1">地理</option>
+						</select>
+						<a href="javascript:;" id="clear">清除</a>
+					</div>
+					<div class="title-name-right"> 
+						<span class="course-import iconfont" data-name="2">&#xe60c;&nbsp;课程导入</span>
+						<span class="add-course iconfont">&#xe613;&nbsp;创建课程</span>
+						<span class="lead-out-course iconfont"><a target="_self">&#xe611;&nbsp;导出当前课程列表</a></span>
+					</div>
+				</div>
+				<table class="search-tabble courses-tabble" cellpadding="0" cellspacing="0" style='border-collapse:collapse;margin-bottom: 15px'>
+					<thead>
+						<tr>
+							<th colspan="3">课程</th>
+							<th>代表字母</th>
+							<th>科目</th>
+							<th>适用年级</th>
+							<th>教师</th>
+							<th>名额</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td colspan="3">2016物理4</td>
+							<td>201624</td>
+							<td>物理</td>
+							<td>高二</td>
+							<td>#邓超</td>
+							<td>0</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td colspan="3">2016物理3</td>
+							<td>201624</td>
+							<td>物理</td>
+							<td>高二</td>
+							<td>#邓超</td>
+							<td>0</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td colspan="3">2016物理2</td>
+							<td>201623</td>
+							<td>物理</td>
+							<td>高二</td>
+							<td>#卫光</td>
+							<td>0</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td colspan="3">2016物理1</td>
+							<td>201622</td>
+							<td>物理</td>
+							<td>高二</td>
+							<td>#王丽</td>
+							<td>0</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td colspan="3">2016物理4</td>
+							<td>201621</td>
+							<td>物理</td>
+							<td>高二</td>
+							<td>#司马光</td>
+							<td>0</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td colspan="3">2016化学4</td>
+							<td>201624</td>
+							<td>化学</td>
+							<td>高二</td>
+							<td>#邓超</td>
+							<td>0</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td colspan="3">2016化学3</td>
+							<td>201624</td>
+							<td>化学</td>
+							<td>高二</td>
+							<td>#邓超</td>
+							<td>0</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td colspan="3">2016化学2</td>
+							<td>201623</td>
+							<td>化学</td>
+							<td>高二</td>
+							<td>#卫光</td>
+							<td>0</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td colspan="3">2016化学1</td>
+							<td>201622</td>
+							<td>化学</td>
+							<td>高二</td>
+							<td>#王丽</td>
+							<td>0</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td colspan="3">2016化学4</td>
+							<td>201621</td>
+							<td>化学</td>
+							<td>高二</td>
+							<td>#司马光</td>
+							<td>0</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<div class="pagination-wrap">
+					<ul class="pagination" id="pagination"></ul>
+				</div>
+			</div>
+
+			<div class="user-right stu-main none">
+				<div class="table-tittle-name">学生列表
+				</div>
+				<div class="set-up-search">
+						<div class="set-select-wrap">
+						<div>年级</div>
+						<select name="" id="select-grade">
+							<option value="0">全部年级</option>
+							<option value="11">初一</option>
+							<option value="12">初二</option>
+							<option value="13">初三</option>
+							<option value="1">高一</option>
+							<option value="2">高二</option>
+							<option value="3">高三</option>
+						</select>
+					</div>
+					<div class="set-select-wrap">
+						<div>科目</div>
+						<select name="" id="select-subjects">
+							<option value="0">全部科目</option>
+							<option value="1">语文</option>
+							<option value="1">数学</option>
+							<option value="1">英语</option>
+							<option value="1">化学</option>
+							<option value="1">物理</option>
+							<option value="1">生物</option>
+							<option value="1">历史</option>
+							<option value="1">政治</option>
+							<option value="1">地理</option>
+						</select>
+					</div>
+					<div class="set-select-wrap">
+						<div>课程</div>
+						<select name="" id="select-courses">
+							<option value="0">2016物理1</option>
+							<option value="1">2016物理2</option>
+							<option value="1">2016物理3</option>
+							<option value="1">2016物理4</option>
+							<option value="1">2016化学1</option>
+							<option value="1">2016化学2</option>
+							<option value="1">2016化学3</option>
+							<option value="1">2016化学4</option>
+							<option value="1">2016生物1</option>
+							<option value="1">2016生物2</option>
+						</select>
+						<a href="javascript:;" id="clear">清除</a>
+					</div>
+					<div class="title-name-right"> 
+						<span class="stu-import iconfont" data-name="1">&#xe60c;&nbsp;学生导入</span>
+						<span class="lead-out-student iconfont"><a target="_self">&#xe611;&nbsp;导出当前学生列表</a></span>
+					</div>
+				</div>
+				<table class="search-tabble stu-tabble" cellpadding="0" cellspacing="0" style='border-collapse:collapse;margin-bottom: 15px'>
+					<thead>
+						<tr>
+							<th>行政班级</th>
+							<th>姓名</th>
+							<th>考号</th>
+							<th>课程</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>一班</td>
+							<td>何以琛</td>
+							<td>12119</td>
+							<td>2016物理1</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>一班</td>
+							<td>武艺</td>
+							<td>12116</td>
+							<td>2016物理1</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>一班</td>
+							<td>谢林</td>
+							<td>12112</td>
+							<td>2016物理1</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>一班</td>
+							<td>王一语</td>
+							<td>12110</td>
+							<td>2016物理1</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>一班</td>
+							<td>司务</td>
+							<td>12113</td>
+							<td>2016物理1</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>二班</td>
+							<td>贺语</td>
+							<td>12129</td>
+							<td>2016化学2</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>二班</td>
+							<td>林祥</td>
+							<td>12122</td>
+							<td>2016化学2</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>二班</td>
+							<td>王珊</td>
+							<td>12123</td>
+							<td>2016化学2</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>二班</td>
+							<td>于海</td>
+							<td>12121</td>
+							<td>2016化学2</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>二班</td>
+							<td>彩玉</td>
+							<td>12128</td>
+							<td>2016化学2</td>
+						</tr>
+	
+					</tbody>
+				</table>
+
+				<div class="pagination-wrap">
+					<ul class="pagination" id="students-pagination"></ul>
+				</div>
+				
+			</div>
+			<div class="user-right stu-course-main none">
+				<div class="table-tittle-name">学生课程设置
+				</div>
+				<div class="set-up-search">
+					<div class="set-select-wrap">
+						<div>年级</div>
+						<select name="" id="select-grade">
+							<option value="0">全部年级</option>
+							<option value="11">初一</option>
+							<option value="12">初二</option>
+							<option value="13">初三</option>
+							<option value="1">高一</option>
+							<option value="2">高二</option>
+							<option value="3">高三</option>
+						</select>
+					</div>
+					<div class="set-select-wrap">
+						<div>班级</div>
+						<select name="" id="select-sujects">
+							<option value="0">全部班级</option>
+							<option value="0">一班</option>
+							<option value="0">二班</option>
+							<option value="0">三班</option>
+							<option value="0">四班</option>
+						</select>
+						<a href="javascript:;" id="course-select">课程选择</a>
+					</div>
+					<div class="set-input-wrap">
+						<input class="course-input" type="text">
+					</div>
+				</div>
+				<table class="search-tabble stu-course-tabble" cellpadding="0" cellspacing="0" style='border-collapse:collapse;margin-bottom: 15px'>
+					<thead>
+						<tr>
+							<th>行政班级</th>
+							<th>姓名</th>
+							<th>考号</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>高一一班</td>
+							<td>何俊</td>
+							<td>12123</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>高一一班</td>
+							<td>沈河</td>
+							<td>12121</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>高一一班</td>
+							<td>何以玫</td>
+							<td>12123</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>高一一班</td>
+							<td>王玉</td>
+							<td>12122</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>高一一班</td>
+							<td>李光</td>
+							<td>12120</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>高一二班</td>
+							<td>戴晓柔</td>
+							<td>12124</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>高一二班</td>
+							<td>毛岸英</td>
+							<td>12125</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>高一二班</td>
+							<td>何以玫</td>
+							<td>12167</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>高一二班</td>
+							<td>邓杨</td>
+							<td>12134</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>高一二班</td>
+							<td>李玉</td>
+							<td>12155</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<div class="pagination-wrap">
+					<ul class="pagination" id="temporary-pagination"></ul>
+				</div>
+			</div>
+			<div class="user-right score-grade-main none">
+				<div class="table-tittle-name">课程考分列表
+				</div>
+				<div class="set-up-search">
+					<div class="set-select-wrap">
+						<div>考试</div>
+						<select name="" id="select-exam">
+							<option value="0">考试1111</option>
+							<option value="0">2017期中考试（高二）</option>
+						</select>
+					</div>
+					<div class="set-select-wrap">
+						<div>课程选择</div>
+						<select name="" id="select-sujects">
+							<option value="0">2017物理4</option>
+							<option value="0">2017物理2</option>
+							<option value="0">2017物理1</option>
+							<option value="0">2017化学1</option>
+						</select>
+					</div>
+					<div class="set-select-wrap">
+						<div>排名顺序</div>
+						<select name="" id="select-ranges">
+							<option value="0">成绩-顺序</option>
+							<option value="0">成绩-逆序</option>
+						</select>
+					</div>
+					<div class="title-name-right"> 
+						<span class="Lead-in-teacher iconfont"><a target="_self">&#xe611;&nbsp;导出</a></span>
+					</div>
+				</div>
+				<table class="search-tabble score-grade-tabble" cellpadding="0" cellspacing="0" style='border-collapse:collapse;margin-bottom: 15px'>
+					<thead>
+						<tr>
+							<th>序号</th>
+							<th>班级</th>
+							<th>考号</th>
+							<th>姓名</th>
+							<th>分数</th>
+							<th>标准分</th>
+							<th>等级</th>
+							<th>考试排名</th>
+							<th>学校排名</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>1</td>
+							<td>高二一班</td>
+							<td>12101</td>
+							<td>何以琛</td>
+							<td>99</td>
+							<td>2.24</td>
+							<td>A</td>
+							<td>1</td>
+							<td>1</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>2</td>
+							<td>高二一班</td>
+							<td>12102</td>
+							<td>何以玫</td>
+							<td>98</td>
+							<td>2.24</td>
+							<td>A</td>
+							<td>2</td>
+							<td>2</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>3</td>
+							<td>高二一班</td>
+							<td>13103</td>
+							<td>李光</td>
+							<td>98</td>
+							<td>2.24</td>
+							<td>A</td>
+							<td>3</td>
+							<td>3</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>4</td>
+							<td>高二一班</td>
+							<td>13104</td>
+							<td>王皓</td>
+							<td>95</td>
+							<td>2.24</td>
+							<td>A</td>
+							<td>4</td>
+							<td>4</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>5</td>
+							<td>高二一班</td>
+							<td>13105</td>
+							<td>王玉</td>
+							<td>94</td>
+							<td>2.24</td>
+							<td>A</td>
+							<td>5</td>
+							<td>5</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>6</td>
+							<td>高二一班</td>
+							<td>13106</td>
+							<td>屋宇</td>
+							<td>89</td>
+							<td>1.24</td>
+							<td>A</td>
+							<td>6</td>
+							<td>6</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>7</td>
+							<td>高二一班</td>
+							<td>13107</td>
+							<td>沈阳</td>
+							<td>89</td>
+							<td>1.24</td>
+							<td>B</td>
+							<td>7</td>
+							<td>7</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>8</td>
+							<td>高二一班</td>
+							<td>13108</td>
+							<td>阮雨</td>
+							<td>86</td>
+							<td>1.24</td>
+							<td>B</td>
+							<td>8</td>
+							<td>8</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>9</td>
+							<td>高二一班</td>
+							<td>13109</td>
+							<td>陈一盒</td>
+							<td>85</td>
+							<td>1.24</td>
+							<td>B</td>
+							<td>9</td>
+							<td>9</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>10</td>
+							<td>高二一班</td>
+							<td>13110</td>
+							<td>李志</td>
+							<td>80</td>
+							<td>1.14</td>
+							<td>B</td>
+							<td>10</td>
+							<td>10</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="pagination-wrap">
+					<ul class="pagination" id="scores-pagination"></ul>
+				</div>
+			</div>
+			<div class="user-right item-score-main none">
+				<div class="table-tittle-name">小题得分对比
+				</div>
+				<div class="set-up-search">
+					<div class="set-select-wrap">
+						<div>考试</div>
+						<select name="" id="select-exam">
+							<option value="0">考试1111</option>
+							<option value="0">2017期中考试（高二）</option>
+						</select>
+					</div>
+					<div class="set-select-wrap">
+						<div>科目选择</div>
+						<select name="" id="select-sujects">
+							<option value="0">语文</option>
+							<option value="0">数学</option>
+							<option value="0">物理</option>
+							<option value="0">化学</option>
+							<option value="0">地理</option>
+							<option value="0">政治</option>
+							<option value="0">历史</option>
+							<option value="0">生物</option>
+						</select>
+					</div>
+					<div class="title-name-right"> 
+						<span class="Lead-in-teacher iconfont"><a target="_self">&#xe611;&nbsp;导出</a></span>
+					</div>
+				</div>
+				<table class="search-tabble item-score-tabble" cellpadding="0" cellspacing="0" style='border-collapse:collapse;margin-bottom: 15px'>
+					<thead>
+						<tr>
+							<th rowspan="2">题目</th>
+							<th rowspan="2">题分</th>
+							<th colspan="2">年级（119人）</th>
+							<th colspan="2">2016物理4（26人）</th>
+							<th colspan="2">2016物理1（32人）</th>
+						</tr>
+						<tr>
+							<th>平均分</th>
+							<th>得分率</th>
+							<th>平均分</th>
+							<th>得分率</th>
+							<th>平均分</th>
+							<th>得分率</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>一、选择题</td>
+							<td>15</td>
+							<td>13.5</td>
+							<td>69.5%</td>
+							<td>12.5</td>
+							<td>80.5%</td>
+							<td>14.2</td>
+							<td>88.5%</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>3</td>
+							<td>13.5</td>
+							<td>69.5%</td>
+							<td>12.5</td>
+							<td>80.5%</td>
+							<td>14.2</td>
+							<td>88.5%</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>3</td>
+							<td>13.5</td>
+							<td>69.5%</td>
+							<td>12.5</td>
+							<td>80.5%</td>
+							<td>14.2</td>
+							<td>88.5%</td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td>3</td>
+							<td>13.5</td>
+							<td>69.5%</td>
+							<td>12.5</td>
+							<td>80.5%</td>
+							<td>14.2</td>
+							<td>88.5%</td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>3</td>
+							<td>13.5</td>
+							<td>69.5%</td>
+							<td>12.5</td>
+							<td>80.5%</td>
+							<td>14.2</td>
+							<td>88.5%</td>
+						</tr>
+						<tr>
+							<td>5</td>
+							<td>3</td>
+							<td>13.5</td>
+							<td>69.5%</td>
+							<td>12.5</td>
+							<td>80.5%</td>
+							<td>14.2</td>
+							<td>88.5%</td>
+						</tr>
+						<tr>
+							<td>二、填空题</td>
+							<td>15</td>
+							<td>13.5</td>
+							<td>69.5%</td>
+							<td>12.5</td>
+							<td>80.5%</td>
+							<td>14.2</td>
+							<td>88.5%</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>3</td>
+							<td>13.5</td>
+							<td>69.5%</td>
+							<td>12.5</td>
+							<td>80.5%</td>
+							<td>14.2</td>
+							<td>88.5%</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>3</td>
+							<td>13.5</td>
+							<td>69.5%</td>
+							<td>12.5</td>
+							<td>80.5%</td>
+							<td>14.2</td>
+							<td>88.5%</td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td>3</td>
+							<td>13.5</td>
+							<td>69.5%</td>
+							<td>12.5</td>
+							<td>80.5%</td>
+							<td>14.2</td>
+							<td>88.5%</td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>3</td>
+							<td>13.5</td>
+							<td>69.5%</td>
+							<td>12.5</td>
+							<td>80.5%</td>
+							<td>14.2</td>
+							<td>88.5%</td>
+						</tr>
+						<tr>
+							<td>5</td>
+							<td>3</td>
+							<td>13.5</td>
+							<td>69.5%</td>
+							<td>12.5</td>
+							<td>80.5%</td>
+							<td>14.2</td>
+							<td>88.5%</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="pagination-wrap">
+					<ul class="pagination" id="scores-pagination"></ul>
+				</div>
+			</div>
+			<div class="user-right course-average-main none">
+				<div class="table-tittle-name">课程均分统计
+				</div>
+				<div class="set-up-search">
+					<div class="set-select-wrap">
+						<div>考试</div>
+						<select name="" id="select-exam">
+							<option value="0">考试1111</option>
+							<option value="0">2017期中考试（高二）</option>
+						</select>
+					</div>
+					<div class="set-select-wrap">
+						<div>科目选择</div>
+						<select name="" id="select-sujects">
+							<option value="0">语文</option>
+							<option value="0">数学</option>
+							<option value="0">物理</option>
+							<option value="0">化学</option>
+							<option value="0">地理</option>
+							<option value="0">政治</option>
+							<option value="0">历史</option>
+							<option value="0">生物</option>
+						</select>
+					</div>
+					<div class="title-name-right"> 
+						<span class="Lead-in-teacher iconfont"><a target="_self">&#xe611;&nbsp;导出</a></span>
+					</div>
+				</div>
+				<table class="search-tabble course-average-tabble" cellpadding="0" cellspacing="0" style='border-collapse:collapse;margin-bottom: 15px'>
+					<thead>
+						<tr>
+							<th>课程</th>
+							<th>教师</th>
+							<th>平均分</th>
+							<th>名次</th>
+							<th>优良率</th>
+							<th>合格率</th>
+							<th>A(81分)</th>
+							<th>B(67分)</th>
+							<th>C(60分)</th>
+							<th>去随班/实考/应考</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>2016物理4</td>
+							<td>何以琛</td>
+							<td>83.49</td>
+							<td>1</td>
+							<td>0.31</td>
+							<td>0.97</td>
+							<td>26</td>
+							<td>11</td>
+							<td>1</td>
+							<td>39/39/39</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>2016物理4</td>
+							<td>何以玫</td>
+							<td>83.49</td>
+							<td>2</td>
+							<td>0.31</td>
+							<td>0.97</td>
+							<td>26</td>
+							<td>11</td>
+							<td>1</td>
+							<td>27/27/27</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>2016物理4</td>
+							<td>何以玫</td>
+							<td>83.49</td>
+							<td>2</td>
+							<td>0.31</td>
+							<td>0.97</td>
+							<td>26</td>
+							<td>11</td>
+							<td>1</td>
+							<td>27/27/27</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>2016物理4</td>
+							<td>何以玫</td>
+							<td>83.49</td>
+							<td>2</td>
+							<td>0.31</td>
+							<td>0.97</td>
+							<td>26</td>
+							<td>11</td>
+							<td>1</td>
+							<td>27/27/27</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>2016物理4</td>
+							<td>何以玫</td>
+							<td>83.49</td>
+							<td>2</td>
+							<td>0.31</td>
+							<td>0.97</td>
+							<td>26</td>
+							<td>11</td>
+							<td>1</td>
+							<td>27/27/27</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>2016物理4</td>
+							<td>何以玫</td>
+							<td>83.49</td>
+							<td>2</td>
+							<td>0.31</td>
+							<td>0.97</td>
+							<td>26</td>
+							<td>11</td>
+							<td>1</td>
+							<td>27/27/27</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>2016物理4</td>
+							<td>何以玫</td>
+							<td>83.49</td>
+							<td>2</td>
+							<td>0.31</td>
+							<td>0.97</td>
+							<td>26</td>
+							<td>11</td>
+							<td>1</td>
+							<td>27/27/27</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>2016物理4</td>
+							<td>何以玫</td>
+							<td>83.49</td>
+							<td>2</td>
+							<td>0.31</td>
+							<td>0.97</td>
+							<td>26</td>
+							<td>11</td>
+							<td>1</td>
+							<td>27/27/27</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>2016物理4</td>
+							<td>何以玫</td>
+							<td>83.49</td>
+							<td>2</td>
+							<td>0.31</td>
+							<td>0.97</td>
+							<td>26</td>
+							<td>11</td>
+							<td>1</td>
+							<td>27/27/27</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>2016物理4</td>
+							<td>何以玫</td>
+							<td>83.49</td>
+							<td>2</td>
+							<td>0.31</td>
+							<td>0.97</td>
+							<td>26</td>
+							<td>11</td>
+							<td>1</td>
+							<td>27/27/27</td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>2016物理4</td>
+							<td>何以玫</td>
+							<td>83.49</td>
+							<td>2</td>
+							<td>0.31</td>
+							<td>0.97</td>
+							<td>26</td>
+							<td>11</td>
+							<td>1</td>
+							<td>27/27/27</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="pagination-wrap">
+					<ul class="pagination" id="exams-pagination"></ul>
+				</div>
+			</div>
+		</div>
+
+		<div id="footer">
+
+		</div>
+
+	</div>
+
+	<!-- 课程导入 -->
+	<div class="modal-wrap import-course-wrap">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main">
+			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
+			<div class="modal-title">课程导入</div>
+			<div class="modal-content" style="">
+					选择文件
+					<div id="upfile" onclick="inPath.click()">
+						未选择任何文件  
+					</div>
+					<input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" id="inPath" style="display:none">
+					<div style="color: #db4a4a;line-height: 60px;text-align: center;"><i class="iconfont">&#xe63c;</i>请先 <a class="table-template" style="color: #db4a4a;border: 1px solid #db4a4a">下载文件模板</a>，填入信息后再导入</div>
+				<!-- <input type="file" id="inPath" style="display:none" onchange="upfile.value=this.value"> -->
+				<!-- <input type="file"> -->
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 创建课程 -->
+		<div class="modal-wrap modal-course-wrap">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main">
+			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
+			<div class="modal-title">创建课程</div>
+			<div class="modal-content" style="text-align: left;">
+				<p style="text-align: left;font-size: 16px;font-weight: bold;padding-bottom: 10px;">课程信息：</p>
+
+				<label class="teachers-label" for="class-name">名&nbsp;&nbsp;称</label>
+				<input type="text" class="course-name input-class-i" placeholder="请输入课程名称">
+
+				<label class="teachers-label" for="class-name">代&nbsp;&nbsp;码</label>
+				<input type="text" class="course-num input-class-i" placeholder="请输入7位数字代码">
+
+				<label class="teachers-label" for="class-name">科&nbsp;&nbsp;目</label>
+				<select name="" class="course-sub select-class-i" placeholder="请选择科目">
+					<option value="0">全部科目</option><option value="10">语文</option><option value="11">数学</option><option value="12">英语</option><option value="13">物理</option><option value="14">化学</option><option value="15">生物</option><option value="16">政治</option><option value="17">历史</option><option value="18">地理</option><option value="19">信息科技</option>
+				</select>
+
+				<label class="teachers-label" for="grade-name">年&nbsp;&nbsp;级</label>
+				<select name="" class="course-grade select-class-i" placeholder="请选择年级">
+<option value="0">全部年级</option><option value="10">六年级</option><option value="11">七年级</option><option value="12">八年级</option><option value="13">九年级</option><option value="14">高一</option><option value="15">高二</option><option value="16">高三</option>
+				</select>
+
+
+				<label class="teachers-label" for="class-name">名&nbsp;&nbsp;额</label>
+				<input type="text" class="student-code input-class-i" placeholder="请输入数字，最多允许学生报名数">
+
+
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 学生导入 -->
+	<div class="modal-wrap import-stu-wrap">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main">
+			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
+			<div class="modal-title">学生导入</div>
+			<div class="modal-content" style="">
+					选择文件
+					<div id="upfile" onclick="inPath.click()">
+						未选择任何文件  
+					</div>
+					<input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" id="inPath" style="display:none">
+					<div style="color: #db4a4a;line-height: 60px;text-align: center;"><i class="iconfont">&#xe63c;</i>请先 <a class="table-template" style="color: #db4a4a;border: 1px solid #db4a4a">下载文件模板</a>，填入信息后再导入</div>
+				<!-- <input type="file" id="inPath" style="display:none" onchange="upfile.value=this.value"> -->
+				<!-- <input type="file"> -->
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -679,6 +679,19 @@ $(function() {
 		$('#student-modal').show();
 	});
 
+	// 合并考试
+	$('#merge-exam').on('click', function() {
+		$('.modal-main').animate({
+			'top': '50%',
+			'opacity': 1,
+			// 'width': '765px'
+		}, 500);
+		$('.modal-shadow').animate({
+			'opacity': .3
+		}, 500);
+		$('#merge-exam-modal').show();
+	});
+
 
 	// 删除科目
 	$('body').on('click', '.dele', function() {
@@ -1129,6 +1142,32 @@ $(function() {
 		};
 	});
 
+
+
+  // 合并考试
+  $('body').on('click', 'input[name="exam-name"]', function() {
+		var $graBox = $("input[name='exam-name']");
+		// $graBox.length=$("input[name='exam-name']").length;
+		// console.log($("input[name='exam-name']:checked").length,$graBox.length);
+		// $("#merge-exam-modal #all-student").prop("checked", $graBox.length == $("input[name='exam-name']:checked").length ? true : false);
+		var this_text = $(this).parents('li').find('.exam-name').text();
+		var this_id = $(this).parents('li').find('.exam-name').data('id');
+		var stu_count = $(this).parents('li').find('.count-name').text();
+		if (this.checked) {
+			var rigth_li = '<li><span data-id="' + this_id + '">' + this_text + '</span>'+stu_count+'</span><i class="iconfont">&#xe61b;</i></li>';
+			$('#merge-exam-modal #exam-right-list').append(rigth_li);
+		} else {
+			var t_li = $('#merge-exam-modal #exam-right-list li');
+			var t_length = t_li.length;
+			for (var i = 0; i < t_length; i++) {
+				var t_id = $(t_li[i]).find('span').attr('data-id');
+				if (this_id == t_id) {
+					$(t_li[i]).remove();
+				};
+			};
+		};
+	});
+
 	// 删除已经选择的学生
 	$('body').on('click', '#student-modal #student-right-list li i', function() {
 		var student_id = $(this).prev().prev().attr('data-id');
@@ -1141,6 +1180,22 @@ $(function() {
 			};
 		};
 		$('body').find('#student-modal #all-student').prop('checked', false);
+		$(this).parent().remove();
+	});
+
+		// 删除已经选择的考试
+	$('body').on('click', '#merge-exam-modal #exam-right-list li i', function() {
+		var student_id = $(this).prev().attr('data-id');
+		var student_left_li = $('#merge-exam-modal #exam-left-list li');
+		var student_left_length = student_left_li.length;
+		for (var i = 0; i < student_left_length; i++) {
+			var left_id = $(student_left_li[i]).find('.exam-name').attr('data-id');
+			console.log(student_id,left_id)
+			if (student_id == left_id) {
+				$(student_left_li[i]).find('input').prop('checked', false);
+			};
+		};
+		// $('body').find('#student-modal #all-student').prop('checked', false);
 		$(this).parent().remove();
 	});
 

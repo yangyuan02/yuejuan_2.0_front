@@ -1,0 +1,26 @@
+#clear{
+	display: inline-block;
+	color: #fb7d8a;
+	text-align: center;
+	margin-left: 18px;
+	border-bottom: 1px solid #fb7d8a;
+	font-size: 14px;
+}
+.set-select-wrap{
+	padding-right: 10px;
+}
+#course-select{
+	display: inline-block;
+	color: #5fa3ed;
+	text-align: center;
+	margin-left: 18px;
+	border-bottom: 1px solid #5fa3ed;
+	font-size: 14px;
+}
+.course-input{
+	width: 430px!important;
+}
+.item-score-tabble th,.item-score-tabble td{
+	border:1px solid #dcdcdc;
+	text-align: center;
+}

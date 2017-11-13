@@ -803,3 +803,11 @@ table#look-school-table tr {
 table#look-school-table td{
 	border-bottom: 1px solid #ccc;
 }
+.all-exam select {
+  height: 28px;
+  line-height: 28px;
+  color: #666;
+  width: 220px;
+  position: relative;
+  top: -6px;
+}

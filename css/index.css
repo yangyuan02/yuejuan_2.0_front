@@ -51,6 +51,10 @@
 	background-image: url('../img/questions.png');
 	background-size: 100% 100%;
 }
+.change-exam{
+	background-image: url('../img/change.png');
+	background-size: 100% 100%;
+}
 .iconfont-size{
 	font-size: 14px;
 }
