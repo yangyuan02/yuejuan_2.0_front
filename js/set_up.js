@@ -1089,48 +1089,249 @@ $(function() {
 					$('.teachers-propmt-wrap #teachers-number').val(data.phone);
 					$('.teachers-propmt-wrap #teachers-role').val(data.role);
 					// $('.teachers-propmt-wrap #teachers-subject').val(data.subject.name);
-					$('.teachers-propmt-wrap #teachers-grade').val(data.grades.name);
-					console.log(data.grades.name+'11111111111111111')
-					iDataGrades = data.grades;
-					defaultId = data.subject.id;
+					// $('.teachers-propmt-wrap #teachers-grade').val(data.teacher_subjects[0].name);
+					// console.log(data.grades.name+'11111111111111111')
+					iDataGrades = data.teacher_subjects;
 					defaultRole = data.role;
-					$('#teachers-grade').html('')
+					$('.first-div .add-list .teachers-grade').html('')
 
 					var grade_ids = [];
-					for (var i = 0; i < iDataGrades.length; i++) {
-						grade_ids[i] = iDataGrades[i].id;
-					}
-					grade_ids = grade_ids.join(',');
-					console.log(grade_ids)
-
-					$.ajax({
+					if(iDataGrades.length==1){
+						grade_ids=iDataGrades[0].grade_id;
+						defaultId = data.teacher_subjects[0].subject_id;
+						classroom_id = data.teacher_subjects[0].classroom_id;
+						console.log(999999)
+						$.ajax({
 				     	type: "GET",
-				     	url: ajaxIp+"/api/v2/teachers/find_subject_by_grade",
+				     	url: ajaxIp+"/api/v2/commons/school_grades",
 				    	dataType: "JSON",
 				    	headers: {'Authorization': "Bearer " + isLogin},
-				    	data:{grade_ids},
 				    	success: function(data){
-				    		console.log(defaultId+'==================')
-				    		var iOption_s;
-				  			for (var i = 0; i < data.length; i++) {
-				  				if(defaultId == data[i].id){
-				  					iOption_s+= '<option value="'+data[i].id+'" selected>'+data[i].name+'</option>';
-				  				}else{
-				  					iOption_s+= '<option value="'+data[i].id+'">'+data[i].name+'</option>';
-				  				}
+				    		console.log(data);
+				    		$('.first-div .add-list .teachers-grade').html('');
+								for (var gg = 0; gg < data.length; gg++) {
+									var child_gg = '<option value="'+data[gg].id+'">'+data[gg].name+'</option>';
+									$('.first-div .add-list .teachers-grade').append(child_gg);
+									if(iDataGrades[0].grade_id==data[gg].id){
+										console.log(gg)
+										$($('.first-div .add-list .teachers-grade option').eq(gg)).attr('selected',true);
+									}
+								};
+								$.ajax({
+						     	type: "GET",
+						     	url: ajaxIp+"/api/v2/teachers/find_subject_by_grade",
+						    	dataType: "JSON",
+						    	headers: {'Authorization': "Bearer " + isLogin},
+						    	data:{grade_ids},
+						    	success: function(data){
+						    		console.log(defaultId+'==================')
+						    		var iOption_s;
+						  			for (var i = 0; i < data.length; i++) {
+						  				if(defaultId == data[i].id){
+						  					iOption_s+= '<option value="'+data[i].id+'" selected>'+data[i].name+'</option>';
+						  				}else{
+						  					iOption_s+= '<option value="'+data[i].id+'">'+data[i].name+'</option>';
+						  				}
+						  				$('.first-div .add-list .teachers-subject').html(iOption_s);
 
-				  				// $(iOption_s).attr('id', data.id);
-				  				// $(iOption_s).attr('value', data.name);
-				  				// $(iOption_s).text(data.name);
-				  			}
-				  			$('#teachers-subject').html(iOption_s);
-				        },
-				        error: function(){
-				        	// alert('请稍后从新尝试登录或者联系管理员');
-				        	// localStorage.clear();
-				        	// window.location.href = './login.html'
-				        }
+						  			}
+						      },
+						      error: function(){
+						        	// alert('请稍后从新尝试登录或者联系管理员');
+						        	// localStorage.clear();
+						        	// window.location.href = './login.html'
+						      }
+						    });
+						    $.ajax({
+						     	type: "GET",
+						     	url: ajaxIp+"/api/v2/commons/"+grade_ids+"/grade_classrooms",
+						    	dataType: "JSON",
+						    	headers: {'Authorization': "Bearer " + isLogin},
+						    	success: function(data){
+						    		console.log(classroom_id)
+						    		console.log(data)
+						    		$('.first-div .add-list .teachers-class').html('');
+						    		var iOption;
+						  			for (var i = 0; i < data.length; i++) {
+						  				if(classroom_id==data[i].id){
+												iOption = '<option value="'+data[i].id+'" selected>'+data[i].name+'（'+data[i].count+'）</option>'
+
+						  				}else{
+												iOption = '<option value="'+data[i].id+'">'+data[i].name+'（'+data[i].count+'）</option>'
+											}
+											$('.first-div .add-list .teachers-class').append(iOption);
+									}
+						        },
+						        error: function(){
+						        	// alert('请稍后从新尝试登录或者联系管理员');
+						        	// localStorage.clear();
+						        	// window.location.href = './login.html'
+						        }
+						    });
+
+
+				       }
 				    });
+					}
+					if(iDataGrades.length>1){
+						grade_ids=iDataGrades[0].grade_id;
+						defaultId = data.teacher_subjects[0].subject_id;
+						classroom_id = data.teacher_subjects[0].classroom_id;
+						console.log(999999)
+						$.ajax({
+				     	type: "GET",
+				     	url: ajaxIp+"/api/v2/commons/school_grades",
+				    	dataType: "JSON",
+				    	headers: {'Authorization': "Bearer " + isLogin},
+				    	success: function(data){
+				    		console.log(data);
+				    		$('.first-div .add-list .teachers-grade').html('');
+								for (var gg = 0; gg < data.length; gg++) {
+									var child_gg = '<option value="'+data[gg].id+'">'+data[gg].name+'</option>';
+									$('.first-div .add-list .teachers-grade').append(child_gg);
+									if(iDataGrades[0].grade_id==data[gg].id){
+										console.log(gg)
+										$($('.first-div .add-list .teachers-grade option').eq(gg)).attr('selected',true);
+									}
+								};
+								$.ajax({
+						     	type: "GET",
+						     	url: ajaxIp+"/api/v2/teachers/find_subject_by_grade",
+						    	dataType: "JSON",
+						    	headers: {'Authorization': "Bearer " + isLogin},
+						    	data:{grade_ids},
+						    	success: function(data){
+						    		console.log(defaultId+'==================')
+						    		var iOption_s;
+						  			for (var i = 0; i < data.length; i++) {
+						  				if(defaultId == data[i].id){
+						  					iOption_s+= '<option value="'+data[i].id+'" selected>'+data[i].name+'</option>';
+						  				}else{
+						  					iOption_s+= '<option value="'+data[i].id+'">'+data[i].name+'</option>';
+						  				}
+						  				$('.first-div .add-list .teachers-subject').html(iOption_s);
+
+						  			}
+						      },
+						      error: function(){
+						        	// alert('请稍后从新尝试登录或者联系管理员');
+						        	// localStorage.clear();
+						        	// window.location.href = './login.html'
+						      }
+						    });
+						    $.ajax({
+						     	type: "GET",
+						     	url: ajaxIp+"/api/v2/commons/"+grade_ids+"/grade_classrooms",
+						    	dataType: "JSON",
+						    	headers: {'Authorization': "Bearer " + isLogin},
+						    	success: function(data){
+						    		console.log(classroom_id)
+						    		console.log(data)
+						    		$('.first-div .add-list .teachers-class').html('');
+						    		var iOption;
+						  			for (var i = 0; i < data.length; i++) {
+						  				if(classroom_id==data[i].id){
+												iOption = '<option value="'+data[i].id+'" selected>'+data[i].name+'（'+data[i].count+'）</option>'
+
+						  				}else{
+												iOption = '<option value="'+data[i].id+'">'+data[i].name+'（'+data[i].count+'）</option>'
+											}
+											$('.first-div .add-list .teachers-class').append(iOption);
+									}
+						        },
+						        error: function(){
+						        	// alert('请稍后从新尝试登录或者联系管理员');
+						        	// localStorage.clear();
+						        	// window.location.href = './login.html'
+						        }
+						    });
+
+
+				       }
+				    });
+						$('.first-div .add-cont').html('');
+						for (var i = 1; i < iDataGrades.length; i++) {
+							var child_div = '<div class="add-list" style="border-bottom:1px solid #ccc;"><div class="teachers-input-wrap" style="position: relative;height: 30px;margin-bottom: 10px;"><label class="teachers-label" style="position: absolute;top: 4px;left: 8px;" for="teachers-grade">年&nbsp;&nbsp;&nbsp;级</label><select id="teachers-grade" class="teachers-grade" style="display: inline-block;width: 140px;height:30px;line-height: 30px;text-align: left; position: absolute;top: -3px;left: 60px;"></select><label class="teachers-label" style="position: absolute;top: 4px;left: 224px;" for="teachers-class">班&nbsp;&nbsp;&nbsp;级</label><select class="teachers-class" style="width: 140px; position: absolute;top: -3px;left:274px;height: 30px;line-height: 30px;"></select></div><div class="teachers-input-wrap" style="margin-bottom: 20px;"><label class="teachers-label" for="teachers-subject" style="left:-24px">科&nbsp;&nbsp;&nbsp;目</label><select id="teachers-subject" class="teachers-input teachers-subject" style="width: 356px;margin-left: -10px;"></select><a href="javascript:" class="dele-t"><i class="iconfont">&#xe616;</i>删除</a></div></div>';
+							$('.first-div .add-cont').append(child_div);
+							console.log(77777)
+							var gg_id = iDataGrades[i].grade_id;
+							console.log(gg_id)
+							$.ajax({
+				     	type: "GET",
+				     	url: ajaxIp+"/api/v2/commons/school_grades",
+				    	dataType: "JSON",
+				    	headers: {'Authorization': "Bearer " + isLogin},
+				    	success: function(data){
+				    		console.log(data);
+				    		$($('.first-div .add-cont .add-list').eq(i-1)).find('.teachers-grade').html('');
+				    		var child_gg;
+								for (var gg = 0; gg < data.length; gg++) {
+									if(gg_id==data[gg].id){
+										console.log(gg)
+										child_gg = '<option value="'+data[gg].id+'" selected>'+data[gg].name+'</option>';
+									}else{
+										child_gg = '<option value="'+data[gg].id+'">'+data[gg].name+'</option>';
+									}
+									$($('.first-div .add-cont .add-list').eq(i-1)).find('.teachers-grade').append(child_gg);
+								};
+							// $.ajax({
+						  //    	type: "GET",
+						  //    	url: ajaxIp+"/api/v2/teachers/find_subject_by_grade",
+						  //   	dataType: "JSON",
+						  //   	headers: {'Authorization': "Bearer " + isLogin},
+						  //   	data:{grade_ids},
+						  //   	success: function(data){
+						  //   		console.log(defaultId+'==================')
+						  //   		var iOption_s;
+						  // 			for (var i = 0; i < data.length; i++) {
+						  // 				if(defaultId == data[i].id){
+						  // 					iOption_s+= '<option value="'+data[i].id+'" selected>'+data[i].name+'</option>';
+						  // 				}else{
+						  // 					iOption_s+= '<option value="'+data[i].id+'">'+data[i].name+'</option>';
+						  // 				}
+						  // 				$('.first-div .add-cont .teachers-subject').html(iOption_s);
+						  // 			}
+						  //     },
+						  //     error: function(){
+						  //       	// alert('请稍后从新尝试登录或者联系管理员');
+						  //       	// localStorage.clear();
+						  //       	// window.location.href = './login.html'
+						  //     }
+						  //   });
+						  //   $.ajax({
+						  //    	type: "GET",
+						  //    	url: ajaxIp+"/api/v2/commons/"+grade_ids+"/grade_classrooms",
+						  //   	dataType: "JSON",
+						  //   	headers: {'Authorization': "Bearer " + isLogin},
+						  //   	success: function(data){
+						  //   		console.log(classroom_id)
+						  //   		console.log(data)
+						  //   		$('.first-div .add-cont .teachers-class').html('');
+						  //   		var iOption;
+						  // 			for (var i = 0; i < data.length; i++) {
+						  // 				if(classroom_id==data[i].id){
+								// 				iOption = '<option value="'+data[i].id+'" selected>'+data[i].name+'（'+data[i].count+'）</option>'
+
+						  // 				}else{
+								// 				iOption = '<option value="'+data[i].id+'">'+data[i].name+'（'+data[i].count+'）</option>'
+								// 			}
+								// 			$('.first-div .add-cont .teachers-class').append(iOption);
+								// 	}
+						  //       },
+						  //       error: function(){
+						  //       	// alert('请稍后从新尝试登录或者联系管理员');
+						  //       	// localStorage.clear();
+						  //       	// window.location.href = './login.html'
+						  //       }
+						  //   });
+
+
+				       }
+				    });
+						}
+					}
+					// grade_ids = grade_ids.join(',');
+					// console.log(grade_ids);
 
 				    $.ajax({
 				     	type: "GET",
@@ -1160,151 +1361,6 @@ $(function() {
 				        }
 				    });
 
-					$.ajax({
-				     	type: "GET",
-				     	url: ajaxIp+"/api/v2/commons/school_grades",
-				    	dataType: "JSON",
-				    	headers: {'Authorization': "Bearer " + isLogin},
-				    	success: function(data){
-				    		$('#teachers-grade').html('');
-							if(data.length == iDataGrades.length){
-								var thisDiv='<div class="allNew newTeacherBack">全部<i class="iconfont gradesname" style="position:absolute;right:10px;top:0;">&#xe619;</i></div>';
-							}else{
-								var thisDiv='<div class="allNew">全部<i class="iconfont gradesname" style="position:absolute;right:10px;top:0;">&#xe619;</i></div>';
-							}
-
-				    		console.log(iDataGrades)
-				    		var isTrue=true;
-				    		for (var i = 0; i < data.length; i++) {
-				    			for (var j = 0; j < iDataGrades.length; j++) {
-				    				if (iDataGrades[j].id == data[i].id ) {
-										isTrue = true;
-										break;
-				    				}else{
-										isTrue = false;
-				    				}
-				    			}
-				    			if (isTrue) {
-									thisDiv+='<div class="newTeacher newTea newTeacherBack" data-id="'+data[i].id+'">'+data[i].name+'<i class="iconfont gradesname" style="position:absolute;right:10px;top:0;">&#xe619;</i></div>'
-			    				}else{
-			    					thisDiv+='<div class="newTeacher newTea" data-id="'+data[i].id+'">'+data[i].name+'<i class="iconfont gradesname" style="position:absolute;right:10px;top:0;">&#xe619;</i></div>'
-			    				}
-
-				    		}
-				    		$('#teachers-grade').append(thisDiv);
-				    		$('.newTeacher').on('click' , function(){
-				    			$(this).toggleClass('newTeacherBack');
-				    			if($('.newTeacherBack').length == (data.length)){
-									$('.allNew').addClass('newBack');
-				    				$('.allNew').removeClass('newTeacherBack');
-
-				    			}else{
-				    				$('.allNew').removeClass('newBack');
-				    				// $('.allNew').removeClass('newTeacherBack');
-
-				    			}
-							    var grade_ids = [];
-								if($('#teachers-grade .newBack').length==0){
-									for (var i = 0; i < $('.newTeacherBack').length; i++) {
-										grade_ids[i] = $($('.newTeacherBack')[i]).attr('data-id');
-									}
-								}else{
-									for (var i = 0; i < $('.newTeacherBack').length; i++) {
-										grade_ids[i] = $($('.newTeacherBack')[i]).attr('data-id');
-									}
-								}
-
-
-								grade_ids = grade_ids.join(',');
-
-				    			$.ajax({
-							     	type: "GET",
-							     	url: ajaxIp+"/api/v2/teachers/find_subject_by_grade",
-							    	dataType: "JSON",
-							    	headers: {'Authorization': "Bearer " + isLogin},
-							    	data:{grade_ids},
-							    	success: function(data){
-							    		console.log(data)
-							    		var iOption_s;
-							  			for (var i = 0; i < data.length; i++) {
-							  				if(defaultId == data[i].id){
-							  					iOption_s+= '<option value="'+data[i].id+'" selected>'+data[i].name+'</option>';
-							  				}else{
-							  					iOption_s+= '<option value="'+data[i].id+'">'+data[i].name+'</option>';
-							  				}
-
-							  				// $(iOption_s).attr('id', data.id);
-							  				// $(iOption_s).attr('value', data.name);
-							  				// $(iOption_s).text(data.name);
-							  			}
-							  			$('#teachers-subject').html(iOption_s);
-							        },
-							        error: function(){
-							        	// alert('请稍后从新尝试登录或者联系管理员');
-							        	// localStorage.clear();
-							        	// window.location.href = './login.html'
-							        }
-							    });
-				    		})
-
-				    		$('.allNew').on('click' , function(){
-				    			console.log(99)
-				    			$(this).toggleClass('newBack');
-				    			if($(this).hasClass('newBack')){
-										for (var i = 0; i < $('.newTea').length; i++) {
-											$($('.newTea')[i]).addClass('newTeacherBack');
-										}
-				    			}else{
-										for (var i = 0; i < $('.newTea').length; i++) {
-											$($('.newTea')[i]).removeClass('newTeacherBack');
-										}
-				    			}
-
-				    			var grade_ids = [];
-								if($('#teachers-grade .newBack').length==0){
-									for (var i = 0; i < $('.newTeacherBack').length; i++) {
-										grade_ids[i] = $($('.newTeacherBack')[i]).data('id');
-									}
-								}else{
-									for (var i = 0; i < $('.newTeacherBack').length; i++) {
-										grade_ids[i] = $($('.newTeacherBack')[i]).data('id');
-									}
-								}
-								grade_ids = grade_ids.join(',');
-								console.log(grade_ids)
-				    			$.ajax({
-							     	type: "GET",
-							     	url: ajaxIp+"/api/v2/teachers/find_subject_by_grade",
-							    	dataType: "JSON",
-							    	headers: {'Authorization': "Bearer " + isLogin},
-							    	data:{grade_ids},
-							    	success: function(data){
-							    		console.log(data)
-							    		var iOption_s='';
-							  			for (var i = 0; i < data.length; i++) {
-							  				if(defaultId == data[i].id){
-							  					iOption_s+= '<option value="'+data[i].id+'" selected>'+data[i].name+'</option>';
-							  				}else{
-							  					iOption_s+= '<option value="'+data[i].id+'">'+data[i].name+'</option>';
-							  				}
-
-							  				// $(iOption_s).attr('id', data.id);
-							  				// $(iOption_s).attr('value', data.name);
-							  				// $(iOption_s).text(data.name);
-							  			}
-							  			$('#teachers-subject').html(iOption_s);
-							        },
-							        error: function(){
-							        	// alert('请稍后从新尝试登录或者联系管理员');
-							        	// localStorage.clear();
-							        	// window.location.href = './login.html'
-							        }
-							    });
-				    		})
-				       }
-				    });
-
-
 		        },
 		    });
 
@@ -1316,6 +1372,7 @@ $(function() {
 			console.log(8888)
 			var child_div = '<div class="add-list" style="border-bottom:1px solid #ccc;"><div class="teachers-input-wrap" style="position: relative;height: 30px;margin-bottom: 10px;"><label class="teachers-label" style="position: absolute;top: 4px;left: 8px;" for="teachers-grade">年&nbsp;&nbsp;&nbsp;级</label><select id="teachers-grade" class="teachers-grade" style="display: inline-block;width: 140px;height:30px;line-height: 30px;text-align: left; position: absolute;top: -3px;left: 60px;"></select><label class="teachers-label" style="position: absolute;top: 4px;left: 224px;" for="teachers-class">班&nbsp;&nbsp;&nbsp;级</label><select class="teachers-class" style="width: 140px; position: absolute;top: -3px;left:274px;height: 30px;line-height: 30px;"></select></div><div class="teachers-input-wrap" style="margin-bottom: 20px;"><label class="teachers-label" for="teachers-subject" style="left:-24px">科&nbsp;&nbsp;&nbsp;目</label><select id="teachers-subject" class="teachers-input teachers-subject" style="width: 356px;margin-left: -10px;"></select><a href="javascript:" class="dele-t"><i class="iconfont">&#xe616;</i>删除</a></div></div>';
 			$(this).parents('.add-list').siblings('.add-cont').append(child_div);
+			var $this = $(this);
 			$.ajax({
 		     	type: "GET",
 		     	url: ajaxIp+"/api/v2/commons/school_grades",
@@ -1323,17 +1380,17 @@ $(function() {
 		    	headers: {'Authorization': "Bearer " + isLogin},
 		    	success: function(data){
 					console.log(data)
-					$('.teachers-propmt-wrap .add-list .teachers-grade').html('');
+					$this.parents('.add-list').siblings('.add-cont').find('.teachers-grade').html('');
 					// var thisDiv='<div class="allNew">全部<i class="iconfont gradesname" style="position:absolute;right:10px;top:0;">&#xe619;</i></div>';
 		    		// for (var i = 0; i < data.length; i++) {
     				// 	thisDiv+='<div class="newTeacher newTea" data-id="'+data[i].id+'">'+data[i].name+'<i class="iconfont gradesname" style="position:absolute;right:10px;top:0;">&#xe619;</i></div>'
 		    		// }
 		    		for (var i = 0; i < data.length; i++) {
 		    			var thisDiv = '<option value="'+data[i].id+'">'+data[i].name+'</option>';
-		    			$('.add-list .teachers-grade').append(thisDiv);
-		    			$('.add-list .teachers-grade').val(data[0].id)
+		    			$this.parents('.add-list').siblings('.add-cont').find('.teachers-grade').append(thisDiv);
+		    			$this.parents('.add-list').siblings('.add-cont').find('.teachers-grade').val(data[0].id)
 		    		};
-		    		var grade_ids = $('.add-list .teachers-grade').val();
+		    		var grade_ids = $this.parents('.add-list').siblings('.add-cont').find('.teachers-grade').val();
 		    		$.ajax({
 					     	type: "GET",
 					     	url: ajaxIp+"/api/v2/teachers/find_subject_by_grade",
@@ -1365,10 +1422,10 @@ $(function() {
 				    	headers: {'Authorization': "Bearer " + isLogin},
 				    	success: function(data){
 				    		console.log(data)
-				    		$('.teachers-propmt-wrap .add-list .teachers-class').html('');
+				    		$this.parents('.add-list').siblings('.add-cont').find('.teachers-class').html('');
 				  			for (var i = 0; i < data.length; i++) {
 								var iOption = '<option value="'+data[i].id+'">'+data[i].name+'（'+data[i].count+'）</option>'
-								$('.teachers-propmt-wrap .add-list .teachers-class').append(iOption);
+								$this.parents('.add-list').siblings('.add-cont').find('.teachers-class').append(iOption);
 							}
 				        },
 				        error: function(){
