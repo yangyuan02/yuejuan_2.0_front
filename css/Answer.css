@@ -309,9 +309,17 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     width:16px;
     text-align:center;
 }
-.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span.fill_line{
+.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span.fill_line span:first-child{
     width:230px;
     border-bottom:1px solid black;
+    display:inline-block;
+    margin-right:0px;
+}
+.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span.fill_line span:last-child{
+    margin-right:0px;
+}
+.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span.fill_line{
+    margin-right:0px;
 }
 /*网络阅卷打分框*/
 .Answer .A_R .A_Rone .A_Rone_child table tr .marking a{
@@ -792,6 +800,7 @@ input:focus{
 /*************修改填空题格式******************/
 .setFill_q{
     height:auto;
+    width:700px;
 }
 .setFill_q .cand_con ul li{
     width:100%;
@@ -808,7 +817,7 @@ input:focus{
 .setFill_q .cand_con ul li .fill_width input{
     width:155px;
 }
-.setFill_q .cand_con ul li .fill_character input{
+.setFill_q .cand_con ul li .fill_separator input{
     width:300px;
 }
 .Answer .A_R .A_Rone .A_Rone_child table tbody tr td .other_line{
