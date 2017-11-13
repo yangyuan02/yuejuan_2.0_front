@@ -524,6 +524,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         itme_obj.no = 0
         itme_obj.score = 0
         itme_obj.string = "学号"
+        itme_obj.count = ulLen
         itme_obj.block_width = $scope.infoBox == 0?18:10
         itme_obj.block_height = 12
         itme_obj.num_question = parseInt(ulLen)
@@ -1936,23 +1937,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         var isLogin = localStorage.getItem("token");
 
-        function batchTitle(answers){//批量修改题目
-            var allPage = allPagePost()
-            var answersData = []
-            for(var i = 0;i<allPage.length;i++){
-                var obj = {}
-                obj.answer_id = answers[i]
-                obj.name = allPage[i].name
-                answersData.push(obj)
-            }
-            $.ajax({
-                type:"PATCH",
-                url:"/api/v2/answers/batch_change_name",
-                headers: {'Authorization': "Bearer " + isLogin},
-                async: false,
-                data:{"answers": JSON.stringify(answersData)}
-            })
-        }
         function bindRegion() {
             var answer_ids = []
             for (var i = 0; i < answer_id.length; i++) {
@@ -1994,7 +1978,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                                 }
                             }
                         )
-                        batchTitle(answer_ids)
                     }
                 }
             )
@@ -2027,30 +2010,4 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.closeCand()
     }
  })
-
-m1.directive('contenteditable', function() {
-    return {
-        restrict: 'A',
-        require: '?ngModel',
-        link: function(scope, element, attrs, ngModel) {
-            if (!ngModel) {
-                return;
-            }
-            ngModel.$render = function() {
-                element.html(ngModel.$viewValue || '');
-            };
-            element.on('blur keyup change', function() {
-                scope.$apply(readViewText);
-            });
-            function readViewText() {
-                var html = element.html();
-                if (attrs.stripBr && html === '<br>') {
-                    html = '';
-                }
-                ngModel.$setViewValue(html);
-            }
-        }
-    };
-});
-
 
