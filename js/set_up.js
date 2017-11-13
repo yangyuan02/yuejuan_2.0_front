@@ -2135,6 +2135,15 @@ $(function() {
   	}
   	if($(this).hasClass('word-import')){
   		get_all_word_exam();
+  		var faye = new Faye.Client(fayeIp+'/api/v2/events');
+  		console.log(fayeIp,faye)
+		    faye.subscribe("/docx/questions" , function (data) {
+	        console.log(data)
+	        if(data.message=='done'){
+						$('.load-bg').hide();
+						get_all_word_exam();
+	        }
+		    });
   	}
   });
 
@@ -3523,13 +3532,16 @@ $(function() {
 
 			// 显示考试列表
 	function show_exams_list(exam){
+		console.log(exam)
 		var exam_length = exam.length;
 		$('.import-word-wrap #paper-exam').html('');
 		for (var i = 0; i < exam_length; i++) {
 			var exam_option = '<option value="'+exam[i].exam_subject_id+'">'+exam[i].exam_name+'</option>';
 			$('.import-word-wrap #paper-exam').append(exam_option);
 		};
-		$('.import-word-wrap #paper-exam').attr('value',exam[0].id);
+		if(exam.length>0){
+			$('.import-word-wrap #paper-exam').attr('value',exam[0].id);
+		}
 
 		}
   // 根据年级获取科目
@@ -3585,11 +3597,11 @@ $(function() {
 		formData.append("subject_id",subject_id);
 		formData.append("grade_id",grade_id);
 		console.log(grade_id,subject_id,exam_subject_id);
-		get_word_info(formData,grade_id,subject_id,exam_subject_id);
+		get_word_info(formData,exam_subject_id);
 		$('.import-word-wrap').hide();
 	});
 
-	function get_word_info (formData) {
+	function get_word_info (formData,exam_subject_id) {
 		$.ajax({
 	   	type: "POST",
 	   	url: ajaxIp+"/api/v2/ddocxes?token=TOKEN",
@@ -3603,7 +3615,7 @@ $(function() {
 			},
 			success : function(data) {
 				console.log(data);
-				// get_grade_all_list(null,null);
+				$('.load-bg').show();
 			},
 			error : function() {
 				console.log("error");
@@ -3649,7 +3661,8 @@ $(function() {
 	  	success: function(data){
 	  		console.log(data);
 	  		// for (var i = 0; i < data.length; i++) {
-	  		// 	$('.word-import-right').append(data[i].content);
+	  		// 	var pp='<p>'+data[i].content+'</p>';
+	  		// 	$('.word-import-right').append(pp);
 
 	  		// };
 	  		word_exam_list(data);

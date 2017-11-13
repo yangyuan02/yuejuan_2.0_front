@@ -181,7 +181,7 @@ $(function(){
 			if(current_page==parseInt(arr[j].current_page)){
 				new_arr.push(arr[j])
     }
-    var jj_html = '<li id="'+arr[j].id+'" sec_num = "'+arr[j].current_page+'_'+arr[j].num+'"><input type="hidden" width="'+arr[j].width+'" height="'+arr[j].height+'" w="'+arr[j].w+'" h="'+arr[j].h+'" x="'+arr[j].x+'" y="'+arr[j].y+'" current_page="'+arr[j].current_page+'" /><span>'+arr[j].num+'</span>( 第<em>'+arr[j].current_page+'</em>页 )</li>';
+    var jj_html = '<li class="s-li" id="'+arr[j].id+'" sec_num = "'+arr[j].current_page+'_'+arr[j].num+'"><input type="hidden" width="'+arr[j].width+'" height="'+arr[j].height+'" w="'+arr[j].w+'" h="'+arr[j].h+'" x="'+arr[j].x+'" y="'+arr[j].y+'" current_page="'+arr[j].current_page+'" index="'+arr[j].index+'" /><span>'+arr[j].num+'</span>( 第<em>'+arr[j].current_page+'</em>页 )</li>';
     	$('body').find('#all-section-list').append(jj_html);
     }
     console.log(new_arr);
@@ -199,8 +199,8 @@ $(function(){
 		    var l_height=new_arr[i].h/734;
 		    // console.log(new_arr[i].w,l_width,l_height)
 				var first_string="<div class='select-area' style='position: absolute;left:"+(new_arr[i].x/l_width)+"px;top:"+(new_arr[i].y/l_height)+"px;"+"width:"+(new_arr[i].width/l_width)+"px;height:"
-			      +(new_arr[i].height/l_height)+"px' id='select-area"+(i+new_info.length+1)+"' name='"+(i+new_info.length+1)+"'><a href='javascript:;' class='edit-item'>编辑</a><i class='iconfont close'>&#xe61b;</i><span class='title' " +
-			  		" style='background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 2px;'>"+(i+new_info.length+1)+"</span>'</div>";
+			      +(new_arr[i].height/l_height)+"px' id='select-area"+(new_arr[i].index)+"' name='"+(new_arr[i].index)+"'><a href='javascript:;' class='edit-item'>编辑</a><i class='iconfont close'>&#xe61b;</i><span class='title' " +
+			  		" style='background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 2px;'>"+(new_arr[i].index)+"</span>'</div>";
 	  		$('.bg-img').append(first_string);
 	  		$(".select-area").draggable({containment: ".bg-img", scroll: false });;
 	      $(".select-area").resizable({ handles: "n, e, s, w, ne, se, sw, nw" });
@@ -399,10 +399,10 @@ $(function(){
     }
 		for (var j = 0; j < new_arr.length; j++) {
   		if(arr[eg-1].crop_type==4){
-  			var select_area_a='<div id="select-area'+(j+1)+'" style="width:'+(new_arr[j].width)/(new_arr[j].w/1044)+'px;height:'+(new_arr[j].height)/(new_arr[j].h/734)+'px;left:'+(new_arr[j].x)/(new_arr[j].w/1044)+'px;top:'+(new_arr[j].y)/(new_arr[j].h/734)+'px" class="select-area" name="'+(j+1)+'" answer-id="'+new_arr[j].answer_id+'" data-id="'+new_arr[j].id+'"><a href="javascript:;" class="edit-item">编辑</a><i class="iconfont close">&#xe61b;</i><span class="title" style="background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 0px;">'+new_arr[j].index+'</span></div>';
+  			var select_area_a='<div id="select-area'+new_arr[j].index+'" style="width:'+(new_arr[j].width)/(new_arr[j].w/1044)+'px;height:'+(new_arr[j].height)/(new_arr[j].h/734)+'px;left:'+(new_arr[j].x)/(new_arr[j].w/1044)+'px;top:'+(new_arr[j].y)/(new_arr[j].h/734)+'px" class="select-area" name="'+new_arr[j].index+'" answer-id="'+new_arr[j].answer_id+'" data-id="'+new_arr[j].id+'"><a href="javascript:;" class="edit-item">编辑</a><i class="iconfont close">&#xe61b;</i><span class="title" style="background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 0px;">'+new_arr[j].index+'</span></div>';
   		}
   		if(arr[eg-1].crop_type==1){
-				var select_area_a='<div id="select-area'+(j+1)+'" style="width:'+(new_arr[j].width)/(new_arr[j].w/1044)+'px;height:'+(new_arr[j].height)/(new_arr[j].h/734)+'px;left:'+(new_arr[j].x)/(new_arr[j].w/1044)+'px;top:'+(new_arr[j].y)/(new_arr[j].h/734)+'px" class="select-area" name="'+(j+1)+'" answer-id="'+new_arr[j].answer_id+'" data-id="'+new_arr[j].id+'"><i class="iconfont close">&#xe61b;</i><span class="title" style="background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 0px;">'+new_arr[j].index+'</span></div>';
+				var select_area_a='<div id="select-area'+new_arr[j].index+'" style="width:'+(new_arr[j].width)/(new_arr[j].w/1044)+'px;height:'+(new_arr[j].height)/(new_arr[j].h/734)+'px;left:'+(new_arr[j].x)/(new_arr[j].w/1044)+'px;top:'+(new_arr[j].y)/(new_arr[j].h/734)+'px" class="select-area" name="'+new_arr[j].index+'" answer-id="'+new_arr[j].answer_id+'" data-id="'+new_arr[j].id+'"><i class="iconfont close">&#xe61b;</i><span class="title" style="background-color: red; color: rgb(255, 255, 255); opacity: 1; position: absolute; left: 6px; top: 0px;">'+new_arr[j].index+'</span></div>';
 			}
 			$('.bg-img').append(select_area_a);
 			//$('.bg-img div').eq(i).addClass('select-area');
@@ -570,6 +570,7 @@ $(function(){
 			// 	// console.log(89898)
 			// 	get_select_info();
 			// }
+			// $('.bg-img').removeClass('dd');
 			console.log(on_checked_info);
 			$.ajax({
 			  type: "GET",
@@ -578,9 +579,9 @@ $(function(){
 			  headers: {'Authorization': "Bearer " + isLogin},
 			  success: function(data){
 			  	console.log(data);
-			  	$('.bg-img').removeClass('dd');
-					get_select_info();
-					drow_rect('.dd');
+			  	// $('.bg-img').addClass('dd');
+					// get_select_info();
+					// drow_rect('.dd');
 			  	// check_all_info=data;
 			  	show_onchecked_info(data,parent_id);
 			   },
@@ -591,7 +592,7 @@ $(function(){
 			  }
 			});
 		}else{
-			console.log('iiii')
+			console.log('iiii',on_checked_info)
 			$('#item-list').html('');
 			get_item_info();
 			var is_arr_num = JSON.parse(localStorage.getItem("data_arr_num"+index_id+""));
@@ -667,11 +668,13 @@ $(function(){
 		var is_on = JSON.parse(localStorage.getItem("data_arr_on"+index_id+""));
 		console.log(is_arr_num,is_on)
 		if(is_arr_num){
+			console.log(111)
 			append_section(is_arr_num);
-		}else{
+		}else if(is_on&&is_on.length){
+			console.log(2222)
 			append_section(is_on);
 		}
-		if (!is_on) {
+		if (!is_arr_num&&(!is_on||!is_on.length)) {
 			console.log(99999);
 			append_section_on(on_checked_info);
 		};
@@ -691,7 +694,23 @@ $(function(){
 		for (var ll = 0; ll < new_num_arr.length; ll++) {
 			for (var nn = 0; nn < all_list.length; nn++) {
 				if(new_num_arr[ll].sec_num==$(all_list[nn]).attr('sec_num')){
-					$(all_list[nn]).addClass('on');
+					$(all_list[nn]).addClass('on').removeClass('s-li');
+					if(on_checked_info.length==all_list.length){
+						$(all_list[nn]).siblings().removeClass('s-li');
+						$(all_list[nn]).siblings().css({
+							'opacity': 0.7,
+							'cursor': 'not-allowed'
+						});
+					}
+				}
+			};
+			for (var uu = 0; uu < on_checked_info.length; uu++) {
+				if(on_checked_info[uu].index==$(all_list[nn]).find('input').attr('index')&&on_checked_info[uu].current_page==$(all_list[nn]).find('input').attr('current_page')){
+					$(all_list[nn]).siblings().removeClass('s-li');
+					$(all_list[nn]).siblings().css({
+						'opacity': 0.7,
+						'cursor': 'not-allowed'
+					});
 				}
 			};
 		};
@@ -701,13 +720,28 @@ $(function(){
 	}
 
 	function append_section (arr) {
-		console.log(arr)
+		console.log(arr,on_checked_info)
 		if(arr){
 			$('body').find('#all-section-list').html('');
 			for (var j = 0; j < arr.length; j++) {
-	    	var jj_html = '<li id="'+arr[j].id+'" sec_num = "'+arr[j].current_page+'_'+arr[j].num+'"><input type="hidden" width="'+arr[j].width+'" height="'+arr[j].height+'" w="'+arr[j].w+'" h="'+arr[j].h+'" x="'+arr[j].x+'" y="'+arr[j].y+'" current_page="'+arr[j].current_page+'" /><span>'+arr[j].num+'</span>( 第<em>'+arr[j].current_page+'</em>页 )</li>';
+	    	var jj_html = '<li class="s-li" id="'+arr[j].id+'" sec_num = "'+arr[j].current_page+'_'+arr[j].index+'"><input type="hidden" width="'+arr[j].width+'" height="'+arr[j].height+'" w="'+arr[j].w+'" h="'+arr[j].h+'" x="'+arr[j].x+'" y="'+arr[j].y+'" current_page="'+arr[j].current_page+'" index="'+arr[j].index+'"/><span>'+arr[j].index+'</span>( 第<em>'+arr[j].current_page+'</em>页 )</li>';
 	    	$('body').find('#all-section-list').append(jj_html);
 	    }
+	    for (var i = 0; i < on_checked_info.length; i++) {
+	    	for (var j = 0; j < arr.length; j++) {
+	    		console.log(i,j)
+		  		if(on_checked_info[i].index==arr[j].index&&on_checked_info[i].current_page==arr[j].current_page){
+		  			console.log(on_checked_info[i].index,on_checked_info[i].current_page)
+		  			console.log(j)
+		  			console.log($('#all-section-list li').eq(j).html())
+		  			$('#all-section-list li').eq(j).removeClass('s-li');
+		  			$('#all-section-list li').eq(j).css({
+		  				'opacity': .7,
+		  				'cursor': 'not-allowed'
+		  			});
+		  		}
+	  		};
+	  	};
     }
 	}
 
@@ -715,7 +749,7 @@ $(function(){
 		if(info){
 			$('body').find('#all-section-list').html('');
 			for (var j = 0; j < info.length; j++) {
-	    	var jj_html = '<li id="'+info[j].id+'" sec_num = "'+info[j].current_page+'_'+info[j].index+'"><input type="hidden" width="'+info[j].position.width+'" height="'+info[j].position.height+'" w="'+info[j].position.w+'" h="'+info[j].position.h+'" x="'+info[j].position.x+'" y="'+info[j].position.y+'" current_page="'+info[j].current_page+'" /><span>'+info[j].index+'</span>( 第<em>'+info[j].current_page+'</em>页 )</li>';
+	    	var jj_html = '<li class="s-li" id="'+info[j].id+'" sec_num = "'+info[j].current_page+'_'+info[j].index+'"><input type="hidden" width="'+info[j].position.width+'" height="'+info[j].position.height+'" w="'+info[j].position.w+'" h="'+info[j].position.h+'" x="'+info[j].position.x+'" y="'+info[j].position.y+'" current_page="'+info[j].current_page+'" index="'+info[j].index+'"/><span>'+info[j].index+'</span>( 第<em>'+info[j].current_page+'</em>页 )</li>';
 	    	$('body').find('#all-section-list').append(jj_html);
 	    }
 		}
@@ -869,7 +903,7 @@ $(function(){
 	});
 
 	// 选择每题区域块
-	$('body').on('click','#all-section-list li',function(){
+	$('body').on('click','#all-section-list li.s-li',function(){
 		if ($(this).hasClass('on')) {
 			$(this).removeClass('on');
 		}else{
@@ -930,11 +964,12 @@ $(function(){
 			s_obj['x']=result.attr('x'),
 			s_obj['y']=result.attr('y'),
 			s_obj['current_page']=result.attr('current_page'),
+			s_obj['index']=result.attr('index'),
 			positions.push(s_obj)
 		};
 		var data_arr={
 			'positions':JSON.stringify(positions),
-	  	'index':num_index,
+	  	// 'index':num_index,
 	  	'exam_subject_batch_id':bath_id,
 	  	'crop_type':crop_type,
 	  	// 'scanner_image_id':scanner_image_id,
@@ -994,6 +1029,12 @@ $(function(){
 	});
 	var is_on_info=[];
 	function show_id_info(id_info,id_area,is_arr){
+		console.log(id_info,on_checked_info,id_area);
+		for (var dd = 0; dd < id_info.length; dd++) {
+			on_checked_info.push(id_info[dd])
+		};
+		// (on_checked_info.push(id_info[0]));
+		console.log(on_checked_info)
 		var is_arr = JSON.parse(localStorage.getItem("data_arr"+index_id+""));
 		console.log(is_arr)
 		var is_on = JSON.parse(localStorage.getItem("data_arr_on"+index_id+""));
@@ -1007,6 +1048,7 @@ $(function(){
 					console.log(id_area[j],id_info[i].id)
 					$('#'+id_area[j]+'').attr('answer-id',id_info[i].answer_id);
 					for (var q = 0; q < is_arr.length; q++) {
+						console.log(is_arr[q].id,id_area[j],is_arr[q].current_page,id_info[i].current_page)
 						if(is_arr[q].id==id_area[j]&&is_arr[q].current_page==id_info[i].current_page){
 							 is_on_info.push(is_arr[q]);
 							 is_arr.splice(q,1);
@@ -1014,6 +1056,9 @@ $(function(){
 						console.log(is_arr,is_on_info)
 						var storage=window.localStorage;
 						storage.setItem("data_arr"+index_id+"",JSON.stringify(is_arr));
+						console.log(JSON.parse(localStorage.getItem("data_arr"+index_id+"")))
+						data_arr_all=is_arr;
+						console.log(data_arr_all)
 						storage.setItem("data_arr_on"+index_id+"",JSON.stringify(is_on_info));
 					};
 				}
@@ -1029,7 +1074,21 @@ $(function(){
 	// 删除区域块
 	$('body').on('click', '.close', function() {
 		$(this).parent().remove();
+		var text_arr=[];
 		num--;
+		console.log(num)
+		  if($('.bg-img').find(".select-area span").text()){
+    	console.log(77777)
+    	var tt_text=$('.bg-img').find(".select-area")
+    	for (var tt = 0; tt < tt_text.length; tt++) {
+    		text_arr.push(parseInt($(tt_text[tt]).find('span').text()));
+    	};
+    	console.log(text_arr)
+    	num=Math.max.apply(null,text_arr)+1;
+    	console.log(num)
+    }else{
+    	num=1;
+    }
     var current_page =parseInt($('.page .on').text());
     var c_id = $(this).parent().attr('id');
     if($('.bg-img').hasClass('bg-type-sec')){
@@ -1061,6 +1120,7 @@ $(function(){
 			}
 			data_arr_num=is_arr_num;
 			console.log(data_arr_num)
+			append_section(is_arr_num);
 	}
 
 
@@ -1092,9 +1152,17 @@ $(function(){
 						};
 					}
 					data_arr_num=is_on;
-					console.log(is_on)
+					// data_arr_all=is_on;
+					console.log(is_on,data_arr_all)
 						console.log(88)
-						get_select_info();
+						// get_select_info();
+						console.log(on_checked_info);
+						for (var oo = 0; oo < on_checked_info.length; oo++) {
+							if(select_id==on_checked_info[oo].id){
+								on_checked_info.splice(oo,1)
+							}
+						};
+						console.log(on_checked_info)
 					}
 
 			   },
@@ -1105,6 +1173,13 @@ $(function(){
 			  }
 			});
 		}
+
+		// var index = 1;
+  //   $('.bg-img .select-area').each(function(){
+  //     $(this).children("span").text(index);
+  //     $(this).attr('name',index);
+  //     index++;
+  //   })
 		return false;
 	 });
 
@@ -1121,7 +1196,24 @@ $(function(){
     var original_flag=true,down_flag=false;
     var x_point=0,y_point=0;
     var append_string;
-    num=$('.bg-img').find(".select-area").length+1;
+    var text_arr=[];
+    if($('.bg-img').find(".select-area span").text()){
+    	console.log(77777)
+    	var tt_text=$('.bg-img').find(".select-area")
+    	for (var tt = 0; tt < tt_text.length; tt++) {
+    		text_arr.push(parseInt($(tt_text[tt]).find('span').text()));
+    	};
+    	console.log(text_arr)
+    	num=Math.max.apply(null,text_arr)+1;
+    	console.log(num)
+    }else{
+    	num=1;
+    }
+    // if(num==NaN){
+    // 	num=1
+    // }else{
+    // 	num=num+1
+    // }
     console.log(num)
     var MouseDown=function(e){
         down_flag=true;
@@ -1195,64 +1287,83 @@ $(function(){
       // num++;
       //阻止区域块移动时，num也增加的情况（只有新建的时候才会增减num的值）;
       if($("div[name='"+num+"']").width()!=null){
-      	console.log(999)
+      	console.log(num,999)
           num++;
           console.log(num)
 
       // 如果是题组切割设置
 
-      if($(the_id).hasClass('bg-type-sec')){
-      	var w = $('.img-box img').width();
-      	var h = $('.img-box img').height();
-      	var current_page =parseInt($('.page .on').text());
-      	var crop_type = 4;
-      	var all_page = $('.page').children().length;
-	      // 获取所有区域块
-	   		// $('body').find('#all-section-list').html('');
-	      var current_page =parseInt($('.page .on').text());
+		    if($(the_id).hasClass('bg-type-sec')){
+		    	var w = $('.img-box img').width();
+		    	var h = $('.img-box img').height();
+		    	var current_page =parseInt($('.page .on').text());
+		    	var crop_type = 4;
+		    	var all_page = $('.page').children().length;
+		      // 获取所有区域块
+		   		// $('body').find('#all-section-list').html('');
+		      var current_page =parseInt($('.page .on').text());
 
-	      $("div[name='"+(num-1)+"']").each(function(){
+		      $("div[name='"+(num-1)+"']").each(function(){
 
-			    var arr_obj = new Object();
-	      	arr_obj['width']=$("div[name='"+(num-1)+"']").width();
-	      	arr_obj['height']=$("div[name='"+(num-1)+"']").height();
-	      	arr_obj['w']=w;
-	      	arr_obj['h']=h;
-	      	arr_obj['x']=$("div[name='"+(num-1)+"']").position().left;
-	      	arr_obj['y']=$("div[name='"+(num-1)+"']").position().top;
-	      	arr_obj['current_page']=current_page;
-	      	arr_obj['crop_type']=crop_type;
-	      	arr_obj['id']='select-area'+(num-1)+'';
-	      	arr_obj['num']=parseInt(num-1);
-	      	console.log(arr_obj,data_arr_all)
-			  	data_arr_all.push(arr_obj);
-			  	console.log(data_arr_all)
-			  	var jj_html = '<li id="select-area'+(num-1)+'" sec_num = "'+current_page+'_'+(num-1)+'"><input type="hidden" width="'+$("div[name='"+(num-1)+"']").width()+'" height="'+$("div[name='"+(num-1)+"']").height()+'" w="'+w+'" h="'+h+'" x="'+$("div[name='"+(num-1)+"']").position().left+'" y="'+$("div[name='"+(num-1)+"']").position().top+'" current_page="'+current_page+'" /><span>'+(num-1)+'</span>( 第<em>'+current_page+'</em>页 )</li>';
-	      	console.log(jj_html)
-	      	$('body').find('#all-section-list').append(jj_html);
-	      	// console.log(index_id);
-	      	console.log('is_arr',is_arr);
-	      	console.log('is_num',is_arr_num);
-	      	console.log('is_on',is_on);
-	      	if(is_arr_num){
-	      		console.log('is_num')
-	      		data_arr_num=is_arr_num;
-	      	}
-	      	// var is_on = JSON.parse(localStorage.getItem("data_arr_on"+index_id+""));
-	      	// console.log(is_on.length);
-	      	if(!is_arr_num&&is_on){
-	      		console.log('is_on',is_on)
-	      		data_arr_num=is_on;
-	      	}
-	      	data_arr_num.push(arr_obj);
-	      	console.log(data_arr_num)
-			  	var storage=window.localStorage;
-					storage.setItem("data_arr"+index_id+"",JSON.stringify(data_arr_all));
-					storage.setItem("data_arr_num"+index_id+"",JSON.stringify(data_arr_num));
-			  });
-	            			  	// console.log(data_arr_all)
-
-      }
+				    var arr_obj = new Object();
+		      	arr_obj['width']=$("div[name='"+(num-1)+"']").width();
+		      	arr_obj['height']=$("div[name='"+(num-1)+"']").height();
+		      	arr_obj['w']=w;
+		      	arr_obj['h']=h;
+		      	arr_obj['x']=$("div[name='"+(num-1)+"']").position().left;
+		      	arr_obj['y']=$("div[name='"+(num-1)+"']").position().top;
+		      	arr_obj['current_page']=current_page;
+		      	arr_obj['crop_type']=crop_type;
+		      	arr_obj['id']='select-area'+(num-1)+'';
+		      	arr_obj['index']=parseInt(num-1);
+		      	console.log(arr_obj,data_arr_all)
+		      	if(data_arr_all==null){
+		      		data_arr_all=[];
+		      	}
+				  	data_arr_all.push(arr_obj);
+				  	console.log(data_arr_all)
+				  	var jj_html = '<li class="s-li" id="select-area'+(num-1)+'" sec_num = "'+current_page+'_'+(num-1)+'"><input type="hidden" width="'+$("div[name='"+(num-1)+"']").width()+'" height="'+$("div[name='"+(num-1)+"']").height()+'" w="'+w+'" h="'+h+'" x="'+$("div[name='"+(num-1)+"']").position().left+'" y="'+$("div[name='"+(num-1)+"']").position().top+'" current_page="'+current_page+'"  index="'+(num-1)+'"/><span>'+(num-1)+'</span>( 第<em>'+current_page+'</em>页 )</li>';
+		      	console.log(jj_html)
+		      	$('body').find('#all-section-list').append(jj_html);
+		      	// console.log(index_id);
+		      	var is_arr = JSON.parse(localStorage.getItem("data_arr"+index_id+""));
+		      	var is_arr_num = JSON.parse(localStorage.getItem("data_arr_num"+index_id+""));
+		      	var is_on = JSON.parse(localStorage.getItem("data_arr_on"+index_id+""));
+		      	console.log('is_arr',is_arr);
+		      	console.log('is_num',is_arr_num);
+		      	console.log('is_on',is_on);
+		      	if(is_arr_num!=null&&is_arr_num.length>0){
+		      		console.log('is_num')
+		      		data_arr_num=is_arr_num;
+		      	}
+		      	// var is_on = JSON.parse(localStorage.getItem("data_arr_on"+index_id+""));
+		      	// console.log(is_on.length);
+		      	if((!is_arr_num||is_arr_num.length==0)&&is_on){
+		      		console.log('is_on',is_on)
+		      		data_arr_num=is_on;
+		      	}
+		      	// var iMax = (iNum1 > iNum2) ? iNum1 : iNum2;
+		      	// a < b ? return false : ''d
+		      	// var on_ll = (is_on.length == 0) ？'':is_on
+		      	var on_ll=((is_on&&is_on.length==0)||is_on==null);
+		      	// var on_ll = (2 > 3) ？2 :3;
+		      	console.log(on_ll);
+		      	console.log(on_checked_info)
+		      	if((!is_arr_num||is_arr_num.length==0)&&!is_on && on_ll && (on_checked_info&&on_checked_info.length>0)){
+		      		console.log(on_checked_info);
+		      		// data_arr_num=[];
+		      		for (var kk = 0; kk < on_checked_info.length; kk++) {
+		      			data_arr_num.push(on_checked_info[kk].position)
+		      		};
+							// data_arr_num=on_checked_info
+		      	}
+		      	data_arr_num.push(arr_obj);
+		      	console.log(data_arr_num);
+				  	var storage=window.localStorage;
+						storage.setItem("data_arr"+index_id+"",JSON.stringify(data_arr_all));
+						storage.setItem("data_arr_num"+index_id+"",JSON.stringify(data_arr_num));
+				  });
+		    }
       }
       // 如果是信息遮蔽设置
       if($(the_id).hasClass('bg-type-hide')){
@@ -1270,7 +1381,8 @@ $(function(){
       	var current_page =parseInt($('.page .on').text());
       	var crop_type = 1;
       	var positions=[];
-      	var objj = {'w':w,'h':h,'width':width,'height':height,'x':x,'y':y,'current_page':current_page};
+      	var objj = {'w':w,'h':h,'width':width,'height':height,'x':x,'y':y,'current_page':current_page,'index':(num-1)};
+				console.log(objj)
 				positions.push(objj)
       	var data_arr={
       		'positions':JSON.stringify(positions),
@@ -1304,9 +1416,6 @@ $(function(){
 	      	});
       	}
       }
-      // console.log(data_arr_all)
-
-		
     });
 	}
 
@@ -1388,9 +1497,10 @@ $(function(){
 			}
 		}else{
 			var c_id=$(this).attr('id');
-			var new_data={'num':num_index,'crop_type':crop_type,'id':c_id,'w':w,'h':h,'width':width,'x':x,'y':y,'height':height,'current_page':current_page}
+			var new_data={'index':num_index,'crop_type':crop_type,'id':c_id,'w':w,'h':h,'width':width,'x':x,'y':y,'height':height,'current_page':current_page}
 			var is_arr = JSON.parse(localStorage.getItem("data_arr"+index_id+""));
-			console.log(is_arr)
+			var is_num = JSON.parse(localStorage.getItem("data_arr_num"+index_id+""));
+			console.log(is_arr,is_num)
 			if(is_arr){
 			for (var i = 0; i < is_arr.length; i++) {
 				if(c_id==is_arr[i].id&&current_page==is_arr[i].current_page){
@@ -1402,6 +1512,17 @@ $(function(){
 			console.log(is_arr)
 		}
 		data_arr_all=is_arr;
+
+		if(is_num){
+			for (var i = 0; i < is_num.length; i++) {
+				if(c_id==is_num[i].id&&current_page==is_num[i].current_page){
+					is_num.splice(i,1,new_data);
+				}
+				var storage=window.localStorage;
+				storage.setItem("data_arr_num"+index_id+"",JSON.stringify(is_num));
+			};
+			console.log(is_num)
+		}
 
 		}
 	});
@@ -1470,7 +1591,14 @@ $(function(){
 		  headers: {'Authorization': "Bearer " + isLogin},
 		  data:up_arr,
 		  success: function(data){
-		  	console.log(data);
+		  	console.log(data,on_checked_info);
+		  	for (var dd = 0; dd < on_checked_info.length; dd++) {
+					if(data.id==on_checked_info[dd].id){
+						on_checked_info.splice(dd,1);
+						on_checked_info.push(data);
+					}
+				}
+				console.log(on_checked_info)
 		  	// update_show_info(data,select_id);
 		   },
 		   error: function(){
