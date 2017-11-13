@@ -465,7 +465,10 @@
                                         </span>
                                             <!--选择题模版end-->
                                             <!--填空题模板start-->
-                                            <span class="fill_line {{a.LineType==0?'':'dashed_line'}}" ng-show="a.type==3" style="width:{{a.fillWidth[$parent.$index][$index]+'px'}}" ng-repeat="fills in a.fillsNum[$index]"></span>
+                                            <span class="fill_line" ng-show="a.type==3" ng-repeat="fills in a.fillsNum[$index]">
+                                                <span class="{{a.LineType==0?'':'dashed_line'}}" style="width:{{a.fillWidth[$parent.$index][$index]+'px'}}"></span>
+                                                <span>我们</span>
+                                            </span>
                                             <!--填空题模版end-->
                                         </div>
                                     </td>

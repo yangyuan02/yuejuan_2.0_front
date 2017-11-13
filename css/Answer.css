@@ -309,9 +309,11 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     width:16px;
     text-align:center;
 }
-.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span.fill_line{
+.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span.fill_line span:first-child{
     width:230px;
     border-bottom:1px solid black;
+    display:inline-block;
+    margin-right:11px;
 }
 /*网络阅卷打分框*/
 .Answer .A_R .A_Rone .A_Rone_child table tr .marking a{

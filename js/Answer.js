@@ -826,7 +826,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 var a = {}
                 obj.list[obj.index].no.push(obj.no)
                 obj.list[obj.index].otherHeight.push(150)
-                obj.list[obj.index].fillWidth.push(230)
                 obj.list[obj.index].fillsNum.push(childNum)
                 obj.list[obj.index].fillWidth.push(childWidth)
 
