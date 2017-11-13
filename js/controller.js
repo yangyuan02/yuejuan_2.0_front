@@ -125,8 +125,7 @@ angular.module("myApp.controller", [])
              $("#ul_iLabel li").eq(1).find('.level_02').val("30%");
              $("#ul_iLabel li").eq(2).find('.level_02').val("30%");
              $("#ul_iLabel li").eq(3).find('.level_02').val("20%");
-             $("#ul_iLabel li").eq(4).find('.level_02').val("5%");
-             
+             $("#ul_iLabel li").eq(4).find('.level_02').val("5%");         
           }
         });
         $(".btn_1").click(function(event) {
@@ -347,9 +346,11 @@ angular.module("myApp.controller", [])
                                 for (var i = 5; i < data.lenght; i++) {
                                     var c = i - 5;
                                     var a = i + 1;
-                                    $("#ul_iLabel").append('<li><input value=""  class="level_01"></input><input value="" class="level_02"></input><button type="">-</button></li>');
+                                    $("#ul_iLabel").append('<li><input value=""  class="level_01" ></input><input value="" class="level_02"></input><button type="">-</button></li>');
                                     $("#ul_iLabel li").eq(i).find('.level_01').val(b[i]);
+
                                     $("#ul_iLabel li").eq(i).find('.level_02').val(b1[i]);
+                                    
                                 }
                             }
                         }
@@ -360,7 +361,19 @@ angular.module("myApp.controller", [])
                 }
             });
         };
-
+  
+  $("#ul_iLabel").on('keyup', '.level_02', function(event) {
+     var a=$(this).val().replace(/[^0-9%]/g,'')
+       $(this).val(a);
+  });
+ $("#ul_iLabel").on('keyup', '.level_01', function(event) {
+     var a=$(this).val().replace(/[^a-zA-Z]/g,'')
+       $(this).val(a);
+  });
+ $(".mart_set_02").on('keyup', 'input', function(event) {
+     var a=$(this).val().replace(/[^0-9]/g,'')
+       $(this).val(a);
+  });
         /*分析数据的的确定*/
         mark_tf();
 
@@ -2486,7 +2499,7 @@ angular.module("myApp.controller", [])
                 for (var i = 0; i < data.length; i++) {
                     $(".study_k_km01").append('<option value="' + data[i].name + '" data-id=' + data[i].id + '>' + data[i].name + '</option>')
                 };
-                $(".study_k_km02").append('<option value="" data-id="11111">全部科目</option>');
+                $(".study_k_km02").append('<option value="" data-id="11111">全部班级</option>');
                 for (var i = 0; i < data[0].classrooms.length; i++) {
                     $(".study_k_km02").append('<option value="" data-id=' + data[0].classrooms[i].classroom_id + '>' + data[0].classrooms[i].classroom_name + '</option>')
                     $(".study_k_km02").attr("data-id", data[0].classrooms[0].classroom_id);
@@ -2503,7 +2516,7 @@ angular.module("myApp.controller", [])
                     // $(".study_q_km01 option").eq(0).remove();
                     $(".study_k_km02 option").remove();
                     $(".study_k_km03 option").remove();
-                    $(".study_k_km02").append('<option value="" data-id="11111">全部科目</option>');
+                    $(".study_k_km02").append('<option value="" data-id="11111">全部班级</option>');
                   
                     $(".study_k_km02").attr("data-id", $(".study_k_km01 option").eq(0).attr("data-id"));
                     for (var i = 0; i < data[index02].classrooms.length; i++) {
@@ -3863,6 +3876,10 @@ angular.module("myApp.controller", [])
             $(".exam_h_201_bo").html(" ");
             $(".exam_h_301_bo").html(" ");
             $(".exam_h_402_bo").html(" ");
+             $(".exam_h_501_he").html(" ");
+            $(".exam_h_501_bo").html(" ");
+            $(".exam_h_601_he").html(" ");
+            $(".exam_h_601_bo").html(" ");
             $("#manyColumn").html(" ");
             var a = $(".exam_h_101 button").attr("data-id");
             if (a == 0) {
@@ -3879,6 +3896,12 @@ angular.module("myApp.controller", [])
             if (a == 3) {
                 var exam_h_nub=$(".exam_h_rs").children('option:selected').val();
                 heng_zhong04(exam_h_nub);
+            };
+             if (a == 4) {
+                heng_zhong05();
+            };
+            if (a == 5) {
+                heng_zhong06();
             };
         });
 
@@ -3905,6 +3928,8 @@ angular.module("myApp.controller", [])
 
         $(".exam_h_left_ul").on('click', 'li', function(event) {
             /* Act on the event */
+                    $(".exam_h_501_he").html(" ");
+                      $(".exam_h_501_bo").html(" ");
             $(".exam_h_101 a").removeAttr('href');
             var a = $(this).index();
             if (a == 0) {
@@ -3919,6 +3944,12 @@ angular.module("myApp.controller", [])
             if (a == 3) {
                  var exam_h_nub=$(".exam_h_rs").children('option:selected').val();
                 heng_zhong04(exam_h_nub);
+            };
+             if (a == 4) {
+                heng_zhong05();
+            };
+             if (a == 5) {
+                heng_zhong06();
             };
         });
 
@@ -4170,6 +4201,123 @@ angular.module("myApp.controller", [])
             });
 
         };
+        //班级等级比例
+        function heng_zhong05() {
+            // $(".exam_h_402_bo").html(" ");
+            var exam_id = parseInt($(".exam_h_km01").children('option:selected').attr("data-id"));
+            $(".exam_h_km02").attr("data-id", $(".exam_h_km02").children('option:selected').attr("data-id"));
+            var class_id = parseInt($(".exam_h_km02").attr("data-id"));
+            if (class_id == null) {
+                var class_id = parseInt($(".exam_h_km02").attr("data-id"));
+            }
+            $(".exam_h_km03").attr("data-id", $(".exam_h_km03").children('option:selected').attr("data-id"));
+            var sub_id = parseInt($(".exam_h_km03").attr("data-id"));
+            if (sub_id == null) {
+                var sub_id = parseInt($(".exam_h_km03").attr("data-id"));
+            }
+            console.log(exam_id);
+            console.log(class_id);
+            console.log(sub_id);
+            $.ajax({
+                type: "POST",
+                url: ajaxIp + "/api/v2/reports/class_level_ratio",
+                headers: {
+                    'Authorization': "Bearer " + isLogin
+                },
+                data: {
+                    "exam_id": exam_id,
+
+                     "classroom_id": class_id,
+                },
+                success: function(data) {
+                    console.log(data);
+                      $(".exam_h_501_he").html(" ");
+                      $(".exam_h_501_bo").html(" ");
+                    var a=data[0].length;
+                    var b=data[1].length;
+                   var c=data[1][0].length;
+                    // $(".exam_h_501_he").append('<th>等级</th>')
+                    for(var i=0;i<a;i++){
+                     $(".exam_h_501_he").append('<th>'+data[0][i]+'</th>');
+                    }
+                    for(var i=0;i<b;i++){
+                     $(".exam_h_501_bo").append('<tr></tr>');
+                     for(var x=0;x<c;x++){
+                        if(x!==0){
+                     $(".exam_h_501_bo tr").eq(i).append('<td>'+data[1][i][x]+'%</td>');
+                     }else{
+                        $(".exam_h_501_bo tr").eq(i).append('<td>'+data[1][i][x]+'</td>');
+                     }
+                     }
+                    }
+                   
+                   
+                   
+                },
+                error: function() {
+                    
+                }
+
+            });
+
+        };
+        function heng_zhong06() {
+            // $(".exam_h_402_bo").html(" ");
+            var exam_id = parseInt($(".exam_h_km01").children('option:selected').attr("data-id"));
+            $(".exam_h_km02").attr("data-id", $(".exam_h_km02").children('option:selected').attr("data-id"));
+            var class_id = parseInt($(".exam_h_km02").attr("data-id"));
+            if (class_id == null) {
+                var class_id = parseInt($(".exam_h_km02").attr("data-id"));
+            }
+            $(".exam_h_km03").attr("data-id", $(".exam_h_km03").children('option:selected').attr("data-id"));
+            var sub_id = parseInt($(".exam_h_km03").attr("data-id"));
+            if (sub_id == null) {
+                var sub_id = parseInt($(".exam_h_km03").attr("data-id"));
+            }
+            console.log(exam_id);
+            console.log(class_id);
+            console.log(sub_id);
+            $.ajax({
+                type: "POST",
+                url: ajaxIp + "/api/v2/reports/subject_level_assessment_ratio",
+                headers: {
+                    'Authorization': "Bearer " + isLogin
+                },
+                data: {
+                    "exam_id": exam_id,
+                    "subject_id": sub_id,
+                    "classroom_id":null,
+                },
+                success: function(data) {
+                    console.log(data);
+                      $(".exam_h_601_he").html(" ");
+                      $(".exam_h_601_bo").html(" ");
+                      var a=data[0].length;
+                      var b=data[1].length;
+                      var c=data[1][0].length;
+                      for(var i=0;i<a;i++){
+                          $(".exam_h_601_he").append('<th>'+data[0][i]+'</th>')
+                      }
+                       for(var i=0;i<b;i++){
+                          $(".exam_h_601_bo").append('<tr></tr>');
+                          for(var x=0;x<c;x++){
+                            if(7<x&&x<15){
+                            $(".exam_h_601_bo tr").eq(i).append('<td>'+data[1][i][x]+'%</td>');
+                         }else{
+                             $(".exam_h_601_bo tr").eq(i).append('<td>'+data[1][i][x]+'</td>');
+                        }
+                      }
+                      }
+                    // FixTable("MyTable",1, 930, 500);
+                   
+                },
+                error: function() {
+                    
+                }
+
+            });
+
+        };
         // 导出报表
         // exam_h_bb01();
 
@@ -4315,14 +4463,14 @@ angular.module("myApp.controller", [])
 
       $("#exam_h_left_5l").click(function(event) {
             /* Act on the event */
-            $(".exam_h_101 span").eq(1).hide();
-            $(".exam_h_101 span").eq(2).show();
+            $(".exam_h_101 span").eq(1).show();
+            $(".exam_h_101 span").eq(2).hide();
             $(".exam_h_101 span").eq(3).hide();
 
         });
       $("#exam_h_left_6l").click(function(event) {
             /* Act on the event */
-            $(".exam_h_101 span").eq(1).hide();
+           $(".exam_h_101 span").eq(1).hide();
             $(".exam_h_101 span").eq(2).show();
             $(".exam_h_101 span").eq(3).hide();
 
@@ -4489,6 +4637,117 @@ angular.module("myApp.controller", [])
                 echart.setOption(option);
             }
         // <!-- 考试横向分析 end -->
+        function FixTable(TableID, FixColumnNumber, width, height) {
+            //  <summary>
+            //      锁定表头和列
+            //     <para> sorex.cnblogs.com </para>
+            // </summary>
+            //  <param name="TableID" type="String">
+            //      要锁定的Table的ID
+            //  </param>
+            //  <param name="FixColumnNumber" type="Number">
+            //      要锁定列的个数
+            //  </param>
+            //  <param name="width" type="Number">
+            //      显示的宽度
+            //  </param>
+            //  <param name="height" type="Number">
+            //      显示的高度
+            //  </param>
+            if ($("#" + TableID + "_tableLayout").length != 0) {
+                $("#" + TableID + "_tableLayout").before($("#" + TableID));
+                $("#" + TableID + "_tableLayout").empty();
+            } else {
+                $("#" + TableID).after("<div id='" + TableID + "_tableLayout' style='overflow:hidden;width:" + width + "px;'></div>");
+            }
+            $('<div id="' + TableID + '_tableFix"></div>' + '<div id="' + TableID + '_tableHead"></div>' + '<div id="' + TableID + '_tableColumn"></div>' + '<div id="' + TableID + '_tableData"></div>').appendTo("#" + TableID + "_tableLayout");
+            var oldtable = $("#" + TableID);
+            var tableFixClone = oldtable.clone(true);
+            tableFixClone.attr("id", TableID + "_tableFixClone");
+            $("#" + TableID + "_tableFix").append(tableFixClone);
+            var tableHeadClone = oldtable.clone(true);
+            tableHeadClone.attr("id", TableID + "_tableHeadClone");
+            $("#" + TableID + "_tableHead").append(tableHeadClone);
+            var tableColumnClone = oldtable.clone(true);
+            tableColumnClone.attr("id", TableID + "_tableColumnClone");
+            $("#" + TableID + "_tableColumn").append(tableColumnClone);
+            $("#" + TableID + "_tableData").append(oldtable);
+            $("#" + TableID + "_tableLayout table").each(function() {
+                $(this).css("margin", "0");
+            });
+            var HeadHeight = $("#" + TableID + "_tableHead thead").height();
+            HeadHeight += 2;
+            $("#" + TableID + "_tableHead").css("height", HeadHeight);
+            $("#" + TableID + "_tableFix").css("height", HeadHeight);
+            var ColumnsWidth = 0;
+            var ColumnsNumber = 0;
+            $("#" + TableID + "_tableColumn tr:last td:lt(" + FixColumnNumber + ")").each(function() {
+                ColumnsWidth += $(this).outerWidth(true);
+                ColumnsNumber++;
+            });
+            ColumnsWidth += 2;
+            if ($.support.msie) {
+                switch ($.support.version) {
+                    case "7.0":
+                        if (ColumnsNumber >= 3) ColumnsWidth--;
+                        break;
+                    case "8.0":
+                        if (ColumnsNumber >= 2) ColumnsWidth--;
+                        break;
+                }
+            }
+            $("#" + TableID + "_tableColumn").css("width", "325px");
+            $("#" + TableID + "_tableFix").css("width", "325px");
+            //  $("#" + TableID + "_tableColumn").css("width", "85px");
+            // $("#" + TableID + "_tableFix").css("width", "85px");
+            $("#" + TableID + "_tableData").scroll(function() {
+                $("#" + TableID + "_tableHead").scrollLeft($("#" + TableID + "_tableData").scrollLeft());
+                $("#" + TableID + "_tableColumn").scrollTop($("#" + TableID + "_tableData").scrollTop());
+            });
+            $("#" + TableID + "_tableFix").css({
+                "overflow": "hidden",
+                "position": "relative",
+                "z-index": "50",
+                "background-color": "#fff"
+            });
+            $("#" + TableID + "_tableHead").css({
+                "overflow": "hidden",
+                "width": width - 17,
+                "position": "relative",
+                "z-index": "45",
+                "background-color": "#fff"
+            });
+            $("#" + TableID + "_tableColumn").css({
+                "overflow": "hidden",
+                "height": height - 17,
+                "position": "relative",
+                "z-index": "40",
+                "background-color": "#fff"
+            });
+            $("#" + TableID + "_tableData").css({
+                "overflow": "scroll",
+                "width": width,
+                "height": height,
+                "position": "relative",
+                "z-index": "35"
+            });
+            if ($("#" + TableID + "_tableHead").width() > $("#" + TableID + "_tableFix table").width()) {
+                $("#" + TableID + "_tableHead").css("width", $("#" + TableID + "_tableFix table").width());
+                $("#" + TableID + "_tableData").css("width", $("#" + TableID + "_tableFix table").width() + 17);
+            }
+            if ($("#" + TableID + "_tableColumn").height() > $("#" + TableID + "_tableColumn table").height()) {
+                $("#" + TableID + "_tableColumn").css("height", $("#" + TableID + "_tableColumn table").height());
+                $("#" + TableID + "_tableData").css("height", $("#" + TableID + "_tableColumn table").height() + 17);
+            }
+            $("#" + TableID + "_tableFix").offset($("#" + TableID + "_tableLayout").offset());
+            $("#" + TableID + "_tableHead").offset($("#" + TableID + "_tableLayout").offset());
+            $("#" + TableID + "_tableColumn").offset($("#" + TableID + "_tableLayout").offset());
+            $("#" + TableID + "_tableData").offset($("#" + TableID + "_tableLayout").offset());
+        }
+
+
+
+
 
 
     })
@@ -4740,10 +4999,6 @@ $(".sc_101 button").click(function(event) {
             kx_bb02();
             };
 });
-
-
-
-
 
 
         /*<!-- 跨校对比分析  end-->*/
