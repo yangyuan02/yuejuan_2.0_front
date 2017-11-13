@@ -368,6 +368,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var otherHeight = []
         var fillWidth = []
         var childWidth = [230]
+        var separator = []
+        var childseparator = ['']
         var fillsNum = []
         var childNum = [0]
         var img = []
@@ -380,6 +382,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
             if($scope.index==3){
                 fillWidth.push(childWidth)
+                separator.push(childseparator)
                 fillsNum.push(childNum)
             }
         }
@@ -433,6 +436,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             otherHeight:otherHeight,//其他题高度
             fillWidth:fillWidth,//填空题宽度
             fillsNum:fillsNum,//填空题横线个数
+            separator:separator,//填空题分隔符
             verticalHeigth:verticalHeigth,//题组行间距
             LineType:0,//线类型0代表实线非0虚线
             hideLineType:0,//线类型0代表显示非1隐藏
@@ -524,6 +528,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         itme_obj.no = 0
         itme_obj.score = 0
         itme_obj.string = "学号"
+        itme_obj.count = ulLen
         itme_obj.block_width = $scope.infoBox == 0?18:10
         itme_obj.block_height = 12
         itme_obj.num_question = parseInt(ulLen)
@@ -822,12 +827,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             if (obj.type == 1) {//增加小题
                 var childNum = [0]
                 var childWidth = [230]
+                var childseparator = ['']
                 var a = {}
                 obj.list[obj.index].no.push(obj.no)
                 obj.list[obj.index].otherHeight.push(150)
-                obj.list[obj.index].fillWidth.push(230)
                 obj.list[obj.index].fillsNum.push(childNum)
                 obj.list[obj.index].fillWidth.push(childWidth)
+                obj.list[obj.index].separator.push(childseparator)
 
                 obj.list[obj.index].img.push(a)
                 obj.list[obj.index].itemCoresArr.push(obj.score)
@@ -842,6 +848,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 obj.list[obj.index].no.pop()
                 obj.list[obj.index].otherHeight.pop()
                 obj.list[obj.index].fillWidth.pop()
+                obj.list[obj.index].separator.pop()
                 var delScore = obj.list[obj.index].itemCoresArr.pop()
                 obj.list[obj.index].totalCores = obj.list[obj.index].totalCores - delScore
                 $scope.countScore = $scope.countScore - delScore
@@ -1813,12 +1820,14 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         function getNo(obj) {//获取当前答题有几个小题
             var len = obj[$scope.tabIndex].no.length
             var fillWidth = obj[$scope.tabIndex].fillWidth
+            var separator = obj[$scope.tabIndex].separator
             var fillsNum = obj[$scope.tabIndex].fillsNum
             $scope.fillLists = []
             for(var i = 0;i< len;i++){
                 var obj = {
                     "fill_num":fillsNum[i].length,
                     "fill_w":fillWidth[i],
+                    "separator":separator[i],
                     "no":i
                 }
                 $scope.fillLists.push(obj)
@@ -1833,6 +1842,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 return false
             }
             getOBjList()[$scope.tabIndex].fillWidth[index] = typeof arr[index].fill_w === 'string'?arr[index].fill_w.split(/[,，]/):arr[index].fill_w
+            getOBjList()[$scope.tabIndex].separator[index] = typeof arr[index].separator === 'string'?arr[index].separator.split('|'):arr[index].separator
             getOBjList()[$scope.tabIndex].fillsNum[index] = getfillChildNums(arr[index].fill_num).resutl
             function getfillChildNums(num) {
                 var resutl = []
@@ -1936,23 +1946,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         var isLogin = localStorage.getItem("token");
 
-        function batchTitle(answers){//批量修改题目
-            var allPage = allPagePost()
-            var answersData = []
-            for(var i = 0;i<allPage.length;i++){
-                var obj = {}
-                obj.answer_id = answers[i]
-                obj.name = allPage[i].name
-                answersData.push(obj)
-            }
-            $.ajax({
-                type:"PATCH",
-                url:"/api/v2/answers/batch_change_name",
-                headers: {'Authorization': "Bearer " + isLogin},
-                async: false,
-                data:{"answers": JSON.stringify(answersData)}
-            })
-        }
         function bindRegion() {
             var answer_ids = []
             for (var i = 0; i < answer_id.length; i++) {
@@ -1994,7 +1987,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                                 }
                             }
                         )
-                        batchTitle(answer_ids)
                     }
                 }
             )
@@ -2027,31 +2019,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.closeCand()
     }
  })
-
-m1.directive('contenteditable', function() {
-    return {
-        restrict: 'A',
-        require: '?ngModel',
-        link: function(scope, element, attrs, ngModel) {
-            if (!ngModel) {
-                return;
-            }
-            ngModel.$render = function() {
-                element.html(ngModel.$viewValue || '');
-            };
-            element.on('blur keyup change', function() {
-                scope.$apply(readViewText);
-            });
-            function readViewText() {
-                var html = element.html();
-                if (attrs.stripBr && html === '<br>') {
-                    html = '';
-                }
-                ngModel.$setViewValue(html);
-            }
+m1.filter("toSeparator",function(){
+    return function (str) {
+        if(str==''){
+            return
         }
-    };
-});
-
+        console.log(str)
+    }
+})
 
 
