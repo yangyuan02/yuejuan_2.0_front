@@ -61,6 +61,10 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
 .Answer .L_ul li .addQ .pd button{width: 135px;height: 32px;background: #41d576;font-size: 16px;font-weight: 100;}
 
 /*右侧*/
+.Answer .A_R.pd{
+    padding-left:96px;
+    padding-right:96px;
+}
 .Answer .A_R{width:1700px;height:1200px ;padding:38px 136px;border: 4px solid #ededed;float: left;position:relative;box-sizing:border-box;}
 .addQ{display:none;position: absolute;left: 100%;top:0;width: 434px;height: 468px;border: 1px solid #31bc91;text-align: center;background: #fff;}
 .Answer .A_R .addQ h3{background: #31bc91;color: #fff;font-weight: 300;}
@@ -91,9 +95,6 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     height: 20px;
     font-size: 12px;
     text-align: left;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    -webkit-user-modify: read-write-plaintext-only;
-    outline: none;
 }
 .Answer .A_R .A_Rone .A_Rone_child table tbody tr td{height: 20px;font-size: 12px;}
 .Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c {width: 25%;display: inline-block;padding: 5px 0;}
@@ -308,9 +309,17 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     width:16px;
     text-align:center;
 }
-.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span.fill_line{
+.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span.fill_line span:first-child{
     width:230px;
     border-bottom:1px solid black;
+    display:inline-block;
+    margin-right:0px;
+}
+.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span.fill_line span:last-child{
+    margin-right:0px;
+}
+.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span.fill_line{
+    margin-right:0px;
 }
 /*网络阅卷打分框*/
 .Answer .A_R .A_Rone .A_Rone_child table tr .marking a{
@@ -791,6 +800,7 @@ input:focus{
 /*************修改填空题格式******************/
 .setFill_q{
     height:auto;
+    width:700px;
 }
 .setFill_q .cand_con ul li{
     width:100%;
@@ -807,7 +817,7 @@ input:focus{
 .setFill_q .cand_con ul li .fill_width input{
     width:155px;
 }
-.setFill_q .cand_con ul li .fill_character input{
+.setFill_q .cand_con ul li .fill_separator input{
     width:300px;
 }
 .Answer .A_R .A_Rone .A_Rone_child table tbody tr td .other_line{

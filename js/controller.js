@@ -350,8 +350,7 @@ angular.module("myApp.controller", [])
                                     $("#ul_iLabel li").eq(i).find('.level_01').val(b[i]);
 
                                     $("#ul_iLabel li").eq(i).find('.level_02').val(b1[i]);
-                                    // $("#ul_iLabel li").eq(i).find('.level_02').attr("onkeyup","value=value.replace(/[^0-9%]/g,'')");
-                                    // $("#ul_iLabel li").eq(i).find('.level_02').attr("ng-pattern","/[^a-zA-Z]/");
+                                    
                                 }
                             }
                         }
@@ -362,7 +361,19 @@ angular.module("myApp.controller", [])
                 }
             });
         };
-
+  
+  $("#ul_iLabel").on('keyup', '.level_02', function(event) {
+     var a=$(this).val().replace(/[^0-9%]/g,'')
+       $(this).val(a);
+  });
+ $("#ul_iLabel").on('keyup', '.level_01', function(event) {
+     var a=$(this).val().replace(/[^a-zA-Z]/g,'')
+       $(this).val(a);
+  });
+ $(".mart_set_02").on('keyup', 'input', function(event) {
+     var a=$(this).val().replace(/[^0-9]/g,'')
+       $(this).val(a);
+  });
         /*分析数据的的确定*/
         mark_tf();
 

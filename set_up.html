@@ -684,49 +684,84 @@
 		<div class="modal-main">
 			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
 			<div class="modal-title">导入</div>
-			<div class="modal-content" style="">
-				<p style="text-align: left;font-size: 16px;font-weight: bold;padding-bottom: 10px;">老师信息</p>
-					
-				<div class="teachers-input-wrap">
-					<label class="teachers-label" for="teachers-name">姓&nbsp;&nbsp;&nbsp;名</label>
-					<input type="text" id="teachers-name" class="teachers-input" value='王二高'/>
-				</div>
-				<div class="teachers-input-wrap">
-					<label class="teachers-label" for="teachers-email">邮&nbsp;&nbsp;&nbsp;箱</label>
-					<input type="text" id="teachers-email" class="teachers-input" value=''/>
-				</div>
-				<div class="teachers-input-wrap">
-					<label class="teachers-label" for="teachers-number">手机号</label>
-					<input type="text" id="teachers-number" class="teachers-input" value=''/>
-				</div>
+			<div class="modal-content" style="padding: 21px 35px;">
+				<div class="first-div">
+					<p style="text-align: left;font-size: 16px;font-weight: bold;background: #fafafa;line-height: 24px;border-bottom:1px solid #ccc; padding:10px;">老师信息</p>
+						
+					<div class="teachers-input-wrap" style="padding:0 10px;margin-top: 30px;">
+						<label class="teachers-label" for="teachers-name">姓&nbsp;&nbsp;&nbsp;名</label>
+						<input type="text" id="teachers-name" class="teachers-input" value='王二高'/>
+					</div>
+					<div class="teachers-input-wrap" style="padding:0 10px">
+						<label class="teachers-label" for="teachers-email">邮&nbsp;&nbsp;&nbsp;箱</label>
+						<input type="text" id="teachers-email" class="teachers-input" value=''/>
+					</div>
+					<div class="teachers-input-wrap" style="padding:0 10px">
+						<label class="teachers-label" for="teachers-number">手机号</label>
+						<input type="text" id="teachers-number" class="teachers-input" value=''/>
+					</div>
 
-				<div class="teachers-input-wrap">
-					<label class="teachers-label" for="teachers-role">角&nbsp;&nbsp;&nbsp;色</label>
-					<!-- <input type="text" id="teachers-role" class="teachers-input" value=''/> -->
-					<select id="teachers-role" class="teachers-input" style="width: 436px;">
-						<option value="">想</option>
-						<option value="">想</option>
-						<option value="">想</option>
-						<option value="">想</option>
-						<option value="">想</option>
-					</select>
+					<div class="teachers-input-wrap" style="padding: 0 10px;margin-bottom: 30px;">
+						<label class="teachers-label" for="teachers-role">角&nbsp;&nbsp;&nbsp;色</label>
+						<!-- <input type="text" id="teachers-role" class="teachers-input" value=''/> -->
+						<select id="teachers-role" class="teachers-input" style="width: 436px;">
+							<option value="">想</option>
+							<option value="">想</option>
+							<option value="">想</option>
+							<option value="">想</option>
+							<option value="">想</option>
+						</select>
+					</div>
 				</div>
+				<div class="first-div" style="margin-top: 30px;margin-bottom: 30px;">
+					<p style="text-align: left;font-size: 16px;font-weight: bold;background: #fafafa;line-height: 24px;border-bottom:1px solid #ccc; padding:10px;">任课情况</p>
+					<div class="add-list" style="border-bottom:1px solid #ccc;">
+						<div class="teachers-input-wrap" style="position: relative;height: 30px;margin-bottom: 10px;">
+							<label class="teachers-label" style="position: absolute;top: 4px;left: 8px;" for="teachers-grade">年&nbsp;&nbsp;&nbsp;级</label>
+							<select id="teachers-grade" class="teachers-grade" style="display: inline-block;width: 140px;height:30px;line-height: 30px;text-align: left; position: absolute;top: -3px;left: 60px;"></select>
+							<label class="teachers-label" style="position: absolute;top: 4px;left: 224px;" for="teachers-class">班&nbsp;&nbsp;&nbsp;级</label>
+							<select class="teachers-class" style="width: 140px; position: absolute;top: -3px;left:274px;height: 30px;line-height: 30px;">
+								<!-- <option>1班</option>
+								<option>1班</option>
+								<option>1班</option> -->
+							</select>
+						</div>
 
-				<div class="teachers-input-wrap" style="position: relative">
-					<label class="teachers-label" style="position: absolute;top: 4px;left: 8px;" for="teachers-grade">年&nbsp;&nbsp;&nbsp;级</label>
-					<div id="teachers-grade" class="" style="margin-left: 46px;display: inline-block;width: 432px;line-height: 26px;text-align: left;"></div>
-				</div>
+						<div class="teachers-input-wrap" style="margin-bottom: 20px;">
+							<label class="teachers-label" for="teachers-subject" style="left:-24px">科&nbsp;&nbsp;&nbsp;目</label>
+							<!-- <input type="text" id="teachers-subject" class="teachers-input" value=''/> -->
+							<select id="teachers-subject" class="teachers-input teachers-subject" style="width: 356px;margin-left: -10px;">
+								<!-- <option value="">想</option>
+								<option value="">想</option>
+								<option value="">想</option>
+								<option value="">想</option>
+								<option value="">想</option> -->
+							</select>
+							<a href="javascript:" id="add-t" class="add-t"><i class="iconfont">&#xe61a;</i>添加</a>
+						</div>
+					</div>
+					<div class="add-cont">
+						<!-- <div class="add-list" style="border-bottom:1px solid #ccc;">
+							<div class="teachers-input-wrap" style="position: relative;height: 30px;margin-bottom: 10px;">
+								<label class="teachers-label" style="position: absolute;top: 4px;left: 8px;" for="teachers-grade">年&nbsp;&nbsp;&nbsp;级</label>
+								<select id="teachers-grade" class="teachers-grade" style="display: inline-block;width: 140px;height:30px;line-height: 30px;text-align: left; position: absolute;top: -3px;left: 60px;"></select>
+								<label class="teachers-label" style="position: absolute;top: 4px;left: 224px;" for="teachers-class">班&nbsp;&nbsp;&nbsp;级</label>
+								<select class="teachers-class" style="width: 140px; position: absolute;top: -3px;left:274px;height: 30px;line-height: 30px;">
+									<option>1班</option>
+									<option>1班</option>
+									<option>1班</option>
+								</select>
+							</div>
 
-				<div class="teachers-input-wrap">
-					<label class="teachers-label" for="teachers-subject">科&nbsp;&nbsp;&nbsp;目</label>
-					<!-- <input type="text" id="teachers-subject" class="teachers-input" value=''/> -->
-					<select id="teachers-subject" class="teachers-input" style="width: 436px;">
-						<option value="">想</option>
-						<option value="">想</option>
-						<option value="">想</option>
-						<option value="">想</option>
-						<option value="">想</option>
-					</select>
+							<div class="teachers-input-wrap" style="margin-bottom: 20px;">
+								<label class="teachers-label" for="teachers-subject" style="left:-24px">科&nbsp;&nbsp;&nbsp;目</label> -->
+								<!-- <input type="text" id="teachers-subject" class="teachers-input" value=''/> -->
+								<!-- <select id="teachers-subject" class="teachers-input teachers-subject" style="width: 356px;margin-left: -10px;">
+								</select>
+								<a href="javascript:'" id="dele-t"><i class="iconfont">&#xe616;</i>删除</a>
+							</div> -->
+						<!-- </div> -->
+					</div>
 				</div>
 				
 				
