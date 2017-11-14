@@ -742,16 +742,16 @@
                 </div>
             </div>
             <!--右侧区域-->
-            <div class="A_R {{infoBox==0?'pd':''}}" ng-if="listObj3.length>0">
+            <div class="A_R {{infoBox==0?'pd':''}} {{infoBox==1&&myDayinType==1?'single':''}}" ng-if="listObj3.length>0">
                 <!--装订线开始-->
-                <div class="bindLine" ng-if="infoBox==1||infoLocation==1"></div>
+                <div class="bindLine {{myDayinType==1?'single':''}}" ng-if="infoBox==1||infoLocation==1"></div>
                 <!--装订线结束-->
                 <!--顶部学生信息开始-->
                 <div class="student_info clearfix">
                     <div class="ermai {{myDayinType==0?'':'b0'}} clearfix">
                         <img src="../img/erwei.jpg" alt="">
                     </div>
-                    <div class="person {{myDayinType==0?'':'b0'}} clearfix {{infoLocation==0?'':'location_left'}}">
+                    <div class="person {{myDayinType==0?'':'b0'}} clearfix {{infoLocation==0?'':'location_left'}} {{myDayinType==1?'single':''}}">
                         <div class="person_item">
                             <span>学校:</span>
                             <span class="B_line"></span>

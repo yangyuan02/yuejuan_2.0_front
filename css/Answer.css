@@ -911,12 +911,25 @@ input:focus{
     line-height: 11px;
     margin: 8px auto;
 }
+/******单面测试和双面测试*********/
 .bindLine{
     position:absolute;
     width:1px;
     height:1200px;
     border-left:1px dashed #000;
     top:0px;
+}
+.bindLine.single{
+    right:100px;
+}
+.Answer .student_info .person.location_left.single{
+    right:-185px;
+    left:inherit;
+    transform: rotate(90deg);
+    top:600px;
+}
+.Answer .A_R.single{
+    padding-left:80px;
 }
 /********************语文试卷样式***************/
 /*table thead tr:last-child{*/
