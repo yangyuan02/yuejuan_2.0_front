@@ -1121,7 +1121,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
         }
         answer_id[index].answers.settings.pop()
-        console.log(answer_id)
+        if(answer_id[index].answers.settings.length==0){
+            answer_id.splice(index,1)
+        }
         findScopeList(index, options)
     }
     $scope.sortIndex = 0
