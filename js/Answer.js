@@ -1829,11 +1829,12 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 var obj = {
                     "fill_num":fillsNum[i].length,
                     "fill_w":fillWidth[i],
-                    "separator":separator[i],
+                    "separator":separator[i].join("|"),
                     "no":i
                 }
                 $scope.fillLists.push(obj)
             }
+            console.log($scope.fillLists)
         }
     }
     /*************确定**************/
@@ -2021,12 +2022,4 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.closeCand()
     }
  })
-m1.filter("toSeparator",function(){
-    return function (str) {
-        if(str==''){
-            return
-        }
-        console.log(str)
-    }
-})
 
