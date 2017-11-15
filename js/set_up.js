@@ -1,4 +1,7 @@
 $(function() {
+	var hh = document.body.scrollHeight;
+	console.log(hh);
+	$('.load-bg').css('height', hh+'px');
 	var isLogin = localStorage.getItem("token");
 	var school_id;
 	// var school_grades_array = [];
@@ -3696,7 +3699,12 @@ $(function() {
 			$(this).val('');
 		}
 	});
-
+	// 精度计算浮点数相加
+	Math.formatFloat = function(f, digit) {
+    var m = Math.pow(10, digit);
+    return parseInt(f * m, 10) / m;
+	}
+	// alert(Math.formatFloat(numA + numB, 1) === 0.3);
 	$('body').on('input', '.set-table .child-tr input', function() {
 		var total = $(this).parents('.child-tr').prev().find('span');
 		var value = parseFloat($(this).val());
@@ -3705,7 +3713,7 @@ $(function() {
 		for (var i = 0; i < siblings_input.length; i++) {
 			num=num+parseFloat($(siblings_input[i]).val());
 		};
-		total.text(num);
+		total.text(Math.formatFloat(num,1));
 		var parent_total = $(this).parents('.set-table').next().find('.total-num');
 		parent_total.text('');
 		var all_num = 0;
