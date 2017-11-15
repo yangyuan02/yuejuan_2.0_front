@@ -9,6 +9,10 @@
 	padding-right: 6px;
 	padding-left: 6px;
 }
+.add-cont{
+	max-height: 110px;
+	overflow-y: auto;
+}
 .dele-t{
 	color: #fb7d8a;
 	font-size: 14px;
@@ -17,7 +21,7 @@
 	padding-right: 6px;
 	padding-left: 6px;
 }
-.first-div{
+.first-div,.second-div{
 	/* padding: 10px; */
 	border: 1px solid #ccc;
 }
