@@ -59,6 +59,8 @@
 	overflow: hidden;
 	padding: 10px;
 	border-bottom: 1px solid #ccc;
+	display: block;
+	font-style: normal;
 }
 .item-op > a{
 	color:#31bc91;
