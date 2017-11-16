@@ -155,7 +155,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 result = remain - title_h - padding - row * rowItme_h > 0 ? true : false
             }
             if ($scope.index == 3) {//填空题
-                var rowItme_h = 27, score_h = $scope.paperType == 0?40:20
+                var rowItme_h = 35, score_h = $scope.paperType == 0?40:20
                 var row = Math.ceil($scope.result.numbel / 2)
                 console.log(remain - title_h - padding - score_h - row * rowItme_h)
                 result = remain - title_h - padding - score_h - row * rowItme_h > 0 ? true : false
@@ -413,7 +413,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
         }
         if($scope.index==3){
-            var verticalHeigth = 5
+            var verticalHeigth = 30
         }
         if($scope.index==4){
             var verticalHeigth = 35
@@ -1840,8 +1840,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     /*************确定**************/
     $scope.sureFillQuestion = function () {
         $scope.fillLists.forEach(function (item,index,arr) {
-            if(arr[index].fill_w>597){
-                alert("第"+(index+1)+'大于597,最大为597')
+            if(arr[index].fill_w>668){
+                alert("第"+(index+1)+'大于668,最大为668')
                 return false
             }
             getOBjList()[$scope.tabIndex].fillWidth[index] = typeof arr[index].fill_w === 'string'?arr[index].fill_w.split(/[,，]/):arr[index].fill_w
@@ -1851,7 +1851,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 var resutl = []
                 var itmeWidth = []
                 for(var i = 0;i<num;i++){
-                    console.log(num)
                     resutl.push(i)
                 }
                 return {
