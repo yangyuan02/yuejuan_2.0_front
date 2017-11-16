@@ -2869,13 +2869,14 @@ angular.module("myApp.controller", [])
                 },
                 success: function(data) {
                     console.log(data);
-                    $(".study_k_102_bo").html(" ");
+                    $(".study_k_102").html(" ");
+                   $(".study_k_102").append('<table id="MyTable_all" style="width: 960px;font-size: medium;" border="1" cellspacing="0" cellpadding="0" bordercolor="#cccccc"><thead><tr><th>班级</th><th>学科</th><th>平均分</th><th >最高分</th><th>最低分</th><th>全距</th><th>优秀人数</th><th>优秀率</th><th>及格人数</th><th>及格率</th><th>不及格人数</th><th>标准差</th></tr></thead><tbody class="study_k_102_bo"></tbody></table>');
                     for (var i = 0; i < data.length; i++) {
                         var a_pass_rate=data[i].pass_rate+"%";
                         $(".study_k_102_bo").append('<tr><td>' + data[i].class_name + '</td><td>' + data[i].subject_name + '</td><td>' + data[i].average + '</td><td>' + data[i].highest_score + '</td><td>' + data[i].lowest_score + '</td><td>' + data[i].range + '</td><td>' + data[i].fine_number + '</td><td>' + data[i].fine_rate + '</td><td>' + data[i].pass_number + '</td><td>' + a_pass_rate+ '</td><td>' + data[i].fail_number + '</td><td>' + data[i].standard_deviation + '</td></tr>');
                     }
 
-
+                    FixTable("MyTable_all", 1, 900,500);
                 },
                 error: function() {}
 
@@ -2982,8 +2983,9 @@ angular.module("myApp.controller", [])
                 },
                 success: function(data) {
                     console.log(data);
-                    $(".study_k_301_he").html(" ");
-                    $(".study_k_301_bo").html(" ");
+                       $(".study_k_301").html(" ");
+                      $(".study_k_301").append('<table id="MyTable_dan" style="width: 960px;font-size: medium;" border="1" cellspacing="0" cellpadding="0" bordercolor="#cccccc"><thead><tr class="study_k_301_he"></tr></tr></thead><tbody class="study_k_301_bo"></tbody></table>');
+
                     for (var i = 0; i < data.titile.length; i++) {
 
                         $(".study_k_301_he").append('<th>' + data.titile[i] + '</th>');
@@ -2993,14 +2995,13 @@ angular.module("myApp.controller", [])
                     for (var i = 0; i < data.data.length; i++) {
                         var a = data.data[i];
                         $(".study_k_301_bo").append('<tr></tr>');
-
                         for (var c = 0; c < a.length; c++) {
                             $(".study_k_301_bo tr").eq(i).append('<td>' + a[c] + '</td>');
                         }
 
                     }
 
-
+                      FixTable("MyTable_dan", 1, 900, 500);
                 },
                 error: function() {}
 
@@ -3044,8 +3045,9 @@ angular.module("myApp.controller", [])
                 },
                 success: function(data) {
                     console.log(data);
-                    $(".study_k_401_he").html(" ");
-                    $(".study_k_401_bo").html(" ");
+                  $(".study_k_401").html(" ");
+                      $(".study_k_401").append('<table id="MyTable_ever" style="width: 960px;font-size: medium;" border="1" cellspacing="0" cellpadding="0" bordercolor="#cccccc"><thead><tr class="study_k_401_he"></tr></tr></thead><tbody class="study_k_401_bo"></tbody></table>');
+
                     for (var i = 0; i < data.titile.length; i++) {
 
                         $(".study_k_401_he").append('<th>' + data.titile[i] + '</th>');
@@ -3061,7 +3063,7 @@ angular.module("myApp.controller", [])
                         }
 
                     }
-
+                   FixTable("MyTable_ever", 1, 900, 500);
 
                 },
                 error: function() {}
@@ -4835,6 +4837,7 @@ angular.module("myApp.controller", [])
                       var a=data[0].length;
                       var b=data[1].length;
                       var c=data[1][0].length;
+                       var c_nub=data[1][0].length-1;
                       for(var i=0;i<a;i++){
                           $(".exam_h_601_he").append('<th style="min-width: 80px;">'+data[0][i]+'</th>')
                       }
@@ -4852,7 +4855,7 @@ angular.module("myApp.controller", [])
                             $(".exam_h_601_bo tr").eq(i).append('<td style="min-width: 80px;">'+data[1][i][x]+'%</td>');
                          
                          }else{
-                            if(9<x&&x<15){
+                            if(9<x&&x<c_nub){
                               var str=0; 
                             str=data[1][i][x];
                             // console.log(str);
