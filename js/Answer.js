@@ -1,4 +1,4 @@
-var m1 = angular.module("pro", []);
+var m1 = angular.module("pro",[]);
 // m1.config(function ($httpProvider) {
 //     $httpProvider.defaults.useXDomain = true;
 //     delete $httpProvider.defaults.headers.common['X-Requested-With'];
@@ -7,7 +7,6 @@ var m1 = angular.module("pro", []);
 m1.controller("demo", function ($scope, $timeout, $http) {
     var url = window.location;
     var isLogin = localStorage.getItem("token");
-    console.log(window.localStorage.getItem("exam_id"))
     $scope.subjectName = window.localStorage.getItem("test_name") + window.localStorage.getItem("subjectname")
     $(".Answer .A_Nav").width($(document).width())
     function getUrlParam(url, name) {//获取页面参数
@@ -27,8 +26,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         return items;
     }
-
+    $scope.leftcardNum = [0,1,2,3,4]
     $scope.countScore = 0//总分
+    $scope.infoLocation = 0//信息栏默认顶部
+    $scope.infoBox = 0//信息框默认顶部
     $scope.page_num = 0 //页数
     $scope.listObj = [];//定义全局数组保存所有题目
     $scope.listObj2 = [];//定义全局数组保存所有题目
@@ -65,6 +66,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     answer_id = data.message.answer_id
                     allHeight = data.message.allHeight ? data.message.allHeight : []
                     $scope.paperType = data.message.paperType ? data.message.paperType : 0
+                    $scope.infoLocation = data.message.infoLocation ? data.message.infoLocation : 0
+                    $scope.infoBox = data.message.infoBox ? data.message.infoBox : 0
+                    $scope.leftcardNum = data.message.leftcardNum ? data.message.leftcardNum : 0
                     $scope.showTableLineTyep = data.message.showTableLineTyep ? data.message.showTableLineTyep : 0
                     $scope.myDayinType = data.message.myDayinType ? data.message.myDayinType : 0
                     $scope.showItmeScoreType = data.message.showItmeScoreType ? data.message.showItmeScoreType : 0
@@ -502,12 +506,12 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var studentRegionRect = {}//学号区域信息
         var dot = $(".position_TL span").eq(1).offset();
         dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
-        var studentInfo = $(".student_L")
+        var studentInfo = $scope.infoBox == 0?$(".student_L"):$(".candidate")
         studentRegionRect.region_rect_x = parseInt(studentInfo.offset().left - dot.left)
         studentRegionRect.region_rect_y = parseInt(studentInfo.offset().top - dot.top)
         studentRegionRect.region_rect_width = studentInfo.width()
         studentRegionRect.region_rect_height = studentInfo.height()
-        var ulP = $(".student_number3")
+        var ulP = $scope.infoBox == 0?$(".student_number3"):$(".full_card_number")
         var ulItem = ulP.find("ul"), ulLen = ulItem.length
         var len;
         var fristPost = []//第一个itme坐标
@@ -520,7 +524,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         itme_obj.no = 0
         itme_obj.score = 0
         itme_obj.string = "学号"
-        itme_obj.block_width = 18
+        itme_obj.block_width = $scope.infoBox == 0?18:10
         itme_obj.block_height = 12
         itme_obj.num_question = parseInt(ulLen)
         itme_obj.num_of_option = parseInt(len)
@@ -590,7 +594,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             var scoreRect = {}
             scoreRect.no = i
             scoreRect.score_rect_x = otherListDom[i - 1].left - dot.left
-            scoreRect.score_rect_y = otherListDom[i - 1].top - dot.top - 1126 * (current_page - 1)
+            scoreRect.score_rect_y = otherListDom[i - 1].top - dot.top - 1200 * (current_page - 1)
             otherScoreRect.push(scoreRect)
         }
         return otherScoreRect
@@ -624,7 +628,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             var obj = {}
             obj.no = i
             obj.option_point_x = fillScoreOptions[i - 1].left + 11.5 - dot.left
-            obj.option_point_y = fillScoreOptions[i - 1].top + 6 - dot.top - 1126 * (current_page - 1)
+            obj.option_point_y = fillScoreOptions[i - 1].top + 6 - dot.top - 1200 * (current_page - 1)
             makrin.push(obj)
         }
         return makrin
@@ -662,10 +666,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 itme_obj.no = j//小题序号
                 if (answerModeType == 1 || answerModeType == 2 || answerModeType == 6) {//单选题/多选题/判断题
                     itme_obj.option_point_x = getItemPost(Answerindex)[i].left + 7 + (item_w + itemMarginLeft) * (j - 1) - dot.left//选项框中心点x坐标
-                    itme_obj.option_point_y = getItemPost(Answerindex)[i].top + 5.5 - dot.top - 1126 * (current_page - 1)//同行option_point_y都是一样的 选项框中心点y坐标
+                    itme_obj.option_point_y = getItemPost(Answerindex)[i].top + 5.5 - dot.top - 1200 * (current_page - 1)//同行option_point_y都是一样的 选项框中心点y坐标
                 } else if (answerModeType == 3) {
                     itme_obj.option_point_x = getFillPost(Answerindex)[i].left + 11.5 - dot.left
-                    itme_obj.option_point_y = getFillPost(Answerindex)[i].top + 6 - dot.top - 1126 * (current_page - 1)
+                    itme_obj.option_point_y = getFillPost(Answerindex)[i].top + 6 - dot.top - 1200 * (current_page - 1)
                 }
                 question[i].option.push(itme_obj)
             }
@@ -705,7 +709,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             itme_obj.current_page = obj[i - 1].current_page//当前页面
             itme_obj.num_question = obj[i - 1].numbel//题目数量
             itme_obj.region_rect_x = regionRect(i - 1).region_rect_x + 8//题组区域的X坐标
-            itme_obj.region_rect_y = regionRect(i - 1).region_rect_y - 1126 * (itme_obj.current_page - 1) + 8//题组区域的Y坐标
+            itme_obj.region_rect_y = regionRect(i - 1).region_rect_y - 1200 * (itme_obj.current_page - 1) + 8//题组区域的Y坐标
             itme_obj.region_rect_width = 698 - 14//题组区域的宽度
             if (obj[i - 1].type == 4) {//作文题
                 itme_obj.region_rect_height = 100//题组区域的高度
@@ -722,7 +726,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 itme_obj.block_width = 23//选项宽度
                 itme_obj.block_height = 12//选项高度
                 itme_obj.score_rect_x = fillScoreRect(i - 1).score_rect_x//打分框区域的x坐标
-                itme_obj.score_rect_y = fillScoreRect(i - 1).score_rect_y - 1126 * (itme_obj.current_page - 1)//打分框区域的y坐标
+                itme_obj.score_rect_y = fillScoreRect(i - 1).score_rect_y - 1200 * (itme_obj.current_page - 1)//打分框区域的y坐标
                 itme_obj.score_rect_width = fillScoreRect(i - 1).score_rect_width//打分框区域的宽度
                 itme_obj.score_rect_height = fillScoreRect(i - 1).score_rect_height//打分框区域的高度
                 itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page) //打分框坐标
@@ -796,6 +800,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         allList.page4 = $scope.listObj4
         allList.answer_id = answer_id
         allList.paperType = $scope.paperType
+        allList.infoLocation = $scope.infoLocation
+        allList.infoBox = $scope.infoBox
+        allList.leftcardNum = $scope.leftcardNum
         allList.showTableLineTyep = $scope.showTableLineTyep
         allList.myDayinType = $scope.myDayinType
         allList.showItmeScoreType = $scope.showItmeScoreType
@@ -886,11 +893,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.dayin = function () {//打印
         $("table").removeClass("table_focus")
         $(".student").removeClass("table_focus")
+        $("img").removeClass("table_focus")
+        $(".candidate").removeClass("table_focus")
         $(".A_Nav").css({"display": "none"})
         $(".cand").hide()
         $("#menu").css({"display": "none"})
         $(".Answer .A_L").css({"display": "none"})
-        $(".Answer .A_B").css({"margin-top": 0, "margin-bottom": 0, "width": 1596})
+        $(".Answer .A_B").css({"margin-top": 0, "margin-bottom": 0, "width": 1700})
         $(".Answer .A_R").css({"border-width": 0})
         $(".Answer .A_R .A_Rone").css({"border-color": "black"})
         window.print()
@@ -1387,6 +1396,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         if($scope.bigAnswer.length == 1){
             $scope.sortIndex = 0
         }
+        if($scope.sortIndex==$scope.bigAnswer.length){
+            $scope.sortIndex--
+        }
         if ($scope.bigAnswer.length == 0) {
             $scope.closeAnswerModel()
         }
@@ -1613,6 +1625,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.listObj3 = data.page3 ? data.page3 : []
                 $scope.listObj4 = data.page4 ? data.page4 : []
                 $scope.paperType = data.paperType ? data.paperType : 0
+                $scope.infoLocation = data.infoLocation ? data.infoLocation : 0
+                $scope.infoBox = data.infoBox ? data.infoBox : 0
+                $scope.leftcardNum = data.leftcardNum ? data.leftcardNum : 0
                 $scope.showTableLineTyep = data.showTableLineTyep ? data.showTableLineTyep : 0
                 $scope.myDayinType = data.myDayinType ? data.myDayinType : 0
                 $scope.showItmeScoreType = data.showItmeScoreType ? data.showItmeScoreType : 0
@@ -1706,12 +1721,26 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.closeCand = function () {
         $(".cand").hide()
     }
+    $scope.showCandNumer = function () {
+        $(".cand_box").show()
+        $("#menu").hide()
+        $scope.candlen = $scope.infoBox==0?$scope.candNumber.length:$scope.leftcardNum.length
+    }
     $scope.setCandNumber = function (candlen) {
         var result = []
         for (var i = 0; i < candlen; i++) {
             result.push(i)
         }
-        $scope.candNumber = result
+        if($scope.infoBox==0){
+            $scope.candNumber = result
+        }
+        if($scope.infoBox==1){
+            if(candlen>5){
+                alert("侧边最大考号为5位")
+                return;
+            }
+            $scope.leftcardNum = result
+        }
         $(".cand").hide()
     }
     /**
@@ -1736,6 +1765,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         return obj
     }
     $scope.getTableIndex = function (tabParentIndex, tabIndex) {
+        console.log(111)
         $scope.tabParentIndex = tabParentIndex
         $scope.tabIndex = tabIndex
         $scope.showMenuFlag = true
@@ -1794,7 +1824,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.fillLists.push(obj)
             }
         }
-        console.log($scope.fillLists)
     }
     /*************确定**************/
     $scope.sureFillQuestion = function () {
@@ -1872,6 +1901,32 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         getOBjList()[$scope.tabIndex].img[$scope.imgIndex].width= $scope.imgObj.imgWidth
         getOBjList()[$scope.tabIndex].img[$scope.imgIndex].height= $scope.imgObj.imgHeight
         $(".imgFormat").hide()
+    }
+    /**
+     * 设置信息栏位置/顶部/左侧
+     */
+    $scope.setInfoLocation = function () {
+        $("#menu").hide()
+        $scope.infoLocation = $scope.infoLocation==0?1:0
+    }
+    /**
+     * 设置信息框位置
+     */
+    $scope.setInfoBox = function () {
+        $scope.infoBox = $scope.infoBox==0?1:0
+        $("#menu").hide()
+        if($scope.infoBox==1){//顶部
+            if($scope.candNumber.length>=5){
+                $scope.leftcardNum = []
+                for(var i = 0;i<5;i++){
+                    $scope.leftcardNum.push(i)
+                }
+            }else{
+                $scope.leftcardNum = $scope.candNumber
+            }
+        }else{
+            $scope.candNumber = $scope.leftcardNum
+        }
     }
     /*******************************保存*************************************************/
     $scope.save = function () {//保存模板
