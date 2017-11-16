@@ -484,9 +484,9 @@
                                 <tbody>
                                 <tr ng-if="a.type!=5&&a.type!=4"><!--选择题/判断题/多选题/填空题-->
                                     <td>
-                                        <div ng-repeat="item in a.no" class="q_c"
+                                        <div ng-repeat="item in a.no" class="q_c {{a.type==3?'fill_itme':''}}"
                                              ng-style="{'width':'{{a.type==3?'auto':setItmeWidth(a.thr)}}'}"
-                                             style="padding-top:{{a.verticalHeigth+'px'}};width:auto">
+                                             style="width:auto">
                                             <a class="numberNo {{paperType==1?'paperno':''}}" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
@@ -501,7 +501,7 @@
                                             <span class="fill_line" ng-show="a.type==3"
                                                   ng-repeat="fills in a.fillsNum[$index]">
                                                 <span class="{{a.LineType==0?'':'dashed_line'}}"
-                                                      style="width:{{a.fillWidth[$parent.$index][$index]+'px'}}"></span>
+                                                      style="width:{{a.fillWidth[$parent.$index][$index]+'px'}};height:{{a.verticalHeigth+'px'}};"></span>
                                                 <span>{{a.separator[$parent.$index][$index]}}</span>
                                             </span>
                                             <!--填空题模版end-->
@@ -634,9 +634,9 @@
                                 <tbody>
                                 <tr ng-if="a.type!=5&&a.type!=4">
                                     <td>
-                                        <div ng-repeat="item in a.no" class="q_c"
+                                        <div ng-repeat="item in a.no" class="q_c {{a.type==3?'fill_itme':''}}"
                                              ng-style="{'width':'{{a.type==3?'auto':setItmeWidth(a.thr)}}'}"
-                                             style="padding-top:{{a.verticalHeigth+'px'}};width:auto">
+                                             style="width:auto">
                                             <a class="numberNo {{paperType==1?'paperno':''}}" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
@@ -651,7 +651,7 @@
                                             <span class="fill_line" ng-show="a.type==3"
                                                   ng-repeat="fills in a.fillsNum[$index]">
                                                 <span class="{{a.LineType==0?'':'dashed_line'}}"
-                                                      style="width:{{a.fillWidth[$parent.$index][$index]+'px'}}"></span>
+                                                      style="width:{{a.fillWidth[$parent.$index][$index]+'px'}};height:{{a.verticalHeigth+'px'}};"></span>
                                                 <span>{{a.separator[$parent.$index][$index]}}</span>
                                             </span>
                                             <!--填空题模版end-->
@@ -835,9 +835,9 @@
                                 <tbody>
                                 <tr ng-if="a.type!=5&&a.type!=4"><!--选择题/判断题/多选题/填空题-->
                                     <td>
-                                        <div ng-repeat="item in a.no" class="q_c"
+                                        <div ng-repeat="item in a.no" class="q_c {{a.type==3?'fill_itme':''}}"
                                              ng-style="{'width':'{{a.type==3?'auto':setItmeWidth(a.thr)}}'}"
-                                             style="padding-top:{{a.verticalHeigth+'px'}};width:auto">
+                                             style="width:auto">
                                             <a class="numberNo {{paperType==1?'paperno':''}}" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
@@ -852,7 +852,7 @@
                                             <span class="fill_line" ng-show="a.type==3"
                                                   ng-repeat="fills in a.fillsNum[$index]">
                                                 <span class="{{a.LineType==0?'':'dashed_line'}}"
-                                                      style="width:{{a.fillWidth[$parent.$index][$index]+'px'}}"></span>
+                                                      style="width:{{a.fillWidth[$parent.$index][$index]+'px'}};height:{{a.verticalHeigth+'px'}};"></span>
                                                 <span>{{a.separator[$parent.$index][$index]}}</span>
                                             </span>
                                             <!--填空题模版end-->
@@ -985,9 +985,9 @@
                                 <tbody>
                                 <tr ng-if="a.type!=5&&a.type!=4">
                                     <td>
-                                        <div ng-repeat="item in a.no" class="q_c"
+                                        <div ng-repeat="item in a.no" class="q_c {{a.type==3?'fill_itme':''}}"
                                              ng-style="{'width':'{{a.type==3?'auto':setItmeWidth(a.thr)}}'}"
-                                             style="padding-top:{{a.verticalHeigth+'px'}};width:auto">
+                                             style="width:auto">
                                             <a class="numberNo {{paperType==1?'paperno':''}}" ng-show="a.type==3"></a>
                                             <!--序号start-->
                                             <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
@@ -1002,7 +1002,7 @@
                                             <span class="fill_line" ng-show="a.type==3"
                                                   ng-repeat="fills in a.fillsNum[$index]">
                                                 <span class="{{a.LineType==0?'':'dashed_line'}}"
-                                                      style="width:{{a.fillWidth[$parent.$index][$index]+'px'}}"></span>
+                                                      style="width:{{a.fillWidth[$parent.$index][$index]+'px'}};height:{{a.verticalHeigth+'px'}};"></span>
                                                 <span>{{a.separator[$parent.$index][$index]}}</span>
                                             </span>
                                             <!--填空题模版end-->
