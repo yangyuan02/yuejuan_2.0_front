@@ -934,6 +934,14 @@ input:focus{
 .Answer .A_R.single{
     padding-left:80px;
 }
+.left_bar_code{
+    width: 120px;
+    height:50px;
+    border: 1px solid #000;
+    position: absolute;
+    top:450px;
+    left: 34px;
+}
 /********************语文试卷样式***************/
 /*table thead tr:last-child{*/
     /*display:none!important;*/
