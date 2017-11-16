@@ -2028,15 +2028,15 @@ angular.module("myApp.controller", [])
         $(".study_k_left li").click(function(event) {
             $(this).css("color", "#31bc91").siblings().css("color", "#999999");
             $(".study_k_b").html($(this).html());
-            $(".study_k_tab div").eq($(this).index()).show().siblings().hide();
-            if ($(this).index() == "2" || $(this).index() == "4" || $(this).index() == "1") {
-                $(".study_k_101 span").eq(2).hide();
-            } else {
+            $(".study_k_tab").children('div').eq($(this).index()).show().siblings().hide();
+            // if ($(this).index() == "2" || $(this).index() == "4" || $(this).index() == "1") {
+            //     $(".study_k_101 span").eq(2).hide();
+            // } else {
 
-                $(".study_k_101 span").eq(2).show();
-            }
+            //     $(".study_k_101 span").eq(2).show();
+            // }
             // 导出按钮ID不同的值
-            $(".study_k_101 button").attr("data-id", $(this).index());
+            // $(".study_k_101 button").attr("data-id", $(this).index());
         
         });
         // 导出button点击 /download/学科综合分析_20170825110502.xlsx
@@ -2730,6 +2730,8 @@ angular.module("myApp.controller", [])
         // 科目 end
         // 学科综合分析
           $(".study_k_left_ul").on('click', 'li', function(event) {
+             $(".study_k_601").html(" ");
+              $(".study_k_701").html(" ");
             $(".study_k_102_101 button").parent('a').removeAttr('href');
             $(".study_k_201_101 button").parent('a').removeAttr('href');
             $(".study_k_301_101 button").parent('a').removeAttr('href');
@@ -2765,7 +2767,7 @@ angular.module("myApp.controller", [])
             }
              if(btn_id==6){
             
-            study_k_top07();
+            study_k_top07();study_k07();
             }
 
         });
@@ -2787,7 +2789,11 @@ angular.module("myApp.controller", [])
                study_k05();
           });
            $(".study_k_601_101 select").change(function(event) {
+             $(".study_k_601").html(" ");
                study_k06();
+          });
+             $(".study_k_701_101 select").change(function(event) {
+               study_k07();
           });
 
            $(".study_k_102_101 button").click(function(event) {
@@ -2805,6 +2811,7 @@ angular.module("myApp.controller", [])
                study_k_bb04();
           });
            $(".study_k_501_101 button").click(function(event) {
+
                study_k_bb05();
           });
            $(".study_k_601_101 button").click(function(event) {
@@ -3111,6 +3118,7 @@ angular.module("myApp.controller", [])
         }
         // 学生详细成绩单
         function study_k06() {
+             $(".mask_layer").css("height", $(document).height());
             var exam_id = parseInt($(".study_k_601_km01").children('option:selected').attr("data-id"));
             $(".study_k_601_km02").attr("data-id", $(".study_k_601_km02").children('option:selected').attr("data-id"));
             var class_id = parseInt($(".study_k_601_km02").attr("data-id"));
@@ -3132,9 +3140,9 @@ angular.module("myApp.controller", [])
                 var sub_id = null;
                 }
            
-                    $.ajax({
+                $.ajax({
                 type: "POST",
-                 async:false,
+                 // async:false,
                 url: ajaxIp + "/api/v2/reports/student_details",
                 headers: {
                     'Authorization': "Bearer " + isLogin
@@ -3144,6 +3152,11 @@ angular.module("myApp.controller", [])
                     "subject_id": sub_id,
                     "classroom_id": class_id,
                 },
+                beforeSend: function(){
+                   $(".mask_layer").show();
+                   $(".load-bg").show();
+                },
+                
                 success: function(data) {
                     console.log(data);
                     // $(".study_k_601_he").html(" ");
@@ -3166,6 +3179,69 @@ angular.module("myApp.controller", [])
 
                     }
                     FixTable("MyTable", 1, 900, 500);
+                   
+                },
+                complete: function(){
+                  $(".mask_layer").hide();
+                  $(".load-bg").hide();
+                },
+                error: function() {
+                    $(".mask_layer").hide();
+                }
+
+            });
+        
+        }
+
+        //各科详细成绩单
+            function study_k07() {
+            var exam_id = parseInt($(".study_k_701_km01").children('option:selected').attr("data-id"));
+            $(".study_k_701_km02").attr("data-id", $(".study_k_701_km02").children('option:selected').attr("data-id"));
+            var class_id = parseInt($(".study_k_701_km02").attr("data-id"));
+            if (class_id == null) {
+                var class_id = parseInt($(".study_k_701_km02").attr("data-id"));
+            }
+            $(".study_k_701_km03").attr("data-id", $(".study_k_701_km03").children('option:selected').attr("data-id"));
+            var sub_id = parseInt($(".study_k_701_km03").attr("data-id"));
+            if (sub_id == null) {
+                var sub_id = parseInt($(".study_k_701_km03").attr("data-id"));
+            }
+            console.log(exam_id);
+            console.log(class_id);
+            console.log(sub_id);
+             if(class_id==11111){
+                var class_id = null;
+                }
+              if(sub_id==22222){
+                var sub_id = null;
+                }
+           
+                $.ajax({
+                type: "POST",
+                 async:false,
+                url: ajaxIp + "/api/v2/reports/all_subjects_score",
+                headers: {
+                    'Authorization': "Bearer " + isLogin
+                },
+                data: {
+                    "exam_id": exam_id,
+                    "classroom_id":class_id,
+                },
+                success: function(data) {
+                    console.log(data);
+                     $(".study_k_701").html(" ");
+                    $(".study_k_701").append('<table id="MyTable01" style="width: 960px;font-size: medium;" border="1" cellspacing="0" cellpadding="0" bordercolor="#cccccc"><thead><tr class="study_k_701_he"></tr></tr></thead><tbody class="study_k_701_bo"></tbody></table>');
+                    for(var i=0;i<data.titile.length;i++){
+                    $(".study_k_701_he").append('<th>'+data.titile[i]+'</th>');
+                  }
+                   for(var i=0;i<data.data.length;i++){
+                    $(".study_k_701_bo").append('<tr></tr>');
+                    for(var a=0;a<data.data[0].length;a++){
+                    $(".study_k_701_bo tr").eq(i).append('<td>'+data.data[i][a]+'</td>');
+                }
+
+                  }
+                   FixTable("MyTable01", 1, 900, 500);
                 },
                 error: function() {
 
@@ -3174,7 +3250,6 @@ angular.module("myApp.controller", [])
             });
         
         }
-
         function FixTable(TableID, FixColumnNumber, width, height) {
             //  <summary>
             //      锁定表头和列
