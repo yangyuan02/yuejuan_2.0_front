@@ -36,7 +36,6 @@ angular.module("myApp.controller", [])
         $(".mark_01_select").change(function(event) {
             $("#mark_02_ul ul li").remove();
             $("#mark_02_ul div").remove();
-
             var mark_01_select_a = $(this).children('option:selected').attr("data-id");
             // $(this).attr('a', mark_01_select_a);
             markxl(mark_01_select_a);
@@ -132,10 +131,12 @@ angular.module("myApp.controller", [])
 
             $(".mart_set").hide();
             $(".load-bg").show();
-            mark_fengxi();
+            var class_name=$(this).attr("data_class");
+            mark_fengxi(class_name);
         });
 
-        function mark_fengxi() {
+        function mark_fengxi(name) {
+            alert(name);
             $(".tf_dj a").remove();
             var ex_id = $(".mart_set_03").data("a1");
             var sub_id = $(".mart_set_04").data("b1");
@@ -213,6 +214,11 @@ angular.module("myApp.controller", [])
                     if (data.status == 6) {
                         $(".modal-exit").show();
                         $(".load-bg").show();
+                        $('.'+name+'').hide();
+
+                    }
+                     if (data.status == 7) {
+                        $('.'+name+'').hide();
 
                     }
                     if (data.error_code == 500) {
@@ -233,84 +239,85 @@ angular.module("myApp.controller", [])
             });
         };
 
-        function mark_fengxi01() {
-            var ex_id = $(".mart_set_03").data("a1");
-            var sub_id = $(".mart_set_04").data("b1");
-            var sub_id1 = parseInt(sub_id);
-            var ex_id1 = parseInt(ex_id);
-            var jg_mark = $("#jg_mark").val();
-            var yx_mark = $("#yx_mark").val();
-            var z_mark = $("#z_mark").val();
-            var a = $("#ul_iLabel li").length;
-            var data_value = {
-                "full_score": z_mark,
-                "t[exam_subject_id]": sub_id1,
-                "t[exam_id]": ex_id1,
-                "exam_subject_id": sub_id1,
-                "pass": jg_mark,
-                "fine": yx_mark,
-            };
-            console.log(data_value);
-            for (var i = 0; i < a; i++) {
-                var c = i + 1;
-                console.log($("#ul_iLabel li").eq(i).find('.level_01').val(), $("#ul_iLabel li").eq(i).find('.level_02').val());
-                var d = "t[column_name_" + c + "]";
-                var e = $("#ul_iLabel li").eq(i).find('.level_01').val();
-                var f = "t[column_value_" + c + "]";
-                var g = $("#ul_iLabel li").eq(i).find('.level_02').val();
-                data_value[d] = e;
-                data_value[f] = g;
-                $(".tf_dj").append('<a>' + e + '：' + g + '</a>')
+        // function mark_fengxi01() {
+        //     var ex_id = $(".mart_set_03").data("a1");
+        //     var sub_id = $(".mart_set_04").data("b1");
+        //     var sub_id1 = parseInt(sub_id);
+        //     var ex_id1 = parseInt(ex_id);
+        //     var jg_mark = $("#jg_mark").val();
+        //     var yx_mark = $("#yx_mark").val();
+        //     var z_mark = $("#z_mark").val();
+        //     var a = $("#ul_iLabel li").length;
+        //     var data_value = {
+        //         "full_score": z_mark,
+        //         "t[exam_subject_id]": sub_id1,
+        //         "t[exam_id]": ex_id1,
+        //         "exam_subject_id": sub_id1,
+        //         "pass": jg_mark,
+        //         "fine": yx_mark,
+        //     };
+        //     console.log(data_value);
+        //     for (var i = 0; i < a; i++) {
+        //         var c = i + 1;
+        //         console.log($("#ul_iLabel li").eq(i).find('.level_01').val(), $("#ul_iLabel li").eq(i).find('.level_02').val());
+        //         var d = "t[column_name_" + c + "]";
+        //         var e = $("#ul_iLabel li").eq(i).find('.level_01').val();
+        //         var f = "t[column_value_" + c + "]";
+        //         var g = $("#ul_iLabel li").eq(i).find('.level_02').val();
+        //         data_value[d] = e;
+        //         data_value[f] = g;
+        //         $(".tf_dj").append('<a>' + e + '：' + g + '</a>')
 
-            };
-            console.log(data_value.fine);
-            $(".tf_zf a").html(data_value.full_score);
-            $(".tf_jg a").html(data_value.pass);
-            $(".tf_yx a").html(data_value.fine);
+        //     };
+        //     console.log(data_value.fine);
+        //     $(".tf_zf a").html(data_value.full_score);
+        //     $(".tf_jg a").html(data_value.pass);
+        //     $(".tf_yx a").html(data_value.fine);
 
-            $.ajax({
-                type: "POST",
-                async: false,
-                url: ajaxIp + "/api/v2/reports/save_analysis_params",
-                headers: {
-                    'Authorization': "Bearer " + isLogin
-                },
-                data: data_value,
-                success: function(data) {
-                    console.log(data);
-                    if (data.error_code == 500) {
-                        $(".modal-content").show();
-                        $(".load-bg").show();
-                        $('.modal-main').css('opacity', "1");
-                        $('.modal-content span').html(data.error_message);
-                        $('.modal-wrap').show();
-                        $(".modal-exit").show();
-                    }
-                    if (data.status == 5) {
-                        $(".modal-exit").hide();
-                        $(".t_f").show();
-                        $(".modal-content").hide();
-                        $(".load-bg").hide();
-                        // $('.modal-content span').html("更新成功");
-                    }
-                    if (data.status == 6) {
-                        $(".load-bg").hide();
-                        $(".modal-content").hide();
-                        $(".modal-exit").show();
-                        $('.modal-content span').html("取消成功");
-                    }
+        //     $.ajax({
+        //         type: "POST",
+        //         async: false,
+        //         url: ajaxIp + "/api/v2/reports/save_analysis_params",
+        //         headers: {
+        //             'Authorization': "Bearer " + isLogin
+        //         },
+        //         data: data_value,
+        //         success: function(data) {
+        //             console.log(data);
+        //             if (data.error_code == 500) {
+        //                 $(".modal-content").show();
+        //                 $(".load-bg").show();
+        //                 $('.modal-main').css('opacity', "1");
+        //                 $('.modal-content span').html(data.error_message);
+        //                 $('.modal-wrap').show();
+        //                 $(".modal-exit").show();
+        //             }
+        //             if (data.status == 5) {
+        //                 $(".modal-exit").hide();
+        //                 $(".t_f").show();
+        //                 $(".modal-content").hide();
+        //                 $(".load-bg").hide();
+        //                 // $('.modal-content span').html("更新成功");
+        //             }
+        //             if (data.status == 6) {
+        //                 $(".load-bg").hide();
+        //                 $(".modal-content").hide();
+        //                 $(".modal-exit").show();
+        //                 $('.modal-content span').html("取消成功");
+        //             }
 
-                },
-                error: function() {
+        //         },
+        //         error: function() {
 
-                }
+        //         }
 
-            });
-        };
+        //     });
+        // };
 
         function mark_hou() {
             var a = $(".t_f_btn01").attr("data-id");
             var b = $(".t_f_btn02").attr("data-sid");
+
             $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/reports/analysis_params",
@@ -382,7 +389,8 @@ angular.module("myApp.controller", [])
                 /* Act on the event */
                 $(".modal-wrap").hide();
                 $(".mask_layer").hide();
-                mark_fengxi();
+                 var class_name=$(this).attr("data_class");
+                mark_fengxi(class_name);
             });
 
             $(".t_f_btn02").click(function(event) {
@@ -400,7 +408,11 @@ angular.module("myApp.controller", [])
         });
 
         $(".mark_02").on('click', ' button', function(event) {
-            // $(this).parent().parent().prev().html();
+            // $(this).parent().parent().prevs().html();
+            var class_name="mark_02_btn"+$(this).attr("data-id");
+            $(this).attr("class",class_name);
+
+            alert(class_name);
             console.log($(this).parent().parent().parent().parent().attr("data-id"));
             console.log($(this).attr("data-id"));
             $(".t_f").attr("data-id", $(this).attr("data-id"));
@@ -410,6 +422,8 @@ angular.module("myApp.controller", [])
             $(this).attr("data-s", a);
             $(this).attr("data-k", b);
             $(".t_f_btn01").attr("data-id", a);
+            $(".t_f_btn01").attr("data_class",class_name);
+            $(".btn_1").attr("data_class",class_name);
             $(".t_f_btn02").attr("data-sid", b1);
             $(".mart_set_03").data("a1", a);
             $(".mart_set_04").data("b1", b);
