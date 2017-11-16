@@ -2628,7 +2628,7 @@ angular.module("myApp.controller", [])
                 for (var i = 0; i < data.length; i++) {
                     $(".study_k_601_km01").append('<option value="' + data[i].name + '" data-id=' + data[i].id + '>' + data[i].name + '</option>')
                 };
-                  // $(".study_k_601_km02").append('<option value="" data-id="11111">全部班级</option>');
+                  $(".study_k_601_km02").append('<option value="" data-id="11111">全部班级</option>');
                   // $(".study_k_601_km03").append('<option value="" data-id="22222">全部科目</option>');
                 for (var i = 0; i < data[0].classrooms.length; i++) {
                     $(".study_k_601_km02").append('<option value="" data-id=' + data[0].classrooms[i].classroom_id + '>' + data[0].classrooms[i].classroom_name + '</option>')
@@ -2647,12 +2647,12 @@ angular.module("myApp.controller", [])
                     // $(".study_q_km01 option").eq(0).remove();
                     $(".study_k_601_km02 option").remove();
                     $(".study_k_601_km03 option").remove();
-                    // $(".study_k_601_km02").append('<option value="" data-id="11111">全部班级</option>');
+                    $(".study_k_601_km02").append('<option value="" data-id="11111">全部班级</option>');
                     // $(".study_k_601_km03").append('<option value="" data-id="22222">全部科目</option>');
-                    // $(".study_k_km02").attr("data-id", $(".study_k_km01 option").eq(0).attr("data-id"));
+                    $(".study_k_km02").attr("data-id", $(".study_k_km02 option").eq(0).attr("data-id"));
                     for (var i = 0; i < data[index02].classrooms.length; i++) {
                         $(".study_k_601_km02").append('<option value="" data-id=' + data[index02].classrooms[i].classroom_id + '>' + data[index02].classrooms[i].classroom_name + '</option>');
-                        $(".study_k_601_km03").attr("data-id", data[index02].classrooms[0].subject_id);
+                        // $(".study_k_601_km03").attr("data-id", data[index02].classrooms[0].subject_id);
                        
                     }
                     for (var i = 0; i < data[index02].subjects.length; i++) {
