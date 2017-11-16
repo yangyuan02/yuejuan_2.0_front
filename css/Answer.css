@@ -155,7 +155,7 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     top: 500px;
 }
 .Answer .student_info .person.location_left_f{
-    top:630px;
+    top:720px;
 }
 .Answer .student_info .person .person_item{
     float: left;
@@ -937,10 +937,19 @@ input:focus{
 .left_bar_code{
     width: 120px;
     height:50px;
-    border: 1px solid #000;
+    border: 1px dashed #000;
     position: absolute;
     top:450px;
     left: 34px;
+    border-radius:4px;
+    padding:10px;
+    box-sizing:border-box;
+}
+.left_bar_code .left_bar_code_inside{
+    border:1px solid #ccc;
+    text-align:center;
+    height:100%;
+    line-height:25px;
 }
 /********************语文试卷样式***************/
 /*table thead tr:last-child{*/
