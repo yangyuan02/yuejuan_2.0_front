@@ -45,13 +45,13 @@
 				</div>
 				<div class="item-group-box">
 					<div class="item-title">一、单项选择题（共12分，每题2分）</div>
-					<ul>
-						<li>
-							<div class="item-op ">
+					<ul id="item-ul">
+						<li class="items">
+							<i class="item-op ">
 								<a href="javascript:;" class="save-btn right"><i class="iconfont">&#xe653;</i>保存</a>
 								<a href="javascript:;" class="look-detail right"><i class="iconfont">&#xe699;</i>查看解析</a>
-							</div>
-							<div class="item-cont" contenteditable="true">
+							</i>
+							<div class="item-cont editor-enabled" contenteditable="true">
 								<p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （    ）</p>
 
 								<p>A．粒子带正电</p>
@@ -63,7 +63,7 @@
 								<p>D．粒子在电场中的电势能先变小后变大</p>
 							</div>
 							<ul class="bottom-btn">
-								<li><a href="javascript:;" class="item-edit"><i class="iconfont">&#xe614;</i>题干编辑</a></li>
+								<li><a href="edit_bj" class="item-edit"><i class="iconfont">&#xe614;</i>题干编辑</a></li>
 								<li><a href="javascript:;" class="item-seg"><i class="iconfont">&#xe636;</i>分割试题</a></li>
 								<li><a href="javascript:;" class="item-insert"><i class="iconfont">&#xe601;</i>题组插入</a></li>
 								<li><a href="javascript:;" class="item-merge"><i class="iconfont">&#xe689;</i>向下合并</a></li>
@@ -74,12 +74,13 @@
 								<li><a href="javascript:;" class="determine bind-item">绑定题组</a></li>
 							</ul>
 						</li>
+
 						<li>
-							<div class="item-op ">
+							<i class="item-op ">
 								<a href="javascript:;" class="save-btn right"><i class="iconfont">&#xe653;</i>保存</a>
 								<a href="javascript:;" class="look-detail right"><i class="iconfont">&#xe699;</i>查看解析</a>
-							</div>
-							<div class="item-cont" contenteditable="true">
+							</i>
+							<div class="item-cont editor-enabled" contenteditable="true">
 								<p>2.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （    ）</p>
 
 								<p>A．粒子带正电</p>
@@ -91,7 +92,7 @@
 								<p>D．粒子在电场中的电势能先变小后变大</p>
 							</div>
 							<ul class="bottom-btn">
-								<li><a href="javascript:;" class="item-edit"><i class="iconfont">&#xe614;</i>题干编辑</a></li>
+								<li><a href="edit_bj" class="item-edit"><i class="iconfont">&#xe614;</i>题干编辑</a></li>
 								<li><a href="javascript:;" class="item-seg"><i class="iconfont">&#xe636;</i>分割试题</a></li>
 								<li><a href="javascript:;" class="item-insert"><i class="iconfont">&#xe601;</i>题组插入</a></li>
 								<li><a href="javascript:;" class="item-merge"><i class="iconfont">&#xe689;</i>向下合并</a></li>
@@ -103,11 +104,11 @@
 							</ul>
 						</li>
 						<li>
-							<div class="item-op ">
+							<i class="item-op ">
 								<a href="javascript:;" class="save-btn right"><i class="iconfont">&#xe653;</i>保存</a>
 								<a href="javascript:;" class="look-detail right"><i class="iconfont">&#xe699;</i>查看解析</a>
-							</div>
-							<div class="item-cont" contenteditable="true">
+							</i>
+							<div class="item-cont editor-enabled" contenteditable="true">
 								<p>3.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （    ）</p>
 
 								<p>A．粒子带正电</p>
@@ -119,7 +120,7 @@
 								<p>D．粒子在电场中的电势能先变小后变大</p>
 							</div>
 							<ul class="bottom-btn">
-								<li><a href="javascript:;" class="item-edit"><i class="iconfont">&#xe614;</i>题干编辑</a></li>
+								<li><a href="edit_bj" class="item-edit"><i class="iconfont">&#xe614;</i>题干编辑</a></li>
 								<li><a href="javascript:;" class="item-seg"><i class="iconfont">&#xe636;</i>分割试题</a></li>
 								<li><a href="javascript:;" class="item-insert"><i class="iconfont">&#xe601;</i>题组插入</a></li>
 								<li><a href="javascript:;" class="item-merge"><i class="iconfont">&#xe689;</i>向下合并</a></li>
@@ -131,11 +132,11 @@
 							</ul>
 						</li>
 						<li>
-							<div class="item-op ">
+							<i class="item-op ">
 								<a href="javascript:;" class="save-btn right"><i class="iconfont">&#xe653;</i>保存</a>
 								<a href="javascript:;" class="look-detail right"><i class="iconfont">&#xe699;</i>查看解析</a>
-							</div>
-							<div class="item-cont" contenteditable="true">
+							</i>
+							<div class="item-cont editor-enabled" contenteditable="true">
 								<p>4.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （    ）</p>
 
 								<p>A．粒子带正电</p>
@@ -434,6 +435,118 @@
 			</div>
 			
 		</div>
+		<script type="text/javascript">
+$("#item-ul").on('mouseup', 'p', function() {
+ get_sel_range();
+});
+  $(function(){
+    // 分割题目
+    var slipt_up=$('.item-seg');
+    $(document).on('click', '.item-seg',function() {
+      if (sel_range == null){
+        alert('分割位置错误');
+        return;
+      }
+      else{
+        var pos = sel_range;
+        var focusnode=sel_range.endContainer;
+        var $node = $(focusnode);
+        var parent = $node.parents('.editor-enabled');
+        if (!parent) {
+          alert('请将光标放置在正确分割位置');
+          return;
+        }
+          // console.log(focusnode);
+        var range = sel_range;
+        var tmp = document.createRange();
+        tmp.setEnd(range.startContainer,range.startOffset);
+        tmp.setStartBefore(parent[0].childNodes[0]);
+        var rect1 = tmp.getBoundingClientRect();
+        range.setEndAfter(parent[0].childNodes[parent[0].childNodes.length-1]);
+        var rect = range.getBoundingClientRect();
+        if (rect.width==0 || rect.height==0 || rect1.width==0 || rect1.height==0) {
+          alert('分割题目位置错误');
+          return;
+        }
+        var newnode = range.extractContents();
+        var div = document.createElement('div');
+        div.appendChild(newnode);
+        var content = div.innerHTML;
+        var nc = parent[0].innerHTML;
+        nc = retriveImg(nc);
+        var newitem=$(this).parents('.items').clone();
+        newitem.children('div').children().remove();
+        newitem.children('div').append(content);
+        $(this).parents('.items').after(newitem);
+       
+       var old_word = $(this).parents('.items').find('.editor-enabled p');
+       var new_word = $(this).parents('.items').next().find('.editor-enabled p');
+       var old_ary = [];
+       var nw_ary = [];
+
+       for (var i = 0; i <old_word.length; i++) {
+          if($(old_word[i]).html().trim().length > 0){
+               old_ary.push($(old_word[i]).html());
+          }
+
+       };
+      for (var i = 0; i <new_word.length; i++) {
+        if($(new_word[i]).html().trim().length > 0){
+          nw_ary.push($(new_word[i]).html());
+        }
+
+       };
+      }
+    });
+
+  });
+
+
+
+  var sel_range=null;
+  function get_sel_range() {
+    if (window.getSelection) {
+     sel_range = window.getSelection().getRangeAt(0);
+    }else if (document.selection && document.selection.type != "Control") {
+      sel_range = document.selection.createRange();
+    }
+  }
+    var browser = {
+    chrome: navigator.userAgent.match(/chrome/i) ? true : false,
+    safari: navigator.userAgent.match(/safari/i) && !navigator.userAgent.match(/chrome/i) ? true : false,
+    firefox: navigator.userAgent.match(/firefox/i) ? true : false,
+    opera: navigator.userAgent.match(/opera/i) ? true : false,
+    ie: navigator.userAgent.match(/msie|trident\/.*rv:/i) ? true : false,
+    webkit: navigator.userAgent.match(/webkit/i) ? true : false,
+    ieVersion: function() {
+      var rv = -1; // Return value assumes failure.
+      var ua = navigator.userAgent;
+      var re  = new RegExp("(MSIE |rv:)([0-9]{1,}[\.0-9]{0,})");
+      if (re.exec(ua) !== null) {
+        rv = parseFloat(RegExp.$2);
+      }
+      return rv;
+    }
+  };
+
+  var ieLtIE8 = function() {
+    return browser.ie && browser.ieVersion() < 8;
+  }
+
+  var ieLtIE9 = function() {
+    return browser.ie && browser.ieVersion() < 9;
+  }
+
+  
+  var retriveImg = function(html) {
+    return html.replace(/\/web1\/ckupload\/quessIImage/gi, 'quessIImage');
+  }
+
+
+
+
+</script>
+
 		<div id="footer">
 
 		</div>
