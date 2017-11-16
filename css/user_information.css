@@ -1,6 +1,30 @@
 .none{
 	display: none;
 }
+#add-t{
+	color: #5fa3ed;
+	font-size: 14px;
+}
+#add-t i{
+	padding-right: 6px;
+	padding-left: 6px;
+}
+.add-cont{
+	max-height: 110px;
+	overflow-y: auto;
+}
+.dele-t{
+	color: #fb7d8a;
+	font-size: 14px;
+}
+.dele-t i{
+	padding-right: 6px;
+	padding-left: 6px;
+}
+.first-div,.second-div{
+	/* padding: 10px; */
+	border: 1px solid #ccc;
+}
 .set-select{
 	width: 72px;
   height: 24px;
