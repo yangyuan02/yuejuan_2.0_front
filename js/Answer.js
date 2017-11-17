@@ -135,7 +135,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
     $scope.Q_number = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十']
     var isLine = function (page_num) {//是否换行
-        console.log(page_num)
         var outerBox = $(".A_Rone").outerHeight()//最外层距离
         var result;
         if ($(".A_Rone").eq(page_num).find("table:last").position()) {//不是第一次插入
@@ -188,7 +187,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 }
             }
         } else {//第一次添加
-            console.log("第一添加")
             return true
         }
         return result
@@ -256,7 +254,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         ]
         var checkIsEmpty = function (array) {//检测是否为空
             for (var i = 0; i < array.length; i++) {
-                console.log(array[i].type)
                 if (array[i].type == '') {
                     alert(tips[array[i].index])
                     result = false
@@ -319,6 +316,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             obj.current_page = 1
             $scope.listObj2.push(obj);
         } else if (isLine(2)) {
+            console.log(obj)
             obj.current_page = 2
             $scope.listObj3.push(obj);
         } else if (isLine(3)) {
