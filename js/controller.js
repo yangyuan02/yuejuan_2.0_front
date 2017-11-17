@@ -547,7 +547,7 @@ angular.module("myApp.controller", [])
             error: function() {}
 
         });
-        // 考试状况的选择事件
+        // 考试状况的选择事件11
         $(".study_q_01_mark select").change(function(event) {
             var a=$("#mark_bj").children('option:selected').attr("data-id");
            kaoshizk02(a);
@@ -4517,8 +4517,9 @@ angular.module("myApp.controller", [])
                 },
                 success: function(data) {
                     console.log(data);
-                    $(".exam_h_102_he").html("  ");
-                    $(".exam_h_102_bo").html("  ");
+                    $(".exam_h_102").html("  ");
+                     $(".exam_h_102").append('<table id="MyTable_102"  cellspacing="0" border="1" bordercolor="#cccccc" class="exam_h_601_tab"><thead><tr class="exam_h_102_he"> </tr></thead><tbody class="exam_h_102_bo"></tbody></table>');
+
                     var a = data[0];
                     var b = data[1];
                     for (var i = 0; i < a.length; i++) {
@@ -4527,7 +4528,7 @@ angular.module("myApp.controller", [])
                     for (var i = 0; i < b.length; i++) {
                         $(".exam_h_102_bo").append('<tr><td>' + b[i].class_name + '</td><td>' + b[i].subject_name + '</td><td>' + b[i].class_average + '</td><td>' + b[i].ranking + '</td><td>' + b[i].highest_score + '</td><td>' + b[i].lowest_score + '</td><td>' + b[i].standard_deviation + '</td><td>' + b[i].standard_score + '</td><td>' + b[i].average_range + '</td></tr>');
                     }
-
+                     FixTable("MyTable_102",1, 930, 500);
 
                 },
                 error: function(data) {
@@ -4657,10 +4658,19 @@ angular.module("myApp.controller", [])
                         var c = [];
                         for (var i = 0; i < data.length; i++) {
                             a.push(data[i].range_text);
+                            if(data[i].grade_rate==null){
+                                data[i].grade_rate=0;
+                            }
+                            if(data[i].class_rate==null){
+                                data[i].class_rate=0;
+                            }
                             b.push(data[i].grade_rate);
                             c.push(data[i].class_rate);
                         }
                         heng_z(a, b, c);
+                        console.log(a);
+                        console.log(b);
+                        console.log(c);
                     }
                 },
                 error: function() {
@@ -4832,7 +4842,7 @@ angular.module("myApp.controller", [])
                 success: function(data) {
                     console.log(data);
                     $(".exam_h_601").html(" ");
-                    $(".exam_h_601").append('<table id="MyTable" style="width: 960px;font-size: medium;" border="1" cellspacing="0" cellpadding="0" bordercolor="#cccccc"><thead><tr class="exam_h_601_he"></tr></tr></thead><tbody class="exam_h_601_bo"></tbody></table>');
+                    $(".exam_h_601").append('<table id="MyTable"  cellspacing="0" border="1" bordercolor="#cccccc" class="exam_h_601_tab"><thead><tr class="exam_h_601_he"> </tr></thead><tbody class="exam_h_601_bo"></tbody></table>');
 
                       var a=data[0].length;
                       var b=data[1].length;
@@ -4858,6 +4868,9 @@ angular.module("myApp.controller", [])
                             if(9<x&&x<c_nub){
                               var str=0; 
                             str=data[1][i][x];
+                            // if(data[1][i][x]==undefined){
+                            //     data[1][i][x]="0\n0";
+                            // }
                             // console.log(str);
                             var strs= new Array();
                             strs=str.split("\n");
@@ -4871,7 +4884,7 @@ angular.module("myApp.controller", [])
 
                       }
                       }
-                    FixTable("MyTable",2, 930, 500);
+                    FixTable("MyTable",1, 930, 500);
                    
                 },
                 error: function() {
@@ -5071,8 +5084,8 @@ angular.module("myApp.controller", [])
                 },
                 grid: {
 
-                    x2: 50,
-                    y2: 35,
+                    x2:50,
+                    y2:55,
                     borderWidth: 1
                 },
 
@@ -5081,6 +5094,17 @@ angular.module("myApp.controller", [])
                     type: 'category',
                     data: a,
                     name:'分数段',
+                    axisLabel: {
+                        rotate: 40,
+                        margin: 5,
+                        textStyle: {
+                            color: "666666",
+                            align: 'left',
+                            fontWeight: '300',
+                            fontFamily: 'Arial',
+                            // fontStyle: 'normal',
+                        }
+                    },
                 }],
                 yAxis: [{
                     type: 'value',
