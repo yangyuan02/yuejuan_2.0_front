@@ -1986,6 +1986,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                                     alert("保存成功")
                                     modelParam.length = 0
                                     console.log(data)
+                                    $("#menu").hide()
                                 }
                             }
                         )
