@@ -36,7 +36,6 @@ angular.module("myApp.controller", [])
         $(".mark_01_select").change(function(event) {
             $("#mark_02_ul ul li").remove();
             $("#mark_02_ul div").remove();
-
             var mark_01_select_a = $(this).children('option:selected').attr("data-id");
             // $(this).attr('a', mark_01_select_a);
             markxl(mark_01_select_a);
@@ -132,10 +131,12 @@ angular.module("myApp.controller", [])
 
             $(".mart_set").hide();
             $(".load-bg").show();
-            mark_fengxi();
+            var class_name=$(this).attr("data_class");
+            mark_fengxi(class_name);
         });
 
-        function mark_fengxi() {
+        function mark_fengxi(name) {
+            alert(name);
             $(".tf_dj a").remove();
             var ex_id = $(".mart_set_03").data("a1");
             var sub_id = $(".mart_set_04").data("b1");
@@ -213,6 +214,11 @@ angular.module("myApp.controller", [])
                     if (data.status == 6) {
                         $(".modal-exit").show();
                         $(".load-bg").show();
+                        $('.'+name+'').hide();
+
+                    }
+                     if (data.status == 7) {
+                        $('.'+name+'').hide();
 
                     }
                     if (data.error_code == 500) {
@@ -233,84 +239,85 @@ angular.module("myApp.controller", [])
             });
         };
 
-        function mark_fengxi01() {
-            var ex_id = $(".mart_set_03").data("a1");
-            var sub_id = $(".mart_set_04").data("b1");
-            var sub_id1 = parseInt(sub_id);
-            var ex_id1 = parseInt(ex_id);
-            var jg_mark = $("#jg_mark").val();
-            var yx_mark = $("#yx_mark").val();
-            var z_mark = $("#z_mark").val();
-            var a = $("#ul_iLabel li").length;
-            var data_value = {
-                "full_score": z_mark,
-                "t[exam_subject_id]": sub_id1,
-                "t[exam_id]": ex_id1,
-                "exam_subject_id": sub_id1,
-                "pass": jg_mark,
-                "fine": yx_mark,
-            };
-            console.log(data_value);
-            for (var i = 0; i < a; i++) {
-                var c = i + 1;
-                console.log($("#ul_iLabel li").eq(i).find('.level_01').val(), $("#ul_iLabel li").eq(i).find('.level_02').val());
-                var d = "t[column_name_" + c + "]";
-                var e = $("#ul_iLabel li").eq(i).find('.level_01').val();
-                var f = "t[column_value_" + c + "]";
-                var g = $("#ul_iLabel li").eq(i).find('.level_02').val();
-                data_value[d] = e;
-                data_value[f] = g;
-                $(".tf_dj").append('<a>' + e + '：' + g + '</a>')
+        // function mark_fengxi01() {
+        //     var ex_id = $(".mart_set_03").data("a1");
+        //     var sub_id = $(".mart_set_04").data("b1");
+        //     var sub_id1 = parseInt(sub_id);
+        //     var ex_id1 = parseInt(ex_id);
+        //     var jg_mark = $("#jg_mark").val();
+        //     var yx_mark = $("#yx_mark").val();
+        //     var z_mark = $("#z_mark").val();
+        //     var a = $("#ul_iLabel li").length;
+        //     var data_value = {
+        //         "full_score": z_mark,
+        //         "t[exam_subject_id]": sub_id1,
+        //         "t[exam_id]": ex_id1,
+        //         "exam_subject_id": sub_id1,
+        //         "pass": jg_mark,
+        //         "fine": yx_mark,
+        //     };
+        //     console.log(data_value);
+        //     for (var i = 0; i < a; i++) {
+        //         var c = i + 1;
+        //         console.log($("#ul_iLabel li").eq(i).find('.level_01').val(), $("#ul_iLabel li").eq(i).find('.level_02').val());
+        //         var d = "t[column_name_" + c + "]";
+        //         var e = $("#ul_iLabel li").eq(i).find('.level_01').val();
+        //         var f = "t[column_value_" + c + "]";
+        //         var g = $("#ul_iLabel li").eq(i).find('.level_02').val();
+        //         data_value[d] = e;
+        //         data_value[f] = g;
+        //         $(".tf_dj").append('<a>' + e + '：' + g + '</a>')
 
-            };
-            console.log(data_value.fine);
-            $(".tf_zf a").html(data_value.full_score);
-            $(".tf_jg a").html(data_value.pass);
-            $(".tf_yx a").html(data_value.fine);
+        //     };
+        //     console.log(data_value.fine);
+        //     $(".tf_zf a").html(data_value.full_score);
+        //     $(".tf_jg a").html(data_value.pass);
+        //     $(".tf_yx a").html(data_value.fine);
 
-            $.ajax({
-                type: "POST",
-                async: false,
-                url: ajaxIp + "/api/v2/reports/save_analysis_params",
-                headers: {
-                    'Authorization': "Bearer " + isLogin
-                },
-                data: data_value,
-                success: function(data) {
-                    console.log(data);
-                    if (data.error_code == 500) {
-                        $(".modal-content").show();
-                        $(".load-bg").show();
-                        $('.modal-main').css('opacity', "1");
-                        $('.modal-content span').html(data.error_message);
-                        $('.modal-wrap').show();
-                        $(".modal-exit").show();
-                    }
-                    if (data.status == 5) {
-                        $(".modal-exit").hide();
-                        $(".t_f").show();
-                        $(".modal-content").hide();
-                        $(".load-bg").hide();
-                        // $('.modal-content span').html("更新成功");
-                    }
-                    if (data.status == 6) {
-                        $(".load-bg").hide();
-                        $(".modal-content").hide();
-                        $(".modal-exit").show();
-                        $('.modal-content span').html("取消成功");
-                    }
+        //     $.ajax({
+        //         type: "POST",
+        //         async: false,
+        //         url: ajaxIp + "/api/v2/reports/save_analysis_params",
+        //         headers: {
+        //             'Authorization': "Bearer " + isLogin
+        //         },
+        //         data: data_value,
+        //         success: function(data) {
+        //             console.log(data);
+        //             if (data.error_code == 500) {
+        //                 $(".modal-content").show();
+        //                 $(".load-bg").show();
+        //                 $('.modal-main').css('opacity', "1");
+        //                 $('.modal-content span').html(data.error_message);
+        //                 $('.modal-wrap').show();
+        //                 $(".modal-exit").show();
+        //             }
+        //             if (data.status == 5) {
+        //                 $(".modal-exit").hide();
+        //                 $(".t_f").show();
+        //                 $(".modal-content").hide();
+        //                 $(".load-bg").hide();
+        //                 // $('.modal-content span').html("更新成功");
+        //             }
+        //             if (data.status == 6) {
+        //                 $(".load-bg").hide();
+        //                 $(".modal-content").hide();
+        //                 $(".modal-exit").show();
+        //                 $('.modal-content span').html("取消成功");
+        //             }
 
-                },
-                error: function() {
+        //         },
+        //         error: function() {
 
-                }
+        //         }
 
-            });
-        };
+        //     });
+        // };
 
         function mark_hou() {
             var a = $(".t_f_btn01").attr("data-id");
             var b = $(".t_f_btn02").attr("data-sid");
+
             $.ajax({
                 type: "POST",
                 url: ajaxIp + "/api/v2/reports/analysis_params",
@@ -382,7 +389,8 @@ angular.module("myApp.controller", [])
                 /* Act on the event */
                 $(".modal-wrap").hide();
                 $(".mask_layer").hide();
-                mark_fengxi();
+                 var class_name=$(this).attr("data_class");
+                mark_fengxi(class_name);
             });
 
             $(".t_f_btn02").click(function(event) {
@@ -400,7 +408,11 @@ angular.module("myApp.controller", [])
         });
 
         $(".mark_02").on('click', ' button', function(event) {
-            // $(this).parent().parent().prev().html();
+            // $(this).parent().parent().prevs().html();
+            var class_name="mark_02_btn"+$(this).attr("data-id");
+            $(this).attr("class",class_name);
+
+            alert(class_name);
             console.log($(this).parent().parent().parent().parent().attr("data-id"));
             console.log($(this).attr("data-id"));
             $(".t_f").attr("data-id", $(this).attr("data-id"));
@@ -410,6 +422,8 @@ angular.module("myApp.controller", [])
             $(this).attr("data-s", a);
             $(this).attr("data-k", b);
             $(".t_f_btn01").attr("data-id", a);
+            $(".t_f_btn01").attr("data_class",class_name);
+            $(".btn_1").attr("data_class",class_name);
             $(".t_f_btn02").attr("data-sid", b1);
             $(".mart_set_03").data("a1", a);
             $(".mart_set_04").data("b1", b);
@@ -533,7 +547,7 @@ angular.module("myApp.controller", [])
             error: function() {}
 
         });
-        // 考试状况的选择事件
+        // 考试状况的选择事件11
         $(".study_q_01_mark select").change(function(event) {
             var a=$("#mark_bj").children('option:selected').attr("data-id");
            kaoshizk02(a);
@@ -2855,13 +2869,14 @@ angular.module("myApp.controller", [])
                 },
                 success: function(data) {
                     console.log(data);
-                    $(".study_k_102_bo").html(" ");
+                    $(".study_k_102").html(" ");
+                   $(".study_k_102").append('<table id="MyTable_all" style="width: 960px;font-size: medium;" border="1" cellspacing="0" cellpadding="0" bordercolor="#cccccc"><thead><tr><th>班级</th><th>学科</th><th>平均分</th><th >最高分</th><th>最低分</th><th>全距</th><th>优秀人数</th><th>优秀率</th><th>及格人数</th><th>及格率</th><th>不及格人数</th><th>标准差</th></tr></thead><tbody class="study_k_102_bo"></tbody></table>');
                     for (var i = 0; i < data.length; i++) {
                         var a_pass_rate=data[i].pass_rate+"%";
                         $(".study_k_102_bo").append('<tr><td>' + data[i].class_name + '</td><td>' + data[i].subject_name + '</td><td>' + data[i].average + '</td><td>' + data[i].highest_score + '</td><td>' + data[i].lowest_score + '</td><td>' + data[i].range + '</td><td>' + data[i].fine_number + '</td><td>' + data[i].fine_rate + '</td><td>' + data[i].pass_number + '</td><td>' + a_pass_rate+ '</td><td>' + data[i].fail_number + '</td><td>' + data[i].standard_deviation + '</td></tr>');
                     }
 
-
+                    FixTable("MyTable_all", 1, 900,500);
                 },
                 error: function() {}
 
@@ -2968,8 +2983,9 @@ angular.module("myApp.controller", [])
                 },
                 success: function(data) {
                     console.log(data);
-                    $(".study_k_301_he").html(" ");
-                    $(".study_k_301_bo").html(" ");
+                       $(".study_k_301").html(" ");
+                      $(".study_k_301").append('<table id="MyTable_dan" style="width: 960px;font-size: medium;" border="1" cellspacing="0" cellpadding="0" bordercolor="#cccccc"><thead><tr class="study_k_301_he"></tr></tr></thead><tbody class="study_k_301_bo"></tbody></table>');
+
                     for (var i = 0; i < data.titile.length; i++) {
 
                         $(".study_k_301_he").append('<th>' + data.titile[i] + '</th>');
@@ -2979,14 +2995,13 @@ angular.module("myApp.controller", [])
                     for (var i = 0; i < data.data.length; i++) {
                         var a = data.data[i];
                         $(".study_k_301_bo").append('<tr></tr>');
-
                         for (var c = 0; c < a.length; c++) {
                             $(".study_k_301_bo tr").eq(i).append('<td>' + a[c] + '</td>');
                         }
 
                     }
 
-
+                      FixTable("MyTable_dan", 1, 900, 500);
                 },
                 error: function() {}
 
@@ -3030,8 +3045,9 @@ angular.module("myApp.controller", [])
                 },
                 success: function(data) {
                     console.log(data);
-                    $(".study_k_401_he").html(" ");
-                    $(".study_k_401_bo").html(" ");
+                  $(".study_k_401").html(" ");
+                      $(".study_k_401").append('<table id="MyTable_ever" style="width: 960px;font-size: medium;" border="1" cellspacing="0" cellpadding="0" bordercolor="#cccccc"><thead><tr class="study_k_401_he"></tr></tr></thead><tbody class="study_k_401_bo"></tbody></table>');
+
                     for (var i = 0; i < data.titile.length; i++) {
 
                         $(".study_k_401_he").append('<th>' + data.titile[i] + '</th>');
@@ -3047,7 +3063,7 @@ angular.module("myApp.controller", [])
                         }
 
                     }
-
+                   FixTable("MyTable_ever", 1, 900, 500);
 
                 },
                 error: function() {}
@@ -4501,8 +4517,9 @@ angular.module("myApp.controller", [])
                 },
                 success: function(data) {
                     console.log(data);
-                    $(".exam_h_102_he").html("  ");
-                    $(".exam_h_102_bo").html("  ");
+                    $(".exam_h_102").html("  ");
+                     $(".exam_h_102").append('<table id="MyTable_102"  cellspacing="0" border="1" bordercolor="#cccccc" class="exam_h_601_tab"><thead><tr class="exam_h_102_he"> </tr></thead><tbody class="exam_h_102_bo"></tbody></table>');
+
                     var a = data[0];
                     var b = data[1];
                     for (var i = 0; i < a.length; i++) {
@@ -4511,7 +4528,7 @@ angular.module("myApp.controller", [])
                     for (var i = 0; i < b.length; i++) {
                         $(".exam_h_102_bo").append('<tr><td>' + b[i].class_name + '</td><td>' + b[i].subject_name + '</td><td>' + b[i].class_average + '</td><td>' + b[i].ranking + '</td><td>' + b[i].highest_score + '</td><td>' + b[i].lowest_score + '</td><td>' + b[i].standard_deviation + '</td><td>' + b[i].standard_score + '</td><td>' + b[i].average_range + '</td></tr>');
                     }
-
+                     FixTable("MyTable_102",1, 930, 500);
 
                 },
                 error: function(data) {
@@ -4641,10 +4658,19 @@ angular.module("myApp.controller", [])
                         var c = [];
                         for (var i = 0; i < data.length; i++) {
                             a.push(data[i].range_text);
+                            if(data[i].grade_rate==null){
+                                data[i].grade_rate=0;
+                            }
+                            if(data[i].class_rate==null){
+                                data[i].class_rate=0;
+                            }
                             b.push(data[i].grade_rate);
                             c.push(data[i].class_rate);
                         }
                         heng_z(a, b, c);
+                        console.log(a);
+                        console.log(b);
+                        console.log(c);
                     }
                 },
                 error: function() {
@@ -4816,11 +4842,12 @@ angular.module("myApp.controller", [])
                 success: function(data) {
                     console.log(data);
                     $(".exam_h_601").html(" ");
-                    $(".exam_h_601").append('<table id="MyTable" style="width: 960px;font-size: medium;" border="1" cellspacing="0" cellpadding="0" bordercolor="#cccccc"><thead><tr class="exam_h_601_he"></tr></tr></thead><tbody class="exam_h_601_bo"></tbody></table>');
+                    $(".exam_h_601").append('<table id="MyTable"  cellspacing="0" border="1" bordercolor="#cccccc" class="exam_h_601_tab"><thead><tr class="exam_h_601_he"> </tr></thead><tbody class="exam_h_601_bo"></tbody></table>');
 
                       var a=data[0].length;
                       var b=data[1].length;
                       var c=data[1][0].length;
+                       var c_nub=data[1][0].length-1;
                       for(var i=0;i<a;i++){
                           $(".exam_h_601_he").append('<th style="min-width: 80px;">'+data[0][i]+'</th>')
                       }
@@ -4838,9 +4865,12 @@ angular.module("myApp.controller", [])
                             $(".exam_h_601_bo tr").eq(i).append('<td style="min-width: 80px;">'+data[1][i][x]+'%</td>');
                          
                          }else{
-                            if(9<x&&x<15){
+                            if(9<x&&x<c_nub){
                               var str=0; 
                             str=data[1][i][x];
+                            // if(data[1][i][x]==undefined){
+                            //     data[1][i][x]="0\n0";
+                            // }
                             // console.log(str);
                             var strs= new Array();
                             strs=str.split("\n");
@@ -4854,7 +4884,7 @@ angular.module("myApp.controller", [])
 
                       }
                       }
-                    FixTable("MyTable",2, 930, 500);
+                    FixTable("MyTable",1, 930, 500);
                    
                 },
                 error: function() {
@@ -5054,8 +5084,8 @@ angular.module("myApp.controller", [])
                 },
                 grid: {
 
-                    x2: 50,
-                    y2: 35,
+                    x2:50,
+                    y2:55,
                     borderWidth: 1
                 },
 
@@ -5064,6 +5094,17 @@ angular.module("myApp.controller", [])
                     type: 'category',
                     data: a,
                     name:'分数段',
+                    axisLabel: {
+                        rotate: 40,
+                        margin: 5,
+                        textStyle: {
+                            color: "666666",
+                            align: 'left',
+                            fontWeight: '300',
+                            fontFamily: 'Arial',
+                            // fontStyle: 'normal',
+                        }
+                    },
                 }],
                 yAxis: [{
                     type: 'value',
