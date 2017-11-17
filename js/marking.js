@@ -30,7 +30,6 @@ $(function(){
 		  headers: {'Authorization': "Bearer " + isLogin},
 		  data:page_data,
 		  success: function(data){
-		  	console.log(data);
 		  	// show_test_info(data);
 		  	console.log(data)
 		  	page_test_list(data.total_count,data);
@@ -45,8 +44,8 @@ $(function(){
 
 
 
-	function page_test_list(nums,data){
-
+	function page_test_list(nums,f_data){
+		console.log(f_data)
 		var ii_nums;
 		// console.log(nums+'条数据')
 		if(nums==0){
@@ -56,6 +55,7 @@ $(function(){
 		}else{
 			ii_nums=Math.ceil(nums/10);
 		}
+		console.log(ii_nums)
 		//分页
 		$.jqPaginator('#pagination', {
 		  totalPages: ii_nums,//设置分页的总页数
@@ -69,24 +69,29 @@ $(function(){
 		  last: '<li class="next"><a href="javascript:;" class="pagination-color">尾页</a></li>',
 		  page: '<li class="page"><a href="javascript:;" class="pagination-color">{{page}}</a></li>',
 	    onPageChange: function (nums) {
+	    	console.log(nums)
 				var page_data = {'page':nums, 'limit': 10, 'choice':true};
-
-				$.ajax({
-				  type: "GET",
-				  url: ajaxIp+"/api/v2/exam_subjects/reading_selection",
-				  headers: {'Authorization': "Bearer " + isLogin},
-				  data:page_data,
-				  success: function(data){
-				  	console.log(data);
-				  	show_test_info(data);
-				  	// page_test_list(data.total_count,page_data_info);
-				  },
-				  error: function(){
-				      // alert('请稍后从新尝试登录或者联系管理员');
-			      	// localStorage.clear();
-			      	// window.location.href = './login';
-				  }
-				});
+				if(nums==1){
+					show_test_info(f_data);
+				}
+				if(nums>1){
+					$.ajax({
+					  type: "GET",
+					  url: ajaxIp+"/api/v2/exam_subjects/reading_selection",
+					  headers: {'Authorization': "Bearer " + isLogin},
+					  data:page_data,
+					  success: function(data){
+					  	console.log(data);
+					  	show_test_info(data);
+					  	// page_test_list(data.total_count,page_data_info);
+					  },
+					  error: function(){
+					      // alert('请稍后从新尝试登录或者联系管理员');
+				      	// localStorage.clear();
+				      	// window.location.href = './login';
+					  }
+					});
+				}
 	    }
 	  });
 	}
@@ -1530,6 +1535,9 @@ $(function(){
 		  dataType: "JSON",
 		  success: function(data){
 		  	console.log(data);
+		  	if(data.message=="审核完成！"){
+		  		console.log(data.message)
+		  	}
 		  	show_check_info(data);
 		  },
 		  error: function(){
@@ -1569,8 +1577,11 @@ $(function(){
 		});;
 		var img_id = check_info.section_crop_image_id;
 		var img_url = check_info.section_crop_image_uri;
-		var check_img = '<img data-id="'+img_id+'" id="img-'+img_id+'" src="'+ ajaxIp +''+img_url+'">';
-		$('.check-paper').append(check_img);
+		console.log(img_id,img_url)
+		if(img_id){
+			var check_img = '<img data-id="'+img_id+'" id="img-'+img_id+'" src="'+ ajaxIp +''+img_url+'">';
+			$('.check-paper').append(check_img);
+		}
 		if(!img_id){
 			$('.check-paper').html('').append('<div style="background:#fff;color:#fd97a3;font-size:16px;line-height:400px;text-align:center;vertical-align: middle;">试卷已经审核完毕</div>');
 			$('.check-pop').hide();
@@ -1646,6 +1657,42 @@ $(function(){
 
 
 
+
+		// 获取审核信息框的高度
+		var pp_height = $('.check-pop').height()+100;
+		console.log(pp_height)
+		$('.check-teacher-pop').css({
+			'top': pp_height+'px',
+		});
+
+		// 获取审核老师的信息
+		console.log(text_list);
+		$('.checkd-teacher').text(reviewed_teacher_name);
+		$('#check-teacher-table tbody').html('');
+		if(text_list && text_list.length>0){
+			for (var i = 0; i < text_list.length; i++) {
+				console.log(text_list[i].total_score)
+				var item_tr = '<tr><td class="item-num" data-id="'+text_list[i].answer_setting_id+'">'+text_list[i].num+'</td><td class="input-p"><input type="text" class="yuejuan_score" data-fen="'+text_list[i].total_score+'" /></td><td class="all-grade">'+text_list[i].total_score+'</td></tr>';
+				console.log(item_tr)
+				$('#check-teacher-table').append(item_tr);
+			};
+		}
+		var score_infos = check_info.answer_setting_scores;
+
+		if(score_infos && score_infos.length>0){
+			// console.log(score_infos)
+			$('#check-teacher-table tbody').html('');
+			for (var n = 0; n < score_infos.length; n++) {
+				var score_info = '<tr><td class="item-num" data-id="'+score_infos[n].answer_setting_id+'">'+score_infos[n].num+'</td><td class="input-p"><input type="text" class="yuejuan_score" value="'+score_infos[n].score+'" data-fen="'+score_infos[n].total_socre+'"></td><td class="all-grade">'+score_infos[n].total_socre+'</td></tr>';
+				$('#check-teacher-table tbody').append(score_info);
+			};
+			$($('.yuejuan_score')[0]).focus();
+			get_key_op('#check-teacher-table');
+
+		}
+	}
+
+
    // 显示原试卷
 	 $('body').on('click','.check-show-pre',function(){
 	  	$(this).addClass('check-hide-pre').removeClass('check-show-pre');
@@ -1673,37 +1720,6 @@ $(function(){
 			// }
 	  })
 
-
-		// 获取审核信息框的高度
-		var pp_height = $('.check-pop').height()+100;
-		console.log(pp_height)
-		$('.check-teacher-pop').css({
-			'top': pp_height+'px',
-		});
-
-		// 获取审核老师的信息
-		console.log(text_list);
-		$('.checkd-teacher').text(reviewed_teacher_name);
-		$('#check-teacher-table tbody').html('');
-		if(text_list && text_list.length>0){
-			for (var i = 0; i < text_list.length; i++) {
-				var item_tr = '<tr><td class="item-num" data-id="'+text_list[i].answer_setting_id+'">'+text_list[i].num+'</td><td class="input-p"><input type="text" class="yuejuan_score" data-fen="'+text_list[i].total_score+'" /></td><td class="all-grade">'+text_list[i].total_score+'</td></tr>';
-				$('#check-teacher-table').append(item_tr);
-			};
-		}
-		var score_infos = check_info.answer_setting_scores;
-
-		if(score_infos && score_infos.length>0){
-			$('#check-teacher-table tbody').html('');
-			for (var n = 0; n < score_infos.length; n++) {
-				var score_info = '<tr><td class="item-num" data-id="'+score_infos[n].answer_setting_id+'">'+score_infos[n].num+'</td><td class="input-p"><input type="text" class="yuejuan_score" value="'+score_infos[n].score+'" data-fen="8"></td><td class="all-grade">'+score_infos[n].total_socre+'</td></tr>';
-				$('#check-teacher-table tbody').append(score_info);
-			};
-			$($('.yuejuan_score')[0]).focus();
-			get_key_op('#check-teacher-table');
-
-		}
-	}
 
 	// 点击回车键进入下一个input,最后一个点击提交
 	$('body').on('focus','#check-teacher-table .yuejuan_score', function(){

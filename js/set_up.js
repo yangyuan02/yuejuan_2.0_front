@@ -589,7 +589,7 @@ $(function() {
 	    	data:iDataI,
 	    	success: function(data){
 	    		console.log(data)
-	  			teachersList(data.total_entries, iData)
+	  			teachersList(data.total_entries, iData,data)
 	        },
 	        error: function(){
 	        	// alert('请稍后从新尝试登录或者联系管理员');
@@ -615,7 +615,7 @@ $(function() {
 	    	success: function(data){
 	    		console.log(data)
 
-	  			studentsList(data.total_entries, iData)
+	  			studentsList(data.total_entries, iData,data)
 	        },
 	        error: function(){
 	        	// alert('请稍后从新尝试登录或者联系管理员');
@@ -718,7 +718,7 @@ $(function() {
 	    });
 	}
 
-	function teachersList(num, iData){
+	function teachersList(num, iData,f_data){
 		var ii_num;
 		console.log(num+'2222222222222222222222')
 		if(num==0){
@@ -740,7 +740,7 @@ $(function() {
 	        last: '<li class="next"><a href="javascript:;" class="pagination-color">尾页</a></li>',
 	        page: '<li class="page"><a href="javascript:;" class="pagination-color">{{page}}</a></li>',
 	        onPageChange: function (num) {
-	        	console.log(iData)
+	        	console.log(iData,f_data)
 				var iDataI = {'page':num, 'limit': 10};
 				console.log(iData,iDataI)
 				if(iData!=null){
@@ -748,7 +748,12 @@ $(function() {
 						iDataI[iData[i]] = iData[i+1];
 					}
 				}
-	            $.ajax({
+
+				if(num==1){
+					teachers_list(f_data.teachers);
+				}
+				if(num>1){
+	      	$.ajax({
 			     	type: "GET",
 			     	url: ajaxIp+"/api/v2/teachers",
 			    	dataType: "JSON",
@@ -764,12 +769,14 @@ $(function() {
 			        	// window.location.href = './login.html'
 			        }
 			    });
-	        }
+	       }
+	      }
 	    });
 	}
 
 
-	function studentsList(num, iData){
+	function studentsList(num, iData,f_data){
+		console.log(num)
 		if(num==0){
 			ii_num=1;
 		}else if(num>0 && num<10){
@@ -798,6 +805,10 @@ $(function() {
 						iDataI[iData[i]] = iData[i+1];
 					}
 				}
+				if(num==1){
+					students_list(f_data.students);
+				}
+				if(num>1){
 	            $.ajax({
 			     	type: "GET",
 			     	url: ajaxIp+"/api/v2/students",
@@ -814,8 +825,9 @@ $(function() {
 			        	// localStorage.clear();
 			        	// window.location.href = './login.html'
 			        }
-			    });
-	        }
+			    	});
+	      	}
+	     	}
 	    });
 		}else{
 			$.jqPaginator('#students-pagination', {
@@ -837,6 +849,10 @@ $(function() {
 						iDataI[iData[i]] = iData[i+1];
 					}
 				}
+				if(num==1){
+					students_list(f_data.students);
+				}
+				if(num>1){
 	            $.ajax({
 			     	type: "GET",
 			     	url: ajaxIp+"/api/v2/students",
@@ -855,6 +871,7 @@ $(function() {
 			        }
 			    });
 	        }
+	       }
 	    });
 		}
 
@@ -3126,7 +3143,7 @@ $(function() {
 	  	headers: {'Authorization': "Bearer " + isLogin},
 	  	success: function(data){
 	  		console.log(data)
-				page_grade_all_list(data.total_entries,page_data_info);
+				page_grade_all_list(data.total_entries,page_data_info,data);
       },
       error: function(){
       	// alert('请稍后从新尝试登录或者联系管理员');
@@ -3138,7 +3155,7 @@ $(function() {
 
 
 
-  function page_grade_all_list(nums,page_data_info){
+  function page_grade_all_list(nums,page_data_info,f_data){
 		var ii_nums;
 		console.log(nums+'条数据')
 		if(nums==0){
@@ -3168,22 +3185,29 @@ $(function() {
 						page_data[page_data_info[i]] = page_data_info[i+1];
 					}
 				}
-				$.ajax({
-				  type: "GET",
-				  url: ajaxIp+"/api/v2/import_student_scores",
-				  headers: {'Authorization': "Bearer " + isLogin},
-				  data:page_data,
-				  success: function(data){
-				  	console.log(data);
-				  	show_grade_info(data);
-				  	// page_test_list(data.total_count,page_data_info);
-				  },
-				  error: function(){
-				      // alert('请稍后从新尝试登录或者联系管理员');
-			      	// localStorage.clear();
-			      	// window.location.href = './login';
-				  }
-				});
+				if(nums==1){
+					show_grade_info(f_data);
+				}
+				if(nums>1){
+
+
+					$.ajax({
+					  type: "GET",
+					  url: ajaxIp+"/api/v2/import_student_scores",
+					  headers: {'Authorization': "Bearer " + isLogin},
+					  data:page_data,
+					  success: function(data){
+					  	console.log(data);
+					  	show_grade_info(data);
+					  	// page_test_list(data.total_count,page_data_info);
+					  },
+					  error: function(){
+					      // alert('请稍后从新尝试登录或者联系管理员');
+				      	// localStorage.clear();
+				      	// window.location.href = './login';
+					  }
+					});
+				}
 	    }
 	  });
 
@@ -4037,22 +4061,27 @@ $(function() {
 	    page: '<li class="page"><a href="javascript:;" class="pagination-color">{{page}}</a></li>',
 	    onPageChange: function (num) {
 				var iDataI = {'page':num, 'limit': 10};
-        $.ajax({
-		     	type: "GET",
-		     	url: ajaxIp+"/api/v2/ddocxes",
-		    	dataType: "JSON",
-		    	headers: {'Authorization': "Bearer " + isLogin},
-		    	data: iDataI,
-		    	success: function(data){
-		    		console.log(data)
-		  			show_word_exam_list(data);
-		        },
-		        error: function(){
-		        	// alert('请稍后从新尝试登录或者联系管理员');
-		        	// localStorage.clear();
-		        	// window.location.href = './login.html'
-		        }
-		    });
+				if(num==1){
+					show_word_exam_list(exam_info)
+				}
+				if(num>1){
+	        $.ajax({
+			     	type: "GET",
+			     	url: ajaxIp+"/api/v2/ddocxes",
+			    	dataType: "JSON",
+			    	headers: {'Authorization': "Bearer " + isLogin},
+			    	data: iDataI,
+			    	success: function(data){
+			    		console.log(data)
+			  			show_word_exam_list(data);
+			        },
+			        error: function(){
+			        	// alert('请稍后从新尝试登录或者联系管理员');
+			        	// localStorage.clear();
+			        	// window.location.href = './login.html'
+			        }
+			    });
+		    }
       }
     });
 	}
