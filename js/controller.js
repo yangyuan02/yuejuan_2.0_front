@@ -5341,8 +5341,107 @@ angular.module("myApp.controller", [])
 
     })
     .controller("form07Controller", function() {
-        $(".main_left a").eq(6).addClass('li_click').siblings().removeClass("li_click");
+         
+         $(".main_left a").eq(6).addClass('li_click').siblings().removeClass("li_click");
         $("#index_span").html($(".main_left a").eq(6).html());
+        var isLogin = localStorage.getItem("token");
+        $("#form_special").css("margin-bottom", "49px");
+        $(".form_special").show();
+        $("#form_special").siblings("a").click(function(event) {
+            $("#form_special").css("margin-bottom", "15px");
+            $(".form_special").hide();
+        });
+         $(".form_special li").eq(0).css("color", "#31bc91").siblings().css("color", "#999999");
+
+         //调整参数
+        $(".form_special_p01 button").click(function(event) {
+          $(".special_change").show();
+        });
+        $(".special_change_p02 button").click(function(event) {
+           $(".special_change").hide();
+        });
+        $(".special_change02_ul").on('keyup', 'input', function(event) {
+        var a=$(this).val().replace(/[^\d]/g,'')
+       $(this).val(a);
+  });
+   $(".special_change_p02 button").click(function(event) {
+     
+     $(".form_special_p02_i01").html($(".special_change02_input01").val());
+      $(".form_special_p02_i02").html($(".special_change02_input02").val());
+       $(".form_special_p02_i03").html($(".special_change02_input03").val());
+        $(".form_special_p02_i04").html($(".special_change02_input04").val());
+   });
+
+      //科目
+        form_special_top01();
+        function form_special_top01(){
+          $.ajax({
+            type: "GET",
+            async: false,
+            url: ajaxIp + "/api/v2/reports/exams",
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            success: function(data) {
+                console.log(data);
+                  $(".form_special_km01").html(" ");
+                  $(".form_special_km02").html(" ");
+                  $(".form_special_km03").html(" ");
+
+                for (var i = 0; i < data.length; i++) {
+                    $(".form_special_km01").append('<option value="' + data[i].name + '" data-id=' + data[i].id + '>' + data[i].name + '</option>')
+                };
+                $(".form_special_km02").append('<option value="" data-id="1111" >全部班级</option>');
+                $(".form_special_km03").append('<option value="" data-id="22222" >全部科目</option>');
+
+                for (var i = 0; i < data[0].classrooms.length; i++) {
+                   
+                    $(".form_special_km02").append('<option value="" data-id=' + data[0].classrooms[i].classroom_id + '>' + data[0].classrooms[i].classroom_name + '</option>')
+                    // $(".form_special_km02").attr("data-id", data[0].classrooms[0].classroom_id);
+                };
+                for (var i = 0; i < data[0].subjects.length; i++) {
+                    $(".form_special_km03").append('<option value="" data-id=' + data[0].subjects[i].subject_id + '>' + data[0].subjects[i].name + '</option>')
+                    // $(".form_special_km03").attr("data-id", data[0].subjects[0].subject_id);
+                };
+                $(".form_special_km01").change(function(event) {
+                    /* Act on the event */
+                    var index01 = $(".form_special_km01").children('option:selected').index()
+                    var index02 = index01;
+                    // $(".study_q_km01 option").eq(0).remove();
+                    $(".form_special_km02 option").remove();
+                    $(".form_special_km03 option").remove();
+                        $(".form_special_km02").append('<option value="" data-id="1111" >全部班级</option>');
+                     $(".form_special_km03").append('<option value="" data-id="22222">全部科目</option>');
+                  
+                    // $(".study_k_km02").attr("data-id", $(".study_k_km01 option").eq(0).attr("data-id"));
+                    for (var i = 0; i < data[index02].classrooms.length; i++) {
+                        $(".form_special_km02").append('<option value="" data-id=' + data[index02].classrooms[i].classroom_id + '>' + data[index02].classrooms[i].classroom_name + '</option>')
+                        // $(".form_special_km02").attr("data-id", data[index02].classrooms[0].classroom_id);
+                    }
+                    for (var i = 0; i < data[index02].subjects.length; i++) {
+                        $(".form_special_km03").append('<option value="" data-id=' + data[index02].subjects[i].subject_id + '>' + data[index02].subjects[i].name + '</option>')
+                        // $(".form_special_km03").attr("data-id", data[index02].subjects[0].subject_id);
+                    }
+                });
+            
+            },
+            error: function() {
+
+            }
+
+        });
+      }
+
+
+
+
+    })
+    .controller("form08Controller", function() {
+        $(".main_left a").eq(7).addClass('li_click').siblings().removeClass("li_click");
+        $("#index_span").html($(".main_left a").eq(7).html());
+        // var isLogin = localStorage.getItem("token");
+        //  $(".main_left a").eq(6).addClass('li_click').siblings().removeClass("li_click");
+        // $("#index_span").html($(".main_left a").eq(6).html());
         $("#sc_left").css("margin-bottom", "150px");
         $(".sc_left").show();
         $("#sc_left").siblings("a").click(function(event) {
@@ -5593,9 +5692,16 @@ $(".sc_101 button").click(function(event) {
         /*<!-- 跨校对比分析  end-->*/
 
     })
-    .controller("form08Controller", function() {
-        $(".main_left a").eq(7).addClass('li_click').siblings().removeClass("li_click");
-        $("#index_span").html($(".main_left a").eq(7).html());
-        var isLogin = localStorage.getItem("token");
+.controller("form09Controller", function() {
+         
+        //  $(".main_left a").eq(6).addClass('li_click').siblings().removeClass("li_click");
+        // $("#index_span").html($(".main_left a").eq(6).html());
+        // var isLogin = localStorage.getItem("token");
+        // $("#form_special").css("margin-bottom", "49px");
+        // $(".form_special").show();
+        // $("#form_special").siblings("a").click(function(event) {
+        //     $("#form_special").css("margin-bottom", "15px");
+        //     $(".form_special").hide();
+        // });
 
     })
