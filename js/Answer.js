@@ -41,9 +41,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.myDayinType = 0
     $scope.myDayin = ['单面打印', '双面打印'];
     $scope.showItmeScoreType = 0
-    $scope.showItmeScore = ['不显示分数', '显示分数'];
+    $scope.showItmeScore = ['隐藏分数', '显示分数'];
     $scope.showTableLineTyep = 0
-    $scope.showTableLine = ['显示题组外框', '不显示题组外框'];
+    $scope.showTableLine = ['显示题组外框', '隐藏题组外框'];
     $scope.result = {};//弹出框保存
     var modelParam = []//存储请求参数
     var answer_id = []//大题answer_id
@@ -309,6 +309,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.countScore += itmeScore
     }
     $scope.append = function (obj) {//push数据
+
         if (isLine(0)) {
             obj.current_page = 1
             $scope.listObj.push(obj);
@@ -316,7 +317,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             obj.current_page = 1
             $scope.listObj2.push(obj);
         } else if (isLine(2)) {
-            console.log(obj)
             obj.current_page = 2
             $scope.listObj3.push(obj);
         } else if (isLine(3)) {
