@@ -41,9 +41,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.myDayinType = 0
     $scope.myDayin = ['单面打印', '双面打印'];
     $scope.showItmeScoreType = 0
-    $scope.showItmeScore = ['不显示分数', '显示分数'];
+    $scope.showItmeScore = ['隐藏分数', '显示分数'];
     $scope.showTableLineTyep = 0
-    $scope.showTableLine = ['显示题组外框', '不显示题组外框'];
+    $scope.showTableLine = ['显示题组外框', '隐藏题组外框'];
     $scope.result = {};//弹出框保存
     var modelParam = []//存储请求参数
     var answer_id = []//大题answer_id
@@ -135,7 +135,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
     $scope.Q_number = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十']
     var isLine = function (page_num) {//是否换行
-        console.log(page_num)
         var outerBox = $(".A_Rone").outerHeight()//最外层距离
         var result;
         if ($(".A_Rone").eq(page_num).find("table:last").position()) {//不是第一次插入
@@ -188,7 +187,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 }
             }
         } else {//第一次添加
-            console.log("第一添加")
             return true
         }
         return result
@@ -256,7 +254,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         ]
         var checkIsEmpty = function (array) {//检测是否为空
             for (var i = 0; i < array.length; i++) {
-                console.log(array[i].type)
                 if (array[i].type == '') {
                     alert(tips[array[i].index])
                     result = false
@@ -312,6 +309,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.countScore += itmeScore
     }
     $scope.append = function (obj) {//push数据
+
         if (isLine(0)) {
             obj.current_page = 1
             $scope.listObj.push(obj);
