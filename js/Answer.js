@@ -41,9 +41,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.myDayinType = 0
     $scope.myDayin = ['单面打印', '双面打印'];
     $scope.showItmeScoreType = 0
-    $scope.showItmeScore = ['不显示分数', '显示分数'];
+    $scope.showItmeScore = ['隐藏分数', '显示分数'];
     $scope.showTableLineTyep = 0
-    $scope.showTableLine = ['显示题组外框', '不显示题组外框'];
+    $scope.showTableLine = ['显示题组外框', '隐藏题组外框'];
     $scope.result = {};//弹出框保存
     var modelParam = []//存储请求参数
     var answer_id = []//大题answer_id
