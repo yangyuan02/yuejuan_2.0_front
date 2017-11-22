@@ -19,27 +19,17 @@
 							<span class="iconfont cous">&#xe62d;</span>
 							<span class="iconfont cous">&#xe634;</span>
 						</span>
-        <span class="bord">
-							<span class="iconfont cous">&#xe62e;</span>
-							<span class="iconfont cous">&#xe62f;</span>
-							<span class="iconfont cous">&#xe66b;</span>
-						</span>
-        <span class="bord cous">12</span>
-        <span class="bord cous">
-							<select name="">
-								<option>边框</option>
-								<option>有边框</option>
-								<option>无边框</option>
-							</select>
-						</span>
-        <span class="bord">
-							<select name="">
-								<option>小 </option>
-								<option>中 </option>
-								<option>大 </option>
-							</select>
-						</span>
         <span class="mR clear">
+                        <span>
+                            <select ng-init="selectedName5 = examList[examType]" ng-model="selectedName5"
+                                    ng-options="x for x in examList" ng-change="checkTestType(5)">
+							</select>
+                        </span>
+                        <span>
+                            <select ng-init="selectedName4 = discernList[discernType]" ng-model="selectedName4"
+                                    ng-options="x for x in discernList" ng-change="checkTestType(4)">
+							</select>
+                        </span>
                         <span>
                             <select ng-init="selectedName3 = showTableLine[showTableLineTyep]" ng-model="selectedName3"
                                     ng-options="x for x in showTableLine" ng-change="checkTestType(3)">
@@ -349,7 +339,7 @@
                 </div>
                 <!--左侧考号结束-->
                 <!--左侧条形码开始-->
-                <div class="left_bar_code" ng-show="infoBox==1">
+                <div class="left_bar_code DataCode" ng-if="infoBox==1">
                     <div class="left_bar_code_inside">
                         贴条形码区
                     </div>
@@ -430,7 +420,7 @@
                                 </div>
                                 <div class="student_R" ng-if="candlen>10?false:true">
                                     <div class="bar_code">
-                                        <div class="code_box_dashed">
+                                        <div class="code_box_dashed DataCode">
                                             <div class="code_box_line">
                                                 <p>贴条形码区</p>
                                                 <p>(正常正常正常正常正常正常)</p>
