@@ -312,6 +312,10 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     width:16px;
     text-align:center;
 }
+.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c.fill_itme span.numBerNo_1{
+    width:auto;
+    margin-right:0px;
+}
 .Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span.fill_line span:first-child{
     width:230px;
     border-bottom:1px solid black;
@@ -882,7 +886,7 @@ input:focus{
 }
 /*左侧考号*/
 .Answer .A_R .candidate{
-    width:120px;
+    width:128px;
     border:1px solid #000;
     border-top:none;
     position:absolute;
@@ -913,7 +917,7 @@ input:focus{
     width:20%;
 }
 .Answer .A_R .candidate .full_card_number ul li{
-    width: 10px;
+    width: 16px;
     height: 11px;
     border: 1px solid black;
     text-align: center;
@@ -941,7 +945,7 @@ input:focus{
     padding-left:80px;
 }
 .left_bar_code{
-    width: 120px;
+    width: 128px;
     height:50px;
     border: 1px dashed #000;
     position: absolute;
