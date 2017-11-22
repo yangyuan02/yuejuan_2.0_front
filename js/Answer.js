@@ -527,7 +527,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         itme_obj.score = 0
         itme_obj.string = "学号"
         itme_obj.count = ulLen
-        itme_obj.block_width = $scope.infoBox == 0?18:10
+        itme_obj.block_width = $scope.infoBox == 0?18:16
         itme_obj.block_height = 12
         itme_obj.num_question = parseInt(ulLen)
         itme_obj.num_of_option = parseInt(len)
