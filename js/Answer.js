@@ -44,8 +44,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.showItmeScore = ['隐藏分数', '显示分数'];
     $scope.showTableLineTyep = 0
     $scope.showTableLine = ['显示题组外框', '隐藏题组外框'];
+    $scope.discernType= 0
+    $scope.discernList = ['识别考号', '识别条码'];
     $scope.examType= 0
-    $scope.examList = ['识别考号', '识别条码'];
+    $scope.examList = ['普通考试', '特殊考试'];
     $scope.result = {};//弹出框保存
     var modelParam = []//存储请求参数
     var answer_id = []//大题answer_id
@@ -70,6 +72,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     $scope.paperType = data.message.paperType ? data.message.paperType : 0
                     $scope.infoLocation = data.message.infoLocation ? data.message.infoLocation : 0
                     $scope.infoBox = data.message.infoBox ? data.message.infoBox : 0
+                    $scope.discernType = data.message.discernType ? data.message.discernType : 0
                     $scope.examType = data.message.examType ? data.message.examType : 0
                     $scope.leftcardNum = data.message.leftcardNum ? data.message.leftcardNum : 0
                     $scope.showTableLineTyep = data.message.showTableLineTyep ? data.message.showTableLineTyep : 0
@@ -135,13 +138,19 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
         }
         if (type == 4) {
+            if ($scope.discernType == 0) {
+                $scope.discernType = 1
+            } else {
+                $scope.discernType = 0
+            }
+        }
+        if (type == 5) {
             if ($scope.examType == 0) {
                 $scope.examType = 1
             } else {
                 $scope.examType = 0
             }
         }
-        $("#menu").css({"display": "none"})
     }
     $scope.Q_number = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十']
     var isLine = function (page_num) {//是否换行
@@ -782,7 +791,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             BigQuestion[i].question = getQuestion(obj[i].numbel, obj[i].itemNumber, i, obj[i].type, obj[i].itemCoresArr, obj[i].current_page, obj[i].startNo)
         }
 
-        $scope.examType == 0 ? BigQuestion.push(getStudentInfo()) : BigQuestion.push(getBarCode())
+        $scope.discernType == 0 ? BigQuestion.push(getStudentInfo()) : BigQuestion.push(getBarCode())  //识别考号/识别条码
 
         return BigQuestion
     }
@@ -794,14 +803,14 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var dot2 = $(".position_TR span").eq(1).offset();
         var dot3 = $(".position_BL span").eq(1).offset();
         var dot4 = $(".position_BR span").eq(1).offset();
-        anchor.LeftTopX = parseInt(dot1.left + 15 - relativePost.left)
-        anchor.LeftTopY = parseInt(dot1.top + 15 - relativePost.top)
-        anchor.RightTopX = parseInt(dot2.left + 15 - relativePost.left)
-        anchor.RightTopY = parseInt(dot2.top + 15 - relativePost.top)
-        anchor.LeftBottomX = parseInt(dot3.left + 15 - relativePost.left)
-        anchor.LeftBottomY = parseInt(dot3.top + 15 - relativePost.top)
-        anchor.RightBottomX = parseInt(dot4.left + 15 - relativePost.left)
-        anchor.RightBottomY = parseInt(dot4.top + 15 - relativePost.top)
+        anchor.LeftTopX = $scope.examType ==0? parseInt(dot1.left + 15 - relativePost.left):0
+        anchor.LeftTopY = $scope.examType ==0? parseInt(dot1.top + 15 - relativePost.top):0
+        anchor.RightTopX = $scope.examType ==0? parseInt(dot2.left + 15 - relativePost.left):0
+        anchor.RightTopY = $scope.examType ==0? parseInt(dot2.top + 15 - relativePost.top):0
+        anchor.LeftBottomX = $scope.examType ==0? parseInt(dot3.left + 15 - relativePost.left):0
+        anchor.LeftBottomY = $scope.examType ==0? parseInt(dot3.top + 15 - relativePost.top):0
+        anchor.RightBottomX = $scope.examType ==0? parseInt(dot4.left + 15 - relativePost.left):0
+        anchor.RightBottomY = $scope.examType ==0? parseInt(dot4.top + 15 - relativePost.top):0
         return anchor
     }
 
@@ -839,6 +848,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         allList.leftcardNum = $scope.leftcardNum
         allList.showTableLineTyep = $scope.showTableLineTyep
         allList.myDayinType = $scope.myDayinType
+        allList.discernType = $scope.discernType
         allList.examType = $scope.examType
         allList.showItmeScoreType = $scope.showItmeScoreType
         allList.countScore = $scope.countScore
@@ -1669,6 +1679,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.leftcardNum = data.leftcardNum ? data.leftcardNum : 0
                 $scope.showTableLineTyep = data.showTableLineTyep ? data.showTableLineTyep : 0
                 $scope.myDayinType = data.myDayinType ? data.myDayinType : 0
+                $scope.discernType = data.discernType ? data.discernType : 0
                 $scope.examType = data.examType ? data.examType : 0
                 $scope.showItmeScoreType = data.showItmeScoreType ? data.showItmeScoreType : 0
                 $scope.countScore = data.countScore ? data.countScore : 0
