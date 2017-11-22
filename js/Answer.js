@@ -43,7 +43,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.showItmeScoreType = 0
     $scope.showItmeScore = ['隐藏分数', '显示分数'];
     $scope.showTableLineTyep = 0
-    $scope.showTableLine = ['显示题组外框', '隐藏题组外框'];
+    $scope.showTableLine = ['有边框', '无边框'];
     $scope.discernType= 0
     $scope.discernList = ['识别考号', '识别条码'];
     $scope.examType= 0
