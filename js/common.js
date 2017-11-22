@@ -65,13 +65,13 @@ $(function() {
 	    		$('#school-name').val(data.school_name);
               // 成绩生成控制代码 end
 	    		console.log(data)
-	    		if(data.school_name=="上海市第一中学"){
-	    			$('#wrong').show();
-	    			$('#optional').show();
-	    			// $('#wrap').attr('school_name','上海市第一中学');
-	    			$('.mistakes-collection').show();
-						$('.change-exam').show();
-	    		}
+	    	// 	if(data.school_name=="上海市第一中学"){
+	    	// 		$('#wrong').show();
+	    	// 		$('#optional').show();
+	    	// 		// $('#wrap').attr('school_name','上海市第一中学');
+	    	// 		$('.mistakes-collection').show();
+						// $('.change-exam').show();
+	    	// 	}
 	    		if(data.error){
 					alert('登录已过期，请从新登录！');
 	    			localStorage.clear();

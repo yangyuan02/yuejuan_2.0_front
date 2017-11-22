@@ -8,7 +8,7 @@ $(function(){
 	});
 	
 
-	var docx_id=25;
+	var docx_id=7;
  	$.ajax({
    	type: "GET",
    	url: ajaxIp+"/api/v2/question_banks?docx_id="+docx_id+"",
