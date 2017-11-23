@@ -536,7 +536,10 @@ $(document).ready(function () {
 		$('.modal-wrap-dele').show();
 		var dele_id = $(this).parents('tr').find('.c_name').attr('data-id');
 		console.log(dele_id)
-		$('.modal-wrap-dele').attr('data-id',dele_id)
+		$('.modal-wrap-dele').attr('data-id',dele_id);
+		var name = $(this).parents('tr').find('.c_name').text();
+		$('.dele-name').text(name);
+
 	});
 	// 确认删除单个课程信息
 	$('.modal-wrap-dele').on('click', '.determine', function() {
@@ -639,7 +642,7 @@ $(document).ready(function () {
 		}
 	}
 
-	// 清除课程
+	// 清除课程弹框
 	$('#clear').on('click', function() {
 		var grade_id = $(this).parents('.set-up-search').find('#select-grade').val();
 		var subject_id = $(this).parents('.set-up-search').find('#select-subjects').val();
@@ -650,7 +653,23 @@ $(document).ready(function () {
 			alert('请选择科目');
 		}
 		if(grade_id!=0&&subject_id!=0){
-			$.ajax({
+			var g_name = $(this).parents('.set-up-search').find('#select-grade option:selected').text();
+			var s_name = $(this).parents('.set-up-search').find('#select-subjects option:selected').text();
+			$('.modal-wrap-clear .modal-main').animate({'top': '50%','opacity': 1},500);
+			$('.modal-wrap-clear .modal-shadow').animate({'opacity': .3},500);
+			$('.modal-wrap-clear').show();
+			console.log(s_name)
+			$('.clear-g-name').text(g_name);
+			$('.clear-s-name').text(s_name);
+			$('#grade_input').val(grade_id);
+			$('#subject_input').val(subject_id);
+		}
+	});
+	// 确认清除课程
+	$('.modal-wrap-clear').on('click', '.determine', function() {
+		var grade_id=$('#grade_input').val();
+		var subject_id=$('#subject_input').val();
+		$.ajax({
      	type: "DELETE",
      	url: ajaxIp+"/api/v2/courses/destroy_by_grade_subject",
     	dataType: "JSON",
@@ -666,7 +685,6 @@ $(document).ready(function () {
         	// window.location.href = './login.html'
       }
     });
-		}
 	});
 
 
