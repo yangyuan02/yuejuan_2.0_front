@@ -45,7 +45,14 @@ body{
     border-right: none;
 }
 .stu_wrong_tc_ul li{
-height: 42px;line-height: 42px;font-size: 14px;color: #666;display: block;width:100%;    padding-left: 16px;box-sizing: border-box;
+height: 42px;
+line-height: 42px;
+font-size: 14px;
+color: #666;
+display: block;
+width:100%; 
+padding-left: 16px;
+box-sizing: border-box;
 }
 .stu_wrong_tc_ul li i{
 float: right;margin-right: 16px;
@@ -53,18 +60,121 @@ float: right;margin-right: 16px;
 .stu_wrong_tc_i{
 	color: #31bc91;
 }
+.main{
+	width: 1200px;
+	height:800px;
+	margin:0 auto;
+	margin-bottom:20px;
+	margin-top:45px;
+}
+.wrong_left{
+	width: 188px;
+	float: left;
+}
+.wrong_right{
+	width: 1000px;
+	float:right;
+	background: #ffffff;
+	height:800px;
+	padding:43px 40px 0px 35px;
+	box-sizing: border-box;
+	border: 1px solid #cccccc;
+}
+.wrong_top{
+	width:100%;
+	height:46px;
+	background:#dcf5f0;
+	line-height: 46px;
+	padding-left:15px;
+	box-sizing: border-box;
+	font-size: 16px;
+	color: #2daa82;
+}
+.grade_select_top{
+	height: 57px;
+	font-size:14px;
+	line-height: 57px;
+	color: #999999;
+}
+.grade_exam{
+	width: 200px;height: 30px;margin-left: 10px;color: #666666;font-size: 14px;
+}
+.grade_sub{
+	width: 100px;height: 30px;margin-left: 10px;color: #666666;font-size: 14px;
+}
+.grade_rate{
+	width: 100px;height: 30px;color: #666666;font-size: 14px;
+}
+.q_type{
+	height: 58px;font-size: 14px;line-height: 58px;color: #666;cursor: pointer;
+}
+.type_all{
+	padding: 2px 10px 2px 10px;background: #cccccc;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-left:10px;
+}
+.type_ever a{
+	padding: 2px 10px 2px 10px;background: #cccccc;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-left:10px;font-style: normal;
+}
 
+.type_ever a i{
+	font-size: 10px;margin-left: 5px;
+}
 
+.grade_print{
+	font-size: 14px;background: #ffffff;border: 1px solid #31bc91;color: #31bc91;box-sizing: border-box;
+}
+.ans_result{
+	width:100%;padding-left: 575px;box-sizing: border-box;
+}
+.ans_result p{
+	width:348px;font-size: 14px;position:relative;margin-bottom: 10px;
+}
+.know_01{
+	width: 156px;display: inline-block;padding-left: 6px;box-sizing: border-box;
+}
+.know_01 i{
+	width: 42px;height:20px;display:inline-block;background:#31bc91;position: absolute;margin-left: 8px; 
+}
+.know_02{
+	width: 156px;display: inline-block;padding-left: 20px;
+}
+.know_02 i{
+	width: 42px;height:20px;display:inline-block;background:#f7c07c;position: absolute;margin-left: 8px; 
+}
 
+.know_03{
+	width: 156px;display: inline-block;
+}
+.know_03 i{
+	width: 42px;height:20px;display:inline-block;background:#5fa3ed;position: absolute; margin-left: 8px;
+}
 
-
-
-
-
-
-
-
-
-
-
-
+.know_04{
+	width: 156px;display: inline-block;padding-left: 20px;padding-left: 40px;box-sizing: border-box;
+}
+.know_04 i{
+	width: 42px;height:20px;display:inline-block;background:#fb7d8a;position: absolute;margin-left: 8px; 
+}
+.ans_news{
+	width:100%;height:32px;border-bottom:1px solid #ccc;line-height: 26px;font-size: 14px;
+}
+.ans_news i{
+	display: block;width: 3px;height: 18px;background: #31bc91;float: left;margin-right: 10px;margin-top: 4px;color: #666666;
+}
+.grade_sort{
+	width: 100px;height: 30px;margin-left: 10px;outline: none;color: #666666;
+}
+.grate_topic_ever{
+	padding: 0px 25px 0px 25px;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-right: 10px;margin-top: 10px;
+}
+.grate_wrong_make{
+	float: right;margin-top:10px;cursor: pointer;
+}
+.grate_wrong_make i{
+	color: #31bc91;margin: 0px 0px 0px 10px;font-size: 16px;
+} 
+.class_sort{
+	width: 100px;height: 30px;margin-left: 10px;outline: none;color: #666666;
+}
+.per_sort{
+	width: 100px;height: 30px;margin-left: 10px;outline: none;color: #666666;
+}

@@ -16,30 +16,18 @@
         <span>总分:<span class="Red" ng-bind="countScore"></span>分</span>
         <span class="bord mL">
 							<span class="iconfont" ng-click="dayin()">&#xe688;</span>
-							<span class="iconfont cous">&#xe62d;</span>
-							<span class="iconfont cous">&#xe634;</span>
-						</span>
-        <span class="bord">
-							<span class="iconfont cous">&#xe62e;</span>
-							<span class="iconfont cous">&#xe62f;</span>
-							<span class="iconfont cous">&#xe66b;</span>
-						</span>
-        <span class="bord cous">12</span>
-        <span class="bord cous">
-							<select name="">
-								<option>边框</option>
-								<option>有边框</option>
-								<option>无边框</option>
-							</select>
-						</span>
-        <span class="bord">
-							<select name="">
-								<option>小 </option>
-								<option>中 </option>
-								<option>大 </option>
-							</select>
 						</span>
         <span class="mR clear">
+                        <span>
+                            <select ng-init="selectedName5 = examList[examType]" ng-model="selectedName5"
+                                    ng-options="x for x in examList" ng-change="checkTestType(5)">
+							</select>
+                        </span>
+                        <span>
+                            <select ng-init="selectedName4 = discernList[discernType]" ng-model="selectedName4"
+                                    ng-options="x for x in discernList" ng-change="checkTestType(4)">
+							</select>
+                        </span>
                         <span>
                             <select ng-init="selectedName3 = showTableLine[showTableLineTyep]" ng-model="selectedName3"
                                     ng-options="x for x in showTableLine" ng-change="checkTestType(3)">
@@ -333,7 +321,7 @@
                         </ul>
                     </div>
                     <div class="full_card_number">
-                        <ul ng-repeat="card in leftcardNum">
+                        <ul ng-repeat="card in leftcardNum" style="width:{{100/leftcardNum.length+'%'}}">
                             <li>0</li>
                             <li>1</li>
                             <li>2</li>
@@ -349,7 +337,7 @@
                 </div>
                 <!--左侧考号结束-->
                 <!--左侧条形码开始-->
-                <div class="left_bar_code" ng-show="infoBox==1">
+                <div class="left_bar_code DataCode" ng-if="infoBox==1">
                     <div class="left_bar_code_inside">
                         贴条形码区
                     </div>
@@ -430,7 +418,7 @@
                                 </div>
                                 <div class="student_R" ng-if="candlen>10?false:true">
                                     <div class="bar_code">
-                                        <div class="code_box_dashed">
+                                        <div class="code_box_dashed DataCode">
                                             <div class="code_box_line">
                                                 <p>贴条形码区</p>
                                                 <p>(正常正常正常正常正常正常)</p>
@@ -1332,10 +1320,10 @@
         <div class="cand_con clearfix">
             <ul>
                 <li class="clearfix" ng-repeat="fillList in fillLists" ng-init="a">
-                    <div class="fill_no" ng-bind="$index+1"></div>
-                    <div class="fill_num"><span>横线个数</span><input type="text" ng-model="fillList.fill_num"></div>
+                    <div class="fill_no" ng-bind="$index+1+'题'"></div>
+                    <div class="fill_num"><span>横线数量</span><input type="text" ng-model="fillList.fill_num"></div>
                     <div class="fill_width"><span>横线宽度</span><input type="text" ng-model="fillList.fill_w"></div>
-                    <div class="fill_separator"><span>分隔符</span><input type="text" ng-model="fillList.separator"></div>
+                    <div class="fill_separator"><span>分隔符</span><input type="text" ng-model="fillList.separator" placeholder="请用'|'符合分割"></div>
                 </li>
             </ul>
         </div>
