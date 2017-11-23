@@ -98,6 +98,9 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
 }
 .Answer .A_R .A_Rone .A_Rone_child table tbody tr td{height: 20px;font-size: 12px;}
 .Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c {width: 25%;display: inline-block;padding: 5px 0;}
+.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .fill_itme{
+    padding:0px;
+}
 .Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span {margin-right: 11px;}
 .Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span:first-child{
     width:16.8px;
@@ -152,7 +155,7 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     top: 500px;
 }
 .Answer .student_info .person.location_left_f{
-    top:630px;
+    top:720px;
 }
 .Answer .student_info .person .person_item{
     float: left;
@@ -818,7 +821,7 @@ input:focus{
     width:155px;
 }
 .setFill_q .cand_con ul li .fill_separator input{
-    width:300px;
+    width:290px;
 }
 .Answer .A_R .A_Rone .A_Rone_child table tbody tr td .other_line{
     height:20px;
@@ -930,6 +933,23 @@ input:focus{
 }
 .Answer .A_R.single{
     padding-left:80px;
+}
+.left_bar_code{
+    width: 120px;
+    height:50px;
+    border: 1px dashed #000;
+    position: absolute;
+    top:450px;
+    left: 34px;
+    border-radius:4px;
+    padding:10px;
+    box-sizing:border-box;
+}
+.left_bar_code .left_bar_code_inside{
+    border:1px solid #ccc;
+    text-align:center;
+    height:100%;
+    line-height:25px;
 }
 /********************语文试卷样式***************/
 /*table thead tr:last-child{*/
