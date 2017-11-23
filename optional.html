@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="css/optional.css">
 	<!-- <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.1.1/css/bootstrap.min.css"> -->
 	<script type="text/javascript" src='js/jquery.min.js'></script>
+	<script type="text/javascript" src='js/jqPaginator.js'></script>
 	<script type="text/javascript" src='js/common.js'></script>
 	<script type="text/javascript" src='js/optional.js'></script>
 </head>
@@ -57,19 +58,19 @@
 					<div class="set-select-wrap">
 						<div>年级</div>
 						<select name="" id="select-grade">
-							<option value="0">全部年级</option>
+							<!-- <option value="0">全部年级</option>
 							<option value="11">初一</option>
 							<option value="12">初二</option>
 							<option value="13">初三</option>
 							<option value="1">高一</option>
 							<option value="2">高二</option>
-							<option value="3">高三</option>
+							<option value="3">高三</option> -->
 						</select>
 					</div>
 					<div class="set-select-wrap">
 						<div>科目</div>
 						<select name="" id="select-subjects">
-							<option value="0">全部科目</option>
+							<!-- <option value="0">全部科目</option>
 							<option value="1">语文</option>
 							<option value="1">数学</option>
 							<option value="1">英语</option>
@@ -78,7 +79,7 @@
 							<option value="1">生物</option>
 							<option value="1">历史</option>
 							<option value="1">政治</option>
-							<option value="1">地理</option>
+							<option value="1">地理</option> -->
 						</select>
 						<a href="javascript:;" id="clear">清除</a>
 					</div>
@@ -92,23 +93,28 @@
 					<thead>
 						<tr>
 							<th colspan="3">课程</th>
-							<th>代表字母</th>
+							<th>代码</th>
 							<th>科目</th>
 							<th>适用年级</th>
 							<th>教师</th>
 							<th>名额</th>
+							<th>操作</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr style="border-bottom:1px solid #ccc;">
+						<!-- <tr style="border-bottom:1px solid #ccc;">
 							<td colspan="3">2016物理4</td>
 							<td>201624</td>
 							<td>物理</td>
 							<td>高二</td>
 							<td>#邓超</td>
 							<td>0</td>
-						</tr>
-						<tr style="border-bottom:1px solid #ccc;">
+							<td>
+								<a href="javascript:;" class="edit"><i class="iconfont">&#xe614;</i>修改</a>
+								<a href="javascript:;" class="delet"><i class="iconfont">&#xe616;</i>删除</a>
+							</td>
+						</tr> -->
+						<!-- <tr style="border-bottom:1px solid #ccc;">
 							<td colspan="3">2016物理3</td>
 							<td>201624</td>
 							<td>物理</td>
@@ -179,7 +185,7 @@
 							<td>高二</td>
 							<td>#司马光</td>
 							<td>0</td>
-						</tr>
+						</tr> -->
 					</tbody>
 				</table>
 
@@ -964,7 +970,7 @@
 		</div>
 	</div>
 	<!-- 创建课程 -->
-		<div class="modal-wrap modal-course-wrap">
+	<div class="modal-wrap modal-course-wrap">
 		<div class="modal-shadow modal-exit"></div>
 		<div class="modal-main">
 			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
@@ -976,16 +982,22 @@
 				<input type="text" class="course-name input-class-i" placeholder="请输入课程名称">
 
 				<label class="teachers-label" for="class-name">代&nbsp;&nbsp;码</label>
-				<input type="text" class="course-num input-class-i" placeholder="请输入7位数字代码">
+				<input type="text" class="course-num input-class-i" placeholder="请输入课程代码">
 
-				<label class="teachers-label" for="class-name">科&nbsp;&nbsp;目</label>
-				<select name="" class="course-sub select-class-i" placeholder="请选择科目">
-					<option value="0">全部科目</option><option value="10">语文</option><option value="11">数学</option><option value="12">英语</option><option value="13">物理</option><option value="14">化学</option><option value="15">生物</option><option value="16">政治</option><option value="17">历史</option><option value="18">地理</option><option value="19">信息科技</option>
-				</select>
 
 				<label class="teachers-label" for="grade-name">年&nbsp;&nbsp;级</label>
-				<select name="" class="course-grade select-class-i" placeholder="请选择年级">
-<option value="0">全部年级</option><option value="10">六年级</option><option value="11">七年级</option><option value="12">八年级</option><option value="13">九年级</option><option value="14">高一</option><option value="15">高二</option><option value="16">高三</option>
+				<select name="" id="select-grade" class="course-grade select-class-i" placeholder="请选择年级">
+					
+				</select>
+
+				<label class="teachers-label" for="class-name">科&nbsp;&nbsp;目</label>
+				<select name="" id="select-subjects" class="course-sub select-class-i" placeholder="请选择科目">
+					
+				</select>
+
+				<label class="teachers-label" for="teacher-name">教&nbsp;&nbsp;师</label>
+				<select name="" id="select-teachers" class="course-teach select-class-i" placeholder="请选择教师">
+					
 				</select>
 
 
@@ -1008,16 +1020,36 @@
 			<div class="modal-title">学生导入</div>
 			<div class="modal-content" style="">
 					选择文件
-					<div id="upfile" onclick="inPath.click()">
+					<div id="upfiles" onclick="inPaths.click()">
 						未选择任何文件  
 					</div>
-					<input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" id="inPath" style="display:none">
+					<input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" id="inPaths" style="display:none">
 					<div style="color: #db4a4a;line-height: 60px;text-align: center;"><i class="iconfont">&#xe63c;</i>请先 <a class="table-template" style="color: #db4a4a;border: 1px solid #db4a4a">下载文件模板</a>，填入信息后再导入</div>
 				<!-- <input type="file" id="inPath" style="display:none" onchange="upfile.value=this.value"> -->
 				<!-- <input type="file"> -->
 				<div class="modal-bottom">
 					<div class="modal-bottom-button modal-exit">取消</div>
 					<div class="modal-bottom-button determine">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+		<!-- 删除课程 -->
+	<div class="modal-wrap modal-wrap-dele">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main modal-main-small">
+			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
+			<div class="modal-title"></div>
+			<div class="modal-content" style="text-align: left;">
+				<p style="text-align: left;font-size: 16px;font-weight: bold;padding-bottom: 10px;">操作提示：</p>
+				<div style="font-size: 16px;line-height: 16px;padding: 5px 0">您确认要删除当前课程信息吗？</div>
+				<p style="color: #db4a4a;line-height: 30px;text-align: left;" class="small-prompt">
+					删除后无法恢复
+				</p>
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine modal-exit dele-gade">确认</div>
 				</div>
 			</div>
 		</div>

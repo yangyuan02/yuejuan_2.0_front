@@ -24,3 +24,13 @@
 	border:1px solid #dcdcdc;
 	text-align: center;
 }
+.edit{
+	color: #5fa3ed;
+	margin-right: 25px;
+}
+.edit i, .delet i{
+	padding-right: 6px;
+}
+.delet{
+	color: #db4a4a;
+}
