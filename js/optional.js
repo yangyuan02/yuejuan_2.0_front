@@ -11,9 +11,12 @@ $(document).ready(function () {
   	}
   	if(index==1){
   		 get_grade_list('.stu-main');
+  		 get_all_student(null);
+
   	}
   	if(index==2){
  			get_grade_list('.stu-course-main');
+ 			get_all_set(null);
   	}
   });
 
@@ -259,9 +262,6 @@ $(document).ready(function () {
 
 	$('#inPath').change(function(){
 		inputFlileNames('#inPath');
-	})
-	$('#inPaths').change(function(){
-		inputFlileNames('#inPaths')
 	})
 
 	function inputFlileNames(name){
@@ -643,7 +643,7 @@ $(document).ready(function () {
 	}
 
 	// 清除课程弹框
-	$('#clear').on('click', function() {
+	$('.courses-main #clear').on('click', function() {
 		var grade_id = $(this).parents('.set-up-search').find('#select-grade').val();
 		var subject_id = $(this).parents('.set-up-search').find('#select-subjects').val();
 		if(grade_id==0){
@@ -659,16 +659,16 @@ $(document).ready(function () {
 			$('.modal-wrap-clear .modal-shadow').animate({'opacity': .3},500);
 			$('.modal-wrap-clear').show();
 			console.log(s_name)
-			$('.clear-g-name').text(g_name);
-			$('.clear-s-name').text(s_name);
-			$('#grade_input').val(grade_id);
-			$('#subject_input').val(subject_id);
+			$('.modal-wrap-clear .clear-g-name').text(g_name);
+			$('.modal-wrap-clear .clear-s-name').text(s_name);
+			$('.modal-wrap-clear #grade_input').val(grade_id);
+			$('.modal-wrap-clear #subject_input').val(subject_id);
 		}
 	});
 	// 确认清除课程
 	$('.modal-wrap-clear').on('click', '.determine', function() {
-		var grade_id=$('#grade_input').val();
-		var subject_id=$('#subject_input').val();
+		var grade_id=$('.modal-wrap-clear #grade_input').val();
+		var subject_id=$('.modal-wrap-clear #subject_input').val();
 		$.ajax({
      	type: "DELETE",
      	url: ajaxIp+"/api/v2/courses/destroy_by_grade_subject",
@@ -689,38 +689,457 @@ $(document).ready(function () {
 
 
 
+
+
+
+
 	// 学生列表
+	// 获取所有学生
+	function get_all_student(iData){
+		var all_data={'page':1, 'limit': 10};
+		if(iData!=null){
+			for (var i = 0; i < iData.length; i+=2) {
+				all_data[iData[i]] = iData[i+1];
+			}
+		}
+		$.ajax({
+	   	type: "GET",
+	   	url: ajaxIp+"/api/v2/students/list_by_course",
+	  	dataType: "JSON",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	data:all_data,
+	  	success: function(data){
+	  		console.log(data);
+	  		all_student_list(data,iData);
+	    },
+	    error: function(){
+      	// alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html'
+	    }
+	  });
+	}
+	// 学生列表
+	function all_student_list(all,iData){
+		var ii_num;
+		if(all.total_count==0){
+			ii_num=1;
+		}else if(all.total_count>0 && all.total_count<10){
+			ii_num=1;
+		}else{
+			ii_num=Math.ceil(all.total_count/10);
+		}
+		$.jqPaginator('#students-pagination', {
+	  	totalPages: ii_num,
+	    visiblePages: 5,
+	    currentPage: 1,
+	    disableClass: 'disableClass',
+	    activeClass:'activeClass',
+	    prev: '<li class="prev"><a href="javascript:;" class="pagination-color">上一页</a></li>',
+	    next: '<li class="next"><a href="javascript:;" class="pagination-color">下一页</a></li>',
+	    first: '<li class="prev"><a href="javascript:;" class="pagination-color">首页</a></li>',
+	    last: '<li class="next"><a href="javascript:;" class="pagination-color">尾页</a></li>',
+	    page: '<li class="page"><a href="javascript:;" class="pagination-color">{{page}}</a></li>',
+	    onPageChange: function (num) {
+	    	console.log(iData,all)
+				var iDataI = {'page':num, 'limit': 10};
+				console.log(iData,iDataI)
+				if(iData!=null){
+					for (var i = 0; i < iData.length; i+=2) {
+						iDataI[iData[i]] = iData[i+1];
+					}
+				}
+
+				if(num==1){
+					show_all_student(all.students)
+				}
+				if(num>1){
+	      	$.ajax({
+			    	type: "GET",
+			     	url: ajaxIp+"/api/v2/students/list_by_course",
+			    	dataType: "JSON",
+			    	headers: {'Authorization': "Bearer " + isLogin},
+			    	data: iDataI,
+			    	success: function(data){
+			    		console.log(data)
+			  			show_all_student(data.students);
+			      },
+			      error: function(){
+		        	// alert('请稍后从新尝试登录或者联系管理员');
+		        	// localStorage.clear();
+		        	// window.location.href = './login.html'
+			      }
+			    });
+	      }
+	    }
+	  });
+	}
+	// 显示学生
+	function show_all_student(student_info){
+		console.log(student_info)
+		$('.stu-tabble tbody').html('');
+		for (var i = 0; i < student_info.length; i++) {
+			var t_tr =
+					'<tr style="border-bottom:1px solid #ccc;">'+
+						'<td>'+student_info[i].classroom_id+'</td>'+
+						'<td>'+student_info[i].real_name+'</td>'+
+						'<td>'+student_info[i].exam_no+'</td>'+
+						'<td>'+student_info[i].course_name+'</td>'+
+					'</tr>';
+			$('.stu-tabble tbody').append(t_tr);
+		};
+	}
 	// 学生列表年级选择
  	$('.stu-main #select-grade').on('change', function() {
+ 		$('.stu-main').find('#select-courses').html('');
  		var value = $(this).val();
  		console.log(value)
  		if(value!=0){
  			get_subject_list(value,'.stu-main');
+ 			var iData = ["grade_id",value];
+ 			get_all_student(iData);
  		}else{
  			$('.stu-main #select-subjects').html('');
  			$('.stu-main #select-subjects').append('<option value="0">全部科目</option>');
+ 			get_all_student(null);
+ 		}
+ 	});
+ 		// 学生列表科目选择
+ 	$('.stu-main #select-subjects').on('change', function() {
+ 		var g_value = $(this).parents('.set-up-search').find('#select-grade').val();
+ 		var s_value = $(this).val();
+ 		console.log(g_value,s_value)
+ 		if(s_value!=0){
+ 			var iData = ["grade_id",g_value,"subject_id",s_value];
+ 			get_select_course(iData);
+ 			get_all_student(iData);
+ 		}else{
+ 			var iData = ["grade_id",g_value];
+ 			$('.stu-main').find('#select-courses').html('');
+ 			get_all_student(iData);
  		}
  	});
 
- 		// 学生导入弹框
+ 	$('.stu-main #select-courses').on('change', function() {
+ 		var g_value = $(this).parents('.set-up-search').find('#select-grade').val();
+ 		var s_value = $(this).parents('.set-up-search').find('#select-subjects').val();
+ 		var c_value = $(this).val();
+ 		console.log(g_value,s_value)
+ 		if(c_value!=0){
+ 			var iData = ["grade_id",g_value,"subject_id",s_value,'course_id',c_value];
+ 			get_all_student(iData);
+ 		}else{
+ 			var iData = ["grade_id",g_value,"subject_id",s_value,];
+ 			get_all_student(iData);
+ 		}
+ 	});
+
+
+	// 获取课程列表
+	function get_select_course(iData){
+		var all_data={'page':1, 'limit': 100};
+		if(iData!=null){
+			for (var i = 0; i < iData.length; i+=2) {
+				all_data[iData[i]] = iData[i+1];
+			}
+		}
+		$.ajax({
+	   	type: "GET",
+	   	url: ajaxIp+"/api/v2/courses",
+	  	dataType: "JSON",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	data:all_data,
+	  	success: function(data){
+	  		console.log(data);
+	  		if(data.courses.length>0){
+	  			show_select_list(data.courses)
+	  		}else{
+	  			$('.stu-main').find('#select-courses').html('');
+	  		}
+	    },
+	    error: function(){
+      	// alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html'
+	    }
+	  });
+	}
+
+	function show_select_list(info){
+		$('.stu-main').find('#select-courses').html('');
+		$('.stu-main').find('#select-courses').append('<option value="0">全部课程</option>');
+		for (var i = 0; i < info.length; i++) {
+			var c_op = '<option value="'+info[i].id+'">'+info[i].name+'</option>';
+			$('.stu-main').find('#select-courses').append(c_op);
+		};
+
+	}
+ 	// 学生导入弹框
 	$('.stu-import').click(function(){
 		$('.import-stu-wrap .modal-main').animate({'top': '50%','opacity': 1},500);
 		$('.import-stu-wrap .modal-shadow').animate({'opacity': .3},500);
 		$('.import-stu-wrap').show();
+		$('#upfiles').html('未选择任何文件');
 		$('.table-template').attr('href', ajaxIp+'/template/课程学生导入（模板）.xlsx');
 	})
+	$('#inPaths').change(function(){
+		inputFlileNames('#inPaths');
+	})
+	// 确定导入学生
+	$('body').on('click', '.import-stu-wrap .determine', function() {
+		var formData = new FormData();
+		formData.append("student_file",$("#inPaths")[0].files[0]);
+		var i_string = $('#upfiles div').html();
+		i_string_i = i_string.lastIndexOf(".");
+		i_string = i_string.substring(i_string_i+1);
+		console.log(i_string+'aaaaaaaaaaaaaaaaaaaa')
+		console.log(formData)
+		if(i_string!='xlsx' && i_string!='xls'){
+			alert('文件格式不对，请选择xlsx或者xls文件！')
+		}
+		$('.import-stu-wrap').hide();
+		$.ajax({
+	   	type: "POST",
+	   	url: ajaxIp+"/api/v2/students/import_by_course",
+	  	dataType: "JSON",
+	  	data: formData,
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	processData : false,
+			contentType : false,
+	  	beforeSend:function(){
+					console.log("正在进行，请稍候");
+			},
+			success : function(data) {
+				console.log(data);
+				if(data.ok==1){
+					get_all_student(null);
+				}
+			},
+			error : function() {
+				console.log("error");
+			}
+	  });
+	});
+
+	// 导出当前学生列表
+	$('body').on('click', '.lead-out-student', function() {
+		var grade_id = $(this).parents('.set-up-search').find('#select-grade').val();
+		var subject_id = $(this).parents('.set-up-search').find('#select-subjects').val();
+		var course_id = $(this).parents('.set-up-search').find('#select-courses').val();
+		if(grade_id==0&&subject_id==0&&course_id==0){
+			var data_all={};
+		}
+		if(grade_id!=0&&subject_id==0&&course_id==0){
+			var data_all={'grade_id':grade_id};
+		}
+		if(grade_id!=0&&subject_id!=0&&course_id==0){
+			var data_all={'grade_id':grade_id,'subject_id':subject_id};
+		}
+		if(grade_id!=0&&subject_id!=0&&course_id!=0){
+			var data_all={'grade_id':grade_id,'subject_id':subject_id,'course_id':course_id};
+		}
+		var $this = $(this);
+		$.ajax({
+     	type: "GET",
+     	async:false,
+     	url: ajaxIp+"/api/v2/students/export_by_course",
+    	dataType: "JSON",
+    	data:data_all,
+    	headers: {'Authorization': "Bearer " + isLogin},
+    	success: function(data){
+    		console.log(data);
+    		if(data.filepath){
+    			$this.children().attr('href', ajaxIp+data.filepath);
+    		}
+      },
+      error: function(){
+        	// alert('请稍后从新尝试登录或者联系管理员');
+        	// localStorage.clear();
+        	// window.location.href = './login.html'
+      }
+    });
+	});
+
+	// 清除学生
+	// 清除学生弹框
+	$('.stu-main #clear').on('click', function() {
+		var grade_id = $(this).parents('.set-up-search').find('#select-grade').val();
+		var subject_id = $(this).parents('.set-up-search').find('#select-subjects').val();
+		var course_id = $(this).parents('.set-up-search').find('#select-courses').val();
+		if(grade_id==0){
+			alert('请选择年级');
+		}
+		if(grade_id!=0&&subject_id==0){
+			alert('请选择科目');
+		}
+		if(grade_id!=0&&subject_id!=0&&course_id==0){
+			alert('请选择课程');
+		}
+		if(grade_id!=0&&subject_id!=0&&course_id!=0){
+			var g_name = $(this).parents('.set-up-search').find('#select-grade option:selected').text();
+			var s_name = $(this).parents('.set-up-search').find('#select-subjects option:selected').text();
+			var c_name = $(this).parents('.set-up-search').find('#select-courses option:selected').text();
+			$('.modal-wrap-stu-clear .modal-main').animate({'top': '50%','opacity': 1},500);
+			$('.modal-wrap-stu-clear .modal-shadow').animate({'opacity': .3},500);
+			$('.modal-wrap-stu-clear').show();
+			console.log(s_name)
+			$('.clear-g-name').text(g_name);
+			$('.clear-s-name').text(s_name);
+			$('.clear-c-name').text(c_name);
+			$('.modal-wrap-stu-clear #grade_input').val(grade_id);
+			$('.modal-wrap-stu-clear #subject_input').val(subject_id);
+			$('.modal-wrap-stu-clear #course_input').val(course_id);
+		}
+	});
+	// 确认清除学生
+	$('.modal-wrap-stu-clear').on('click', '.determine', function() {
+		var grade_id=$('.modal-wrap-stu-clear #grade_input').val();
+		var subject_id=$('.modal-wrap-stu-clear #subject_input').val();
+		var course_id=$('.modal-wrap-stu-clear #course_input').val();
+		$.ajax({
+     	type: "DELETE",
+     	url: ajaxIp+"/api/v2/students/destroy_by_course",
+    	dataType: "JSON",
+    	data:{'course_id':course_id},
+    	headers: {'Authorization': "Bearer " + isLogin},
+    	success: function(data){
+    		console.log(data);
+    		get_all_student(null);
+      },
+      error: function(){
+        	// alert('请稍后从新尝试登录或者联系管理员');
+        	// localStorage.clear();
+        	// window.location.href = './login.html'
+      }
+    });
+	});
+
+
+
+
+
+
 
 
  	// 学生课程设置
+ 	// 获取所有学生学生课程设置
+	function get_all_set(iData){
+		var all_data={'page':1, 'limit': 10};
+		if(iData!=null){
+			for (var i = 0; i < iData.length; i+=2) {
+				all_data[iData[i]] = iData[i+1];
+			}
+		}
+		$.ajax({
+	   	type: "GET",
+	   	url: ajaxIp+"/api/v2/courses/students_by_classroom",
+	  	dataType: "JSON",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	data:all_data,
+	  	success: function(data){
+	  		console.log(data);
+	  		all_set_list(data,iData);
+	    },
+	    error: function(){
+      	// alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html'
+	    }
+	  });
+	}
+	// 学生课程设置列表
+	function all_set_list(all,iData){
+		var ii_num;
+		if(all.total_count==0){
+			ii_num=1;
+		}else if(all.total_count>0 && all.total_count<10){
+			ii_num=1;
+		}else{
+			ii_num=Math.ceil(all.total_count/10);
+		}
+		$.jqPaginator('#temporary-pagination', {
+	  	totalPages: ii_num,
+	    visiblePages: 5,
+	    currentPage: 1,
+	    disableClass: 'disableClass',
+	    activeClass:'activeClass',
+	    prev: '<li class="prev"><a href="javascript:;" class="pagination-color">上一页</a></li>',
+	    next: '<li class="next"><a href="javascript:;" class="pagination-color">下一页</a></li>',
+	    first: '<li class="prev"><a href="javascript:;" class="pagination-color">首页</a></li>',
+	    last: '<li class="next"><a href="javascript:;" class="pagination-color">尾页</a></li>',
+	    page: '<li class="page"><a href="javascript:;" class="pagination-color">{{page}}</a></li>',
+	    onPageChange: function (num) {
+	    	console.log(iData,all)
+				var iDataI = {'page':num, 'limit': 10};
+				console.log(iData,iDataI)
+				if(iData!=null){
+					for (var i = 0; i < iData.length; i+=2) {
+						iDataI[iData[i]] = iData[i+1];
+					}
+				}
+
+				if(num==1){
+					show_all_set(all.student_infos)
+				}
+				if(num>1){
+	      	$.ajax({
+			    	type: "GET",
+			     	url: ajaxIp+"/api/v2/courses/students_by_classroom",
+			    	dataType: "JSON",
+			    	headers: {'Authorization': "Bearer " + isLogin},
+			    	data: iDataI,
+			    	success: function(data){
+			    		console.log(data)
+			  			show_all_set(data.student_infos);
+			      },
+			      error: function(){
+		        	// alert('请稍后从新尝试登录或者联系管理员');
+		        	// localStorage.clear();
+		        	// window.location.href = './login.html'
+			      }
+			    });
+	      }
+	    }
+	  });
+	}
+	// 显示学生课程设置
+	function show_all_set(student_info){
+		console.log(student_info)
+		$('.stu-course-tabble tbody').html('');
+		for (var i = 0; i < student_info.length; i++) {
+			var t_tr =
+					'<tr style="border-bottom:1px solid #ccc;" data-id="'+student_info[i].id+'">'+
+						'<td>'+student_info[i].grade_name+''+student_info[i].classroom_name+'</td>'+
+						'<td>'+student_info[i].real_name+'</td>'+
+						'<td>'+student_info[i].exam_no+'</td>'+
+					'</tr>';
+			$('.stu-course-tabble tbody').append(t_tr);
+		};
+	}
  	// 学生课程设置年级选择
  	$('.stu-course-main #select-grade').on('change', function() {
  		var value = $(this).val();
  		console.log(value)
  		if(value!=0){
  			get_class_list(value,'.stu-course-main');
+ 			var iData = ["grade_id",value];
+ 			get_all_set(iData);
  		}else{
  			$('.stu-course-main #select-sujects').html('');
  			$('.stu-course-main #select-sujects').append('<option value="0">全部班级</option>');
+ 		}
+ 	});
+ 	// 学生课程设置班级选择
+ 	$('.stu-course-main #select-sujects').on('change', function() {
+ 		var g_value = $(this).parents('.set-up-search').find('#select-grade').val();
+ 		var s_value = $(this).val();
+ 		console.log(g_value,s_value)
+ 		if(s_value!=0){
+ 			var iData = ["grade_id",g_value,"classroom_id",s_value];
+ 			get_all_set(iData);
+ 		}else{
+ 			var iData = ["grade_id",g_value];
+ 			get_all_set(iData);
  		}
  	});
 
