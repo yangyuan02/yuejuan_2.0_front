@@ -82,6 +82,7 @@ $(document).ready(function () {
     });
   }
 	function show_subject_by_grade(info,name){
+		console.log(name)
 		$(name).find('#select-subjects').html('');
   	$(name).find('#select-subjects').append('<option value="0">全部科目</option>');
   	for (var i = 0; i < info.length; i++) {
@@ -1142,6 +1143,157 @@ $(document).ready(function () {
  			get_all_set(iData);
  		}
  	});
+
+ 	// 课程选择弹框
+ 	$('#course-select').on('click',  function() {
+ 		var g_value = $(this).parents('.set-up-search').find('#select-grade').val();
+ 		var class_value = $(this).parents('.set-up-search').find('#select-sujects').val();
+ 		if(g_value==0){
+ 			alert('请选择年级')
+ 		}
+ 		if(g_value!=0&&class_value==0){
+ 			alert('请选择班级')
+ 		}
+ 		if(g_value!=0&&class_value!=0){
+ 			$('.modal-wrap-course-change .modal-main').animate({'top': '50%','opacity': 1},500);
+			$('.modal-wrap-course-change .modal-shadow').animate({'opacity': .3},500);
+			$('.modal-wrap-course-change').show();
+			get_subject_list(g_value,'.modal-wrap-course-change');
+			$('.modal-wrap-course-change').attr('data-id',g_value);
+			$('.modal-wrap-course-change').attr('classroom-id',class_value);
+			// $('.modal-wrap-course-change #course-right-list').html('');
+			// $('.modal-wrap-course-change #course-left-list li');
+ 		}
+ 	});
+
+ 	$('.modal-wrap-course-change').on('change', '#select-subjects', function() {
+ 		var g_value = $('.modal-wrap-course-change').attr('data-id');
+ 		var s_value = $(this).val();
+ 		console.log(g_value,s_value)
+ 		if(s_value!=0){
+ 			var iData = ["grade_id",g_value,"subject_id",s_value];
+ 		}else{
+ 			var iData = ["grade_id",g_value];
+ 		}
+ 		get_tk_course(iData);
+ 	});
+
+	function get_tk_course(iData){
+		var all_data={'page':1, 'limit': 100};
+		if(iData!=null){
+			for (var i = 0; i < iData.length; i+=2) {
+				all_data[iData[i]] = iData[i+1];
+			}
+		}
+		$.ajax({
+	   	type: "GET",
+	   	url: ajaxIp+"/api/v2/courses",
+	  	dataType: "JSON",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	data:all_data,
+	  	success: function(data){
+	  		console.log(data);
+	  		if(data.courses.length>0){
+	  			show_tk_list(data.courses)
+	  		}
+	    },
+	    error: function(){
+      	// alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html'
+	    }
+	  });
+	}
+
+	function show_tk_list(info){
+		console.log(info)
+		$('#course-left-list').html('');
+		for (var i = 0; i < info.length; i++) {
+			var l_li = '<li class="clear">'+
+						'<span class="left exam-name" data-id="'+info[i].id+'">'+info[i].name+'</span>'+
+						'<div class="check_box right">'+
+	          	'<input type="checkbox" value="" id="exam_'+info[i].id+'" class="" name="exam-name">'+
+	          	'<label for="exam_'+info[i].id+'"></label>'+
+	        	'</div>'+
+					'</li>';
+			$('#course-left-list').append(l_li);
+		};
+		// 是否被选中
+		var c_r_li = $('.modal-wrap-course-change #course-right-list li');
+		var c_l_li = $('.modal-wrap-course-change #course-left-list li');
+		for (var m = 0; m < c_l_li.length; m++) {
+			for (var i = 0; i < c_r_li.length; i++) {
+				if($(c_r_li[i]).find('span').attr('data-id')==$(c_l_li[m]).find('.exam-name').attr('data-id')){
+					$(c_l_li[m]).find('input').attr('checked',true);
+				}
+			};
+		};
+	}
+
+	// 点击科目
+  $('body').on('click', 'input[name="exam-name"]', function() {
+		var $graBox = $("input[name='exam-name']");
+		// $graBox.length=$("input[name='exam-name']").length;
+		// console.log($("input[name='exam-name']:checked").length,$graBox.length);
+		// $("#merge-exam-modal #all-student").prop("checked", $graBox.length == $("input[name='exam-name']:checked").length ? true : false);
+		var this_text = $(this).parents('li').find('.exam-name').text();
+		var this_id = $(this).parents('li').find('.exam-name').data('id');
+		if (this.checked) {
+			var rigth_li = '<li class="add-left"><span data-id="' + this_id + '">' + this_text + '</span></span><i class="iconfont">&#xe61b;</i></li>';
+			$('.modal-wrap-course-change #course-right-list').append(rigth_li);
+		} else {
+			var t_li = $('.modal-wrap-course-change #course-right-list li');
+			var t_length = t_li.length;
+			for (var i = 0; i < t_length; i++) {
+				var t_id = $(t_li[i]).find('span').attr('data-id');
+				if (this_id == t_id) {
+					$(t_li[i]).remove();
+				};
+			};
+		};
+	});
+
+	//删除已经选择的科目
+	$('body').on('click', '.modal-wrap-course-change #course-right-list li i', function() {
+		var c_id = $(this).prev().attr('data-id');
+		var course_left_li = $('.modal-wrap-course-change #course-left-list li');
+		var course_left_length = course_left_li.length;
+		for (var i = 0; i < course_left_length; i++) {
+			var left_id = $(course_left_li[i]).find('.exam-name').attr('data-id');
+			console.log(c_id,left_id)
+			if (c_id == left_id) {
+				$(course_left_li[i]).find('input').prop('checked', false);
+			};
+		};
+		$(this).parent().remove();
+	});
+
+	// 确认添加课程
+	$('.modal-wrap-course-change').on('click', '.confirm-change', function() {
+		var classroom_id = $('.modal-wrap-course-change').attr('classroom-id');
+		var c_r_li = $('.modal-wrap-course-change #course-right-list li');
+		var course_ids=[];
+		for (var i = 0; i < c_r_li.length; i++) {
+			var course_id = $(c_r_li[i]).find('span').attr('data-id');
+			course_ids.push(course_id);
+		};
+		console.log(course_ids)
+		$.ajax({
+	   	type: "POST",
+	   	url: ajaxIp+"/api/v2/courses/classroom_add_course",
+	  	dataType: "JSON",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	data:{'classroom_id':classroom_id,'course_ids':course_ids},
+	  	success: function(data){
+	  		console.log(data);
+	    },
+	    error: function(){
+      	// alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html'
+	    }
+	  });
+	});
 
 
 
