@@ -34,3 +34,81 @@
 .delet{
 	color: #db4a4a;
 }
+
+.mian-cont {
+  text-align: left;
+  font-size: 14px;
+  color: #666;
+  padding-bottom: 18px;
+}
+.teacher-content{
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.teacher-left{
+  width: 318px;
+  border: 1px solid #ccc;
+}
+.teacher-title, .school-title {
+  position: relative;
+  border-bottom: 1px solid #ccc;
+  padding: 12px 15px;
+  background: #fafafa;
+}
+.teacher-title h6{
+  font-size: 14px;
+  font-weight: bold;
+}
+.all-box {
+  position: absolute;
+  top: 14px;
+  right: 15px;
+}
+.all-exam select {
+  height: 28px;
+  line-height: 28px;
+  color: #666;
+  width: 220px;
+  position: relative;
+  top: -6px;
+}
+.teacher-left-list {
+  padding: 0 15px;
+  height: 294px;
+  overflow: auto;
+}
+.teacher-left-list li:first-child {
+  margin-top: 15px;
+}
+.teacher-left-list li{
+  margin-bottom: 15px;
+}
+.teacher-right {
+  width: 318px;
+  border: 1px solid #ccc;
+}
+.teacher-right-list {
+  padding: 12px 15px;
+  height: 270px;
+  overflow: auto;
+  margin-left: -10px;
+}
+.teacher-right-list li{
+  float: left;
+  /* width: 80px; */
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+  background: #31bc91;
+  color: #fff;
+  padding: 0 8px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+.teacher-right-list li i{
+  color: #fff;
+  font-size: 12px;
+  font-weight: normal;
+  margin-left: 5px;
+  cursor: pointer;
+}
