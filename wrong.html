@@ -10,6 +10,7 @@
 	<script type="text/javascript" src='js/jquery.min.js'></script>
 	<script type="text/javascript" src='js/wrong.js'></script>
 	<script type="text/javascript" src='js/common.js'></script>
+	<script type="text/javascript" src='js/edit_bj.js'></script>
 </head>
 <body>
 	<div id="wrap">
@@ -68,10 +69,10 @@
 					<a  data-id="0" style="">填空题<i class="iconfont">&#xe619;</i></a>
 					<a  data-id="0" style="">作文题<i class="iconfont">&#xe619;</i></a>
 					<a data-id="0" style="">其他题<i class="iconfont">&#xe619;</i></a></i>
-                     <a data-id="0" style="float: right;"><button type="" class="grade_print">打印</button><button type="" style="margin-left:20px;font-size: 14px;" class="grade_sur determine">确定</button></a>
+                     <a data-id="0" style="float: right;"><button type="" class="grade_off">取消</button><button type="" style="margin-left:20px;font-size: 14px;" class="grade_sur determine">确定</button></a>
 					</p>
 					<!-- 答题情况 -->
-					<div class="grade_ans" style="">
+					<div class="grade_ans" style="display: none;">
 					<div class="ans_result">
 						<p>
 						<a  class="know_01">0.95-1 完全掌握<i></i></a>
@@ -91,15 +92,20 @@
 						<option value="">按题型</option>
 					</select></a></p>
 
-					<div class="grate_topic">
+					<div class="grate_topic" style="overflow: hidden;">
 						<p>
+						<div class="grate_topic_ever_box" style="float: left;width: 610px;">
 						<a class="grate_topic_ever" style="background: #31bc91;">01</a>
 						<a class="grate_topic_ever" style="background: #31bc91;">07</a>
 						<a class="grate_topic_ever" style="background: #f7c07c;">15</a>
 						<a class="grate_topic_ever" style="background: #f7c07c;">17</a>
 						<a  class="grate_topic_ever" style="background:#5fa3ed;">19</a>
 						<a class="grate_topic_ever" style="background:#fb7d8a;;">21</a>
+						</div>
+						<div style="float: right;">
 						<a class="grate_wrong_make"><button type="" class="determine">生成错题本</button><i class="iconfont">&#xe622;</i></a>
+						<button type="" class="grade_print">打印</button>
+						</div>
 						</p>
 					</div>
 					<!-- 错题列表 -->
@@ -191,7 +197,7 @@
 					<a  data-id="0" style="">填空题<i class="iconfont">&#xe619;</i></a>
 					<a  data-id="0" style="">作文题<i class="iconfont">&#xe619;</i></a>
 					<a data-id="0" style="">其他题<i class="iconfont">&#xe619;</i></a></i>
-                     <a data-id="0" style="float: right;"><button type="" style="font-size: 14px;background: #ffffff;border: 1px solid #31bc91;color: #31bc91;box-sizing: border-box;">打印</button><button type="" style="margin-left:20px;font-size: 14px;" class="class_sur determine">确定</button></a>
+                     <a data-id="0" style="float: right;"><button class="class_off" type="">取消</button><button type="" style="margin-left:20px;font-size: 14px;" class="class_sur determine">确定</button></a>
 					</p>
 					<!-- 答题情况 -->
 					<div class="class_ans" style="display: none;">
@@ -215,15 +221,31 @@
 						<option value="">按题型</option>
 					</select></a></p>
           
-					<div>
+					<div class="class_topic" style="overflow: hidden;">
 						<p>
-						<a class="class_topic_ever" style="background: #31bc91;">01</a>
+						<div class="class_topic_ever_box">
+						<p class="class_topic_ever_top" data-id="0">答案详情
+						<i class="iconfont">&#xe605;</i></p>
+						<ul class="class_topic_ever_ul">
+							<li><p>2017年十月月考错题情况</p>
+							<a class="class_topic_ever" style="background: #31bc91;">01</a>
 						<a class="class_topic_ever" style="background: #31bc91;">07</a>
 						<a class="class_topic_ever" style="background: #f7c07c;">15</a>
 						<a class="class_topic_ever" style="background: #f7c07c;">17</a>
 						<a  class="class_topic_ever" style="background:#5fa3ed;">19</a>
-						<a class="class_topic_ever" style="background:#fb7d8a;;">21</a>
+						<a class="class_topic_ever" style="background:#fb7d8a;;">21</a></li>
+						<li><p>2017年十一月月考错题情况</p>
+							<a class="class_topic_ever" style="background: #31bc91;">01</a>
+						<a class="class_topic_ever" style="background: #31bc91;">07</a>
+						<a class="class_topic_ever" style="background: #f7c07c;">15</a>
+						<a class="class_topic_ever" style="background: #f7c07c;">17</a>
+						<a  class="class_topic_ever" style="background:#5fa3ed;">19</a>
+						<a class="class_topic_ever" style="background:#fb7d8a;;">21</a></li>
+						</ul>
+						</div>
+						<div style="float: right;">
 						<a style="float: right;margin-top:10px;cursor: pointer;"><button type="" class="determine">生成错题本</button><i class="iconfont" style="color: #31bc91;margin: 0px 0px 0px 10px;font-size: 16px;">&#xe622;</i></a>
+						<button class="class_print" type="">打印</button></div>
 						</p>
 					</div>
                    <!--   班级错题list -->
@@ -263,7 +285,8 @@
 					<div style="position: relative;display: none;">
 			              <p class="students_key"><i></i>重点追踪学生 </p>
 			              <div class="students_key_box">
-			             <a>张一帆</a><a>王晓</a>
+			              <p class="students_key_box_p01"><i>上海中学</i><i>高一</i><i>2班</i>学生错题追踪</p>
+			            <p class="students_key_box_p02"><a>张一帆</a><a>王晓</a></p>
                            </div>
 			             
 
@@ -293,7 +316,7 @@
 					<a  data-id="0" style="">填空题<i class="iconfont">&#xe619;</i></a>
 					<a  data-id="0" style="">作文题<i class="iconfont">&#xe619;</i></a>
 					<a data-id="0" style="">其他题<i class="iconfont">&#xe619;</i></a></i>
-                     <a data-id="0" style="float: right;"><button type="" style="font-size: 14px;background: #ffffff;border: 1px solid #31bc91;color: #31bc91;box-sizing: border-box;">打印</button><button type="" style="margin-left:20px;font-size: 14px;" class="per_sur determine">确定</button></a>
+                     <a data-id="0" style="float: right;" class="per_sur_a"><button class="per_off" type="">取消</button><button type="" style="margin-left:20px;font-size: 14px;" class="per_sur determine">确定</button></a>
 					</p>
 					<!-- 答题情况 -->
 					<div class="per_ans" style="display: none;">
@@ -317,15 +340,32 @@
 						<option value="">按题型</option>
 					</select></a></p>
 
-					<div>
+					<div  class="per_topic" style="overflow: hidden;">
 						<p>
+						<div class="per_topic_ever_box">
+						<p class="per_topic_ever_top" data-id="0">答题详情:<i class="iconfont">&#xe605;</i></p>
+						<ul class="per_topic_ever_ul">
+							<li><p>2017年十月月考错题情况</p>
 						<a class="per_topic_ever" style="background: #31bc91;">1</a>
 						<a class="per_topic_ever" style="background: #31bc91;">7</a>
 						<a class="per_topic_ever" style="background: #f7c07c;">15</a>
 						<a class="per_topic_ever" style="background: #f7c07c;">17</a>
 						<a  class="per_topic_ever" style="background:#5fa3ed;">19</a>
-						<a class="per_topic_ever" style="background:#fb7d8a;;">21</a>
-						<a class="per_wrong_make"><button type="" class="determine">生成错题本</button><i class="iconfont">&#xe622;</i></a>
+						<a class="per_topic_ever" style="background:#fb7d8a;;">21</a></li>
+						<li><p>2017年十一月月考错题情况</p>
+						<a class="per_topic_ever" style="background: #31bc91;">1</a>
+						<a class="per_topic_ever" style="background: #31bc91;">7</a>
+						<a class="per_topic_ever" style="background: #f7c07c;">15</a>
+						<a class="per_topic_ever" style="background: #f7c07c;">17</a>
+						<a  class="per_topic_ever" style="background:#5fa3ed;">19</a>
+						<a class="per_topic_ever" style="background:#fb7d8a;;">21</a></li>
+						</ul>
+						</div>
+						<div style="float: right;padding-top:10px;box-sizing:border-box;">
+						<button class="per_print" type="">打印</button>
+						<button class="per_make_change" type="">生成变式训练</button>
+						<a class="per_wrong_make"><button type="" class="determine">生成错题本</button><i class="iconfont">&#xe622;</i></a></div>
+
 						</p>
 					</div>
 					  <!--   个人错题list -->
@@ -364,7 +404,7 @@
                          </div>
                          <p class="per_list_ans_train_top">错题重练:</p>
                          <div class="per_list_ans_train"><p>请在此区域内纠正错题，并归纳解题心得。</p></div>
-                         <p class="per_list_ans_train_top">变式训练:</p>
+                         <p class="per_list_ans_train_top01">变式训练:</p>
                           <div class="per_list_ans_train_01">
                             <p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （    ）</p>
 								<p>A．粒子带正电</p>

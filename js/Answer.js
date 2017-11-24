@@ -576,7 +576,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         itme_obj.question = []
         for (var i = 1; i <= ulLen; i++) {
             var a = {}
-            a.no = i
+            a.no = i.toString()
             a.option = []
             itme_obj.question.push(a)
             for (var j = 1; j <= len; j++) {
@@ -695,7 +695,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var item_w = 16, itemMarginLeft = 11;
         for (var i = 1; i <= qNumer; i++) {//循环每个小题
             var itme_obj = {}
-            itme_obj.no = startNo[i-1]
+            itme_obj.no = startNo[i-1].toString()
             itme_obj.one_score = parseInt(itemCores[i - 1])
             itme_obj.answer_setting_id = answer_id[Answerindex].answers.settings[i - 1].setting_id//小题id
             itme_obj.option = []
