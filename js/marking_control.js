@@ -25,7 +25,8 @@ $(function(){
 		  success: function(data){
 		  	console.log(data);
 		  	// show_test_info(data);
-		  	page_test_list(data.total_count,page_data_info);
+		  	var f_info = data;
+		  	page_test_list(data.total_count,page_data_info,f_info);
 		  },
 		  error: function(){
 		      // alert('请稍后从新尝试登录或者联系管理员');
@@ -35,8 +36,7 @@ $(function(){
 		});
 	}
 
-	function page_test_list(nums,page_data_info){
-
+	function page_test_list(nums,page_data_info,f_info){
 		var ii_nums;
 		console.log(nums+'条数据')
 		if(nums==0){
@@ -66,23 +66,27 @@ $(function(){
 						page_data[page_data_info[i]] = page_data_info[i+1];
 					}
 				}
-
-				$.ajax({
-				  type: "POST",
-				  url: ajaxIp+"/api/v2/exam_subjects/school_exam_subjects",
-				  headers: {'Authorization': "Bearer " + isLogin},
-				  data:page_data,
-				  success: function(data){
-				  	console.log(data);
-				  	show_test_info(data);
-				  	// page_test_list(data.total_count,page_data_info);
-				  },
-				  error: function(){
-				      // alert('请稍后从新尝试登录或者联系管理员');
-			      	// localStorage.clear();
-			      	// window.location.href = './login.html';
-				  }
-				});
+				if(nums==1){
+					show_test_info(f_info);
+				}
+				if(nums>1){
+					$.ajax({
+					  type: "POST",
+					  url: ajaxIp+"/api/v2/exam_subjects/school_exam_subjects",
+					  headers: {'Authorization': "Bearer " + isLogin},
+					  data:page_data,
+					  success: function(data){
+					  	console.log(data);
+					  	show_test_info(data);
+					  	// page_test_list(data.total_count,page_data_info);
+					  },
+					  error: function(){
+					      // alert('请稍后从新尝试登录或者联系管理员');
+				      	// localStorage.clear();
+				      	// window.location.href = './login.html';
+					  }
+					});
+				}
 	    }
 	  });
 	}
