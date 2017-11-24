@@ -1186,6 +1186,8 @@ $(document).ready(function () {
 			get_subject_list(g_value,'.modal-wrap-course-change');
 			$('.modal-wrap-course-change').attr('data-id',g_value);
 			$('.modal-wrap-course-change').attr('classroom-id',class_value);
+			$('.modal-wrap-course-change #course-left-list').html('');
+			$('.modal-wrap-course-change #course-right-list').html('');
 			// $('.modal-wrap-course-change #course-right-list').html('');
 			// $('.modal-wrap-course-change #course-left-list li');
  		}
@@ -1220,6 +1222,9 @@ $(document).ready(function () {
 	  		console.log(data);
 	  		if(data.courses.length>0){
 	  			show_tk_list(data.courses)
+	  		}
+	  		if(data.courses.length==0){
+	  			$('#course-left-list').html('');
 	  		}
 	    },
 	    error: function(){
