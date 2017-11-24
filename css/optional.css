@@ -112,3 +112,12 @@
   margin-left: 5px;
   cursor: pointer;
 }
+.all_change_course ul li{
+	display: inline-block;
+	margin: 4px 8px;
+}
+.all_change_course ul li span{
+	padding-right: 6px;
+	position: relative;
+	top: -2px;
+}
