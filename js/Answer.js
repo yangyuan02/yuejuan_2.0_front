@@ -576,7 +576,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         itme_obj.question = []
         for (var i = 1; i <= ulLen; i++) {
             var a = {}
-            a.no = i
+            a.no = i.toString()
             a.option = []
             itme_obj.question.push(a)
             for (var j = 1; j <= len; j++) {
