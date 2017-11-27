@@ -666,7 +666,15 @@ font-size: 14px;background: #ffffff;border: 1px solid #31bc91;color: #31bc91;box
 .per_sur_a{
 	display: none;
 }
-
+/*.outside_div{
+	background:red;
+	position: absolute;
+	top:0px;
+	z-index: 11111;
+	height:1305px;
+	width:1360px;
+	display: none;
+}*/
 
 
 
