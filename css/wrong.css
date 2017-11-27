@@ -120,6 +120,11 @@ float: right;margin-right: 16px;
 }
 
 .grade_print{
+	font-size: 14px;background: #ffffff;border: 1px solid #31bc91;color: #31bc91;box-sizing: border-box;float: right;
+    margin-top: 10px;
+    margin-right: 15px;
+}
+.grade_off{
 	font-size: 14px;background: #ffffff;border: 1px solid #31bc91;color: #31bc91;box-sizing: border-box;
 }
 .ans_result{
@@ -163,6 +168,12 @@ float: right;margin-right: 16px;
 .grade_sort{
 	width: 100px;height: 30px;margin-left: 10px;outline: none;color: #666666;
 }
+.grate_topic_ever_box{
+	float: left;
+	width: 610px;
+	overflow: hidden;
+}
+
 .grate_topic_ever{
 	padding: 0px 25px 0px 25px;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-right: 10px;margin-top: 10px;
 }
@@ -260,7 +271,7 @@ margin-left:10px;
 	width: 100px;height: 30px;margin-left: 10px;color: #666666;font-size: 14px;outline: none;
 }
 .class_topic_ever{
-	padding: 0px 25px 0px 25px;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-right: 10px;margin-top: 10px;
+	padding: 0px 25px 0px 25px;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin:10px 10px 10px 0px;
 }
 .class_list{
 	padding:20px 0px 100px 0px;
@@ -340,12 +351,38 @@ margin-left:10px;
 .class_list_form  a{
 	color: #cccccc;
 }
+.class_print{
+	font-size: 14px;background: #ffffff;border: 1px solid #31bc91;color: #31bc91;box-sizing: border-box;float: right;
+    margin-top: 10px;
+    margin-right: 15px;
+}
+.class_off{
+	font-size: 14px;background: #ffffff;border: 1px solid #31bc91;color: #31bc91;box-sizing: border-box;
+}
+.class_topic_ever_box{
+	float: left;
+	width: 610px;
+	cursor: pointer;
+}
+.class_topic_ever_ul p{
+    color: #666666;
+    font-size: 14px;
+}
+.class_topic_ever_top{
+	color: #31bc91;font-size:14px;margin-top: 10px;margin-bottom:10px;width: 80px;
+}
+.class_topic_ever_top i{
+   font-size: 14px;
+}
+.class_topic_ever_ul{
+	display: none;
+}
 /*学生错题集*/
 .per_sort{
 	width: 100px;height: 30px;margin-left: 10px;outline: none;color: #666666;
 }
 .per_topic_ever{
-	padding: 0px 25px 0px 25px;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin-right: 10px;margin-top: 10px;
+	padding: 0px 25px 0px 25px;display: inline-block;line-height: 26px;text-align: center;color: #ffffff;margin:10px 10px 10px 0px;
 }
 .per_wrong_select{
 	height: 57px;font-size:14px;line-height: 57px;color: #999999;
@@ -354,7 +391,7 @@ margin-left:10px;
 	width: 100px;height: 30px;margin-left: 10px;color: #666;font-size: 14px;
 }
 .per_wrong_make{
-	float: right;margin-top:10px;cursor: pointer;
+	float: right;cursor: pointer;
 }
 .per_wrong_make i{
 	 color: #31bc91;margin: 0px 0px 0px 10px;font-size: 16px;
@@ -412,7 +449,8 @@ margin-left:10px;
 	margin-right: 40px;width: 120px;height: 30px;border: 1px solid #31bc91;font-size: 14px;
 }
 .students_key{
-	width:100%;line-height: 50px;font-size: 14px;display: none;
+	width:100%;line-height: 50px;font-size: 14px;
+	display: none;
 }
 .students_key i{
 	display: block;width: 3px;height: 18px;background: #31bc91;float: left;margin-right: 10px;margin-top: 16px;color: #666666;
@@ -423,6 +461,16 @@ margin-left:10px;
 }
 .students_key_box a{
 display:block;width:70px;height:32px;line-height: 32px;background:#f5f5f5;border:1px solid #cccccc;text-align:center;color:#333333;float: left;margin-left: 10px;margin-top: 10px;font-size: 14px;
+}
+.students_key_box p i{
+	font-style: normal;
+	margin-right: 15px;
+}
+.students_key_box_p01{
+	margin-left: 10px;
+    color: #cccccc;
+    font-size: 14px;
+
 }
 .per_list{
 	padding:20px 0px 100px 0px;
@@ -546,6 +594,15 @@ margin-left: 10px;
 	padding-left: 40px;
 	box-sizing: border-box;
 }
+.per_list_ans_train_top01{
+	height: 40px;
+	line-height: 40px;
+	color: #666666;
+	font-size: 14px;
+	padding-left: 40px;
+	box-sizing: border-box;
+	display: none;
+}
 .per_list_ans_train{
 	width: 860px;
 	height: 130px;
@@ -557,14 +614,15 @@ margin-left: 10px;
    font-size: 14px;
 }
 .per_list_ans_train_01{
-	width: 860px;
+   width: 860px;
 	/*height: 130px;*/
-	border: 1px solid #cccccc;
+ /*  border: 1px solid #cccccc;*/
    padding:25px 20px;
    box-sizing: border-box;
    margin-left: 40px;
-  color: #666666;
+   color: #666666;
    font-size: 14px;
+   display: none;
 }
 .per_list_ans_train_01 p{
 	margin-bottom: 10px;
@@ -578,12 +636,36 @@ margin-left: 10px;
 .per_list_form  a{
 	color: #cccccc;
 }
-
-
-
-
-
-
+.per_topic_ever_box{
+	float: left;
+	width: 610px;
+	cursor: pointer;
+}
+.per_topic_ever_top{
+	color: #31bc91;font-size:14px;margin-top: 10px;margin-bottom:10px;width: 80px;
+}
+.per_topic_ever_top i{
+   font-size: 14px;
+}
+.per_topic_ever_ul p{
+    color: #666666;
+    font-size: 14px;
+}
+.per_print{
+font-size: 14px;background: #ffffff;border: 1px solid #31bc91;color: #31bc91;box-sizing: border-box;
+}
+.per_make_change{
+	font-size:14px;background: #ffffff;border: 1px solid #31bc91;color: #31bc91;box-sizing: border-box;width: 100px;margin:0px 10px 0px 10px;
+}
+.per_topic_ever_ul{
+	display: none;
+}
+.per_off{
+	font-size:14px;background: #ffffff;border: 1px solid #31bc91;color: #31bc91;box-sizing: border-box;
+}
+.per_sur_a{
+	display: none;
+}
 
 
 

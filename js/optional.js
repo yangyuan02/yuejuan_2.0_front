@@ -197,7 +197,7 @@ $(document).ready(function () {
 	    first: '<li class="prev"><a href="javascript:;" class="pagination-color">首页</a></li>',
 	    last: '<li class="next"><a href="javascript:;" class="pagination-color">尾页</a></li>',
 	    page: '<li class="page"><a href="javascript:;" class="pagination-color">{{page}}</a></li>',
-	    onPageChange: function (num) {
+	    onPageChange: function (num,type) {
 	    	console.log(iData,all)
 				var iDataI = {'page':num, 'limit': 10};
 				console.log(iData,iDataI)
@@ -207,10 +207,10 @@ $(document).ready(function () {
 					}
 				}
 
-				if(num==1){
+				if(type=='init'){
 					show_all_course(all.courses)
 				}
-				if(num>1){
+				if(type=='change'){
 	      	$.ajax({
 			    	type: "GET",
 			     	url: ajaxIp+"/api/v2/courses",
@@ -741,7 +741,7 @@ $(document).ready(function () {
 	    first: '<li class="prev"><a href="javascript:;" class="pagination-color">首页</a></li>',
 	    last: '<li class="next"><a href="javascript:;" class="pagination-color">尾页</a></li>',
 	    page: '<li class="page"><a href="javascript:;" class="pagination-color">{{page}}</a></li>',
-	    onPageChange: function (num) {
+	    onPageChange: function (num,type) {
 	    	console.log(iData,all)
 				var iDataI = {'page':num, 'limit': 10};
 				console.log(iData,iDataI)
@@ -751,10 +751,10 @@ $(document).ready(function () {
 					}
 				}
 
-				if(num==1){
+				if(type=='init'){
 					show_all_student(all.students)
 				}
-				if(num>1){
+				if(type=='change'){
 	      	$.ajax({
 			    	type: "GET",
 			     	url: ajaxIp+"/api/v2/students/list_by_course",
@@ -1069,7 +1069,7 @@ $(document).ready(function () {
 	    first: '<li class="prev"><a href="javascript:;" class="pagination-color">首页</a></li>',
 	    last: '<li class="next"><a href="javascript:;" class="pagination-color">尾页</a></li>',
 	    page: '<li class="page"><a href="javascript:;" class="pagination-color">{{page}}</a></li>',
-	    onPageChange: function (num) {
+	    onPageChange: function (num,type) {
 	    	console.log(iData,all)
 				var iDataI = {'page':num, 'limit': 10};
 				console.log(iData,iDataI)
@@ -1079,10 +1079,10 @@ $(document).ready(function () {
 					}
 				}
 
-				if(num==1){
+				if(type=='init'){
 					show_all_set(all.student_infos)
 				}
-				if(num>1){
+				if(type=='change'){
 	      	$.ajax({
 			    	type: "GET",
 			     	url: ajaxIp+"/api/v2/courses/students_by_classroom",
@@ -1109,12 +1109,36 @@ $(document).ready(function () {
 		$('.stu-course-tabble tbody').html('');
 		for (var i = 0; i < student_info.length; i++) {
 			var t_tr =
-					'<tr style="border-bottom:1px solid #ccc;" data-id="'+student_info[i].id+'">'+
+					'<tr class="tr_'+student_info[i].id+'" style="border-bottom:1px solid #ccc;" data-id="'+student_info[i].id+'">'+
 						'<td>'+student_info[i].grade_name+''+student_info[i].classroom_name+'</td>'+
 						'<td>'+student_info[i].real_name+'</td>'+
 						'<td>'+student_info[i].exam_no+'</td>'+
+						'<td class="all_change_course"><ul></ul></td>'+
 					'</tr>';
 			$('.stu-course-tabble tbody').append(t_tr);
+
+			// 显示班级课程
+			$('.tr_'+student_info[i].id+'').find('.all_change_course ul').html('');
+			// console.log(student_info[i].classroom_courses)
+			// console.log(student_info[i].student_courses)
+			var classroom_info =student_info[i].classroom_courses;
+			var classroom_checked_info =student_info[i].student_courses;
+			for (var j = 0; j < classroom_info.length; j++) {
+				var c_children = '<li class="li_'+j+'" data-id="'+classroom_info[j].id+'" subject_id="'+classroom_info[j].subject_id+'">'+
+														'<span class="c_name">'+classroom_info[j].name+'</span>'+
+														'<div class="check_box">'+
+															'<input type="checkbox" value="" id="exam_'+student_info[i].id+'_'+classroom_info[j].id+'" class="" name="classroom-name">'+
+															'<label for="exam_'+student_info[i].id+'_'+classroom_info[j].id+'"></label>'+
+														'</div>'+
+													'</li>';
+				$('.tr_'+student_info[i].id+'').find('.all_change_course ul').append(c_children);
+				for (var z = 0; z < classroom_checked_info.length; z++) {
+					// console.log(classroom_checked_info[z].id)
+					if(classroom_checked_info[z].id==classroom_info[j].id){
+						$('.tr_'+student_info[i].id+'').find('.all_change_course ul').find('.li_'+j+' input').attr('checked',true);
+					}
+				};
+			};
 		};
 	}
  	// 学生课程设置年级选择
@@ -1128,6 +1152,7 @@ $(document).ready(function () {
  		}else{
  			$('.stu-course-main #select-sujects').html('');
  			$('.stu-course-main #select-sujects').append('<option value="0">全部班级</option>');
+ 			get_all_set(null);
  		}
  	});
  	// 学生课程设置班级选择
@@ -1161,6 +1186,8 @@ $(document).ready(function () {
 			get_subject_list(g_value,'.modal-wrap-course-change');
 			$('.modal-wrap-course-change').attr('data-id',g_value);
 			$('.modal-wrap-course-change').attr('classroom-id',class_value);
+			$('.modal-wrap-course-change #course-left-list').html('');
+			$('.modal-wrap-course-change #course-right-list').html('');
 			// $('.modal-wrap-course-change #course-right-list').html('');
 			// $('.modal-wrap-course-change #course-left-list li');
  		}
@@ -1195,6 +1222,9 @@ $(document).ready(function () {
 	  		console.log(data);
 	  		if(data.courses.length>0){
 	  			show_tk_list(data.courses)
+	  		}
+	  		if(data.courses.length==0){
+	  			$('#course-left-list').html('');
 	  		}
 	    },
 	    error: function(){
@@ -1268,7 +1298,7 @@ $(document).ready(function () {
 		$(this).parent().remove();
 	});
 
-	// 确认添加课程
+	// 确认添加班级课程
 	$('.modal-wrap-course-change').on('click', '.confirm-change', function() {
 		var classroom_id = $('.modal-wrap-course-change').attr('classroom-id');
 		var c_r_li = $('.modal-wrap-course-change #course-right-list li');
@@ -1294,6 +1324,53 @@ $(document).ready(function () {
 	    }
 	  });
 	});
+
+
+	// 学生课程选择和移除
+	$('body').on('click', '.all_change_course input', function() {
+		var $this = $(this);
+		var course_id = $this.parents('li').attr('data-id');
+		var student_info_id = $this.parents('tr').attr('data-id');
+		var num = parseInt($('#temporary-pagination .activeClass').text());
+		if($this.prop('checked')){
+			console.log(333)
+			$.ajax({
+		   	type: "POST",
+		   	url: ajaxIp+"/api/v2/courses/student_add_course",
+		  	dataType: "JSON",
+		  	headers: {'Authorization': "Bearer " + isLogin},
+		  	data:{'course_id':course_id,'student_info_id':student_info_id},
+		  	success: function(data){
+		  		console.log(data);
+		  		if(num==1){
+		  			// show_first_info(data)
+		  		}
+		    },
+		    error: function(){
+	      	// alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html'
+		    }
+		  });
+		}else{
+			$.ajax({
+		   	type: "DELETE",
+		   	url: ajaxIp+"/api/v2/courses/student_remove_course",
+		  	dataType: "JSON",
+		  	headers: {'Authorization': "Bearer " + isLogin},
+		  	data:{'course_id':course_id,'student_info_id':student_info_id},
+		  	success: function(data){
+		  		console.log(data);
+		    },
+		    error: function(){
+	      	// alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html'
+		    }
+		  });
+		}
+	});
+
 
 
 
