@@ -710,7 +710,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     itme_obj.option_point_y = getItemPost(Answerindex)[i].top + 5.5 - dot.top - 1200 * (current_page - 1)//同行option_point_y都是一样的 选项框中心点y坐标
                 } else if (answerModeType == 3) {
                     itme_obj.option_point_x = getFillPost(Answerindex)[i].left + 11.5 - dot.left
-                    itme_obj.option_point_y = getFillPost(Answerindex)[i].top + 6 - dot.top - 1200 * (current_page - 1)
+                    itme_obj.option_point_y = getFillPost(Answerindex)[i].top + 5 - dot.top - 1200 * (current_page - 1)
                 }
                 question[i].option.push(itme_obj)
             }
@@ -765,7 +765,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 itme_obj.num_of_option = parseInt(obj[i - 1].itemNumber)//选项个数
             } else if (obj[i - 1].type == 3) {//填空题
                 itme_obj.block_width = 23//选项宽度
-                itme_obj.block_height = 12//选项高度
+                itme_obj.block_height = 10//选项高度
                 itme_obj.score_rect_x = fillScoreRect(i - 1).score_rect_x//打分框区域的x坐标
                 itme_obj.score_rect_y = fillScoreRect(i - 1).score_rect_y - 1200 * (itme_obj.current_page - 1)//打分框区域的y坐标
                 itme_obj.score_rect_width = fillScoreRect(i - 1).score_rect_width//打分框区域的宽度
