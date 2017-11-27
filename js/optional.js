@@ -633,7 +633,7 @@ $(document).ready(function () {
 
 		// 显示教师
 		var iData = ["grade_id",info.grade_id,"subject_id",info.subject_id];
- 		get_teacher_info(iData,);
+ 		get_teacher_info(iData);
 		var teacher_list = $('.modal-course-wrap').find('#select-teachers').children();
 		for (var i = 0; i < teacher_list.length; i++) {
 			if(info.teacher_info_id==$(teacher_list[i]).val()){
@@ -1302,6 +1302,9 @@ $(document).ready(function () {
 	$('.modal-wrap-course-change').on('click', '.confirm-change', function() {
 		var classroom_id = $('.modal-wrap-course-change').attr('classroom-id');
 		var c_r_li = $('.modal-wrap-course-change #course-right-list li');
+
+		var g_value = $('.stu-course-main').find('#select-grade').val();
+		var iData = ["grade_id",g_value,"classroom_id",classroom_id];
 		var course_ids=[];
 		for (var i = 0; i < c_r_li.length; i++) {
 			var course_id = $(c_r_li[i]).find('span').attr('data-id');
@@ -1316,6 +1319,7 @@ $(document).ready(function () {
 	  	data:{'classroom_id':classroom_id,'course_ids':course_ids},
 	  	success: function(data){
 	  		console.log(data);
+	  		get_all_set(iData);
 	    },
 	    error: function(){
       	// alert('请稍后从新尝试登录或者联系管理员');
