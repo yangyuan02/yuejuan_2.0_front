@@ -167,7 +167,8 @@
 				</div>
 				<script type="text/javascript">
 				//上移
-					$(".item-up").click(function(event) {
+				
+				$(".item-group-box").on('click', '.item-up', function(event) {
 					// alert($(this).parent().parent().prev().html());
 					var a=$(this).parent().parent().prev().html();
 					var b=$(this).parent().parent().parent().prev().children('.item-cont').html();
@@ -177,7 +178,7 @@
 
 					});
 					//下移
-					$(".item-down").click(function(event) {
+					$(".item-group-box").on('click', '.item-down', function(event) {
 					alert($(this).parent().parent().prev().html());
 					var a=$(this).parent().parent().prev().html();
 					var b=$(this).parent().parent().parent().next().children('.item-cont').html();
@@ -187,11 +188,11 @@
 
 					});
 					//删除
-					$(".item-dele").click(function(event) {
+					$(".item-group-box").on('click', '.item-dele', function(event) {
 						$(this).parent().parent().parent().remove();
 					});
 					//向下合并
-					$(".item-merge").click(function(event){
+				$(".item-group-box").on('click', '.item-merge', function(event) {
 						var a=$(this).parent().parent().prev().html();
 						
 						$(this).parent().parent().parent().next().children('.item-cont').append(a);
