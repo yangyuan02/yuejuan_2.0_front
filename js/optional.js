@@ -633,7 +633,7 @@ $(document).ready(function () {
 
 		// 显示教师
 		var iData = ["grade_id",info.grade_id,"subject_id",info.subject_id];
- 		get_teacher_info(iData,);
+ 		get_teacher_info(iData);
 		var teacher_list = $('.modal-course-wrap').find('#select-teachers').children();
 		for (var i = 0; i < teacher_list.length; i++) {
 			if(info.teacher_info_id==$(teacher_list[i]).val()){
