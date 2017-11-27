@@ -1378,5 +1378,159 @@ $(document).ready(function () {
 
 
 
+	// 课程考分列表
+	// 获取考试信息
+	get_exam_info();
+	var all_info;
+	function get_exam_info(){
+		$.ajax({
+	   	type: "GET",
+	   	url: ajaxIp+"/api/v2/special_reports/exams",
+	  	dataType: "JSON",
+	  	headers: {'Authorization': "Bearer " + isLogin},
+	  	success: function(data){
+	  		console.log(data);
+	  		all_info=data;
+	  		show_exam_info(data);
+	    },
+	    error: function(){
+      	// alert('请稍后从新尝试登录或者联系管理员');
+      	// localStorage.clear();
+      	// window.location.href = './login.html'
+	    }
+	  });
+	}
+
+
+	// 显示考试列表
+	function show_exam_info(info){
+		$('.score-grade-main').find('#select-exam').html('');
+		$('.item-score-main').find('#select-exam').html('');
+		$('.course-average-main').find('#select-exam').html('');
+		if(info.length>0){
+			// 显示考试下拉框
+			for (var i = 0; i < info.length; i++) {
+				var l_op = '<option value="'+info[i].id+'">'+info[i].name+'</option>';
+				$('.score-grade-main #select-exam').append(l_op);
+				$('.item-score-main #select-exam').append(l_op);
+				$('.course-average-main #select-exam').append(l_op);
+			};
+			var subjects_info = info[0].subjects;
+			console.log(subjects_info)
+			// 显示第一场考试科目下拉框
+			$('.score-grade-main').find('#select-sujects').html('');
+			$('.item-score-main').find('#select-sujects').html('');
+			$('.course-average-main').find('#select-sujects').html('');
+			for (var j = 0; j < subjects_info.length; j++) {
+				var sub_op = '<option value="'+subjects_info[j].subject_id+'">'+subjects_info[j].name+'</option>';
+				$('.score-grade-main').find('#select-sujects').append(sub_op);
+				$('.item-score-main').find('#select-sujects').append(sub_op);
+				$('.course-average-main').find('#select-sujects').append(sub_op);
+			};
+
+			// 显示课程选择
+			var course_info = info[0].subjects[0].courses;
+			console.log(course_info)
+			$('.score-grade-main').find('#select-courses').html('');
+			for (var z = 0; z < course_info.length; z++) {
+				var course_op = '<option value="'+icourse_info[z].id+'" letter="'+icourse_info[z].letter+'">'+icourse_info[z].name+'</option>';
+				$('.score-grade-main').find('#select-courses').append(course_op);
+			};
+
+		}
+	}
+
+	// 课程考分列表考试选择
+	$('.score-grade-main ').on('change', '#select-exam', function() {
+		console.log(all_info);
+		var exam_id = $(this).val();
+		for (var i = 0; i < all_info.length; i++) {
+			if(exam_id==all_info[i].id){
+				var first_subject = all_info[i].subjects[0];
+				show_subject_info('.score-grade-main',all_info[i].subjects);
+			}
+		};
+		console.log(first_subject)
+		show_course_info('.score-grade-main',first_subject.courses);
+	});
+
+	function show_subject_info(name,subjects){
+		console.log(subjects)
+		$(name).find('#select-sujects').html('');
+		for (var i = 0; i < subjects.length; i++) {
+			var sub_op = '<option value="'+subjects[i].subject_id+'">'+subjects[i].name+'</option>';
+			$(name).find('#select-sujects').append(sub_op);
+		};
+	}
+
+	function show_course_info(name,courses){
+		console.log(courses)
+		$(name).find('#select-courses').html('');
+		for (var i = 0; i < courses.length; i++) {
+			var sub_op = '<option value="'+courses[i].id+'" letter="'+courses[i].letter+'">'+courses[i].name+'</option>';
+			$(name).find('#select-courses').append(sub_op);
+		};
+	}
+
+		// 课程考分列表科目选择
+	$('.score-grade-main ').on('change', '#select-sujects', function() {
+		console.log(all_info);
+		var sub_id = $(this).val();
+		var exam_id = $(this).parents('.set-up-search').find('#select-exam').val();
+		for (var i = 0; i < all_info.length; i++) {
+			if(exam_id==all_info[i].id){
+				for (var j = 0; j < all_info[i].subjects.length; j++) {
+					if(sub_id==all_info[i].subjects[j].subject_id){
+						show_course_info('.score-grade-main',all_info[i].subjects[j].courses);
+					}
+				};
+			}
+		};
+	});
+
+
+
+
+	// 小题得分对比
+	// 小题得分对比考试选择
+	$('.item-score-main ').on('change', '#select-exam', function() {
+		console.log(all_info);
+		var exam_id = $(this).val();
+		for (var i = 0; i < all_info.length; i++) {
+			if(exam_id==all_info[i].id){
+				show_subject_info('.item-score-main ',all_info[i].subjects);
+			}
+		};
+	});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// 课程均分统计
+	// 课程均分统计考试选择
+	$('.course-average-main ').on('change', '#select-exam', function() {
+		console.log(all_info);
+		var exam_id = $(this).val();
+		for (var i = 0; i < all_info.length; i++) {
+			if(exam_id==all_info[i].id){
+				show_subject_info('.course-average-main ',all_info[i].subjects);
+			}
+		};
+	});
+
+
+
+
 
 })
