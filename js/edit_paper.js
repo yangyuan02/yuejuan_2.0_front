@@ -6,9 +6,33 @@ $(function(){
 		// 'height': height,
 		'min-height': height
 	});
-	
 
-	var docx_id=7;
+  var url = window.location;
+  function getUrlParam(url,name){
+    var pattern = new RegExp("[?&]" + name +"\=([^&]+)","g");
+    var matcher = pattern.exec(url);
+    var items = null;
+    if(matcher != null){
+      try{
+          items = decodeURIComponent(decodeURIComponent(matcher[1]));
+      }catch(e){
+          try{
+              items = decodeURIComponent(matcher[1]);
+          }catch(e){
+              items = matcher[1];
+          }
+      }
+    }
+    return items;
+  }
+
+  // console.log(getUrlParam(url,'id')); // bath_id
+  // console.log(getUrlParam(url,'test_id')); // bath_id
+  // console.log(getUrlParam(url,'exam_name')); // exam_name
+  // console.log(getUrlParam(url,'subject_name')); // subject_name
+  var docx_id = getUrlParam(url,'id');
+  console.log(docx_id)
+
  	$.ajax({
    	type: "GET",
    	url: ajaxIp+"/api/v2/question_banks?docx_id="+docx_id+"",
