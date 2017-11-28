@@ -36,7 +36,7 @@ $.ajax({
   		console.log(data);
   		 var pp='<p>'+data[docx_num].content+'</p>';
   		 console.log(pp);
-  		UE.getEditor('container').setContent(''+pp+'');
+  		 UE.getEditor('container').setContent(''+pp+'');
   		 // $('#container').append(pp);
   		// for (var i = 0; i < data.length; i++) {
   			
@@ -51,7 +51,10 @@ $.ajax({
     	// window.location.href = './login'
     }
   });
+$(".p_top a").click(function(event) {
+$(this).attr('href', 'edit_paper?id='+docx_id+'');
 
+});
 
 
 
