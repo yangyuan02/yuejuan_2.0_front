@@ -2994,6 +2994,10 @@ angular.module("myApp.controller", [])
                         var a = data.data[i];
                         $(".study_k_301_bo").append('<tr></tr>');
                         for (var c = 0; c < a.length; c++) {
+                            if(a[c]==0){
+                                a[c]="-";
+                                
+                            }
                             $(".study_k_301_bo tr").eq(i).append('<td>' + a[c] + '</td>');
                         }
 
