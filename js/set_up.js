@@ -4110,7 +4110,8 @@ $(function() {
 
 	// 编辑试卷
 	 $('body').on('click', '.look-paper-btn', function() {
-  	$(this).attr('href', 'edit_paper');
+	 	var docx_id = $(this).parents('tr').attr('docx_id')
+  	$(this).attr('href', 'edit_paper?id=' + docx_id + '');
   	console.log(99)
 
   });

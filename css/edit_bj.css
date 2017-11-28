@@ -30,6 +30,8 @@
 	color:#31bc91;
 	font-size: 20px;
 	box-sizing: border-box;
+	cursor: pointer;
+
 }
 .edit_box_btm{
 	width:936px;
@@ -532,6 +534,5 @@ float: right;margin-top: 20px;
     border: 1px solid #31bc91;
     color: #31bc91;
 }
-
 
 
