@@ -26,10 +26,6 @@ $(function(){
     return items;
   }
 
-  // console.log(getUrlParam(url,'id')); // bath_id
-  // console.log(getUrlParam(url,'test_id')); // bath_id
-  // console.log(getUrlParam(url,'exam_name')); // exam_name
-  // console.log(getUrlParam(url,'subject_name')); // subject_name
   var docx_id = getUrlParam(url,'id');
   console.log(docx_id)
 
