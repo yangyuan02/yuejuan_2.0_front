@@ -27,7 +27,6 @@ $(function(){
     return items;
   }
 
- 
   var docx_id = getUrlParam(url,'id');
   console.log(docx_id)
 
