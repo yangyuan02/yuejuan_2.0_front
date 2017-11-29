@@ -1,6 +1,14 @@
 .content-box{
 	padding-bottom: 70px;
 }
+/*遮罩层*/
+.layer{
+      width: 100%;
+  	position: absolute;
+   top: 0px;
+   background: #999999;
+    opacity: 0.5;
+}
 .edit-paper-cont{
 	width: 1134px;
 	height: 100%;
@@ -9,6 +17,7 @@
   padding: 25px 32px;
   margin-top: 30px;
   margin-bottom: 50px;
+  cursor: pointer;
 }
 .edit-paper-cont .title {
   width: 100%;
@@ -121,7 +130,11 @@
 }
 
 .sub_sz{
-	width:490px;height:auto;border: 1px solid #ccc;position: relative;cursor: pointer;user-select: none;
+	width:490px;height:auto;border: 1px solid #ccc;position: relative;cursor: pointer;user-select: none;position: absolute;
+    top: 0px;
+    background: #fff;
+    left: 500px;
+    display: none;z-index: 1;
 }
 .sub_sz_p{
 	width: 100%;height:40px;background:#31bc91;line-height: 40px;
@@ -176,7 +189,13 @@ color:#fb7d8a;margin-right: 5px;
 	float:right;width:135px;height: 35px;margin-right: 14px;font-size: 14px;background: #ffffff;border: 1px solid #31bc91;color:#31bc91
 }
 .sub_bd{
-	width: 395px;height: 390px;border: 1px solid #ccc;position:relative;margin-top:20px;
+	width: 395px;height: 390px;border: 1px solid #ccc;position:relative;
+	position: fixed;
+    top: 50%;
+    right: 50%;
+    margin-top: -195px;
+    margin-right: -195px;
+    background: #fff;display: none;z-index: 1;
 }
 .sub_bd_p{
 	width: 100%;height:40px;background:#31bc91;line-height: 40px;
