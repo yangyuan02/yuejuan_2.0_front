@@ -53,40 +53,7 @@
 						<ul class="pagination" id="pagination"></ul>
 					</div>
 				</div>
-				<script type="text/javascript">
-				//上移
 				
-				$(".item-group-box").on('click', '.item-up', function(event) {
-					// alert($(this).parent().parent().prev().html());
-					var a=$(this).parent().parent().prev().html();
-					var b=$(this).parent().parent().parent().prev().children('.item-cont').html();
-					
-					$(this).parent().parent().parent().prev().children('.item-cont').html(a);
-					$(this).parent().parent().prev().html(b);
-
-					});
-					//下移
-					$(".item-group-box").on('click', '.item-down', function(event) {
-					alert($(this).parent().parent().prev().html());
-					var a=$(this).parent().parent().prev().html();
-					var b=$(this).parent().parent().parent().next().children('.item-cont').html();
-					
-					$(this).parent().parent().parent().next().children('.item-cont').html(a);
-					$(this).parent().parent().prev().html(b);
-
-					});
-					//删除
-					$(".item-group-box").on('click', '.item-dele', function(event) {
-						$(this).parent().parent().parent().remove();
-					});
-					//向下合并
-				$(".item-group-box").on('click', '.item-merge', function(event) {
-						var a=$(this).parent().parent().prev().html();
-						
-						$(this).parent().parent().parent().next().children('.item-cont').append(a);
-						$(this).parent().parent().parent().remove(); 
-					});
-				</script>
 				<!-- 弹出 -->
 			<div class="sub_sz">
 				<p class="sub_sz_p">题组设置<div class="sub_sz_p_div"><i class="iconfont" style="">&#xe61b;</i></div></p>
@@ -120,10 +87,10 @@
                         <a style="margin-left: 60px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                     	</p>
                     	<p>
-                    	<select name="">
+                    	<!-- <select name="">
                     		<option value="">多项选择题</option>
-                    	</select>
-                        <a style="margin-left: 37px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                    	</select> -->
+                        <a style="margin-left:114px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                         <a style="margin-left: 20px;">选项个数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                         <a style="margin-left: 60px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                     	</p>
@@ -263,6 +230,7 @@
 				$(".sub_hide").click(function(event) {
 					$(".sub_sz_remove").show();
 					$(".sub_sz_remove_p03 a").html($(".sub_li input").eq(1).val());
+					console.log($("#item-ul .items").length);
 
 				});
 				$(".sub_sz_remove_x").click(function(event) {
@@ -322,17 +290,33 @@
 					$(this).addClass('sub_bd02_li').siblings().removeClass('sub_bd02_li');
 				});
 			</script>
+			<!-- 题组插入 -->
+			<div class="title_in">
+				<p class="title_in_p01">插入题组</p>
+                <p class="title_in_p02">试题题型
+                <select name="">
+                	<option value="">选择题</option>
+                	
+                </select></p>
+                <p class="title_in_p03">题组名称<input type="" placeholder="请输入题组名称,如单项选择题" name=""></p>
+                 <p class="title_in_p04"><button class="title_on determine" type="">确认添加</button><button type=""  class="title_off" >取消</button></p>
+			</div>
+			<!-- 题组插入end -->
 			</div>
 			
 		</div>
 		<script type="text/javascript">
 $("#item-ul").on('mouseup', 'p', function() {
  get_sel_range();
+
 });
   $(function(){
+
     // 分割题目
     var slipt_up=$('.item-seg');
     $(document).on('click', '.item-seg',function() {
+      
+
       if (sel_range == null){
         alert('分割位置错误');
         return;
@@ -384,11 +368,19 @@ $("#item-ul").on('mouseup', 'p', function() {
         if($(new_word[i]).html().trim().length > 0){
           nw_ary.push($(new_word[i]).html());
         }
-
+       //list_number
+       console.log($("#item-ul .items").length);
+       var a =$("#item-ul .items").length-1;
+       
+        for(var i=0;i<a;i++){
+       var nub=i+1;
+       $("#item-ul .items").eq(i).find('.item-edit').attr("data-a",i);
+      $("#item-ul .items").eq(i).find('.list_nub').html(''+nub+'.');
+     }
+     //
        };
       }
     });
-
   });
 
 

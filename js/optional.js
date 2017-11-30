@@ -18,6 +18,27 @@ $(document).ready(function () {
  			get_grade_list('.stu-course-main');
  			get_all_set(null);
   	}
+  	if(index==3){
+  		show_exam_info(all_info);
+  		var exam_id = $('.score-grade-main').find('#select-exam').val();
+  		var course_id =  $('.score-grade-main').find('#select-courses').val();
+  		var sort =  $('.score-grade-main').find('#select-ranges').val();
+  		get_course_list(exam_id,course_id,sort);
+  	}
+  	if(index==4){
+  		show_exam_info(all_info);
+  		// var exam_id = $('.score-grade-main').find('#select-exam').val();
+  		// var course_id =  $('.score-grade-main').find('#select-courses').val();
+  		// var sort =  $('.score-grade-main').find('#select-ranges').val();
+  		// get_course_list(exam_id,course_id,sort);
+  	}
+  	if(index==5){
+  		show_exam_info(all_info);
+  		// var exam_id = $('.score-grade-main').find('#select-exam').val();
+  		// var course_id =  $('.score-grade-main').find('#select-courses').val();
+  		// var sort =  $('.score-grade-main').find('#select-ranges').val();
+  		// get_course_list(exam_id,course_id,sort);
+  	}
   });
 
   // 年级，科目，班级
@@ -1385,6 +1406,7 @@ $(document).ready(function () {
 	function get_exam_info(){
 		$.ajax({
 	   	type: "GET",
+	   	async: false,
 	   	url: ajaxIp+"/api/v2/special_reports/exams",
 	  	dataType: "JSON",
 	  	headers: {'Authorization': "Bearer " + isLogin},
@@ -1433,7 +1455,7 @@ $(document).ready(function () {
 			console.log(course_info)
 			$('.score-grade-main').find('#select-courses').html('');
 			for (var z = 0; z < course_info.length; z++) {
-				var course_op = '<option value="'+icourse_info[z].id+'" letter="'+icourse_info[z].letter+'">'+icourse_info[z].name+'</option>';
+				var course_op = '<option value="'+course_info[z].id+'" letter="'+course_info[z].letter+'">'+course_info[z].name+'</option>';
 				$('.score-grade-main').find('#select-courses').append(course_op);
 			};
 
@@ -1451,7 +1473,12 @@ $(document).ready(function () {
 			}
 		};
 		console.log(first_subject)
+
 		show_course_info('.score-grade-main',first_subject.courses);
+		var course_id = $(this).parents('.set-up-search').find('#select-courses').val();
+		var sort = $(this).parents('.set-up-search').find('#select-ranges').val();
+		console.log(exam_id,course_id,sort)
+		get_course_list(exam_id,course_id,sort);
 	});
 
 	function show_subject_info(name,subjects){
@@ -1486,7 +1513,123 @@ $(document).ready(function () {
 				};
 			}
 		};
+		var course_id = $(this).parents('.set-up-search').find('#select-courses').val();
+		var sort = $(this).parents('.set-up-search').find('#select-ranges').val();
+		console.log(exam_id,course_id,sort)
+		get_course_list(exam_id,course_id,sort);
 	});
+
+		// 课程考分列表课程选择
+	$('.score-grade-main ').on('change', '#select-courses', function() {
+		var course_id = $(this).val();
+		var exam_id = $(this).parents('.set-up-search').find('#select-exam').val();
+		var sort = $(this).parents('.set-up-search').find('#select-ranges').val();
+		console.log(exam_id,course_id,sort)
+		get_course_list(exam_id,course_id,sort);
+	});
+		// 课程考分列表排名顺序选择
+	$('.score-grade-main ').on('change', '#select-ranges', function() {
+		var sort = $(this).val();
+		var exam_id = $(this).parents('.set-up-search').find('#select-exam').val();
+		var course_id = $(this).parents('.set-up-search').find('#select-courses').val();
+		get_course_list(exam_id,course_id,sort);
+	});
+
+	// 获取课程考分列表
+	function get_course_list(e_id,c_id,sort){
+		$('#score-grade-box').html('');
+		var fixed_html='<table id="score-grade-tabble"class="search-tabble score-grade-tabble" cellpadding="0" cellspacing="0" style="width:900px;border-collapse:collapse;margin-bottom: 15px">'+
+					'<thead>'+
+						'<tr>'+
+							'<th>序号</th>'+
+							'<th>班级</th>'+
+							'<th>考号</th>'+
+							'<th>姓名</th>'+
+							'<th>分数</th>'+
+							'<th>标准分</th>'+
+							'<th>等级</th>'+
+							'<th>考试排名</th>'+
+							'<th>学校排名</th>'+
+						'</tr>'+
+					'</thead>'+
+					'<tbody></tbody>';
+		$('#score-grade-box').append(fixed_html);
+		if(e_id&&c_id){
+			$.ajax({
+		   	type: "POST",
+		   	url: ajaxIp+"/api/v2/special_reports/course_socres",
+		  	dataType: "JSON",
+		  	headers: {'Authorization': "Bearer " + isLogin},
+		  	data:{'exam_id':e_id,'course_id':c_id,'sort':sort},
+		  	success: function(data){
+		  		console.log(data);
+		  		show_course_list(data);
+		    },
+		    error: function(){
+	      	// alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html'
+		    }
+		  });
+	  }
+	}
+
+
+	function show_course_list(info){
+		console.log(info.data.length);
+		if(info.data.length>0){
+			for (var i = 0; i < info.data.length; i++) {
+				var l_tr = '<tr style="border-bottom:1px solid #ccc;">'+
+							'<td>'+info.data[i][0]+'</td>'+
+							'<td>'+info.data[i][1]+'</td>'+
+							'<td>'+info.data[i][2]+'</td>'+
+							'<td>'+info.data[i][3]+'</td>'+
+							'<td>'+info.data[i][4]+'</td>'+
+							'<td>'+info.data[i][5]+'</td>'+
+							'<td>'+info.data[i][6]+'</td>'+
+							'<td>'+info.data[i][7]+'</td>'+
+							'<td>'+info.data[i][8]+'</td>'+
+						'</tr>';
+				$('#score-grade-tabble tbody').append(l_tr);
+			};
+			FixTable("score-grade-tabble", 1, 960, 600);
+
+		}
+
+	}
+
+	// 导出课程考分列表
+	$('.score-grade-main').on('click', '.Lead-out-score', function() {
+		var sort = $(this).parents('.set-up-search').find('#select-ranges').val();
+		var exam_id = $(this).parents('.set-up-search').find('#select-exam').val();
+		var course_id = $(this).parents('.set-up-search').find('#select-courses').val();
+		get_score_excel(exam_id,course_id,sort);
+	});
+
+	function get_score_excel(e_id,c_id,sort){
+		console.log(e_id,c_id)
+		if(e_id&&c_id){
+			$.ajax({
+		   	type: "POST",
+		   	async: false,
+		   	url: ajaxIp+"/api/v2/special_reports/export_course_socres",
+		  	dataType: "JSON",
+		  	headers: {'Authorization': "Bearer " + isLogin},
+		  	data:{'exam_id':e_id,'course_id':c_id,'sort':sort},
+		  	success: function(data){
+		  		console.log(data);
+		  		$('.score-grade-main .Lead-out-score a').attr('href', ajaxIp+data.file_path);
+		    },
+		    error: function(){
+	      	// alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html'
+		    }
+		  });
+		}
+
+	}
+
 
 
 
@@ -1528,6 +1671,80 @@ $(document).ready(function () {
 			}
 		};
 	});
+
+
+
+	//     锁定表头和列
+	function FixTable(TableID, FixColumnNumber, width, height) {
+    if ($("#" + TableID + "_tableLayout").length != 0) {
+        $("#" + TableID + "_tableLayout").before($("#" + TableID));
+        $("#" + TableID + "_tableLayout").empty();
+    }
+    else {
+        $("#" + TableID).after("<div id='" + TableID + "_tableLayout' style='overflow:hidden;height:" + height + "px; width:" + width + "px;'></div>");
+    }
+    $('<div id="' + TableID + '_tableFix"></div>'
+            + '<div id="' + TableID + '_tableHead"></div>'
+            + '<div id="' + TableID + '_tableColumn"></div>'
+            + '<div id="' + TableID + '_tableData"></div>').appendTo("#" + TableID + "_tableLayout");
+    var oldtable = $("#" + TableID);
+    var tableFixClone = oldtable.clone(true);
+    tableFixClone.attr("id", TableID + "_tableFixClone");
+    $("#" + TableID + "_tableFix").append(tableFixClone);
+    var tableHeadClone = oldtable.clone(true);
+    tableHeadClone.attr("id", TableID + "_tableHeadClone");
+    $("#" + TableID + "_tableHead").append(tableHeadClone);
+    var tableColumnClone = oldtable.clone(true);
+    tableColumnClone.attr("id", TableID + "_tableColumnClone");
+    $("#" + TableID + "_tableColumn").append(tableColumnClone);
+    $("#" + TableID + "_tableData").append(oldtable);
+    $("#" + TableID + "_tableLayout table").each(function () {
+        $(this).css("margin", "0");
+    });
+    var HeadHeight = $("#" + TableID + "_tableHead thead").height();
+    HeadHeight += 2;
+    $("#" + TableID + "_tableHead").css("height", HeadHeight);
+    $("#" + TableID + "_tableFix").css("height", HeadHeight);
+    var ColumnsWidth = 0;
+    var ColumnsNumber = 0;
+    $("#" + TableID + "_tableColumn tr:last td:lt(" + FixColumnNumber + ")").each(function () {
+        ColumnsWidth += $(this).outerWidth(true);
+        ColumnsNumber++;
+    });
+    ColumnsWidth += 2;
+    if ($.support.msie) {
+        switch ($.support.version) {
+            case "7.0":
+                if (ColumnsNumber >= 3) ColumnsWidth--;
+                break;
+            case "8.0":
+                if (ColumnsNumber >= 2) ColumnsWidth--;
+                break;
+        }
+    }
+    $("#" + TableID + "_tableColumn").css("width", ColumnsWidth);
+    $("#" + TableID + "_tableFix").css("width", ColumnsWidth);
+    $("#" + TableID + "_tableData").scroll(function () {
+        $("#" + TableID + "_tableHead").scrollLeft($("#" + TableID + "_tableData").scrollLeft());
+        $("#" + TableID + "_tableColumn").scrollTop($("#" + TableID + "_tableData").scrollTop());
+    });
+    $("#" + TableID + "_tableFix").css({ "overflow": "hidden", "position": "relative", "z-index": "50", "background-color": "#fff" });
+    $("#" + TableID + "_tableHead").css({ "overflow": "hidden", "width": width - 17, "position": "relative", "z-index": "45", "background-color": "#fff" });
+    $("#" + TableID + "_tableColumn").css({ "overflow": "hidden", "height": height - 17, "position": "relative", "z-index": "40", "background-color": "#fff" });
+    $("#" + TableID + "_tableData").css({ "overflow": "scroll", "width": width, "height": height, "position": "relative", "z-index": "35" });
+    if ($("#" + TableID + "_tableHead").width() > $("#" + TableID + "_tableFix table").width()) {
+        $("#" + TableID + "_tableHead").css("width", $("#" + TableID + "_tableFix table").width());
+        $("#" + TableID + "_tableData").css("width", $("#" + TableID + "_tableFix table").width() + 17);
+    }
+    if ($("#" + TableID + "_tableColumn").height() > $("#" + TableID + "_tableColumn table").height()) {
+        $("#" + TableID + "_tableColumn").css("height", $("#" + TableID + "_tableColumn table").height());
+        $("#" + TableID + "_tableData").css("height", $("#" + TableID + "_tableColumn table").height() + 17);
+    }
+    $("#" + TableID + "_tableFix").offset($("#" + TableID + "_tableLayout").offset());
+    $("#" + TableID + "_tableHead").offset($("#" + TableID + "_tableLayout").offset());
+    $("#" + TableID + "_tableColumn").offset($("#" + TableID + "_tableLayout").offset());
+    $("#" + TableID + "_tableData").offset($("#" + TableID + "_tableLayout").offset());
+	}
 
 
 
