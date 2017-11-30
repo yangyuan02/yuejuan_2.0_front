@@ -27,17 +27,16 @@ $(document).ready(function () {
   	}
   	if(index==4){
   		show_exam_info(all_info);
-  		// var exam_id = $('.score-grade-main').find('#select-exam').val();
-  		// var course_id =  $('.score-grade-main').find('#select-courses').val();
-  		// var sort =  $('.score-grade-main').find('#select-ranges').val();
-  		// get_course_list(exam_id,course_id,sort);
+  		var exam_id = $('.item-score-main').find('#select-exam').val();
+  		var subject_id =  $('.item-score-main').find('#select-sujects').val();
+  		get_item_score(exam_id,subject_id);
   	}
   	if(index==5){
   		show_exam_info(all_info);
-  		// var exam_id = $('.score-grade-main').find('#select-exam').val();
-  		// var course_id =  $('.score-grade-main').find('#select-courses').val();
-  		// var sort =  $('.score-grade-main').find('#select-ranges').val();
-  		// get_course_list(exam_id,course_id,sort);
+  		var exam_id = $('.course-average-main').find('#select-exam').val();
+  		var subject_id =  $('.course-average-main').find('#select-sujects').val();
+  		console.log(exam_id,subject_id)
+  		get_average_info(exam_id,subject_id);
   	}
   });
 
@@ -1644,8 +1643,110 @@ $(document).ready(function () {
 				show_subject_info('.item-score-main ',all_info[i].subjects);
 			}
 		};
+		var subject_id = $(this).parents('.set-up-search').find('#select-sujects').val();
+		get_item_score(exam_id,subject_id)
 	});
 
+	// 小题得分对比科目选择
+	$('.item-score-main ').on('change', '#select-sujects', function() {
+		console.log(all_info);
+		var subject_id = $(this).val();
+		var exam_id = $(this).parents('.set-up-search').find('#select-exam').val();
+		get_item_score(exam_id,subject_id)
+	});
+
+	// 获取小题得分对比列表
+	function get_item_score(e_id,sub_id){
+		$('.item-score-box').html('');
+		var fixed_html = '<table id="item-score-tabble" class="search-tabble item-score-tabble" cellpadding="0" cellspacing="0" style="width:966px;border-collapse:collapse;margin-bottom: 15px">'+
+						'<thead>'+
+							'<tr class="first-tr">'+
+							'</tr>'+
+							'<tr class="second-tr"></tr>'+
+						'</thead>'+
+						'<tbody></tbody>';
+		$('.item-score-box').append(fixed_html);
+		if(e_id&&sub_id){
+			$.ajax({
+		   	type: "POST",
+		   	url: ajaxIp+"/api/v2/special_reports/course_answer_contrast",
+		  	dataType: "JSON",
+		  	headers: {'Authorization': "Bearer " + isLogin},
+		  	data:{'exam_id':e_id,'subject_id':sub_id},
+		  	success: function(data){
+		  		console.log(data);
+		  		show_item_score(data);
+		    },
+		    error: function(){
+	      	// alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html'
+		    }
+		  });
+		}
+
+	}
+
+	// 显示小题得分列表
+	function show_item_score(info){
+		$('#item-score-tabble').find('.first-tr').html('');
+		$('#item-score-tabble').find('.second-tr').html('');
+		// $('#item-score-tabble').find('.tbody').html('');
+		$('#item-score-tabble').find('.first-tr').append('<th rowspan="2">题目</th><th rowspan="2">题分</th>');
+		for (var i = 0; i < info.colums_name.length; i++) {
+			var first_tr = '<th colspan="2">'+info.colums_name[i]+'</th>';
+			var second_tr = '<th class="th-'+i+'">平均分</th><th class="th-'+i+'">得分率</th>';
+			$('#item-score-tabble').find('.first-tr').append(first_tr);
+			$('#item-score-tabble').find('.second-tr').append(second_tr);
+		};
+		if( info.data.length>0){
+
+			for (var j = 0; j < info.data.length; j++) {
+				var t_tr = '<tr class="tr-'+j+'"></tr>';
+				$('#item-score-tabble').find('tbody').append(t_tr);
+				// console.log(info.data[0].length)
+				var all_length = info.data[0].length;
+				for (var z = 0; z < all_length; z++) {
+					var t_td ='<td>'+info.data[j][z]+'</td>';
+					$('#item-score-tabble tbody').find('.tr-'+j+'').append(t_td);
+				};
+			};
+		}
+		FixTable("item-score-tabble", 2, 960, 600);
+	}
+
+
+	// 导出小题得分
+
+	$('.item-score-main').on('click', '.Lead-out-item', function() {
+		var exam_id = $(this).parents('.set-up-search').find('#select-exam').val();
+		var subject_id = $(this).parents('.set-up-search').find('#select-sujects').val();
+		get_item_excel(exam_id,subject_id);
+	});
+
+	function get_item_excel(e_id,sub_id){
+		console.log(e_id,sub_id)
+		if(e_id&&sub_id){
+			$.ajax({
+		   	type: "POST",
+		   	async: false,
+		   	url: ajaxIp+"/api/v2/special_reports/export_course_answer_contrast",
+		  	dataType: "JSON",
+		  	headers: {'Authorization': "Bearer " + isLogin},
+		  	data:{'exam_id':e_id,'subject_id':sub_id},
+		  	success: function(data){
+		  		console.log(data);
+		  		$('.item-score-main .Lead-out-item a').attr('href', ajaxIp+data.file_path);
+		    },
+		    error: function(){
+	      	// alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html'
+		    }
+		  });
+		}
+
+	}
 
 
 
@@ -1670,11 +1771,110 @@ $(document).ready(function () {
 				show_subject_info('.course-average-main ',all_info[i].subjects);
 			}
 		};
+		var subject_id = $(this).parents('.set-up-search').find('#select-sujects').val();
+		get_average_info(exam_id,subject_id);
 	});
 
+	// 课程均分统计科目选择
+	$('.course-average-main ').on('change', '#select-sujects', function() {
+		var subject_id = $(this).val();
+		var exam_id = $(this).parents('.set-up-search').find('#select-exam').val();
+		get_average_info(exam_id,subject_id);
+	});
+
+	// 获取平均分
+	function get_average_info(e_id,sub_id){
+		$('.course-average-box').html('');
+		var fixed_html='<table id="course-average-tabble" class="search-tabble course-average-tabble" cellpadding="0" cellspacing="0" style="width:966px;border-collapse:collapse;margin-bottom: 15px">'+
+						'<thead>'+
+							'<tr>'+
+								'<th>课程</th>'+
+								'<th>教师</th>'+
+								'<th>平均分</th>'+
+								'<th>名次</th>'+
+								'<th>优良率</th>'+
+								'<th>合格率</th>'+
+								'<th>去随班/实考/应考</th>'+
+							'</tr>'+
+						'</thead>'+
+						'<tbody></tbody>';
+		$('.course-average-box').append(fixed_html);
+		if(e_id&&sub_id){
+			$.ajax({
+		   	type: "POST",
+		   	url: ajaxIp+"/api/v2/special_reports/course_average_statistics",
+		  	dataType: "JSON",
+		  	headers: {'Authorization': "Bearer " + isLogin},
+		  	data:{'exam_id':e_id,'subject_id':sub_id},
+		  	success: function(data){
+		  		console.log(data);
+		  		show_average_info(data);
+		    },
+		    error: function(){
+	      	// alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html'
+		    }
+		  });
+		}
+
+	}
+	// 显示平均分
+	function show_average_info(info){
+		console.log(info.data.length);
+		if(info.data.length>0){
+			for (var i = 0; i < info.data.length; i++) {
+				var l_tr = '<tr style="border-bottom:1px solid #ccc;">'+
+							'<td>'+info.data[i][0]+'</td>'+
+							'<td>'+info.data[i][1]+'</td>'+
+							'<td>'+info.data[i][2]+'</td>'+
+							'<td>'+info.data[i][3]+'</td>'+
+							'<td>'+info.data[i][4]+'</td>'+
+							'<td>'+info.data[i][5]+'</td>'+
+							'<td>'+info.data[i][6]+'</td>'+
+						'</tr>';
+				$('#course-average-tabble tbody').append(l_tr);
+			};
+			FixTable("course-average-tabble", 2, 960, 600);
+		}
+	}
 
 
-	//     锁定表头和列
+	// 导出平均分
+	$('.course-average-main').on('click', '.Lead-out-average', function() {
+		var exam_id = $(this).parents('.set-up-search').find('#select-exam').val();
+		var subject_id = $(this).parents('.set-up-search').find('#select-sujects').val();
+		get_average_excel(exam_id,subject_id);
+	});
+
+	function get_average_excel(e_id,sub_id){
+		console.log(e_id,sub_id)
+		if(e_id&&sub_id){
+			$.ajax({
+		   	type: "POST",
+		   	async: false,
+		   	url: ajaxIp+"/api/v2/special_reports/export_course_average_statistics",
+		  	dataType: "JSON",
+		  	headers: {'Authorization': "Bearer " + isLogin},
+		  	data:{'exam_id':e_id,'subject_id':sub_id},
+		  	success: function(data){
+		  		console.log(data);
+		  		$('.course-average-main .Lead-out-average a').attr('href', ajaxIp+data.file_path);
+		    },
+		    error: function(){
+	      	// alert('请稍后从新尝试登录或者联系管理员');
+	      	// localStorage.clear();
+	      	// window.location.href = './login.html'
+		    }
+		  });
+		}
+
+	}
+
+
+
+
+	//锁定表头和列
 	function FixTable(TableID, FixColumnNumber, width, height) {
     if ($("#" + TableID + "_tableLayout").length != 0) {
         $("#" + TableID + "_tableLayout").before($("#" + TableID));
