@@ -57,6 +57,39 @@ $(function(){
        $(this).attr('href', 'edit_bj?id=' +docx_id+ '&number='+a+'');
      });
 
+   //绑定题组
+
+   $("#item-ul").on('click', '.bind-item', function(event) {
+       $(".sub_bd").show();
+       $(".layer").css("height", $(document).height());
+       $(".layer").show();
+
+     });
+   $(".sub_bd_p_div").click(function(event) {
+      $(".sub_bd").hide();
+      $(".layer").hide();
+   });
+  $(".sub_bd03 button").click(function(event) {
+      $(".sub_bd").hide();
+      $(".layer").hide();
+   });
+    //题组设置
+     $(".set-item").click(function(event) {
+      $(".sub_sz").show();
+      $(".layer").css("height", $(document).height());
+      $(".layer").show();
+   });
+
+$(".sub_sz_p_div").click(function(event) {
+      $(".sub_sz").hide();
+      $(".layer").hide();
+   });
+  $(".sub_sz_p02 button").click(function(event) {
+     $(".sub_sz").hide();
+      $(".layer").hide();
+   });
+
+
 
 
 
