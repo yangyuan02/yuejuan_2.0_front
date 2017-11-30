@@ -105,6 +105,22 @@ $(".sub_sz_p_div").click(function(event) {
      $(".title_in").hide();
       $(".layer").hide();
    });
+  //设定分值
+  $("#item-ul").on('click', '.grade-set', function(event) {
+       $(".score_change").show(); 
+       $(".layer").css("height", $(document).height());
+       $(".layer").show();
+
+     });
+
+// $(".sub_sz_p_div").click(function(event) {
+//       $(".sub_sz").hide();
+//       $(".layer").hide();
+//    });
+  $(".score_change_p04 button").click(function(event) {
+     $(".score_change").hide();
+      $(".layer").hide();
+   });
   //
 $(".edit-save").click(function(event) {
     
