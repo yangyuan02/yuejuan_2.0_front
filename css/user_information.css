@@ -382,7 +382,7 @@
 
 .student-search-button{
 	position: absolute;
-	right: 100px;
+	right: 24px;
 	top: 2px;
 	cursor: pointer;
 }
@@ -493,6 +493,8 @@
   height: 30px;
   text-align: center;
   line-height: 30px;
+  padding: 0!important;
+  margin-left: 30px;
 }
 .edit-btn{
 	color: #5fa3ed;

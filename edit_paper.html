@@ -47,75 +47,13 @@
 				<div class="item-group-box">
 					<div class="item-title">一、单项选择题（共12分，每题2分）</div>
 					<ul id="item-ul">
-						<!-- <li class="items">
-							<i class="item-op ">
-								<a href="javascript:;" class="save-btn right"><i class="iconfont">&#xe653;</i>保存</a>
-								<a href="javascript:;" class="look-detail right"><i class="iconfont">&#xe699;</i>查看解析</a>
-							</i>
-							<div class="item-cont editor-enabled" contenteditable="true">
-								<p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （    ）</p>
-
-								<p>A．粒子带正电</p>
-
-								<p>B．粒子的动能一直变大</p>
-
-								<p>C．粒子的加速度先变小后变大</p>
-
-								<p>D．粒子在电场中的电势能先变小后变大</p>
-							</div>
-							<ul class="bottom-btn">
-								<li><a href="edit_bj" class="item-edit"><i class="iconfont">&#xe614;</i>题干编辑</a></li>
-								<li><a href="javascript:;" class="item-seg"><i class="iconfont">&#xe636;</i>分割试题</a></li>
-								<li><a href="javascript:;" class="item-insert"><i class="iconfont">&#xe601;</i>题组插入</a></li>
-								<li><a href="javascript:;" class="item-merge"><i class="iconfont">&#xe689;</i>向下合并</a></li>
-								<li><a href="javascript:;" class="grade-set"><i class="iconfont">&#xe630;</i>设定分指</a></li>
-								<li><a href="javascript:;" class="item-up"><i class="iconfont">&#xe631;</i>上移</a></li>
-								<li><a href="javascript:;" class="item-down"><i class="iconfont">&#xe607;</i>下移</a></li>
-								<li><a href="javascript:;" class="item-dele"><i class="iconfont">&#xe616;</i>删除</a></li>
-								<li><a href="javascript:;" class="determine bind-item">绑定题组</a></li>
-							</ul>
-						</li> -->
-                        
 						
 					</ul>
 					<div class="pagination-wrap">
 						<ul class="pagination" id="pagination"></ul>
 					</div>
 				</div>
-				<script type="text/javascript">
-				//上移
 				
-				$(".item-group-box").on('click', '.item-up', function(event) {
-					// alert($(this).parent().parent().prev().html());
-					var a=$(this).parent().parent().prev().html();
-					var b=$(this).parent().parent().parent().prev().children('.item-cont').html();
-					
-					$(this).parent().parent().parent().prev().children('.item-cont').html(a);
-					$(this).parent().parent().prev().html(b);
-
-					});
-					//下移
-					$(".item-group-box").on('click', '.item-down', function(event) {
-					alert($(this).parent().parent().prev().html());
-					var a=$(this).parent().parent().prev().html();
-					var b=$(this).parent().parent().parent().next().children('.item-cont').html();
-					
-					$(this).parent().parent().parent().next().children('.item-cont').html(a);
-					$(this).parent().parent().prev().html(b);
-
-					});
-					//删除
-					$(".item-group-box").on('click', '.item-dele', function(event) {
-						$(this).parent().parent().parent().remove();
-					});
-					//向下合并
-				$(".item-group-box").on('click', '.item-merge', function(event) {
-						var a=$(this).parent().parent().prev().html();
-						
-						$(this).parent().parent().parent().next().children('.item-cont').append(a);
-						$(this).parent().parent().parent().remove(); 
-					});
-				</script>
 				<!-- 弹出 -->
 			<div class="sub_sz">
 				<p class="sub_sz_p">题组设置<div class="sub_sz_p_div"><i class="iconfont" style="">&#xe61b;</i></div></p>
@@ -149,10 +87,10 @@
                         <a style="margin-left: 60px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                     	</p>
                     	<p>
-                    	<select name="">
+                    	<!-- <select name="">
                     		<option value="">多项选择题</option>
-                    	</select>
-                        <a style="margin-left: 37px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                    	</select> -->
+                        <a style="margin-left:114px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                         <a style="margin-left: 20px;">选项个数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                         <a style="margin-left: 60px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                     	</p>
@@ -292,6 +230,7 @@
 				$(".sub_hide").click(function(event) {
 					$(".sub_sz_remove").show();
 					$(".sub_sz_remove_p03 a").html($(".sub_li input").eq(1).val());
+					console.log($("#item-ul .items").length);
 
 				});
 				$(".sub_sz_remove_x").click(function(event) {
@@ -351,17 +290,42 @@
 					$(this).addClass('sub_bd02_li').siblings().removeClass('sub_bd02_li');
 				});
 			</script>
+			<!-- 题组插入 -->
+			<div class="title_in">
+				<p class="title_in_p01">插入题组</p>
+				<div class="title_in_div"><i class="iconfont">&#xe61b;</i></div>
+                <p class="title_in_p02">试题题型
+                <select name="">
+                	<option value="">选择题</option>
+                	
+                </select></p>
+                <p class="title_in_p03">题组名称<input type="" placeholder="请输入题组名称,如单项选择题" name=""></p>
+                 <p class="title_in_p04"><button class="title_on determine" type="">确认添加</button><button type=""  class="title_off" >取消</button></p>
+			</div>
+			<!-- 题组插入end -->
+			<!-- 设定分值 -->
+			<div class="score_change">
+				<p class="score_change_p01">设定分值</p>
+                <div class="score_change_div"><i class="iconfont">&#xe61b;</i></div>
+                <p class="score_change_p03">分值<input type="" placeholder=""></p>
+                 <p class="score_change_p04"><button class="score_change_on determine" type="">保存</button><button type=""  class="score_change_off" >取消</button></p>
+			</div>
+			<!-- 设定分值end -->
 			</div>
 			
 		</div>
 		<script type="text/javascript">
 $("#item-ul").on('mouseup', 'p', function() {
  get_sel_range();
+
 });
   $(function(){
+
     // 分割题目
     var slipt_up=$('.item-seg');
     $(document).on('click', '.item-seg',function() {
+      
+
       if (sel_range == null){
         alert('分割位置错误');
         return;
@@ -413,11 +377,19 @@ $("#item-ul").on('mouseup', 'p', function() {
         if($(new_word[i]).html().trim().length > 0){
           nw_ary.push($(new_word[i]).html());
         }
-
+       //list_number
+       console.log($("#item-ul .items").length);
+       var a =$("#item-ul .items").length-1;
+       
+        for(var i=0;i<a;i++){
+       var nub=i+1;
+       $("#item-ul .items").eq(i).find('.item-edit').attr("data-a",i);
+      $("#item-ul .items").eq(i).find('.list_nub').html(''+nub+'.');
+     }
+     //
        };
       }
     });
-
   });
 
 
@@ -469,7 +441,8 @@ $("#item-ul").on('mouseup', 'p', function() {
 		<div id="footer">
 
 		</div>
-
+		<!-- 遮罩层 -->
+    <div class="layer"></div>
 	</div>
 </body>
 </html>

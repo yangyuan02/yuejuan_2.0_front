@@ -459,143 +459,197 @@
 					<div class="set-select-wrap">
 						<div>排名顺序</div>
 						<select name="" id="select-ranges">
-							<option value="0">成绩-顺序</option>
-							<option value="0">成绩-逆序</option>
+							<option value="1">成绩-顺序</option>
+							<option value="2">成绩-逆序</option>
 						</select>
 					</div>
 					<div class="title-name-right"> 
-						<span class="Lead-in-teacher iconfont"><a target="_self">&#xe611;&nbsp;导出</a></span>
+						<span class="Lead-out-score iconfont"><a target="_self">&#xe611;&nbsp;导出</a></span>
 					</div>
 				</div>
-				<table class="search-tabble score-grade-tabble" cellpadding="0" cellspacing="0" style='border-collapse:collapse;margin-bottom: 15px'>
-					<thead>
-						<tr>
-							<th>序号</th>
-							<th>班级</th>
-							<th>考号</th>
-							<th>姓名</th>
-							<th>分数</th>
-							<th>标准分</th>
-							<th>等级</th>
-							<th>考试排名</th>
-							<th>学校排名</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr style="border-bottom:1px solid #ccc;">
-							<td>1</td>
-							<td>高二一班</td>
-							<td>12101</td>
-							<td>何以琛</td>
-							<td>99</td>
-							<td>2.24</td>
-							<td>A</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-						<tr style="border-bottom:1px solid #ccc;">
-							<td>2</td>
-							<td>高二一班</td>
-							<td>12102</td>
-							<td>何以玫</td>
-							<td>98</td>
-							<td>2.24</td>
-							<td>A</td>
-							<td>2</td>
-							<td>2</td>
-						</tr>
-						<tr style="border-bottom:1px solid #ccc;">
-							<td>3</td>
-							<td>高二一班</td>
-							<td>13103</td>
-							<td>李光</td>
-							<td>98</td>
-							<td>2.24</td>
-							<td>A</td>
-							<td>3</td>
-							<td>3</td>
-						</tr>
-						<tr style="border-bottom:1px solid #ccc;">
-							<td>4</td>
-							<td>高二一班</td>
-							<td>13104</td>
-							<td>王皓</td>
-							<td>95</td>
-							<td>2.24</td>
-							<td>A</td>
-							<td>4</td>
-							<td>4</td>
-						</tr>
-						<tr style="border-bottom:1px solid #ccc;">
-							<td>5</td>
-							<td>高二一班</td>
-							<td>13105</td>
-							<td>王玉</td>
-							<td>94</td>
-							<td>2.24</td>
-							<td>A</td>
-							<td>5</td>
-							<td>5</td>
-						</tr>
-						<tr style="border-bottom:1px solid #ccc;">
-							<td>6</td>
-							<td>高二一班</td>
-							<td>13106</td>
-							<td>屋宇</td>
-							<td>89</td>
-							<td>1.24</td>
-							<td>A</td>
-							<td>6</td>
-							<td>6</td>
-						</tr>
-						<tr style="border-bottom:1px solid #ccc;">
-							<td>7</td>
-							<td>高二一班</td>
-							<td>13107</td>
-							<td>沈阳</td>
-							<td>89</td>
-							<td>1.24</td>
-							<td>B</td>
-							<td>7</td>
-							<td>7</td>
-						</tr>
-						<tr style="border-bottom:1px solid #ccc;">
-							<td>8</td>
-							<td>高二一班</td>
-							<td>13108</td>
-							<td>阮雨</td>
-							<td>86</td>
-							<td>1.24</td>
-							<td>B</td>
-							<td>8</td>
-							<td>8</td>
-						</tr>
-						<tr style="border-bottom:1px solid #ccc;">
-							<td>9</td>
-							<td>高二一班</td>
-							<td>13109</td>
-							<td>陈一盒</td>
-							<td>85</td>
-							<td>1.24</td>
-							<td>B</td>
-							<td>9</td>
-							<td>9</td>
-						</tr>
-						<tr style="border-bottom:1px solid #ccc;">
-							<td>10</td>
-							<td>高二一班</td>
-							<td>13110</td>
-							<td>李志</td>
-							<td>80</td>
-							<td>1.14</td>
-							<td>B</td>
-							<td>10</td>
-							<td>10</td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="pagination-wrap">
-					<ul class="pagination" id="scores-pagination"></ul>
+				<div id="score-grade-box">
+					<table id="score-grade-tabble"class="search-tabble score-grade-tabble" cellpadding="0" cellspacing="0" style='width:900px;border-collapse:collapse;margin-bottom: 15px'>
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>班级</th>
+								<th>考号</th>
+								<th>姓名</th>
+								<th>分数</th>
+								<th>标准分</th>
+								<th>等级</th>
+								<th>考试排名</th>
+								<th>学校排名</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- <tr style="border-bottom:1px solid #ccc;">
+								<td>1</td>
+								<td>高二一班</td>
+								<td>12101</td>
+								<td>何以琛</td>
+								<td>99</td>
+								<td>2.24</td>
+								<td>A</td>
+								<td>1</td>
+								<td>1</td>
+							</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+								<td>1</td>
+								<td>高二一班</td>
+								<td>12101</td>
+								<td>何以琛</td>
+								<td>99</td>
+								<td>2.24</td>
+								<td>A</td>
+								<td>1</td>
+								<td>1</td>
+							</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+								<td>1</td>
+								<td>高二一班</td>
+								<td>12101</td>
+								<td>何以琛</td>
+								<td>99</td>
+								<td>2.24</td>
+								<td>A</td>
+								<td>1</td>
+								<td>1</td>
+							</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+								<td>1</td>
+								<td>高二一班</td>
+								<td>12101</td>
+								<td>何以琛</td>
+								<td>99</td>
+								<td>2.24</td>
+								<td>A</td>
+								<td>1</td>
+								<td>1</td>
+							</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+								<td>1</td>
+								<td>高二一班</td>
+								<td>12101</td>
+								<td>何以琛</td>
+								<td>99</td>
+								<td>2.24</td>
+								<td>A</td>
+								<td>1</td>
+								<td>1</td>
+							</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+								<td>1</td>
+								<td>高二一班</td>
+								<td>12101</td>
+								<td>何以琛</td>
+								<td>99</td>
+								<td>2.24</td>
+								<td>A</td>
+								<td>1</td>
+								<td>1</td>
+							</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+								<td>2</td>
+								<td>高二一班</td>
+								<td>12102</td>
+								<td>何以玫</td>
+								<td>98</td>
+								<td>2.24</td>
+								<td>A</td>
+								<td>2</td>
+								<td>2</td>
+							</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+								<td>3</td>
+								<td>高二一班</td>
+								<td>13103</td>
+								<td>李光</td>
+								<td>98</td>
+								<td>2.24</td>
+								<td>A</td>
+								<td>3</td>
+								<td>3</td>
+							</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+								<td>4</td>
+								<td>高二一班</td>
+								<td>13104</td>
+								<td>王皓</td>
+								<td>95</td>
+								<td>2.24</td>
+								<td>A</td>
+								<td>4</td>
+								<td>4</td>
+							</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+								<td>5</td>
+								<td>高二一班</td>
+								<td>13105</td>
+								<td>王玉</td>
+								<td>94</td>
+								<td>2.24</td>
+								<td>A</td>
+								<td>5</td>
+								<td>5</td>
+							</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+								<td>6</td>
+								<td>高二一班</td>
+								<td>13106</td>
+								<td>屋宇</td>
+								<td>89</td>
+								<td>1.24</td>
+								<td>A</td>
+								<td>6</td>
+								<td>6</td>
+							</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+								<td>7</td>
+								<td>高二一班</td>
+								<td>13107</td>
+								<td>沈阳</td>
+								<td>89</td>
+								<td>1.24</td>
+								<td>B</td>
+								<td>7</td>
+								<td>7</td>
+							</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+								<td>8</td>
+								<td>高二一班</td>
+								<td>13108</td>
+								<td>阮雨</td>
+								<td>86</td>
+								<td>1.24</td>
+								<td>B</td>
+								<td>8</td>
+								<td>8</td>
+							</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+								<td>9</td>
+								<td>高二一班</td>
+								<td>13109</td>
+								<td>陈一盒</td>
+								<td>85</td>
+								<td>1.24</td>
+								<td>B</td>
+								<td>9</td>
+								<td>9</td>
+							</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+								<td>10</td>
+								<td>高二一班</td>
+								<td>13110</td>
+								<td>李志</td>
+								<td>80</td>
+								<td>1.14</td>
+								<td>B</td>
+								<td>10</td>
+								<td>10</td>
+							</tr> -->
+						</tbody>
+					</table>
 				</div>
 			</div>
 			<div class="user-right item-score-main none">
@@ -623,150 +677,152 @@
 						</select>
 					</div>
 					<div class="title-name-right"> 
-						<span class="Lead-in-teacher iconfont"><a target="_self">&#xe611;&nbsp;导出</a></span>
+						<span class="Lead-out-item iconfont"><a target="_self">&#xe611;&nbsp;导出</a></span>
 					</div>
 				</div>
-				<table class="search-tabble item-score-tabble" cellpadding="0" cellspacing="0" style='border-collapse:collapse;margin-bottom: 15px'>
-					<thead>
-						<tr>
-							<th rowspan="2">题目</th>
-							<th rowspan="2">题分</th>
-							<th colspan="2">年级（119人）</th>
-							<th colspan="2">2016物理4（26人）</th>
-							<th colspan="2">2016物理1（32人）</th>
-						</tr>
-						<tr>
-							<th>平均分</th>
-							<th>得分率</th>
-							<th>平均分</th>
-							<th>得分率</th>
-							<th>平均分</th>
-							<th>得分率</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>一、选择题</td>
-							<td>15</td>
-							<td>13.5</td>
-							<td>69.5%</td>
-							<td>12.5</td>
-							<td>80.5%</td>
-							<td>14.2</td>
-							<td>88.5%</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>3</td>
-							<td>13.5</td>
-							<td>69.5%</td>
-							<td>12.5</td>
-							<td>80.5%</td>
-							<td>14.2</td>
-							<td>88.5%</td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>3</td>
-							<td>13.5</td>
-							<td>69.5%</td>
-							<td>12.5</td>
-							<td>80.5%</td>
-							<td>14.2</td>
-							<td>88.5%</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>3</td>
-							<td>13.5</td>
-							<td>69.5%</td>
-							<td>12.5</td>
-							<td>80.5%</td>
-							<td>14.2</td>
-							<td>88.5%</td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td>3</td>
-							<td>13.5</td>
-							<td>69.5%</td>
-							<td>12.5</td>
-							<td>80.5%</td>
-							<td>14.2</td>
-							<td>88.5%</td>
-						</tr>
-						<tr>
-							<td>5</td>
-							<td>3</td>
-							<td>13.5</td>
-							<td>69.5%</td>
-							<td>12.5</td>
-							<td>80.5%</td>
-							<td>14.2</td>
-							<td>88.5%</td>
-						</tr>
-						<tr>
-							<td>二、填空题</td>
-							<td>15</td>
-							<td>13.5</td>
-							<td>69.5%</td>
-							<td>12.5</td>
-							<td>80.5%</td>
-							<td>14.2</td>
-							<td>88.5%</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>3</td>
-							<td>13.5</td>
-							<td>69.5%</td>
-							<td>12.5</td>
-							<td>80.5%</td>
-							<td>14.2</td>
-							<td>88.5%</td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>3</td>
-							<td>13.5</td>
-							<td>69.5%</td>
-							<td>12.5</td>
-							<td>80.5%</td>
-							<td>14.2</td>
-							<td>88.5%</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>3</td>
-							<td>13.5</td>
-							<td>69.5%</td>
-							<td>12.5</td>
-							<td>80.5%</td>
-							<td>14.2</td>
-							<td>88.5%</td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td>3</td>
-							<td>13.5</td>
-							<td>69.5%</td>
-							<td>12.5</td>
-							<td>80.5%</td>
-							<td>14.2</td>
-							<td>88.5%</td>
-						</tr>
-						<tr>
-							<td>5</td>
-							<td>3</td>
-							<td>13.5</td>
-							<td>69.5%</td>
-							<td>12.5</td>
-							<td>80.5%</td>
-							<td>14.2</td>
-							<td>88.5%</td>
-						</tr>
-					</tbody>
-				</table>
+				<div class="item-score-box">
+					<table id="item-score-tabble" class="search-tabble item-score-tabble" cellpadding="0" cellspacing="0" style='border-collapse:collapse;margin-bottom: 15px'>
+						<thead>
+							<tr>
+								<th rowspan="2">题目</th>
+								<th rowspan="2">题分</th>
+								<th colspan="2">年级（119人）</th>
+								<th colspan="2">2016物理4（26人）</th>
+								<th colspan="2">2016物理1（32人）</th>
+							</tr>
+							<tr>
+								<th>平均分</th>
+								<th>得分率</th>
+								<th>平均分</th>
+								<th>得分率</th>
+								<th>平均分</th>
+								<th>得分率</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- <tr>
+								<td>一、选择题</td>
+								<td>15</td>
+								<td>13.5</td>
+								<td>69.5%</td>
+								<td>12.5</td>
+								<td>80.5%</td>
+								<td>14.2</td>
+								<td>88.5%</td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>3</td>
+								<td>13.5</td>
+								<td>69.5%</td>
+								<td>12.5</td>
+								<td>80.5%</td>
+								<td>14.2</td>
+								<td>88.5%</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>3</td>
+								<td>13.5</td>
+								<td>69.5%</td>
+								<td>12.5</td>
+								<td>80.5%</td>
+								<td>14.2</td>
+								<td>88.5%</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>3</td>
+								<td>13.5</td>
+								<td>69.5%</td>
+								<td>12.5</td>
+								<td>80.5%</td>
+								<td>14.2</td>
+								<td>88.5%</td>
+							</tr>
+							<tr>
+								<td>4</td>
+								<td>3</td>
+								<td>13.5</td>
+								<td>69.5%</td>
+								<td>12.5</td>
+								<td>80.5%</td>
+								<td>14.2</td>
+								<td>88.5%</td>
+							</tr>
+							<tr>
+								<td>5</td>
+								<td>3</td>
+								<td>13.5</td>
+								<td>69.5%</td>
+								<td>12.5</td>
+								<td>80.5%</td>
+								<td>14.2</td>
+								<td>88.5%</td>
+							</tr>
+							<tr>
+								<td>二、填空题</td>
+								<td>15</td>
+								<td>13.5</td>
+								<td>69.5%</td>
+								<td>12.5</td>
+								<td>80.5%</td>
+								<td>14.2</td>
+								<td>88.5%</td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>3</td>
+								<td>13.5</td>
+								<td>69.5%</td>
+								<td>12.5</td>
+								<td>80.5%</td>
+								<td>14.2</td>
+								<td>88.5%</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>3</td>
+								<td>13.5</td>
+								<td>69.5%</td>
+								<td>12.5</td>
+								<td>80.5%</td>
+								<td>14.2</td>
+								<td>88.5%</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>3</td>
+								<td>13.5</td>
+								<td>69.5%</td>
+								<td>12.5</td>
+								<td>80.5%</td>
+								<td>14.2</td>
+								<td>88.5%</td>
+							</tr>
+							<tr>
+								<td>4</td>
+								<td>3</td>
+								<td>13.5</td>
+								<td>69.5%</td>
+								<td>12.5</td>
+								<td>80.5%</td>
+								<td>14.2</td>
+								<td>88.5%</td>
+							</tr>
+							<tr>
+								<td>5</td>
+								<td>3</td>
+								<td>13.5</td>
+								<td>69.5%</td>
+								<td>12.5</td>
+								<td>80.5%</td>
+								<td>14.2</td>
+								<td>88.5%</td>
+							</tr> -->
+						</tbody>
+					</table>
+				</div>
 				<div class="pagination-wrap">
 					<ul class="pagination" id="scores-pagination"></ul>
 				</div>
@@ -796,159 +852,161 @@
 						</select>
 					</div>
 					<div class="title-name-right"> 
-						<span class="Lead-in-teacher iconfont"><a target="_self">&#xe611;&nbsp;导出</a></span>
+						<span class="Lead-out-average iconfont"><a target="_self">&#xe611;&nbsp;导出</a></span>
 					</div>
 				</div>
-				<table class="search-tabble course-average-tabble" cellpadding="0" cellspacing="0" style='border-collapse:collapse;margin-bottom: 15px'>
-					<thead>
-						<tr>
-							<th>课程</th>
-							<th>教师</th>
-							<th>平均分</th>
-							<th>名次</th>
-							<th>优良率</th>
-							<th>合格率</th>
-							<th>A(81分)</th>
-							<th>B(67分)</th>
-							<th>C(60分)</th>
-							<th>去随班/实考/应考</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr style="border-bottom:1px solid #ccc;">
-							<td>2016物理4</td>
-							<td>何以琛</td>
-							<td>83.49</td>
-							<td>1</td>
-							<td>0.31</td>
-							<td>0.97</td>
-							<td>26</td>
-							<td>11</td>
-							<td>1</td>
-							<td>39/39/39</td>
-						</tr>
-						<tr style="border-bottom:1px solid #ccc;">
-							<td>2016物理4</td>
-							<td>何以玫</td>
-							<td>83.49</td>
-							<td>2</td>
-							<td>0.31</td>
-							<td>0.97</td>
-							<td>26</td>
-							<td>11</td>
-							<td>1</td>
-							<td>27/27/27</td>
-						</tr>
-						<tr style="border-bottom:1px solid #ccc;">
-							<td>2016物理4</td>
-							<td>何以玫</td>
-							<td>83.49</td>
-							<td>2</td>
-							<td>0.31</td>
-							<td>0.97</td>
-							<td>26</td>
-							<td>11</td>
-							<td>1</td>
-							<td>27/27/27</td>
-						</tr>
-						<tr style="border-bottom:1px solid #ccc;">
-							<td>2016物理4</td>
-							<td>何以玫</td>
-							<td>83.49</td>
-							<td>2</td>
-							<td>0.31</td>
-							<td>0.97</td>
-							<td>26</td>
-							<td>11</td>
-							<td>1</td>
-							<td>27/27/27</td>
-						</tr>
-						<tr style="border-bottom:1px solid #ccc;">
-							<td>2016物理4</td>
-							<td>何以玫</td>
-							<td>83.49</td>
-							<td>2</td>
-							<td>0.31</td>
-							<td>0.97</td>
-							<td>26</td>
-							<td>11</td>
-							<td>1</td>
-							<td>27/27/27</td>
-						</tr>
-						<tr style="border-bottom:1px solid #ccc;">
-							<td>2016物理4</td>
-							<td>何以玫</td>
-							<td>83.49</td>
-							<td>2</td>
-							<td>0.31</td>
-							<td>0.97</td>
-							<td>26</td>
-							<td>11</td>
-							<td>1</td>
-							<td>27/27/27</td>
-						</tr>
-						<tr style="border-bottom:1px solid #ccc;">
-							<td>2016物理4</td>
-							<td>何以玫</td>
-							<td>83.49</td>
-							<td>2</td>
-							<td>0.31</td>
-							<td>0.97</td>
-							<td>26</td>
-							<td>11</td>
-							<td>1</td>
-							<td>27/27/27</td>
-						</tr>
-						<tr style="border-bottom:1px solid #ccc;">
-							<td>2016物理4</td>
-							<td>何以玫</td>
-							<td>83.49</td>
-							<td>2</td>
-							<td>0.31</td>
-							<td>0.97</td>
-							<td>26</td>
-							<td>11</td>
-							<td>1</td>
-							<td>27/27/27</td>
-						</tr>
-						<tr style="border-bottom:1px solid #ccc;">
-							<td>2016物理4</td>
-							<td>何以玫</td>
-							<td>83.49</td>
-							<td>2</td>
-							<td>0.31</td>
-							<td>0.97</td>
-							<td>26</td>
-							<td>11</td>
-							<td>1</td>
-							<td>27/27/27</td>
-						</tr>
-						<tr style="border-bottom:1px solid #ccc;">
-							<td>2016物理4</td>
-							<td>何以玫</td>
-							<td>83.49</td>
-							<td>2</td>
-							<td>0.31</td>
-							<td>0.97</td>
-							<td>26</td>
-							<td>11</td>
-							<td>1</td>
-							<td>27/27/27</td>
-						</tr>
-						<tr style="border-bottom:1px solid #ccc;">
-							<td>2016物理4</td>
-							<td>何以玫</td>
-							<td>83.49</td>
-							<td>2</td>
-							<td>0.31</td>
-							<td>0.97</td>
-							<td>26</td>
-							<td>11</td>
-							<td>1</td>
-							<td>27/27/27</td>
-						</tr>
-					</tbody>
-				</table>
+				<div class="course-average-box">
+					<table id="course-average-tabble" class="search-tabble course-average-tabble" cellpadding="0" cellspacing="0" style='border-collapse:collapse;margin-bottom: 15px'>
+						<thead>
+							<tr>
+								<th>课程</th>
+								<th>教师</th>
+								<th>平均分</th>
+								<th>名次</th>
+								<th>优良率</th>
+								<th>合格率</th>
+								<th>A(81分)</th>
+								<th>B(67分)</th>
+								<th>C(60分)</th>
+								<th>去随班/实考/应考</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- <tr style="border-bottom:1px solid #ccc;">
+								<td>2016物理4</td>
+								<td>何以琛</td>
+								<td>83.49</td>
+								<td>1</td>
+								<td>0.31</td>
+								<td>0.97</td>
+								<td>26</td>
+								<td>11</td>
+								<td>1</td>
+								<td>39/39/39</td>
+							</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+								<td>2016物理4</td>
+								<td>何以玫</td>
+								<td>83.49</td>
+								<td>2</td>
+								<td>0.31</td>
+								<td>0.97</td>
+								<td>26</td>
+								<td>11</td>
+								<td>1</td>
+								<td>27/27/27</td>
+							</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+								<td>2016物理4</td>
+								<td>何以玫</td>
+								<td>83.49</td>
+								<td>2</td>
+								<td>0.31</td>
+								<td>0.97</td>
+								<td>26</td>
+								<td>11</td>
+								<td>1</td>
+								<td>27/27/27</td>
+							</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+								<td>2016物理4</td>
+								<td>何以玫</td>
+								<td>83.49</td>
+								<td>2</td>
+								<td>0.31</td>
+								<td>0.97</td>
+								<td>26</td>
+								<td>11</td>
+								<td>1</td>
+								<td>27/27/27</td>
+							</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+								<td>2016物理4</td>
+								<td>何以玫</td>
+								<td>83.49</td>
+								<td>2</td>
+								<td>0.31</td>
+								<td>0.97</td>
+								<td>26</td>
+								<td>11</td>
+								<td>1</td>
+								<td>27/27/27</td>
+							</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+								<td>2016物理4</td>
+								<td>何以玫</td>
+								<td>83.49</td>
+								<td>2</td>
+								<td>0.31</td>
+								<td>0.97</td>
+								<td>26</td>
+								<td>11</td>
+								<td>1</td>
+								<td>27/27/27</td>
+							</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+								<td>2016物理4</td>
+								<td>何以玫</td>
+								<td>83.49</td>
+								<td>2</td>
+								<td>0.31</td>
+								<td>0.97</td>
+								<td>26</td>
+								<td>11</td>
+								<td>1</td>
+								<td>27/27/27</td>
+							</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+								<td>2016物理4</td>
+								<td>何以玫</td>
+								<td>83.49</td>
+								<td>2</td>
+								<td>0.31</td>
+								<td>0.97</td>
+								<td>26</td>
+								<td>11</td>
+								<td>1</td>
+								<td>27/27/27</td>
+							</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+								<td>2016物理4</td>
+								<td>何以玫</td>
+								<td>83.49</td>
+								<td>2</td>
+								<td>0.31</td>
+								<td>0.97</td>
+								<td>26</td>
+								<td>11</td>
+								<td>1</td>
+								<td>27/27/27</td>
+							</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+								<td>2016物理4</td>
+								<td>何以玫</td>
+								<td>83.49</td>
+								<td>2</td>
+								<td>0.31</td>
+								<td>0.97</td>
+								<td>26</td>
+								<td>11</td>
+								<td>1</td>
+								<td>27/27/27</td>
+							</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+								<td>2016物理4</td>
+								<td>何以玫</td>
+								<td>83.49</td>
+								<td>2</td>
+								<td>0.31</td>
+								<td>0.97</td>
+								<td>26</td>
+								<td>11</td>
+								<td>1</td>
+								<td>27/27/27</td>
+							</tr> -->
+						</tbody>
+					</table>
+				</div>
 				<div class="pagination-wrap">
 					<ul class="pagination" id="exams-pagination"></ul>
 				</div>

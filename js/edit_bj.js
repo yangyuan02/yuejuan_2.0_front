@@ -30,7 +30,7 @@ $.ajax({
    	type: "GET",
    	url: ajaxIp+"/api/v2/question_banks?docx_id="+docx_id+"",
   	dataType: "JSON",
-  	data:{'limit':10,'page':1},
+  	data:{'limit':null,'page':null},
   	headers: {'Authorization': "Bearer " + isLogin},
   	success: function(data){
   		console.log(data);
