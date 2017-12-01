@@ -97,10 +97,10 @@ $(".sub_sz_p_div").click(function(event) {
 
      });
 
-// $(".sub_sz_p_div").click(function(event) {
-//       $(".sub_sz").hide();
-//       $(".layer").hide();
-//    });
+$(".title_in_div").click(function(event) {
+      $(".title_in").hide();
+      $(".layer").hide();
+   });
   $(".title_in_p04 button").click(function(event) {
      $(".title_in").hide();
       $(".layer").hide();
@@ -113,10 +113,10 @@ $(".sub_sz_p_div").click(function(event) {
 
      });
 
-// $(".sub_sz_p_div").click(function(event) {
-//       $(".sub_sz").hide();
-//       $(".layer").hide();
-//    });
+$(".score_change_div").click(function(event) {
+     $(".score_change").hide();
+      $(".layer").hide();
+   });
   $(".score_change_p04 button").click(function(event) {
      $(".score_change").hide();
       $(".layer").hide();
