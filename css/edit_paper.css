@@ -270,10 +270,23 @@ color:#fb7d8a;margin-right: 5px;
 	display: inline-block;vertical-align: middle;
 }
 /*题组插入*/
+.title_in_div {
+    width: 25px;
+    height: 25px;
+    background: #f5f5f5;
+    border: 1px solid #31bc91;
+    line-height: 25px;
+    text-align: center;
+    color: #31bc91;
+    border-radius: 50%;
+    position: absolute;
+    top: -12px;
+    right: -12px;
+}
 .title_in{
 	width:490px;height:310px;border: 1px solid #ccc;
-	position: absolute;
-    top:20%;
+	position: fixed;
+   top: 200px;
     background: #fff;
     left:30%;
    /* transform: translateX(-50%); 
@@ -355,10 +368,23 @@ color:#fb7d8a;margin-right: 5px;
 }
 /*题组插入end*/
 /*设定分值*/
+.score_change_div {
+    width: 25px;
+    height: 25px;
+    background: #f5f5f5;
+    border: 1px solid #31bc91;
+    line-height: 25px;
+    text-align: center;
+    color: #31bc91;
+    border-radius: 50%;
+    position: absolute;
+    top: -12px;
+    right: -12px;
+}
 .score_change{
 	width:490px;border: 1px solid #ccc;
-	position: absolute;
-    top:20%;
+	position:fixed;
+    top: 200px;
     background: #fff;
     left:30%;
    /* transform: translateX(-50%); 
