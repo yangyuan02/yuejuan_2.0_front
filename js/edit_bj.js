@@ -22,7 +22,7 @@ var isLogin = localStorage.getItem("token");
   }
 
  
-  var docx_id = getUrlParam(url,'id');
+  var docx_id = getUrlParam(url,'docx_id');
   var docx_num = getUrlParam(url,'number');
   console.log(docx_id);
   console.log(docx_num);
@@ -52,7 +52,7 @@ $.ajax({
     }
   });
 $(".p_top a").click(function(event) {
-$(this).attr('href', 'edit_paper?id='+docx_id+'');
+$(this).attr('href', 'edit_paper?docx_id='+docx_id+'');
 
 });
 
