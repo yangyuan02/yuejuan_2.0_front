@@ -2164,6 +2164,7 @@ background: #f7c07c;
     background: #ffffff;
     cursor: pointer;
     display: none;
+    z-index: 111;
 }
 .special_change_p01{
 	width: 100%;
@@ -2224,28 +2225,118 @@ background: #f7c07c;
     height:100px;
 
 }
-.add {
+.add01 {
  cursor: pointer;
  width: 20px;
  height: 30px;
  position: absolute;
- top: 15px;
- left: 130px;
+ top: -10px;
+ left: 150px;
  /*background: #ffffff;*/
  display: none;
- 
 }
 
-.add a{
-    display:block;
+.add01 i{
+    display: block;
+    width: 10px;
+    height: 20px;
 }
- a i{
-  font-size:14px;
-}
-.special_change02_input01:hover .add{
-	color: red;
+
+.special_change02_ul_a01:hover .add01{
 	display: block;
 }
+.add02 {
+ cursor: pointer;
+ width: 20px;
+ height: 30px;
+ position: absolute;
+ top: -10px;
+ right:55px;
+ /*background: #ffffff;*/
+ display: none;
+}
+
+.add02 i{
+    display: block;
+    width: 10px;
+    height: 20px;
+}
+
+.special_change02_ul_a02:hover .add02{
+	display: block;
+}
+.add03 {
+ cursor: pointer;
+ width: 20px;
+ height: 30px;
+ position: absolute;
+ top: 48px;
+ left: 150px;
+ /*background: #ffffff;*/
+ display: none;
+}
+
+.add03 i{
+    display: block;
+    width: 10px;
+    height: 20px;
+}
+.add04 {
+ cursor: pointer;
+ width: 20px;
+ height: 30px;
+ position: absolute;
+ top: 48px;
+ right:55px;
+ /*background: #ffffff;*/
+ display: none;
+}
+
+.add04 i{
+    display: block;
+    width: 10px;
+    height: 20px;
+}
+
+.special_change02_ul_a04:hover .add04{
+	display: block;
+}
+
+.special_change02_ul_a03:hover .add03{
+	display: block;
+}
+.pecial_change_101_table{
+	margin: 0 auto;
+	width: 936px;
+
+}
+.pecial_change_101_table table{
+	border: 1px solid #cccccc;
+	width:900px;
+	font-size: 14px;
+	border-collapse:collapse;
+	color: #666666;
+	font-weight: normal;
+	box-sizing: border-box;
+	text-align: center;
+	margin:0 auto;
+}
+.pecial_change_101_table tr th{
+	height: 40px;
+	background-color: #f5f5f5;
+	line-height: 40px;
+	font-weight: normal;color: #666666;
+	min-width: 80px;
+	/*border: none;*/
+    
+}
+.pecial_change_101_table tr td{
+	padding:13px 0px 13px 0px;
+	color: #666666;	
+	text-align: center;
+	
+}
+	
 /*<!-- 特殊报表  end -->*/
 /*<!-- 跨校对比分析  start-->*/
 .sc_left{
@@ -2256,7 +2347,8 @@ box-sizing: border-box;
 background: #fafafa;
 position: absolute;
 left: 0px;
-top:537px;
+/*top:537px;*/
+top:460px;
 display: none;
 
 }

@@ -312,6 +312,10 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     width:16px;
     text-align:center;
 }
+.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c.fill_itme span.numBerNo_1{
+    width:auto;
+    margin-right:0px;
+}
 .Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span.fill_line span:first-child{
     width:230px;
     border-bottom:1px solid black;
@@ -526,7 +530,7 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     margin:0px 4px;
 }
 .nomal .mian-cont .bigquestion .q_content .set_q_item .scoer{
-    width:20px;
+    width:35px;
     padding-left:3px;
 }
 .nomal .mian-cont .bigquestion .q_content .set_q_item .scoer_wx{
@@ -728,9 +732,11 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
 .cand .cand_title{
     padding:10px 0px;
     text-align:center;
+    background:#31bc91;
+    color:#fff;
 }
 .cand .cand_con{
-    padding:0px 20px;
+    padding:5px 20px;
 }
 .cand .cand_con p:first-child
 {
@@ -762,6 +768,7 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
     right:10px;
     top:10px;
     cursor: pointer;
+    color:#fff;
 }
 input{
     border:1px solid #eee;
@@ -778,7 +785,7 @@ input:focus{
     height:180px;
 }
 .pic_box .cand_con{
-    margin-bottom:16px;
+    margin-bottom:4px;
 }
 .pic_box input[type="file"]{
     height: auto !important;
@@ -814,6 +821,9 @@ input:focus{
 .setFill_q .cand_con ul li > div{
     float:left;
 }
+.setFill_q .cand_con ul li .fill_width{
+    margin:0 5px;
+}
 .setFill_q .cand_con ul li input{
     width:40px;
 }
@@ -821,7 +831,7 @@ input:focus{
     width:155px;
 }
 .setFill_q .cand_con ul li .fill_separator input{
-    width:290px;
+    width:200px;
 }
 .Answer .A_R .A_Rone .A_Rone_child table tbody tr td .other_line{
     height:20px;
@@ -876,7 +886,7 @@ input:focus{
 }
 /*左侧考号*/
 .Answer .A_R .candidate{
-    width:120px;
+    width:128px;
     border:1px solid #000;
     border-top:none;
     position:absolute;
@@ -907,7 +917,7 @@ input:focus{
     width:20%;
 }
 .Answer .A_R .candidate .full_card_number ul li{
-    width: 10px;
+    width: 16px;
     height: 11px;
     border: 1px solid black;
     text-align: center;
@@ -935,7 +945,7 @@ input:focus{
     padding-left:80px;
 }
 .left_bar_code{
-    width: 120px;
+    width: 128px;
     height:50px;
     border: 1px dashed #000;
     position: absolute;
