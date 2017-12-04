@@ -55,7 +55,7 @@ $(function(){
   });
      $("#item-ul").on('click', '.item-edit', function(event) {
        var a=$(this).attr("data-num");
-       $(this).attr('href', 'edit_bj?id=' +docx_id+ '&number='+a+'');
+       $(this).attr('href', 'edit_bj?docx_id=' +docx_id+ '&number='+a+'');
      });
 
    //绑定题组
