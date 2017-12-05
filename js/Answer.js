@@ -328,14 +328,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.countScore += itmeScore
     }
     $scope.append = function (obj) {//push数据
-
-        if (isLine(0)) {
+        if (isLine(0) && $scope.listObj2.length==0) {
             obj.current_page = 1
             $scope.listObj.push(obj);
-        } else if (isLine(1)) {
+        } else if (isLine(1) && $scope.listObj3.length==0) {
             obj.current_page = 1
             $scope.listObj2.push(obj);
-        } else if (isLine(2)) {
+        } else if (isLine(2) && $scope.listObj4.length==0) {
             obj.current_page = 2
             $scope.listObj3.push(obj);
         } else if (isLine(3)) {

@@ -27,7 +27,7 @@ $(function(){
     return items;
   }
 
-  var docx_id = getUrlParam(url,'id');
+  var docx_id = getUrlParam(url,'docx_id');
   console.log(docx_id)
 
 
@@ -55,7 +55,7 @@ $(function(){
   });
      $("#item-ul").on('click', '.item-edit', function(event) {
        var a=$(this).attr("data-num");
-       $(this).attr('href', 'edit_bj?id=' +docx_id+ '&number='+a+'');
+       $(this).attr('href', 'edit_bj?docx_id=' +docx_id+ '&number='+a+'');
      });
 
    //绑定题组
