@@ -23,7 +23,9 @@ var isLogin = localStorage.getItem("token");
 
  
   var docx_id = getUrlParam(url,'docx_id');
+  var id = getUrlParam(url,'id');
   var docx_num = getUrlParam(url,'number');
+  var exam_subject_id = getUrlParam(url,'exam_subject_id');
   console.log(docx_id);
   console.log(docx_num);
 $.ajax({
@@ -52,10 +54,32 @@ $.ajax({
     }
   });
 $(".p_top a").click(function(event) {
-$(this).attr('href', 'edit_paper?docx_id='+docx_id+'');
+$(this).attr('href', 'edit_paper?docx_id='+docx_id+'&exam_subject_id='+exam_subject_id+'');
 
 });
+//保存题目内容
+ $(".edit_bj_btn01").click(function(event) {
+  var a=UE.getEditor('container').getContent();
+     $.ajax({
+         type: "POST",
+         url: ajaxIp + "/api/v2/question_banks/update_question",
+         data: {
+             'id':id,
+             'content': a,
+         },
+         headers: { 'Authorization': "Bearer " + isLogin },
+         success: function(data) {
 
+
+
+         },
+         error: function() {
+
+         }
+     });
+     alert(UE.getEditor('container').getContent());
+
+ });
 
 
 
