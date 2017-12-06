@@ -228,7 +228,7 @@ function list_nub(){
             // $(this).parent().parent().parent().remove();
             // 
           });
-          //确定xxx///
+          //确定
          
           $(".list_remover_on").click(function(event) {
             var a=parseInt($(".list_remover").attr("data-num"));

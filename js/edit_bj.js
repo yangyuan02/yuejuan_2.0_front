@@ -96,14 +96,13 @@ $(this).attr('href', 'edit_paper?docx_id='+docx_id+'&exam_subject_id='+exam_subj
          headers: { 'Authorization': "Bearer " + isLogin },
          success: function(data) {
          console.log(data);
-          window.location.reload();
-
+          // window.location.reload();
          },
          error: function() {
 
          }
      });
-     alert(UE.getEditor('container').getContent());
+     // alert(UE.getEditor('container').getContent());
 
  });
  //答案输入
@@ -128,7 +127,7 @@ var a=UE.getEditor('container02').getContentTxt();
          headers: { 'Authorization': "Bearer " + isLogin },
          success: function(data) {
          console.log(data);
-          window.location.reload();
+          // window.location.reload();
 
          },
          error: function() {
@@ -161,7 +160,7 @@ var a=UE.getEditor('container03').getContent();
          headers: { 'Authorization': "Bearer " + isLogin },
          success: function(data) {
          console.log(data);
-         window.location.reload();
+         // window.location.reload();
 
 
          },
@@ -176,36 +175,35 @@ var a=UE.getEditor('container03').getContent();
 $(".edit_li_div02_btn02").click(function(event) {       
      $(".edit_li_div02").slideUp(500);
 });
-//////
 // 设置难度
-// $(".dif_btn").click(function(event) {
-//   $(".dif_input").show();
-//   $(".dif_btn").hide();
-// });
+$(".dif_btn").click(function(event) {
+  $(".dif_input").show();
+  $(".dif_btn").hide();
+});
 
-// $(".dif_input button").click(function(event) {
-//   var a=$(".dif_input input").val();
+$(".dif_input button").click(function(event) {
+  var a=$(".dif_input input").val();
 
-//      $.ajax({
-//          type: "POST",
-//          url: ajaxIp + "/api/v2/question_banks/update_question",
-//          data: {
-//              'id':id,
-//              'difficulty_level': a,
-//          },
-//          headers: { 'Authorization': "Bearer " + isLogin },
-//          success: function(data) {
-//          console.log(data);
-//          window.location.reload();
+     $.ajax({
+         type: "POST",
+         url: ajaxIp + "/api/v2/question_banks/update_question",
+         data: {
+             'id':id,
+             'difficulty_level': a,
+         },
+         headers: { 'Authorization': "Bearer " + isLogin },
+         success: function(data) {
+         console.log(data);
+         // window.location.reload();
 
-//          },
-//          error: function() {
+         },
+         error: function() {
 
-//          }
-//      });
-//       $(".dif_input").hide();
-//       $(".dif_btn").show();
-// });
+         }
+     });
+      $(".dif_input").hide();
+      $(".dif_btn").show();
+});
 
 
 
