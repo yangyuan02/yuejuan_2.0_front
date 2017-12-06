@@ -85,18 +85,11 @@
       <button class="edit_bj_btn01 determine">保存</button>
        <button class="edit_bj_btn02">取消</button>
         </p>
-      <script>
-       $(".edit_bj_btn01").click(function(event) {
-    	/* Act on the event */
-      // UE.getEditor('container').setContent('', true)
-      // $("#container").append('<p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （    ）</p>');
 
-    	alert(UE.getEditor('container').getContent());
-       });
-        </script>
        <div class="edit_box_btm">
        	<ul>
        		<li>答案输入<button type="" class="edit_li_btn01">编辑</button><div class="edit_li_div01">
+          <!-- <p>选择题<input type="" name=""></p> -->
           <script id="container02" name="content" type="text/plain"></script><p class="edit_li_div_p"><button type="" class="edit_li_div01_btn01 determine">保存</button><button type="" class="edit_li_div01_btn02">取消</button></p></div></li>
        		<script type="text/javascript">
             var ue = UE.getEditor('container02', {
@@ -112,8 +105,8 @@
        		<li>设置解答输入<button type="" class="edit_li_btn02">编辑</button>
         <div class="edit_li_div02">
         <p>分析<i  data-id="0" class="edit_li_div02_i iconfont" style="margin-left:11px;cursor: pointer;font-size: 14px;">&#xe622;</i></p>
-        <div class="edit_li_div02_box" style="width:870px;height: auto;border-bottom: 1px solid #d4d4d4;margin-bottom:10px;padding-bottom: 30px;box-sizing: border-box;display: none;">
-         <div style="width:870px;height:auto;border: 1px solid #d4d4d4;margin: 0 auto;padding:20px;box-sizing:border-box;color: #333333;outline:none;" contenteditable="true">本题是带电粒子在电场中的偏转</div>
+        <div class="edit_li_div02_box">
+         <div class="edit_li_analy" contenteditable="true">本题是带电粒子在电场中的偏转</div>
          </div>
           <p>解答</p>
         <script id="container03" name="content" type="text/plain" style="">
@@ -231,23 +224,35 @@
               $(".edit_li_div03").slideDown(500);
             });
        		</script>
-       		<li>设置难度<a class="dif_i"><i class="iconfont" data-id="1">&#xe600;</i><i class="iconfont" data-id="1">&#xe600;</i><i class="iconfont" data-id="1">&#xe600;</i>
+       		<!-- <li>设置难度<a class="dif_i"><i class="iconfont" data-id="1">&#xe600;</i><i class="iconfont" data-id="1">&#xe600;</i><i class="iconfont" data-id="1">&#xe600;</i>
           <i class="iconfont" data-id="0">&#xe639;</i>
           <i class="iconfont" data-id="0">&#xe639;</i>
-          </a></li>
+          </a></li> -->
+          <li>设置难度<a class="dif_input" style="display: none;"><input type="" name="" placeholder="只能输入数字或小数点如0.2" onkeyup="clearNoNum(this)" style="height:32px;width:190px;padding-left: 8px;    box-sizing: border-box;margin-left: 20px;"><button type="" class="determine" style="margin-left:30px;">保存</button></a><button type="" class="dif_btn">编辑</button></li>
           <script>
-          for(var i=0;i<5;i++){
-              $(".dif_i i").eq(i).click(function(event) {
-                 var a=$(this).attr("data-id");
-                 if(a==0){
-                  $(this).html("&#xe600;");
-                  $(this).attr("data-id","1");
-                 }else{
-                    $(this).html("&#xe639;");
-                    $(this).attr("data-id","0");
-                 }
-              });
-          }
+          //数字和小数点
+         function clearNoNum(obj){
+     
+        obj.value = obj.value.replace(/[^\d.]/g,"");
+       
+        obj.value = obj.value.replace(/^\./g,"");
+       
+        obj.value = obj.value.replace(/\.{2,}/g,".");
+       
+        obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+     }
+          // for(var i=0;i<5;i++){
+          //     $(".dif_i i").eq(i).click(function(event) {
+          //        var a=$(this).attr("data-id");
+          //        if(a==0){
+          //         $(this).html("&#xe600;");
+          //         $(this).attr("data-id","1");
+          //        }else{
+          //           $(this).html("&#xe639;");
+          //           $(this).attr("data-id","0");
+          //        }
+          //     });
+          // }
             
          
           </script>
@@ -452,24 +457,7 @@
    
 
 	    </div>
-	    <script>
-	    	$(".edit_li_btn02").click(function(event) {
-	    		/* Act on the event */
-	    		$(".edit_li_div02").slideDown(500);
-	    	});
-	    	$(".edit_li_div02_btn01").click(function(event) {
-	    		/* Act on the event */
-	    		$(".edit_li_div02").slideUp(500);
-	    	});
-	    	$(".edit_li_btn01").click(function(event) {
-	    		/* Act on the event */
-	    		$(".edit_li_div01").slideDown(500);
-	    	});
-	    	$(".edit_li_div01_btn01").click(function(event) {
-	    		/* Act on the event */
-	    		$(".edit_li_div01").slideUp(500);
-	    	});
-	    </script>
+	   
 		<div id="footer">
 
 		</div>

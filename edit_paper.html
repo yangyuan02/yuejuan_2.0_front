@@ -77,7 +77,7 @@
                     <input type="" name="" value="10">
                   
                     <i class="iconfont" data-id="0">&#xe622;</i>
-                    <div style="width: 100%;height:89px;background: #cccccc;text-align:left;padding-left: 30px;box-sizing: border-box;display: none;">
+                    <div style="width: 100%;height:89px;text-align:left;padding-left: 30px;box-sizing: border-box;display: none;">
                     <p>
                     	<select name="">
                     		<option value="">单项选择题</option>
@@ -104,7 +104,7 @@
                     <input type="" name="" value="二.填空题">
                     <input type="" name="" value="10">
                     <i class="iconfont" data-id="0">&#xe622;</i>
-                    <div style="width: 100%;height:50px;background: #cccccc;text-align:left;padding-left: 30px;box-sizing: border-box;display: none;">
+                    <div style="width: 100%;height:50px;text-align:left;padding-left: 30px;box-sizing: border-box;display: none;">
                     	
                      <p>
                     	 <a style="margin-left: 10px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
@@ -122,7 +122,7 @@
                     <input type="" name="" value="三.判断题">
                     <input type="" name="" value="20">
                     <i class="iconfont" data-id="0">&#xe622;</i>
-                     <div style="width: 100%;height:50px;background: #cccccc;text-align:left;padding-left: 30px;box-sizing: border-box;display: none;">
+                     <div style="width: 100%;height:50px;text-align:left;padding-left: 30px;box-sizing: border-box;display: none;">
 
                       <p>
                     	 <a style="margin-left: 10px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
@@ -140,11 +140,11 @@
                     <input type="" name="" value="四.计算题">
                     <input type="" name="" value="20">
                     <i class="iconfont" data-id="0">&#xe622;</i>
-                     <div style="width: 100%;height:50px;background: #cccccc;text-align:left;padding-left: 30px;box-sizing: border-box;display: none;">
+                     <div style="width: 100%;height:50px;text-align:left;padding-left: 30px;box-sizing: border-box;display: none;">
 
                       <p>
 
-                    	 <a style="margin-left: 10px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                   	 <a style="margin-left: 10px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                         <a style="margin-left: 37px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                         <a style="margin-left: 30px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                         <a style="margin-left: 80px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
@@ -159,7 +159,7 @@
                     <input type="" name="" value="五.写作题">
                     <input type="" name="" value="40">
                     <i class="iconfont" data-id="0">&#xe622;</i>
-                    <div style="width: 100%;height:auto;background: #cccccc;text-align:left;padding-left: 30px;box-sizing: border-box;display: none;">
+                    <div style="width: 100%;height:auto;text-align:left;padding-left: 30px;box-sizing: border-box;display: none;">
 
                       <p>
                       <select name="">
@@ -245,7 +245,10 @@
 					$(".sub_sz_remove").hide();
 				});
 				// 下拉
-				$(".sub_sz_ul02 li i").click(function(event) {
+				$(".sub_sz_ul02").on('click', 'i', function(event) {
+					
+				// click(function(event) {
+					
 					if($(this).attr("data-id")==0){
 					$(this).html('&#xe624;');	
 					$(this).parent("li").addClass('sub_i_li');
@@ -264,18 +267,18 @@
 				<p class="sub_bd_p02">将本题绑定至指定题组</p>
 				<div class="sub_bd02">
 					<ul class="sub_bd02_ul01">
-						<li><input value="一.单项选择题"></li>
-						<li ><input value="二.填空题" ></li>
+						<!-- <li><input value="一.单项选择题"></li> -->
+						<!-- <li ><input value="二.填空题" ></li>
 						<li><input value="三.判断题"></li>
-						<li><input value="四.计算题" ></li>
-						<li ><input value="五.写作"></li>
+						<li><input value="四.计算题" ></li> -->
+						<!-- <li ><input value="五.写作"></li> -->
 					</ul>
 					<ul class="sub_bd02_ul02">
-						<li><i class="iconfont" style="">&#xe64b;</i></li>
-						<li><i class="iconfont" style="">&#xe64b;</i></li>
-						<li ><i class="iconfont" style="">&#xe64b;</i></li>
+						<!-- <li><i class="iconfont" style="">&#xe64b;</i></li>
 						<li><i class="iconfont" style="">&#xe64b;</i></li>
 						<li ><i class="iconfont" style="">&#xe64b;</i></li>
+						<li><i class="iconfont" style="">&#xe64b;</i></li>
+						<li ><i class="iconfont" style="">&#xe64b;</i></li> -->
 					</ul>
 
 				</div>
@@ -285,10 +288,7 @@
 				</div>
 			</div>
 			<script>
-				$(".sub_bd02_ul02 li").click(function(event) {
-					/* Act on the event */
-					$(this).addClass('sub_bd02_li').siblings().removeClass('sub_bd02_li');
-				});
+				
 			</script>
 			<!-- 题组插入 -->
 			<div class="title_in">
@@ -311,6 +311,13 @@
                  <p class="score_change_p04"><button class="score_change_on determine" type="">保存</button><button type=""  class="score_change_off" >取消</button></p>
 			</div>
 			<!-- 设定分值end -->
+			<!-- 删除题目 -->
+			<div class="list_remover">
+				<p class="list_remover_p01">删除题目</p>
+                 <p class="list_remover_p02">删除后无法恢复，你确定删除吗？</p>
+                 <p class="list_remover_p04"><button class="list_remover_on determine" type="">删除</button><button type=""  class="list_remover_off" >取消</button></p>
+			</div>
+			<!-- 删除题目end -->
 			</div>
 			
 		</div>
