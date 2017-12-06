@@ -176,6 +176,7 @@ var a=UE.getEditor('container03').getContent();
 $(".edit_li_div02_btn02").click(function(event) {       
      $(".edit_li_div02").slideUp(500);
 });
+//////
 // 设置难度
 // $(".dif_btn").click(function(event) {
 //   $(".dif_input").show();
