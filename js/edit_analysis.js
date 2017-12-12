@@ -50,6 +50,7 @@ $(this).attr('href', 'edit_paper?docx_id='+docx_id+'&exam_subject_id='+exam_subj
 
 });
 //获取题目内容，答案。。。
+$(".list_dif").html(" ");
  $.ajax({
          type: "POST",
          url: ajaxIp + "/api/v2/question_banks/update_question",
@@ -62,9 +63,10 @@ $(this).attr('href', 'edit_paper?docx_id='+docx_id+'&exam_subject_id='+exam_subj
          console.log(data);
          var a=data.content;
          var b=data.answer;
-         var c=data.difficulty_level;
+         var c=data.difficulty_level
+        
          var d=data.analysis;
-       
+        
         $(".main_content").html(a);
          //答案
          if(b!==undefined){
@@ -73,10 +75,39 @@ $(this).attr('href', 'edit_paper?docx_id='+docx_id+'&exam_subject_id='+exam_subj
          //解析
           if(d!==undefined){
                $(".main_analysis_bottom").html(d);
+
+
          }
          //难度
+         
          if(c!==undefined){
-             $(".list_dif").html(c);
+           var dif_num=Number(c);
+           console.log(dif_num);
+             // $(".list_dif").append('<ul></ul>');
+             if(dif_num>0.86){
+              var a=1;
+             }
+             if(dif_num>0.71&&dif_num<0.86){
+              var a=2;
+             }
+             if(dif_num>0.61&&dif_num<0.71){
+              var a=3;
+             }
+             if(dif_num>0.41&&dif_num<0.61){
+              var a=4;
+             }
+             if(dif_num<0.41){
+              var a=5;
+             }
+             console.log(a);
+             for(var i=0;i<5;i++){
+                if(i<a){
+                 $(".list_dif").append('<i class="iconfont" style="font-size:20px;">&#xe600;</i>')
+                }else if(a<i||a==i){
+                  $(".list_dif").append('<i class="iconfont"  style="font-size:20px;">&#xe639;</i>')
+                }
+             }
+
          }
          },
          error: function() {

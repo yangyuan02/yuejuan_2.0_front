@@ -44,6 +44,16 @@
 	box-sizing: border-box;
 
 }
+/*.main_list ul li{
+	width:0px;
+	border-bottom:none;
+	padding-left: 15px;
+	padding-top:10px;
+	padding-bottom: 10px;
+	overflow: hidden;
+	box-sizing: border-box;
+
+}*/
 .main_analysis{
   width: 793px;
   /*height: 81px;*/
