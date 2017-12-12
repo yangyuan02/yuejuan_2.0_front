@@ -211,6 +211,7 @@ color:#fb7d8a;margin-right: 5px;
 }
 .sub_bd02{
 	margin-left:115px;
+	overflow: hidden;
 }
 .sub_bd02_ul01 {
 	float: left;
