@@ -328,14 +328,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.countScore += itmeScore
     }
     $scope.append = function (obj) {//push数据
-
-        if (isLine(0)) {
+        if (isLine(0) && $scope.listObj2.length==0) {
             obj.current_page = 1
             $scope.listObj.push(obj);
-        } else if (isLine(1)) {
+        } else if (isLine(1) && $scope.listObj3.length==0) {
             obj.current_page = 1
             $scope.listObj2.push(obj);
-        } else if (isLine(2)) {
+        } else if (isLine(2) && $scope.listObj4.length==0) {
             obj.current_page = 2
             $scope.listObj3.push(obj);
         } else if (isLine(3)) {
@@ -471,6 +470,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             obj.plaids = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]//21长度
             obj.row = row
             obj.plaid = $scope.result.plaid
+            obj.no = [$scope.result.no]
+            obj.itemCoresArr = [$scope.result.writscore]
         }
         if($scope.index==5){
             obj.otherisradio = $scope.result.otherisradio
@@ -686,7 +687,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
      * @returns {Array}
      */
     function getQuestion(qNumer, answerNumber, Answerindex, answerModeType, itemCores, current_page, startNo) {//获取每个小题目
-        console.log(itemCores)
         var question = []
         var qNumer = parseInt(qNumer)
         var answerNumber = parseInt(answerNumber)//选项个数
@@ -695,8 +695,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var item_w = 16, itemMarginLeft = 11;
         for (var i = 1; i <= qNumer; i++) {//循环每个小题
             var itme_obj = {}
-            itme_obj.no = startNo[i-1].toString()
+            itme_obj.no = startNo[i-1].toString()//作文没有起始序号
             itme_obj.one_score = parseInt(itemCores[i - 1])
+            console.log(itme_obj.one_score)
             itme_obj.answer_setting_id = answer_id[Answerindex].answers.settings[i - 1].setting_id//小题id
             itme_obj.option = []
             question.push(itme_obj)

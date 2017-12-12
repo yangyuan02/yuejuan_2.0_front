@@ -71,6 +71,8 @@ $(function(){
         $(this).addClass('sub_bd02_li').siblings().removeClass('sub_bd02_li');
         });
     $("#item-ul").on('click', '.bind-item', function(event) {
+      $(".sub_bd_t").attr("data-answer"," ");
+      $(".sub_bd_t").attr("data-question"," ")
        $.ajax({
                   type: "POST",
                   url: ajaxIp+"/api/v2/answers/answers_for_exam_subject",
@@ -139,6 +141,28 @@ $(function(){
       $(".sub_sz").show();
       $(".layer").css("height", $(document).height());
       $(".layer").show();
+       $.ajax({
+                  type: "POST",
+                  url: ajaxIp+"/api/v2/question_banks/question_answers",
+                  data:{
+                  'exam_subject_id':exam_subject_id,
+                  },
+                headers: {'Authorization': "Bearer " + isLogin},
+                success: function(data){
+                  console.log(data);
+                   
+                    
+                  },
+                error: function(){
+    
+                 }
+               }); 
+
+
+
+
+
+
    });
 
 $(".sub_sz_p_div").click(function(event) {

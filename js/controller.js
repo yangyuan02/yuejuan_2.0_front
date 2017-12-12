@@ -3060,7 +3060,13 @@ angular.module("myApp.controller", [])
                         $(".study_k_401_bo").append('<tr></tr>');
 
                          for (var c = 0; c < a.length; c++) {
-                            $(".study_k_401_bo tr").eq(i).append('<td>' + a[c] + '</td>');
+                           
+                            if(c==5||c==6){
+                            var c_num=Math.round(a[c]);
+                            $(".study_k_401_bo tr").eq(i).append('<td>' +c_num+ '</td>');
+                            }else{
+                              $(".study_k_401_bo tr").eq(i).append('<td>' + a[c] + '</td>');  
+                            }
                         }
 
                     }
