@@ -123,10 +123,12 @@
 	color:#fb7d8a!important;
 }
 .sub_li{
-	background: #cccccc;
+	background: #5fa3ed;
+    opacity: 0.9;
 }
 .sub_i_li{
-	background: #cccccc;
+	background: #5fa3ed;
+    opacity: 0.9;
 }
 
 .sub_sz{
@@ -189,13 +191,13 @@ color:#fb7d8a;margin-right: 5px;
 	float:right;width:135px;height: 35px;margin-right: 14px;font-size: 14px;background: #ffffff;border: 1px solid #31bc91;color:#31bc91
 }
 .sub_bd{
-	width: 395px;height: 390px;border: 1px solid #ccc;position:relative;
+	width: 395px;border: 1px solid #ccc;position:relative;
 	position: fixed;
     top: 50%;
     right: 50%;
     margin-top: -195px;
     margin-right: -195px;
-    background: #fff;display: none;z-index: 1;
+    background: #fff;display: none;z-index: 1;padding-bottom: 10px;
 }
 .sub_bd_p{
 	width: 100%;height:40px;background:#31bc91;line-height: 40px;
@@ -208,7 +210,8 @@ color:#fb7d8a;margin-right: 5px;
 	width: 100%;height: 42px;text-align:center;line-height:42px;color:#666666;font-size: 14px; 
 }
 .sub_bd02{
-	margin-left:115px;height: 220px;
+	margin-left:115px;
+	overflow: hidden;
 }
 .sub_bd02_ul01 {
 	float: left;
@@ -447,8 +450,56 @@ color:#fb7d8a;margin-right: 5px;
     border: 1px solid #31bc91;
     color: #31bc91;
 }
+/*题组删除*/
 
-
+.list_remover{
+	width:490px;border: 1px solid #ccc;
+	position:fixed;
+    top: 200px;
+    background: #fff;
+    left:30%;
+   /* transform: translateX(-50%); 
+    transform: translateY(-50%);*/
+    display: none;
+    z-index: 1;
+}
+.list_remover_p01{
+	width:100%;height:40px;line-height: 40px;text-align:center;color: #fff;background: #31bc91;
+	font-size: 16px;
+}
+	.list_remover_p04{
+	width: 450px;
+	height: 100px;
+	line-height:100px;
+	border-top:1px solid #ccc;
+	margin: 0 auto;
+	padding-top: 35px;
+	box-sizing: border-box;
+	
+	}
+	.list_remover_on {
+    float: right;
+    width: 135px;
+    height: 35px;
+    font-size: 14px;
+    }
+    .list_remover_off {
+    float: right;
+    width: 135px;
+    height: 35px;
+    margin-right: 14px;
+    font-size: 14px;
+    background: #ffffff;
+    border: 1px solid #31bc91;
+    color: #31bc91;
+}
+.list_remover_p02{
+	height: 100px;
+    line-height: 100px;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
 
 
 

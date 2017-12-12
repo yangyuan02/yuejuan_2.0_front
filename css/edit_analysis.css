@@ -1,0 +1,148 @@
+.main{
+	width: 931px;
+	height: 1186px;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+.main_back{
+	width: 100%;
+	height: 47px;
+	line-height: 47px;
+	padding-left: 20px;
+	box-sizing: border-box;
+	color: #31bc91;
+}
+.main_back a{
+	
+	color: #31bc91;
+}
+.main_content{
+	width: 100%;
+	/*height: 232px;*/
+	border: 1px solid #ccc;
+	border-left:none;
+	border-right:none;
+	box-sizing: border-box;
+	padding: 30px 70px 70px 70px;
+    font-size: 16px;
+}
+.main_list{
+	width: 870px;
+	margin: 0 auto;
+	margin-top:15px;
+	color: #31bc91;
+	font-size: 14px;
+}
+.main_list ul li{
+	width: 100%;
+	border-bottom:  1px solid #ccc;
+	padding-left: 15px;
+	padding-top:10px;
+	padding-bottom: 10px;
+	overflow: hidden;
+	box-sizing: border-box;
+
+}
+/*.main_list ul li{
+	width:0px;
+	border-bottom:none;
+	padding-left: 15px;
+	padding-top:10px;
+	padding-bottom: 10px;
+	overflow: hidden;
+	box-sizing: border-box;
+
+}*/
+.main_analysis{
+  width: 793px;
+  /*height: 81px;*/
+  border:1px solid #31bc91;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding: 22px 20px;
+  box-sizing: border-box;
+}
+.main_analysis_bottom{
+  width: 793px;
+ /* height: 189px;*/
+  border:1px solid #31bc91;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding: 22px 20px;
+  box-sizing: border-box;
+}
+.main_wrong_left{
+	width: 355px;
+	height: 150px;
+	border:1px solid #ccc;
+	float: left;
+}
+
+.main_wrong_left p{
+	width: 100%;
+	height: 46px;
+	line-height: 46px;
+	padding-left: 18px;
+	border-bottom:1px solid #ccc;
+	box-sizing: border-box;
+	color:#666666;
+	background:#f5f5f5;
+}
+.main_wrong_left_body{
+	width: 100%;
+	padding: 12px;
+}
+.main_wrong_left_body a{
+	display: inline-block;
+	margin-top: 10px;
+	margin-right: 20px;
+	color: #ffffff;
+	background: #31bc91;
+	padding:4px 8px;
+}
+
+.main_wrong_right{
+	width: 355px;
+	height: 150px;
+	border:1px solid #ccc;
+	float: right;
+}
+
+.main_wrong_right p{
+	width: 100%;
+	height: 46px;
+	line-height: 46px;
+	padding-left: 18px;
+	border-bottom:1px solid #ccc;
+	box-sizing: border-box;
+	color:#666666;
+	background:#f5f5f5;
+}
+.main_wrong_right_body{
+	width: 100%;
+	padding: 12px;
+}
+.main_wrong_right_body a{
+	display: inline-block;
+	margin-top: 10px;
+	margin-right: 20px;
+	color: #ffffff;
+	background: #31bc91;
+	padding:4px 8px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

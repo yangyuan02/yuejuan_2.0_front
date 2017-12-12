@@ -183,7 +183,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 /*语文试卷*/
                 if ($scope.result.writIsradio == 1) {
                     var row = Math.ceil($scope.result.plaid / 21)
+                    rowItme_h = 29
                     result = remain - title_h - padding - score_h - row * rowItme_h > 0 ? true : false
+                    console.log('remain'+remain,'title_h'+title_h,'padding'+padding,'score_h'+score_h,'zonggong'+row * rowItme_h)
                 } else if ($scope.result.writIsradio == 2) {
                     var row = parseInt($scope.result.enLine)
                     result = remain - title_h - padding - score_h - row * rowItme_h > 0 ? true : false
