@@ -181,7 +181,28 @@ $(".sub_sz_p_div").click(function(event) {
 
      });
   $(".title_on").click(function(event) {
-    alert($(".title_in_p02 select").children('option:selected').html());
+    var a=$(".title_in_p02 select").children('option:selected').html();
+    var b=$(".title_in_p03 input").val();
+    $.ajax({
+                  type: "POST",
+                  url: ajaxIp+"/api/v2/question_banks/add_answer",
+                  data:{
+                  'exam_subject_id':exam_subject_id,
+                  'item':a,
+                  'name':b,
+                  },
+                headers: {'Authorization': "Bearer " + isLogin},
+                success: function(data){
+                  console.log(data);
+                   
+                    
+                  },
+                error: function(){
+    
+                 }
+               });
+               console.log(); 
+    
 
   });
 

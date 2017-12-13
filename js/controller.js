@@ -483,7 +483,7 @@ angular.module("myApp.controller", [])
             $(this).parent().hide();
         })
         //缺考走读
-        $(".miss_exam i").click(function(event) {
+        $(".miss_exam01").click(function(event) {
             var a=$(this).attr("data-id");
             if(a==1){
                 $(this).css("color","#31bc91");
