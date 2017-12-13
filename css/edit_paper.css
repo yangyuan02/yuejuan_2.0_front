@@ -123,12 +123,10 @@
 	color:#fb7d8a!important;
 }
 .sub_li{
-	background: #5fa3ed;
-    opacity: 0.9;
+	background: rgba(95,163,237,0.5);
 }
 .sub_i_li{
-	background: #5fa3ed;
-    opacity: 0.9;
+	background: rgba(95,163,237,0.5);
 }
 
 .sub_sz{
