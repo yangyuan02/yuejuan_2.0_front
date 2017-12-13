@@ -173,17 +173,21 @@ $(".sub_sz_p_div").click(function(event) {
      $(".sub_sz").hide();
       $(".layer").hide();
    });
-  //
+  //题组插入
   $("#item-ul").on('click', '.item-insert', function(event) {
        $(".title_in").show(); 
        $(".layer").css("height", $(document).height());
        $(".layer").show();
 
      });
+  $(".title_on").click(function(event) {
+    alert($(".title_in_p02 select").children('option:selected').html());
 
-$(".title_in_div").click(function(event) {
-      $(".title_in").hide();
-      $(".layer").hide();
+  });
+
+   $(".title_in_div").click(function(event) {
+         $(".title_in").hide();
+         $(".layer").hide();
    });
   $(".title_in_p04 button").click(function(event) {
      $(".title_in").hide();

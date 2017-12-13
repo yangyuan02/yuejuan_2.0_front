@@ -78,19 +78,19 @@
                   
                     <i class="iconfont" data-id="0">&#xe622;</i>
                     <div style="width: 100%;height:89px;text-align:left;padding-left: 30px;box-sizing: border-box;display: none;">
-                    <p>
-                    	<select name="">
+                    <p style="padding-left: 113px;box-sizing: border-box;">
+                    	<!-- <select name="">
                     		<option value="">单项选择题</option>
-                    	</select>
-                        <a style="margin-left: 37px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                    	</select> -->
+                        <a style="">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                         <a style="margin-left: 20px;">选项个数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                         <a style="margin-left: 60px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                     	</p>
-                    	<p>
+                    	<p style="padding-left: 113px;box-sizing: border-box;">
                     	<!-- <select name="">
                     		<option value="">多项选择题</option>
                     	</select> -->
-                        <a style="margin-left:114px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                        <a style="">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                         <a style="margin-left: 20px;">选项个数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                         <a style="margin-left: 60px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                     	</p>
@@ -205,7 +205,7 @@
 			</div>
 			<!-- 上下移 -->
 			<script type="text/javascript">
-				$(".sub_sz_ul02 li").click(function(event) {
+				$(".sub_sz_ul02").on('click', 'li', function(event) {
 					$(this).addClass('sub_li').siblings().removeClass('sub_li');
 				});
 				// 上移
@@ -296,8 +296,11 @@
 				<div class="title_in_div"><i class="iconfont">&#xe61b;</i></div>
                 <p class="title_in_p02">试题题型
                 <select name="">
-                	<option value="">选择题</option>
-                	
+                	<option data-id="0">选择题</option>
+                	<option data-id="1">填空题</option>
+                	<option data-id="2">判断题</option>
+                	<option data-id="3">其他题</option>
+                	<option data-id="4">写作题</option>
                 </select></p>
                 <p class="title_in_p03">题组名称<input type="" placeholder="请输入题组名称,如单项选择题" name=""></p>
                  <p class="title_in_p04"><button class="title_on determine" type="">确认添加</button><button type=""  class="title_off" >取消</button></p>
