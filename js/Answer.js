@@ -337,16 +337,23 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         } else if (isLine(1) && $scope.listObj3.length==0) {
             obj.current_page = 1
             $scope.listObj2.push(obj);
-        } else if (isLine(2) && $scope.listObj4.length==0) {
+        } else if ($scope.result.writIsradio==4||isLine(2) && $scope.listObj4.length==0) {
             console.log(obj)
             obj.current_page = 2
-            obj.row = writLine(2)
-            var rows = []
-            for(var i = 0;i<writLine(2);i++){
-                rows.push(i)
+            console.log($scope.result.writIsradio)
+            if($scope.result.writIsradio==4){
+                console.log(111)
+                obj.row = writLine(2)
+                var rows = []
+                for(var i = 0;i<writLine(2);i++){
+                    rows.push(i)
+                }
+                obj.writIsradio = 4
+                obj.articleType = 1
+                obj.rows = rows
             }
-            obj.rows = rows
             $scope.listObj3.push(obj);
+            console.log($scope.listObj3)
         } else if (isLine(3)) {
             obj.current_page = 2
             $scope.listObj4.push(obj);
@@ -354,10 +361,11 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     }
     var writLine = function (page_num) {//作文换行
         var outerBox = $(".A_Rone").outerHeight()//最外层距离
-        var lastTabPosi = $(".A_Rone").eq(page_num).find("table:last").position().top + $(".A_Rone").eq(page_num).find("table:last").height() + 30//已经占用高度
+        var lastTabPosi = $(".A_Rone").eq(page_num).find("table:last").position()==undefined?0:$(".A_Rone").eq(page_num).find("table:last").position().top + $(".A_Rone").eq(page_num).find("table:last").height() + 30//已经占用高度
         var remain = outerBox - lastTabPosi
         var rowItme_h = 29,score_h = $scope.paperType == 0?40:20;
-        var rows = Math.floor((remain - 40  - score_h)/rowItme_h)
+        var padding = $(".A_Rone").eq(page_num).find("table:last").position()==undefined?60:0
+        var rows = Math.floor((remain - 40  - score_h-padding)/rowItme_h)
         $scope.listObj5 = []
         $scope.listObj5.push({
             plaids:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
@@ -1433,6 +1441,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             console.log("删除list2")
         }
         if (index >= len1 + len2 && index < len1 + len2 + len3) {
+            if($scope.listObj3[index - len1 - len2].writIsradio==4){
+                $scope.listObj5 = []
+            }
             $scope.listObj3.splice(index - len1 - len2, 1)
             console.log("删除list3")
         }
