@@ -347,14 +347,32 @@ function ans_sort(a,b){
   $(".title_on").click(function(event) {
     var a=$(".title_in_p02 select").children('option:selected').html();
     var b=$(".title_in_p03 input").val();
-    $.ajax({
+     $.ajax({
+                  type: "POST",
+                  url: ajaxIp+"/api/v2/answers/answers_for_exam_subject",
+                  data:{'exam_subject_id':exam_subject_id},
+                  headers: {'Authorization': "Bearer " + isLogin},
+                  success: function(data){
+                  
+                   
+                    var a_num=data.length+1;
+                    console.log(a_num);
+                   t_zhu(a_num,a,b);
+                   
+                  },
+                error: function(){
+    
+                 }
+               });
+    function t_zhu(a_num,a,b){
+       $.ajax({
                   type: "POST",
                   url: ajaxIp+"/api/v2/question_banks/add_answer",
                   data:{
                   'exam_subject_id':exam_subject_id,
                   'item':a,
                   'name':b,
-                   // 'sort':6,
+                   'sort':a_num,
                   },
                 headers: {'Authorization': "Bearer " + isLogin},
                 success: function(data){
@@ -366,7 +384,8 @@ function ans_sort(a,b){
     
                  }
                });
-               console.log(); 
+       }
+    //            console.log(); 
     
 
   });
