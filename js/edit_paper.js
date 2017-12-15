@@ -158,19 +158,19 @@ $(function(){
                   console.log(data);
                  var a=data.length;
                  for(var i=0;i<a;i++){
-                     $(".sub_sz_ul02").append('<li><select  data-id="'+data[i].answer.id+'"><option>单选题</option><option>多选题</option><option>填空题</option><option>是非题</option><option>其他题</option><option>作文题</option></select><input type="" name="" value="'+data[i].answer.answer_name+'"><input type="" name="" value="10"><i class="iconfont" data-id="0">&#xe622;</i><div class="sub_sz_list" style="overflow: auto;"></div>');
+                     $(".sub_sz_ul02").append('<li><input data-id="'+data[i].answer.id+'" type="" name="" value="'+data[i].answer.item+'" disabled="disabled"><input type="" name="" value="'+data[i].answer.answer_name+'" disabled="disabled"><input type="" name="" value="" disabled="disabled"><i class="iconfont" data-id="0">&#xe622;</i><div class="sub_sz_list" style="overflow: auto;"><button style="float: right;width: 50px;height: 25px;color: #31bc91;text-align: center;line-height: 25px;margin-right: 68px;">保存</button></div></li>');
                   var qb_length=data[i].question_banks.length;
                  if(data[i].answer.item=="单选题"||data[i].answer.item=="多选题"){
                  for(var q_b=0;q_b<qb_length;q_b++){
-                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list').append('<p style="padding-left: 40px;box-sizing: border-box;"><a style="">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].sort+'"></a><a style="margin-left: 70px;">选项个数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="4"></a><a style="margin-left: 88px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;"  value="2"></a></p>');
+                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p style="padding-left: 40px;box-sizing: border-box;"><a style="">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].sort+'"></a><a style="margin-left: 70px;">选项个数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="4"></a><a style="margin-left: 88px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;"  value="2"></a></p>');
                  };
                  }else if(data[i].answer.item=="填空题"||data[i].answer.item=="是非题"||data[i].answer.item=="其他题"){
                  for(var q_b=0;q_b<qb_length;q_b++){
-                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list').append('<p><a style="margin-left: 40px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" disabled="disabled"  value="'+data[i].question_banks[q_b].sort+'"></a><a style="margin-left: 237px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a></p>');
+                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p><a style="margin-left: 40px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" disabled="disabled"  value="'+data[i].question_banks[q_b].sort+'"></a><a style="margin-left: 237px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a></p>');
                  }                       
                 }else if(data[i].answer.item=="作文题"){
                   for(var q_b=0;q_b<qb_length;q_b++){
-                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list').append('<p style="padding-left:10px;"><select name="" class="sub_sz_xz_select"><option value="">方格</option><option value="">行线</option><option value="">间隔线</option></select><a style="margin-left: 50px;">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].sort+'"></a><a style=""><i  class="sub_sz_xz_i" style="font-style:normal;color: #666;font-size: 12px;margin-left: 5px;">格数</i><input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a><a style="margin-left:60px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a></p>');
+                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p style="padding-left:10px;"><select name="" class="sub_sz_xz_select"><option value="">方格</option><option value="">行线</option><option value="">间隔线</option></select><a style="margin-left: 50px;">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].sort+'"></a><a style=""><i  class="sub_sz_xz_i" style="font-style:normal;color: #666;font-size: 12px;margin-left: 5px;">格数</i><input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a><a style="margin-left:60px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a></p>');
                  }  
                 };
                 
@@ -185,6 +185,25 @@ $(function(){
                }); 
 
    });
+     $(".sub_sz_ul02 ").on('click', 'button', function(event) {
+      var a=[{'question_bank_id':73,'sort':1,'type_count':4,'score':2,'answer_id':2192,'exam_subject_id':516,},
+    {'question_bank_id':74,'sort':1,'type_count':4,'score':2,'answer_id':2192,'exam_subject_id':516,}];
+     console.log(a);
+     $.ajax({
+                  type: "POST",
+                  url: ajaxIp+"/api/v2/question_banks/save_answer_settings",
+                  data:{'answer_settings':JSON.stringify(a)},
+                  headers: {'Authorization': "Bearer " + isLogin},
+                  success: function(data){
+                   
+                    // window.location.reload();
+                  },
+                error: function(){
+    
+                 }
+               });
+
+     });
      $(".sub_sz_ul02 ").on('change', 'select', function(event) {
       //alert();
       var a=$(this).children('option:selected').html();
@@ -330,9 +349,9 @@ function ans_sort(a,b){
       var li_length=$(".sub_sz_ul02 li").length;
       console.log($(".sub_sz_ul02 li").length);
       for(var i=0;i<li_length;i++){
-        var a=$(".sub_sz_ul02 li").eq(i).find('select').attr("data-id");
+        var a=$(".sub_sz_ul02 li").eq(i).find('input').eq(0).attr("data-id");
         var b=i+1;
-        console.log($(".sub_sz_ul02 li").eq(i).find('select').attr("data-id"));
+        console.log($(".sub_sz_ul02 li").eq(i).find('input').eq(0).attr("data-id"));
         ans_sort(a,b);
       }
    });
