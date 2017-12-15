@@ -66,6 +66,7 @@ $(function(){
    //题组选择
     $(".sub_bd02_ul02 ").on('click', 'li', function(event) {
         $(".sub_bd_t").attr("data-answer",$(this).attr("data-id"));
+        $(".sub_bd_t").attr("data-item",$(this).attr("data-item"));
          $(".sub_bd_t").attr("data-question",$(".sub_bd").attr("data-id"));
 
         $(this).addClass('sub_bd02_li').siblings().removeClass('sub_bd02_li');
@@ -73,6 +74,7 @@ $(function(){
     $("#item-ul").on('click', '.bind-item', function(event) {
       $(".sub_bd_t").attr("data-answer"," ");
       $(".sub_bd_t").attr("data-question"," ")
+       $(".sub_bd_t").attr("data-item"," ")
        $.ajax({
                   type: "POST",
                   url: ajaxIp+"/api/v2/answers/answers_for_exam_subject",
@@ -85,7 +87,7 @@ $(function(){
                     var a=data.length;
                     for(var i=0;i<a;i++){
                        $(".sub_bd02_ul01").append('<li><input value="'+data[i].name+'" disabled="disabled"></li>');
-                       $(".sub_bd02_ul02").append('<li data-id="'+data[i].id+'"><i class="iconfont" style="">&#xe64b;</i></li>');
+                       $(".sub_bd02_ul02").append('<li data-id="'+data[i].id+'" data-item="'+data[i].item+'"><i class="iconfont" style="">&#xe64b;</i></li>');
                     }
                   },
                 error: function(){
@@ -106,6 +108,7 @@ $(function(){
   $(".sub_bd_t").click(function(event) {
       var a=parseInt($(".sub_bd_t").attr("data-answer"));
       var b=parseInt($(".sub_bd_t").attr("data-question"));
+      var c=$(".sub_bd_t").attr("data-item");
       if(isNaN(a)){ //判断a是否等于nan只能用isNaN(a)；不能用a=NaN;
            alert("请选择题组？");
            }else{
@@ -116,6 +119,7 @@ $(function(){
                   'answer_id':a,
                   'question_bank_id':b,
                   'exam_subject_id':exam_subject_id,
+                  'item':c,
                 },
                 headers: {'Authorization': "Bearer " + isLogin},
                 success: function(data){
