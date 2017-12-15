@@ -67,6 +67,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     $scope.listObj2 = data.message.page2 ? data.message.page2 : []
                     $scope.listObj3 = data.message.page3 ? data.message.page3 : []
                     $scope.listObj4 = data.message.page4 ? data.message.page4 : []
+                    $scope.listObj5 = data.message.page5 ? data.message.page5 : []
                     answer_id = data.message.answer_id
                     allHeight = data.message.allHeight ? data.message.allHeight : []
                     $scope.paperType = data.message.paperType ? data.message.paperType : 0
@@ -337,12 +338,36 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             obj.current_page = 1
             $scope.listObj2.push(obj);
         } else if (isLine(2) && $scope.listObj4.length==0) {
+            console.log(obj)
             obj.current_page = 2
+            obj.row = writLine(2)
+            var rows = []
+            for(var i = 0;i<writLine(2);i++){
+                rows.push(i)
+            }
+            obj.rows = rows
             $scope.listObj3.push(obj);
         } else if (isLine(3)) {
             obj.current_page = 2
             $scope.listObj4.push(obj);
         }
+    }
+    var writLine = function (page_num) {//作文换行
+        var outerBox = $(".A_Rone").outerHeight()//最外层距离
+        var lastTabPosi = $(".A_Rone").eq(page_num).find("table:last").position().top + $(".A_Rone").eq(page_num).find("table:last").height() + 30//已经占用高度
+        var remain = outerBox - lastTabPosi
+        var rowItme_h = 29,score_h = $scope.paperType == 0?40:20;
+        var rows = Math.floor((remain - 40  - score_h)/rowItme_h)
+        $scope.listObj5 = []
+        $scope.listObj5.push({
+            plaids:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
+            rows:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29],
+            type:4,
+            totalCores:10,
+            itemCoresArr:['0'],
+            articleType:1
+        })
+        return rows
     }
     $scope.createAsswer = function (data) {//添加题组
         var data = data
@@ -844,6 +869,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         allList.page2 = $scope.listObj2
         allList.page3 = $scope.listObj3
         allList.page4 = $scope.listObj4
+        allList.page5 = $scope.listObj5
         allList.answer_id = answer_id
         allList.paperType = $scope.paperType
         allList.infoLocation = $scope.infoLocation
@@ -1676,6 +1702,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.listObj2 = data.page2 ? data.page2 : []
                 $scope.listObj3 = data.page3 ? data.page3 : []
                 $scope.listObj4 = data.page4 ? data.page4 : []
+                $scope.listObj5 = data.page5 ? data.page5 : []
                 $scope.paperType = data.paperType ? data.paperType : 0
                 $scope.infoLocation = data.infoLocation ? data.infoLocation : 0
                 $scope.infoBox = data.infoBox ? data.infoBox : 0

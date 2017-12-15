@@ -1080,6 +1080,145 @@
                                 <!--作文题模板结束-->
                                 </tbody>
                             </table>
+                            <table ng-repeat="a in listObj5" ng-click="getTableIndex(3,$index)"
+                                   class="{{tabParentIndex==3&&tabIndex==$index?'table_focus':''}} {{showTableLineTyep==0?'':'hideTab'}}">
+                                <thead>
+                                <tr ng-if="a.otherisradio!=4">
+                                    <th class="Group_title">
+                                        {{a.name}}
+                                    </th>
+                                </tr>
+                                <tr ng-hide="a.type==1||a.type==2||a.type==6||a.type==5"
+                                    class="{{paperType==1?'paper':''}}">
+                                    <th>
+                                        <!--网络阅卷打分框start-->
+                                        <div class="marking">
+                                            <a href="">1</a>
+                                            <a href="">2</a>
+                                            <a href="">3</a>
+                                            <a href="">4</a>
+                                            <a href="">5</a>
+                                            <a href="">6</a>
+                                            <a href="">7</a>
+                                            <a href="">8</a>
+                                            <a href="">9</a>
+                                            <a href="">0</a>
+                                            <a href="">1</a>
+                                            <a href="">2</a>
+                                            <a href="">3</a>
+                                            <a href="">4</a>
+                                            <a href="">5</a>
+                                            <a href="">.5</a>
+                                            <a href=""></a>
+                                        </div>
+                                        <!--网络阅卷打分框end-->
+                                    </th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr ng-if="a.type!=5&&a.type!=4">
+                                    <td>
+                                        <div ng-repeat="item in a.no" class="q_c {{a.type==3?'fill_itme':''}}"
+                                             ng-style="{'width':'{{a.type==3?'auto':setItmeWidth(a.thr)}}'}"
+                                             style="width:auto">
+                                            <a class="numberNo {{paperType==1?'paperno':''}}" ng-show="a.type==3"></a>
+                                            <!--序号start-->
+                                            <span class="numBerNo_1">{{item<10?'0'+item:item}}{{a.type==3?'、':''}}</span>
+                                            <span ng-show="a.type==3 && showItmeScoreType==1">({{a.itemCoresArr[$index]}}分)</span>
+                                            <!--序号end-->
+                                            <!--选择题模版start-->
+                                            <span ng-show="a.type==1||a.type==2||a.type==6" ng-repeat="items in a.thr">
+                                            <b>{{items}}</b>
+                                        </span>
+                                            <!--选择题模版end-->
+                                            <!--填空题模板start-->
+                                            <span class="fill_line" ng-show="a.type==3"
+                                                  ng-repeat="fills in a.fillsNum[$index]">
+                                                <span class="{{a.LineType==0?'':'dashed_line'}}"
+                                                      style="width:{{a.fillWidth[$parent.$index][$index]+'px'}};height:{{a.verticalHeigth+'px'}};"></span>
+                                                <span>{{a.separator[$parent.$index][$index]}}</span>
+                                            </span>
+                                            <!--填空题模版end-->
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!--其他题模板开始-->
+                                <tr ng-if="a.type==5" class="other">
+                                    <td>
+                                        <div ng-repeat="item in a.no" ng-if="a.otherisradio==3"
+                                             class="{{paperType==1?'other_box':''}} {{a.LineType==0?'':'dashed_line'}} {{a.hideLineType==0?'':'hide_line'}}">
+                                            <!--其他题头部-->
+                                            <div class="other_h clearfix">
+                                                <div class="other_number {{a.type==5 && showItmeScoreType ==1?'show_score':''}}">
+                                                    {{item<10?'0'+item:item}}{{a.type==5?'、':''}}
+                                                    <span ng-show="a.type==5 && showItmeScoreType ==1">({{a.itemCoresArr[$index]}}分)</span>
+                                                </div>
+                                                <!--网络阅卷打分框start-->
+                                                <div class="marking clearfix {{paperType==1?'paper':''}}">
+                                                    <a href="">1</a>
+                                                    <a href="">2</a>
+                                                    <a href="">3</a>
+                                                    <a href="">4</a>
+                                                    <a href="">5</a>
+                                                    <a href="">6</a>
+                                                    <a href="">7</a>
+                                                    <a href="">8</a>
+                                                    <a href="">9</a>
+                                                    <a href="">0</a>
+                                                    <a href="">1</a>
+                                                    <a href="">2</a>
+                                                    <a href="">3</a>
+                                                    <a href="">4</a>
+                                                    <a href="">5</a>
+                                                    <a href="">.5</a>
+                                                    <a href=""></a>
+                                                </div>
+                                                <!--网络阅卷打分框end-->
+                                            </div>
+                                            <div class="other_c" style="height: {{a.otherHeight[$index]+'px'}};">
+                                                <img ng-src="{{a.img[$index].url}}" alt=""
+                                                     ng-style="setImgStyle(a.img[$index])" ng-click="selectImg($index)"
+                                                     class="{{$index==imgIndex&&tabParentIndex==3&&tabIndex==$parent.$parent.$index?'table_focus':''}}">
+                                            </div>
+                                        </div>
+                                        <div ng-if="a.otherisradio==4" class="other_first_position">
+                                            <div class="other_line {{a.LineType==0?'':'dashed_line'}}"
+                                                 ng-repeat="item in a.Linenumbel"
+                                                 style="height:{{a.verticalHeigth+'px'}}">{{$index==0?a.name:''}}
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!--其他题模板结束-->
+                                <!--作文题模板开始-->
+                                <tr ng-if="a.type==4" class="other"><!--作文题-->
+                                    <td>
+                                        <div class="chinese" ng-if="a.articleType==1">
+                                            <div class="wirt_outer">
+                                                <div class="chinese_row clearfix" ng-repeat="row in a.rows"
+                                                     ng-init="plaidIndex = $index">
+                                                    <div class="plaid fl" ng-repeat="plaid in a.plaids">
+                                                        <span ng-if="plaidIndex*21+$index+567==199||plaidIndex*21+$index+567==399||plaidIndex*21+$index+567==599||plaidIndex*21+$index+567==799||plaidIndex*21+$index+567==999">{{plaidIndex*21+$index+1+567}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!--语文作文题-->
+                                        <div class="english" ng-if="a.articleType==2">
+                                            <div class="english_line" ng-repeat="row in a.rows"
+                                                 style="height:{{a.verticalHeigth+'px'}}"></div>
+                                        </div><!-- 外语作文题-->
+                                        <div class="en_word" ng-if="a.articleType==3">
+                                            <div class="word_itme" ng-repeat="row in a.rows"
+                                                 style="height:{{a.verticalHeigth+'px'}}">
+                                                <span ng-if="$index==49||$index==59">{{$index+1}}</span>
+                                            </div>
+                                        </div><!--单词隔行线-->
+                                    </td>
+                                </tr>
+                                <!--作文题模板结束-->
+                                </tbody>
+                            </table>
                         </div>
                         <div class="tips">
                             <p>请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效</p>
