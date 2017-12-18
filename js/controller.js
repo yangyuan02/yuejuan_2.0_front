@@ -134,7 +134,7 @@ angular.module("myApp.controller", [])
             var class_name=$(this).attr("data_class");
             mark_fengxi(class_name);
         });
-
+         
         function mark_fengxi(name) {
            
             $(".tf_dj a").remove();
@@ -147,6 +147,7 @@ angular.module("myApp.controller", [])
             var z_mark = $("#z_mark").val();
             var a = $("#ul_iLabel li").length;
             var level= parseInt($(".mart_set_03_select").children('option:selected').attr("data-id"));
+            var absent=parseInt($(".miss_exam01").attr("data-id"));
             var data_value = {
                 // 't[column_name_1]':"A",
                 // "t[column_value_1]":"10",
@@ -157,6 +158,7 @@ angular.module("myApp.controller", [])
                 "pass": jg_mark,
                 "fine": yx_mark,
                 't[level_type]':level,
+                'absent':absent,
             };
             console.log(data_value);
             for (var i = 0; i < a; i++) {
@@ -485,12 +487,12 @@ angular.module("myApp.controller", [])
         //缺考走读
         $(".miss_exam01").click(function(event) {
             var a=$(this).attr("data-id");
-            if(a==1){
+            if(a==0){
                 $(this).css("color","#31bc91");
-                $(this).attr("data-id","0");
+                $(this).attr("data-id","1");
             }else{
                 $(this).css("color","#666666");
-                $(this).attr("data-id","1");
+                $(this).attr("data-id","0");
             }
           
         });

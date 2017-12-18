@@ -4104,8 +4104,29 @@ $(function() {
 
 
 
+    //删除
+      $('body').on('click', '.dele-btn', function(){
+
+      
+       	
+     $(this).parents('tr').remove();
+     var id=$(this).parents('tr').attr("docx_id");
+        $.ajax({
+			     	type: "POST",
+			     	url: ajaxIp+"/api/v2/ddocxes/delete",
+			    	headers: {'Authorization': "Bearer " + isLogin},
+			    	data: {'id':id},
+			    	success: function(data){
+			    		// $(this).parents('tr').remove();
+			    		// window.location.reload();
 
 
+			        },
+			        error: function(){
+			        	// alert();
+			        }
+			    });
+      });
 
 
 	// 编辑试卷
