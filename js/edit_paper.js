@@ -149,6 +149,7 @@ $(function(){
       $(".layer").show();
        $.ajax({
                   type: "POST",
+                  async: false,
                   url: ajaxIp+"/api/v2/question_banks/question_answers",
                   data:{
                   'exam_subject_id':exam_subject_id,
@@ -157,23 +158,24 @@ $(function(){
                 success: function(data){
                   console.log(data);
                  var a=data.length;
+
                  for(var i=0;i<a;i++){
-                     $(".sub_sz_ul02").append('<li><input data-id="'+data[i].answer.id+'" type="" name="" value="'+data[i].answer.item+'" disabled="disabled"><input type="" name="" value="'+data[i].answer.answer_name+'" disabled="disabled"><input type="" name="" value="" disabled="disabled"><i class="iconfont" data-id="0">&#xe622;</i><div class="sub_sz_list" style="overflow: auto;"><button style="float: right;width: 50px;height: 25px;color: #31bc91;text-align: center;line-height: 25px;margin-right: 68px;">保存</button></div></li>');
+                     $(".sub_sz_ul02").append('<li><input data-id="'+data[i].answer.id+'" type="" name="" value="'+data[i].answer.item+'" disabled="disabled"><input type="" name="" value="'+data[i].answer.answer_name+'" disabled="disabled"><input class="all_score" type="" name="" value="" disabled="disabled"><i class="iconfont" data-id="0">&#xe622;</i><div class="sub_sz_list" style="overflow: auto;"><button style="float: right;width: 50px;height: 25px;color: #31bc91;text-align: center;line-height: 25px;margin-right: 68px;margin-top: 10px;">保存</button></div></li>');
                   var qb_length=data[i].question_banks.length;
                  if(data[i].answer.item=="单选题"||data[i].answer.item=="多选题"){
                  for(var q_b=0;q_b<qb_length;q_b++){
-                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p style="padding-left: 40px;box-sizing: border-box;"><a style="">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].sort+'"></a><a style="margin-left: 70px;">选项个数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="4"></a><a style="margin-left: 88px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;"  value="2"></a></p>');
+                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p data-id="'+data[i].question_banks[q_b].id+'" style="padding-left: 40px;box-sizing: border-box;"><a style="">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].sort+'"></a><a style="margin-left: 70px;">选项个数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="4"></a><a style="margin-left: 88px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;"  value="2"></a></p>');
                  };
                  }else if(data[i].answer.item=="填空题"||data[i].answer.item=="是非题"||data[i].answer.item=="其他题"){
                  for(var q_b=0;q_b<qb_length;q_b++){
-                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p><a style="margin-left: 40px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" disabled="disabled"  value="'+data[i].question_banks[q_b].sort+'"></a><a style="margin-left: 237px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a></p>');
+                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p data-id="'+data[i].question_banks[q_b].id+'" ><a style="margin-left: 40px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" disabled="disabled"  value="'+data[i].question_banks[q_b].sort+'"></a><a style="margin-left: 237px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a></p>');
                  }                       
                 }else if(data[i].answer.item=="作文题"){
                   for(var q_b=0;q_b<qb_length;q_b++){
-                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p style="padding-left:10px;"><select name="" class="sub_sz_xz_select"><option value="">方格</option><option value="">行线</option><option value="">间隔线</option></select><a style="margin-left: 50px;">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].sort+'"></a><a style=""><i  class="sub_sz_xz_i" style="font-style:normal;color: #666;font-size: 12px;margin-left: 5px;">格数</i><input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a><a style="margin-left:60px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a></p>');
+                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p data-id="'+data[i].question_banks[q_b].id+'" style="padding-left:10px;"><select name="" class="sub_sz_xz_select"><option value="">方格</option><option value="">行线</option><option value="">间隔线</option></select><a style="margin-left: 50px;">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].sort+'"></a><a style=""><i  class="sub_sz_xz_i" style="font-style:normal;color: #666;font-size: 12px;margin-left: 5px;">格数</i><input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a><a style="margin-left:60px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a></p>');
                  }  
                 };
-                
+                all_score();
                 }
 
                 // console.log(data[0].question_banks.length); 
@@ -185,23 +187,67 @@ $(function(){
                }); 
 
    });
+     function all_score(){
+      var li_length=$('.sub_sz_ul02 li').length;
+      for(var a=0;a<li_length;a++){
+        var p_length=$('.sub_sz_ul02 li').eq(a).find('button').parent().find("p").length;
+        // console.log(p_length);
+        var score=0;
+      for(var i=0;i<p_length;i++){
+        var list_score=parseInt($('.sub_sz_ul02 li').eq(a).find('button').parent().find("p").eq(i).find('input').eq(2).val());
+        if(isNaN(list_score)){
+          score=score+0;
+        }else{
+         score=score+list_score;
+         
+        }
+        
+        // console.log(list_score);
+      }
+     $('.sub_sz_ul02 li').eq(a).find('button').parent().parent().find('.all_score').val(score);
+      }
+     };
+
+
      $(".sub_sz_ul02 ").on('click', 'button', function(event) {
-      var a=[{'question_bank_id':73,'sort':1,'type_count':4,'score':2,'answer_id':2192,'exam_subject_id':516,},
-    {'question_bank_id':74,'sort':1,'type_count':4,'score':2,'answer_id':2192,'exam_subject_id':516,}];
+     //  console.log($(this).parent().find("p").length);
+     //  var p_length=$(this).parent().find("p").length;
+     //  var score=0;
+     //  for(var i=0;i<p_length;i++){
+     //      score=score+parseInt($(this).parent().find("p").eq(i).find('input').eq(2).val());
+     //  }
+     // $(this).parent().parent().find('.all_score').val(score);
+     //  console.log(score);
+       // console.log($(this).parent().find("p").eq(0).find('input').eq(2).val());
+       all_score();
+      var p_length=$(this).parent().find("p").length;
+      var a_num=[];
+      for(var i=0;i<p_length;i++){
+        var a={};
+         var score=parseInt($(this).parent().find("p").eq(i).find('input').eq(2).val());
+         var type_count=parseInt($(this).parent().find("p").eq(i).find('input').eq(1).val());
+         var question_bank_id=parseInt($(this).parent().find("p").eq(i).attr("data-id"));
+          a["score"]=score;
+          a["type_count"]=type_count;
+          a["question_bank_id"]=question_bank_id;
+          a_num[i]=a;
+      }
+     console.log(a_num);
+      var a=[{'question_bank_id':73,'sort':7,'type_count':4,'score':2,'answer_id':2192,'exam_subject_id':516,'num':7,'count':3,},
+    {'question_bank_id':74,'sort':8,'type_count':4,'score':2,'answer_id':2192,'exam_subject_id':516,'num':8,'count':3,}];
      console.log(a);
-     $.ajax({
-                  type: "POST",
-                  url: ajaxIp+"/api/v2/question_banks/save_answer_settings",
-                  data:{'answer_settings':JSON.stringify(a)},
-                  headers: {'Authorization': "Bearer " + isLogin},
-                  success: function(data){
-                   
-                    // window.location.reload();
-                  },
-                error: function(){
+     // $.ajax({
+     //              type: "POST",
+     //              url: ajaxIp+"/api/v2/question_banks/save_answer_settings",
+     //              data:{'answer_settings':JSON.stringify(a)},
+     //              headers: {'Authorization': "Bearer " + isLogin},
+     //              success: function(data){
+     //                 console.log(data);
+     //              },
+     //            error: function(){
     
-                 }
-               });
+     //             }
+     //           });
 
      });
      $(".sub_sz_ul02 ").on('change', 'select', function(event) {
@@ -280,7 +326,7 @@ $(".sub_sz_ul02").on('click', 'li', function(event) {
           $(".sub_sz_remove").hide();
         });
         $(".sub_sz_remove_t").click(function(event) {
-          var a=$(".sub_li select").attr("data-id");
+          var a=$(".sub_li input").eq(0).attr("data-id");
           $(".sub_li").remove();
           $(".sub_sz_remove").hide();  
           console.log(a);
