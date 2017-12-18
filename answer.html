@@ -160,16 +160,16 @@
                                         </div>
                                     </div>
                                     <div class="formatItme clearfix"><input type="radio"
-                                                                            ng-checked="result.writIsradio==4"
-                                                                            ng-click="checkWrit(4)"><span>跨页</span><span></span>
-                                    </div>
-                                    <div class="formatItme clearfix"><input type="radio"
                                                                             ng-checked="result.writIsradio==2"
                                                                             ng-click="checkWrit(2)"><span>外语作文行线</span><span></span>
                                     </div>
                                     <div class="formatItme clearfix"><input type="radio"
                                                                             ng-checked="result.writIsradio==3"
                                                                             ng-click="checkWrit(3)"><span>单词间隔行线</span><span></span>
+                                    </div>
+                                    <div class="formatItme clearfix"><input type="radio"
+                                                                            ng-checked="result.writIsradio==4"
+                                                                            ng-click="checkWrit(4)"><span>跨页</span><span></span>
                                     </div>
                                 </div>
                             </div>
@@ -563,7 +563,7 @@
                                                 <div class="chinese_row clearfix" ng-repeat="row in a.rows"
                                                      ng-init="plaidIndex = $index">
                                                     <div class="plaid fl" ng-repeat="plaid in a.plaids">
-                                                        <span ng-if="plaidIndex*21+$index==199||plaidIndex*21+$index==399||plaidIndex*21+$index==599||plaidIndex*21+$index==799||plaidIndex*21+$index==999">{{plaidIndex*21+$index+1}}</span>
+                                                        <span ng-if="plaidIndex*21+$index==399||plaidIndex*21+$index==799||plaidIndex*21+$index==999">{{plaidIndex*21+$index+1}}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -713,7 +713,7 @@
                                                 <div class="chinese_row clearfix" ng-repeat="row in a.rows"
                                                      ng-init="plaidIndex = $index">
                                                     <div class="plaid fl" ng-repeat="plaid in a.plaids">
-                                                        <span ng-if="plaidIndex*21+$index==199||plaidIndex*21+$index==399||plaidIndex*21+$index==599||plaidIndex*21+$index==799||plaidIndex*21+$index==999">{{plaidIndex*21+$index+1}}</span>
+                                                        <span ng-if="plaidIndex*21+$index==399||plaidIndex*21+$index==799||plaidIndex*21+$index==999">{{plaidIndex*21+$index+1}}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -914,7 +914,7 @@
                                                 <div class="chinese_row clearfix" ng-repeat="row in a.rows"
                                                      ng-init="plaidIndex = $index">
                                                     <div class="plaid fl" ng-repeat="plaid in a.plaids">
-                                                        <span ng-if="plaidIndex*21+$index==199||plaidIndex*21+$index==399||plaidIndex*21+$index==599||plaidIndex*21+$index==799||plaidIndex*21+$index==999">{{plaidIndex*21+$index+1}}</span>
+                                                        <span ng-if="plaidIndex*21+$index==399||plaidIndex*21+$index==799||plaidIndex*21+$index==999">{{plaidIndex*21+$index+1}}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1064,7 +1064,7 @@
                                                 <div class="chinese_row clearfix" ng-repeat="row in a.rows"
                                                      ng-init="plaidIndex = $index">
                                                     <div class="plaid fl" ng-repeat="plaid in a.plaids">
-                                                        <span ng-if="plaidIndex*21+$index+567==199||plaidIndex*21+$index+567==399||plaidIndex*21+$index+567==599||plaidIndex*21+$index+567==799||plaidIndex*21+$index+567==999">{{plaidIndex*21+$index+1+567}}</span>
+                                                        <span ng-if="plaidIndex*21+$index+567==399||plaidIndex*21+$index+567==799||plaidIndex*21+$index+567==999">{{plaidIndex*21+$index+1+567}}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1203,7 +1203,7 @@
                                                 <div class="chinese_row clearfix" ng-repeat="row in a.rows"
                                                      ng-init="plaidIndex = $index">
                                                     <div class="plaid fl" ng-repeat="plaid in a.plaids">
-                                                        <span ng-if="plaidIndex*21+$index+567==199||plaidIndex*21+$index+567==399||plaidIndex*21+$index+567==599||plaidIndex*21+$index+567==799||plaidIndex*21+$index+567==999">{{plaidIndex*21+$index+1+567}}</span>
+                                                        <span ng-if="plaidIndex*21+$index+567==399||plaidIndex*21+$index+567==799||plaidIndex*21+$index+567==999">{{plaidIndex*21+$index+1+567}}</span>
                                                     </div>
                                                 </div>
                                             </div>
