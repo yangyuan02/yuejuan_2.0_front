@@ -123,12 +123,10 @@
 	color:#fb7d8a!important;
 }
 .sub_li{
-	background: #5fa3ed;
-    opacity: 0.9;
+	background: rgba(95,163,237,0.5);
 }
 .sub_i_li{
-	background: #5fa3ed;
-    opacity: 0.9;
+	background: rgba(95,163,237,0.5);
 }
 
 .sub_sz{
@@ -146,10 +144,10 @@
 	width:25px;height:25px;background:#f5f5f5;border: 1px solid #31bc91;line-height: 25px;text-align: center;color: #31bc91;border-radius: 50%;position: absolute;top: -12px;right: -12px;
 }
 .sub_sz01{
-	width:100%;height:45px;font-size:14px;color: #666666;padding-left:30px;box-sizing: border-box;line-height:45px;
+	width:100%;height:45px;font-size:14px;color: #666666;padding-left:30px;box-sizing: border-box;line-height:45px;padding-right: 30px;
 }
 .sub_sz01 ul li{
-	float:left;width:114px;
+	float:left;width:33%;text-align: center;
 }
 .sub_sz02{
 	width:100%;text-align: center;box-sizing: border-box;
@@ -158,16 +156,16 @@
 width:100%;line-height: 38px;margin-bottom: 10px;
 }
 .sub_sz_ul02 li select{
-outline: none;width:73px;height:25px;color: #666666;
-}
-.sub_sz_ul02 >li>input:nth-of-type(1){
-width:57px;height:25px;border-radius: 2px;border: 1px solid #ccc;padding-left: 10px;box-sizing: border-box;margin-left: 35px;color: #666666;
+outline: none;width:73px;height:25px;color: #666666;margin-left:20px;
 }
 .sub_sz_ul02 >li>input:nth-of-type(2){
-width:126px;height:25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 20px;padding-left: 10px;box-sizing: border-box;color: #666666;
+width:126px;height:25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 50px;padding-left: 10px;box-sizing: border-box;color: #666666;
 }
 .sub_sz_ul02 >li>input:nth-of-type(3){
-width:57px;height:25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 15px;padding-left: 10px;box-sizing: border-box;color: #666666;
+width:57px;height:25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 55px;box-sizing: border-box;color: #666666;text-align:center;
+}
+.sub_sz_ul02 >li>input:nth-of-type(1){
+width:67px;height:25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 25px;padding-left: 10px;box-sizing: border-box;color: #666666;
 }
 .sub_sz_ul02 li i{
 color:#31bc91;font-size:14px;margin-left: 18px;
@@ -500,7 +498,16 @@ color:#fb7d8a;margin-right: 5px;
     font-size: 14px;
     color: #666;
 }
-
+.sub_sz_list{
+	width: 100%;
+    /* height: 89px; */
+    text-align: left;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    box-sizing: border-box;
+    display: none;
+    
+}
 
 
 

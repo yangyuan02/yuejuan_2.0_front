@@ -482,6 +482,18 @@ angular.module("myApp.controller", [])
         $(document).on('click', '.iLabel', function() {
             $(this).parent().hide();
         })
+        //缺考走读
+        $(".miss_exam01").click(function(event) {
+            var a=$(this).attr("data-id");
+            if(a==1){
+                $(this).css("color","#31bc91");
+                $(this).attr("data-id","0");
+            }else{
+                $(this).css("color","#666666");
+                $(this).attr("data-id","1");
+            }
+          
+        });
 
 
     })
