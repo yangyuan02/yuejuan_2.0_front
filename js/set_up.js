@@ -4106,24 +4106,37 @@ $(function() {
 
     //删除
       $('body').on('click', '.dele-btn', function(){
-
-      
-       	
-     $(this).parents('tr').remove();
+      	
+     // $(this).parents('tr').remove();
      var id=$(this).parents('tr').attr("docx_id");
         $.ajax({
 			     	type: "POST",
 			     	url: ajaxIp+"/api/v2/ddocxes/delete",
+			     	async:false,
 			    	headers: {'Authorization': "Bearer " + isLogin},
 			    	data: {'id':id},
 			    	success: function(data){
-			    		// $(this).parents('tr').remove();
-			    		// window.location.reload();
-
-
+			    		
+                           // $(".search-tabble").html(data);
 			        },
 			        error: function(){
 			        	// alert();
+			        }
+			    });
+        $.ajax({
+			     	type: "GET",
+			     	url: ajaxIp+"/api/v2/ddocxes",
+			     	async:false,
+			    	dataType: "JSON",
+			    	headers: {'Authorization': "Bearer " + isLogin},
+			    	success: function(data){
+			    		console.log(data)
+			  			show_word_exam_list(data);
+			        },
+			        error: function(){
+			        	// alert('请稍后从新尝试登录或者联系管理员');
+			        	// localStorage.clear();
+			        	// window.location.href = './login.html'
 			        }
 			    });
       });
