@@ -96,6 +96,7 @@ $(this).attr('href', 'edit_paper?docx_id='+docx_id+'&exam_subject_id='+exam_subj
          headers: { 'Authorization': "Bearer " + isLogin },
          success: function(data) {
          console.log(data);
+          alert("保存成功");
           // window.location.reload();
          },
          error: function() {
