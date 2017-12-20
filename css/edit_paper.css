@@ -40,12 +40,14 @@
 	margin-top: 20px;
 }
 .set-item,.edit-save{
+
 	display: inline-block;
 	width: 70px;
 	height: 30px;
 	line-height: 30px;
 	text-align: center;
 	margin: 0 5px;
+	
 }
 .item-group-box{
 	margin-top: 20px;
@@ -221,7 +223,7 @@ color:#fb7d8a;margin-right: 5px;
 	width:177px;height:30px;color:#666666;padding-left: 40px;box-sizing: border-box;
 }
 .sub_bd02_ul02 {
-	float:left;color:#999999;cursor: pointer;margin-left:24px;
+	float:left;color:#999999;cursor: pointer;margin-left:24px;font-weight: bolder;
 }
 
 .sub_bd02_ul02 li{
