@@ -73,6 +73,14 @@
     float: right;
     margin-top: 10px;
 }
+.dif_btn{
+	background: #ffffff;
+    border: 1px solid #31bc91;
+    color: #31bc91;
+    font-size: 14px;
+    float: right;
+    margin-top: 10px;
+}
 .edit_li_btn04{
 	background: #ffffff;
     border: 1px solid #31bc91;
@@ -534,5 +542,10 @@ float: right;margin-top: 20px;
     border: 1px solid #31bc91;
     color: #31bc91;
 }
-
+.edit_li_div02_box{
+	width:870px;height: auto;border-bottom: 1px solid #d4d4d4;margin-bottom:10px;padding-bottom: 30px;box-sizing: border-box;display: none;
+}
+.edit_li_analy{
+	width:870px;height:auto;border: 1px solid #d4d4d4;margin: 0 auto;padding:20px;box-sizing:border-box;color: #333333;outline:none;
+}
 

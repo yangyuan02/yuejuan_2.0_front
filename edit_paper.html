@@ -41,11 +41,11 @@
 				<div class="operation-box">
 					<div class="op-btn right">
 						<div class="determine set-item">题组设置</div>
-						<div class="determine edit-save">编辑保存</div>
+						<div class="determine edit-save" style="display: none;">编辑保存</div>
 					</div>
 				</div>
 				<div class="item-group-box">
-					<div class="item-title">一、单项选择题（共12分，每题2分）</div>
+					<!-- <div class="item-title">一、单项选择题（共12分，每题2分）</div> -->
 					<ul id="item-ul">
 						
 					</ul>
@@ -53,56 +53,27 @@
 						<ul class="pagination" id="pagination"></ul>
 					</div>
 				</div>
-				<script type="text/javascript">
-				//上移
 				
-				$(".item-group-box").on('click', '.item-up', function(event) {
-					// alert($(this).parent().parent().prev().html());
-					var a=$(this).parent().parent().prev().html();
-					var b=$(this).parent().parent().parent().prev().children('.item-cont').html();
-					
-					$(this).parent().parent().parent().prev().children('.item-cont').html(a);
-					$(this).parent().parent().prev().html(b);
-
-					});
-					//下移
-					$(".item-group-box").on('click', '.item-down', function(event) {
-					alert($(this).parent().parent().prev().html());
-					var a=$(this).parent().parent().prev().html();
-					var b=$(this).parent().parent().parent().next().children('.item-cont').html();
-					
-					$(this).parent().parent().parent().next().children('.item-cont').html(a);
-					$(this).parent().parent().prev().html(b);
-
-					});
-					//删除
-					$(".item-group-box").on('click', '.item-dele', function(event) {
-						$(this).parent().parent().parent().remove();
-					});
-					//向下合并
-				$(".item-group-box").on('click', '.item-merge', function(event) {
-						var a=$(this).parent().parent().prev().html();
-						
-						$(this).parent().parent().parent().next().children('.item-cont').append(a);
-						$(this).parent().parent().parent().remove(); 
-					});
-				</script>
 				<!-- 弹出 -->
 			<div class="sub_sz">
 				<p class="sub_sz_p">题组设置<div class="sub_sz_p_div"><i class="iconfont" style="">&#xe61b;</i></div></p>
 				<div class="sub_sz01" >
 					<ul>
 						<li>题型</li>
-						<li>题号</li>
 						<li>题组名称</li>
 						<li>分值</li>
 					</ul>
 				</div>
 				<div class="sub_sz02">
 				<ul class="sub_sz_ul02">
-					<li>
+					<!-- <li>
 					<select>
-						<option value="">选择题</option>	
+					<option>单选题</option>
+                	<option>多选题</option>
+                	<option>填空题</option>
+                	<option>是非题</option>
+                	<option>其他题</option>
+                	<option>作文题</option>
 					</select>
 					
 					<input type="" name="" value="一.">
@@ -110,20 +81,16 @@
                     <input type="" name="" value="10">
                   
                     <i class="iconfont" data-id="0">&#xe622;</i>
-                    <div style="width: 100%;height:89px;background: #cccccc;text-align:left;padding-left: 30px;box-sizing: border-box;display: none;">
-                    <p>
-                    	<select name="">
-                    		<option value="">单项选择题</option>
-                    	</select>
-                        <a style="margin-left: 37px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                    <div class="sub_sz_list">
+                    <p style="padding-left: 113px;box-sizing: border-box;">
+                    	
+                        <a style="">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                         <a style="margin-left: 20px;">选项个数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                         <a style="margin-left: 60px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                     	</p>
-                    	<p>
-                    	<select name="">
-                    		<option value="">多项选择题</option>
-                    	</select>
-                        <a style="margin-left: 37px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                    	<p style="padding-left: 113px;box-sizing: border-box;">
+             
+                        <a style="">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                         <a style="margin-left: 20px;">选项个数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                         <a style="margin-left: 60px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                     	</p>
@@ -137,7 +104,7 @@
                     <input type="" name="" value="二.填空题">
                     <input type="" name="" value="10">
                     <i class="iconfont" data-id="0">&#xe622;</i>
-                    <div style="width: 100%;height:50px;background: #cccccc;text-align:left;padding-left: 30px;box-sizing: border-box;display: none;">
+                    <div class="sub_sz_list">
                     	
                      <p>
                     	 <a style="margin-left: 10px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
@@ -155,7 +122,7 @@
                     <input type="" name="" value="三.判断题">
                     <input type="" name="" value="20">
                     <i class="iconfont" data-id="0">&#xe622;</i>
-                     <div style="width: 100%;height:50px;background: #cccccc;text-align:left;padding-left: 30px;box-sizing: border-box;display: none;">
+                     <div class="sub_sz_list">
 
                       <p>
                     	 <a style="margin-left: 10px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
@@ -173,11 +140,11 @@
                     <input type="" name="" value="四.计算题">
                     <input type="" name="" value="20">
                     <i class="iconfont" data-id="0">&#xe622;</i>
-                     <div style="width: 100%;height:50px;background: #cccccc;text-align:left;padding-left: 30px;box-sizing: border-box;display: none;">
+                     <div class="sub_sz_list">
 
                       <p>
 
-                    	 <a style="margin-left: 10px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
+                   	 <a style="margin-left: 10px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                         <a style="margin-left: 37px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                         <a style="margin-left: 30px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                         <a style="margin-left: 80px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
@@ -192,11 +159,13 @@
                     <input type="" name="" value="五.写作题">
                     <input type="" name="" value="40">
                     <i class="iconfont" data-id="0">&#xe622;</i>
-                    <div style="width: 100%;height:auto;background: #cccccc;text-align:left;padding-left: 30px;box-sizing: border-box;display: none;">
+                    <div class="sub_sz_list">
 
                       <p>
                       <select name="">
                     		<option value="">方格</option>
+                    		<option value="">行线</option>
+                    		<option value="">间隔线</option>
                     	</select>
                     	 <a style="margin-left: 30px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                         <a style="margin-left: 30px;">格数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
@@ -219,10 +188,10 @@
                         <a style="margin-left:80px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;"></a>
                     	</p>
                      </div>
-					</li>
+					</li> -->
 				</ul>
 			 </div>
-			 <div class="sub_sz03" style=""><a class="sub_top"><i class="iconfont">&#xe631;</i>上移</a>
+			 <div class="sub_sz03"><a class="sub_top"  style="margin-left:35px;"><i class="iconfont">&#xe631;</i>上移</a>
 			 <a class="sub_btm"><i class="iconfont">&#xe607;</i>下移</a>
 			 <a class="sub_hide"><i class="iconfont">&#xe616;</i>删除</a>
 			 </div>
@@ -238,76 +207,25 @@
 			</div>
 			<!-- 上下移 -->
 			<script type="text/javascript">
-				$(".sub_sz_ul02 li").click(function(event) {
-					$(this).addClass('sub_li').siblings().removeClass('sub_li');
-				});
-				// 上移
-				$(".sub_top").click(function(event) {
-					var a=$(".sub_li").html();
-					var b=$(".sub_li").prev().html();
-					$(".sub_li").prev().html(a);
-					$(".sub_li").html(b);
-					$(".sub_li").prev().addClass('sub_li').siblings().removeClass('sub_li');
-					
-                    
-				});
-				// 下移
-				$(".sub_btm").click(function(event) {
-					var a=$(".sub_li").html();
-					var b=$(".sub_li").next().html();
-					$(".sub_li").next().html(a);
-					$(".sub_li").html(b);
-					$(".sub_li").next().addClass('sub_li').siblings().removeClass('sub_li');;
-				});
-				// 删除
-				$(".sub_hide").click(function(event) {
-					$(".sub_sz_remove").show();
-					$(".sub_sz_remove_p03 a").html($(".sub_li input").eq(1).val());
-
-				});
-				$(".sub_sz_remove_x").click(function(event) {
-					$(".sub_sz_remove").hide();
-				});
-				$(".sub_sz_remove_t").click(function(event) {
-					
-					$(".sub_li").remove();
-					$(".sub_sz_remove").hide();
-				});
-				$(".sub_sz_remove_f").click(function(event) {
-					$(".sub_sz_remove").hide();
-				});
-				// 下拉
-				$(".sub_sz_ul02 li i").click(function(event) {
-					if($(this).attr("data-id")==0){
-					$(this).html('&#xe624;');	
-					$(this).parent("li").addClass('sub_i_li');
-					$(this).next('div').show();
-					$(this).attr("data-id","1");
-				}else{
-					$(this).html('&#xe622;');	
-					$(this).parent("li").removeClass('sub_i_li');
-					$(this).next('div').hide();
-					$(this).attr("data-id","0");
-				}
-				});
+				
 			</script>
 			<div class="sub_bd">
 				<p class="sub_bd_p" style="">绑定题组<div class="sub_bd_p_div" style=""><i class="iconfont" style="">&#xe61b;</i></div></p>
 				<p class="sub_bd_p02">将本题绑定至指定题组</p>
 				<div class="sub_bd02">
 					<ul class="sub_bd02_ul01">
-						<li><input value="一.单项选择题"></li>
-						<li ><input value="二.填空题" ></li>
+						<!-- <li><input value="一.单项选择题"></li> -->
+						<!-- <li ><input value="二.填空题" ></li>
 						<li><input value="三.判断题"></li>
-						<li><input value="四.计算题" ></li>
-						<li ><input value="五.写作"></li>
+						<li><input value="四.计算题" ></li> -->
+						<!-- <li ><input value="五.写作"></li> -->
 					</ul>
 					<ul class="sub_bd02_ul02">
-						<li><i class="iconfont" style="">&#xe64b;</i></li>
-						<li><i class="iconfont" style="">&#xe64b;</i></li>
-						<li ><i class="iconfont" style="">&#xe64b;</i></li>
+						<!-- <li><i class="iconfont" style="">&#xe64b;</i></li>
 						<li><i class="iconfont" style="">&#xe64b;</i></li>
 						<li ><i class="iconfont" style="">&#xe64b;</i></li>
+						<li><i class="iconfont" style="">&#xe64b;</i></li>
+						<li ><i class="iconfont" style="">&#xe64b;</i></li> -->
 					</ul>
 
 				</div>
@@ -316,126 +234,42 @@
 					<button class="sub_bd_f">取消</button>
 				</div>
 			</div>
-			<script>
-				$(".sub_bd02_ul02 li").click(function(event) {
-					/* Act on the event */
-					$(this).addClass('sub_bd02_li').siblings().removeClass('sub_bd02_li');
-				});
-			</script>
+			<!-- 题组插入 -->
+			<div class="title_in">
+				<p class="title_in_p01">插入题组</p>
+				<div class="title_in_div"><i class="iconfont">&#xe61b;</i></div>
+                <p class="title_in_p02">试题题型
+                <select name="">
+                	<option>单选题</option>
+                	<option>多选题</option>
+                	<option>填空题</option>
+                	<option>是非题</option>
+                	<option>其他题</option>
+                	<option>作文题</option>
+                </select></p>
+                <p class="title_in_p03">题组名称<input type="" placeholder="请输入题组名称,如单项选择题" name=""></p>
+                 <p class="title_in_p04"><button class="title_on determine" type="">确认添加</button><button type=""  class="title_off" >取消</button></p>
+			</div>
+			<!-- 题组插入end -->
+			<!-- 设定分值 -->
+			<div class="score_change">
+				<p class="score_change_p01">设定分值</p>
+                <div class="score_change_div"><i class="iconfont">&#xe61b;</i></div>
+                <p class="score_change_p03">分值<input type="" placeholder=""></p>
+                 <p class="score_change_p04"><button class="score_change_on determine" type="">保存</button><button type=""  class="score_change_off" >取消</button></p>
+			</div>
+			<!-- 设定分值end -->
+			<!-- 删除题目 -->
+			<div class="list_remover">
+				<p class="list_remover_p01">删除题目</p>
+                 <p class="list_remover_p02">删除后无法恢复，你确定删除吗？</p>
+                 <p class="list_remover_p04"><button class="list_remover_on determine" type="">删除</button><button type=""  class="list_remover_off" >取消</button></p>
+			</div>
+			<!-- 删除题目end -->
 			</div>
 			
 		</div>
-		<script type="text/javascript">
-$("#item-ul").on('mouseup', 'p', function() {
- get_sel_range();
-});
-  $(function(){
-    // 分割题目
-    var slipt_up=$('.item-seg');
-    $(document).on('click', '.item-seg',function() {
-      if (sel_range == null){
-        alert('分割位置错误');
-        return;
-      }
-      else{
-        var pos = sel_range;
-        var focusnode=sel_range.endContainer;
-        var $node = $(focusnode);
-        var parent = $node.parents('.editor-enabled');
-        if (!parent) {
-          alert('请将光标放置在正确分割位置');
-          return;
-        }
-          // console.log(focusnode);
-        var range = sel_range;
-        var tmp = document.createRange();
-        tmp.setEnd(range.startContainer,range.startOffset);
-        tmp.setStartBefore(parent[0].childNodes[0]);
-        var rect1 = tmp.getBoundingClientRect();
-        range.setEndAfter(parent[0].childNodes[parent[0].childNodes.length-1]);
-        var rect = range.getBoundingClientRect();
-        if (rect.width==0 || rect.height==0 || rect1.width==0 || rect1.height==0) {
-          alert('分割题目位置错误');
-          return;
-        }
-        var newnode = range.extractContents();
-        var div = document.createElement('div');
-        div.appendChild(newnode);
-        var content = div.innerHTML;
-        var nc = parent[0].innerHTML;
-        nc = retriveImg(nc);
-        var newitem=$(this).parents('.items').clone();
-        newitem.children('div').children().remove();
-        newitem.children('div').append(content);
-        $(this).parents('.items').after(newitem);
-       
-       var old_word = $(this).parents('.items').find('.editor-enabled p');
-       var new_word = $(this).parents('.items').next().find('.editor-enabled p');
-       var old_ary = [];
-       var nw_ary = [];
-
-       for (var i = 0; i <old_word.length; i++) {
-          if($(old_word[i]).html().trim().length > 0){
-               old_ary.push($(old_word[i]).html());
-          }
-
-       };
-      for (var i = 0; i <new_word.length; i++) {
-        if($(new_word[i]).html().trim().length > 0){
-          nw_ary.push($(new_word[i]).html());
-        }
-
-       };
-      }
-    });
-
-  });
-
-
-
-  var sel_range=null;
-  function get_sel_range() {
-    if (window.getSelection) {
-     sel_range = window.getSelection().getRangeAt(0);
-    }else if (document.selection && document.selection.type != "Control") {
-      sel_range = document.selection.createRange();
-    }
-  }
-    var browser = {
-    chrome: navigator.userAgent.match(/chrome/i) ? true : false,
-    safari: navigator.userAgent.match(/safari/i) && !navigator.userAgent.match(/chrome/i) ? true : false,
-    firefox: navigator.userAgent.match(/firefox/i) ? true : false,
-    opera: navigator.userAgent.match(/opera/i) ? true : false,
-    ie: navigator.userAgent.match(/msie|trident\/.*rv:/i) ? true : false,
-    webkit: navigator.userAgent.match(/webkit/i) ? true : false,
-    ieVersion: function() {
-      var rv = -1; // Return value assumes failure.
-      var ua = navigator.userAgent;
-      var re  = new RegExp("(MSIE |rv:)([0-9]{1,}[\.0-9]{0,})");
-      if (re.exec(ua) !== null) {
-        rv = parseFloat(RegExp.$2);
-      }
-      return rv;
-    }
-  };
-
-  var ieLtIE8 = function() {
-    return browser.ie && browser.ieVersion() < 8;
-  }
-
-  var ieLtIE9 = function() {
-    return browser.ie && browser.ieVersion() < 9;
-  }
-
-  
-  var retriveImg = function(html) {
-    return html.replace(/\/web1\/ckupload\/quessIImage/gi, 'quessIImage');
-  }
-
-
-
-
-</script>
+		
 
 		<div id="footer">
 

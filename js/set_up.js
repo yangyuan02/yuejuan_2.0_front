@@ -4104,14 +4104,49 @@ $(function() {
 
 
 
-
-
+    //删除
+      $('body').on('click', '.dele-btn', function(){
+      	
+     // $(this).parents('tr').remove();
+     var id=$(this).parents('tr').attr("docx_id");
+        $.ajax({
+			     	type: "POST",
+			     	url: ajaxIp+"/api/v2/ddocxes/delete",
+			     	async:false,
+			    	headers: {'Authorization': "Bearer " + isLogin},
+			    	data: {'id':id},
+			    	success: function(data){
+			    		
+                           // $(".search-tabble").html(data);
+			        },
+			        error: function(){
+			        	// alert();
+			        }
+			    });
+        $.ajax({
+			     	type: "GET",
+			     	url: ajaxIp+"/api/v2/ddocxes",
+			     	async:false,
+			    	dataType: "JSON",
+			    	headers: {'Authorization': "Bearer " + isLogin},
+			    	success: function(data){
+			    		console.log(data)
+			  			show_word_exam_list(data);
+			        },
+			        error: function(){
+			        	// alert('请稍后从新尝试登录或者联系管理员');
+			        	// localStorage.clear();
+			        	// window.location.href = './login.html'
+			        }
+			    });
+      });
 
 
 	// 编辑试卷
 	 $('body').on('click', '.look-paper-btn', function() {
-	 	var docx_id = $(this).parents('tr').attr('docx_id')
-  	$(this).attr('href', 'edit_paper?id=' + docx_id + '');
+	 	var docx_id = $(this).parents('tr').attr('docx_id');
+	 	var exam_subject_id = $(this).parents('tr').attr('exam_subject_id');
+  	$(this).attr('href', 'edit_paper?docx_id=' + docx_id + '&exam_subject_id='+exam_subject_id+'');
   	console.log(99)
 
   });

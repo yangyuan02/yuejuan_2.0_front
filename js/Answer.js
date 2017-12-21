@@ -67,6 +67,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     $scope.listObj2 = data.message.page2 ? data.message.page2 : []
                     $scope.listObj3 = data.message.page3 ? data.message.page3 : []
                     $scope.listObj4 = data.message.page4 ? data.message.page4 : []
+                    $scope.listObj5 = data.message.page5 ? data.message.page5 : []
                     answer_id = data.message.answer_id
                     allHeight = data.message.allHeight ? data.message.allHeight : []
                     $scope.paperType = data.message.paperType ? data.message.paperType : 0
@@ -183,7 +184,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 /*语文试卷*/
                 if ($scope.result.writIsradio == 1) {
                     var row = Math.ceil($scope.result.plaid / 21)
+                    rowItme_h = 29
                     result = remain - title_h - padding - score_h - row * rowItme_h > 0 ? true : false
+                    console.log('remain'+remain,'title_h'+title_h,'padding'+padding,'score_h'+score_h,'zonggong'+row * rowItme_h)
                 } else if ($scope.result.writIsradio == 2) {
                     var row = parseInt($scope.result.enLine)
                     result = remain - title_h - padding - score_h - row * rowItme_h > 0 ? true : false
@@ -328,20 +331,51 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $scope.countScore += itmeScore
     }
     $scope.append = function (obj) {//push数据
-
-        if (isLine(0)) {
+        if (isLine(0) && $scope.listObj2.length==0) {
             obj.current_page = 1
             $scope.listObj.push(obj);
-        } else if (isLine(1)) {
+        } else if (isLine(1) && $scope.listObj3.length==0) {
             obj.current_page = 1
             $scope.listObj2.push(obj);
-        } else if (isLine(2)) {
+        } else if ($scope.result.writIsradio==4||isLine(2) && $scope.listObj4.length==0) {
+            console.log(obj)
             obj.current_page = 2
+            console.log($scope.result.writIsradio)
+            if($scope.result.writIsradio==4){
+                console.log(111)
+                obj.row = writLine(2)
+                var rows = []
+                for(var i = 0;i<writLine(2);i++){
+                    rows.push(i)
+                }
+                obj.writIsradio = 4
+                obj.articleType = 1
+                obj.rows = rows
+            }
             $scope.listObj3.push(obj);
+            console.log($scope.listObj3)
         } else if (isLine(3)) {
             obj.current_page = 2
             $scope.listObj4.push(obj);
         }
+    }
+    var writLine = function (page_num) {//作文换行
+        var outerBox = $(".A_Rone").outerHeight()//最外层距离
+        var lastTabPosi = $(".A_Rone").eq(page_num).find("table:last").position()==undefined?0:$(".A_Rone").eq(page_num).find("table:last").position().top + $(".A_Rone").eq(page_num).find("table:last").height() + 30//已经占用高度
+        var remain = outerBox - lastTabPosi
+        var rowItme_h = 29,score_h = $scope.paperType == 0?40:20;
+        var padding = $(".A_Rone").eq(page_num).find("table:last").position()==undefined?60:0
+        var rows = Math.floor((remain - 40  - score_h-padding)/rowItme_h)
+        $scope.listObj5 = []
+        $scope.listObj5.push({
+            plaids:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
+            rows:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29],
+            type:4,
+            totalCores:10,
+            itemCoresArr:['0'],
+            articleType:1
+        })
+        return rows
     }
     $scope.createAsswer = function (data) {//添加题组
         var data = data
@@ -471,6 +505,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             obj.plaids = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]//21长度
             obj.row = row
             obj.plaid = $scope.result.plaid
+            obj.no = [$scope.result.no]
+            obj.itemCoresArr = [$scope.result.writscore]
         }
         if($scope.index==5){
             obj.otherisradio = $scope.result.otherisradio
@@ -686,7 +722,6 @@ m1.controller("demo", function ($scope, $timeout, $http) {
      * @returns {Array}
      */
     function getQuestion(qNumer, answerNumber, Answerindex, answerModeType, itemCores, current_page, startNo) {//获取每个小题目
-        console.log(itemCores)
         var question = []
         var qNumer = parseInt(qNumer)
         var answerNumber = parseInt(answerNumber)//选项个数
@@ -695,8 +730,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         var item_w = 16, itemMarginLeft = 11;
         for (var i = 1; i <= qNumer; i++) {//循环每个小题
             var itme_obj = {}
-            itme_obj.no = startNo[i-1].toString()
+            itme_obj.no = startNo[i-1].toString()//作文没有起始序号
             itme_obj.one_score = parseInt(itemCores[i - 1])
+            console.log(itme_obj.one_score)
             itme_obj.answer_setting_id = answer_id[Answerindex].answers.settings[i - 1].setting_id//小题id
             itme_obj.option = []
             question.push(itme_obj)
@@ -841,6 +877,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         allList.page2 = $scope.listObj2
         allList.page3 = $scope.listObj3
         allList.page4 = $scope.listObj4
+        allList.page5 = $scope.listObj5
         allList.answer_id = answer_id
         allList.paperType = $scope.paperType
         allList.infoLocation = $scope.infoLocation
@@ -1404,6 +1441,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             console.log("删除list2")
         }
         if (index >= len1 + len2 && index < len1 + len2 + len3) {
+            if($scope.listObj3[index - len1 - len2].writIsradio==4){
+                $scope.listObj5 = []
+            }
             $scope.listObj3.splice(index - len1 - len2, 1)
             console.log("删除list3")
         }
@@ -1673,6 +1713,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.listObj2 = data.page2 ? data.page2 : []
                 $scope.listObj3 = data.page3 ? data.page3 : []
                 $scope.listObj4 = data.page4 ? data.page4 : []
+                $scope.listObj5 = data.page5 ? data.page5 : []
                 $scope.paperType = data.paperType ? data.paperType : 0
                 $scope.infoLocation = data.infoLocation ? data.infoLocation : 0
                 $scope.infoBox = data.infoBox ? data.infoBox : 0
