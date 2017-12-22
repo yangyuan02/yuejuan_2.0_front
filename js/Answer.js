@@ -676,6 +676,14 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         return otherScoreRect
     }
+    function otherFillScoreHeight(index, current_page) {//获得其他题每个小题高度
+        var otherListDom = []
+        var dom = $(".conten").find("table").eq(index).find("tbody").find(".other").find(".other_c")
+        dom.each(function () {
+            otherListDom.push($(this).height())
+        })
+        return otherListDom
+    }
 
     function getFillPost(index) {//获得填空题小题坐标
         var fillItemPost = []
@@ -736,7 +744,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             itme_obj.option = []
             if(answerModeType==5){
                 itme_obj.region_rect_x = otherFillScoreRect(Answerindex,current_page)[i-1].score_rect_x
-                itme_obj.region_rect_y = otherFillScoreRect(Answerindex,current_page)[i-1].score_rect_y
+                itme_obj.region_rect_y = otherFillScoreRect(Answerindex,current_page)[i-1].score_rect_y - 30
+                itme_obj.region_rect_height = otherFillScoreHeight(Answerindex,current_page)[i-1]
+                itme_obj.region_rect_width = 698 - 14
                 var start = (i-1)*17
                 var end = start+17
                 itme_obj.score_options = fillScoreOptions(Answerindex,5,current_page).slice(start,end)
@@ -792,13 +802,17 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             itme_obj.answer_mode = answerModeType(obj[i - 1].type)//题目类型
             itme_obj.current_page = obj[i - 1].current_page//当前页面
             itme_obj.num_question = obj[i - 1].numbel//题目数量
-            itme_obj.region_rect_x = regionRect(i - 1).region_rect_x + 8//题组区域的X坐标
-            itme_obj.region_rect_y = regionRect(i - 1).region_rect_y - 1200 * (itme_obj.current_page - 1) + 8//题组区域的Y坐标
-            itme_obj.region_rect_width = 698 - 14//题组区域的宽度
+            if(obj[i - 1].type != 5){
+                itme_obj.region_rect_x = regionRect(i - 1).region_rect_x + 8//题组区域的X坐标
+                itme_obj.region_rect_y = regionRect(i - 1).region_rect_y - 1200 * (itme_obj.current_page - 1) + 8//题组区域的Y坐标
+                itme_obj.region_rect_width = 698 - 14//题组区域的宽度
+            }
             if (obj[i - 1].type == 4) {//作文题
                 itme_obj.region_rect_height = 100//题组区域的高度
             } else {
-                itme_obj.region_rect_height = regionRect(i - 1).region_rect_height - 8//题组区域的高度
+                if(obj[i - 1].type != 5){
+                    itme_obj.region_rect_height = regionRect(i - 1).region_rect_height - 8//题组区域的高度
+                }
             }
             if (obj[i - 1].type == 1 || obj[i - 1].type == 6 || obj[i - 1].type == 2) {//单选题/多选题/判断题
                 itme_obj.block_width = 14//选项宽度
@@ -818,7 +832,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 itme_obj.block_height = 12//选项高度
                 // itme_obj.score_rect_options = otherFillScoreRect(i - 1, obj[i - 1].current_page)//打分框区域的x坐标
                 itme_obj.score_rect_width = 690//打分框区域的宽度
-                itme_obj.score_rect_height = 20//打分框区域的高度
+                itme_obj.score_rect_height = 30//打分框区域的高度
                 // itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page)
             } else {//作文题
                 itme_obj.block_width = 23//选项宽度
