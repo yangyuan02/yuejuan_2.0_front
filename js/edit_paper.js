@@ -29,6 +29,8 @@ $(function(){
 
   var docx_id = getUrlParam(url,'docx_id');
   var exam_subject_id = getUrlParam(url,'exam_subject_id');
+   var exam_name = getUrlParam(url,'exam_name');
+   $(".exam_name").html(exam_name);
   console.log(docx_id)
 list_item();
 function list_item(){

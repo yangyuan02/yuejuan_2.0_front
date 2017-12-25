@@ -4115,7 +4115,7 @@ $(function() {
 		$('.words-in-tabble tbody').html('');
 		if(exam_info){
 			for (var i = 0; i < exam_info.length; i++) {
-				var exam_tr='<tr style="border-bottom:1px solid #ccc;" docx_id="'+exam_info[i].docx_id+'" exam_subject_id="'+exam_info[i].exam_subject_id+'"><td>'+exam_info[i].exam_name+'</td><td>'+exam_info[i].exam_type_text+'</td><td>'+exam_info[i].grade_name+'</td><td>'+exam_info[i].subject_name+'</td><td><ul class="word-operation"><li><a href="javascript:;" class="a-btn look-btn look-paper-btn"><i class="iconfont">&#xe61e;</i>编辑试卷</a></li><li><a href="javascript:;" class="a-btn up-btn up-two-btn"><i class="iconfont">&#xe6a7;</i>上传双细</a></li><li><a href="javascript:;" class="a-btn look-two-btn">	<i class="iconfont">&#xe66d;</i>查看双细</a></li></ul><ul class="word-operation">	<li><a href="javascript:;" class="a-btn up-btn up-answer-btn">		<i class="iconfont">&#xe632;</i>上传答案</a>	</li>	<li><a href="javascript:;" class="a-btn look-btn look-answer-btn">		<i class="iconfont">&#xe683;</i>查看答案</a>	</li>	<li><a href="javascript:;" class="a-btn dele-btn"><i class="iconfont">&#xe616;</i>删除</a>	</li></ul></td></tr>';
+				var exam_tr='<tr style="border-bottom:1px solid #ccc;" docx_id="'+exam_info[i].docx_id+'" exam_subject_id="'+exam_info[i].exam_subject_id+'" exam_name="'+exam_info[i].exam_name+'"><td>'+exam_info[i].exam_name+'</td><td>'+exam_info[i].exam_type_text+'</td><td>'+exam_info[i].grade_name+'</td><td>'+exam_info[i].subject_name+'</td><td><ul class="word-operation"><li><a href="javascript:;" class="a-btn look-btn look-paper-btn"><i class="iconfont">&#xe61e;</i>编辑试卷</a></li><li><a href="javascript:;" class="a-btn up-btn up-two-btn"><i class="iconfont">&#xe6a7;</i>上传双细</a></li><li><a href="javascript:;" class="a-btn look-two-btn">	<i class="iconfont">&#xe66d;</i>查看双细</a></li></ul><ul class="word-operation">	<li><a href="javascript:;" class="a-btn up-btn up-answer-btn">		<i class="iconfont">&#xe632;</i>上传答案</a>	</li>	<li><a href="javascript:;" class="a-btn look-btn look-answer-btn">		<i class="iconfont">&#xe683;</i>查看答案</a>	</li>	<li><a href="javascript:;" class="a-btn dele-btn"><i class="iconfont">&#xe616;</i>删除</a>	</li></ul></td></tr>';
 				$('.words-in-tabble tbody').append(exam_tr);
 			};
 		}
@@ -4171,7 +4171,8 @@ $(function() {
 	 $('body').on('click', '.look-paper-btn', function() {
 	 	var docx_id = $(this).parents('tr').attr('docx_id');
 	 	var exam_subject_id = $(this).parents('tr').attr('exam_subject_id');
-  	$(this).attr('href', 'edit_paper?docx_id=' + docx_id + '&exam_subject_id='+exam_subject_id+'');
+	 	var exam_name = $(this).parents('tr').attr('exam_name');
+  	$(this).attr('href', 'edit_paper?docx_id=' + docx_id + '&exam_subject_id='+exam_subject_id+'&exam_name='+exam_name+'');
   	console.log(99)
 
   });
