@@ -751,6 +751,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 var end = start+17
                 itme_obj.score_options = fillScoreOptions(Answerindex,5,current_page).slice(start,end)
             }
+            if(answerModeType==4){
+                itme_obj.region_rect_x = regionRect(Answerindex).region_rect_x + 8//题组区域的X坐标
+                itme_obj.region_rect_y = regionRect(Answerindex).region_rect_y - 1200 * (current_page - 1) + 8//题组区域的Y坐标
+                itme_obj.region_rect_height = 100
+                itme_obj.region_rect_width = 698 - 14
+                itme_obj.score_options = fillScoreOptions(Answerindex, 4, current_page)
+            }
             question.push(itme_obj)
         }
         for (var i = 0; i < question.length; i++) {
@@ -802,13 +809,13 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             itme_obj.answer_mode = answerModeType(obj[i - 1].type)//题目类型
             itme_obj.current_page = obj[i - 1].current_page//当前页面
             itme_obj.num_question = obj[i - 1].numbel//题目数量
-            if(obj[i - 1].type != 5){
+            if(obj[i - 1].type != 5 || obj[i - 1].type != 4){
                 itme_obj.region_rect_x = regionRect(i - 1).region_rect_x + 8//题组区域的X坐标
                 itme_obj.region_rect_y = regionRect(i - 1).region_rect_y - 1200 * (itme_obj.current_page - 1) + 8//题组区域的Y坐标
                 itme_obj.region_rect_width = 698 - 14//题组区域的宽度
             }
             if (obj[i - 1].type == 4) {//作文题
-                itme_obj.region_rect_height = 100//题组区域的高度
+                // itme_obj.region_rect_height = 100//题组区域的高度
             } else {
                 if(obj[i - 1].type != 5){
                     itme_obj.region_rect_height = regionRect(i - 1).region_rect_height - 8//题组区域的高度
@@ -839,12 +846,12 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 itme_obj.block_height = 12//选项高度
                 itme_obj.score_rect_width = 690//打分框区域的宽度
                 itme_obj.score_rect_height = 20//打分框区域的高度
-                itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page)
+                // itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page)
             }
             BigQuestion.push(itme_obj)
         }
         for (var i = 0; i < BigQuestion.length; i++) {
-            if(obj[i].type==5){
+            if(obj[i].type == 5 || obj[i].type == 4){
                 BigQuestion[i].questions = getQuestion(obj[i].numbel, obj[i].itemNumber, i, obj[i].type, obj[i].itemCoresArr, obj[i].current_page, obj[i].no)
             }else{
                 BigQuestion[i].question = getQuestion(obj[i].numbel, obj[i].itemNumber, i, obj[i].type, obj[i].itemCoresArr, obj[i].current_page, obj[i].no)
@@ -2123,7 +2130,24 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             bindRegion()
         }
     }
+    /***************************************导入试卷********************************************************/
+    $scope.importExam = function () {
+        $.ajax({
+            type: "POST",
+            url: "api/v2/exam_subjects/answers_and_answer_settings",
+            headers: {'Authorization': "Bearer " + isLogin},
+            data: {"id": 852},
+            async: false,
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (data) {
 
+            }
+
+        })
+    }
+    // $scope.importExam()
     /********************************************************隐藏功能修改总分********************************/
     $scope.setCountScore = function () {
         $scope.countScore = Number($scope.countScore)
