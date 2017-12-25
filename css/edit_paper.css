@@ -160,7 +160,7 @@ width:100%;line-height: 38px;margin-bottom: 10px;
 .sub_sz_ul02 li select{
 outline: none;width:73px;height:25px;color: #666666;margin-left:20px;
 }
-.sub_sz_ul02 >li>input:nth-of-type(2){
+.sub_sz_ul02 >li>input:nth-of-type(1){
 width:126px;height:25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 50px;padding-left: 10px;box-sizing: border-box;color: #666666;
 }
 .sub_sz_ul02 >li>a{
@@ -168,7 +168,7 @@ width:57px;height:25px;border-radius: 2px;border: 1px solid #ccc;margin-left:45p
 border:none;
 display: inline-block;
 }
-.sub_sz_ul02 >li>input:nth-of-type(1){
+.sub_sz_ul02 >li>select{
 width:67px;height:25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 25px;padding-left: 10px;box-sizing: border-box;color: #666666;
 }
 .sub_sz_ul02 li i{
