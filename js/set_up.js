@@ -4164,7 +4164,8 @@ $(function() {
 	 $('body').on('click', '.look-paper-btn', function() {
 	 	var docx_id = $(this).parents('tr').attr('docx_id');
 	 	var exam_subject_id = $(this).parents('tr').attr('exam_subject_id');
-  	$(this).attr('href', 'edit_paper?docx_id=' + docx_id + '&exam_subject_id='+exam_subject_id+'');
+	 	var exam_name = $(this).parents('tr').attr('exam_name');
+  	$(this).attr('href', 'edit_paper?docx_id=' + docx_id + '&exam_subject_id='+exam_subject_id+'&exam_name='+exam_name+'');
   	console.log(99)
 
   });

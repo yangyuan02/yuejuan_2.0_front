@@ -29,6 +29,8 @@ $(function(){
 
   var docx_id = getUrlParam(url,'docx_id');
   var exam_subject_id = getUrlParam(url,'exam_subject_id');
+   var exam_name = getUrlParam(url,'exam_name');
+   $(".exam_name").html(exam_name);
   console.log(docx_id)
 list_item();
 function list_item(){
@@ -168,15 +170,15 @@ function list_item(){
                   var qb_length=data[i].question_banks.length;
                  if(data[i].answer.item=="单选题"||data[i].answer.item=="多选题"){
                  for(var q_b=0;q_b<qb_length;q_b++){
-                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p data-id="'+data[i].question_banks[q_b].id+'" style="padding-left: 40px;box-sizing: border-box;"><a style="">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].sort+'"></a><a style="margin-left: 70px;">选项个数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].type_count+'"></a><a style="margin-left: 88px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;"  value="'+data[i].question_banks[q_b].score+'"></a></p>');
+                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p data-id="'+data[i].question_banks[q_b].id+'" style="padding-left: 40px;box-sizing: border-box;" data-question="'+data[i].question_banks[q_b].question_bank_id+'"><a style="">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].sort+'"></a><a style="margin-left: 70px;">选项个数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].type_count+'"></a><a style="margin-left: 88px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;"  value="'+data[i].question_banks[q_b].score+'"></a></p>');
                  };
                  }else if(data[i].answer.item=="填空题"||data[i].answer.item=="是非题"||data[i].answer.item=="其他题"){
                  for(var q_b=0;q_b<qb_length;q_b++){
-                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p data-id="'+data[i].question_banks[q_b].id+'" ><a style="margin-left: 40px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" disabled="disabled"  value="'+data[i].question_banks[q_b].sort+'"></a><a style="margin-left: 237px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].score+'"></a></p>');
+                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p data-id="'+data[i].question_banks[q_b].id+'" data-question="'+data[i].question_banks[q_b].question_bank_id+'"><a style="margin-left: 40px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" disabled="disabled"  value="'+data[i].question_banks[q_b].sort+'"></a><a style="margin-left: 237px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].score+'"></a></p>');
                  }                       
                 }else if(data[i].answer.item=="作文题"){
                   for(var q_b=0;q_b<qb_length;q_b++){
-                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p data-id="'+data[i].question_banks[q_b].id+'" style="padding-left:10px;"><select name="" class="sub_sz_xz_select"><option value="">方格</option><option value="">行线</option><option value="">间隔线</option></select><a style="margin-left: 50px;">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].sort+'"></a><a style="margin-left: 10pN">格数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].lattice_total+'"></a><a style="margin-left:60px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].score+'"></a></p>');
+                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p data-id="'+data[i].question_banks[q_b].id+'" style="padding-left:10px;" data-question="'+data[i].question_banks[q_b].question_bank_id+'"><select name="" class="sub_sz_xz_select"><option value="">方格</option><option value="">行线</option><option value="">间隔线</option></select><a style="margin-left: 50px;">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].sort+'"></a><a style="margin-left: 10pN">格数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].lattice_total+'"></a><a style="margin-left:60px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].score+'"></a></p>');
                  }  
                 };
                 all_score();
@@ -233,12 +235,14 @@ function list_item(){
         var score=parseInt($(this).parent().find("p").eq(i).find('input').eq(2).val());
         var type_count=parseInt($(this).parent().find("p").eq(i).find('input').eq(1).val());
         var sort=parseInt($(this).parent().find("p").eq(i).find('input').eq(0).val());
-        var question_bank_id=parseInt($(this).parent().find("p").eq(i).attr("data-id"));
+        var question_bank_id=parseInt($(this).parent().find("p").eq(i).attr("data-question"));
+        var id=parseInt($(this).parent().find("p").eq(i).attr("data-id"));
         var answer_id=parseInt($(this).attr("data-id"));
          var count=parseInt($(this).parent().find("p").length);
           a["score"]=score;
           a["type_count"]=type_count;
           a["question_bank_id"]=question_bank_id;
+           a["id"]=id;
           a["sort"]=sort;
           a["num"]=sort;
           a["answer_id"]=answer_id;
@@ -268,11 +272,13 @@ function list_item(){
     
         var score=parseInt($(this).parent().find("p").eq(i).find('input').eq(1).val());
         var sort=parseInt($(this).parent().find("p").eq(i).find('input').eq(0).val());
-        var question_bank_id=parseInt($(this).parent().find("p").eq(i).attr("data-id"));
+        var question_bank_id=parseInt($(this).parent().find("p").eq(i).attr("data-question"));
+        var id=parseInt($(this).parent().find("p").eq(i).attr("data-id"));
         var answer_id=parseInt($(this).attr("data-id"));
          var count=parseInt($(this).parent().find("p").length);
           a["score"]=score;
           a["question_bank_id"]=question_bank_id;
+          a["id"]=id;
           a["sort"]=sort;
           a["num"]=sort;
           a["answer_id"]=answer_id;
@@ -316,11 +322,13 @@ function list_item(){
         }
         var sort=parseInt($(this).parent().find("p").eq(i).find('input').eq(0).val());
         var lattice_total=parseInt($(this).parent().find("p").eq(i).find('input').eq(2).val());
-        var question_bank_id=parseInt($(this).parent().find("p").eq(i).attr("data-id"));
+        var question_bank_id=parseInt($(this).parent().find("p").eq(i).attr("data-question"));
+        var id=parseInt($(this).parent().find("p").eq(i).attr("data-id"));
         var answer_id=parseInt($(this).attr("data-id"));
          var count=parseInt($(this).parent().find("p").length);
           a["score"]=score;
           a["question_bank_id"]=question_bank_id;
+          a["id"]=id;
           a["sort"]=sort;
           a["num"]=sort;
           a["answer_id"]=answer_id;
@@ -775,7 +783,8 @@ function save(id,main){
                   headers: {'Authorization': "Bearer " + isLogin},
                   success: function(data){
                    
-                    window.location.reload()
+                  $("#item-ul").html(" ");
+                  list_item();
                   },
                 error: function(){
     
