@@ -781,7 +781,8 @@ function save(id,main){
                   headers: {'Authorization': "Bearer " + isLogin},
                   success: function(data){
                    
-                    window.location.reload()
+                  $("#item-ul").html(" ");
+                  list_item();
                   },
                 error: function(){
     

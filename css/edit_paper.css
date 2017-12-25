@@ -6,7 +6,7 @@
       width: 100%;
   	position: absolute;
    top: 0px;
-   background: #999999;
+   background: #333333;
     opacity: 0.5;
 }
 .edit-paper-cont{
@@ -125,10 +125,10 @@
 	color:#fb7d8a!important;
 }
 .sub_li{
-	background: rgba(95,163,237,0.5);
+	background: #d8d8d8;
 }
 .sub_i_li{
-	background: rgba(95,163,237,0.5);
+	background: #d8d8d8;
 }
 
 .sub_sz{

@@ -2460,6 +2460,7 @@ $(function() {
 						get_all_word_exam();
 	        }
 		    });
+		    get_bind_exam_subject();
   	}
   });
 
@@ -3867,17 +3868,42 @@ $(function() {
 
 		
   });
+
+
+	// 获取已经绑定的exam subject
+	var bind_exam_subject;
+	function get_bind_exam_subject(){
+		$.ajax({
+	     	type: "POST",
+	     	url: ajaxIp+"/api/v2/ddocxes/bound_exam_subject_ids",
+	    	dataType: "JSON",
+	    	headers: {'Authorization': "Bearer " + isLogin},
+	    	success: function(data){
+	    		console.log(data);
+	    		bind_exam_subject=data;
+	      },
+	      error: function(){
+	        	// alert('请稍后从新尝试登录或者联系管理员');
+	        	// localStorage.clear();
+	        	// window.location.href = './login.html'
+	      }
+	    });
+	}
+
 	$('body').on('change', '#paper-subject', function() {
+		console.log(bind_exam_subject)
 		// 获取可以绑定的考试科目列表
 		var exam_type = $('#paper-type').val();
 		var grade_id = $('#paper-grade').val();
 		var subject_id = $('#paper-subject').val();
+		var bound_exam_subject_ids = JSON.stringify(bind_exam_subject);
+		console.log(bound_exam_subject_ids)
 		if(grade_id!=0&&subject_id!=0){
 			$.ajax({
 		   	type: "POST",
 		   	url: ajaxIp+"/api/v2/exam_subjects/doc_exam_subjects",
 		  	dataType: "JSON",
-		  	data:{'grade_id':grade_id,'subject_id':subject_id,'exam_type':exam_type},
+		  	data:{'grade_id':grade_id,'subject_id':subject_id,'exam_type':exam_type,'bound_exam_subject_ids':bound_exam_subject_ids},
 		  	headers: {'Authorization': "Bearer " + isLogin},
 		  	success: function(data){
 		  		console.log(data);
@@ -3935,7 +3961,6 @@ $(function() {
 			$('.import-word-wrap #paper-subject').html('<option value="0">全部科目</option>');
 		}
 	});
-
 
 
 

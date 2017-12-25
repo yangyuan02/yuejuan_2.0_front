@@ -67,6 +67,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     $scope.listObj2 = data.message.page2 ? data.message.page2 : []
                     $scope.listObj3 = data.message.page3 ? data.message.page3 : []
                     $scope.listObj4 = data.message.page4 ? data.message.page4 : []
+                    $scope.listObj5 = data.message.page5 ? data.message.page5 : []
                     answer_id = data.message.answer_id
                     allHeight = data.message.allHeight ? data.message.allHeight : []
                     $scope.paperType = data.message.paperType ? data.message.paperType : 0
@@ -336,13 +337,45 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         } else if (isLine(1) && $scope.listObj3.length==0) {
             obj.current_page = 1
             $scope.listObj2.push(obj);
-        } else if (isLine(2) && $scope.listObj4.length==0) {
+        } else if ($scope.result.writIsradio==4||isLine(2) && $scope.listObj4.length==0) {
+            console.log(obj)
             obj.current_page = 2
+            console.log($scope.result.writIsradio)
+            if($scope.result.writIsradio==4){
+                console.log(111)
+                obj.row = writLine(2)
+                var rows = []
+                for(var i = 0;i<writLine(2);i++){
+                    rows.push(i)
+                }
+                obj.writIsradio = 4
+                obj.articleType = 1
+                obj.rows = rows
+            }
             $scope.listObj3.push(obj);
+            console.log($scope.listObj3)
         } else if (isLine(3)) {
             obj.current_page = 2
             $scope.listObj4.push(obj);
         }
+    }
+    var writLine = function (page_num) {//作文换行
+        var outerBox = $(".A_Rone").outerHeight()//最外层距离
+        var lastTabPosi = $(".A_Rone").eq(page_num).find("table:last").position()==undefined?0:$(".A_Rone").eq(page_num).find("table:last").position().top + $(".A_Rone").eq(page_num).find("table:last").height() + 30//已经占用高度
+        var remain = outerBox - lastTabPosi
+        var rowItme_h = 29,score_h = $scope.paperType == 0?40:20;
+        var padding = $(".A_Rone").eq(page_num).find("table:last").position()==undefined?60:0
+        var rows = Math.floor((remain - 40  - score_h-padding)/rowItme_h)
+        $scope.listObj5 = []
+        $scope.listObj5.push({
+            plaids:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
+            rows:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29],
+            type:4,
+            totalCores:10,
+            itemCoresArr:['0'],
+            articleType:1
+        })
+        return rows
     }
     $scope.createAsswer = function (data) {//添加题组
         var data = data
@@ -643,6 +676,14 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         return otherScoreRect
     }
+    function otherFillScoreHeight(index, current_page) {//获得其他题每个小题高度
+        var otherListDom = []
+        var dom = $(".conten").find("table").eq(index).find("tbody").find(".other").find(".other_c")
+        dom.each(function () {
+            otherListDom.push($(this).height())
+        })
+        return otherListDom
+    }
 
     function getFillPost(index) {//获得填空题小题坐标
         var fillItemPost = []
@@ -699,12 +740,21 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             var itme_obj = {}
             itme_obj.no = startNo[i-1].toString()//作文没有起始序号
             itme_obj.one_score = parseInt(itemCores[i - 1])
-            console.log(itme_obj.one_score)
             itme_obj.answer_setting_id = answer_id[Answerindex].answers.settings[i - 1].setting_id//小题id
             itme_obj.option = []
+            if(answerModeType==5){
+                itme_obj.region_rect_x = otherFillScoreRect(Answerindex,current_page)[i-1].score_rect_x
+                itme_obj.region_rect_y = otherFillScoreRect(Answerindex,current_page)[i-1].score_rect_y - 30
+                itme_obj.region_rect_height = otherFillScoreHeight(Answerindex,current_page)[i-1]
+                itme_obj.region_rect_width = 698 - 14
+                var start = (i-1)*17
+                var end = start+17
+                itme_obj.score_options = fillScoreOptions(Answerindex,5,current_page).slice(start,end)
+            }
             question.push(itme_obj)
         }
         for (var i = 0; i < question.length; i++) {
+
             for (var j = 1; j <= answerNumber; j++) {
                 var itme_obj = {}
                 itme_obj.no = j//小题序号
@@ -752,15 +802,18 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             itme_obj.answer_mode = answerModeType(obj[i - 1].type)//题目类型
             itme_obj.current_page = obj[i - 1].current_page//当前页面
             itme_obj.num_question = obj[i - 1].numbel//题目数量
-            itme_obj.region_rect_x = regionRect(i - 1).region_rect_x + 8//题组区域的X坐标
-            itme_obj.region_rect_y = regionRect(i - 1).region_rect_y - 1200 * (itme_obj.current_page - 1) + 8//题组区域的Y坐标
-            itme_obj.region_rect_width = 698 - 14//题组区域的宽度
+            if(obj[i - 1].type != 5){
+                itme_obj.region_rect_x = regionRect(i - 1).region_rect_x + 8//题组区域的X坐标
+                itme_obj.region_rect_y = regionRect(i - 1).region_rect_y - 1200 * (itme_obj.current_page - 1) + 8//题组区域的Y坐标
+                itme_obj.region_rect_width = 698 - 14//题组区域的宽度
+            }
             if (obj[i - 1].type == 4) {//作文题
                 itme_obj.region_rect_height = 100//题组区域的高度
             } else {
-                itme_obj.region_rect_height = regionRect(i - 1).region_rect_height - 8//题组区域的高度
+                if(obj[i - 1].type != 5){
+                    itme_obj.region_rect_height = regionRect(i - 1).region_rect_height - 8//题组区域的高度
+                }
             }
-            itme_obj.question = []
             if (obj[i - 1].type == 1 || obj[i - 1].type == 6 || obj[i - 1].type == 2) {//单选题/多选题/判断题
                 itme_obj.block_width = 14//选项宽度
                 itme_obj.block_height = 11//选项高度
@@ -777,10 +830,10 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             } else if (obj[i - 1].type == 5) {//其他题
                 itme_obj.block_width = 23//选项宽度
                 itme_obj.block_height = 12//选项高度
-                itme_obj.score_rect_options = otherFillScoreRect(i - 1, obj[i - 1].current_page)//打分框区域的x坐标
+                // itme_obj.score_rect_options = otherFillScoreRect(i - 1, obj[i - 1].current_page)//打分框区域的x坐标
                 itme_obj.score_rect_width = 690//打分框区域的宽度
-                itme_obj.score_rect_height = 20//打分框区域的高度
-                itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page)
+                itme_obj.score_rect_height = 30//打分框区域的高度
+                // itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page)
             } else {//作文题
                 itme_obj.block_width = 23//选项宽度
                 itme_obj.block_height = 12//选项高度
@@ -791,7 +844,11 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             BigQuestion.push(itme_obj)
         }
         for (var i = 0; i < BigQuestion.length; i++) {
-            BigQuestion[i].question = getQuestion(obj[i].numbel, obj[i].itemNumber, i, obj[i].type, obj[i].itemCoresArr, obj[i].current_page, obj[i].no)
+            if(obj[i].type==5){
+                BigQuestion[i].questions = getQuestion(obj[i].numbel, obj[i].itemNumber, i, obj[i].type, obj[i].itemCoresArr, obj[i].current_page, obj[i].no)
+            }else{
+                BigQuestion[i].question = getQuestion(obj[i].numbel, obj[i].itemNumber, i, obj[i].type, obj[i].itemCoresArr, obj[i].current_page, obj[i].no)
+            }
         }
 
         $scope.discernType == 0 ? BigQuestion.push(getStudentInfo()) : BigQuestion.push(getBarCode())  //识别考号/识别条码
@@ -844,6 +901,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         allList.page2 = $scope.listObj2
         allList.page3 = $scope.listObj3
         allList.page4 = $scope.listObj4
+        allList.page5 = $scope.listObj5
         allList.answer_id = answer_id
         allList.paperType = $scope.paperType
         allList.infoLocation = $scope.infoLocation
@@ -1407,6 +1465,9 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             console.log("删除list2")
         }
         if (index >= len1 + len2 && index < len1 + len2 + len3) {
+            if($scope.listObj3[index - len1 - len2].writIsradio==4){
+                $scope.listObj5 = []
+            }
             $scope.listObj3.splice(index - len1 - len2, 1)
             console.log("删除list3")
         }
@@ -1676,6 +1737,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.listObj2 = data.page2 ? data.page2 : []
                 $scope.listObj3 = data.page3 ? data.page3 : []
                 $scope.listObj4 = data.page4 ? data.page4 : []
+                $scope.listObj5 = data.page5 ? data.page5 : []
                 $scope.paperType = data.paperType ? data.paperType : 0
                 $scope.infoLocation = data.infoLocation ? data.infoLocation : 0
                 $scope.infoBox = data.infoBox ? data.infoBox : 0
@@ -1992,12 +2054,12 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             return
         }
         var isLogin = localStorage.getItem("token");
-
         function bindRegion() {
             var answer_ids = []
             for (var i = 0; i < answer_id.length; i++) {
                 answer_ids.push(answer_id[i].answers.answer_id)
             }
+            console.log(getBigQuestion(allPagePost()))
             if ($scope.paperType == 0) {//手工阅卷
                 var allP = getBigQuestion(allPagePost())
             } else {
@@ -2061,6 +2123,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             bindRegion()
         }
     }
+
     /********************************************************隐藏功能修改总分********************************/
     $scope.setCountScore = function () {
         $scope.countScore = Number($scope.countScore)
