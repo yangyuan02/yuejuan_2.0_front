@@ -46,9 +46,15 @@ function list_item(){
   		for (var i = 0; i < data.length; i++) {
         var nub=i+1;
   			// var pp='<p><a class="list_nub">'+nub+'.</a>'+data[i].content+'</p>';
-          var str=data[i].content;
-          var str01=str.substr(0, 3);
-          console.log(str01);
+        var str=data[i].content;
+        console.log(str);
+        if(str==null){
+           var str01=0;
+         }else{
+          var str01=str.substr(0,3);
+         }
+       
+          // console.log(str01);
         if(str01=="<p>"){
          var pp=data[i].content;
         }else{
