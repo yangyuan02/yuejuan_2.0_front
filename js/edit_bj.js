@@ -86,6 +86,7 @@ $(this).attr('href', 'edit_paper?docx_id='+docx_id+'&exam_subject_id='+exam_subj
 //保存题目内容
  $(".edit_bj_btn01").click(function(event) {
   var a=UE.getEditor('container').getContent();
+  // var a=UE.getEditor('container').getContentTxt();
      $.ajax({
          type: "POST",
          url: ajaxIp + "/api/v2/question_banks/update_question",
