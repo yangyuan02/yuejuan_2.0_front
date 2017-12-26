@@ -91,6 +91,7 @@ function again_bang(){
                         console.log(item_id);
                          $("#item-ul li").eq(i1).find('.bind-item').html("更换绑定");
                           $("#item-ul li").eq(i1).find('.bind-item').attr("relation_id",data[i].id);
+                          $("#item-ul li").eq(i1).find('.bind-item').attr("answer_id",data[i].answer_id);
                       }
                    }
                    }
@@ -118,12 +119,12 @@ function again_bang(){
    });
    //绑定题组
    //题组选择
-    $(".sub_bd02_ul02 ").on('click', 'li', function(event) {
+    $(".sub_bd02_ul01 ").on('click', 'li', function(event) {
         $(".sub_bd_t").attr("data-answer",$(this).attr("data-id"));
         $(".sub_bd_t").attr("data-item",$(this).attr("data-item"));
          $(".sub_bd_t").attr("data-question",$(".sub_bd").attr("data-id"));
 
-        $(this).addClass('sub_bd02_li').siblings().removeClass('sub_bd02_li');
+        $(this).addClass('sub_bd02_ul01_li').siblings().removeClass('sub_bd02_ul01_li');
         });
     $("#item-ul").on('click', '.bind-item', function(event) {
       $(".sub_bd_t").attr("data-answer"," ");
@@ -131,6 +132,7 @@ function again_bang(){
        $(".sub_bd_t").attr("data-item"," ")
       $(".sub_bd_t").attr("data-type",$(this).html());
       $(".sub_bd_t").attr("relation_id",$(this).attr("relation_id"));
+      var answer_id=$(this).attr("answer_id");
        $.ajax({
                   type: "POST",
                   url: ajaxIp+"/api/v2/answers/answers_for_exam_subject",
@@ -138,12 +140,20 @@ function again_bang(){
                   headers: {'Authorization': "Bearer " + isLogin},
                   success: function(data){
                    $(".sub_bd02_ul01").html(" ");
-                   $(".sub_bd02_ul02").html(" ");
+                   // $(".sub_bd02_ul02").html(" ");
                     console.log(data);
                     var a=data.length;
                     for(var i=0;i<a;i++){
-                       $(".sub_bd02_ul01").append('<li><input value="'+data[i].name+'" disabled="disabled"></li>');
-                       $(".sub_bd02_ul02").append('<li data-id="'+data[i].id+'" data-item="'+data[i].item+'"><i class="iconfont" style="">&#xe64b;</i></li>');
+                      if(answer_id==data[i].id){
+                      $(".sub_bd02_ul01").append('<li class="sub_bd02_ul01_li" data-id="'+data[i].id+'" data-item="'+data[i].item+'"><a>'+data[i].name+'</a></li>');
+                      
+                      }else{
+                        $(".sub_bd02_ul01").append('<li  data-id="'+data[i].id+'" data-item="'+data[i].item+'"><a>'+data[i].name+'</a></li>');
+                      
+                      }
+                       
+                       // $(".sub_bd02_ul02").append('<li data-id="'+data[i].id+'" data-item="'+data[i].item+'"><i class="iconfont" style="">&#xe64b;</i></li>');
+                    
                     }
                   },
                 error: function(){
