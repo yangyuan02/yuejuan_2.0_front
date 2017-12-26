@@ -66,7 +66,7 @@ function again_bang(){
                   type: "POST",
                   async:false,
                   url: ajaxIp+"/api/v2/question_banks/bound_questions",
-                  data:{'docx_id':67},
+                  data:{'docx_id':docx_id},
                   headers: {'Authorization': "Bearer " + isLogin},
                   success: function(data){
                    // var data('name', 'value')
