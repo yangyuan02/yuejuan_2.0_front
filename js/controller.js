@@ -132,6 +132,7 @@ angular.module("myApp.controller", [])
             $(".mart_set").hide();
             $(".load-bg").show();
             var class_name=$(this).attr("data_class");
+             // $(".load-bg").show();
             mark_fengxi(class_name);
         });
          
@@ -201,6 +202,10 @@ angular.module("myApp.controller", [])
                     'Authorization': "Bearer " + isLogin
                 },
                 data: data_value,
+                // beforeSend: function(){
+                //    $(".mask_layer").show();
+                //    $(".load-bg").show();
+                // },
                 success: function(data) {
                     console.log(data);
 
@@ -234,9 +239,13 @@ angular.module("myApp.controller", [])
                         $('.modal-wrap').show();
                     }
                 },
+                // complete: function(){
+                //   $(".mask_layer").hide();
+                //   $(".load-bg").hide();
+                // },
                 error: function() {
-
-                }
+                
+                },
 
             });
         };
