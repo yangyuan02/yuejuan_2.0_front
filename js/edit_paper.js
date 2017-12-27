@@ -30,8 +30,14 @@ $(function(){
   var docx_id = getUrlParam(url,'docx_id');
   var exam_subject_id = getUrlParam(url,'exam_subject_id');
    var exam_name = getUrlParam(url,'exam_name');
-   $(".exam_name").html(exam_name);
-  console.log(docx_id)
+   var subject_name = getUrlParam(url,'subject_name');
+   var exam_sub_name=exam_name+'&nbsp;&nbsp;('+subject_name+')';
+   $(".exam_name").html(exam_sub_name);
+  console.log(docx_id);
+  //back 导入界面
+  // $(".back").click(function(event) {
+  // $(this).attr('href', 'set_up?docx_id=' + docx_id + '');
+  // });
 list_item();
 function list_item(){
  	$.ajax({
@@ -1335,7 +1341,7 @@ $("#item-ul").on('mouseup', 'p', function() {
         newitem.children('div').children().remove();
         newitem.children('div').append(content);
         $(this).parents('.items').after(newitem);
-       
+        
        var old_word = $(this).parents('.items').find('.editor-enabled p');
        var new_word = $(this).parents('.items').next().find('.editor-enabled p');
        var old_ary = [];
