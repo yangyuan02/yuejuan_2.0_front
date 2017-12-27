@@ -4183,9 +4183,8 @@ $(function() {
 	 	var exam_subject_id = $(this).parents('tr').attr('exam_subject_id');
 	 	var exam_name = $(this).parents('tr').attr('exam_name');
 	 	var left_tab = 'word-import';
-  	$(this).attr('href', 'edit_paper?docx_id=' + docx_id + '&exam_subject_id='+exam_subject_id+'&exam_name='+exam_name+'&left_tab='+left_tab+'&subject_name='+subject_name+'');
 	 	var subject_name = $(this).parents('tr').attr('subject_name');
-  	$(this).attr('href', 'edit_paper?docx_id=' + docx_id + '&exam_subject_id='+exam_subject_id+'&exam_name='+exam_name+'&subject_name='+subject_name+'');
+  	$(this).attr('href', 'edit_paper?docx_id=' + docx_id + '&exam_subject_id='+exam_subject_id+'&exam_name='+exam_name+'&left_tab='+left_tab+'&subject_name='+subject_name+'');
 
   });
 
