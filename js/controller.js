@@ -132,6 +132,7 @@ angular.module("myApp.controller", [])
             $(".mart_set").hide();
             $(".load-bg").show();
             var class_name=$(this).attr("data_class");
+             // $(".load-bg").show();
             mark_fengxi(class_name);
         });
          
@@ -201,6 +202,10 @@ angular.module("myApp.controller", [])
                     'Authorization': "Bearer " + isLogin
                 },
                 data: data_value,
+                // beforeSend: function(){
+                //    $(".mask_layer").show();
+                //    $(".load-bg").show();
+                // },
                 success: function(data) {
                     console.log(data);
 
@@ -234,9 +239,13 @@ angular.module("myApp.controller", [])
                         $('.modal-wrap').show();
                     }
                 },
+                // complete: function(){
+                //   $(".mask_layer").hide();
+                //   $(".load-bg").hide();
+                // },
                 error: function() {
-
-                }
+                
+                },
 
             });
         };
@@ -2915,7 +2924,7 @@ angular.module("myApp.controller", [])
             console.log(class_id);
             console.log(sub_id);
              if(class_id==11111){
-                var class_id = null;
+                var class_id01 = null;
                 }
               if(sub_id==22222){
                 var sub_id = null;
@@ -2931,7 +2940,7 @@ angular.module("myApp.controller", [])
                 },
                 data: {
                     "exam_id": exam_id,
-                    "classroom_id": class_id,
+                    "classroom_id": class_id01,
                 },
                 success: function(data) {
                     console.log(data);
@@ -2944,9 +2953,11 @@ angular.module("myApp.controller", [])
                         var a = data.data[i];
                         $(".study_k_201_bo").append('<tr></tr>');
                         for (var c = 0; c < a.length; c++) {
+                            if(class_id==11111){
                             if(c==6){
                                 a[c]="-";
                             }
+                           }
                             $(".study_k_201_bo tr").eq(i).append('<td>' + a[c] + '</td>');
                         }
 

@@ -33,12 +33,11 @@ $(function(){
   var left_tab = getUrlParam(url,'left_tab');
   var storage=window.localStorage;
   storage.setItem("left_tab",left_tab);
-
    $(".exam_name").html(exam_name);
   console.log(docx_id)
     console.log(left_tab)
   $('.back').click(function(){
-    console.log(999)
+    // console.log(999)
     console.log(left_tab)
     history.go(-1);
     return false;
@@ -57,8 +56,22 @@ function list_item(){
   		for (var i = 0; i < data.length; i++) {
         var nub=i+1;
   			// var pp='<p><a class="list_nub">'+nub+'.</a>'+data[i].content+'</p>';
-        // var pp='<p>'+data[i].content+'</p>';
-  			$('#item-ul').append('<li class="items" data-id="'+data[i].sort+'"  data-grade="'+data[i].grade_id+'" item-id="'+data[i].id+'"><i class="item-op "><a href="javascript:;" class="save-btn right"><i class="iconfont">&#xe653;</i>保存</a><a href="javascript:;" class="look-detail right"  data-num="'+i+'"  data-id="'+data[i].id+'"><i class="iconfont">&#xe699;</i>查看解析</a></i><div class="item-cont editor-enabled" contenteditable="true" data-id="'+data[i].id+'"><p>'+data[i].content+'</p></div><ul class="bottom-btn"><li><a class="item-edit" data-num="'+i+'"  data-id="'+data[i].id+'"><i class="iconfont">&#xe614;</i>题干编辑</a></li><li><a href="javascript:;" class="item-seg"><i class="iconfont">&#xe636;</i>分割试题</a></li><li><a href="javascript:;" class="item-insert"><i class="iconfont">&#xe601;</i>题组插入</a></li><li><a href="javascript:;" class="item-merge"><i class="iconfont">&#xe689;</i>向下合并</a></li><li style="display:none;"><a href="javascript:;" class="grade-set"><i class="iconfont">&#xe630;</i>设定分指</a></li><li><a href="javascript:;" class="item-up"><i class="iconfont">&#xe631;</i>上移</a></li><li><a href="javascript:;" class="item-down"><i class="iconfont">&#xe607;</i>下移</a></li><li><a href="javascript:;" class="item-dele" data-num="'+i+'" data-id="'+data[i].id+'"><i class="iconfont">&#xe616;</i>删除</a></li><li><a href="javascript:;" class="determine bind-item" data-id="'+data[i].id+'">绑定题组</a></li></ul></li>');
+        var str=data[i].content;
+        console.log(str);
+        if(str==null){
+           var str01=0;
+         }else{
+          var str01=str.substr(0,3);
+         }
+       
+          // console.log(str01);
+        if(str01=="<p>"){
+         var pp=data[i].content;
+        }else{
+          var pp='<p>'+data[i].content+'</p>';
+        }
+       
+  			$('#item-ul').append('<li class="items" data-id="'+data[i].sort+'"  data-grade="'+data[i].grade_id+'" item-id="'+data[i].id+'"><i class="item-op "><a href="javascript:;" class="save-btn right"><i class="iconfont">&#xe653;</i>保存</a><a href="javascript:;" class="look-detail right"  data-num="'+i+'"  data-id="'+data[i].id+'"><i class="iconfont">&#xe699;</i>查看解析</a></i><div class="item-cont editor-enabled" contenteditable="true" data-id="'+data[i].id+'">'+pp+'</div><ul class="bottom-btn"><li><a class="item-edit" data-num="'+i+'"  data-id="'+data[i].id+'"><i class="iconfont">&#xe614;</i>题干编辑</a></li><li><a href="javascript:;" class="item-seg"><i class="iconfont">&#xe636;</i>分割试题</a></li><li><a href="javascript:;" class="item-insert"><i class="iconfont">&#xe601;</i>题组插入</a></li><li><a href="javascript:;" class="item-merge"><i class="iconfont">&#xe689;</i>向下合并</a></li><li style="display:none;"><a href="javascript:;" class="grade-set"><i class="iconfont">&#xe630;</i>设定分指</a></li><li><a href="javascript:;" class="item-up"><i class="iconfont">&#xe631;</i>上移</a></li><li><a href="javascript:;" class="item-down"><i class="iconfont">&#xe607;</i>下移</a></li><li><a href="javascript:;" class="item-dele" data-num="'+i+'" data-id="'+data[i].id+'"><i class="iconfont">&#xe616;</i>删除</a></li><li><a href="javascript:;" class="determine bind-item" data-id="'+data[i].id+'">绑定题组</a></li></ul></li>');
          
       
   		};
@@ -90,9 +103,11 @@ function again_bang(){
                      
                   
                       
-                      if(item_id==data[i]){
+                      if(item_id==data[i].question_bank_id){
                         console.log(item_id);
                          $("#item-ul li").eq(i1).find('.bind-item').html("更换绑定");
+                          $("#item-ul li").eq(i1).find('.bind-item').attr("relation_id",data[i].id);
+                          $("#item-ul li").eq(i1).find('.bind-item').attr("answer_id",data[i].answer_id);
                       }
                    }
                    }
@@ -120,18 +135,20 @@ function again_bang(){
    });
    //绑定题组
    //题组选择
-    $(".sub_bd02_ul02 ").on('click', 'li', function(event) {
+    $(".sub_bd02_ul01 ").on('click', 'li', function(event) {
         $(".sub_bd_t").attr("data-answer",$(this).attr("data-id"));
         $(".sub_bd_t").attr("data-item",$(this).attr("data-item"));
          $(".sub_bd_t").attr("data-question",$(".sub_bd").attr("data-id"));
 
-        $(this).addClass('sub_bd02_li').siblings().removeClass('sub_bd02_li');
+        $(this).addClass('sub_bd02_ul01_li').siblings().removeClass('sub_bd02_ul01_li');
         });
     $("#item-ul").on('click', '.bind-item', function(event) {
       $(".sub_bd_t").attr("data-answer"," ");
       $(".sub_bd_t").attr("data-question"," ")
        $(".sub_bd_t").attr("data-item"," ")
-      $(".sub_bd_t").attr("data-type",$(this).html())
+      $(".sub_bd_t").attr("data-type",$(this).html());
+      $(".sub_bd_t").attr("relation_id",$(this).attr("relation_id"));
+      var answer_id=$(this).attr("answer_id");
        $.ajax({
                   type: "POST",
                   url: ajaxIp+"/api/v2/answers/answers_for_exam_subject",
@@ -139,12 +156,20 @@ function again_bang(){
                   headers: {'Authorization': "Bearer " + isLogin},
                   success: function(data){
                    $(".sub_bd02_ul01").html(" ");
-                   $(".sub_bd02_ul02").html(" ");
+                   // $(".sub_bd02_ul02").html(" ");
                     console.log(data);
                     var a=data.length;
                     for(var i=0;i<a;i++){
-                       $(".sub_bd02_ul01").append('<li><input value="'+data[i].name+'" disabled="disabled"></li>');
-                       $(".sub_bd02_ul02").append('<li data-id="'+data[i].id+'" data-item="'+data[i].item+'"><i class="iconfont" style="">&#xe64b;</i></li>');
+                      if(answer_id==data[i].id){
+                      $(".sub_bd02_ul01").append('<li class="sub_bd02_ul01_li" data-id="'+data[i].id+'" data-item="'+data[i].item+'"><a>'+data[i].name+'</a></li>');
+                      
+                      }else{
+                        $(".sub_bd02_ul01").append('<li  data-id="'+data[i].id+'" data-item="'+data[i].item+'"><a>'+data[i].name+'</a></li>');
+                      
+                      }
+                       
+                       // $(".sub_bd02_ul02").append('<li data-id="'+data[i].id+'" data-item="'+data[i].item+'"><i class="iconfont" style="">&#xe64b;</i></li>');
+                    
                     }
                   },
                 error: function(){
@@ -167,7 +192,8 @@ function again_bang(){
       var b=parseInt($(".sub_bd_t").attr("data-question"));
       var c=$(".sub_bd_t").attr("data-item");
       var d=$(".sub_bd_t").attr("data-type");
-      // if(d=="绑定题组"){
+      var relation_id=$(".sub_bd_t").attr("relation_id");
+      if(d=="绑定题组"){
       if(isNaN(a)){ //判断a是否等于nan只能用isNaN(a)；不能用a=NaN;
            alert("请选择题组？");
            }else{
@@ -183,7 +209,7 @@ function again_bang(){
                 headers: {'Authorization': "Bearer " + isLogin},
                 success: function(data){
                   console.log(data);
-                   
+                   again_bang();
                     
                   },
                 error: function(){
@@ -194,33 +220,31 @@ function again_bang(){
               $(".layer").hide();
       };
 
-      // }else{
-      // if(isNaN(a)){ //判断a是否等于nan只能用isNaN(a)；不能用a=NaN;
-      //      alert("请选择题组？");
-      //      }else{
-      //       $.ajax({
-      //             type: "POST",
-      //             url: ajaxIp+"/api/v2/question_bank/change_bind_answer",
-      //             data:{'docx_id':docx_id,
-      //             'answer_id':a,
-      //             'question_bank_id':b,
-      //             // 'exam_subject_id':exam_subject_id,
-      //             'item':c,
-      //           },
-      //           headers: {'Authorization': "Bearer " + isLogin},
-      //           success: function(data){
-                  
+      }else{
+      if(isNaN(a)){ //判断a是否等于nan只能用isNaN(a)；不能用a=NaN;
+           alert("请选择题组？");
+           }else{
+            $.ajax({
+                  type: "POST",
+                  url: ajaxIp+"/api/v2/question_banks/change_bind_answer",
+                  data:{'id':relation_id,
+                  'answer_id':a,
+                  'item':c,
+                },
+                headers: {'Authorization': "Bearer " + isLogin},
+                success: function(data){
+                  again_bang();
                    
                     
-      //             },
-      //           error: function(){
+                  },
+                error: function(){
     
-      //            }
-      //          });
-      //         $(".sub_bd").hide();
-      //         $(".layer").hide();
-      // }
-      // }
+                 }
+               });
+              $(".sub_bd").hide();
+              $(".layer").hide();
+      }
+      }
       
    });
    //绑定取消
@@ -1321,7 +1345,7 @@ $("#item-ul").on('mouseup', 'p', function() {
         newitem.children('div').children().remove();
         newitem.children('div').append(content);
         $(this).parents('.items').after(newitem);
-       
+        
        var old_word = $(this).parents('.items').find('.editor-enabled p');
        var new_word = $(this).parents('.items').next().find('.editor-enabled p');
        var old_ary = [];
