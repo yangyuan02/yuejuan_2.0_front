@@ -29,15 +29,19 @@ $(function(){
 
   var docx_id = getUrlParam(url,'docx_id');
   var exam_subject_id = getUrlParam(url,'exam_subject_id');
-   var exam_name = getUrlParam(url,'exam_name');
-   var subject_name = getUrlParam(url,'subject_name');
-   var exam_sub_name=exam_name+'&nbsp;&nbsp;('+subject_name+')';
-   $(".exam_name").html(exam_sub_name);
-  console.log(docx_id);
-  //back 导入界面
-  // $(".back").click(function(event) {
-  // $(this).attr('href', 'set_up?docx_id=' + docx_id + '');
-  // });
+  var exam_name = getUrlParam(url,'exam_name');
+  var left_tab = getUrlParam(url,'left_tab');
+  var storage=window.localStorage;
+  storage.setItem("left_tab",left_tab);
+   $(".exam_name").html(exam_name);
+  console.log(docx_id)
+    console.log(left_tab)
+  $('.back').click(function(){
+    // console.log(999)
+    console.log(left_tab)
+    history.go(-1);
+    return false;
+  })
 list_item();
 function list_item(){
  	$.ajax({
