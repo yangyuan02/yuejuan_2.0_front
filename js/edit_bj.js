@@ -26,8 +26,8 @@ var isLogin = localStorage.getItem("token");
   var id = getUrlParam(url,'id');
   var docx_num = getUrlParam(url,'number');
   var exam_subject_id = getUrlParam(url,'exam_subject_id');
-  console.log(docx_id);
-  console.log(docx_num);
+  // console.log(docx_id);
+  // console.log(docx_num);
 // $.ajax({
 //    	type: "GET",
 //    	url: ajaxIp+"/api/v2/question_banks?docx_id="+docx_id+"",

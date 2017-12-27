@@ -219,7 +219,7 @@ color:#fb7d8a;margin-right: 5px;
 	float: left;width: 100%;
 }
 .sub_bd02_ul01 li{
-	height: 44px;width: 100%;line-height: 44px;
+	height: 44px;width: 100%;line-height: 44px;overflow: hidden;
 }
 .sub_bd02_ul01_li{
 background: #d8d8d8;
