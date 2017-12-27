@@ -35,7 +35,7 @@ $(function(){
  var exam_sub_name =exam_name+'&nbsp;&nbsp;('+subject_name+')'
   var storage=window.localStorage;
   storage.setItem("left_tab",left_tab);
-   $(".exam_name").html(exam_sub_name);
+  $(".exam_name").html(exam_sub_name);
   console.log(docx_id)
     console.log(left_tab)
   $('.back').click(function(){
@@ -127,7 +127,7 @@ function again_bang(){
      $("#item-ul").on('click', '.item-edit', function(event) {
        var a=$(this).attr("data-num");
         var b=$(this).attr("data-id");
-       $(this).attr('href', 'edit_bj?docx_id=' +docx_id+ '&number='+a+'&exam_subject_id='+exam_subject_id+'&id='+b+'');
+       $(this).attr('href', 'edit_bj?docx_id=' +docx_id+ '&number='+a+'&exam_subject_id='+exam_subject_id+'&id='+b+'&exam_name='+exam_name+'&subject_name='+subject_name+'&left_tab='+left_tab+'');
      
      });
    $(document).on('click', '.save-btn', function(event) {
