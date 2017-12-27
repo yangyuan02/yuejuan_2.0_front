@@ -127,7 +127,7 @@ function again_bang(){
      $("#item-ul").on('click', '.item-edit', function(event) {
        var a=$(this).attr("data-num");
         var b=$(this).attr("data-id");
-       $(this).attr('href', 'edit_bj?docx_id=' +docx_id+ '&number='+a+'&exam_subject_id='+exam_subject_id+'&id='+b+'&exam_name='+exam_name+'&subject_name='+subject_name+'&left_tab='+left_tab+'');
+       $(this).attr('href', 'edit_bj?docx_id=' +docx_id+ '&number='+a+'&exam_subject_id='+exam_subject_id+'&id='+b+'&exam_name='+exam_name+'&subject_name='+subject_name+'');
      
      });
    $(document).on('click', '.save-btn', function(event) {
