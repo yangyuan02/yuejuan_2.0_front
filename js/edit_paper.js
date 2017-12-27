@@ -37,7 +37,7 @@ $(function(){
   console.log(docx_id)
     console.log(left_tab)
   $('.back').click(function(){
-    // console.log(999)
+    console.log(999)
     console.log(left_tab)
     history.go(-1);
     return false;
