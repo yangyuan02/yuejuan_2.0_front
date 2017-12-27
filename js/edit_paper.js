@@ -57,7 +57,7 @@ function list_item(){
         var nub=i+1;
   			// var pp='<p><a class="list_nub">'+nub+'.</a>'+data[i].content+'</p>';
         var str=data[i].content;
-        console.log(str);
+        // console.log(str);
         if(str==null){
            var str01=0;
          }else{
@@ -104,7 +104,7 @@ function again_bang(){
                   
                       
                       if(item_id==data[i].question_bank_id){
-                        console.log(item_id);
+                        // console.log(item_id);
                          $("#item-ul li").eq(i1).find('.bind-item').html("更换绑定");
                           $("#item-ul li").eq(i1).find('.bind-item').attr("relation_id",data[i].id);
                           $("#item-ul li").eq(i1).find('.bind-item').attr("answer_id",data[i].answer_id);
@@ -282,7 +282,7 @@ function again_bang(){
                   //    data[i].answer.item=5;
                   // }
 
-                    $(".sub_sz_ul02").append('<li data-name="'+data[i].answer.item+'" data-id="'+data[i].answer.id+'" data-sort="'+data[i].answer.sort+'" ><select data-name="'+data[i].answer.item+'" ><option>单选题</option><option>多选题</option><option>填空题</option><option>是非题</option><option>其他题</option><option>作文题</option></select><input type="" name="" value="'+data[i].answer.answer_name+'"><a class="all_score"></a><i class="iconfont" data-id="0">&#xe622;</i><div class="sub_sz_list" style="overflow: auto;"><button data-id="'+data[i].answer.id+'"  style="float: right;width: 50px;height: 25px;color: #31bc91;text-align: center;line-height: 25px;margin-right: 68px;margin-top: 10px;">保存</button></div></li>');
+                    $(".sub_sz_ul02").append('<li data-name="'+data[i].answer.item+'" data-id="'+data[i].answer.id+'" data-sort="'+data[i].answer.sort+'" ><select data-name="'+data[i].answer.item+'" ><option>单选题</option><option>多选题</option><option>填空题</option><option>是非题</option><option>其他题</option><option>作文题</option></select><input type="" name="" value="'+data[i].answer.answer_name+'"><a class="all_score"></a><i class="iconfont" data-id="0">&#xe622;</i><div class="sub_sz_list" style="overflow: auto;"><button data-id="'+data[i].answer.id+'"  style="float: right;width: 50px;height: 25px;color: #31bc91;text-align: center;line-height: 25px;margin-right: 68px;margin-top: 10px;background: #ffffff;">保存</button></div></li>');
                   var qb_length=data[i].question_banks.length;
                  if(data[i].answer.item=="单选题"||data[i].answer.item=="多选题"){
                  for(var q_b=0;q_b<qb_length;q_b++){
@@ -1369,6 +1369,7 @@ $("#item-ul").on('mouseup', 'p', function() {
       console.log(new_sort);
        $.ajax({
                   type: "POST",
+                  async:false,
                   url: ajaxIp+"/api/v2/question_banks",
                   data:{'content':nw_ary[0],
                          'docx_id':docx_id,
@@ -1378,6 +1379,8 @@ $("#item-ul").on('mouseup', 'p', function() {
                   headers: {'Authorization': "Bearer " + isLogin},
                   success: function(data){                  
                     // window.location.reload()
+                     // $("#item-ul").html(" ");
+                     //  list_item();
                   },
                 error: function(){
     
@@ -1385,6 +1388,7 @@ $("#item-ul").on('mouseup', 'p', function() {
                });
        $.ajax({
                   type: "POST",
+                  async:false,
                   url: ajaxIp+"/api/v2/question_banks/update_question",
                   data:{'id':timu_id,
                         'content':old_ary[0],
@@ -1392,6 +1396,8 @@ $("#item-ul").on('mouseup', 'p', function() {
                   headers: {'Authorization': "Bearer " + isLogin},
                   success: function(data){                   
                     // window.location.reload()
+                     $("#item-ul").html(" ");
+                      list_item();
                   },
                 error: function(){
     
