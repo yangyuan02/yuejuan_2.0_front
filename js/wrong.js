@@ -28,7 +28,7 @@
              $(this).css("background", "#31bc91");
              $(this).attr('data-id', '1');
 
-         } else {
+         }else{
              $(this).css("background", "#cccccc");
              $(this).attr('data-id', '0');
              $(".type_all").css("background", "#cccccc");
