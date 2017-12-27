@@ -2183,16 +2183,19 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 data: {"id": getUrlParam(url, 'examubjeId')},
                 async: false,
                 success: function (data) {
-                    console.log(JSON.stringify(data,null,4))
-                    if(data.length==0){
+                    if(data.data.length==0){
                         alert("该科目没有绑定试卷")
+                        return
+                    }
+                    if(!data.exist){
+                        alert("请勿重复导入")
                         return
                     }
                     getExamStatus = false
                     for(var i = 0;i<data.length;i++){
                         (function (i) {
                             $timeout(function () {
-                                setResult(data[i])
+                                setResult(data.data[i])
                                 $scope.btn1()
                             },i*1000)
                         })(i)
