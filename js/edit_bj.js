@@ -26,6 +26,9 @@ var isLogin = localStorage.getItem("token");
   var id = getUrlParam(url,'id');
   var docx_num = getUrlParam(url,'number');
   var exam_subject_id = getUrlParam(url,'exam_subject_id');
+  var exam_name = getUrlParam(url,'exam_name');
+  var subject_name = getUrlParam(url,'subject_name');
+  var left_tab = getUrlParam(url,'left_tab');
   // console.log(docx_id);
   // console.log(docx_num);
 // $.ajax({
@@ -46,7 +49,7 @@ var isLogin = localStorage.getItem("token");
 //     }
 //   });
 $(".p_top a").click(function(event) {
-$(this).attr('href', 'edit_paper?docx_id='+docx_id+'&exam_subject_id='+exam_subject_id+'');
+$(this).attr('href', 'edit_paper?docx_id='+docx_id+'&exam_subject_id='+exam_subject_id+'&exam_name='+exam_name+'&subject_name='+subject_name+'&left_tab='+left_tab+'');
 
 });
 //获取题目内容，答案。。。
