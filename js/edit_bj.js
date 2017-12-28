@@ -210,7 +210,87 @@ $(".dif_input button").click(function(event) {
       $(".dif_input").hide();
       $(".dif_btn").show();
 });
+//添加知识点
+$(".edit_zs li i").click(function(event) {
+ $(this).parent('li').children('ul').toggle();
+});
+// var a_edit_zs =$(".edit_zs").children('li');
+//             a_edit_zs.children('i').click(function(event) {
+              
+//               $(this).children('i').toggle();
+//             });
+//             var b_edit_zs02 =$(".edit_zs").children('li').children('li');
+//            b_edit_zs02.children('i').click(function(event) {
+             
+//               $(".edit_zs03").toggle();
+//             });
+//             var c_edit_zs03 =$(".edit_zs").children('li').children('li').children('li');
+//            c_edit_zs03.children('i').click(function(event) {
+//               /* Act on the event */
+//               // $(this).html("&#xe6ca;");
+//               // $(this).addClass('box01');
+//               // alert($(this).attr("id"));
+//               if($(this).attr("id")==undefined){
+//                        $(this).attr("id","i_class");
+//                       // $(this).attr("class");
+//                        $(".edit_li03_box").append('<a id="'+$(this).parent("li").attr("class")+'"style="width:82px;height:29px;background:#31bc91;display: block;line-height: 29px;text-align:center;margin:12px 0px 0px 12px;float:left;color:#f5f5f5;cursor: pointer;">'+$(this).next().text()+'<i data-id="'+$(this).parent("li").attr("class")+'"class="edit_li03_box_a_i iconfont" style="font-size: 12px;margin-left:12px;">&#xe61b;</i></a>')
+//               }else{
+//                        $(this).removeAttr("id");
+//                         // alert($(this).parent("li").attr("class"));
+//                        $('#'+$(this).parent("li").attr("class")+'').remove();
+//               }
+              
+//               // alert($(this).next().text());
+              
+              
+//             });
+            $('.edit_li03_box').on('click', '.edit_li03_box_a_i', function(event) {
+              // alert();
+              $(this).parent("a").remove();
+              // alert($('.'+$(this).attr("data-id")+'').text());
+              $('.'+$(this).attr("data-id")+'').children('i').removeAttr("id");
+              
+            });
+            $(".edit_li_div03_btn01").click(function(event) {
+              /* Act on the event */
+              $(".edit_li_div03").slideUp(500);
+            });
+            $(".edit_li_btn03").click(function(event) {
+              /* Act on the event */
+              $(".edit_li_div03").slideDown(500);
+              var type="standard_edition";
+          $.ajax({
+         type: "GET",
+         url: ajaxIp + "/api/v2/sync_knowledge_points",
+         data: {
+             'grade_id':14,
+             'subject_id': 11,
+              'version':type,
+         },
+         headers: { 'Authorization': "Bearer " + isLogin },
+         success: function(data) {
+         console.log(data);
+         // window.location.reload();
+         var a_length=data.length;
+         for(var i=0;i<data.length;i++){
+           $(".edit_zs").append('<li style="border:none;line-height:38px;color: #999999;"><i class="iconfont" style="margin-left:10px;margin-right:10px;">&#xe6ca;</i>'+data[i].name+'</li>')
+           if(data[i].children!==undefined){
+            $(".edit_zs li").eq(i).append('<ul></ul>');
+            // for(var i1=0;i1<data.length;i1++){
 
+            // }
+           }
+         }
+         // console.log(data[0].children[0].children[0].children);
+         },
+         error: function() {
+
+         }
+
+
+     });
+
+            });
 
 
 
