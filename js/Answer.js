@@ -2187,12 +2187,12 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                         alert("该科目没有绑定试卷")
                         return
                     }
-                    if(!data.exist){
+                    if(data.exist){
                         alert("请勿重复导入")
                         return
                     }
                     getExamStatus = false
-                    for(var i = 0;i<data.length;i++){
+                    for(var i = 0;i<data.data.length;i++){
                         (function (i) {
                             $timeout(function () {
                                 setResult(data.data[i])
