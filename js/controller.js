@@ -2925,6 +2925,8 @@ angular.module("myApp.controller", [])
             console.log(sub_id);
              if(class_id==11111){
                 var class_id01 = null;
+                }else{
+                    var class_id01 =class_id;
                 }
               if(sub_id==22222){
                 var sub_id = null;
