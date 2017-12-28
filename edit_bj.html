@@ -152,9 +152,9 @@
                </p><div class="edit_li_div03_box">
                	<div class="edit_li_div03_box01">
                	<p class="edit_li_div03_box01_p">添加知识点</p>
-               	<div>
+               	<div style="height: 280px;overflow: scroll;">
                		<ul class="edit_zs">
-               			<li style="border:none;line-height:38px;color: #999999;"><i class="iconfont" style="margin-left:10px;margin-right:10px;">&#xe6ca;</i>第一章 机械运动
+               		<!-- 	<li style="border:none;line-height:38px;color: #999999;"><i class="iconfont" style="margin-left:10px;margin-right:10px;">&#xe6ca;</i>第一章 机械运动
                			<ul class="edit_zs02" style="display: none;">
                			<li style="border:none;line-height:20px;padding-left:12px;color: #999999;"><i class="iconfont" style="margin-left:10px;margin-right:10px;">&#xe6ca;</i>运动的描述
            
@@ -165,7 +165,7 @@
                			</li>	
                		</ul>
                			</li>	
-               		</ul></li>
+               		</ul></li> -->
 
                		</ul>
                	</div>
@@ -177,53 +177,7 @@
                </div><p style="padding-right:40px;"><button type="" class="edit_li_div03_btn01 determine">保存</button>
                <button class="edit_li_div03_btn02" type="">取消</button></p>
        		</div></li>
-       		<script>
-       		var a =$(".edit_zs").children('li');
-       			a.children('i').click(function(event) {
-       				/* Act on the event */
-       				$(".edit_zs02").toggle();
-       			});
-       			var b =$(".edit_zs02").children('li');
-       			b.children('i').click(function(event) {
-       				/* Act on the event */
-       				$(".edit_zs03").toggle();
-       			});
-       			var c =$(".edit_zs03").children('li');
-       			c.children('i').click(function(event) {
-       				/* Act on the event */
-       				// $(this).html("&#xe6ca;");
-       				// $(this).addClass('box01');
-       				// alert($(this).attr("id"));
-       				if($(this).attr("id")==undefined){
-                       $(this).attr("id","i_class");
-                      // $(this).attr("class");
-                       $(".edit_li03_box").append('<a id="'+$(this).parent("li").attr("class")+'"style="width:82px;height:29px;background:#31bc91;display: block;line-height: 29px;text-align:center;margin:12px 0px 0px 12px;float:left;color:#f5f5f5;cursor: pointer;">'+$(this).next().text()+'<i data-id="'+$(this).parent("li").attr("class")+'"class="edit_li03_box_a_i iconfont" style="font-size: 12px;margin-left:12px;">&#xe61b;</i></a>')
-       				}else{
-                       $(this).removeAttr("id");
-                        // alert($(this).parent("li").attr("class"));
-                       $('#'+$(this).parent("li").attr("class")+'').remove();
-       				}
-       				
-       				// alert($(this).next().text());
-       				
-       				
-       			});
-       			$('.edit_li03_box').on('click', '.edit_li03_box_a_i', function(event) {
-       				// alert();
-       				$(this).parent("a").remove();
-       				// alert($('.'+$(this).attr("data-id")+'').text());
-       				$('.'+$(this).attr("data-id")+'').children('i').removeAttr("id");
-       				
-       			});
-            $(".edit_li_div03_btn01").click(function(event) {
-              /* Act on the event */
-              $(".edit_li_div03").slideUp(500);
-            });
-       			$(".edit_li_btn03").click(function(event) {
-              /* Act on the event */
-              $(".edit_li_div03").slideDown(500);
-            });
-       		</script>
+       		
        		<!-- <li>设置难度<a class="dif_i"><i class="iconfont" data-id="1">&#xe600;</i><i class="iconfont" data-id="1">&#xe600;</i><i class="iconfont" data-id="1">&#xe600;</i>
           <i class="iconfont" data-id="0">&#xe639;</i>
           <i class="iconfont" data-id="0">&#xe639;</i>
