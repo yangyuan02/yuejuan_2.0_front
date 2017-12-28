@@ -1587,6 +1587,7 @@ angular.module("myApp.controller", [])
                     var x_zhe =[];
                    for(var i=0;i<data.student_answer_setting_infos.length;i++){
                     var jsons=data.student_answer_setting_infos[i];
+                     // var jsons=data.student_answer_setting_infos[i];
                     for(var key in jsons){
                        console.log(key);
                       
@@ -1594,18 +1595,31 @@ angular.module("myApp.controller", [])
                     }
                 }
                  console.log(x_zhe);
-                        for (var i = 0; i < data.student_answer_setting_infos.length; i++) {
+                 //去掉为空的
+                  var rem_null=[];
+                   var rem_null_num=0;
+                 for(var i=0;i<data.student_answer_setting_infos.length;i++){
+                    var jsons01=data.student_answer_setting_infos[i];
+                       console.log(jsons01);
+                       if(jsons01!==null){
+
+                       rem_null[rem_null_num]=jsons01;
+                       rem_null_num++;
+                       }
+                }
+                console.log(rem_null);
+                        for (var i = 0; i <rem_null.length; i++) {
                             var a = x_zhe[i];
                             var tda_id = "x_" + a;
-                                $(".xiaoti_mark").append('<tr id="' + tda_id + '"><td>' + a + '</td><td></td></tr>')
-                            var b = data.student_answer_setting_infos[i][a].length;
-                            console.log(data.student_answer_setting_infos[i][a]);
+                            $(".xiaoti_mark").append('<tr id="' + tda_id + '"><td>' + a + '</td><td></td></tr>')
+                            var b = rem_null[i][a].length;
+                            console.log(rem_null[i][a]);
                             console.log(b);
                             for (var c = 0; c < b; c++) {
                                 if(x_zhe[i]==da_ans){
-                              $('#' + tda_id + ' td').eq(1).append('<a style="background:#fb7d8a;">' + data.student_answer_setting_infos[i][a][c].real_name + '</a>');
+                              $('#' + tda_id + ' td').eq(1).append('<a style="background:#fb7d8a;">' + rem_null[i][a][c].real_name + '</a>');
                             }else{
-                            $('#' + tda_id + ' td').eq(1).append('<a>' + data.student_answer_setting_infos[i][a][c].real_name + '</a>');
+                            $('#' + tda_id + ' td').eq(1).append('<a>' + rem_null[i][a][c].real_name + '</a>');
                             }
                         }
                         };
