@@ -2131,23 +2131,85 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
     }
     /***************************************导入试卷********************************************************/
-    $scope.importExam = function () {
-        $.ajax({
-            type: "POST",
-            url: "api/v2/exam_subjects/answers_and_answer_settings",
-            headers: {'Authorization': "Bearer " + isLogin},
-            data: {"id": 852},
-            async: false,
-            success: function (data) {
-                console.log(data)
-            },
-            error: function (data) {
+    var setResult = function (data) {//序列化请求参数
+        $scope.result.name = data.name  //题组名称
+        $scope.result.no = data.no      //起始序号
 
-            }
+        if(data.answer_type==0){  //选择题
+            $scope.result.numbel = data.number  //试题数量
+            $scope.index = 1     //试题类型
+            $scope.result.itemcoreS = data.score //每小题分数
+            $scope.result.thr = data.count     //选项个数
+            $scope.result.isradio = 1
+        }
 
-        })
+        if(data.answer_type==1){ //填空题
+            $scope.result.numbel = data.number  //试题数量
+            $scope.index = 3     //试题类型
+            $scope.result.itemcoreS = data.score //每小题分数
+        }
+
+        if(data.answer_type==2){ //是非题
+            $scope.result.numbel = data.number  //试题数量
+            $scope.index = 2     //试题类型
+            $scope.result.itemcoreS = data.score //每小题分数
+        }
+
+        if(data.answer_type==3){ //其他题
+            $scope.result.numbel = data.number  //试题数量
+            $scope.index = 2     //试题类型
+            $scope.result.itemcoreS = data.score //每小题分数
+            $scope.result.otherisradio = 3
+        }
+
+        if(data.answer_type==4){//作文题
+
+        }
+        if(data.answer_type==5){ //多选题
+            $scope.result.numbel = data.number  //试题数量
+            $scope.index = 1     //试题类型
+            $scope.result.itemcoreS = data.score //每小题分数
+            $scope.result.thr = data.count     //选项个数
+            $scope.result.isradio = 2
+        }
     }
-    // $scope.importExam()
+    var getExamStatus = true
+    $scope.importExam = function () {
+        if(getExamStatus){
+            $.ajax({
+                type: "POST",
+                url: "api/v2/exam_subjects/answers_and_answer_settings",
+                headers: {'Authorization': "Bearer " + isLogin},
+                data: {"id": getUrlParam(url, 'examubjeId')},
+                async: false,
+                success: function (data) {
+                    if(data.data.length==0){
+                        alert("该科目没有绑定试卷")
+                        return
+                    }
+                    if(!data.exist){
+                        alert("请勿重复导入")
+                        return
+                    }
+                    getExamStatus = false
+                    for(var i = 0;i<data.length;i++){
+                        (function (i) {
+                            $timeout(function () {
+                                setResult(data.data[i])
+                                $scope.btn1()
+                            },i*1000)
+                        })(i)
+                    }
+                },
+                error: function (data) {
+
+                }
+
+            })
+        }else{
+            alert("请勿重复点击")
+        }
+    }
     /********************************************************隐藏功能修改总分********************************/
     $scope.setCountScore = function () {
         $scope.countScore = Number($scope.countScore)

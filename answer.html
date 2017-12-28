@@ -243,18 +243,18 @@
                 </li>
                 <li ng-click="getAnswerInfo(2)"><a>主观题设置</a>
                 </li>
-                <li><a>选择板式</a>
-                </li>
+                <!--<li><a>选择板式</a>-->
+                <!--</li>-->
                 <li ng-click="getAnswerInfo(1)"><a>题组排序</a>
                 </li>
-                <li><a>密封性间距</a>
-                </li>
+                <!--<li><a>密封性间距</a>-->
+                <!--</li>-->
                 <li ng-click="dayin()"><a>下载答题纸</a>
                 </li>
             </ul>
             <ul class="L_ul">
                 <h3>模板设置</h3>
-                <li class="import-button"><a>导入试卷</a>
+                <li class="import-button" ng-click="importExam()"><a>导入试卷</a>
                 </li>
                 <li><a ng-click="getSchoolInfo(1)" class="{{7==index?'active':''}}">导入模板</a>
                     <div class="addQ import {{7==index?'active':''}}">

@@ -6,6 +6,7 @@ $(function() {
 	var on_checked = [];
 	var isLogin = localStorage.getItem("token");
 	var back_page = parseInt(localStorage.this_page);
+	console.log(back_page)
 	if(back_page){
 		limit = back_page*10;
 	}
