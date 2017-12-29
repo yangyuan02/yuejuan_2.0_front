@@ -341,6 +341,23 @@ angular.module("myApp.controller", [])
                 },
                 success: function(data) {
                     console.log(data);
+                    console.log(parseInt(data.column_value_6));
+                    // if(isNaN(parseInt(data.column_value_6))){
+                    //     console.log('1122');
+                    // }
+                    
+                    var b01 =[data.column_value_1,data.column_value_2,data.column_value_3,data.column_value_4,data.column_value_5,data.column_value_6,data.column_value_6, data.column_value_7, data.column_value_8, data.column_value_9, data.column_value_10, data.column_value_11];
+                    var json=[];
+                    for(var i01=0;i01<data.lenght;i01++){
+                        var a=parseInt(b01[i01]);
+                        console.log(b01[i01]);
+                        if(isNaN(a)){
+
+                        }else{
+                           json[i01]=b01[i01];
+                        }
+                    }
+                   console.log(json);
                     if (data.error_code !== 500) {
                         // $(".tf_span").html(data.full_score);
                         $("#z_mark").val(data.full_score);
@@ -358,10 +375,10 @@ angular.module("myApp.controller", [])
                         $("#ul_iLabel li").eq(4).find('.level_02').val(data.column_value_5);
                         var b = [data.column_name_6, data.column_name_7, data.column_name_8, data.column_name_9, data.column_name_10, data.column_name_11];
                         var b1 = [data.column_value_6, data.column_value_7, data.column_value_8, data.column_value_9, data.column_value_10, data.column_value_11];
-                        if (data.lenght < 12) {
-                            if (data.lenght > 5) {
+                        if (json.lenght < 12) {
+                            if (json.lenght > 5) {
                                 console.log(data.lenght);
-                                for (var i = 5; i < data.lenght; i++) {
+                                for (var i = 5; i < json.lenght; i++) {
                                     var c = i - 5;
                                     var a = i + 1;
                                     $("#ul_iLabel").append('<li><input value=""  class="level_01" ></input><input value="" class="level_02"></input><button type="">-</button></li>');
