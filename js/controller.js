@@ -341,16 +341,17 @@ angular.module("myApp.controller", [])
                 },
                 success: function(data) {
                     console.log(data);
-                    console.log(parseInt(data.column_value_6));
+                    // console.log(parseInt(data[column_value_6]));
                     // if(isNaN(parseInt(data.column_value_6))){
                     //     console.log('1122');
                     // }
                     
-                    var b01 =[data.column_value_1,data.column_value_2,data.column_value_3,data.column_value_4,data.column_value_5,data.column_value_6,data.column_value_6, data.column_value_7, data.column_value_8, data.column_value_9, data.column_value_10, data.column_value_11];
+                    var b01 =["column_value_1","column_value_2","column_value_3","column_value_4","column_value_5","column_value_6", "column_value_7","column_value_8","column_value_9","column_value_10","column_value_11"];
+                     var b02 =["column_name_1","column_name_2","column_name_3","column_name_4","column_name_5","column_name_6", "column_name_7","column_name_8","column_name_9","column_name_10","column_name_11"];
                     var json=[];
                     for(var i01=0;i01<data.lenght;i01++){
-                        var a=parseInt(b01[i01]);
-                        console.log(b01[i01]);
+                        var a=parseInt(data[b01[i01]]);
+                        // console.log(b01[i01]);
                         if(isNaN(a)){
 
                         }else{
@@ -384,7 +385,8 @@ angular.module("myApp.controller", [])
                                     $("#ul_iLabel").append('<li><input value=""  class="level_01" ></input><input value="" class="level_02"></input><button type="">-</button></li>');
                                     $("#ul_iLabel li").eq(i).find('.level_01').val(b[i]);
 
-                                    $("#ul_iLabel li").eq(i).find('.level_02').val(b1[i]);
+                                    $("#ul_iLabel li").eq(i).find('.level_02').val(data[json[i]]);
+                                    console.log(data[json[i]]);
                                     
                                 }
                             }
