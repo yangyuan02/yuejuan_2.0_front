@@ -69,6 +69,7 @@ $(".p_top a").click(function(event) {
          var c=data.difficulty_level;
          var d=data.analysis;
          console.log(b);
+         $(".edit_li_div03").attr("data-id",data.id);
          UE.getEditor('container').setContent(''+a+'');
          //答案
          if(b!==undefined){
@@ -93,6 +94,7 @@ $(".p_top a").click(function(event) {
   // var a=UE.getEditor('container').getContentTxt();
      $.ajax({
          type: "POST",
+         async:false,
          url: ajaxIp + "/api/v2/question_banks/update_question",
          data: {
              'id':id,
@@ -249,21 +251,26 @@ $(".edit_zs").on('click', 'li  i', function(event) {
               
               
 //             });
-            $('.edit_li03_box').on('click', '.edit_li03_box_a_i', function(event) {
+            $('.edit_li03_box01').on('click', '.edit_li03_box_a_i', function(event) {
               // alert();
               $(this).parent("a").remove();
               // alert($('.'+$(this).attr("data-id")+'').text());
-              $('.'+$(this).attr("data-id")+'').children('i').removeAttr("id");
+              $('.'+$(this).parent("a").attr("id")+'').children('i').css("color","#999999");
+              $('.'+$(this).parent("a").attr("id")+'').children('i').attr("data-id","0");
               
             });
             $(".edit_li_div03_btn01").click(function(event) {
               /* Act on the event */
               $(".edit_li_div03").slideUp(500);
             });
-            $(".edit_li_btn03").click(function(event) {
+            $(".edit_li_div03_btn02").click(function(event) {
+              /* Act on the event */
+              $(".edit_li_div03").slideUp(500);
+            });
+      $(".edit_li_btn03").click(function(event) {
               /* Act on the event */
               $(".edit_li_div03").slideDown(500);
-              var type="standard_edition";
+          var type="standard_edition";
           $.ajax({
          type: "GET",
          url: ajaxIp + "/api/v2/sync_knowledge_points",
@@ -276,22 +283,26 @@ $(".edit_zs").on('click', 'li  i', function(event) {
          success: function(data) {
          console.log(data);
          // window.location.reload();
+         $(".edit_zs").html(" ");
          var a_length=data.length;
          for(var i=0;i<data.length;i++){
            $(".edit_zs").append('<li style="border:none;line-height:38px;color: #999999;"><i class="iconfont" style="margin-left:10px;margin-right:10px;">&#xe6ca;</i>'+data[i].name+'</li>')
            if(data[i].children!==undefined){
             $(".edit_zs").children('li').eq(i).append('<ul style="display: none;"></ul>');
             for(var i1=0;i1<data[i].children.length;i1++){
-               $(".edit_zs").children('li').eq(i).children('ul').append('<li class="choose_li'+data[i].children[i1].id+'" style="border:none;line-height:20px;padding-left:12px;color: #999999;"><i class="iconfont" style="margin-left:10px;margin-right:10px;">&#xe6ca;</i>'+data[i].children[i1].name+'</li>');
+               $(".edit_zs").children('li').eq(i).children('ul').append('<li class="choose_li'+data[i].children[i1].id+'" data-id="'+data[i].children[i1].id+'" style="border:none;line-height:20px;padding-left:12px;color: #999999;"><i class="iconfont" style="margin-left:10px;margin-right:10px;" data-id="0">&#xe6ca;</i><a>'+data[i].children[i1].name+'</a></li>');
             if(data[i].children[i1].children!==undefined){
             $(".edit_zs").children('li').eq(i).children('ul').children('li').eq(i1).append('<ul style="display: none;"></ul>');
             for(var i2=0;i2<data[i].children[i1].children.length;i2++){
-               $(".edit_zs").children('li').eq(i).children('ul').children('li').eq(i1).children('ul').append('<li  style="border:none;line-height:20px;padding-left:30px;color: #999999;"><i class="iconfont choose_i" style="margin-left:10px;margin-right:10px;">&#xe64b;</i><a>'+data[i].children[i1].children[i2].name+'</a></li>');
+               $(".edit_zs").children('li').eq(i).children('ul').children('li').eq(i1).children('ul').append('<li class="choose_li'+data[i].children[i1].children[i2].id+'"  data-id="'+data[i].children[i1].children[i2].id+'"  style="border:none;line-height:20px;padding-left:30px;color: #999999;"><i class="iconfont choose_i" style="margin-left:10px;margin-right:10px;" data-id="0">&#xe64b;</i><a>'+data[i].children[i1].children[i2].name+'</a></li>');
             
             }
             }else{
-            $(".edit_zs").children('li').eq(i).children('ul').children('li').html('<i class="iconfont choose_i" style="margin-left:10px;margin-right:10px;">&#xe64b;</i><a>'+data[i].children[i1].name+'</a>');
-            // $(".edit_zs").children('li').eq(i).children('ul').children('li').children('i').attr("class","iconfont choose_i");
+            // $(".edit_zs").children('li').eq(i).children('ul').children('li').html('<i class="iconfont choose_i" style="margin-left:10px;margin-right:10px;" data-id="0">&#xe64b;</i><a>'+data[i].children[i1].name+'</a>');
+            
+            $(".edit_zs").children('li').eq(i).children('ul').children('li').children('i').attr("class","iconfont choose_i");
+            $(".edit_zs").children('li').eq(i).children('ul').children('li').children('i').html("&#xe64b;");
+
             };
 
             }
@@ -305,15 +316,377 @@ $(".edit_zs").on('click', 'li  i', function(event) {
 
 
      });
+    //获取选中
+    var question_bank_id=parseInt($(".edit_li_div03").attr("data-id"));
+          $.ajax({
+         type: "GET",
+         url: ajaxIp + '/api/v2/question_banks/'+question_bank_id+'/selected_sync_know_ledge_points',
+         data: {
+             'question_bank_id':question_bank_id,
+         },
+         headers: { 'Authorization': "Bearer " + isLogin },
+         success: function(data) {
+         console.log(data);
+       $(".edit_li03_box01").html(" ");
+         // window.location.reload();
+         for(var i=0;i<data.length;i++){
+         $(".edit_li03_box01").append('<a id="choose_li'+data[i].id+'"  data-id="'+data[i].id+'" style="height:29px;background:#31bc91;display: block;line-height: 29px;text-align:center;margin:12px 0px 0px 12px;float:left;color:#f5f5f5;cursor: pointer;padding-left:5px;padding-right:5px;box-sizing: border-box;">'+data[i].name+'<i class="edit_li03_box_a_i iconfont" style="font-size: 12px;margin-left:12px;">&#xe61b;</i></a>');
+  
+         }
+
+         },
+         error: function() {
+
+         }
+     });
 
             });
 
 $(".edit_zs").on('click', '.choose_i', function(event) {
  
   // $(this).parent('li').children('ul').toggle();
-  $(".edit_li03_box").append('<a id=""style="width:82px;height:29px;background:#31bc91;display: block;line-height: 29px;text-align:center;margin:12px 0px 0px 12px;float:left;color:#f5f5f5;cursor: pointer;">'+$(this).next().text()+'<i data-id="'+$(this).parent("li").attr("class")+'"class="edit_li03_box_a_i iconfont" style="font-size: 12px;margin-left:12px;">&#xe61b;</i></a>');
-  console.log($(this).next().html());
+  var a =$('#'+$(this).parent().attr("class")+'').html();
+  var a_co=$(this).attr("data-id");
+   
+  if( a_co==0){
+       $(this).css("color","#31bc92");
+       $(this).attr("data-id","1");
+  }else if(a_co==1){
+       $(this).css("color","#999999");
+       $(this).attr("data-id","0");
+       $('#'+$(this).parent().attr("class")+'').remove();
+  }
+  if(a==undefined){
+    $(".edit_li03_box01").append('<a id="'+$(this).parent().attr("class")+'"  data-id="'+$(this).parent().attr("data-id")+'" style="height:29px;background:#31bc91;display: block;line-height: 29px;text-align:center;margin:12px 0px 0px 12px;float:left;color:#f5f5f5;cursor: pointer;padding-left:5px;padding-right:5px;box-sizing: border-box;">'+$(this).next().text()+'<i data-id="'+$(this).parent("li").attr("class")+'"class="edit_li03_box_a_i iconfont" style="font-size: 12px;margin-left:12px;">&#xe61b;</i></a>');
+  
+  }
+  
+  // 
+  // console.log($(this).next().html());
+   // console.log($('#'+$(this).parent().attr("class")+'').html());
 });
+$(".edit_li_div03_btn01").click(function(event) {
+ console.log($(".edit_li03_box01 a").length);
+ var a_length=$(".edit_li03_box01 a").length;
+ var question_bank_id=parseInt($(".edit_li_div03").attr("data-id"));
+ var a_num=[];
+ for(var i=0;i<a_length;i++){
+  a_num[i]=$(".edit_li03_box01 a").eq(i).attr("data-id");
+ }
+ console.log(a_num);
+  $.ajax({
+         type: "PUT",
+          async:false,
+         url: ajaxIp + '/api/v2/question_banks/'+question_bank_id+'/update_sync_know_ledge_points',
+         data: {
+             'sync_know_ledge_point_ids':a_num,
+         },
+         headers: { 'Authorization': "Bearer " + isLogin },
+         success: function(data) {
+         // console.log(data);
+         // window.location.reload();
+         alert("保存成功");
+
+         },
+         error: function() {
+
+         }
+     });
+   
+
+});
+//能力
+$(".edit_li_btn04").click(function(event) {
+  
+$.ajax({
+         type: "GET",
+         url: ajaxIp + '/api/v2/labels/ability_labels',
+         data: {
+             'grade_id':14,
+             'subject_id':11,
+         },
+         headers: { 'Authorization': "Bearer " + isLogin },
+         success: function(data) {
+         console.log(data);
+          $(".neng_box_choose01").html(" ");
+        for(var i=0;i<data.length;i++){
+         $(".neng_box_choose01").append('<a class="nengli_choose'+data[i].id+'" data-id="'+data[i].id+'"  a_id="0" style="height: 29px;display: block;line-height: 29px;background: #cccccc;text-align: center;margin: 12px 0px 0px 12px;float: left;color: #f5f5f5;cursor: pointer;padding-left: 5px;padding-right: 5px;box-sizing: border-box;"><i>'+data[i].name+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe619;</i></a>');
+  
+         }
+      
+         },
+         error: function() {
+
+         }
+     });
+//获取已经选择的能力
+    var question_bank_id=parseInt($(".edit_li_div03").attr("data-id"));
+          $.ajax({
+         type: "GET",
+         url: ajaxIp + '/api/v2/question_banks/'+question_bank_id+'/selected_ability_labels',
+         data: {
+             'question_bank_id':question_bank_id,
+         },
+         headers: { 'Authorization': "Bearer " + isLogin },
+         success: function(data) {
+         console.log(data);
+       $(".neng_box_choose02").html(" ");
+         // window.location.reload();
+         for(var i=0;i<data.length;i++){
+         $(".neng_box_choose02").append('<a id="nengli_choose'+data[i].id+'"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" data-id="'+data[i].id+'"><i>'+data[i].name+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
+          $('.nengli_choose'+data[i].id+'').css("background","#31bc91");
+         }
+
+         },
+         error: function() {
+
+         }
+     });
+
+});
+$(".neng_box_choose01").on('click', 'a', function(event) {
+  console.log($(this).children('i').eq(0).html());
+  var a_id=$(this).attr("a_id");
+  var a=$('#'+$(this).attr("class")+'').html();
+  
+  if( a_id==0){
+       $(this).css("background","#31bc92");
+       $(this).attr("a_id","1");
+  }else if(a_id==1){
+       $(this).css("background","#cccccc");
+       $(this).attr("a_id","0");
+       $('#'+$(this).attr("class")+'').remove();
+  }
+  if(a==undefined){
+  $(".neng_box_choose02").append('<a id="'+$(this).attr("class")+'"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" data-id="'+$(this).attr("data-id")+'"><i>'+$(this).children('i').eq(0).html()+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
+ 
+ }
+var a_length02=parseInt($('.neng_box_choose02 a').length);
+  var a_length01=parseInt($('.neng_box_choose01 a').length);
+  if(a_length01>a_length02){
+    $(".nengl_quan").css("color","#666666");
+   $(".nengl_quan").attr("data-id","0");
+  }
+});
+$(".neng_box_choose02").on('click', 'a', function(event) {
+$(this).remove();
+$('.'+$(this).attr("id")+'').css("background","#cccccc");
+$('.'+$(this).attr("id")+'').attr("a_id","0");
+
+});
+$(".neng_btn01").click(function(event) {
+  var a_length=$(".neng_box_choose02 a").length;
+ var question_bank_id=parseInt($(".edit_li_div03").attr("data-id"));
+ var a_num=[];
+ for(var i=0;i<a_length;i++){
+  a_num[i]=$(".neng_box_choose02 a").eq(i).attr("data-id");
+ }
+ console.log( a_num);
+$.ajax({
+         type: "PUT",
+         url: ajaxIp + '/api/v2/question_banks/'+question_bank_id+'/update_ability_labels',
+         data: {
+             'ability_label_ids':a_num,
+         },
+         headers: { 'Authorization': "Bearer " + isLogin },
+         success: function(data) {
+         console.log(data);
+         // window.location.reload();
+         // alert("保存成功");
+
+         },
+         error: function() {
+
+         }
+     });
+
+
+
+});
+$(".nengl_quan").click(function(event) {
+  var a=$(".nengl_quan").attr("data-id");
+  var a_length01=$(".neng_box_choose01 a").length;
+  var a_length02=$(".neng_box_choose02 a").length;
+ if(a==0){
+   $(this).css("color","#31bc91");
+   $(this).attr("data-id","1");
+   $(".neng_box_choose01 a").css("background","#31bc91");
+   $(".neng_box_choose02").html(" ");
+   for(var i=0;i<a_length01;i++){
+      $(".neng_box_choose02").append('<a id="'+ $(".neng_box_choose01 a").eq(i).attr("class")+'"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" data-id="'+$(".neng_box_choose01 a").eq(i).attr("data-id")+'"><i>'+$(".neng_box_choose01 a").eq(i).children('i').eq(0).html()+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
+ 
+   }
+ }else if(a==1){
+   $(this).css("color","#666666");
+   $(this).attr("data-id","0");
+  $(".neng_box_choose01 a").css("background","#cccccc");
+   $(".neng_box_choose02").html(" ");
+ }
+
+});
+  $(".edit_li_btn04").click(function(event) {
+            /* Act on the event */
+            $(".nengli_box").slideDown(500);
+          });
+          $(".neng_btn01").click(function(event) {
+            /* Act on the event */
+            $(".nengli_box").slideUp(500);
+          });
+          $(".neng_btn02").click(function(event) {
+            /* Act on the event */
+            $(".nengli_box").slideUp(500);
+          });
+         //错因
+    $(".edit_li_btn05").click(function(event) {
+            /* Act on the event */
+           $.ajax({
+         type: "GET",
+         url: ajaxIp + '/api/v2/labels/reason_labels',
+         data: {
+             'grade_id':14,
+              'subject_id':11,
+         },
+         headers: { 'Authorization': "Bearer " + isLogin },
+         success: function(data) {
+         console.log(data);
+         // window.location.reload();
+         // alert("保存成功");
+         $(".wrong_z_01").html(" ");
+           $(".wrong_fz_01").html(" ");
+         for(var i=0;i<data.z_reason_labels.length;i++){
+         $(".wrong_z_01").append('<a class="wrong_choose'+data.z_reason_labels[i].id+'"  style="background: #cccccc;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" data-id="0" num-id="'+data.z_reason_labels[i].id+'"><i>'+data.z_reason_labels[i].name+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe619;</i></a>');
+         }
+        for(var i=0;i<data.fz_reason_labels.length;i++){
+         $(".wrong_fz_01").append('<a class="wrong_choose'+data.fz_reason_labels[i].id+'"  style="background: #cccccc;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" data-id="0" num-id="'+data.fz_reason_labels[i].id+'"><i>'+data.fz_reason_labels[i].name+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe619;</i></a>');
+         }
+         },
+         error: function() {
+
+         }
+     });
+    // 获取
+     var question_bank_id=parseInt($(".edit_li_div03").attr("data-id"));
+    $.ajax({
+         type: "GET",
+         url: ajaxIp + '/api/v2/question_banks/'+question_bank_id+'/selected_reason_labels',
+         data: {
+             'question_bank_id':question_bank_id,
+             
+         },
+         headers: { 'Authorization': "Bearer " + isLogin },
+         success: function(data) {
+         console.log(data);
+         $(".wrong_z_02").html(" ");
+          $(".wrong_fz_02").html(" ");
+         for(var i=0;i<data.z_reason_labels.length;i++){
+         $(".wrong_z_02").append('<a id="wrong_choose'+data.z_reason_labels[i].id+'"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" data-id="0" num-id="'+data.z_reason_labels[i].id+'"><i>'+data.z_reason_labels[i].name+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
+         $('.wrong_choose'+data.z_reason_labels[i].id+'').css("background","#31bc92");
+         $('.wrong_choose'+data.z_reason_labels[i].id+'').attr("data-id","1");
+         }
+        for(var i=0;i<data.fz_reason_labels.length;i++){
+         $(".wrong_fz_02").append('<a id="wrong_choose'+data.fz_reason_labels[i].id+'"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" data-id="0" num-id="'+data.fz_reason_labels[i].id+'"><i>'+data.fz_reason_labels[i].name+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
+         $('.wrong_choose'+data.fz_reason_labels[i].id+'').css("background","#31bc92");
+         $('.wrong_choose'+data.fz_reason_labels[i].id+'').attr("data-id","1");
+         }
+
+         },
+         error: function() {
+
+         }
+     });
+
+     });
+    //z
+    $(".wrong_z_01").on('click', 'a', function(event) {
+      var a=$(this).attr("data-id");
+      if( a==0){
+       $(this).css("background","#31bc92");
+       $(this).attr("data-id","1");
+       $(".wrong_z_02").append('<a id="'+$(this).attr("class")+'"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" num-id="'+$(this).attr("num-id")+'"><i>'+$(this).find('i').eq(0).html()+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
+     }else if(a==1){
+       $(this).css("background","#cccccc");
+       $(this).attr("data-id","0");
+       $('#'+$(this).attr("class")+'').remove();
+  }
+    });
+    $(".wrong_z_02").on('click', 'a', function(event) {
+       $(this).remove();
+       $('.'+$(this).attr("id")+'').css("background","#cccccc");
+       $('.'+$(this).attr("id")+'').attr("data-id","0");
+
+
+    })
+
+    //fz
+$(".wrong_fz_01").on('click', 'a', function(event) {
+      var a=$(this).attr("data-id");
+      if( a==0){
+       $(this).css("background","#31bc92");
+       $(this).attr("data-id","1");
+       $(".wrong_fz_02").append('<a id="'+$(this).attr("class")+'"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" num-id="'+$(this).attr("num-id")+'"><i>'+$(this).find('i').eq(0).html()+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
+     }else if(a==1){
+       $(this).css("background","#cccccc");
+       $(this).attr("data-id","0");
+       $('#'+$(this).attr("class")+'').remove();
+  }
+    });
+    $(".wrong_fz_02").on('click', 'a', function(event) {
+       $(this).remove();
+       $('.'+$(this).attr("id")+'').css("background","#cccccc");
+       $('.'+$(this).attr("id")+'').attr("data-id","0");
+
+
+    })
+$(".wrong_box_btn01").click(function(event) {
+  var question_bank_id=parseInt($(".edit_li_div03").attr("data-id"));
+  var a_length01=$(".wrong_z_02 a").length;
+  var a_length02=$(".wrong_fz_02 a").length;
+ var a_num01=[];
+ for(var i01=0;i01<a_length01;i01++){
+  a_num01[i01]=$(".wrong_z_02 a").eq(i01).attr("num-id");
+ }
+ var a_num02=[];
+ for(var i02=0;i02<a_length02;i02++){
+  a_num02[i02]=$(".wrong_fz_02 a").eq(i02).attr("num-id");
+ }
+ console.log(a_num01);
+ console.log(a_num02);
+ var num = a_num01.concat(a_num02);
+ console.log(num);
+$.ajax({
+         type: "PUT",
+        async:false,
+         url: ajaxIp + '/api/v2/question_banks/'+question_bank_id+'/update_reason_labels',
+         data: {
+             'reason_label_ids':num,
+         },
+         headers: { 'Authorization': "Bearer " + isLogin },
+         success: function(data) {
+         console.log(data);
+         // window.location.reload();
+         alert("保存成功");
+
+         },
+         error: function() {
+
+         }
+     });
+
+});
+ $(".edit_li_btn05").click(function(event) {
+            $(".wrong_box").slideDown(500);
+           });
+   $(".wrong_box_btn01").click(function(event) {
+      $(".wrong_box").slideUp(500);
+   });
+   $(".wrong_box_btn02").click(function(event) {
+      $(".wrong_box").slideUp(500);
+   });
+
+
+
+
+
 
 
 
