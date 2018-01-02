@@ -546,6 +546,9 @@ $(this).find('option').eq(item_num).attr("selected","selected");
         var lattice_total=parseInt($(this).parent().find("p").eq(i).find('input').eq(2).val());
         var question_bank_id=parseInt($(this).parent().find("p").eq(i).attr("data-question"));
         var id=parseInt($(this).parent().find("p").eq(i).attr("data-id"));
+        if(isNaN(id)){
+          id=null;
+        }
         var answer_id=parseInt($(this).attr("data-id"));
          var count=parseInt($(this).parent().find("p").length);
           a["score"]=score;

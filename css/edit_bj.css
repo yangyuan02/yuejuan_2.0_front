@@ -241,6 +241,7 @@ float: right;margin-top: 10px;width: 138px;height: 32px;
 	margin: 0 auto;
 	cursor: pointer;
 	display: none;
+	position: relative;
 }
 .edit_li_div03_p01{
 	height:40px;
@@ -548,4 +549,18 @@ float: right;margin-top: 20px;
 .edit_li_analy{
 	width:870px;height:auto;border: 1px solid #d4d4d4;margin: 0 auto;padding:20px;box-sizing:border-box;color: #333333;outline:none;
 }
-
+.search{
+	width: 189px;height: 200px;border: 1px solid #ccc;position: absolute;right: 50px;top: 88px;box-sizing: border-box;background:rgb(255, 255, 255);overflow: scroll;
+	display: none;
+}
+.search .search_ul li{
+   width: 100%;
+    overflow: hidden;
+    height: 32px;
+    line-height: 32px;
+    color: #666666;
+}
+.search .search_ul li:hover{
+    color:#31bc91;
+    background: #f5f5f5;
+}
