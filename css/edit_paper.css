@@ -6,7 +6,7 @@
       width: 100%;
   	position: absolute;
    top: 0px;
-   background: #999999;
+   background: #333333;
     opacity: 0.5;
 }
 .edit-paper-cont{
@@ -125,10 +125,10 @@
 	color:#fb7d8a!important;
 }
 .sub_li{
-	background: rgba(95,163,237,0.5);
+	background: #d8d8d8;
 }
 .sub_i_li{
-	background: rgba(95,163,237,0.5);
+	background: #d8d8d8;
 }
 
 .sub_sz{
@@ -160,13 +160,15 @@ width:100%;line-height: 38px;margin-bottom: 10px;
 .sub_sz_ul02 li select{
 outline: none;width:73px;height:25px;color: #666666;margin-left:20px;
 }
-.sub_sz_ul02 >li>input:nth-of-type(2){
+.sub_sz_ul02 >li>input:nth-of-type(1){
 width:126px;height:25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 50px;padding-left: 10px;box-sizing: border-box;color: #666666;
 }
-.sub_sz_ul02 >li>input:nth-of-type(3){
-width:57px;height:25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 55px;box-sizing: border-box;color: #666666;text-align:center;
+.sub_sz_ul02 >li>a{
+width:57px;height:25px;border-radius: 2px;border: 1px solid #ccc;margin-left:45px;box-sizing: border-box;color: #666666;text-align:center;
+border:none;
+display: inline-block;
 }
-.sub_sz_ul02 >li>input:nth-of-type(1){
+.sub_sz_ul02 >li>select{
 width:67px;height:25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 25px;padding-left: 10px;box-sizing: border-box;color: #666666;
 }
 .sub_sz_ul02 li i{
@@ -178,7 +180,7 @@ width:90%;height:48px;border-bottom: 1px solid #ccc;line-height: 48px;margin: 0 
 .sub_sz03 a{
 color:#5fa3ed;margin-right: 5px;margin-left: 5px;
 }
-.sub_sz03 a:nth-of-type(3){
+.sub_sz03 a:nth-of-type(4){
 color:#fb7d8a;margin-right: 5px;
 }
 .sub_sz_p02{
@@ -210,16 +212,19 @@ color:#fb7d8a;margin-right: 5px;
 	width: 100%;height: 42px;text-align:center;line-height:42px;color:#666666;font-size: 14px; 
 }
 .sub_bd02{
-	margin-left:115px;
+	/*margin-left:115px;*/
 	overflow: hidden;
 }
 .sub_bd02_ul01 {
-	float: left;
+	float: left;width: 100%;
 }
 .sub_bd02_ul01 li{
-	width: 178px;height: 44px;
+	height: 44px;width: 100%;line-height: 44px;overflow: hidden;
 }
-.sub_bd02_ul01 li input{
+.sub_bd02_ul01_li{
+background: #d8d8d8;
+}
+.sub_bd02_ul01 li a{
 	width:177px;height:30px;color:#666666;padding-left: 40px;box-sizing: border-box;
 }
 .sub_bd02_ul02 {
@@ -227,7 +232,7 @@ color:#fb7d8a;margin-right: 5px;
 }
 
 .sub_bd02_ul02 li{
-	height: 44px;line-height: 35px;
+	height: 44px;line-height: 35px;display: none;
 }
 .sub_bd03{
 	width:366px;height: 62px;border-top: 1px solid #ccc;margin: 0 auto;padding: 15px 40px 0px 40px;margin-top: 10px;box-sizing: border-box;

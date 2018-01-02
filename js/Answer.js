@@ -676,6 +676,14 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
         return otherScoreRect
     }
+    function otherFillScoreHeight(index, current_page) {//获得其他题每个小题高度
+        var otherListDom = []
+        var dom = $(".conten").find("table").eq(index).find("tbody").find(".other").find(".other_c")
+        dom.each(function () {
+            otherListDom.push($(this).height())
+        })
+        return otherListDom
+    }
 
     function getFillPost(index) {//获得填空题小题坐标
         var fillItemPost = []
@@ -732,12 +740,28 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             var itme_obj = {}
             itme_obj.no = startNo[i-1].toString()//作文没有起始序号
             itme_obj.one_score = parseInt(itemCores[i - 1])
-            console.log(itme_obj.one_score)
             itme_obj.answer_setting_id = answer_id[Answerindex].answers.settings[i - 1].setting_id//小题id
             itme_obj.option = []
+            if(answerModeType==5){
+                itme_obj.region_rect_x = otherFillScoreRect(Answerindex,current_page)[i-1].score_rect_x
+                itme_obj.region_rect_y = otherFillScoreRect(Answerindex,current_page)[i-1].score_rect_y - 30
+                itme_obj.region_rect_height = otherFillScoreHeight(Answerindex,current_page)[i-1]
+                itme_obj.region_rect_width = 698 - 14
+                var start = (i-1)*17
+                var end = start+17
+                itme_obj.score_options = fillScoreOptions(Answerindex,5,current_page).slice(start,end)
+            }
+            if(answerModeType==4){
+                itme_obj.region_rect_x = regionRect(Answerindex).region_rect_x + 8//题组区域的X坐标
+                itme_obj.region_rect_y = regionRect(Answerindex).region_rect_y - 1200 * (current_page - 1) + 8//题组区域的Y坐标
+                itme_obj.region_rect_height = 100
+                itme_obj.region_rect_width = 698 - 14
+                itme_obj.score_options = fillScoreOptions(Answerindex, 4, current_page)
+            }
             question.push(itme_obj)
         }
         for (var i = 0; i < question.length; i++) {
+
             for (var j = 1; j <= answerNumber; j++) {
                 var itme_obj = {}
                 itme_obj.no = j//小题序号
@@ -785,15 +809,18 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             itme_obj.answer_mode = answerModeType(obj[i - 1].type)//题目类型
             itme_obj.current_page = obj[i - 1].current_page//当前页面
             itme_obj.num_question = obj[i - 1].numbel//题目数量
-            itme_obj.region_rect_x = regionRect(i - 1).region_rect_x + 8//题组区域的X坐标
-            itme_obj.region_rect_y = regionRect(i - 1).region_rect_y - 1200 * (itme_obj.current_page - 1) + 8//题组区域的Y坐标
-            itme_obj.region_rect_width = 698 - 14//题组区域的宽度
-            if (obj[i - 1].type == 4) {//作文题
-                itme_obj.region_rect_height = 100//题组区域的高度
-            } else {
-                itme_obj.region_rect_height = regionRect(i - 1).region_rect_height - 8//题组区域的高度
+            if(obj[i - 1].type != 5 || obj[i - 1].type != 4){
+                itme_obj.region_rect_x = regionRect(i - 1).region_rect_x + 8//题组区域的X坐标
+                itme_obj.region_rect_y = regionRect(i - 1).region_rect_y - 1200 * (itme_obj.current_page - 1) + 8//题组区域的Y坐标
+                itme_obj.region_rect_width = 698 - 14//题组区域的宽度
             }
-            itme_obj.question = []
+            if (obj[i - 1].type == 4) {//作文题
+                // itme_obj.region_rect_height = 100//题组区域的高度
+            } else {
+                if(obj[i - 1].type != 5){
+                    itme_obj.region_rect_height = regionRect(i - 1).region_rect_height - 8//题组区域的高度
+                }
+            }
             if (obj[i - 1].type == 1 || obj[i - 1].type == 6 || obj[i - 1].type == 2) {//单选题/多选题/判断题
                 itme_obj.block_width = 14//选项宽度
                 itme_obj.block_height = 11//选项高度
@@ -810,21 +837,25 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             } else if (obj[i - 1].type == 5) {//其他题
                 itme_obj.block_width = 23//选项宽度
                 itme_obj.block_height = 12//选项高度
-                itme_obj.score_rect_options = otherFillScoreRect(i - 1, obj[i - 1].current_page)//打分框区域的x坐标
+                // itme_obj.score_rect_options = otherFillScoreRect(i - 1, obj[i - 1].current_page)//打分框区域的x坐标
                 itme_obj.score_rect_width = 690//打分框区域的宽度
-                itme_obj.score_rect_height = 20//打分框区域的高度
-                itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page)
+                itme_obj.score_rect_height = 30//打分框区域的高度
+                // itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page)
             } else {//作文题
                 itme_obj.block_width = 23//选项宽度
                 itme_obj.block_height = 12//选项高度
                 itme_obj.score_rect_width = 690//打分框区域的宽度
                 itme_obj.score_rect_height = 20//打分框区域的高度
-                itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page)
+                // itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page)
             }
             BigQuestion.push(itme_obj)
         }
         for (var i = 0; i < BigQuestion.length; i++) {
-            BigQuestion[i].question = getQuestion(obj[i].numbel, obj[i].itemNumber, i, obj[i].type, obj[i].itemCoresArr, obj[i].current_page, obj[i].no)
+            if(obj[i].type == 5 || obj[i].type == 4){
+                BigQuestion[i].questions = getQuestion(obj[i].numbel, obj[i].itemNumber, i, obj[i].type, obj[i].itemCoresArr, obj[i].current_page, obj[i].no)
+            }else{
+                BigQuestion[i].question = getQuestion(obj[i].numbel, obj[i].itemNumber, i, obj[i].type, obj[i].itemCoresArr, obj[i].current_page, obj[i].no)
+            }
         }
 
         $scope.discernType == 0 ? BigQuestion.push(getStudentInfo()) : BigQuestion.push(getBarCode())  //识别考号/识别条码
@@ -2030,12 +2061,12 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             return
         }
         var isLogin = localStorage.getItem("token");
-
         function bindRegion() {
             var answer_ids = []
             for (var i = 0; i < answer_id.length; i++) {
                 answer_ids.push(answer_id[i].answers.answer_id)
             }
+            console.log(getBigQuestion(allPagePost()))
             if ($scope.paperType == 0) {//手工阅卷
                 var allP = getBigQuestion(allPagePost())
             } else {
@@ -2097,6 +2128,86 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             )
         } else {
             bindRegion()
+        }
+    }
+    /***************************************导入试卷********************************************************/
+    var setResult = function (data) {//序列化请求参数
+        $scope.result.name = data.name  //题组名称
+        $scope.result.no = data.no      //起始序号
+
+        if(data.answer_type==0){  //选择题
+            $scope.result.numbel = data.number  //试题数量
+            $scope.index = 1     //试题类型
+            $scope.result.itemcoreS = data.score //每小题分数
+            $scope.result.thr = data.count     //选项个数
+            $scope.result.isradio = 1
+        }
+
+        if(data.answer_type==1){ //填空题
+            $scope.result.numbel = data.number  //试题数量
+            $scope.index = 3     //试题类型
+            $scope.result.itemcoreS = data.score //每小题分数
+        }
+
+        if(data.answer_type==2){ //是非题
+            $scope.result.numbel = data.number  //试题数量
+            $scope.index = 2     //试题类型
+            $scope.result.itemcoreS = data.score //每小题分数
+        }
+
+        if(data.answer_type==3){ //其他题
+            $scope.result.numbel = data.number  //试题数量
+            $scope.index = 2     //试题类型
+            $scope.result.itemcoreS = data.score //每小题分数
+            $scope.result.otherisradio = 3
+        }
+
+        if(data.answer_type==4){//作文题
+
+        }
+        if(data.answer_type==5){ //多选题
+            $scope.result.numbel = data.number  //试题数量
+            $scope.index = 1     //试题类型
+            $scope.result.itemcoreS = data.score //每小题分数
+            $scope.result.thr = data.count     //选项个数
+            $scope.result.isradio = 2
+        }
+    }
+    var getExamStatus = true
+    $scope.importExam = function () {
+        if(getExamStatus){
+            $.ajax({
+                type: "POST",
+                url: "api/v2/exam_subjects/answers_and_answer_settings",
+                headers: {'Authorization': "Bearer " + isLogin},
+                data: {"id": getUrlParam(url, 'examubjeId')},
+                async: false,
+                success: function (data) {
+                    if(data.data.length==0){
+                        alert("该科目没有绑定试卷")
+                        return
+                    }
+                    if(data.exist){
+                        alert("请勿重复导入")
+                        return
+                    }
+                    getExamStatus = false
+                    for(var i = 0;i<data.data.length;i++){
+                        (function (i) {
+                            $timeout(function () {
+                                setResult(data.data[i])
+                                $scope.btn1()
+                            },i*1000)
+                        })(i)
+                    }
+                },
+                error: function (data) {
+
+                }
+
+            })
+        }else{
+            alert("请勿重复点击")
         }
     }
     /********************************************************隐藏功能修改总分********************************/

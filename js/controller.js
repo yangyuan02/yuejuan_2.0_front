@@ -132,6 +132,7 @@ angular.module("myApp.controller", [])
             $(".mart_set").hide();
             $(".load-bg").show();
             var class_name=$(this).attr("data_class");
+             // $(".load-bg").show();
             mark_fengxi(class_name);
         });
          
@@ -201,6 +202,10 @@ angular.module("myApp.controller", [])
                     'Authorization': "Bearer " + isLogin
                 },
                 data: data_value,
+                // beforeSend: function(){
+                //    $(".mask_layer").show();
+                //    $(".load-bg").show();
+                // },
                 success: function(data) {
                     console.log(data);
 
@@ -234,9 +239,13 @@ angular.module("myApp.controller", [])
                         $('.modal-wrap').show();
                     }
                 },
+                // complete: function(){
+                //   $(".mask_layer").hide();
+                //   $(".load-bg").hide();
+                // },
                 error: function() {
-
-                }
+                
+                },
 
             });
         };
@@ -332,6 +341,24 @@ angular.module("myApp.controller", [])
                 },
                 success: function(data) {
                     console.log(data);
+                    // console.log(parseInt(data[column_value_6]));
+                    // if(isNaN(parseInt(data.column_value_6))){
+                    //     console.log('1122');
+                    // }
+                    
+                    var b01 =["column_value_1","column_value_2","column_value_3","column_value_4","column_value_5","column_value_6", "column_value_7","column_value_8","column_value_9","column_value_10","column_value_11"];
+                     var b02 =["column_name_1","column_name_2","column_name_3","column_name_4","column_name_5","column_name_6", "column_name_7","column_name_8","column_name_9","column_name_10","column_name_11"];
+                    var json=[];
+                    for(var i01=0;i01<data.lenght;i01++){
+                        var a=parseInt(data[b01[i01]]);
+                        // console.log(b01[i01]);
+                        if(isNaN(a)){
+
+                        }else{
+                           json[i01]=b01[i01];
+                        }
+                    }
+                   console.log(json);
                     if (data.error_code !== 500) {
                         // $(".tf_span").html(data.full_score);
                         $("#z_mark").val(data.full_score);
@@ -349,16 +376,17 @@ angular.module("myApp.controller", [])
                         $("#ul_iLabel li").eq(4).find('.level_02').val(data.column_value_5);
                         var b = [data.column_name_6, data.column_name_7, data.column_name_8, data.column_name_9, data.column_name_10, data.column_name_11];
                         var b1 = [data.column_value_6, data.column_value_7, data.column_value_8, data.column_value_9, data.column_value_10, data.column_value_11];
-                        if (data.lenght < 12) {
-                            if (data.lenght > 5) {
+                        if (json.lenght < 12) {
+                            if (json.lenght > 5) {
                                 console.log(data.lenght);
-                                for (var i = 5; i < data.lenght; i++) {
+                                for (var i = 5; i < json.lenght; i++) {
                                     var c = i - 5;
                                     var a = i + 1;
                                     $("#ul_iLabel").append('<li><input value=""  class="level_01" ></input><input value="" class="level_02"></input><button type="">-</button></li>');
                                     $("#ul_iLabel li").eq(i).find('.level_01').val(b[i]);
 
-                                    $("#ul_iLabel li").eq(i).find('.level_02').val(b1[i]);
+                                    $("#ul_iLabel li").eq(i).find('.level_02').val(data[json[i]]);
+                                    console.log(data[json[i]]);
                                     
                                 }
                             }
@@ -1578,6 +1606,7 @@ angular.module("myApp.controller", [])
                     var x_zhe =[];
                    for(var i=0;i<data.student_answer_setting_infos.length;i++){
                     var jsons=data.student_answer_setting_infos[i];
+                     // var jsons=data.student_answer_setting_infos[i];
                     for(var key in jsons){
                        console.log(key);
                       
@@ -1585,18 +1614,31 @@ angular.module("myApp.controller", [])
                     }
                 }
                  console.log(x_zhe);
-                        for (var i = 0; i < data.student_answer_setting_infos.length; i++) {
+                 //去掉为空的
+                  var rem_null=[];
+                   var rem_null_num=0;
+                 for(var i=0;i<data.student_answer_setting_infos.length;i++){
+                    var jsons01=data.student_answer_setting_infos[i];
+                       console.log(jsons01);
+                       if(jsons01!==null){
+
+                       rem_null[rem_null_num]=jsons01;
+                       rem_null_num++;
+                       }
+                }
+                console.log(rem_null);
+                        for (var i = 0; i <rem_null.length; i++) {
                             var a = x_zhe[i];
                             var tda_id = "x_" + a;
-                                $(".xiaoti_mark").append('<tr id="' + tda_id + '"><td>' + a + '</td><td></td></tr>')
-                            var b = data.student_answer_setting_infos[i][a].length;
-                            console.log(data.student_answer_setting_infos[i][a]);
+                            $(".xiaoti_mark").append('<tr id="' + tda_id + '"><td>' + a + '</td><td></td></tr>')
+                            var b = rem_null[i][a].length;
+                            console.log(rem_null[i][a]);
                             console.log(b);
                             for (var c = 0; c < b; c++) {
                                 if(x_zhe[i]==da_ans){
-                              $('#' + tda_id + ' td').eq(1).append('<a style="background:#fb7d8a;">' + data.student_answer_setting_infos[i][a][c].real_name + '</a>');
+                              $('#' + tda_id + ' td').eq(1).append('<a style="background:#fb7d8a;">' + rem_null[i][a][c].real_name + '</a>');
                             }else{
-                            $('#' + tda_id + ' td').eq(1).append('<a>' + data.student_answer_setting_infos[i][a][c].real_name + '</a>');
+                            $('#' + tda_id + ' td').eq(1).append('<a>' + rem_null[i][a][c].real_name + '</a>');
                             }
                         }
                         };
@@ -2915,7 +2957,9 @@ angular.module("myApp.controller", [])
             console.log(class_id);
             console.log(sub_id);
              if(class_id==11111){
-                var class_id = null;
+                var class_id01 = null;
+                }else{
+                    var class_id01 =class_id;
                 }
               if(sub_id==22222){
                 var sub_id = null;
@@ -2931,7 +2975,7 @@ angular.module("myApp.controller", [])
                 },
                 data: {
                     "exam_id": exam_id,
-                    "classroom_id": class_id,
+                    "classroom_id": class_id01,
                 },
                 success: function(data) {
                     console.log(data);
@@ -2944,6 +2988,11 @@ angular.module("myApp.controller", [])
                         var a = data.data[i];
                         $(".study_k_201_bo").append('<tr></tr>');
                         for (var c = 0; c < a.length; c++) {
+                            if(class_id==11111){
+                            if(c==6){
+                                a[c]="-";
+                            }
+                           }
                             $(".study_k_201_bo tr").eq(i).append('<td>' + a[c] + '</td>');
                         }
 

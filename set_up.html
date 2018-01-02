@@ -35,7 +35,7 @@
 
 		<div class="content">
 			<div class="user-left">
-				<div class="user-information user-left-button user-on">
+				<div class="user-information user-left-button">
 					教师管理
 				</div>
 				<div class="change-password user-left-button">
@@ -54,7 +54,7 @@
 					WORD试卷管理
 				</div>
 			</div>
-			<div class="user-right user-information-right">
+			<div class="user-right user-information-right none">
 				<div class="table-tittle-name">教师列表
 					<div class="title-name-right"> 
 						<span class="batch-import iconfont" data-name="2">&#xe60c;&nbsp;批量导入</span>
@@ -323,7 +323,7 @@
 						<!-- <div class="look-button determine" style="display: none">查看试卷结构</div> -->
 						<input id="search-num" class="search-input" type="text" placeholder="请输入考试名称" style="margin:0 14px 0 10px">
 						<!-- <input class="student-search-input" type="text" placeholder="请输入学生姓名"> -->
-						<div class="student-search-button iconfont">&#xe610;</div>
+						<div class="student-search-button iconfont" style="right:100px">&#xe610;</div>
 						<div class="import-button determine">导入</div>
 					</div>
 				</div>
@@ -430,7 +430,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr style="border-bottom:1px solid #ccc;">
+						<!-- <tr style="border-bottom:1px solid #ccc;">
 							<td>2017年9月高三物理入学考试</td>
 							<td>月考</td>
 							<td>高三</td>
@@ -461,7 +461,7 @@
 									</li>
 								</ul>
 							</td>
-						</tr>
+						</tr> -->
 					</tbody>
 				</table>
 				<div class="pagination-wrap">
@@ -985,7 +985,7 @@
 		</div>
 	</div>
 
-		<!-- 删除导入的成绩 -->
+	<!-- 删除导入的成绩 -->
 	<div class="modal-wrap modal-wrap-grade-dele">
 		<div class="modal-shadow modal-exit"></div>
 		<div class="modal-main modal-main-small">
@@ -1000,6 +1000,25 @@
 				<div class="modal-bottom">
 					<div class="modal-bottom-button modal-exit">取消</div>
 					<div class="modal-bottom-button determine modal-exit dele-gade">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 删除导入的试卷 -->
+	<div class="modal-wrap modal-wrap-paper-dele">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main modal-main-small">
+			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
+			<div class="modal-title"></div>
+			<div class="modal-content" style="text-align: left;">
+				<p style="text-align: left;font-size: 16px;font-weight: bold;padding-bottom: 10px;">操作提示：</p>
+				<div style="font-size: 16px;line-height: 16px;padding: 5px 0">您确认要删除当前科目的<span class="reset-password-name" style="color: #31bc91">信息</span>吗？</div>
+				<p style="color: #db4a4a;line-height: 30px;text-align: left;" class="small-prompt">
+					删除后无法恢复
+				</p>
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine modal-exit dele-paper">确认</div>
 				</div>
 			</div>
 		</div>
@@ -1043,7 +1062,7 @@
 					<div id="upfilew" onclick="inPathw.click()">
 						未选择任何文件
 					</div>
-					<input enctype="multipart/form-data" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" id="inPathw" style="display:none">
+					<input enctype="multipart/form-data" type="file" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document" id="inPathw" style="display:none">
 				</div>
 				<div class="rows">
 					<label>绑定考试</label>

@@ -3,6 +3,21 @@ $(function() {
 	console.log(hh);
 	$('.load-bg').css('height', hh+'px');
 	var isLogin = localStorage.getItem("token");
+
+	var back_page = localStorage.left_tab;
+	console.log(back_page)
+	if(back_page=='word-import'){
+		console.log('yyyyy')
+		$('.user-information').removeClass('user-on');
+		$('.word-import').addClass('user-on').siblings('.user-left-button').removeClass('user-on');
+		$('.word-import-right').show().siblings('.user-right').hide();
+		get_all_word_exam();
+		localStorage.removeItem("left_tab");
+	}else{
+		$('.user-information').addClass('user-on').siblings().removeClass('user-on');
+		$('.user-information-right').show();
+	}
+
 	var school_id;
 	// var school_grades_array = [];
 	var isTrueFalse = true;
@@ -13,7 +28,6 @@ $(function() {
 	selectGrades('.user-information-right');
 	selectGrades('.user-change-password');
 	selectGrades('.temporary-student-right');
-
 	// 导出老师
 	$('.Lead-in-teacher a').click(function(){
 		var grade_id = $('.user-information-right #select-grade').val();
@@ -2436,7 +2450,7 @@ $(function() {
 
 
  	});
-  $('.user-left .user-left-button').on('click', function() {
+  $('.user-left .user-left-button').click(function() {
   	$(this).addClass('user-on').siblings().removeClass('user-on');
   	var index = $(this).index();
   	console.log(index);
@@ -3974,8 +3988,8 @@ $(function() {
 		i_string = i_string.substring(i_string_i+1);
 		console.log(i_string+'aaaaaaaaaaaaaaaaaaaa')
 		console.log(formData)
-		if(i_string!='docx' && i_string!='doc'){
-			alert('文件格式不对，请选择docx或者doc文件！')
+		if(i_string!='docx'){
+			alert('文件格式不对，请选择docx文件！')
 		}
 		var grade_id = $('#paper-grade').val();
 		var subject_id = $('#paper-subject').val();
@@ -3984,8 +3998,11 @@ $(function() {
 		formData.append("subject_id",subject_id);
 		formData.append("grade_id",grade_id);
 		console.log(grade_id,subject_id,exam_subject_id);
-		get_word_info(formData,exam_subject_id);
-		$('.import-word-wrap').hide();
+		if(i_string=='docx'&&formData){
+			console.log(i_string,formData)
+			get_word_info(formData,exam_subject_id);
+			$('.import-word-wrap').hide();
+		}
 	});
 
 	function get_word_info (formData,exam_subject_id) {
@@ -4063,7 +4080,7 @@ $(function() {
 	}
 
 	function word_exam_list(exam_info){
-		var num = exam_info.length;
+		var num = exam_info.total_count;
 		var ii_num;
 		console.log(num+'2222222222222222222222')
 		if(num==0){
@@ -4074,7 +4091,7 @@ $(function() {
 			ii_num=Math.ceil(num/10);
 		}
 		$.jqPaginator('#exams-pagination', {
-	    totalPages: ii_num,
+	    totalPages: exam_info.total_page,
 	    visiblePages: 5,
 	    currentPage: 1,
 	    disableClass: 'disableClass',
@@ -4084,12 +4101,12 @@ $(function() {
 	    first: '<li class="prev"><a href="javascript:;" class="pagination-color">首页</a></li>',
 	    last: '<li class="next"><a href="javascript:;" class="pagination-color">尾页</a></li>',
 	    page: '<li class="page"><a href="javascript:;" class="pagination-color">{{page}}</a></li>',
-	    onPageChange: function (num) {
-				var iDataI = {'page':num, 'limit': 10};
-				if(num==1){
+	    onPageChange: function (nums,type) {
+				var iDataI = {'page':nums, 'limit': 10};
+				if(type=='init'){
 					show_word_exam_list(exam_info)
 				}
-				if(num>1){
+				if(type=='change'){
 	        $.ajax({
 			     	type: "GET",
 			     	url: ajaxIp+"/api/v2/ddocxes",
@@ -4113,9 +4130,9 @@ $(function() {
 
 	function show_word_exam_list(exam_info){
 		$('.words-in-tabble tbody').html('');
-		if(exam_info){
-			for (var i = 0; i < exam_info.length; i++) {
-				var exam_tr='<tr style="border-bottom:1px solid #ccc;" docx_id="'+exam_info[i].docx_id+'" exam_subject_id="'+exam_info[i].exam_subject_id+'"><td>'+exam_info[i].exam_name+'</td><td>'+exam_info[i].exam_type_text+'</td><td>'+exam_info[i].grade_name+'</td><td>'+exam_info[i].subject_name+'</td><td><ul class="word-operation"><li><a href="javascript:;" class="a-btn look-btn look-paper-btn"><i class="iconfont">&#xe61e;</i>编辑试卷</a></li><li><a href="javascript:;" class="a-btn up-btn up-two-btn"><i class="iconfont">&#xe6a7;</i>上传双细</a></li><li><a href="javascript:;" class="a-btn look-two-btn">	<i class="iconfont">&#xe66d;</i>查看双细</a></li></ul><ul class="word-operation">	<li><a href="javascript:;" class="a-btn up-btn up-answer-btn">		<i class="iconfont">&#xe632;</i>上传答案</a>	</li>	<li><a href="javascript:;" class="a-btn look-btn look-answer-btn">		<i class="iconfont">&#xe683;</i>查看答案</a>	</li>	<li><a href="javascript:;" class="a-btn dele-btn"><i class="iconfont">&#xe616;</i>删除</a>	</li></ul></td></tr>';
+		if(exam_info.docxs){
+			for (var i = 0; i < exam_info.docxs.length; i++) {
+				var exam_tr='<tr style="border-bottom:1px solid #ccc;" docx_id="'+exam_info.docxs[i].docx_id+'" exam_subject_id="'+exam_info.docxs[i].exam_subject_id+'" exam_name="'+exam_info.docxs[i].exam_name+'" subject_name="'+exam_info.docxs[i].subject_name+'"><td>'+exam_info.docxs[i].exam_name+'</td><td>'+exam_info.docxs[i].exam_type_text+'</td><td>'+exam_info.docxs[i].grade_name+'</td><td>'+exam_info.docxs[i].subject_name+'</td><td><ul class="word-operation"><li><a href="javascript:;" class="a-btn look-btn look-paper-btn"><i class="iconfont">&#xe61e;</i>编辑试卷</a></li><li><a href="javascript:;" class="a-btn up-btn up-two-btn"><i class="iconfont">&#xe6a7;</i>上传双细</a></li><li><a href="javascript:;" class="a-btn look-two-btn">	<i class="iconfont">&#xe66d;</i>查看双细</a></li></ul><ul class="word-operation">	<li><a href="javascript:;" class="a-btn up-btn up-answer-btn">		<i class="iconfont">&#xe632;</i>上传答案</a>	</li>	<li><a href="javascript:;" class="a-btn look-btn look-answer-btn">		<i class="iconfont">&#xe683;</i>查看答案</a>	</li>	<li><a href="javascript:;" class="a-btn dele-btn"><i class="iconfont">&#xe616;</i>删除</a>	</li></ul></td></tr>';
 				$('.words-in-tabble tbody').append(exam_tr);
 			};
 		}
@@ -4130,49 +4147,44 @@ $(function() {
 
 
     //删除
-      $('body').on('click', '.dele-btn', function(){
-      	
-     // $(this).parents('tr').remove();
-     var id=$(this).parents('tr').attr("docx_id");
-        $.ajax({
-			     	type: "POST",
-			     	url: ajaxIp+"/api/v2/ddocxes/delete",
-			     	async:false,
-			    	headers: {'Authorization': "Bearer " + isLogin},
-			    	data: {'id':id},
-			    	success: function(data){
-			    		
-                           // $(".search-tabble").html(data);
-			        },
-			        error: function(){
-			        	// alert();
-			        }
-			    });
-        $.ajax({
-			     	type: "GET",
-			     	url: ajaxIp+"/api/v2/ddocxes",
-			     	async:false,
-			    	dataType: "JSON",
-			    	headers: {'Authorization': "Bearer " + isLogin},
-			    	success: function(data){
-			    		console.log(data)
-			  			show_word_exam_list(data);
-			        },
-			        error: function(){
-			        	// alert('请稍后从新尝试登录或者联系管理员');
-			        	// localStorage.clear();
-			        	// window.location.href = './login.html'
-			        }
-			    });
-      });
+	$('body').on('click', '.dele-btn', function(){
+		$('.modal-wrap-paper-dele .modal-main').animate({'top': '50%','opacity': 1},500);
+		$('.modal-wrap-paper-dele .modal-shadow').animate({'opacity': 0.3},500);
+		$('.modal-wrap-paper-dele').show();
+ 		// $(this).parents('tr').remove();
+  	var id=$(this).parents('tr').attr("docx_id");
+  	$('.modal-wrap-paper-dele').attr('docx_id',id);
+	});
 
+
+	// 确定删除
+	$('body').on('click', '.dele-paper', function() {
+		var docx_id = $(this).parents('.modal-wrap-paper-dele').attr('docx_id');
+		$.ajax({
+     	type: "POST",
+     	url: ajaxIp+"/api/v2/ddocxes/delete",
+     	async:false,
+    	headers: {'Authorization': "Bearer " + isLogin},
+    	data: {'id':docx_id},
+    	success: function(data){
+    		if(data.error==0){
+  				get_all_word_exam();
+  			}
+      },
+      error: function(){
+      	// alert();
+      }
+    });
+	});
 
 	// 编辑试卷
 	 $('body').on('click', '.look-paper-btn', function() {
 	 	var docx_id = $(this).parents('tr').attr('docx_id');
 	 	var exam_subject_id = $(this).parents('tr').attr('exam_subject_id');
-  	$(this).attr('href', 'edit_paper?docx_id=' + docx_id + '&exam_subject_id='+exam_subject_id+'');
-  	console.log(99)
+	 	var exam_name = $(this).parents('tr').attr('exam_name');
+	 	var left_tab = 'word-import';
+	 	var subject_name = $(this).parents('tr').attr('subject_name');
+  	$(this).attr('href', 'edit_paper?docx_id=' + docx_id + '&exam_subject_id='+exam_subject_id+'&exam_name='+exam_name+'&left_tab='+left_tab+'&subject_name='+subject_name+'');
 
   });
 
