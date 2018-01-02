@@ -53,6 +53,7 @@ $(this).attr('href', 'edit_paper?docx_id='+docx_id+'&exam_subject_id='+exam_subj
 $(".list_dif").html(" ");
  $.ajax({
          type: "POST",
+         async:false,
          url: ajaxIp + "/api/v2/question_banks/update_question",
          data: {
              'id':id,
@@ -66,7 +67,7 @@ $(".list_dif").html(" ");
          var c=data.difficulty_level
         
          var d=data.analysis;
-        
+        $(".main_content").attr("data-id",data.id);
         $(".main_content").html(a);
          //答案
          if(b!==undefined){
@@ -114,12 +115,78 @@ $(".list_dif").html(" ");
 
          }
      });
+      var question_bank_id=parseInt($(".main_content").attr("data-id"));
+      console.log(question_bank_id);
+     $.ajax({
+         type: "GET",
+         async:false,
+         url: ajaxIp + '/api/v2/question_banks/'+question_bank_id+'/selected_sync_know_ledge_points',
+         data: {
+             'question_bank_id':question_bank_id,
+         },
+         headers: { 'Authorization': "Bearer " + isLogin },
+         success: function(data) {
+         console.log(data);
+       $(".choose_knows").html(" ");
+         // window.location.reload();
+         for(var i=0;i<data.length;i++){
+         $(".choose_knows").append('<a  style="color: #31bc91;margin-left: 10px;font-style: normal;">'+data[i].name+'</a>');
+         }
 
+         },
+         error: function() {
 
+         }
+     });
 
+//能力
+   $.ajax({
+         type: "GET",
+         url: ajaxIp + '/api/v2/question_banks/'+question_bank_id+'/selected_ability_labels',
+         data: {
+             'question_bank_id':question_bank_id,
+         },
+         headers: { 'Authorization': "Bearer " + isLogin },
+         success: function(data) {
+         console.log(data);
+       $(".choose_ability").html(" ");
+         // window.location.reload();
+         for(var i=0;i<data.length;i++){
+         $(".choose_ability").append('<a  style="color: #31bc91;margin-left: 10px;font-style: normal;">'+data[i].name+'</a>');
+         }
 
+         },
+         error: function() {
 
+         }
+     });
+//  错因标签
+ $.ajax({
+         type: "GET",
+         url: ajaxIp + '/api/v2/question_banks/'+question_bank_id+'/selected_reason_labels',
+         data: {
+             'question_bank_id':question_bank_id,
+             
+         },
+         headers: { 'Authorization': "Bearer " + isLogin },
+         success: function(data) {
+         console.log(data);
+         $(".main_wrong_left_body").html(" ");
+          $(".main_wrong_right_body").html(" ");
+         for(var i=0;i<data.z_reason_labels.length;i++){
+         $(".main_wrong_left_body").append('<a style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;"><i style="font-style: normal;">'+data.z_reason_labels[i].name+'</i></a>');
+         
+         }
+        for(var i=0;i<data.fz_reason_labels.length;i++){
+         $(".main_wrong_right_body").append('<a style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;"><i style="font-style: normal;">'+data.fz_reason_labels[i].name+'</i></a>');
+        
+         }
 
+         },
+         error: function() {
+
+         }
+     });
 
 
 
