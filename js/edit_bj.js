@@ -103,7 +103,7 @@ $(".p_top a").click(function(event) {
          headers: { 'Authorization': "Bearer " + isLogin },
          success: function(data) {
          console.log(data);
-          alert("保存成功");
+         alert("保存成功");
           // window.location.reload();
          },
          error: function() {
@@ -273,6 +273,7 @@ $(".edit_zs").on('click', 'li  i', function(event) {
           var type="standard_edition";
           $.ajax({
          type: "GET",
+         async:false,
          url: ajaxIp + "/api/v2/sync_knowledge_points",
          data: {
              'grade_id':14,
@@ -320,6 +321,7 @@ $(".edit_zs").on('click', 'li  i', function(event) {
     var question_bank_id=parseInt($(".edit_li_div03").attr("data-id"));
           $.ajax({
          type: "GET",
+         async:false,
          url: ajaxIp + '/api/v2/question_banks/'+question_bank_id+'/selected_sync_know_ledge_points',
          data: {
              'question_bank_id':question_bank_id,
@@ -331,7 +333,9 @@ $(".edit_zs").on('click', 'li  i', function(event) {
          // window.location.reload();
          for(var i=0;i<data.length;i++){
          $(".edit_li03_box01").append('<a id="choose_li'+data[i].id+'"  data-id="'+data[i].id+'" style="height:29px;background:#31bc91;display: block;line-height: 29px;text-align:center;margin:12px 0px 0px 12px;float:left;color:#f5f5f5;cursor: pointer;padding-left:5px;padding-right:5px;box-sizing: border-box;">'+data[i].name+'<i class="edit_li03_box_a_i iconfont" style="font-size: 12px;margin-left:12px;">&#xe61b;</i></a>');
-  
+            // $('.choose_li'+data[i].id+'').children('.choose_i').css("color","#31bc92");
+            // $('.choose_li'+data[i].id+'').children('.choose_i').attr("data-id","1");
+            // console.log($('.choose_li'+data[i].id+'').html());
          }
 
          },
@@ -554,10 +558,10 @@ $(".nengl_quan").click(function(event) {
          $(".wrong_z_01").html(" ");
            $(".wrong_fz_01").html(" ");
          for(var i=0;i<data.z_reason_labels.length;i++){
-         $(".wrong_z_01").append('<a class="wrong_choose'+data.z_reason_labels[i].id+'"  style="background: #cccccc;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" data-id="0" num-id="'+data.z_reason_labels[i].id+'"><i>'+data.z_reason_labels[i].name+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe619;</i></a>');
+         $(".wrong_z_01").append('<a class="wrong_choose'+data.z_reason_labels[i].id+'"  style="background: #cccccc;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" data-id="0" num-id="'+data.z_reason_labels[i].id+'"><i style="font-style: normal;">'+data.z_reason_labels[i].name+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe619;</i></a>');
          }
         for(var i=0;i<data.fz_reason_labels.length;i++){
-         $(".wrong_fz_01").append('<a class="wrong_choose'+data.fz_reason_labels[i].id+'"  style="background: #cccccc;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" data-id="0" num-id="'+data.fz_reason_labels[i].id+'"><i>'+data.fz_reason_labels[i].name+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe619;</i></a>');
+         $(".wrong_fz_01").append('<a class="wrong_choose'+data.fz_reason_labels[i].id+'"  style="background: #cccccc;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" data-id="0" num-id="'+data.fz_reason_labels[i].id+'"><i style="font-style: normal;">'+data.fz_reason_labels[i].name+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe619;</i></a>');
          }
          },
          error: function() {
@@ -579,12 +583,12 @@ $(".nengl_quan").click(function(event) {
          $(".wrong_z_02").html(" ");
           $(".wrong_fz_02").html(" ");
          for(var i=0;i<data.z_reason_labels.length;i++){
-         $(".wrong_z_02").append('<a id="wrong_choose'+data.z_reason_labels[i].id+'"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" data-id="0" num-id="'+data.z_reason_labels[i].id+'"><i>'+data.z_reason_labels[i].name+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
+         $(".wrong_z_02").append('<a id="wrong_choose'+data.z_reason_labels[i].id+'"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" data-id="0" num-id="'+data.z_reason_labels[i].id+'"><i style="font-style: normal;">'+data.z_reason_labels[i].name+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
          $('.wrong_choose'+data.z_reason_labels[i].id+'').css("background","#31bc92");
          $('.wrong_choose'+data.z_reason_labels[i].id+'').attr("data-id","1");
          }
         for(var i=0;i<data.fz_reason_labels.length;i++){
-         $(".wrong_fz_02").append('<a id="wrong_choose'+data.fz_reason_labels[i].id+'"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" data-id="0" num-id="'+data.fz_reason_labels[i].id+'"><i>'+data.fz_reason_labels[i].name+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
+         $(".wrong_fz_02").append('<a id="wrong_choose'+data.fz_reason_labels[i].id+'"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" data-id="0" num-id="'+data.fz_reason_labels[i].id+'"><i style="font-style: normal;">'+data.fz_reason_labels[i].name+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
          $('.wrong_choose'+data.fz_reason_labels[i].id+'').css("background","#31bc92");
          $('.wrong_choose'+data.fz_reason_labels[i].id+'').attr("data-id","1");
          }
