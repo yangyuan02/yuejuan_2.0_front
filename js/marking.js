@@ -389,7 +389,7 @@ $(function(){
 		if(answer_settings){
 			var answer_settings_length = answer_settings.length;
 			for (var i = 0; i < answer_settings_length; i++) {
-				var item_tr = '<tr><td class="item-num">'+answer_settings[i].num+'</td><td class="input-p"><input type="text" class="yuejuan_score" data-id="'+answer_settings[i].answer_setting_score_id+'" value="'+answer_settings[i].answer_setting_score+'" data-num = "'+answer_settings[i].num+'" data-fen="'+answer_settings[i].total_score+'"></td><td class="all-grade">'+answer_settings[i].total_score+'分</td></tr>';
+				var item_tr = '<tr><td class="item-num">'+answer_settings[i].num+'</td><td class="input-p"><input type="text" class="yuejuan_score" data-id="'+answer_settings[i].answer_setting_score_id+'" value="'+answer_settings[i].answer_setting_score+'" data-num = "'+answer_settings[i].num+'" data-fen="'+answer_settings[i].total_score+'"></td><td class="all-grade" data-all="'+answer_settings[i].total_score+'">'+answer_settings[i].total_score+'分</td></tr>';
 				$('#p-table tbody').append(item_tr);
 			};
 			$($('.yuejuan_score')[0]).focus();
@@ -635,6 +635,27 @@ $(function(){
 
 
   })
+
+	// 全对
+	$('#all-right').click(function(){
+		var all_total_list = $('#p-table').find('.input-p .yuejuan_score');
+		for (var i = 0; i < all_total_list.length; i++) {
+			var all_total_value = $(all_total_list[i]).attr('data-fen');
+			// console.log(i+'----',all_total_value)
+			$(all_total_list[i]).val(all_total_value);
+		};
+		$($('.yuejuan_score')[all_total_list.length-1]).focus();
+	})
+	// 全错
+	$('#all-error').click(function(){
+		var all_total_list = $('#p-table').find('.input-p .yuejuan_score');
+		var all_total_value = 0;
+		for (var i = 0; i < all_total_list.length; i++) {
+			// console.log(i+'----',all_total_value)
+			$(all_total_list[i]).val(all_total_value);
+		};
+		$($('.yuejuan_score')[all_total_list.length-1]).focus();
+	})
 
 	// 提交打分
 	$('.con-btn').click(function(){

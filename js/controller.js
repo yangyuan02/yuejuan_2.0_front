@@ -642,6 +642,11 @@ angular.module("myApp.controller", [])
                         $(".r2_02_03").html("0");
                         $(".r2_02_04").html("0");
                         $(".r2_02_05").html("0");
+                        $(".right_01").siblings().not(".right_01,.study_q_01").hide()
+                        $("#tips").remove()
+                        $("#main_right").append("<div id='tips' style='text-align: center;color:red'>该科目阅卷未分析完成</div>")
+                        console.log(1111)
+                        return false
                     } else {
                         $(".right_02 img").show();
                         $("#right_02_r").show();
@@ -794,7 +799,8 @@ angular.module("myApp.controller", [])
                         var nub_m = [];
                         var nub_bj = [];
                         if (data.grade_socre_trend.grade_trend.length !== 0) {
-
+                            $(".right_01").siblings().not(".right_01,.study_q_01").show()
+                            $("#tips").remove()
                             for (var i = 0; i < data.grade_socre_trend.grade_trend.length; i++) {
                                 var nub = "第" + (i + 1) + "次考试"
                                 nub_c.push(nub);
@@ -1339,12 +1345,17 @@ angular.module("myApp.controller", [])
                 success: function(data) {
                     console.log(data);
                     if (data.error_code == 500) {
+                        $(".study_q_zhong").hide();
+                        $(".study_q_zhong_p").html(data.error_message);
+                         $(".study_q_zhong_p").show();
                         $(".study_q_04_bo").hide();
                         $(".study_q_02_bo").hide();
                         $("#study_q_03_02").html(" ");
                         $(".study_q_05_01").html(" ");
                         $(".qk_a").html("0");
                     } else {
+                        $(".study_q_zhong").show();
+                        $(".study_q_zhong_p").hide();
                         $(".study_q_04_bo").show();
                         $(".study_q_02_bo").show();
                         $(".study_q_zt td").eq(0).html(data.class_basic_situation.full_score);
