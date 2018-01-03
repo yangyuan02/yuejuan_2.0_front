@@ -642,6 +642,11 @@ angular.module("myApp.controller", [])
                         $(".r2_02_03").html("0");
                         $(".r2_02_04").html("0");
                         $(".r2_02_05").html("0");
+                        $(".right_01").siblings().not(".right_01,.study_q_01").hide()
+                        $("#tips").remove()
+                        $("#main_right").append("<div id='tips' style='text-align: center;color:red'>该科目阅卷未分析完成</div>")
+                        console.log(1111)
+                        return false
                     } else {
                         $(".right_02 img").show();
                         $("#right_02_r").show();
@@ -794,7 +799,8 @@ angular.module("myApp.controller", [])
                         var nub_m = [];
                         var nub_bj = [];
                         if (data.grade_socre_trend.grade_trend.length !== 0) {
-
+                            $(".right_01").siblings().not(".right_01,.study_q_01").show()
+                            $("#tips").remove()
                             for (var i = 0; i < data.grade_socre_trend.grade_trend.length; i++) {
                                 var nub = "第" + (i + 1) + "次考试"
                                 nub_c.push(nub);
@@ -1279,6 +1285,7 @@ angular.module("myApp.controller", [])
                     "exam_id": exam_id,
                     "subject_id": sub_id,
                     "classroom_id": class_id,
+
                     // "name":"厉吴巍"
                 },
                 success: function(data) {
@@ -1300,7 +1307,9 @@ angular.module("myApp.controller", [])
 
         });
 
-
+         $(".mark_num").change(function(event) {
+            banji();
+         });
         function banji() {
             var exam_id = parseInt($(".study_q_km01").children('option:selected').attr("data-id"));
             $(".study_q_km02").attr("data-id", $(".study_q_km02").children('option:selected').attr("data-id"));
@@ -1317,6 +1326,7 @@ angular.module("myApp.controller", [])
             console.log(exam_id);
             console.log(class_id);
             console.log(sub_id);
+            var step_eq=parseInt($(".mark_num").children('option:selected').val());
             var sub_val = $(".study_q_km03").children('option:selected').html();
             $(".study_q_06_1 span").html(sub_val);
             $.ajax({
@@ -1329,6 +1339,7 @@ angular.module("myApp.controller", [])
                     "exam_id": exam_id,
                     "subject_id": sub_id,
                     "classroom_id": class_id,
+                     "step_eq":step_eq,
                     // "item":0,
                 },
                 success: function(data) {
@@ -1433,6 +1444,8 @@ angular.module("myApp.controller", [])
                     // 小得分详情
                     if (data.error_code !== 500) {
                         var x_zhe = ["选项A", "选项B", "选项C", "选项D", "选项E", "选项F", "选项G", "选项H", "选项I", "选项J", "选项K", "选项L", "选项M", "选项N", "选项O"];
+                        var x_value = ["column_value_1", "column_value_2", "column_value_3", "column_value_4", "column_value_5", "column_value_6", "column_value_7", "column_value_8", "column_value_9", "column_value_10", "column_value_11", "column_value_12", "column_value_13", "column_value_14", "column_value_15"];
+                        
                         var p_duan = ["T", "F"];
                         var tab_th = [];
                         var tab_th1 = {};
@@ -1495,12 +1508,17 @@ angular.module("myApp.controller", [])
                                 }else{
                                 $('#' + tab_bo[i] + ' tr').eq(c).append('<td style="border:0px;"></td><td>' + data.class_answer_setting_statistic[i].content[c].average + '</td><td>' + data.class_answer_setting_statistic[i].content[c].num + '</td><td>' + data.class_answer_setting_statistic[i].content[c].correct + '</td><td>' +zq_rate+ '</td><td data-itm="' + data.class_answer_setting_statistic[i].content[c].item + '"><span data_ans="' + data.class_answer_setting_statistic[i].content[c].answer_setting_id + '"  data-id="'+data.class_answer_setting_statistic[i].content[c].num +'">查看</span></td></tr>'); 
                                 }
+                                //选项
                                 for (var d = 0; d < data.class_answer_setting_statistic[i].content[0].size; d++) {
-                                    var f = data.class_answer_setting_statistic[i].content[0].size - 1 - d;
-                                    if(data.class_answer_setting_statistic[i].content[c].column_value[f]==undefined){
-                                          data.class_answer_setting_statistic[i].content[c].column_value[f]=0;
+                                    var f = data.class_answer_setting_statistic[i].content[0].size-1-d;
+                                     var a_var=x_value[f];
+                                    if(data.class_answer_setting_statistic[i].content[c][a_var]==undefined){
+                                          data.class_answer_setting_statistic[i].content[c][a_var]=0;
+
                                     };
-                                    $('#' + tab_bo[i] + ' tr').eq(c).find("td").eq(2).after('<td style=" color:' + data.class_answer_setting_statistic[i].content[c].result[f] + '">' + data.class_answer_setting_statistic[i].content[c].column_value[f] + '</td>');
+                                   
+                                    // console.log( data.class_answer_setting_statistic[i].content[c][a_var]);
+                                    $('#' + tab_bo[i] + ' tr').eq(c).find("td").eq(2).after('<td style=" color:' + data.class_answer_setting_statistic[i].content[c].result[f] + '">' + data.class_answer_setting_statistic[i].content[c][a_var] + '</td>');
                                 }
                                 // console.log($('#'+tab_bo[i]+'').children('tr').children('td').attr("data-id"));
                             }
