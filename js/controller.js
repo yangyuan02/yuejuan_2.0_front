@@ -642,6 +642,9 @@ angular.module("myApp.controller", [])
                         $(".r2_02_03").html("0");
                         $(".r2_02_04").html("0");
                         $(".r2_02_05").html("0");
+                        $(".right_01").siblings().not(".right_01,.study_q_01").hide()
+                        console.log(1111)
+                        return false
                     } else {
                         $(".right_02 img").show();
                         $("#right_02_r").show();
@@ -794,7 +797,7 @@ angular.module("myApp.controller", [])
                         var nub_m = [];
                         var nub_bj = [];
                         if (data.grade_socre_trend.grade_trend.length !== 0) {
-
+                            $(".right_01").siblings().not(".right_01,.study_q_01").show()
                             for (var i = 0; i < data.grade_socre_trend.grade_trend.length; i++) {
                                 var nub = "第" + (i + 1) + "次考试"
                                 nub_c.push(nub);
