@@ -643,6 +643,8 @@ angular.module("myApp.controller", [])
                         $(".r2_02_04").html("0");
                         $(".r2_02_05").html("0");
                         $(".right_01").siblings().not(".right_01,.study_q_01").hide()
+                        $("#tips").remove()
+                        $("#main_right").append("<div id='tips' style='text-align: center;color:red'>该科目阅卷未分析完成</div>")
                         console.log(1111)
                         return false
                     } else {
@@ -798,6 +800,7 @@ angular.module("myApp.controller", [])
                         var nub_bj = [];
                         if (data.grade_socre_trend.grade_trend.length !== 0) {
                             $(".right_01").siblings().not(".right_01,.study_q_01").show()
+                            $("#tips").remove()
                             for (var i = 0; i < data.grade_socre_trend.grade_trend.length; i++) {
                                 var nub = "第" + (i + 1) + "次考试"
                                 nub_c.push(nub);
