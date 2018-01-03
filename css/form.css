@@ -2449,7 +2449,12 @@ select{
     border: 1px solid #ccc;
     background: #fafafa;
 }
-
+.mark_num{
+	width: 60px;
+    height: 25px;
+    margin-left: 30px;
+    color: #666666;
+}
 
 
 
