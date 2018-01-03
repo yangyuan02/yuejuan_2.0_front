@@ -1279,6 +1279,7 @@ angular.module("myApp.controller", [])
                     "exam_id": exam_id,
                     "subject_id": sub_id,
                     "classroom_id": class_id,
+
                     // "name":"厉吴巍"
                 },
                 success: function(data) {
@@ -1300,7 +1301,9 @@ angular.module("myApp.controller", [])
 
         });
 
-
+         $(".mark_num").change(function(event) {
+            banji();
+         });
         function banji() {
             var exam_id = parseInt($(".study_q_km01").children('option:selected').attr("data-id"));
             $(".study_q_km02").attr("data-id", $(".study_q_km02").children('option:selected').attr("data-id"));
@@ -1317,6 +1320,7 @@ angular.module("myApp.controller", [])
             console.log(exam_id);
             console.log(class_id);
             console.log(sub_id);
+            var step_eq=parseInt($(".mark_num").children('option:selected').val());
             var sub_val = $(".study_q_km03").children('option:selected').html();
             $(".study_q_06_1 span").html(sub_val);
             $.ajax({
@@ -1329,6 +1333,7 @@ angular.module("myApp.controller", [])
                     "exam_id": exam_id,
                     "subject_id": sub_id,
                     "classroom_id": class_id,
+                     "step_eq":step_eq,
                     // "item":0,
                 },
                 success: function(data) {
