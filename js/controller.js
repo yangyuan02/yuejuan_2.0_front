@@ -1352,7 +1352,7 @@ angular.module("myApp.controller", [])
                         $(".study_q_02_bo").hide();
                         $("#study_q_03_02").html(" ");
                         $(".study_q_05_01").html(" ");
-                        $(".qk_a").html("0");
+                        $(".qk_a").html("0");//
                     } else {
                         $(".study_q_zhong").show();
                         $(".study_q_zhong_p").hide();
