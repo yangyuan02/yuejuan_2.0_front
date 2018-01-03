@@ -2386,6 +2386,48 @@ angular.module("myApp.controller", [])
             }); 
 
         };
+        function study_k_bb07() {
+            var exam_id = parseInt($(".study_k_701_km01").children('option:selected').attr("data-id"));
+            $(".study_k_701_km02").attr("data-id", $(".study_k_701_km02").children('option:selected').attr("data-id"));
+            var class_id = parseInt($(".study_k_701_km02").attr("data-id"));
+            if (class_id == null) {
+                var class_id = parseInt($(".study_k_701_km02").attr("data-id"));
+            }
+            $(".study_k_701_km03").attr("data-id", $(".study_k_701_km03").children('option:selected').attr("data-id"));
+            var sub_id = parseInt($(".study_k_701_km03").attr("data-id"));
+            if (sub_id == null) {
+                var sub_id = parseInt($(".study_k_701_km03").attr("data-id"));
+            }
+           if(class_id==11111){
+                var class_id = null;
+                }
+              if(sub_id==22222){
+                var sub_id = null;
+                }
+             $.ajax({
+                type: "POST",
+                async: false,
+                url: ajaxIp + "/api/v2/reports/export_all_subjects_score",
+                headers: {
+                    'Authorization': "Bearer " + isLogin,
+                },
+                data: {
+                    "exam_id": exam_id,
+                    "classroom_id": class_id,
+                   
+                },
+                success: function(data) {
+                    console.log(data);
+                    console.log(data.file_path);
+                    $(".study_k_701_101 button").parent().attr("href", ajaxIp + data.file_path);
+
+                },
+                error: function() {
+
+                }
+
+            });
+        };
         // $("#study_k_left").click(function(event) {
         //     study_k_top();
         //     study_k01();
@@ -2818,6 +2860,7 @@ angular.module("myApp.controller", [])
             $(".study_k_401_101 button").parent('a').removeAttr('href');
             $(".study_k_501_101 button").parent('a').removeAttr('href');
             $(".study_k_601_101 button").parent('a').removeAttr('href');
+            $(".study_k_701_101 button").parent('a').removeAttr('href');
             var btn_id = $(this).index();
             // alert(btn_id);  
             if(btn_id==0){
@@ -2895,7 +2938,12 @@ angular.module("myApp.controller", [])
                study_k_bb05();
           });
            $(".study_k_601_101 button").click(function(event) {
+           
                study_k_bb06();
+          });
+            $(".study_k_701_101 button").click(function(event) {
+          
+               study_k_bb07();
           });
       
         function study_k01() {
