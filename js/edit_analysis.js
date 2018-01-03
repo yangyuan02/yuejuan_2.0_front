@@ -110,6 +110,13 @@ $(".list_dif").html(" ");
              }
 
          }
+         //新标签
+          var desc_length=data.desc.length;
+           for(var i1=0;i1<desc_length;i1++){
+
+    $(".desc").append('<a style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;"><i style="font-style:normal;">'+data.desc[i1].name+'</i></a>');
+  
+         }
          },
          error: function() {
 
