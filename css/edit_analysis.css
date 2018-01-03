@@ -76,7 +76,7 @@
 }
 .main_wrong_left{
 	width: 355px;
-	height: 150px;
+	height: auto;
 	border:1px solid #ccc;
 	float: left;
 }
@@ -106,7 +106,7 @@
 
 .main_wrong_right{
 	width: 355px;
-	height: 150px;
+	height:auto;
 	border:1px solid #ccc;
 	float: right;
 }
