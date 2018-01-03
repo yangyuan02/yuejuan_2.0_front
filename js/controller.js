@@ -1433,6 +1433,8 @@ angular.module("myApp.controller", [])
                     // 小得分详情
                     if (data.error_code !== 500) {
                         var x_zhe = ["选项A", "选项B", "选项C", "选项D", "选项E", "选项F", "选项G", "选项H", "选项I", "选项J", "选项K", "选项L", "选项M", "选项N", "选项O"];
+                        var x_value = ["column_value_1", "column_value_2", "column_value_3", "column_value_4", "column_value_5", "column_value_6", "column_value_7", "column_value_8", "column_value_9", "column_value_10", "column_value_11", "column_value_12", "column_value_13", "column_value_14", "column_value_15"];
+                        
                         var p_duan = ["T", "F"];
                         var tab_th = [];
                         var tab_th1 = {};
@@ -1495,12 +1497,17 @@ angular.module("myApp.controller", [])
                                 }else{
                                 $('#' + tab_bo[i] + ' tr').eq(c).append('<td style="border:0px;"></td><td>' + data.class_answer_setting_statistic[i].content[c].average + '</td><td>' + data.class_answer_setting_statistic[i].content[c].num + '</td><td>' + data.class_answer_setting_statistic[i].content[c].correct + '</td><td>' +zq_rate+ '</td><td data-itm="' + data.class_answer_setting_statistic[i].content[c].item + '"><span data_ans="' + data.class_answer_setting_statistic[i].content[c].answer_setting_id + '"  data-id="'+data.class_answer_setting_statistic[i].content[c].num +'">查看</span></td></tr>'); 
                                 }
+                                //选项
                                 for (var d = 0; d < data.class_answer_setting_statistic[i].content[0].size; d++) {
-                                    var f = data.class_answer_setting_statistic[i].content[0].size - 1 - d;
-                                    if(data.class_answer_setting_statistic[i].content[c].column_value[f]==undefined){
-                                          data.class_answer_setting_statistic[i].content[c].column_value[f]=0;
+                                    var f = data.class_answer_setting_statistic[i].content[0].size-1-d;
+                                     var a_var=x_value[f];
+                                    if(data.class_answer_setting_statistic[i].content[c][a_var]==undefined){
+                                          data.class_answer_setting_statistic[i].content[c][a_var]=0;
+
                                     };
-                                    $('#' + tab_bo[i] + ' tr').eq(c).find("td").eq(2).after('<td style=" color:' + data.class_answer_setting_statistic[i].content[c].result[f] + '">' + data.class_answer_setting_statistic[i].content[c].column_value[f] + '</td>');
+                                   
+                                    // console.log( data.class_answer_setting_statistic[i].content[c][a_var]);
+                                    $('#' + tab_bo[i] + ' tr').eq(c).find("td").eq(2).after('<td style=" color:' + data.class_answer_setting_statistic[i].content[c].result[f] + '">' + data.class_answer_setting_statistic[i].content[c][a_var] + '</td>');
                                 }
                                 // console.log($('#'+tab_bo[i]+'').children('tr').children('td').attr("data-id"));
                             }
