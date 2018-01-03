@@ -1212,13 +1212,13 @@ angular.module("myApp.controller", [])
             /* Act on the event */
             study_q_bb01();
         });
-         $(".study_q_i_btn_02").mouseover(function()
-    {
-         $(".study_q_i_btn_02_img").show();
-    }).mouseout(function()   
-    {
-        $(".study_q_i_btn_02_img").hide();       
-    });
+    //      $(".study_q_i_btn_02").mouseover(function()
+    // {
+    //      $(".study_q_i_btn_02_img").show();
+    // }).mouseout(function()   
+    // {
+    //     $(".study_q_i_btn_02_img").hide();       
+    // });
         $(".study_q_i_btn_02").click(function(event) {
             /* Act on the event */
             study_q_bb02();
@@ -1463,7 +1463,7 @@ angular.module("myApp.controller", [])
                             // }
 
                             if (data.class_answer_setting_statistic[i].content[0].item == "单选题") {
-                                for (var a = 0; a < data.class_answer_setting_statistic[i].content[0].result.length; a++) {
+                                for (var a = 0; a < data.class_answer_setting_statistic[i].content[0].size; a++) {
                                     $('#' + tab_th[i] + '').before('<th>' + x_zhe[a] + '</th>');
                                     console.log(data.class_answer_setting_statistic[0].content[0].average);
                                 }
@@ -1472,7 +1472,7 @@ angular.module("myApp.controller", [])
                                 $('#' + tab_th[i] + '').before('<th>T</th><th>F</th>');
                             };
                              if (data.class_answer_setting_statistic[i].content[0].item == 0) {
-                                for (var a = 0; a < data.class_answer_setting_statistic[i].content[0].result.length; a++) {
+                                for (var a = 0; a < data.class_answer_setting_statistic[i].content[0].size; a++) {
                                     $('#' + tab_th[i] + '').before('<th>' + x_zhe[a] + '</th>');
                                     console.log(data.class_answer_setting_statistic[0].content[0].average);
                                 }
@@ -1495,10 +1495,10 @@ angular.module("myApp.controller", [])
                                 }else{
                                 $('#' + tab_bo[i] + ' tr').eq(c).append('<td style="border:0px;"></td><td>' + data.class_answer_setting_statistic[i].content[c].average + '</td><td>' + data.class_answer_setting_statistic[i].content[c].num + '</td><td>' + data.class_answer_setting_statistic[i].content[c].correct + '</td><td>' +zq_rate+ '</td><td data-itm="' + data.class_answer_setting_statistic[i].content[c].item + '"><span data_ans="' + data.class_answer_setting_statistic[i].content[c].answer_setting_id + '"  data-id="'+data.class_answer_setting_statistic[i].content[c].num +'">查看</span></td></tr>'); 
                                 }
-                                for (var d = 0; d < data.class_answer_setting_statistic[i].content[0].result.length; d++) {
-                                    var f = data.class_answer_setting_statistic[i].content[0].result.length - 1 - d;
+                                for (var d = 0; d < data.class_answer_setting_statistic[i].content[0].size; d++) {
+                                    var f = data.class_answer_setting_statistic[i].content[0].size - 1 - d;
                                     if(data.class_answer_setting_statistic[i].content[c].column_value[f]==undefined){
-                                          data.class_answer_setting_statistic[i].content[c].column_value[f]=0
+                                          data.class_answer_setting_statistic[i].content[c].column_value[f]=0;
                                     };
                                     $('#' + tab_bo[i] + ' tr').eq(c).find("td").eq(2).after('<td style=" color:' + data.class_answer_setting_statistic[i].content[c].result[f] + '">' + data.class_answer_setting_statistic[i].content[c].column_value[f] + '</td>');
                                 }
