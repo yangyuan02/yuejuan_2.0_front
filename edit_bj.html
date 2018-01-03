@@ -136,7 +136,7 @@
         $(".edit_li_div02_box").slideToggle(1000);
       });
     </script>
-       		<li>添加知识点<button type="" class="edit_li_btn03">编辑</button><div class="edit_li_div03" style="display:block;"><p class="edit_li_div03_p01">选择知识点</p>
+       		<li>添加知识点<button type="" class="edit_li_btn03">编辑</button><div class="edit_li_div03" ><p class="edit_li_div03_p01">选择知识点</p>
                <p class="edit_li_div03_p02"><a>版本<select>
                	<option value="">人教版</option>
                </select></a>
@@ -146,7 +146,7 @@
                <a>年级<select>
                	<option value="">高一</option>
                </select></a>
-               <input type="" name="" placeholder="请输入搜索知识点" class="search_input">
+               <input type="" name="" placeholder="请输入搜索知识点" class="search_input" style="color: #666;">
                
                <a class="edit_li_div03_p02_a"><i class="iconfont">&#xe610;</i></a>
                <div class="search"> 
@@ -157,7 +157,7 @@
                </p><div class="edit_li_div03_box">
                	<div class="edit_li_div03_box01">
                	<p class="edit_li_div03_box01_p">添加知识点</p>
-               	<div style="height: 280px;overflow: scroll;">
+               	<div class="edit_zs_div" style="height: 280px;overflow: scroll;">
                		<ul class="edit_zs">
                		<!-- 	<li style="border:none;line-height:38px;color: #999999;"><i class="iconfont" style="margin-left:10px;margin-right:10px;">&#xe6ca;</i>第一章 机械运动
                			<ul class="edit_zs02" style="display: none;">
@@ -210,7 +210,7 @@
           //           $(this).html("&#xe639;");
           //           $(this).attr("data-id","0");
           //        }
-          //     });
+          //     });11111
           // }
             
          
@@ -396,7 +396,7 @@
             $(".wrong_box").slideUp(500);
            });
           </script> -->
-       		<li>添加新标签<a class="edit_li_btn06_a" style="display: none;"><input type="" name="" placeholder="请输入要添加的标签" style="height:32px;width:190px;padding-left: 8px;    box-sizing: border-box;margin-left: 20px;"><button type="" class="determine" style="margin-left:30px;">保存</button></a><button type="" class="edit_li_btn06">添加</button></li>
+       		<li>添加新标签<a class="edit_li_btn06_a" style="display: none;"><input type="" name="" placeholder="请输入要添加的标签" style="height:32px;width:190px;padding-left: 8px;    box-sizing: border-box;margin-left: 20px;" class="edit_li_btn06_input"><button type="" class="edit_li_btn06_add determine" style="margin-left:30px;">保存</button></a><button type="" class="edit_li_btn06">添加</button><div class="edit_li_btn06_div" style="cursor: pointer;overflow: hidden;"></div></li>
        	</ul>
         <script>
           $(".edit_li_btn06").click(function(event) {

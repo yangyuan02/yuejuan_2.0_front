@@ -54,11 +54,12 @@ $(".p_top a").click(function(event) {
     return false;
 });
 //获取题目内容，答案。。。
+
  $.ajax({
-         type: "POST",
-         url: ajaxIp + "/api/v2/question_banks/update_question",
+         type: "GET",
+         url: ajaxIp + '/api/v2/question_banks/'+id+'',
          data: {
-             'id':id,
+             // 'id':id,
             
          },
          headers: { 'Authorization': "Bearer " + isLogin },
@@ -68,6 +69,7 @@ $(".p_top a").click(function(event) {
          var b=data.answer;
          var c=data.difficulty_level;
          var d=data.analysis;
+         var desc_length=data.desc.length;
          console.log(b);
          $(".edit_li_div03").attr("data-id",data.id);
          UE.getEditor('container').setContent(''+a+'');
@@ -83,6 +85,12 @@ $(".p_top a").click(function(event) {
          if(c!==undefined){
            $(".dif_input input").val(c);
          }
+         //添加标签
+         for(var i=0;i<desc_length;i++){
+    $(".edit_li_btn06_div").append('<a class="delete_'+data.desc[i].id+'"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" data-id="'+data.desc[i].id+'"><i style="font-style:normal;">'+data.desc[i].name+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
+  
+         }
+         
          },
          error: function() {
 
@@ -284,26 +292,27 @@ $(".edit_zs").on('click', 'li  i', function(event) {
          success: function(data) {
          console.log(data);
          // window.location.reload();
+         // $(".search_input").val(" ");
          $(".edit_zs").html(" ");
          $(".search_ul").html(" ");
          var a_length=data.length;
 
          for(var i=0;i<data.length;i++){
-           $(".edit_zs").append('<li style="border:none;line-height:38px;color: #999999;"><i class="iconfont" style="margin-left:10px;margin-right:10px;">&#xe6ca;</i>'+data[i].name+'</li>')
-           $(".search_ul").append('<li data-id="'+data[i].id+'">'+data[i].name+'</li>');
+           $(".edit_zs").append('<li class="choose_li'+data[i].id+'" style="border:none;line-height:38px;color: #999999;"><i class="iconfont" style="margin-left:10px;margin-right:10px;">&#xe6ca;</i>'+data[i].name+'</li>')
+           $(".search_ul").append('<li data-id="'+data[i].id+'" scroll-id="'+i+'">'+data[i].name+'</li>');
            if(data[i].children!==undefined){
             $(".edit_zs").children('li').eq(i).append('<ul style="display: none;"></ul>');
             
             for(var i1=0;i1<data[i].children.length;i1++){
                $(".edit_zs").children('li').eq(i).children('ul').append('<li class="choose_li'+data[i].children[i1].id+'" data-id="'+data[i].children[i1].id+'" style="border:none;line-height:20px;padding-left:12px;color: #999999;"><i class="iconfont" style="margin-left:10px;margin-right:10px;" data-id="0">&#xe6ca;</i><a>'+data[i].children[i1].name+'</a></li>');
-              $(".search_ul").append('<li data-id="'+data[i].children[i1].id+'">'+data[i].children[i1].name+'</li>');
+              $(".search_ul").append('<li data-id="'+data[i].children[i1].id+'" scroll-id="'+i+'">'+data[i].children[i1].name+'</li>');
             
             if(data[i].children[i1].children!==undefined){
             $(".edit_zs").children('li').eq(i).children('ul').children('li').eq(i1).append('<ul style="display: none;"></ul>');
             
             for(var i2=0;i2<data[i].children[i1].children.length;i2++){
                $(".edit_zs").children('li').eq(i).children('ul').children('li').eq(i1).children('ul').append('<li class="choose_li'+data[i].children[i1].children[i2].id+'"  data-id="'+data[i].children[i1].children[i2].id+'"  style="border:none;line-height:20px;padding-left:30px;color: #999999;"><i class="iconfont choose_i" style="margin-left:10px;margin-right:10px;" data-id="0">&#xe64b;</i><a>'+data[i].children[i1].children[i2].name+'</a></li>');
-               $(".search_ul").append('<li data-id="'+data[i].children[i1].children[i2].id+'">'+data[i].children[i1].children[i2].name+'</li>');
+               $(".search_ul").append('<li data-id="'+data[i].children[i1].children[i2].id+'" scroll-id="'+i+'">'+data[i].children[i1].children[i2].name+'</li>');
             
             }
             }else{
@@ -316,6 +325,7 @@ $(".edit_zs").on('click', 'li  i', function(event) {
 
             }
            }
+           // $(".edit_zs_div").scrollTop($(".edit_zs_div")[].offsetHeight);
          }
          // console.log(data[0].children[0].children[0].children);
          },
@@ -325,6 +335,8 @@ $(".edit_zs").on('click', 'li  i', function(event) {
 
 
      });
+  
+
     //获取选中
     var question_bank_id=parseInt($(".edit_li_div03").attr("data-id"));
           $.ajax({
@@ -369,13 +381,30 @@ $(".search_input").keyup(function(){
 
 $(".search").on('click','li', function(event) {
   $(".search_input").val($(this).html());
+  $(".search_input").attr("scroll-id",$(this).attr("scroll-id"));
   // alert($(this).html());
 });
+$(".edit_li_div03_p02_a").click(function(event) {
+ var a_num=$(".search_input").attr("scroll-id");
+ console.log($(".edit_zs").children('li').eq(a_num).attr("class"));
+ var container = $('.edit_zs_div'),
+    scrollTo = $('.'+$(".edit_zs").children('li').eq(a_num).attr("class")+'');
 
+container.scrollTop(
+    scrollTo.offset().top - container.offset().top + container.scrollTop()
+)
+
+// Or you can animate the scrolling:
+container.animate({
+    scrollTop: scrollTo.offset().top - container.offset().top + container.scrollTop()
+})
+$(".edit_zs ul").css("display","none");
+$('.'+$(".edit_zs").children('li').eq(a_num).attr("class")+'').find("ul").css("display","block");
+// $('.'+$(".edit_zs").children('li').eq(a_num).attr("class")+'')
+});
 $(document).click(function(){
   $(".search").hide();
 });
-
 
 $(".edit_zs").on('click', '.choose_i', function(event) {
  
@@ -659,6 +688,7 @@ $(".wrong_fz_01").on('click', 'a', function(event) {
        $(this).css("background","#31bc92");
        $(this).attr("data-id","1");
        $(".wrong_fz_02").append('<a id="'+$(this).attr("class")+'"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" num-id="'+$(this).attr("num-id")+'"><i>'+$(this).find('i').eq(0).html()+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
+     
      }else if(a==1){
        $(this).css("background","#cccccc");
        $(this).attr("data-id","0");
@@ -671,9 +701,10 @@ $(".wrong_fz_01").on('click', 'a', function(event) {
        $('.'+$(this).attr("id")+'').attr("data-id","0");
 
 
-    })
+    });
+   
 $(".wrong_box_btn01").click(function(event) {
-  var question_bank_id=parseInt($(".edit_li_div03").attr("data-id"));
+   var question_bank_id=parseInt($(".edit_li_div03").attr("data-id"));
   var a_length01=$(".wrong_z_02 a").length;
   var a_length02=$(".wrong_fz_02 a").length;
  var a_num01=[];
@@ -717,10 +748,65 @@ $.ajax({
    $(".wrong_box_btn02").click(function(event) {
       $(".wrong_box").slideUp(500);
    });
+//添加新标签
+$(".edit_li_btn06_add").click(function(event) {
+ var a_val=$(".edit_li_btn06_input").val();
+ var question_bank_id=parseInt($(".edit_li_div03").attr("data-id"));
+ console.log(question_bank_id);
+ if($(".edit_li_btn06_input").val().length==0){
+ alert("标签内容不能为空");
+ }else{
+$.ajax({
+         type: "POST",
+        async:false,
+         url: ajaxIp + '/api/v2/question_banks/'+question_bank_id+'/add_desc',
+         data: {
+            'question_bank_id':question_bank_id,
+             'name':a_val,
+         },
+         headers: { 'Authorization': "Bearer " + isLogin },
+         success: function(data) {
+         console.log(data);
+         // window.location.reload();
+         alert("保存成功");
+         $(".edit_li_btn06_div").append('<a class="delete_'+data.id+'" style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" data-id="'+data.id+'"><i style="font-style:normal;">'+data.name+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
+   
+         },
+         error: function() {
+
+         }
+     });
+ }
+   
+ 
+ 
+ 
+
+});
+ $(".edit_li_btn06_div").on('click', '.iconfont', function(event) {
+  var id=parseInt($(this).parent().attr("data-id"));
+ $.ajax({
+         type: "DELETE",
+        async:false,
+         url: ajaxIp + '/api/v2/question_banks/remove_desc',
+         data: {
+            'question_bank_describe_id':id,
+            
+         },
+         headers: { 'Authorization': "Bearer " + isLogin },
+         success: function(data) {
+         console.log(data);
+         $('.delete_'+id+'').remove();
+         },
+         error: function() {
+
+         }
+     });
 
 
+ });
 
-
+ 
 
 
 
