@@ -54,11 +54,12 @@ $(".p_top a").click(function(event) {
     return false;
 });
 //获取题目内容，答案。。。
+
  $.ajax({
-         type: "POST",
-         url: ajaxIp + "/api/v2/question_banks/update_question",
+         type: "GET",
+         url: ajaxIp + '/api/v2/question_banks/'+id+'',
          data: {
-             'id':id,
+             // 'id':id,
             
          },
          headers: { 'Authorization': "Bearer " + isLogin },
@@ -68,6 +69,7 @@ $(".p_top a").click(function(event) {
          var b=data.answer;
          var c=data.difficulty_level;
          var d=data.analysis;
+         var desc_length=data.desc.length;
          console.log(b);
          $(".edit_li_div03").attr("data-id",data.id);
          UE.getEditor('container').setContent(''+a+'');
@@ -83,6 +85,12 @@ $(".p_top a").click(function(event) {
          if(c!==undefined){
            $(".dif_input input").val(c);
          }
+         //添加标签
+         for(var i=0;i<desc_length;i++){
+    $(".edit_li_btn06_div").append('<a class="delete_'+data.desc[i].id+'"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" data-id="'+data.desc[i].id+'"><i style="font-style:normal;">'+data.desc[i].name+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
+  
+         }
+         
          },
          error: function() {
 
@@ -680,6 +688,7 @@ $(".wrong_fz_01").on('click', 'a', function(event) {
        $(this).css("background","#31bc92");
        $(this).attr("data-id","1");
        $(".wrong_fz_02").append('<a id="'+$(this).attr("class")+'"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" num-id="'+$(this).attr("num-id")+'"><i>'+$(this).find('i').eq(0).html()+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
+     
      }else if(a==1){
        $(this).css("background","#cccccc");
        $(this).attr("data-id","0");
@@ -692,9 +701,10 @@ $(".wrong_fz_01").on('click', 'a', function(event) {
        $('.'+$(this).attr("id")+'').attr("data-id","0");
 
 
-    })
+    });
+   
 $(".wrong_box_btn01").click(function(event) {
-  var question_bank_id=parseInt($(".edit_li_div03").attr("data-id"));
+   var question_bank_id=parseInt($(".edit_li_div03").attr("data-id"));
   var a_length01=$(".wrong_z_02 a").length;
   var a_length02=$(".wrong_fz_02 a").length;
  var a_num01=[];
@@ -738,10 +748,65 @@ $.ajax({
    $(".wrong_box_btn02").click(function(event) {
       $(".wrong_box").slideUp(500);
    });
+//添加新标签
+$(".edit_li_btn06_add").click(function(event) {
+ var a_val=$(".edit_li_btn06_input").val();
+ var question_bank_id=parseInt($(".edit_li_div03").attr("data-id"));
+ console.log(question_bank_id);
+ if($(".edit_li_btn06_input").val().length==0){
+ alert("标签内容不能为空");
+ }else{
+$.ajax({
+         type: "POST",
+        async:false,
+         url: ajaxIp + '/api/v2/question_banks/'+question_bank_id+'/add_desc',
+         data: {
+            'question_bank_id':question_bank_id,
+             'name':a_val,
+         },
+         headers: { 'Authorization': "Bearer " + isLogin },
+         success: function(data) {
+         console.log(data);
+         // window.location.reload();
+         alert("保存成功");
+         $(".edit_li_btn06_div").append('<a class="delete_'+data.id+'" style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" data-id="'+data.id+'"><i style="font-style:normal;">'+data.name+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
+   
+         },
+         error: function() {
+
+         }
+     });
+ }
+   
+ 
+ 
+ 
+
+});
+ $(".edit_li_btn06_div").on('click', '.iconfont', function(event) {
+  var id=parseInt($(this).parent().attr("data-id"));
+ $.ajax({
+         type: "DELETE",
+        async:false,
+         url: ajaxIp + '/api/v2/question_banks/remove_desc',
+         data: {
+            'question_bank_describe_id':id,
+            
+         },
+         headers: { 'Authorization': "Bearer " + isLogin },
+         success: function(data) {
+         console.log(data);
+         $('.delete_'+id+'').remove();
+         },
+         error: function() {
+
+         }
+     });
 
 
+ });
 
-
+ 
 
 
 
