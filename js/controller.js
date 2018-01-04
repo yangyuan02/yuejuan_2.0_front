@@ -2429,8 +2429,8 @@ angular.module("myApp.controller", [])
                 },
                 success: function(data) {
                     console.log(data);
-                    console.log(data.file_path);
-                    $(".study_k_701_101 button").parent().attr("href", ajaxIp + data.file_path);
+                    console.log(data.titile);
+                    $(".study_k_701_101 button").parent().attr("href", ajaxIp + data.titile);
 
                 },
                 error: function() {
