@@ -2429,8 +2429,8 @@ angular.module("myApp.controller", [])
                 },
                 success: function(data) {
                     console.log(data);
-                    console.log(data.file_path);
-                    $(".study_k_701_101 button").parent().attr("href", ajaxIp + data.file_path);
+                    console.log(data.titile);
+                    $(".study_k_701_101 button").parent().attr("href", ajaxIp + data.titile);
 
                 },
                 error: function() {
@@ -3931,6 +3931,12 @@ angular.module("myApp.controller", [])
                 tooltip: {
                     trigger: 'axis'
                 },
+                 toolbox: {
+                  show : true,
+                 feature : {
+                          saveAsImage : {show: true}
+                   }
+                },
                 calculable: false,
                 xAxis: [{
                     type: 'category',
@@ -4116,7 +4122,7 @@ angular.module("myApp.controller", [])
                 for (var i = 0; i < data.length; i++) {
                     $(".exam_h_102_km01").append('<option value="' + data[i].name + '" data-id=' + data[i].id + '>' + data[i].name + '</option>')
                 };
-                $(".exam_h_102_km03").append('<option value="" data-id="22222" >全部科目</option>');
+                // $(".exam_h_102_km03").append('<option value="" data-id="22222" >全部科目</option>');
                 for (var i = 0; i < data[0].classrooms.length; i++) {
                    
                     $(".exam_h_102_km02").append('<option value="" data-id=' + data[0].classrooms[i].classroom_id + '>' + data[0].classrooms[i].classroom_name + '</option>')
@@ -4133,7 +4139,7 @@ angular.module("myApp.controller", [])
                     // $(".study_q_km01 option").eq(0).remove();
                     $(".exam_h_102_km02 option").remove();
                     $(".exam_h_102_km03 option").remove();
-                     $(".exam_h_102_km03").append('<option value="" data-id="22222">全部科目</option>');
+                     // $(".exam_h_102_km03").append('<option value="" data-id="22222">全部科目</option>');
                   
                     // $(".study_k_km02").attr("data-id", $(".study_k_km01 option").eq(0).attr("data-id"));
                     for (var i = 0; i < data[index02].classrooms.length; i++) {
