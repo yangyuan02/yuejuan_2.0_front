@@ -1,7 +1,6 @@
 $(function(){
-var isLogin = localStorage.getItem("token");
-	
-	var height = $(window).height()-$('#header').height()-$('#footer').height()-180;
+var isLogin = localStorage.getItem("token");	
+var height = $(window).height()-$('#header').height()-$('#footer').height()-180;
  var url = window.location;
   function getUrlParam(url,name){
     var pattern = new RegExp("[?&]" + name +"\=([^&]+)","g");

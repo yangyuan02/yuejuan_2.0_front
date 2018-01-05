@@ -1,4 +1,6 @@
  $(document).ready(function() {
+    var isLogin = localStorage.getItem("token");    
+    
      //切换模块
      $(".wrong_left_ul li").click(function(event) {
          var a = $(this).index();
@@ -183,6 +185,59 @@
      // 	var a = $(".grade_list").children('div').eq(1).find('.grade_list_number a').html("18");
      // 	alert(a);
      // });
+     // 考试ajax
+     $.ajax({
+            type: "GET",
+            url: ajaxIp + "/api/v2/reports/exams",
+            async: false,
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            success: function(data) {
+                console.log(data);
+             var exam_length=data.length;
+             for(var i=0;i<exam_length;i++){
+              $(".grade_exam").attr("data-id",data[0].id);
+               $(".grade_exam").append('<option value="" data-id="'+data[i].id+'">'+data[i].name+'</option>');
+
+               
+             }
+             var sub_length=data[0].subjects.length;
+             var sub=data[0].subjects;
+              $(".grade_exam").change(function(event) {
+                var in_dex=parseInt($(this).children('option:selected').index());
+                 sub_length=data[in_dex].subjects.length;
+                  sub=data[in_dex].subjects;
+               $(".grade_sub").html(" ");
+               for(var a=0;a<sub_length;a++){
+                console.log(in_dex);
+                $(".grade_sub").attr("data-id",data[in_dex].subjects[0].subject_id);
+               $(".grade_sub").append('<option value="" data-id="'+sub[a].subject_id+'">'+sub[a].name+'</option>')
+               }
+               
+               });
+               for(var a=0;a<sub_length;a++){
+                 $(".grade_sub").attr("data-id",data[0].subjects[0].subject_id);
+               $(".grade_sub").append('<option value="" data-id="'+sub[a].subject_id+'">'+sub[a].name+'</option>')
+               }
+             
+               
+             
+            },
+            error: function() {
+                
+            }
+
+        });
+     $(".grade_exam").change(function(event) {
+        $(this).attr("data-id",$(this).children('option:selected').attr("data-id"));
+        console.log($(this).children('option:selected').attr("data-id"));
+     });
+      $(".grade_sub").change(function(event) {
+        $(this).attr("data-id",$(this).children('option:selected').attr("data-id"));
+        console.log($(this).children('option:selected').attr("data-id"));
+     });
+     //年级 ajax  end
      //班级错题
      $(".class_sur").click(function(event) {
          $(".class_ans").slideDown('1000');
