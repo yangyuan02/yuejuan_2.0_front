@@ -10,6 +10,11 @@ $(function() {
 	console.log(window.location.pathname)
 	 var cur_port = window.location.port;
 	 console.log(cur_port)
+	 if(cur_port==8899){
+	 	document.title = '富轶信息';
+	 }else{
+	 		document.title = '网阅星';
+	 }
 
 // console.log(isLogin);
 
