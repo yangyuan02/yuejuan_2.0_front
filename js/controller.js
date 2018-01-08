@@ -1211,6 +1211,7 @@ angular.module("myApp.controller", [])
             $(".study_q_i_btn_04").parent().removeAttr('href');
             $(".study_q_i_btn_05").parent().removeAttr('href');
             $(".study_q_i_btn_06").parent().removeAttr('href');
+             $(".all_study_q_i_btn").parent().removeAttr('href');
             banji();
             // study_q_bb();
         });
@@ -1242,7 +1243,9 @@ angular.module("myApp.controller", [])
             study_q_bb06();
         });
 
-
+  $(".all_study_q_i_btn").click(function(event) {
+           study_q_bb_all()
+        });
 
         $(".study_q_qk03").click(function(event) {
             /* Act on the event */
@@ -1725,11 +1728,11 @@ angular.module("myApp.controller", [])
             if (sub_id == null) {
                 var sub_id = parseInt($(".study_q_km03").attr("data-id"));
             }
-
+           
             console.log(exam_id);
             console.log(class_id);
             console.log(sub_id);
-
+            var step_eq=parseInt($(".mark_num").children('option:selected').val());
             $.ajax({
                 type: "POST",
                 async: false,
@@ -1741,6 +1744,7 @@ angular.module("myApp.controller", [])
                     "exam_id": exam_id,
                     "subject_id": sub_id,
                     "classroom_id": class_id,
+                    "step_eq":step_eq,
                 },
                 success: function(data) {
                     console.log(data);
@@ -1858,7 +1862,43 @@ angular.module("myApp.controller", [])
             });
         };
 
-
+function study_q_bb_all() {
+            var exam_id = parseInt($(".study_q_km01").children('option:selected').attr("data-id"));
+            $(".study_q_km02").attr("data-id", $(".study_q_km02").children('option:selected').attr("data-id"));
+            var class_id = parseInt($(".study_q_km02").attr("data-id"));
+            if (class_id == null) {
+                var class_id = parseInt($(".study_q_km02").attr("data-id"));
+            }
+            $(".study_q_km03").attr("data-id", $(".study_q_km03").children('option:selected').attr("data-id"));
+            var sub_id = parseInt($(".study_q_km03").attr("data-id"));
+            if (sub_id == null) {
+                var sub_id = parseInt($(".study_q_km03").attr("data-id"));
+            }
+           
+            console.log(exam_id);
+            console.log(class_id);
+            console.log(sub_id);
+            var step_eq=parseInt($(".mark_num").children('option:selected').val());
+            $.ajax({
+                type: "POST",
+                async: false,
+                url: ajaxIp + "/api/v2/reports/basic_report",
+                headers: {
+                    'Authorization': "Bearer " + isLogin
+                },
+                data: {
+                    "exam_id": exam_id,
+                    "subject_id": sub_id,
+                    "classroom_id": class_id,
+                    "step_eq":step_eq,
+                },
+                success: function(data) {
+                    console.log(data);
+                    $(".all_study_q_i_btn").parent().attr("href", ajaxIp + data.file_path);
+                },
+                error: function() {}
+            });
+        };
 
         // 分数段分布插件
         function study_q_fd(a, b) {
@@ -2200,6 +2240,7 @@ angular.module("myApp.controller", [])
               if(sub_id==22222){
                 var sub_id = null;
                 }
+                
                $.ajax({
                 type: "POST",
                 async: false,
@@ -2211,6 +2252,7 @@ angular.module("myApp.controller", [])
                     "exam_id": exam_id,
                     "subject_id": sub_id,
                     "classroom_id": class_id,
+
                 },
                 success: function(data) {
                     console.log(data);
@@ -2243,6 +2285,7 @@ angular.module("myApp.controller", [])
               if(sub_id==22222){
                 var sub_id = null;
                 }
+               
             $.ajax({
                 type: "POST",
                 async: false,
@@ -2253,6 +2296,7 @@ angular.module("myApp.controller", [])
                 data: {
                     "exam_id": exam_id,
                     "classroom_id": class_id,
+
                 },
                 success: function(data) {
                     console.log(data);
