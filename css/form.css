@@ -792,7 +792,7 @@ margin-left: 20px;
 }
 .study_q_01 li {
 	float: left;
-	margin-right: 30px;
+	margin-right:25px;
 }
 .study_q_01 select{
 	width: 142px;
@@ -2449,7 +2449,12 @@ select{
     border: 1px solid #ccc;
     background: #fafafa;
 }
-
+.mark_num{
+	width: 60px;
+    height: 25px;
+    margin-left: 30px;
+    color: #666666;
+}
 
 
 

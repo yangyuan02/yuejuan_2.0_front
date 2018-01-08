@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>网阅星</title>
+	<title></title>
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/jquery-ui.css">
 	<link rel="stylesheet" href="css/marking.css">
@@ -142,7 +142,7 @@
 						<a href="javascript:;" class="next" id="next"><i class="iconfont">&#xe61f;</i></a>
 					</li>
 					<li>
-						<a href="javascript:;" class="back-paper btn-off">返回试卷</a>
+						<a href="javascript:;" class="back-paper btn-off">返回阅卷</a>
 					</li>
 				</ul>
 				<div class="close"><i class="iconfont">&#xe61b;</i></div>
@@ -213,7 +213,7 @@
 							</h5>
 						</div>
 						<div class="pop-2">
-							<p><span>进度:<a><span class="finished">6</span>/<span class="all-paper">10</span></a></span>   <!-- <span style="padding-left: 20px">速度:<a>1/分钟</a></span> --></p>
+							<p><span style="font-size: 16px;">进度:<a style="font-size: 16px;"><span class="finished">6</span>/<span class="all-paper">10</span></a></span>   <!-- <span style="padding-left: 20px">速度:<a>1/分钟</a></span> --></p>
 							<table class="p-table" id="p-table">
 								<thead>
 									<tr>
@@ -223,7 +223,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
+									<!-- <tr>
 										<td class="item-num">1</td>
 										<td class="input-p"><input type="text" class="yuejuan_score"></td>
 										<td class="all-grade">3分</td>
@@ -232,11 +232,13 @@
 										<td class="item-num">1</td>
 										<td class="input-p"><input type="text" class="yuejuan_score"></td>
 										<td class="all-grade">3分</td>
-									</tr>
+									</tr> -->
 								</tbody>
 							</table>
 							<div class="pop-button">
-								<a class="con-btn determine" href="javascript:;">确认提交</a>
+								<span  id="all-right" style="color: #31bc91;cursor: pointer;"><i class="iconfont" style="padding-right:5px;">&#xe619;</i>全对</span>
+								<span id="all-error" style="color:#fd97a3;padding: 0 10px;cursor: pointer;"><i class="iconfont" style="padding-right:5px;">&#xe61b;</i>全错</span>
+								<a class="con-btn determine" href="javascript:;" style="display: inline-block">确认提交</a>
 							</div>
 						</div>
 					</div>

@@ -890,7 +890,7 @@ ul.ul-right .back-paper{
   background: none;
 }
 .yuejuan-pop{
-	width: 264px;
+	width: 300px;
   top: 60px;
   right: 20px;
   position: absolute;
@@ -912,10 +912,10 @@ ul.ul-right .back-paper{
 	text-align: center;
 }
 .pop-1 h5{
-	font-size: 14px;
+	font-size: 16px;
 }
 .pop-2{
-	font-size: 14px;
+	font-size: 16px;
 	background: #fff;
 	padding: 15px 30px;
 	color: #666;
@@ -927,13 +927,14 @@ ul.ul-right .back-paper{
 }
 .p-table input{
 	width: 90px;
-	height: 20px;
-	line-height: 20px;
+	height: 25px;
+	line-height: 25px;
 	text-indent: 12px;
+	font-size: 16px;
 }
 .pop-button{
 	text-align: center;
-	margin-top: 15px;
+	margin-top: 20px;
 }
 a.con-btn{
 	display: block;
