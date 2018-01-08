@@ -183,10 +183,10 @@
        $(".per_list").css("padding","20px 0px 100px 0px");
      $(".wrong_right").css("padding","43px 40px 100px 35px");
      });
-     $(".grate_wrong_make").click(function(event) {
-     	var a = $(".grade_list").children('div').eq(1).find('.grade_list_number a').html("18");
-     	alert(a);
-     });
+     // $(".grate_wrong_make").click(function(event) {
+     // 	var a = $(".grade_list").children('div').eq(1).find('.grade_list_number a').html("18");
+     // 	alert(a);
+     // });
      // 考试ajax
      $.ajax({
             type: "GET",
@@ -304,8 +304,8 @@
             url: ajaxIp + "/api/v2/wrong_questions/grade_index",
             async: false,
             data:{
-                "exam_id":343,
-                 "subject_id":12,
+                "exam_id":grade_exam,
+                 "subject_id":grade_sub,
                  "item":data_num,
                  "rate":rate,
             },
@@ -314,6 +314,7 @@
             },
             success: function(data) {
                 console.log(data);
+                 $(".grade_list_ul").html(" ");
               for(var i=0;i<data.length;i++){
                 var scoring_rate=Math.floor(data[i].scoring_rate*100)+"%";
                 console.log(scoring_rate);

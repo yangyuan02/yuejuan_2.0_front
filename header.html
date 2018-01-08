@@ -2,7 +2,7 @@
 <div class="navbar">
 	<div class="logo">
 		<a href="./index">
-			<img src="img/logo.png" alt="logo" height="35" width="auto">
+			<img src="img/logo.png" alt="logo" height="35" width="auto" id="logo">
 		</a>
 	</div>
 	<ul class="">
@@ -73,4 +73,14 @@
 		localStorage.clear();
 		window.location.href = './login'
 	});
+		var cur_port = window.location.port;
+
+	if(cur_port==8899){
+		$('#logo').attr('src','img/logo8899.png');
+		$('#logo').css({
+			'height': 38+'px',
+			'position': 'relative',
+			'top': 2+'px'
+		});
+	}
 </script>
