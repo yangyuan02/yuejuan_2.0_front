@@ -8,6 +8,8 @@ $(function() {
 	var isLogin = localStorage.getItem("token");
 	var isAction = localStorage.getItem("action");
 	console.log(window.location.pathname)
+	 var cur_port = window.location.port;
+	 console.log(cur_port)
 
 // console.log(isLogin);
 
