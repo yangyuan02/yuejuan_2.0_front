@@ -462,6 +462,8 @@
 $(".grade_list_ul").on('click', '.grade_list_body_ans', function(event) {
       $(".grade_ans01").html(" ");
     $(".grade_ans02").html(" ");
+    $(".layer").css("height",$(document).height());
+     $(".layer").show();
     $(".grade_ans01").html($(this).attr("data-ans"));
     $(".grade_ans02").html($(this).attr("data-anal"));
  $(".grade_ans_tc").show();
@@ -470,6 +472,7 @@ $(".grade_list_ul").on('click', '.grade_list_body_ans', function(event) {
 
 $(".grade_ans_tc").on('click', 'button', function(event) {
  $(".grade_ans_tc").hide();
+ $(".layer").hide();
 });
 
      $(".class_sur").click(function(event) {
