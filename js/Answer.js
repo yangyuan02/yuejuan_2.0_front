@@ -2157,7 +2157,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
 
         if(data.answer_type==3){ //其他题
             $scope.result.numbel = data.number  //试题数量
-            $scope.index = 2     //试题类型
+            $scope.index = 5     //试题类型
             $scope.result.itemcoreS = data.score //每小题分数
             $scope.result.otherisradio = 3
         }
