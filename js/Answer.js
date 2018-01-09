@@ -2086,16 +2086,23 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     },
                     success: function (data) {//绑定题组以便刷新后删除没用的
                         var TemplateId = data.message
+                        var bindData = new FormData()
+                        bindData.append('exam_subject_id',getUrlParam(url, 'examubjeId'))
+                        bindData.append('answer_region_id',TemplateId)
+                        bindData.append('answer_ids',answer_ids.join(","))
                         $.ajax({
                                 type: "POST",
                                 url: "/api/v2/answer_region_binds",
                                 headers: {'Authorization': "Bearer " + isLogin},
                                 async: false,
-                                data: {
-                                    'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
-                                    'answer_region_id': TemplateId,//模板ID
-                                    'answer_ids': answer_ids.join(",")
-                                },
+                                data: bindData,
+                                processData: false,  // 不处理数据
+                                contentType: false,   // 不设置内容类型
+                                // data: {
+                                //     'exam_subject_id': getUrlParam(url, 'examubjeId'),//科目ID
+                                //     'answer_region_id': TemplateId,//模板ID
+                                //     'answer_ids': answer_ids.join(",")
+                                // },
                                 success: function (data) {
                                     alert("保存成功")
                                     modelParam.length = 0
@@ -2157,7 +2164,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
 
         if(data.answer_type==3){ //其他题
             $scope.result.numbel = data.number  //试题数量
-            $scope.index = 2     //试题类型
+            $scope.index = 5     //试题类型
             $scope.result.itemcoreS = data.score //每小题分数
             $scope.result.otherisradio = 3
         }
