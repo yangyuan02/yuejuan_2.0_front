@@ -315,6 +315,7 @@
             success: function(data) {
                 console.log(data);
                  $(".grade_list_ul").html(" ");
+                 $(".grate_topic_ever_box").html(" ");
               for(var i=0;i<data.length;i++){
                 var scoring_rate=Math.floor(data[i].scoring_rate*100)+"%";
                 console.log(scoring_rate);
@@ -358,18 +359,19 @@
               var a_rate=Number(data[i].scoring_rate);
               if(a_rate>=0.86){
               $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#31bc91;">'+num+'</a>');
+              var num_color="#31bc91";
              }else if(a_rate>=0.8&&a_rate<0.95){
                $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#f7c07c;">'+num+'</a>');
-             
+             var num_color="#f7c07c";
              }else if(a_rate>=0.6&&a_rate<0.8){
                $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#5fa3ed;">'+num+'</a>');
-             
+             var num_color="#5fa3ed";
              }else if(a_rate>=0&&a_rate<0.6){
                $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#fb7d8a;">'+num+'</a>');
-             
+             var num_color="#fb7d8a";
              }
 
-                $(".grade_list_ul").append('<li><div class="grade_list_main"><div class="grade_list_body">'+data[i].content+'</div><p class="grade_list_lable"><a>年级得分率:<i>'+scoring_rate+'</i></a><a>年级平均分:<i>'+data[i].average_score+'分</i></a><a>知识点:<i>'+tags+'</i></a><a class="grade_list_dif">难度系数:'+difficulty_body+'</a></p><div class="grade_list_move"><a class="grade_list_body_ans"  data-ans="'+data[i].answer+'"  data-anal="'+data[i].analysis+'"><i class="iconfont" style="margin-right:5px;">&#xe61e;</i>查看答案和解析</a><a  class="grade_list_move_a">移除</a></div><div class="grade_list_number"><p><i class="iconfont" style="font-size:45px;color:#31bc91;">&#xe63f;</i><a>'+num+'</a></p></div><div class="grade_list_form">试题来源:<a>'+source+'</a></div></div></li>');
+                $(".grade_list_ul").append('<li><div class="grade_list_main"><div class="grade_list_body">'+data[i].content+'</div><p class="grade_list_lable"><a>年级得分率:<i>'+scoring_rate+'</i></a><a>年级平均分:<i>'+data[i].average_score+'分</i></a><a>知识点:<i>'+tags+'</i></a><a class="grade_list_dif">难度系数:'+difficulty_body+'</a></p><div class="grade_list_move"><a class="grade_list_body_ans"  data-ans="'+data[i].answer+'"  data-anal="'+data[i].analysis+'"><i class="iconfont" style="margin-right:5px;">&#xe61e;</i>查看答案和解析</a><a  class="grade_list_move_a">移除</a></div><div class="grade_list_number"><p><i class="iconfont" style="font-size:45px;color:'+num_color+';">&#xe63f;</i><a>'+num+'</a></p></div><div class="grade_list_form">试题来源:<a>'+source+'</a></div></div></li>');
               }
 
 
@@ -458,7 +460,124 @@
                
       //       },
       //   });
+$.ajax({
+            type: "POST",
+            url: ajaxIp + "/api/v2/wrong_questions/lately_exams",
+            async: false,
+            data:{
+                "time_type":2,
+                 "grade_id":11,
+        
+            },
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            success: function(data) {
+                console.log(data);
+            },
+            error:function(){
 
+            },
+        });
+//班级年级
+$.ajax({
+            type: "GET",
+            url: ajaxIp + "/api/v2/commons/school_grades",
+            async: false,
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            success: function(data) {
+                console.log(data);
+                 $(".class_select_grate").html(" ");
+                  $(".class_select_grade").attr("data-id"," ");
+                 if(data.length!==0){
+                 $(".class_select_grate").attr("data-id",data[0].id);
+                for(var i=0;i<data.length;i++){
+                   $(".class_select_grate").append('<option value="" data-id='+data[i].id+'>'+data[i].name+'</option>');
+                }
+            }
+            },
+            error:function(){
+
+            },
+        });
+function grade_get_class(grade_id){
+$.ajax({
+            type: "GET",
+            url: ajaxIp + '/api/v2/commons/'+grade_id+'/grade_classrooms',
+            async: false,
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            success: function(data) {
+                console.log(data);
+                 $(".class_select_class").html(" ");
+                  $(".class_select_class").attr("data-id"," ");
+                 if(data.length!==0){
+                 $(".class_select_class").attr("data-id",data[0].id);
+                 for(var i=0;i<data.length;i++){
+                   $(".class_select_class").append('<option value="" data-id='+data[i].id+'>'+data[i].name+'</option>');
+                 }
+               }
+            },
+            error:function(){
+
+            },
+        });
+
+$.ajax({
+            type: "GET",
+            url: ajaxIp + '/api/v2/commons/grade_subjects',
+            async: false,
+            data:{
+                'grade_id':grade_id,
+            },
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            success: function(data) {
+                console.log(data);
+                $(".class_select_sub").attr("data-id"," ");
+                 $(".class_select_sub").html(" ");
+                 if(data.length!==0){
+                 $(".class_select_sub").attr("data-id",data[0].id);
+                 for(var i=0;i<data.length;i++){
+                   $(".class_select_sub").append('<option value="" data-id='+data[i].id+'>'+data[i].name+'</option>');
+                 }
+             }
+               
+            },
+            error:function(){
+
+            },
+        });
+
+
+};
+//根据班级获取年级
+$(".wrong_class_li").click(function(event) {
+   var grade_id=$(".class_select_grate").children('option:selected').attr("data-id");
+   grade_get_class(grade_id);
+});
+ $(".class_select_grate").change(function(event) {
+   var grade_id=$(this).children('option:selected').attr("data-id");
+   grade_get_class(grade_id);
+
+
+ });
+
+
+ //班级select
+ $(".class_select_top select").change(function(event) {
+    $(this).attr("data-id",$(this).children('option:selected').attr("data-id"));
+
+ });
+
+
+
+
+//grade查看详情
 $(".grade_list_ul").on('click', '.grade_list_body_ans', function(event) {
       $(".grade_ans01").html(" ");
     $(".grade_ans02").html(" ");
@@ -469,11 +588,27 @@ $(".grade_list_ul").on('click', '.grade_list_body_ans', function(event) {
  $(".grade_ans_tc").show();
 
 });
-
 $(".grade_ans_tc").on('click', 'button', function(event) {
  $(".grade_ans_tc").hide();
  $(".layer").hide();
 });
+//class查看详情
+$(".class_list_ul").on('click', '.class_list_body_ans', function(event) {
+    $(".class_ans01").html(" ");
+    $(".class_ans02").html(" ");
+    $(".layer").css("height",$(document).height());
+    $(".layer").show();
+    // $(".class_ans01").html($(this).attr("data-ans"));
+    // $(".class_ans02").html($(this).attr("data-anal"));
+    $(".class_ans_tc").show();
+
+});
+$(".class_ans_tc").on('click', 'button', function(event) {
+ $(".class_ans_tc").hide();
+ $(".layer").hide();
+});
+
+
 
      $(".class_sur").click(function(event) {
          $(".class_ans").slideDown('1000');
