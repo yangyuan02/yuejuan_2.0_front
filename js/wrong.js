@@ -103,84 +103,86 @@
        $(".grade_list").css("padding","20px 0px 100px 0px");
      $(".wrong_right").css("padding","43px 40px 100px 35px");
      });
-     //   $(".class_print").click(function(event) {
-     // $("#footer").hide();
-     // $(".ans_result").hide();
-     // $(".wrong_left_ul").hide();
-     // $(".class_list_move").hide();
-     // $(".q_type").hide();
-     // $(".class_select_top").hide();
-     // $(".class_topic").hide();
-     //  $("#header").hide();
-     //  $(".title-box").hide();
-     //   $(".wrong_top").hide();
-     //   $(".ans_news").hide();
-     // $(".main").css("width","100%");
-     //  $(".main").css("margin-top","0px");
-     //   $(".class_list").css("padding","0px");
-     //  $(".wrong_right").css("width","100%");
-     //  $(".wrong_right").css("padding","0");
-     // $(".class_list_main").css("width","100%");
-     //  window.print();
-     //   $("#footer").show();
-     // $(".ans_result").show();
-     // $(".wrong_left_ul").show();
-     // $(".class_list_move").show();
-     // $(".q_type").show();
-     // $(".class_select_top").show();
-     // $(".class_topic").show();
-     //  $("#header").show();
-     //  $(".title-box").show();
-     //   $(".wrong_top").show();
-     //   $(".ans_news").show();
-     // $(".main").css("width","1200px");
-     //  $(".wrong_right").css("width","1000px");
-     // $(".class_list_main").css("width","923px");
-     //  $(".main").css("margin-top","45px");
-     //   $(".class_list").css("padding","20px 0px 100px 0px");
-     // $(".wrong_right").css("padding","43px 40px 100px 35px");
-     // });
-     //   $(".per_print").click(function(event) {
-     // $("#footer").hide();
-     // $(".ans_result").hide();
-     //  $(".students_key").hide();
-     //   $(".students_key_box").hide();
-     // $(".wrong_left_ul").hide();
-     // $(".per_list_move").hide();
-     // $(".q_type").hide();
-     // $(".per_select_top").hide();
-     // $(".per_topic").hide();
-     //  $("#header").hide();
-     //  $(".title-box").hide();
-     //   $(".wrong_top").hide();
-     //   $(".ans_news").hide();
-     // $(".main").css("width","100%");
-     //  $(".main").css("margin-top","0px");
-     //   $(".per_list").css("padding","0px");
-     //  $(".wrong_right").css("width","100%");
-     //  $(".wrong_right").css("padding","0");
-     // $(".per_list_main").css("width","100%");
-     //  window.print();
-     //   $("#footer").show();
-     // $(".ans_result").show();
-     //  $(".students_key_box").show();
-     //   $(".students_key").show();
-     // $(".wrong_left_ul").show();
-     // $(".per_list_move").show();
-     // $(".q_type").show();
-     // $(".per_select_top").show();
-     // $(".per_topic").show();
-     //  $("#header").show();
-     //  $(".title-box").show();
-     //   $(".wrong_top").show();
-     //   $(".ans_news").show();
-     // $(".main").css("width","1200px");
-     //  $(".wrong_right").css("width","1000px");
-     // $(".per_list_main").css("width","923px");
-     //  $(".main").css("margin-top","45px");
-     //   $(".per_list").css("padding","20px 0px 100px 0px");
-     // $(".wrong_right").css("padding","43px 40px 100px 35px");
-     // });
+       $(".class_print").click(function(event) {
+     $("#footer").hide();
+     $(".ans_result").hide();
+     $(".wrong_left_ul").hide();
+     $(".class_list_move").hide();
+     $(".q_type").hide();
+     $(".class_select_top").hide();
+     $(".class_topic").hide();
+      $("#header").hide();
+      $(".title-box").hide();
+       $(".wrong_top").hide();
+       $(".ans_news").hide();
+     $(".main").css("width","100%");
+      $(".main").css("margin-top","0px");
+       $(".class_list").css("padding","0px");
+      $(".wrong_right").css("width","100%");
+      $(".wrong_right").css("padding","0");
+     $(".class_list_main").css("width","100%");
+      window.print();
+       $("#footer").show();
+     $(".ans_result").show();
+     $(".wrong_left_ul").show();
+     $(".class_list_move").show();
+     $(".q_type").show();
+     $(".class_select_top").show();
+     $(".class_topic").show();
+      $("#header").show();
+      $(".title-box").show();
+       $(".wrong_top").show();
+       $(".ans_news").show();
+     $(".main").css("width","1200px");
+      $(".wrong_right").css("width","1000px");
+     $(".class_list_main").css("width","923px");
+      $(".main").css("margin-top","45px");
+       $(".class_list").css("padding","20px 0px 100px 0px");
+     $(".wrong_right").css("padding","43px 40px 100px 35px");
+     });
+       $(".per_print").click(function(event) {
+     $("#footer").hide();
+     $(".ans_result").hide();
+      $(".students_key").hide();
+       $(".students_key_box").hide();
+     $(".wrong_left_ul").hide();
+     $(".per_list_move").hide();
+     $(".q_type").hide();
+     $(".per_select_top").hide();
+     $(".per_topic").hide();
+      $("#header").hide();
+      $(".title-box").hide();
+       $(".wrong_top").hide();
+       $(".ans_news").hide();
+     $(".main").css("width","100%");
+      $(".main").css("margin-top","0px");
+       $(".per_list").css("padding","0px");
+      $(".wrong_right").css("width","100%");
+      $(".wrong_right").css("padding","0");
+     $(".per_list_main").css("width","100%");
+     $(".per_wrong_select").hide();
+      window.print();
+       $("#footer").show();
+        $(".per_wrong_select").show();
+     $(".ans_result").show();
+      $(".students_key_box").show();
+       $(".students_key").show();
+     $(".wrong_left_ul").show();
+     $(".per_list_move").show();
+     $(".q_type").show();
+     $(".per_select_top").show();
+     $(".per_topic").show();
+      $("#header").show();
+      $(".title-box").show();
+       $(".wrong_top").show();
+       $(".ans_news").show();
+     $(".main").css("width","1200px");
+      $(".wrong_right").css("width","1000px");
+     $(".per_list_main").css("width","923px");
+      $(".main").css("margin-top","45px");
+       $(".per_list").css("padding","20px 0px 100px 0px");
+     $(".wrong_right").css("padding","43px 40px 100px 35px");
+     });
      // $(".grate_wrong_make").click(function(event) {
      // 	var a = $(".grade_list").children('div').eq(1).find('.grade_list_number a').html("18");
      // 	alert(a);
@@ -239,6 +241,375 @@
      });
      //年级 ajax  end
      //班级错题
+     $(".wrong_class_li").click(function(event) {
+         /* Act on the event */
+     });
+     // var wrong=[{time:"最近一周",grade:[{id:11,name:"高一",},{id:12,name:"高二",}],class:[{id:11,name:"一",},{id:12,name:"二",}],subject:[{id:21,name:"数学",},{id:22,name:"英文",}]},
+     // {time:"最近一月",grade:[{id:12,name:"高二",},{id:11,name:"高一",}],class:[{id:12,name:"二",},{id:11,name:"一",}],subject:[{id:45,name:"物理",},{id:46,name:"化学",}]}];
+     // console.log(wrong);
+     //   console.log(wrong.length);
+       $(".grade_rate").change(function(event) {
+        var a=$(this).children('option:selected').val();
+         $(this).attr("rate-id",a);
+       });
+
+
+    $(".grade_sur").click(function(event) {
+     var rate=$(".grade_rate").attr("rate-id");
+    // console.log($(".type_ever a").eq(0).html()); 
+   // var data_num=[];
+   var data_num=[];
+   data_num.length
+    if($(".type_ever a").eq(0).attr("data-id")==1){
+    data_num[0]=0;
+    data_num[1]=5;
+    }
+    if($(".type_ever a").eq(1).attr("data-id")==1){
+      
+      if(data_num.length==0){
+       data_num[0]=1;
+      }else{
+        data_num[data_num.length]=1;
+      }
+    
+    }
+    if($(".type_ever a").eq(2).attr("data-id")==1){
+      if(data_num.length==0){
+       data_num[0]=2;
+      }else{
+        data_num[data_num.length]=2;
+      }
+    }
+    if($(".type_ever a").eq(3).attr("data-id")==1){
+      if(data_num.length==0){
+       data_num[0]=3;
+      }else{
+        data_num[data_num.length]=3;
+      }
+    }
+    if($(".type_ever a").eq(4).attr("data-id")==1){
+    if(data_num.length==0){
+       data_num[0]=4;
+      }else{
+        data_num[data_num.length]=4;
+      }
+    }
+   console.log(data_num);
+   var grade_exam=parseInt($(".grade_exam").attr("data-id"));
+   var grade_sub=parseInt($(".grade_sub").attr("data-id"));
+    console.log(grade_exam);
+     console.log(grade_sub);
+      $.ajax({
+            type: "POST",
+            url: ajaxIp + "/api/v2/wrong_questions/grade_index",
+            async: false,
+            data:{
+                "exam_id":grade_exam,
+                 "subject_id":grade_sub,
+                 "item":data_num,
+                 "rate":rate,
+            },
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            success: function(data) {
+                console.log(data);
+                 $(".grade_list_ul").html(" ");
+                 $(".grate_topic_ever_box").html(" ");
+              for(var i=0;i<data.length;i++){
+                var scoring_rate=Math.floor(data[i].scoring_rate*100)+"%";
+                console.log(scoring_rate);
+                 var tags="";
+                 //知识点
+                for(var i1=0;i1<data[i].tags.length;i1++){
+                     tags= tags+data[i].tags;
+                     
+                }
+                console.log(tags);
+              //难度系数
+              var difficulty_level=Number(data[i].difficulty_level);
+              console.log(difficulty_level);
+              if(difficulty_level==0){
+                var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i>';
+              }else if(difficulty_level>=0.86){
+
+               var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i>';
+              
+              }else if(difficulty_level>=0.71&&difficulty_level<0.86){
+               var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i>';
+              
+              }else if(difficulty_level>=0.61&&difficulty_level<0.71){
+                 var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i>';
+              
+              }else if(difficulty_level>=0.41&&difficulty_level<0.61){
+                 var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i>';
+              
+              }else if(difficulty_level>0&&difficulty_level<0.41){
+                 var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i>';
+              
+              }
+              //考试来源
+              var source=data[i].source;
+              //序号
+              var num=Number(data[i].question_bank_id);
+              if(num<10){
+                  var num='0'+Number(data[i].question_bank_id);
+              }
+              //小题上标(得分率)
+              var a_rate=Number(data[i].scoring_rate);
+              if(a_rate>=0.86){
+              $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#31bc91;">'+num+'</a>');
+              var num_color="#31bc91";
+             }else if(a_rate>=0.8&&a_rate<0.95){
+               $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#f7c07c;">'+num+'</a>');
+             var num_color="#f7c07c";
+             }else if(a_rate>=0.6&&a_rate<0.8){
+               $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#5fa3ed;">'+num+'</a>');
+             var num_color="#5fa3ed";
+             }else if(a_rate>=0&&a_rate<0.6){
+               $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#fb7d8a;">'+num+'</a>');
+             var num_color="#fb7d8a";
+             }
+
+                $(".grade_list_ul").append('<li><div class="grade_list_main"><div class="grade_list_body">'+data[i].content+'</div><p class="grade_list_lable"><a>年级得分率:<i>'+scoring_rate+'</i></a><a>年级平均分:<i>'+data[i].average_score+'分</i></a><a>知识点:<i>'+tags+'</i></a><a class="grade_list_dif">难度系数:'+difficulty_body+'</a></p><div class="grade_list_move"><a class="grade_list_body_ans"  data-ans="'+data[i].answer+'"  data-anal="'+data[i].analysis+'"><i class="iconfont" style="margin-right:5px;">&#xe61e;</i>查看答案和解析</a><a  class="grade_list_move_a">移除</a></div><div class="grade_list_number"><p><i class="iconfont" style="font-size:45px;color:'+num_color+';">&#xe63f;</i><a>'+num+'</a></p></div><div class="grade_list_form">试题来源:<a>'+source+'</a></div></div></li>');
+              }
+
+
+            },
+            error:function() {
+               
+            },
+        });
+    });
+       // var data_num=[0,5];
+      // $.ajax({
+      //       type: "POST",
+      //       url: ajaxIp + "/api/v2/wrong_questions/grade_index",
+      //       async: false,
+      //       data:{
+      //           "exam_id":343,
+      //            "subject_id":12,
+      //            "item":data_num,
+      //            "rate":0.90,
+      //       },
+      //       headers: {
+      //           'Authorization': "Bearer " + isLogin
+      //       },
+      //       success: function(data) {
+      //           console.log(data);
+      //         for(var i=0;i<data.length;i++){
+      //           var scoring_rate=Math.floor(data[i].scoring_rate*100)+"%";
+      //           console.log(scoring_rate);
+      //            var tags="";
+      //            //知识点
+      //           for(var i1=0;i1<data[i].tags.length;i1++){
+      //                tags= tags+data[i].tags;
+                     
+      //           }
+      //           console.log(tags);
+      //         //难度系数
+      //         var difficulty_level=Number(data[i].difficulty_level);
+      //         console.log(difficulty_level);
+      //         if(difficulty_level==0){
+      //           var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i>';
+      //         }else if(difficulty_level>=0.86){
+
+      //          var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i>';
+              
+      //         }else if(difficulty_level>=0.71&&difficulty_level<0.86){
+      //          var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i>';
+              
+      //         }else if(difficulty_level>=0.61&&difficulty_level<0.71){
+      //            var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i>';
+              
+      //         }else if(difficulty_level>=0.41&&difficulty_level<0.61){
+      //            var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i>';
+              
+      //         }else if(difficulty_level>0&&difficulty_level<0.41){
+      //            var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i>';
+              
+      //         }
+      //         //考试来源
+      //         var source=data[i].source;
+      //         //序号
+      //         var num=Number(data[i].question_bank_id);
+      //         if(num<10){
+      //             var num='0'+Number(data[i].question_bank_id);
+      //         }
+      //         //小题上标(得分率)
+      //         var a_rate=Number(data[i].scoring_rate);
+      //         if(a_rate>=0.86){
+      //         $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#31bc91;">'+num+'</a>');
+      //        }else if(a_rate>=0.8&&a_rate<0.95){
+      //          $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#f7c07c;">'+num+'</a>');
+             
+      //        }else if(a_rate>=0.6&&a_rate<0.8){
+      //          $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#5fa3ed;">'+num+'</a>');
+             
+      //        }else if(a_rate>=0&&a_rate<0.6){
+      //          $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#fb7d8a;">'+num+'</a>');
+             
+      //        }
+
+      //           $(".grade_list_ul").append('<li><div class="grade_list_main"><div class="grade_list_body">'+data[i].content+'</div><p class="grade_list_lable"><a>年级得分率:<i>'+scoring_rate+'</i></a><a>年级平均分:<i>'+data[i].average_score+'分</i></a><a>知识点:<i>'+tags+'</i></a><a class="grade_list_dif">难度系数:'+difficulty_body+'</a></p><div class="grade_list_move"><a class="grade_list_body_ans"  data-ans="'+data[i].answer+'"  data-anal="'+data[i].analysis+'"><i class="iconfont" style="margin-right:5px;">&#xe61e;</i>查看答案和解析</a><a  class="grade_list_move_a">移除</a></div><div class="grade_list_number"><p><i class="iconfont" style="font-size:45px;color:#31bc91;">&#xe63f;</i><a>'+num+'</a></p></div><div class="grade_list_form">试题来源:<a>'+source+'</a></div></div></li>');
+      //         }
+
+
+      //       },
+      //       error:function() {
+               
+      //       },
+      //   });
+$.ajax({
+            type: "POST",
+            url: ajaxIp + "/api/v2/wrong_questions/lately_exams",
+            async: false,
+            data:{
+                "time_type":2,
+                 "grade_id":11,
+        
+            },
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            success: function(data) {
+                console.log(data);
+            },
+            error:function(){
+
+            },
+        });
+//班级年级
+$.ajax({
+            type: "GET",
+            url: ajaxIp + "/api/v2/commons/school_grades",
+            async: false,
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            success: function(data) {
+                console.log(data);
+                 $(".class_select_grate").html(" ");
+                  $(".class_select_grade").attr("data-id"," ");
+                 if(data.length!==0){
+                 $(".class_select_grate").attr("data-id",data[0].id);
+                for(var i=0;i<data.length;i++){
+                   $(".class_select_grate").append('<option value="" data-id='+data[i].id+'>'+data[i].name+'</option>');
+                }
+            }
+            },
+            error:function(){
+
+            },
+        });
+function grade_get_class(grade_id){
+$.ajax({
+            type: "GET",
+            url: ajaxIp + '/api/v2/commons/'+grade_id+'/grade_classrooms',
+            async: false,
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            success: function(data) {
+                console.log(data);
+                 $(".class_select_class").html(" ");
+                  $(".class_select_class").attr("data-id"," ");
+                 if(data.length!==0){
+                 $(".class_select_class").attr("data-id",data[0].id);
+                 for(var i=0;i<data.length;i++){
+                   $(".class_select_class").append('<option value="" data-id='+data[i].id+'>'+data[i].name+'</option>');
+                 }
+               }
+            },
+            error:function(){
+
+            },
+        });
+
+$.ajax({
+            type: "GET",
+            url: ajaxIp + '/api/v2/commons/grade_subjects',
+            async: false,
+            data:{
+                'grade_id':grade_id,
+            },
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            success: function(data) {
+                console.log(data);
+                $(".class_select_sub").attr("data-id"," ");
+                 $(".class_select_sub").html(" ");
+                 if(data.length!==0){
+                 $(".class_select_sub").attr("data-id",data[0].id);
+                 for(var i=0;i<data.length;i++){
+                   $(".class_select_sub").append('<option value="" data-id='+data[i].id+'>'+data[i].name+'</option>');
+                 }
+             }
+               
+            },
+            error:function(){
+
+            },
+        });
+
+
+};
+//根据班级获取年级
+$(".wrong_class_li").click(function(event) {
+   var grade_id=$(".class_select_grate").children('option:selected').attr("data-id");
+   grade_get_class(grade_id);
+});
+ $(".class_select_grate").change(function(event) {
+   var grade_id=$(this).children('option:selected').attr("data-id");
+   grade_get_class(grade_id);
+
+
+ });
+
+
+ //班级select
+ $(".class_select_top select").change(function(event) {
+    $(this).attr("data-id",$(this).children('option:selected').attr("data-id"));
+
+ });
+
+
+
+
+//grade查看详情
+$(".grade_list_ul").on('click', '.grade_list_body_ans', function(event) {
+      $(".grade_ans01").html(" ");
+    $(".grade_ans02").html(" ");
+    $(".layer").css("height",$(document).height());
+     $(".layer").show();
+    $(".grade_ans01").html($(this).attr("data-ans"));
+    $(".grade_ans02").html($(this).attr("data-anal"));
+ $(".grade_ans_tc").show();
+
+});
+$(".grade_ans_tc").on('click', 'button', function(event) {
+ $(".grade_ans_tc").hide();
+ $(".layer").hide();
+});
+//class查看详情
+$(".class_list_ul").on('click', '.class_list_body_ans', function(event) {
+    $(".class_ans01").html(" ");
+    $(".class_ans02").html(" ");
+    $(".layer").css("height",$(document).height());
+    $(".layer").show();
+    // $(".class_ans01").html($(this).attr("data-ans"));
+    // $(".class_ans02").html($(this).attr("data-anal"));
+    $(".class_ans_tc").show();
+
+});
+$(".class_ans_tc").on('click', 'button', function(event) {
+ $(".class_ans_tc").hide();
+ $(".layer").hide();
+});
+
+
+
      $(".class_sur").click(function(event) {
          $(".class_ans").slideDown('1000');
      });
