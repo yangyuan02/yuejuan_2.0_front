@@ -555,6 +555,7 @@ $.ajax({
             success: function(data) {
                 console.log(data);
                  $(".class_list_ul").html(" ");
+                $(".class_sur").attr("school_id",data[0][0].school_id);
                for(var i=0;i<data.length;i++){
                 $(".class_topic_ever_ul").append('<li><p>'+data[i][i].source+'</p></li>')
                  for(var i_1=0;i_1<data[i].length;i_1++){
@@ -574,19 +575,19 @@ $.ajax({
               //小题上标(得分率)
               var a_rate=Number(data[i][i_1].scoring_rate);
               if(a_rate>=0.86){
-               $(".class_topic_ever_ul li").eq(i).append('<a class="class_topic_ever" style="background:#31bc91;">'+num+'</a>');
+               $(".class_topic_ever_ul li").eq(i).append('<a class="class_topic_ever" id="wrong_class_li'+data[i][i_1].question_bank_id+'"  style="background:#31bc91;">'+num+'</a>');
               
               var num_color="#31bc91";
              }else if(a_rate>=0.8&&a_rate<0.95){
-                $(".class_topic_ever_ul li").eq(i).append('<a class="class_topic_ever" style="background:#f7c07c;">'+num+'</a>');
+                $(".class_topic_ever_ul li").eq(i).append('<a class="class_topic_ever" id="wrong_class_li'+data[i][i_1].question_bank_id+'"  style="background:#f7c07c;">'+num+'</a>');
              
              var num_color="#f7c07c";
                  }else if(a_rate>=0.6&&a_rate<0.8){
-                $(".class_topic_ever_ul li").eq(i).append('<a class="class_topic_ever" style="background:#5fa3ed;">'+num+'</a>');
+                $(".class_topic_ever_ul li").eq(i).append('<a class="class_topic_ever" id="wrong_class_li'+data[i][i_1].question_bank_id+'"  style="background:#5fa3ed;">'+num+'</a>');
              
              var num_color="#5fa3ed";
              }else if(a_rate>=0&&a_rate<0.6){
-                $(".class_topic_ever_ul li").eq(i).append('<a class="class_topic_ever" style="background:#fb7d8a;">'+num+'</a>');
+                $(".class_topic_ever_ul li").eq(i).append('<a class="class_topic_ever" id="wrong_class_li'+data[i][i_1].question_bank_id+'"  style="background:#fb7d8a;">'+num+'</a>');
              
              var num_color="#fb7d8a";
              }
@@ -612,8 +613,8 @@ $.ajax({
                  var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i>';
               
               }   
-                
-                 $(".class_list_ul").append(' <li><div class="class_list_main"><div class="class_list_body">'+data[i][i_1].content+'</div><p class="class_list_lable"><a>年级得分率:<i>'+scoring_rate+'</i></a><a>年级平均分:<i>'+data[i][i_1].average_score+'分</i></a><a>知识点:<i>'+tags+'</i></a><a class="class_list_dif">难度系数:'+difficulty_body+'</a></p><div class="class_list_move"><a class="class_list_body_ans"   data-ans="'+data[i][i_1].answer+'"  data-anal="'+data[i][i_1].analysis+'"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a><a  class="class_list_move_a">移除</a></div><div class="class_list_number"><p><i class="iconfont" style="font-size:45px;color:'+num_color+';"></i><a>'+num+'</a></p></div><div class="class_list_form">试题来源:<a>'+source+'</a></div></div></li>');
+                  
+                 $(".class_list_ul").append(' <li class="wrong_class_li'+data[i][i_1].question_bank_id+'" bank_id="'+data[i][i_1].question_bank_id+'" total_score="'+data[i][i_1].total_score+'"  average_score="'+data[i][i_1].average_score+'" scoring_rate="'+data[i][i_1].scoring_rate+'"  item="'+data[i][i_1].item+'" exam_subject_id="'+data[i][i_1].exam_subject_id+'"><div class="class_list_main"><div class="class_list_body">'+data[i][i_1].content+'</div><p class="class_list_lable"><a>年级得分率:<i>'+scoring_rate+'</i></a><a>年级平均分:<i>'+data[i][i_1].average_score+'分</i></a><a>知识点:<i>'+tags+'</i></a><a class="class_list_dif">难度系数:'+difficulty_body+'</a></p><div class="class_list_move"><a class="class_list_body_ans"   data-ans="'+data[i][i_1].answer+'"  data-anal="'+data[i][i_1].analysis+'"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a><a  class="class_list_move_a">移除</a></div><div class="class_list_number"><p><i class="iconfont" style="font-size:45px;color:'+num_color+';"></i><a>'+num+'</a></p></div><div class="class_list_form">试题来源:<a>'+source+'</a></div></div></li>');
                   }
 
                }
@@ -628,7 +629,59 @@ $.ajax({
 
 
 
+})
+
+ //     班级删除
+ $(".class_list_ul").on('click', '.class_list_move_a', function(event) {
+  $(this).parents("li").remove();
+  $('#'+$(this).parents("li").attr("class")+'').remove();
+ });
+ //班级生成错题本
+$(".class_make_wrong").click(function(event) {
+    var li_long=$(".class_list_ul li").length;
+    var school_id=$(".class_sur").attr("school_id");
+    var grade_id=$(".class_select_grate").attr("data-id");
+    var classroom_id=$(".class_select_class").attr("data-id");
+    var subject_id=$(".class_select_sub").attr("data-id");
+    var class_wrongs=[];  
+    for(var li=0;li<li_long;li++){
+    var class_wrong={}; 
+    class_wrong["school_id"]=school_id;
+    class_wrong["grade_id"]=grade_id;
+    class_wrong["classroom_id"]=classroom_id;
+    class_wrong["subject_id"]=subject_id;
+    class_wrong["question_bank_id"]=$(".class_list_ul li").eq(li).attr("bank_id");
+    class_wrong["item"]=$(".class_list_ul li").eq(li).attr("item");
+    class_wrong["exam_subject_id"]=$(".class_list_ul li").eq(li).attr("exam_subject_id");
+    class_wrong["average_score"]=$(".class_list_ul li").eq(li).attr("average_score");
+    class_wrong["total_score"]=$(".class_list_ul li").eq(li).attr("total_score");
+    class_wrong["scoring_rate"]=$(".class_list_ul li").eq(li).attr("scoring_rate");
+    
+    class_wrongs[li]=class_wrong;
+
+    }
+    console.log(class_wrongs);
+    $.ajax({
+            type: "POST",
+            url: ajaxIp + "/api/v2/wrong_questions",
+            async: false,
+            data:{
+                "wrong_questions":JSON.stringify(class_wrongs),
+            },
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            success: function(data) {
+               console.log(data);
+            },
+            error: function(data) {
+
+            },
+        })
+
+
 });
+
 //班级年级
 $.ajax({
             type: "GET",
