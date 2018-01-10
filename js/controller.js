@@ -540,7 +540,7 @@ angular.module("myApp.controller", [])
             }
           
         });
-        //page
+        //page//
         $(".next_page").click(function(event) {
         
         var page01=Number($(".page_div").attr("total_page"))+1;
