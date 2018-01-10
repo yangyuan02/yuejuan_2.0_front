@@ -38,7 +38,9 @@ angular.module("myApp.controller", [])
             $("#mark_02_ul div").remove();
             var mark_01_select_a = $(this).children('option:selected').attr("data-id");
             // $(this).attr('a', mark_01_select_a);
-            markxl(mark_01_select_a);
+            var num=parseInt($(".num_color").html());
+            console.log(num);
+            markxl(mark_01_select_a,num);
 
         });
         // $(".mark_01_select option").eq(0).click(function(event) {
@@ -49,9 +51,9 @@ angular.module("myApp.controller", [])
 
 
         // 成绩生成下拉函数
-        markxl(null);
+        markxl(null,1);
 
-        function markxl(c) {
+        function markxl(c,num) {
             $.ajax({
                 type: "GET",
                 url: ajaxIp + "/api/v2/reports",
@@ -60,17 +62,31 @@ angular.module("myApp.controller", [])
                 },
                 data: {
                     "subject_id": c,
+                    "total_page":num,
                 },
-                success: function(date) {
-                    console.log(date);
-                    for (var i = 0; i < date.length; i++) {
+                success: function(data) {
+                    console.log(data.data);
+                    console.log(data);
+                    $(".mark_02_ul").html(" ");
+                    $(".num_page").html(" ");
+                    $(".num_page").append('<button type="" class="num_color">1</button>');
+                    $(".page_div").attr("total_page",data.total_page);
+                    var page_num=Math.ceil(data.total_count/10);
+                      
+                   for(var num_i=1;num_i<page_num;num_i++) {
+                    if(num_i<5){
+                   
+                     $(".num_page").append('<button>'+(num_i+1)+'</button>');
+                    }
+                   }
+                    for (var i = 0; i < data.data.length; i++) {
 
-                        $(".mark_02_ul").append('<li data-id="' + date[i].exam_id + '"><span>' + date[i].name + '<i class="iconfont" style="margin-left:11px;cursor: pointer;">&#xe622;</i><i class="iconfont" style="margin-left:11px;cursor: pointer;display:none;">&#xe624;</i></span><div class="mark_li_01"></div></li>')
-                        var b = date[i].exam_subjects.length;
+                        $(".mark_02_ul").append('<li data-id="' + data.data[i].exam_id + '"><span>' + data.data[i].name + '<i class="iconfont" style="margin-left:11px;cursor: pointer;">&#xe622;</i><i class="iconfont" style="margin-left:11px;cursor: pointer;display:none;">&#xe624;</i></span><div class="mark_li_01"></div></li>')
+                        var b = data.data[i].exam_subjects.length;
 
                         for (var a = 0; a < b; a++) {
                             // console.log(i);
-                            $(".mark_02_ul div").eq(i).append('<ul><li>' + date[i].exam_subjects[a].name + '</li><li>' + date[i].exam_subjects[a].updated_at + '</li><li>' + date[i].exam_subjects[a].operator_id + '<button type="" data-id="' + date[i].exam_subjects[a].exam_subject_id + '" data-status="' + date[i].exam_subjects[a].status + '" data_a="1" data-sid="' + date[i].exam_subjects[a].subject_id + '">分析</button></li></ul>');
+                            $(".mark_02_ul div").eq(i).append('<ul><li>' + data.data[i].exam_subjects[a].name + '</li><li>' + data.data[i].exam_subjects[a].updated_at + '</li><li>' + data.data[i].exam_subjects[a].operator_id + '<button type="" data-id="' + data.data[i].exam_subjects[a].exam_subject_id + '" data-status="' + data.data[i].exam_subjects[a].status + '" data_a="1" data-sid="' + data.data[i].exam_subjects[a].subject_id + '">分析</button></li></ul>');
 
 
                             var status_btn = $(".mark_li_01 ul").eq(a).find("button").attr("data-status");
@@ -523,6 +539,85 @@ angular.module("myApp.controller", [])
                 $(this).attr("data-id","0");
             }
           
+        });
+        //page
+        $(".next_page").click(function(event) {
+        
+        var page01=Number($(".page_div").attr("total_page"))+1;
+            console.log(a);
+            console.log( page01);
+           $(".num_color").next().attr("class","num_color").siblings().removeAttr("class"); 
+           var page=Number($(".num_color").html())+1;
+           var a= $(".num_color").index();
+           if(page<page01){
+           
+           if(a>3){
+            for(var i=0;i<5;i++){
+                var b=page-4+i;
+                $(".num_page button").eq(i).html(b);
+            }
+           }
+      }
+          var mark_01_select_a = $("mark_01_select").children('option:selected').attr("data-id");
+          
+            var num=parseInt($(".num_color").html());
+            markxl(mark_01_select_a,num);
+        });
+        
+        $(".prev_page").click(function(event) {
+
+           $(".num_color").prev().attr("class","num_color").siblings().removeAttr("class");
+           var a_num=Number($(".num_color").html());
+            var a= $(".num_color").index();
+           var page=a_num-1;
+           if(a<1){
+           if(a_num>1){
+               for(var i=0;i<5;i++){
+                var b=page+i;
+                $(".num_page button").eq(i).html(b);
+            }
+
+           }
+       }
+           var mark_01_select_a = $("mark_01_select").children('option:selected').attr("data-id");
+          
+            var num=parseInt($(".num_color").html());
+
+            markxl(mark_01_select_a,num);
+    
+        });
+
+        $(".start_page").click(function(event) {
+         
+         $(".num_page button").eq(0).attr("class","num_color").siblings().removeAttr("class");
+         var a= $(".num_page button").length;
+         for(var i=0;i<a;i++){
+            var b=i+1;
+            $(".num_page button").eq(i).html(b);
+         }
+         var mark_01_select_a = $("mark_01_select").children('option:selected').attr("data-id");
+          
+            var num=parseInt($(".num_color").html());
+            markxl(mark_01_select_a,num);
+        });
+
+
+        $(".end_page").click(function(event) {
+        var a= Number($(".num_page button").length)-1;
+         $(".num_page button").eq(a).attr("class","num_color").siblings().removeAttr("class");
+        var page =Number($(".page_div").attr("total_page"));
+         var a_long= $(".num_page button").length;
+         if(a_long>5){
+         for(var i=0;i<a_long;i++){
+            var b=page-4+i;
+
+            $(".num_page button").eq(i).html(b);
+         }
+     }
+         var mark_01_select_a = $("mark_01_select").children('option:selected').attr("data-id");
+            var num=parseInt($(".num_color").html());
+            markxl(mark_01_select_a,num);
+
         });
 
 
