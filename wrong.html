@@ -41,7 +41,7 @@
 					<div class="wrong_main">
 					<!-- 考试错题集模块 -->
 					<!-- 年级级错题本-->
-					<div style="display: block;">
+					<div style="display:block;">
 					<p class="grade_select_top">
 					   <a>考试<select class="grade_exam">
 						<!-- <option value="">上海市一中期中考试</option> -->
@@ -71,7 +71,7 @@
                      <a data-id="1" style="float: right;"><button type="" class="grade_off">取消</button><button type="" style="margin-left:20px;font-size: 14px;" class="grade_sur determine">确定</button></a>
 					</p>
 					<!-- 答题情况 -->
-					<div class="grade_ans" style="display: none;">
+					<div class="grade_ans" style="display: block;">
 					<div class="ans_result">
 						<p>
 						<a  class="know_01">0.95-1 完全掌握<i></i></a>
@@ -85,9 +85,10 @@
 					<p class="ans_news"><i></i>答题情况
 					<a style="margin-left: 20px;">排序
 					<select class="grade_sort">
-						
+						<option value="">顺序</option>
 						<option value="">得分率高低</option>
-						<option value="">频次</option>
+						<option value="">平均分</option>
+
 						
 					</select></a></p>
 
@@ -102,7 +103,7 @@
 						<a class="grate_topic_ever" style="background:#fb7d8a;;">21</a> -->
 						</div>
 						<div style="float: right;">
-						<a class="grate_wrong_make"><button type="" class="determine">生成错题本</button><i class="iconfont">&#xe622;</i></a>
+						<a class="grate_wrong_make"><button type="" class="grade_make_wrong determine">生成错题本</button><i class="iconfont">&#xe622;</i></a>
 						<button type="" class="grade_print">打印</button>
 						</div>
 						</p>
@@ -152,7 +153,7 @@
 					<!-- 查看答案 -->
 					</div>
 					<!-- 答题情况 end-->
-					</div>
+					</div>	
 					<!-- 班级错题本-->
 					<div style="display:none;">
 						<p class="class_select_top">
@@ -170,7 +171,7 @@
 					   <a style="margin-left: 35px;" >考试科目<select class="class_select_sub">
 						
 					   </select></a>
-					    <a style="float: right;">得分率（ ≤ ）<select class="class_select_rate">
+					    <a style="float: right;">得分率（ ≤ ）<select class="class_select_rate" data-id="0.99">
 					    <option value="0.99">99%</option>
 						<option value="0.80">80%</option>
 						<option value="0.60">60%</option>
@@ -190,7 +191,7 @@
                      <a data-id="1" style="float: right;"><button class="class_off" type="">取消</button><button type="" style="margin-left:20px;font-size: 14px;" class="class_sur determine">确定</button></a>
 					</p>
 					<!-- 答题情况 -->
-					<div class="class_ans" style="display:none;">
+					<div class="class_ans" style="display: none;">
 					<div class="ans_result">
 						<p>
 						<a  class="know_01">0.95-1 完全掌握<i></i></a>
@@ -217,20 +218,20 @@
 						<p class="class_topic_ever_top" data-id="0">答案详情
 						<i class="iconfont">&#xe605;</i></p>
 						<ul class="class_topic_ever_ul">
-							<li><p>2017年十月月考错题情况</p>
-							<a class="class_topic_ever" style="background: #31bc91;">01</a>
+						<!-- <li><p>2017年十月月考错题情况</p>
+						<a class="class_topic_ever" style="background: #31bc91;">01</a>
 						<a class="class_topic_ever" style="background: #31bc91;">07</a>
 						<a class="class_topic_ever" style="background: #f7c07c;">15</a>
 						<a class="class_topic_ever" style="background: #f7c07c;">17</a>
 						<a  class="class_topic_ever" style="background:#5fa3ed;">19</a>
-						<a class="class_topic_ever" style="background:#fb7d8a;;">21</a></li>
-						<li><p>2017年十一月月考错题情况</p>
-							<a class="class_topic_ever" style="background: #31bc91;">01</a>
+						<a class="class_topic_ever" style="background:#fb7d8a;;">21</a></li> -->
+						<!-- <li><p>2017年十一月月考错题情况</p>
+						<a class="class_topic_ever" style="background: #31bc91;">01</a>
 						<a class="class_topic_ever" style="background: #31bc91;">07</a>
 						<a class="class_topic_ever" style="background: #f7c07c;">15</a>
 						<a class="class_topic_ever" style="background: #f7c07c;">17</a>
 						<a  class="class_topic_ever" style="background:#5fa3ed;">19</a>
-						<a class="class_topic_ever" style="background:#fb7d8a;;">21</a></li>
+						<a class="class_topic_ever" style="background:#fb7d8a;;">21</a></li> -->
 						</ul>
 						</div>
 						<div style="float: right;">
@@ -241,8 +242,7 @@
                    <!--   班级错题list -->
                      <div class="class_list">
                      <ul class="class_list_ul">
-                     	<li>
-                     		<div class="class_list_main">
+                     <!-- 	<li><div class="class_list_main">
 						<div class="class_list_body">
 							<p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （    ）</p>
 
@@ -265,8 +265,7 @@
                          <div class="class_list_number"><p><i class="iconfont" style="font-size:45px;color:#31bc91;"></i><a>01</a></p></div>
                          <div class="class_list_form">试题来源:<a>2017年11月期中考试</a></div>
 						</div>
-					
-                     	</li>
+					</li> -->
 
                      </ul>
 						
