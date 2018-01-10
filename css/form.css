@@ -2488,7 +2488,7 @@ select{
     margin: 0 auto;
 }
 .num_page{
-	max-width: 249.55px;
+	/*max-width: 249.55px;*/
     display: inline-block;
     height: 40px;
     overflow: hidden;

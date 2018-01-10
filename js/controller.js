@@ -70,14 +70,14 @@ angular.module("myApp.controller", [])
                     $(".mark_02_ul").html(" ");
                     $(".num_page").html(" ");
                     $(".num_page").append('<button type="" class="num_color">1</button>');
-                    $(".page").attr("total_count",data.total_count);
+                    $(".page_div").attr("total_page",data.total_page);
                     var page_num=Math.ceil(data.total_count/10);
                       
                    for(var num_i=1;num_i<page_num;num_i++) {
-                    // if(num_i<5){
+                    if(num_i<5){
                    
                      $(".num_page").append('<button>'+(num_i+1)+'</button>');
-                    // }
+                    }
                    }
                     for (var i = 0; i < data.data.length; i++) {
 
@@ -542,17 +542,22 @@ angular.module("myApp.controller", [])
         });
         //page
         $(".next_page").click(function(event) {
-            // if(num>5){
-            // if
-        // var num=6;
-         //   var  index=$(".num_color").index();
+        
+        var page01=Number($(".page_div").attr("total_page"))+1;
+            console.log(a);
+            console.log( page01);
+           $(".num_color").next().attr("class","num_color").siblings().removeAttr("class"); 
+           var page=Number($(".num_color").html())+1;
+           var a= $(".num_color").index();
+           if(page<page01){
            
-         //   if(index<6){
-           $(".num_color").next().attr("class","num_color").siblings().removeAttr("class");
-         // }
-         // if(index==4){
-         //     $(".num_page button").eq(0).css("margin-left","-43.44px");
-         // }
+           if(a>3){
+            for(var i=0;i<5;i++){
+                var b=page-4+i;
+                $(".num_page button").eq(i).html(b);
+            }
+           }
+      }
           var mark_01_select_a = $("mark_01_select").children('option:selected').attr("data-id");
           
             var num=parseInt($(".num_color").html());
@@ -560,15 +565,36 @@ angular.module("myApp.controller", [])
         });
         
         $(".prev_page").click(function(event) {
+
            $(".num_color").prev().attr("class","num_color").siblings().removeAttr("class");
+           var a_num=Number($(".num_color").html());
+            var a= $(".num_color").index();
+           var page=a_num-1;
+           if(a<1){
+           if(a_num>1){
+               for(var i=0;i<5;i++){
+                var b=page+i;
+                $(".num_page button").eq(i).html(b);
+            }
+
+           }
+       }
            var mark_01_select_a = $("mark_01_select").children('option:selected').attr("data-id");
           
             var num=parseInt($(".num_color").html());
+
             markxl(mark_01_select_a,num);
+    
         });
 
         $(".start_page").click(function(event) {
+         
          $(".num_page button").eq(0).attr("class","num_color").siblings().removeAttr("class");
+         var a= $(".num_page button").length;
+         for(var i=0;i<a;i++){
+            var b=i+1;
+            $(".num_page button").eq(i).html(b);
+         }
          var mark_01_select_a = $("mark_01_select").children('option:selected').attr("data-id");
           
             var num=parseInt($(".num_color").html());
@@ -579,6 +605,15 @@ angular.module("myApp.controller", [])
         $(".end_page").click(function(event) {
         var a= Number($(".num_page button").length)-1;
          $(".num_page button").eq(a).attr("class","num_color").siblings().removeAttr("class");
+        var page =Number($(".page_div").attr("total_page"));
+         var a_long= $(".num_page button").length;
+         if(a_long>5){
+         for(var i=0;i<a_long;i++){
+            var b=page-4+i;
+
+            $(".num_page button").eq(i).html(b);
+         }
+     }
          var mark_01_select_a = $("mark_01_select").children('option:selected').attr("data-id");
             var num=parseInt($(".num_color").html());
             markxl(mark_01_select_a,num);
