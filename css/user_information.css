@@ -9,6 +9,10 @@
 	padding-right: 6px;
 	padding-left: 6px;
 }
+.add-cont{
+	max-height: 110px;
+	overflow-y: auto;
+}
 .dele-t{
 	color: #fb7d8a;
 	font-size: 14px;
@@ -17,7 +21,7 @@
 	padding-right: 6px;
 	padding-left: 6px;
 }
-.first-div{
+.first-div,.second-div{
 	/* padding: 10px; */
 	border: 1px solid #ccc;
 }
@@ -378,7 +382,7 @@
 
 .student-search-button{
 	position: absolute;
-	right: 100px;
+	right: 24px;
 	top: 2px;
 	cursor: pointer;
 }
@@ -489,6 +493,8 @@
   height: 30px;
   text-align: center;
   line-height: 30px;
+  padding: 0!important;
+  margin-left: 30px;
 }
 .edit-btn{
 	color: #5fa3ed;
@@ -513,21 +519,30 @@
 }
 .set{
 	display: inline-block;
-	width: 70px;
+	width: 50px;
   height: 24px;
   text-align: center;
   line-height: 24px;
 }
 .deal {
 	display: inline-block;
-  width: 70px;
+  width: 50px;
   height: 22px;
   text-align: center;
   line-height: 22px;
   color: #31bc91;
   border: 1px solid #31bc91;;
-  margin-left: 20px;
+  margin-left: 10px;
   cursor: pointer;
+}
+.dele{
+	background: #fb7d8a;
+	display: inline-block;
+	width: 50px;
+  height: 24px;
+  text-align: center;
+  line-height: 24px;
+	margin-left: 10px;
 }
 .no-deal{
 	color: #fb7d8a;

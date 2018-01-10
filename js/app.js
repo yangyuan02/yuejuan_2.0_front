@@ -72,5 +72,10 @@ angular.module("myApp", ["ui.router","myApp.controller"])
                 templateUrl: "views/form07",
                 controller:"form07Controller"
             })
+             .state("form08", {
+                url: "/form08",
+                templateUrl: "views/form08",
+                controller:"form08Controller"
+            })
         }]
     );
