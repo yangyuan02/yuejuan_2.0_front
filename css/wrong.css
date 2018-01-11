@@ -700,6 +700,56 @@ width: 100%;height: 44px;line-height: 44px;background: #31bc91;font-size: 16px;c
 position: fixed;top: 200px;background: #ffffff;transform:translateX(20%);display: none;
 z-index: 11;
 }
+/*错题*/
+
+/*.grade_wrong_name_tc button{
+	margin-top: 20px;float: right;margin-right: 30px;width: 133px;
+}*/
+/*.grade_wrong_name_back{
+	
+}
+.grade_wrong_off{
+font-size: 14px;
+    background: #ffffff;
+    border: 1px solid #31bc91;
+    color: #31bc91;
+    box-sizing: border-box;	
+    width: 80px;
+}
+.grade_wrong_on{
+    border: 1px solid #31bc91;
+    box-sizing:border-box;
+    margin-left: 20px;
+    margin-right: 30px;
+    width: 80px;
+}
+.grade_wrong_name_input{
+    margin-top: 80px;
+   text-align: center;
+   color: #666666;
+    font-size: 14px;	
+}
+.grade_wrong_name_input input{
+	color: #666666;
+   width: 200px;
+    height: 25px;
+}
+.grade_wrong_name_top{
+width: 100%;height: 44px;line-height: 44px;background: #31bc91;font-size: 16px;color: #ffffff;text-align: center;
+
+}
+.grade_wrong_name_tc{
+	width: 400px;
+    height: 300px;
+    border: 1px solid #cccccc;
+    position: fixed;
+    top: 300px;
+    background: #ffffff;
+    transform: translateX(60%);
+    z-index: 11;
+}
+*/
+
 .layer{
    position: absolute;
     top: 0px;
