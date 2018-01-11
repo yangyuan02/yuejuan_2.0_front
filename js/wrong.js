@@ -212,10 +212,16 @@
               $(".grade_exam").attr("data-id",data[0].id);
               $(".grade_exam").attr("grade_id",data[0].grade_id);
               $(".grade_exam").attr("school_id",data[0].school_id);
-               $(".grade_exam").append('<option value="" data-id="'+data[i].id+'" grade_id="'+data[i].grade_id+'" school_id="'+data[i].school_id+'">'+data[i].name+'</option>');
+              // var class_id=[];
+              // for(var class_i=0;class_i<data[i].classrooms.length;class_i++){
+              //    class_id[class_i]=data[i].classrooms[class_i].classroom_id;
+              //    console.log(class_id);
+              // }
 
-               
+               $(".grade_exam").append('<option value="" data-id="'+data[i].id+'" grade_id="'+data[i].grade_id+'" school_id="'+data[i].school_id+'">'+data[i].name+'</option>');  
+             
              }
+              
              var sub_length=data[0].subjects.length;
              var sub=data[0].subjects;
               $(".grade_exam").change(function(event) {
@@ -385,16 +391,16 @@
               //小题上标(得分率)
               var a_rate=Number(data[i].scoring_rate);
               if(a_rate>=0.86){
-              $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#31bc91;" scoring_rate="'+data[i].scoring_rate+'" bank_id="'+data[i].question_bank_id+'" average_score="'+data[i].average_score+'" exam_subject_id="'+data[i].exam_subject_id+'" total_score="'+data[i].total_score+'" item="'+data[i].item+'">'+num+'</a>');
+              $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#31bc91;" scoring_rate="'+data[i].scoring_rate+'" bank_id="'+data[i].question_bank_id+'" average_score="'+data[i].average_score+'" exam_subject_id="'+data[i].exam_subject_id+'" total_score="'+data[i].total_score+'" item="'+data[i].item+'" classroom_id="'+data[i].classroom_id+'">'+num+'</a>');
               var num_color="#31bc91";
              }else if(a_rate>=0.8&&a_rate<0.95){
-               $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#f7c07c;" scoring_rate="'+data[i].scoring_rate+'" bank_id="'+data[i].question_bank_id+'" average_score="'+data[i].average_score+'" exam_subject_id="'+data[i].exam_subject_id+'" total_score="'+data[i].total_score+'" item="'+data[i].item+'">'+num+'</a>');
+               $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#f7c07c;" scoring_rate="'+data[i].scoring_rate+'" bank_id="'+data[i].question_bank_id+'" average_score="'+data[i].average_score+'" exam_subject_id="'+data[i].exam_subject_id+'" total_score="'+data[i].total_score+'" item="'+data[i].item+'" classroom_id="'+data[i].classroom_id+'">'+num+'</a>');
              var num_color="#f7c07c";
              }else if(a_rate>=0.6&&a_rate<0.8){
-               $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#5fa3ed;" scoring_rate="'+data[i].scoring_rate+'" bank_id="'+data[i].question_bank_id+'" average_score="'+data[i].average_score+'" exam_subject_id="'+data[i].exam_subject_id+'" total_score="'+data[i].total_score+'" item="'+data[i].item+'">'+num+'</a>');
+               $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#5fa3ed;" scoring_rate="'+data[i].scoring_rate+'" bank_id="'+data[i].question_bank_id+'" average_score="'+data[i].average_score+'" exam_subject_id="'+data[i].exam_subject_id+'" total_score="'+data[i].total_score+'" item="'+data[i].item+'" classroom_id="'+data[i].classroom_id+'">'+num+'</a>');
              var num_color="#5fa3ed";
              }else if(a_rate>=0&&a_rate<0.6){
-               $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#fb7d8a;" scoring_rate="'+data[i].scoring_rate+'" bank_id="'+data[i].question_bank_id+'" average_score="'+data[i].average_score+'" exam_subject_id="'+data[i].exam_subject_id+'" total_score="'+data[i].total_score+'" item="'+data[i].item+'">'+num+'</a>');
+               $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#fb7d8a;" scoring_rate="'+data[i].scoring_rate+'" bank_id="'+data[i].question_bank_id+'" average_score="'+data[i].average_score+'" exam_subject_id="'+data[i].exam_subject_id+'" total_score="'+data[i].total_score+'" item="'+data[i].item+'" classroom_id="'+data[i].classroom_id+'">'+num+'</a>');
              var num_color="#fb7d8a";
              }
 
@@ -408,7 +414,7 @@
                   $(".load-bg").hide();
                 },
             error:function() {
-               
+               $(".load-bg").hide();
             },
         });
 }
@@ -435,16 +441,27 @@ $(".grade_make_wrong").click(function(event) {
     grade_wrong["total_score"]=$(".grate_topic_ever_box a").eq(i).attr("total_score");
     grade_wrong["item"]=$(".grate_topic_ever_box a").eq(i).attr("item");
     grade_wrong["question_bank_id"]=$(".grate_topic_ever_box a").eq(i).attr("bank_id");
+     grade_wrong["classroom_id"]=$(".grate_topic_ever_box a").eq(i).attr("classroom_id");
 
     grade_wrongs[i]=grade_wrong;
   }
-console.log(grade_wrongs);
+  var exam_subject_id=$(".grate_topic_ever_box a").eq(0).attr("exam_subject_id");
+  console.log($(".grade_exam").children('option:selected').text());
+  console.log($(".grade_sub").children('option:selected').text());
+  console.log($(".grade_rate").children('option:selected').text());
+  var title=$(".grade_exam").children('option:selected').text()+'-'+$(".grade_sub").children('option:selected').text()+'-'+$(".grade_rate").children('option:selected').text();
+   console.log(grade_wrongs);
+   console.log(title);
 $.ajax({
             type: "POST",
             url: ajaxIp + "/api/v2/wrong_questions",
             async: false,
             data:{
                 "wrong_questions":JSON.stringify(grade_wrongs),
+                 "type":"grade",
+                 "title":title,
+                 "exam_subject_id":exam_subject_id,
+
             },
             headers: {
                 'Authorization': "Bearer " + isLogin
@@ -579,7 +596,10 @@ $.ajax({
             success: function(data) {
                 console.log(data);
                  $(".class_list_ul").html(" ");
-                $(".class_sur").attr("school_id",data[0][0].school_id);
+                 if(data.length!==0){
+                  $(".class_sur").attr("school_id",data[0][0].school_id);
+                 }
+                
                for(var i=0;i<data.length;i++){
                 $(".class_topic_ever_ul").append('<li><p>'+data[i][i].source+'</p></li>')
                  for(var i_1=0;i_1<data[i].length;i_1++){
@@ -648,7 +668,7 @@ $.ajax({
                    $(".load-bg").hide();
                 },
             error:function(){
-
+                 // $(".load-bg").hide();
             },
         });
 
@@ -683,6 +703,14 @@ $(".class_make_wrong").click(function(event) {
     class_wrongs[li]=class_wrong;
 
     }
+    var exam_subject_id=$(".class_list_ul li").eq(0).attr("exam_subject_id");
+    var title01=$(".class_select_time").children('option:selected').text();
+    var title02=$(".class_select_grate").children('option:selected').text();
+    var title03=$(".class_select_class").children('option:selected').text();
+    var title04=$(".class_select_sub").children('option:selected').text();
+    var title05=$(".class_select_rate").children('option:selected').text();
+    var title=title01+"-"+title02+"-"+title03+"-"+title04+"-"+title05;
+    console.log(title);
     console.log(class_wrongs);
     $.ajax({
             type: "POST",
@@ -690,6 +718,9 @@ $(".class_make_wrong").click(function(event) {
             async: false,
             data:{
                 "wrong_questions":JSON.stringify(class_wrongs),
+                 "type":"class",
+                 "title":title,
+                 "exam_subject_id":exam_subject_id,
             },
             headers: {
                 'Authorization': "Bearer " + isLogin
