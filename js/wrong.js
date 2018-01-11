@@ -266,8 +266,12 @@
         var a=$(this).children('option:selected').val();
          $(this).attr("rate-id",a);
        });
-
-
+      $(".grade_sort").change(function(event) {
+       $(this).attr("data-id",$(this).children('option:selected').attr("data-id"));
+      });
+     $(".class_sort").change(function(event) {
+       $(this).attr("data-id",$(this).children('option:selected').attr("data-id"));
+      });
     $(".grade_sur").click(function(event) {
      var rate=$(".grade_rate").attr("rate-id");
     // console.log($(".type_ever a").eq(0).html()); 
@@ -308,6 +312,7 @@
       }
     }
    console.log(data_num);
+   var sort =$(".grade_sort").attr("data-id");
    var grade_exam=parseInt($(".grade_exam").attr("data-id"));
    var grade_sub=parseInt($(".grade_sub").attr("data-id"));
     console.log(grade_exam);
@@ -321,10 +326,14 @@
                  "subject_id":grade_sub,
                  "item":data_num,
                  "rate":rate,
+                  "sort":sort,
             },
             headers: {
                 'Authorization': "Bearer " + isLogin
             },
+            beforeSend: function(){
+                $(".load-bg").show();
+                },
             success: function(data) {
                 console.log(data);
                  $(".grade_list_ul").html(" ");
@@ -389,6 +398,10 @@
 
 
             },
+            complete: function(){
+
+                  $(".load-bg").hide();
+                },
             error:function() {
                
             },
@@ -537,6 +550,7 @@ console.log(word);
     alert("考试科目不能为空");
   }
    console.log(sub_id);
+   var sort=$(".class_sort").attr("data-id");
 $.ajax({
             type: "POST",
             url: ajaxIp + "/api/v2/wrong_questions/class_index",
@@ -547,6 +561,7 @@ $.ajax({
                 "classroom_id":class_id,
                 "rate":rate,
                 "item":data_num,
+                 "sort":sort,
         
             },
             headers: {
