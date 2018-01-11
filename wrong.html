@@ -84,10 +84,10 @@
 					</div>
 					<p class="ans_news"><i></i>答题情况
 					<a style="margin-left: 20px;">排序
-					<select class="grade_sort">
-						<option value="">顺序</option>
-						<option value="">得分率高低</option>
-						<option value="">平均分</option>
+					<select class="grade_sort" data-id="1">
+						<option value=""  data-id="1">顺序</option>
+						<option value="" data-id="2">得分率高低</option>
+						<option value="" data-id="3">平均分</option>
 
 						
 					</select></a></p>
@@ -205,10 +205,10 @@
 
 					<p class="ans_news"><i></i>答题情况
 					<a style="margin-left: 20px;">排序
-					<select class="class_sort">
-						
-						<option value="">得分率高低</option>
-						<option value="">频次</option>
+					<select class="class_sort" data-id="1">
+					    <option value=""  data-id="1">顺序</option>
+						<option value="" data-id="2">得分率高低</option>
+						<option value="" data-id="3">平均分</option>
 						
 					</select></a></p>
           
@@ -476,6 +476,14 @@
 		</div>
         <!-- 遮罩层 -->
         <div class="layer"></div>
+
+
+        <div class="load-bg">
+		<div class="load-animate" style="position: fixed;">
+			<img src="./img/load.jpg" alt="" width="200" height="200">
+			<p>正在分析中，请稍等...</p>
+		</div>
+</div>
 		<div id="footer">
 
 		</div>
