@@ -268,20 +268,25 @@
        });
       $(".grade_sort").change(function(event) {
        $(this).attr("data-id",$(this).children('option:selected').attr("data-id"));
+       grade_list();
       });
      $(".class_sort").change(function(event) {
        $(this).attr("data-id",$(this).children('option:selected').attr("data-id"));
+       class_list();
       });
     $(".grade_sur").click(function(event) {
+    grade_list();
+    });
+ // 考试生成错题本
+  function grade_list(){
      var rate=$(".grade_rate").attr("rate-id");
-    // console.log($(".type_ever a").eq(0).html()); 
-   // var data_num=[];
+    
    var data_num=[];
-    if($(this).parent().prev().find('a').eq(0).attr("data-id")==1){
+    if($(".grade_sur").parent().prev().find('a').eq(0).attr("data-id")==1){
     data_num[0]=0;
     data_num[1]=5;
     }
-    if($(this).parent().prev().find('a').eq(1).attr("data-id")==1){
+    if($(".grade_sur").parent().prev().find('a').eq(1).attr("data-id")==1){
       
       if(data_num.length==0){
        data_num[0]=1;
@@ -290,21 +295,21 @@
       }
     
     }
-    if($(this).parent().prev().find('a').eq(2).attr("data-id")==1){
+    if($(".grade_sur").parent().prev().find('a').eq(2).attr("data-id")==1){
       if(data_num.length==0){
        data_num[0]=2;
       }else{
         data_num[data_num.length]=2;
       }
     }
-    if($(this).parent().prev().find('a').eq(3).attr("data-id")==1){
+    if($(".grade_sur").parent().prev().find('a').eq(3).attr("data-id")==1){
       if(data_num.length==0){
        data_num[0]=3;
       }else{
         data_num[data_num.length]=3;
       }
     }
-    if($(this).parent().prev().find('a').eq(4).attr("data-id")==1){
+    if($(".grade_sur").parent().prev().find('a').eq(4).attr("data-id")==1){
     if(data_num.length==0){
        data_num[0]=4;
       }else{
@@ -320,7 +325,7 @@
       $.ajax({
             type: "POST",
             url: ajaxIp + "/api/v2/wrong_questions/grade_index",
-            async: false,
+            // async: false,
             data:{
                 "exam_id":grade_exam,
                  "subject_id":grade_sub,
@@ -406,9 +411,7 @@
                
             },
         });
-    });
- // 考试生成错题本
-
+}
  
 $(".grade_make_wrong").click(function(event) {
     var sub_id=$(".grade_sub").attr("data-id");
@@ -494,9 +497,12 @@ $(".class_select_time").change(function(event) {
  }    
 
 $(".class_sur").click(function(event) {
-console.log($(this).attr("exam_id"));
-var exam_id=$(this).attr("exam_id");
-var exam_length=$(this).attr("exam_length");
+  class_list();
+})
+function class_list(){
+console.log($(".class_sur").attr("exam_id"));
+var exam_id=$(".class_sur").attr("exam_id");
+var exam_length=$(".class_sur").attr("exam_length");
 var words = exam_id.split(',');
 var word =[];
 for(var length=0;length<exam_length;length++){
@@ -505,11 +511,11 @@ for(var length=0;length<exam_length;length++){
 console.log(word);
 //类型
  var data_num=[];
-    if($(this).parent().prev().find('a').eq(0).attr("data-id")==1){
+    if($(".class_sur").parent().prev().find('a').eq(0).attr("data-id")==1){
     data_num[0]=0;
     data_num[1]=5;
     }
-    if($(this).parent().prev().find('a').eq(1).attr("data-id")==1){
+    if($(".class_sur").parent().prev().find('a').eq(1).attr("data-id")==1){
       
       if(data_num.length==0){
        data_num[0]=1;
@@ -518,21 +524,21 @@ console.log(word);
       }
     
     }
-    if($(this).parent().prev().find('a').eq(2).attr("data-id")==1){
+    if($(".class_sur").parent().prev().find('a').eq(2).attr("data-id")==1){
       if(data_num.length==0){
        data_num[0]=2;
       }else{
         data_num[data_num.length]=2;
       }
     }
-    if($(this).parent().prev().find('a').eq(3).attr("data-id")==1){
+    if($(".class_sur").parent().prev().find('a').eq(3).attr("data-id")==1){
       if(data_num.length==0){
        data_num[0]=3;
       }else{
         data_num[data_num.length]=3;
       }
     }
-    if($(this).parent().prev().find('a').eq(4).attr("data-id")==1){
+    if($(".class_sur").parent().prev().find('a').eq(4).attr("data-id")==1){
     if(data_num.length==0){
        data_num[0]=4;
       }else{
@@ -567,6 +573,9 @@ $.ajax({
             headers: {
                 'Authorization': "Bearer " + isLogin
             },
+             beforeSend: function(){
+                   $(".load-bg").show();
+                },
             success: function(data) {
                 console.log(data);
                  $(".class_list_ul").html(" ");
@@ -635,16 +644,15 @@ $.ajax({
                }
              
             },
+            complete: function(){
+                   $(".load-bg").hide();
+                },
             error:function(){
 
             },
         });
 
-
-
-
-
-})
+}
 
  //     班级删除
  $(".class_list_ul").on('click', '.class_list_move_a', function(event) {
