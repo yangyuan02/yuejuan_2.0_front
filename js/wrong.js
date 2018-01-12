@@ -1017,6 +1017,149 @@ $(".class_ans_tc").on('click', 'button', function(event) {
     	$(".per_sur_a").show();
     	// $(".stu_choice_btn").hide();
      });
+//年级错题管理
+$(".g_wrong_list button").click(function(event) {
+  $(".g_font_div").hide();
+  $(".g_look").show();
+  console.log();
+  $(".wrong_top").html('<i class="g_back_font  iconfont" style="margin-right:10px;cursor: pointer;">&#xe61c;</i>'+$(this).parents("li").find('a').eq(0).html());
+ 
+});
+$(".wrong_top").on('click', '.g_back_font', function(event) {
+  
+$(".g_font_div").show();
+$(".g_look").hide();
+$(".wrong_top").html("考试错题集管理");
+
+});
+//查看
+$(".g_list_ul").on('click', '.g_list_body_ans', function(event) {
+    $(".g_ans01").html(" ");
+    $(".g_ans02").html(" ");
+    $(".layer").css("height",$(document).height());
+    $(".layer").show();
+    // $(".g_ans01").html($(this).attr("data-ans"));
+    // $(".g_ans02").html($(this).attr("data-anal"));
+    $(".g_ans_tc").show();
+
+});
+$(".g_ans_tc").on('click', 'button', function(event) {
+ $(".g_ans_tc").hide();
+ $(".layer").hide();
+});
+//打印
+$(".g_print").click(function(event) {
+     $("#footer").hide();
+     $(".ans_result").hide();
+     $(".wrong_left_ul").hide();
+     $(".g_list_move").hide();
+     $(".g_topic").hide();
+      $("#header").hide();
+      $(".title-box").hide();
+       $(".wrong_top").hide();
+       $(".ans_news").hide();
+     $(".main").css("width","100%");
+      $(".main").css("margin-top","0px");
+       $(".g_list").css("padding","0px");
+      $(".wrong_right").css("width","100%");
+      $(".wrong_right").css("padding","0");
+     $(".g_list_main").css("width","100%");
+      window.print();
+       $("#footer").show();
+     $(".ans_result").show();
+     $(".wrong_left_ul").show();
+     $(".g_list_move").show();
+     $(".g_topic").show();
+      $("#header").show();
+      $(".title-box").show();
+       $(".wrong_top").show();
+       $(".ans_news").show();
+     $(".main").css("width","1200px");
+      $(".wrong_right").css("width","1000px");
+     $(".g_list_main").css("width","923px");
+      $(".main").css("margin-top","45px");
+       $(".g_list").css("padding","20px 0px 100px 0px");
+     $(".wrong_right").css("padding","43px 40px 100px 35px");
+     });
+$(".grade_admin_li").click(function(event) { 
+$(".g_font_div").show();
+$(".g_look").hide();
+});
+//班级级错题管理
+$(".c_wrong_list button").click(function(event) {
+  $(".c_font_div").hide();
+  $(".c_look").show();
+  console.log();
+  $(".wrong_top").html('<i class="c_back_font  iconfont" style="margin-right:10px;cursor: pointer;">&#xe61c;</i>'+$(this).parents("li").find('a').eq(0).html());
+ 
+});
+$(".wrong_top").on('click', '.c_back_font', function(event) {
+  
+$(".c_font_div").show();
+$(".c_look").hide();
+$(".wrong_top").html("班级错题集管理");
+
+});
+//查看
+$(".c_list_ul").on('click', '.c_list_body_ans', function(event) {
+    $(".c_ans01").html(" ");
+    $(".c_ans02").html(" ");
+    $(".layer").css("height",$(document).height());
+    $(".layer").show();
+    // $(".g_ans01").html($(this).attr("data-ans"));
+    // $(".g_ans02").html($(this).attr("data-anal"));
+    $(".c_ans_tc").show();
+
+});
+$(".c_ans_tc").on('click', 'button', function(event) {
+ $(".c_ans_tc").hide();
+ $(".layer").hide();
+});
+//打印
+$(".c_print").click(function(event) {
+     $("#footer").hide();
+     $(".ans_result").hide();
+     $(".wrong_left_ul").hide();
+     $(".c_list_move").hide();
+     $(".c_topic").hide();
+      $("#header").hide();
+      $(".title-box").hide();
+       $(".wrong_top").hide();
+       $(".ans_news").hide();
+     $(".main").css("width","100%");
+      $(".main").css("margin-top","0px");
+       $(".c_list").css("padding","0px");
+      $(".wrong_right").css("width","100%");
+      $(".wrong_right").css("padding","0");
+     $(".c_list_main").css("width","100%");
+      window.print();
+       $("#footer").show();
+     $(".ans_result").show();
+     $(".wrong_left_ul").show();
+     $(".c_list_move").show();
+     $(".c_topic").show();
+      $("#header").show();
+      $(".title-box").show();
+       $(".wrong_top").show();
+       $(".ans_news").show();
+     $(".main").css("width","1200px");
+      $(".wrong_right").css("width","1000px");
+     $(".c_list_main").css("width","923px");
+      $(".main").css("margin-top","45px");
+       $(".c_list").css("padding","20px 0px 100px 0px");
+     $(".wrong_right").css("padding","43px 40px 100px 35px");
+     });
+$(".class_admin_li").click(function(event) { 
+$(".c_font_div").show();
+$(".c_look").hide();
+});
+
+
+
+
+
+
+
 
 
 
