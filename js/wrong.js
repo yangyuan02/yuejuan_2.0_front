@@ -520,7 +520,10 @@ function class_list(){
 console.log($(".class_sur").attr("exam_id"));
 var exam_id=$(".class_sur").attr("exam_id");
 var exam_length=$(".class_sur").attr("exam_length");
+console.log(exam_id);
+if(exam_id!==undefined){
 var words = exam_id.split(',');
+}
 var word =[];
 for(var length=0;length<exam_length;length++){
      word[length]=parseInt(words[length]);
