@@ -462,10 +462,10 @@ function markxl01(c,num) {
      var a=$(this).val().replace(/[^0-9%]/g,'')
        $(this).val(a);
   });
- $("#ul_iLabel").on('keyup', '.level_01', function(event) {
-     var a=$(this).val().replace(/[^a-zA-Z+=0]/g,'')
-       $(this).val(a);
-  });
+ // $("#ul_iLabel").on('keyup', '.level_01', function(event) {
+ //     var a=$(this).val().replace(/[^a-zA-Z+=0]/g,'')
+ //       $(this).val(a);
+ //  });
  $(".mart_set_02").on('keyup', 'input', function(event) {
      var a=$(this).val().replace(/[^0-9]/g,'')
        $(this).val(a);
@@ -562,7 +562,7 @@ function markxl01(c,num) {
         $(".mark_add").click(function(event) {
             /* Act on the event */
             var a = $(".mart_set_03").height();
-            if (a < 577) {
+            if (a < 607) {
                 $('.mart_set_03 ul').append('<li><input class="level_01"></input><input class="level_02"></input><button type="" class="iLabel">-</button></li>');
 
             }
