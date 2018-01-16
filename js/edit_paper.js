@@ -1074,7 +1074,7 @@ function save(id,main){
          headers: { 'Authorization': "Bearer " + isLogin },
          success: function(data) {
          console.log(data);
-         alert("保存成功");
+          layer.msg('保存成功');
           // window.location.reload();
          },
          error: function() {
