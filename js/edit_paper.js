@@ -491,7 +491,7 @@ $(this).find('option').eq(item_num).attr("selected","selected");
                   headers: {'Authorization': "Bearer " + isLogin},
                   success: function(data){
                      console.log(data);
-                     layer.msg('保存成功');
+                     layer.msg('保存成功',{time:700});
                   },
                 error: function(){
     
@@ -531,7 +531,7 @@ $(this).find('option').eq(item_num).attr("selected","selected");
                   headers: {'Authorization': "Bearer " + isLogin},
                   success: function(data){
                      console.log(data);
-                     layer.msg('保存成功');
+                     layer.msg('保存成功',{time:700});
                   },
                 error: function(){
     
@@ -587,7 +587,7 @@ $(this).find('option').eq(item_num).attr("selected","selected");
                   headers: {'Authorization': "Bearer " + isLogin},
                   success: function(data){
                      console.log(data);
-                     layer.msg('保存成功');
+                     layer.msg('保存成功',{time:700});
                   },
                 error: function(){
     
@@ -1074,7 +1074,7 @@ function save(id,main){
          headers: { 'Authorization': "Bearer " + isLogin },
          success: function(data) {
          console.log(data);
-          layer.msg('保存成功');
+          layer.msg('保存成功',{time:700});
           // window.location.reload();
          },
          error: function() {
