@@ -1,6 +1,6 @@
 .main{
 	width: 931px;
-	height: 1186px;
+	height: auto;
 	border: 1px solid #ccc;
 	box-sizing: border-box;
 	cursor: pointer;

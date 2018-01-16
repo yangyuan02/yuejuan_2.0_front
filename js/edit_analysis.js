@@ -85,16 +85,17 @@ $(".list_dif").html(" ");
            var dif_num=Number(c);
            console.log(dif_num);
              // $(".list_dif").append('<ul></ul>');
-             if(dif_num>0.86){
+             if(dif_num>=0.86){
+
               var a=1;
              }
-             if(dif_num>0.71&&dif_num<0.86){
+             if(dif_num>=0.71&&dif_num<0.86){
               var a=2;
              }
-             if(dif_num>0.61&&dif_num<0.71){
+             if(dif_num>=0.61&&dif_num<0.71){
               var a=3;
              }
-             if(dif_num>0.41&&dif_num<0.61){
+             if(dif_num>=0.41&&dif_num<0.61){
               var a=4;
              }
              if(dif_num<0.41){
@@ -114,7 +115,7 @@ $(".list_dif").html(" ");
           var desc_length=data.desc.length;
            for(var i1=0;i1<desc_length;i1++){
 
-    $(".desc").append('<a style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;"><i style="font-style:normal;">'+data.desc[i1].name+'</i></a>');
+     $(".desc").append('<a style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;"><i style="font-style:normal;">'+data.desc[i1].name+'</i></a>');
   
          }
          },
