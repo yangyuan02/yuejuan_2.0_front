@@ -457,7 +457,7 @@ $(this).find('option').eq(item_num).attr("selected","selected");
 
       var p_length=$(this).parent().find("p").length;
       var a_num=[];
-      if(name=="单选题"||name=="多选题"){
+      if(name=="单选题"||name=="多选题"||name==0||name==5){
       for(var i=0;i<p_length;i++){
         var a={};      
         var score=parseInt($(this).parent().find("p").eq(i).find('input').eq(2).val());
@@ -498,7 +498,7 @@ $(this).find('option').eq(item_num).attr("selected","selected");
     
                  }
                });
-   }else if(name=="填空题"||name=="是非题"||name=="其他题"){
+   }else if(name=="填空题"||name=="是非题"||name=="其他题"||name==1||name==2||name==3){
      for(var i=0;i<p_length;i++){
         var a={};
     
@@ -540,7 +540,7 @@ $(this).find('option').eq(item_num).attr("selected","selected");
                });
 
 
-   }else if(name=="作文题"){
+   }else if(name=="作文题"||name==4){
     for(var i=0;i<p_length;i++){
         var a={};
      
