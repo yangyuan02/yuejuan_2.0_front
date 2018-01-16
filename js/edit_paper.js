@@ -446,6 +446,10 @@ $(this).find('option').eq(item_num).attr("selected","selected");
      // $(this).parent().parent().find('.all_score').val(score);
      //  console.log(score);
        // console.log($(this).parent().find("p").eq(0).find('input').eq(2).val());
+        $(this).parent().prev().html('&#xe622;'); 
+        $(this).parent().prev().parent("li").removeClass('sub_i_li');
+        $(this).parent().prev().next('div').hide();
+        $(this).parent().prev().attr("data-id","0");
        var name=$(this).parents('li').attr("data-name");
       
       all_score();
@@ -487,6 +491,7 @@ $(this).find('option').eq(item_num).attr("selected","selected");
                   headers: {'Authorization': "Bearer " + isLogin},
                   success: function(data){
                      console.log(data);
+                     layer.msg('保存成功',{time:700});
                   },
                 error: function(){
     
@@ -526,6 +531,7 @@ $(this).find('option').eq(item_num).attr("selected","selected");
                   headers: {'Authorization': "Bearer " + isLogin},
                   success: function(data){
                      console.log(data);
+                     layer.msg('保存成功',{time:700});
                   },
                 error: function(){
     
@@ -581,6 +587,7 @@ $(this).find('option').eq(item_num).attr("selected","selected");
                   headers: {'Authorization': "Bearer " + isLogin},
                   success: function(data){
                      console.log(data);
+                     layer.msg('保存成功',{time:700});
                   },
                 error: function(){
     
@@ -1067,7 +1074,7 @@ function save(id,main){
          headers: { 'Authorization': "Bearer " + isLogin },
          success: function(data) {
          console.log(data);
-         alert("保存成功");
+          layer.msg('保存成功',{time:700});
           // window.location.reload();
          },
          error: function() {
