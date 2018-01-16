@@ -2474,7 +2474,6 @@ $(function() {
 						get_all_word_exam();
 	        }
 		    });
-		    get_bind_exam_subject();
   	}
   });
 
@@ -3880,7 +3879,7 @@ $(function() {
         }
     });
 
-		
+		get_bind_exam_subject();
   });
 
 
