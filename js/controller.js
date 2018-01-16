@@ -105,7 +105,50 @@ angular.module("myApp.controller", [])
                 }
             });
         }
+        //page
+function markxl01(c,num) {
+            $.ajax({
+                type: "GET",
+                url: ajaxIp + "/api/v2/reports",
+                headers: {
+                    'Authorization': "Bearer " + isLogin
+                },
+                data: {
+                    "subject_id": c,
+                    "total_page":num,
+                },
+                success: function(data) {
+                    console.log(data.data);
+                    console.log(data);
+                    $(".mark_02_ul").html(" ");
+                
+                   
+                    for (var i = 0; i < data.data.length; i++) {
 
+                        $(".mark_02_ul").append('<li data-id="' + data.data[i].exam_id + '"><span>' + data.data[i].name + '<i class="iconfont" style="margin-left:11px;cursor: pointer;">&#xe622;</i><i class="iconfont" style="margin-left:11px;cursor: pointer;display:none;">&#xe624;</i></span><div class="mark_li_01"></div></li>')
+                        var b = data.data[i].exam_subjects.length;
+
+                        for (var a = 0; a < b; a++) {
+                            // console.log(i);
+                            $(".mark_02_ul div").eq(i).append('<ul><li>' + data.data[i].exam_subjects[a].name + '</li><li>' + data.data[i].exam_subjects[a].updated_at + '</li><li>' + data.data[i].exam_subjects[a].operator_id + '<button type="" data-id="' + data.data[i].exam_subjects[a].exam_subject_id + '" data-status="' + data.data[i].exam_subjects[a].status + '" data_a="1" data-sid="' + data.data[i].exam_subjects[a].subject_id + '">分析</button></li></ul>');
+
+
+                            var status_btn = $(".mark_li_01 ul").eq(a).find("button").attr("data-status");
+
+                            if (status_btn == "finished" || status_btn == "analyse" || status_btn == "analyseing" || status_btn == "analysed" || status_btn == "reanalyse") {
+                                $(".mark_li_01 ul").eq(a).find("button").show();
+                            } else {
+                                $(".mark_li_01 ul").eq(a).find("button").hide();
+                            }
+
+                        }
+                    }
+                },
+                error: function() {
+
+                }
+            });
+        }
 
         $(".mark_02_ul").on('click', 'span', function(event) {
             $(this).parent().find('div').toggle();
@@ -419,10 +462,10 @@ angular.module("myApp.controller", [])
      var a=$(this).val().replace(/[^0-9%]/g,'')
        $(this).val(a);
   });
- $("#ul_iLabel").on('keyup', '.level_01', function(event) {
-     var a=$(this).val().replace(/[^a-zA-Z+=0]/g,'')
-       $(this).val(a);
-  });
+ // $("#ul_iLabel").on('keyup', '.level_01', function(event) {
+ //     var a=$(this).val().replace(/[^a-zA-Z+=0]/g,'')
+ //       $(this).val(a);
+ //  });
  $(".mart_set_02").on('keyup', 'input', function(event) {
      var a=$(this).val().replace(/[^0-9]/g,'')
        $(this).val(a);
@@ -519,7 +562,7 @@ angular.module("myApp.controller", [])
         $(".mark_add").click(function(event) {
             /* Act on the event */
             var a = $(".mart_set_03").height();
-            if (a < 577) {
+            if (a < 607) {
                 $('.mart_set_03 ul').append('<li><input class="level_01"></input><input class="level_02"></input><button type="" class="iLabel">-</button></li>');
 
             }
@@ -542,13 +585,16 @@ angular.module("myApp.controller", [])
         });
         //page//
         $(".next_page").click(function(event) {
-        
-        var page01=Number($(".page_div").attr("total_page"))+1;
-            console.log(a);
+        if( $(".num_color").html()==$(".page_div").attr("total_page")){
+         
+        }else {
+          var a= $(".num_color").index();
+            var page01=Number($(".page_div").attr("total_page"))+1;
+         
             console.log( page01);
            $(".num_color").next().attr("class","num_color").siblings().removeAttr("class"); 
            var page=Number($(".num_color").html())+1;
-           var a= $(".num_color").index();
+         
            if(page<page01){
            
            if(a>3){
@@ -561,14 +607,20 @@ angular.module("myApp.controller", [])
           var mark_01_select_a = $("mark_01_select").children('option:selected').attr("data-id");
           
             var num=parseInt($(".num_color").html());
-            markxl(mark_01_select_a,num);
+            markxl01(mark_01_select_a,num);
+            // console.log("123");
+        }
+        
         });
         
         $(".prev_page").click(function(event) {
-
+              if( $(".num_color").html()==1){
+         
+        }else {
+            var a= $(".num_color").index();
            $(".num_color").prev().attr("class","num_color").siblings().removeAttr("class");
            var a_num=Number($(".num_color").html());
-            var a= $(".num_color").index();
+            
            var page=a_num-1;
            if(a<1){
            if(a_num>1){
@@ -583,12 +635,15 @@ angular.module("myApp.controller", [])
           
             var num=parseInt($(".num_color").html());
 
-            markxl(mark_01_select_a,num);
+            markxl01(mark_01_select_a,num);
+        }
     
         });
 
         $(".start_page").click(function(event) {
+           if( $(".num_color").html()==1){
          
+        }else {
          $(".num_page button").eq(0).attr("class","num_color").siblings().removeAttr("class");
          var a= $(".num_page button").length;
          for(var i=0;i<a;i++){
@@ -598,28 +653,45 @@ angular.module("myApp.controller", [])
          var mark_01_select_a = $("mark_01_select").children('option:selected').attr("data-id");
           
             var num=parseInt($(".num_color").html());
-            markxl(mark_01_select_a,num);
+            markxl01(mark_01_select_a,num);
+        }
         });
 
 
         $(".end_page").click(function(event) {
+            if( $(".num_color").html()==$(".page_div").attr("total_page")){
+         
+        }else {
         var a= Number($(".num_page button").length)-1;
          $(".num_page button").eq(a).attr("class","num_color").siblings().removeAttr("class");
         var page =Number($(".page_div").attr("total_page"));
-         var a_long= $(".num_page button").length;
-         if(a_long>5){
+         var a_long= Number($(".num_page button").length);
+          // console.log(a_long);
+         if(a_long>5||a_long==5){
+            // alert();
          for(var i=0;i<a_long;i++){
             var b=page-4+i;
-
+            console.log("123");
             $(".num_page button").eq(i).html(b);
          }
      }
          var mark_01_select_a = $("mark_01_select").children('option:selected').attr("data-id");
             var num=parseInt($(".num_color").html());
-            markxl(mark_01_select_a,num);
+            markxl01(mark_01_select_a,num);
+
+        }
 
         });
+      $(".num_page").on('click', 'button', function(event) {
+      if($(this).attr("class")!=="num_color"){
+   
+       $(this).attr("class","num_color").siblings().removeAttr("class");
+        var mark_01_select_a = $("mark_01_select").children('option:selected').attr("data-id");
+            var num=parseInt($(".num_color").html());
+            markxl01(mark_01_select_a,num);
+      }
 
+     });
 
     })
     // 考试状况

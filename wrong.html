@@ -33,6 +33,8 @@
 						<li id="wrong_left_li" class="wrong_exam_li">考试错题集</li>
 						<li class="wrong_class_li">班级错题集</li>
 						<li class="wrong_per_li">学生错题集</li>
+						<li class="grade_admin_li">考试错题集管理</li>
+						<li class="class_admin_li">班级错题集管理</li>
 					</ul>
 				</div>
 				<div class="wrong_right">
@@ -84,10 +86,10 @@
 					</div>
 					<p class="ans_news"><i></i>答题情况
 					<a style="margin-left: 20px;">排序
-					<select class="grade_sort">
-						<option value="">顺序</option>
-						<option value="">得分率高低</option>
-						<option value="">平均分</option>
+					<select class="grade_sort" data-id="1">
+						<option value=""  data-id="1">顺序</option>
+						<option value="" data-id="2">得分率高低</option>
+						<option value="" data-id="3">平均分</option>
 
 						
 					</select></a></p>
@@ -111,31 +113,7 @@
 					<!-- 错题列表 -->
 					<div class="grade_list">
 					<ul class="grade_list_ul">
-					 <!-- <li>
-						<div class="grade_list_main">
-						<div class="grade_list_body">
-							<p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （    ）</p>
-
-								<p>A．粒子带正电</p>
-
-								<p>B．粒子的动能一直变大</p>
-
-								<p>C．粒子的加速度先变小后变大</p>
-
-								<p>D．粒子在电场中的电势能先变小后变大</p>
-						</div>
-                        <p class="grade_list_lable"><a>年级得分率:<i>35%</i></a><a>年级平均分:<i>4分</i></a><a>知识点:<i>电场</i></a><a class="grade_list_dif">难度系数:
-                        <i class="iconfont" style="margin-left:2px;">&#xe600;</i>
-                        <i class="iconfont" style="margin-left:2px;">&#xe600;</i>
-                        <i class="iconfont" style="margin-left:2px;">&#xe600;</i>
-                        <i class="iconfont" style="margin-left:2px;">&#xe639;</i>
-                        <i class="iconfont" style="margin-left:2px;">&#xe639;</i></a>
-                        </p>
-                        <div class="grade_list_move"><a class="grade_list_body_ans"><i class="iconfont" style="margin-right:5px;">&#xe61e;</i>查看答案和解析</a><a  class="grade_list_move_a">移除</a></div>
-                         <div class="grade_list_number"><p><i class="iconfont" style="font-size:45px;color:#31bc91;">&#xe63f;</i><a>01</a></p></div>
-                          <div class="grade_list_form">试题来源:<a>2017年11月期中考试</a></div>
-						</div>
-					</li> -->
+				
                  </ul>
 					</div>
 					<!-- 查看答案 -->
@@ -150,6 +128,13 @@
 						</div>
 						<button class="determine">确认</button>
 					</div>
+					<!-- 错题本命名 -->
+					<!-- <div  class="grade_wrong_name_tc">
+					<p class="grade_wrong_name_top">错题本命名</p>
+					<div  class="grade_wrong_name_back"><i class="iconfont">&#xe61b;</i></div>
+					<p class="grade_wrong_name_input">名称：<input type="" name="" placeholder="请输入生成错题本的名称"></p>
+						<p style="margin-top: 80px;text-align:right;"><button class="determine grade_wrong_off">取消</button><button class="determine grade_wrong_on">确认</button></p>
+					</div> -->
 					<!-- 查看答案 -->
 					</div>
 					<!-- 答题情况 end-->
@@ -205,10 +190,10 @@
 
 					<p class="ans_news"><i></i>答题情况
 					<a style="margin-left: 20px;">排序
-					<select class="class_sort">
-						
-						<option value="">得分率高低</option>
-						<option value="">频次</option>
+					<select class="class_sort" data-id="1">
+					    <option value=""  data-id="1">顺序</option>
+						<option value="" data-id="2">得分率高低</option>
+						<option value="" data-id="3">平均分</option>
 						
 					</select></a></p>
           
@@ -469,6 +454,223 @@
                     </div>
 					</div>
 					<!-- 学生错题本 end-->
+					<!-- 考试错题本管理 start-->
+					<div class="grade_wrong_admin" style="display: none;">
+					<div class="g_font_div" style="display:block;">
+						<p class="g_wrong_admin_top">
+					   <a>考试<select class="g_wrong_admin_exam">
+						<option value="">上海市一中期中考试</option>
+					   </select> </a>
+                       <a style="margin-left: 35px;"> 科目<select class="g_wrong_admin_sub">
+						<option value="">数学</option>
+						<option value="">语文</option>
+					   </select></a></p>
+					   <div class="g_wrong_admin_content">
+					   <p class="g_wrong_p">
+					   	<a style="width: 32%;">错题集名称</a>
+					   	<a style="">错题数量</a>
+					   	<a style="">创建人</a>
+					    <a style="">创建时间</a>
+					    <a style="">操作</a>
+					   </p>
+					   	<ul class="g_wrong_list">
+					   	<li>
+					   	<a style="width: 32%;">师大一中高二数学考试错题集</a>
+					   	<a style=""></a>
+					   	<a style="">12</a>
+					    <a style="">系统</a>
+					    <a style="">2017.10.28</a>
+					    <a style=""><button>查看</button></a>
+					    </li>
+					   	</ul>
+					   </div>
+					   </div>
+                    <!--   查看 -->
+                    <div class="g_look" style="display:none;">
+                    <div class="ans_result" style="margin-top: 20px;">
+						<p>
+						<a class="know_01">0.95-1 完全掌握<i></i></a>
+						<a class="know_02">0.8-0.95 熟练掌握<i></i></a></p>
+						<p>
+						<a class="know_03">0.6-0.8 基本掌握<i></i></a>
+						<a class="know_04">0-0.6 没有掌握<i></i></a>
+						</p> </div>
+                      <p class="ans_news"><i></i>答题情况
+					  </p>
+
+					  <div class="g_topic" style="overflow: hidden;">
+						<div class="g_topic_ever_box" style="float: left;width: 610px;">
+						<a class="grate_topic_ever" style="background: #31bc91;">01</a>
+						
+						</div>
+						<div style="float: right;">
+						<a class="g_wrong_make"><button type="" class="determine" style="width: 94px;margin-right: 10px;">生成变式训练</button><i class="iconfont" style="color:#31bc91;"></i></a>
+						<button type="" class="g_print">打印</button>
+						</div>
+						<p></p>
+					</div>
+                  
+                 <!--  list -->
+                 <div class="g_list">
+                     <ul class="g_list_ul">
+                     	<li><div class="g_list_main">
+						<div class="g_list_body">
+							<p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （    ）</p>
+
+								<p>A．粒子带正电</p>
+
+								<p>B．粒子的动能一直变大</p>
+
+								<p>C．粒子的加速度先变小后变大</p>
+
+								<p>D．粒子在电场中的电势能先变小后变大</p>
+						</div>
+                        <p class="g_list_lable"><a>年级得分率:<i>35%</i></a><a>年级平均分:<i>4分</i></a><a>知识点:<i>电场</i></a><a class="g_list_dif">难度系数:
+                        <i class="iconfont" style="margin-left:2px;"></i>
+                        <i class="iconfont" style="margin-left:2px;"></i>
+                        <i class="iconfont" style="margin-left:2px;"></i>
+                        <i class="iconfont" style="margin-left:2px;"></i>
+                        <i class="iconfont" style="margin-left:2px;"></i></a>
+                        </p>
+                        <div class="g_list_move"><a class="g_list_body_ans"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a>
+                      <!--   <a  class="class_list_move_a">移除</a> -->
+                        </div>
+                       <!--   <div class="class_list_number"><p><i class="iconfont" style="font-size:45px;color:#31bc91;"></i><a>01</a></p></div> -->
+                         <!-- <div class="class_list_form">试题来源:<a>2017年11月期中考试</a></div> -->
+						</div>
+					</li>
+
+                     </ul>
+                      <!-- 查看答案 -->
+					<div  class="g_ans_tc">
+					<p class="g_ans_top">查看答案和解析</p>
+					<div style="padding-left: 30px;box-sizing: border-box;">	
+						<p class="g_ans_style">解答</p>
+						<div class="g_ans01"></div>
+						<p class="g_ans_line"></p>
+						<p class="g_ans_style">分析</p>
+						<div class="g_ans02"></div>
+						</div>
+						<button class="determine">确认</button>
+					</div>
+					<!-- 查看答案 -->
+					</div>
+					<!-- list end	 -->
+					</div>
+					</div>
+					<!-- 考试错题本管理 end-->
+					<!-- 班级错题本管理 start-->
+					<div class="class_wrong_admin" style="display: none;">
+					<div class="c_font_div" style="display:block;">
+						<p class="c_wrong_admin_top">
+					   <a>考试<select class="c_wrong_admin_exam" style="width:320px;">
+						<option value="">上海市一中期中考试</option>
+					   </select> </a>
+					    <a style="margin-left: 35px;">年级<select class="c_wrong_admin_grade">
+						<option value="">高一</option>
+						
+					   </select>
+					    <a style="margin-left: 35px;">班级<select class="c_wrong_admin_class">
+						<option value="">1班</option>
+						<!-- <option value="">语文</option> -->
+					   </select>
+                       <a style="margin-left: 35px;"> 科目<select class="c_wrong_admin_sub">
+						<option value="">数学</option>
+						<option value="">语文</option>
+					   </select></a></p>
+					   <div class="c_wrong_admin_content">
+					   <p class="c_wrong_p">
+					   	<a style="width: 32%;">错题集名称</a>
+					   	<a style="">错题数量</a>
+					   	<a style="">创建人</a>
+					    <a style="">创建时间</a>
+					    <a style="">操作</a>
+					   </p>
+					   	<ul class="c_wrong_list">
+					   	<li>
+					   	<a style="width: 32%;">师大一中高二数学考试错题集</a>
+					 
+					   	<a style="">12</a>
+					    <a style="">赵老师</a>
+					    <a style="">2017.10.28</a>
+					    <a style=""><button>查看</button></a>
+					    </li>
+					   	</ul>
+					   </div>
+					   </div>
+                    <!--   查看 -->
+                    <div class="c_look" style="display:none;">
+                    <div class="ans_result" style="margin-top: 20px;">
+						<p>
+						<a class="know_01">0.95-1 完全掌握<i></i></a>
+						<a class="know_02">0.8-0.95 熟练掌握<i></i></a></p>
+						<p>
+						<a class="know_03">0.6-0.8 基本掌握<i></i></a>
+						<a class="know_04">0-0.6 没有掌握<i></i></a>
+						</p> </div>
+                      <p class="ans_news"><i></i>答题情况
+					  </p>
+
+					  <div class="c_topic" style="overflow: hidden;">
+						<div class="c_topic_ever_box" style="float: left;width: 610px;">
+						<a class="grate_topic_ever" style="background: #31bc91;">01</a>
+						
+						</div>
+						<div style="float: right;">
+						<a class="c_wrong_make"><button type="" class="determine" style="width: 94px;margin-right: 10px;">生成变式训练</button><i class="iconfont" style="color:#31bc91;"></i></a>
+						<button type="" class="c_print">打印</button>
+						</div>
+						<p></p>
+					</div>
+                  
+                 <!--  list -->
+                 <div class="c_list">
+                     <ul class="c_list_ul">
+                     	<li><div class="c_list_main">
+						<div class="c_list_body">
+							<p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （    ）</p>
+
+								<p>A．粒子带正电</p>
+
+								<p>B．粒子的动能一直变大</p>
+
+								<p>C．粒子的加速度先变小后变大</p>
+
+								<p>D．粒子在电场中的电势能先变小后变大</p>
+						</div>
+                        <p class="c_list_lable"><a>年级得分率:<i>35%</i></a><a>年级平均分:<i>4分</i></a><a>知识点:<i>电场</i></a><a class="c_list_dif">难度系数:
+                        <i class="iconfont" style="margin-left:2px;"></i>
+                        <i class="iconfont" style="margin-left:2px;"></i>
+                        <i class="iconfont" style="margin-left:2px;"></i>
+                        <i class="iconfont" style="margin-left:2px;"></i>
+                        <i class="iconfont" style="margin-left:2px;"></i></a>
+                        </p>
+                        <div class="c_list_move"><a class="c_list_body_ans"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a>
+                      <!--   <a  class="class_list_move_a">移除</a> -->
+                        </div>
+                       <!--   <div class="class_list_number"><p><i class="iconfont" style="font-size:45px;color:#31bc91;"></i><a>01</a></p></div> -->
+                         <!-- <div class="class_list_form">试题来源:<a>2017年11月期中考试</a></div> -->
+						</div>
+					</li>
+
+                     </ul>
+                      <!-- 班级查看答案 -->
+					<div  class="c_ans_tc">
+					<p class="c_ans_top">查看答案和解析</p>
+					<div style="padding-left: 30px;box-sizing: border-box;">	
+						<p class="c_ans_style">解答</p>
+						<div class="c_ans01"></div>
+						<p class="c_ans_line"></p>
+						<p class="c_ans_style">分析</p>
+						<div class="c_ans02"></div>
+						</div>
+						<button class="determine">确认</button>
+					</div>
+					<!-- 班级查看答案 -->
+					</div>
+					<!-- list end	 -->	
+					</div>
+					<!-- 班级错题本管理 end-->
 					</div>
 					
 				</div>
@@ -476,6 +678,14 @@
 		</div>
         <!-- 遮罩层 -->
         <div class="layer"></div>
+
+
+        <div class="load-bg">
+		<div class="load-animate" style="position: fixed;">
+			<img src="./img/load.jpg" alt="" width="200" height="200">
+			<p>正在分析中，请稍等...</p>
+		</div>
+</div>
 		<div id="footer">
 
 		</div>

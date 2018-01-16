@@ -212,10 +212,16 @@
               $(".grade_exam").attr("data-id",data[0].id);
               $(".grade_exam").attr("grade_id",data[0].grade_id);
               $(".grade_exam").attr("school_id",data[0].school_id);
-               $(".grade_exam").append('<option value="" data-id="'+data[i].id+'" grade_id="'+data[i].grade_id+'" school_id="'+data[i].school_id+'">'+data[i].name+'</option>');
+              // var class_id=[];
+              // for(var class_i=0;class_i<data[i].classrooms.length;class_i++){
+              //    class_id[class_i]=data[i].classrooms[class_i].classroom_id;
+              //    console.log(class_id);
+              // }
 
-               
+               $(".grade_exam").append('<option value="" data-id="'+data[i].id+'" grade_id="'+data[i].grade_id+'" school_id="'+data[i].school_id+'">'+data[i].name+'</option>');  
+             
              }
+              
              var sub_length=data[0].subjects.length;
              var sub=data[0].subjects;
               $(".grade_exam").change(function(event) {
@@ -266,18 +272,27 @@
         var a=$(this).children('option:selected').val();
          $(this).attr("rate-id",a);
        });
-
-
+      $(".grade_sort").change(function(event) {
+       $(this).attr("data-id",$(this).children('option:selected').attr("data-id"));
+       grade_list();
+      });
+     $(".class_sort").change(function(event) {
+       $(this).attr("data-id",$(this).children('option:selected').attr("data-id"));
+       class_list();
+      });
     $(".grade_sur").click(function(event) {
+    grade_list();
+    });
+ // 考试生成错题本
+  function grade_list(){
      var rate=$(".grade_rate").attr("rate-id");
-    // console.log($(".type_ever a").eq(0).html()); 
-   // var data_num=[];
+    
    var data_num=[];
-    if($(this).parent().prev().find('a').eq(0).attr("data-id")==1){
+    if($(".grade_sur").parent().prev().find('a').eq(0).attr("data-id")==1){
     data_num[0]=0;
     data_num[1]=5;
     }
-    if($(this).parent().prev().find('a').eq(1).attr("data-id")==1){
+    if($(".grade_sur").parent().prev().find('a').eq(1).attr("data-id")==1){
       
       if(data_num.length==0){
        data_num[0]=1;
@@ -286,21 +301,21 @@
       }
     
     }
-    if($(this).parent().prev().find('a').eq(2).attr("data-id")==1){
+    if($(".grade_sur").parent().prev().find('a').eq(2).attr("data-id")==1){
       if(data_num.length==0){
        data_num[0]=2;
       }else{
         data_num[data_num.length]=2;
       }
     }
-    if($(this).parent().prev().find('a').eq(3).attr("data-id")==1){
+    if($(".grade_sur").parent().prev().find('a').eq(3).attr("data-id")==1){
       if(data_num.length==0){
        data_num[0]=3;
       }else{
         data_num[data_num.length]=3;
       }
     }
-    if($(this).parent().prev().find('a').eq(4).attr("data-id")==1){
+    if($(".grade_sur").parent().prev().find('a').eq(4).attr("data-id")==1){
     if(data_num.length==0){
        data_num[0]=4;
       }else{
@@ -308,6 +323,7 @@
       }
     }
    console.log(data_num);
+   var sort =$(".grade_sort").attr("data-id");
    var grade_exam=parseInt($(".grade_exam").attr("data-id"));
    var grade_sub=parseInt($(".grade_sub").attr("data-id"));
     console.log(grade_exam);
@@ -315,16 +331,20 @@
       $.ajax({
             type: "POST",
             url: ajaxIp + "/api/v2/wrong_questions/grade_index",
-            async: false,
+            // async: false,
             data:{
                 "exam_id":grade_exam,
                  "subject_id":grade_sub,
                  "item":data_num,
                  "rate":rate,
+                  "sort":sort,
             },
             headers: {
                 'Authorization': "Bearer " + isLogin
             },
+            beforeSend: function(){
+                $(".load-bg").show();
+                },
             success: function(data) {
                 console.log(data);
                  $(".grade_list_ul").html(" ");
@@ -371,16 +391,16 @@
               //小题上标(得分率)
               var a_rate=Number(data[i].scoring_rate);
               if(a_rate>=0.86){
-              $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#31bc91;" scoring_rate="'+data[i].scoring_rate+'" bank_id="'+data[i].question_bank_id+'" average_score="'+data[i].average_score+'" exam_subject_id="'+data[i].exam_subject_id+'" total_score="'+data[i].total_score+'" item="'+data[i].item+'">'+num+'</a>');
+              $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#31bc91;" scoring_rate="'+data[i].scoring_rate+'" bank_id="'+data[i].question_bank_id+'" average_score="'+data[i].average_score+'" exam_subject_id="'+data[i].exam_subject_id+'" total_score="'+data[i].total_score+'" item="'+data[i].item+'" classroom_id="'+data[i].classroom_id+'">'+num+'</a>');
               var num_color="#31bc91";
              }else if(a_rate>=0.8&&a_rate<0.95){
-               $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#f7c07c;" scoring_rate="'+data[i].scoring_rate+'" bank_id="'+data[i].question_bank_id+'" average_score="'+data[i].average_score+'" exam_subject_id="'+data[i].exam_subject_id+'" total_score="'+data[i].total_score+'" item="'+data[i].item+'">'+num+'</a>');
+               $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#f7c07c;" scoring_rate="'+data[i].scoring_rate+'" bank_id="'+data[i].question_bank_id+'" average_score="'+data[i].average_score+'" exam_subject_id="'+data[i].exam_subject_id+'" total_score="'+data[i].total_score+'" item="'+data[i].item+'" classroom_id="'+data[i].classroom_id+'">'+num+'</a>');
              var num_color="#f7c07c";
              }else if(a_rate>=0.6&&a_rate<0.8){
-               $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#5fa3ed;" scoring_rate="'+data[i].scoring_rate+'" bank_id="'+data[i].question_bank_id+'" average_score="'+data[i].average_score+'" exam_subject_id="'+data[i].exam_subject_id+'" total_score="'+data[i].total_score+'" item="'+data[i].item+'">'+num+'</a>');
+               $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#5fa3ed;" scoring_rate="'+data[i].scoring_rate+'" bank_id="'+data[i].question_bank_id+'" average_score="'+data[i].average_score+'" exam_subject_id="'+data[i].exam_subject_id+'" total_score="'+data[i].total_score+'" item="'+data[i].item+'" classroom_id="'+data[i].classroom_id+'">'+num+'</a>');
              var num_color="#5fa3ed";
              }else if(a_rate>=0&&a_rate<0.6){
-               $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#fb7d8a;" scoring_rate="'+data[i].scoring_rate+'" bank_id="'+data[i].question_bank_id+'" average_score="'+data[i].average_score+'" exam_subject_id="'+data[i].exam_subject_id+'" total_score="'+data[i].total_score+'" item="'+data[i].item+'">'+num+'</a>');
+               $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#fb7d8a;" scoring_rate="'+data[i].scoring_rate+'" bank_id="'+data[i].question_bank_id+'" average_score="'+data[i].average_score+'" exam_subject_id="'+data[i].exam_subject_id+'" total_score="'+data[i].total_score+'" item="'+data[i].item+'" classroom_id="'+data[i].classroom_id+'">'+num+'</a>');
              var num_color="#fb7d8a";
              }
 
@@ -389,13 +409,15 @@
 
 
             },
+            complete: function(){
+
+                  $(".load-bg").hide();
+                },
             error:function() {
-               
+               $(".load-bg").hide();
             },
         });
-    });
- // 考试生成错题本
-
+}
  
 $(".grade_make_wrong").click(function(event) {
     var sub_id=$(".grade_sub").attr("data-id");
@@ -419,16 +441,27 @@ $(".grade_make_wrong").click(function(event) {
     grade_wrong["total_score"]=$(".grate_topic_ever_box a").eq(i).attr("total_score");
     grade_wrong["item"]=$(".grate_topic_ever_box a").eq(i).attr("item");
     grade_wrong["question_bank_id"]=$(".grate_topic_ever_box a").eq(i).attr("bank_id");
+     grade_wrong["classroom_id"]=$(".grate_topic_ever_box a").eq(i).attr("classroom_id");
 
     grade_wrongs[i]=grade_wrong;
   }
-console.log(grade_wrongs);
+  var exam_subject_id=$(".grate_topic_ever_box a").eq(0).attr("exam_subject_id");
+  console.log($(".grade_exam").children('option:selected').text());
+  console.log($(".grade_sub").children('option:selected').text());
+  console.log($(".grade_rate").children('option:selected').text());
+  var title=$(".grade_exam").children('option:selected').text()+'-'+$(".grade_sub").children('option:selected').text()+'-'+$(".grade_rate").children('option:selected').text();
+   console.log(grade_wrongs);
+   console.log(title);
 $.ajax({
             type: "POST",
             url: ajaxIp + "/api/v2/wrong_questions",
             async: false,
             data:{
                 "wrong_questions":JSON.stringify(grade_wrongs),
+                 "type":"grade",
+                 "title":title,
+                 "exam_subject_id":exam_subject_id,
+
             },
             headers: {
                 'Authorization': "Bearer " + isLogin
@@ -481,10 +514,16 @@ $(".class_select_time").change(function(event) {
  }    
 
 $(".class_sur").click(function(event) {
-console.log($(this).attr("exam_id"));
-var exam_id=$(this).attr("exam_id");
-var exam_length=$(this).attr("exam_length");
+  class_list();
+})
+function class_list(){
+console.log($(".class_sur").attr("exam_id"));
+var exam_id=$(".class_sur").attr("exam_id");
+var exam_length=$(".class_sur").attr("exam_length");
+console.log(exam_id);
+if(exam_id!==undefined){
 var words = exam_id.split(',');
+}
 var word =[];
 for(var length=0;length<exam_length;length++){
      word[length]=parseInt(words[length]);
@@ -492,11 +531,11 @@ for(var length=0;length<exam_length;length++){
 console.log(word);
 //类型
  var data_num=[];
-    if($(this).parent().prev().find('a').eq(0).attr("data-id")==1){
+    if($(".class_sur").parent().prev().find('a').eq(0).attr("data-id")==1){
     data_num[0]=0;
     data_num[1]=5;
     }
-    if($(this).parent().prev().find('a').eq(1).attr("data-id")==1){
+    if($(".class_sur").parent().prev().find('a').eq(1).attr("data-id")==1){
       
       if(data_num.length==0){
        data_num[0]=1;
@@ -505,21 +544,21 @@ console.log(word);
       }
     
     }
-    if($(this).parent().prev().find('a').eq(2).attr("data-id")==1){
+    if($(".class_sur").parent().prev().find('a').eq(2).attr("data-id")==1){
       if(data_num.length==0){
        data_num[0]=2;
       }else{
         data_num[data_num.length]=2;
       }
     }
-    if($(this).parent().prev().find('a').eq(3).attr("data-id")==1){
+    if($(".class_sur").parent().prev().find('a').eq(3).attr("data-id")==1){
       if(data_num.length==0){
        data_num[0]=3;
       }else{
         data_num[data_num.length]=3;
       }
     }
-    if($(this).parent().prev().find('a').eq(4).attr("data-id")==1){
+    if($(".class_sur").parent().prev().find('a').eq(4).attr("data-id")==1){
     if(data_num.length==0){
        data_num[0]=4;
       }else{
@@ -537,6 +576,7 @@ console.log(word);
     alert("考试科目不能为空");
   }
    console.log(sub_id);
+   var sort=$(".class_sort").attr("data-id");
 $.ajax({
             type: "POST",
             url: ajaxIp + "/api/v2/wrong_questions/class_index",
@@ -547,15 +587,22 @@ $.ajax({
                 "classroom_id":class_id,
                 "rate":rate,
                 "item":data_num,
+                 "sort":sort,
         
             },
             headers: {
                 'Authorization': "Bearer " + isLogin
             },
+             beforeSend: function(){
+                   $(".load-bg").show();
+                },
             success: function(data) {
                 console.log(data);
                  $(".class_list_ul").html(" ");
-                $(".class_sur").attr("school_id",data[0][0].school_id);
+                 if(data.length!==0){
+                  $(".class_sur").attr("school_id",data[0][0].school_id);
+                 }
+                
                for(var i=0;i<data.length;i++){
                 $(".class_topic_ever_ul").append('<li><p>'+data[i][i].source+'</p></li>')
                  for(var i_1=0;i_1<data[i].length;i_1++){
@@ -620,16 +667,15 @@ $.ajax({
                }
              
             },
+            complete: function(){
+                   $(".load-bg").hide();
+                },
             error:function(){
-
+                 // $(".load-bg").hide();
             },
         });
 
-
-
-
-
-})
+}
 
  //     班级删除
  $(".class_list_ul").on('click', '.class_list_move_a', function(event) {
@@ -660,6 +706,14 @@ $(".class_make_wrong").click(function(event) {
     class_wrongs[li]=class_wrong;
 
     }
+    var exam_subject_id=$(".class_list_ul li").eq(0).attr("exam_subject_id");
+    var title01=$(".class_select_time").children('option:selected').text();
+    var title02=$(".class_select_grate").children('option:selected').text();
+    var title03=$(".class_select_class").children('option:selected').text();
+    var title04=$(".class_select_sub").children('option:selected').text();
+    var title05=$(".class_select_rate").children('option:selected').text();
+    var title=title01+"-"+title02+"-"+title03+"-"+title04+"-"+title05;
+    console.log(title);
     console.log(class_wrongs);
     $.ajax({
             type: "POST",
@@ -667,6 +721,9 @@ $(".class_make_wrong").click(function(event) {
             async: false,
             data:{
                 "wrong_questions":JSON.stringify(class_wrongs),
+                 "type":"class",
+                 "title":title,
+                 "exam_subject_id":exam_subject_id,
             },
             headers: {
                 'Authorization': "Bearer " + isLogin
@@ -963,6 +1020,149 @@ $(".class_ans_tc").on('click', 'button', function(event) {
     	$(".per_sur_a").show();
     	// $(".stu_choice_btn").hide();
      });
+//年级错题管理
+$(".g_wrong_list button").click(function(event) {
+  $(".g_font_div").hide();
+  $(".g_look").show();
+  console.log();
+  $(".wrong_top").html('<i class="g_back_font  iconfont" style="margin-right:10px;cursor: pointer;">&#xe61c;</i>'+$(this).parents("li").find('a').eq(0).html());
+ 
+});
+$(".wrong_top").on('click', '.g_back_font', function(event) {
+  
+$(".g_font_div").show();
+$(".g_look").hide();
+$(".wrong_top").html("考试错题集管理");
+
+});
+//查看
+$(".g_list_ul").on('click', '.g_list_body_ans', function(event) {
+    $(".g_ans01").html(" ");
+    $(".g_ans02").html(" ");
+    $(".layer").css("height",$(document).height());
+    $(".layer").show();
+    // $(".g_ans01").html($(this).attr("data-ans"));
+    // $(".g_ans02").html($(this).attr("data-anal"));
+    $(".g_ans_tc").show();
+
+});
+$(".g_ans_tc").on('click', 'button', function(event) {
+ $(".g_ans_tc").hide();
+ $(".layer").hide();
+});
+//打印
+$(".g_print").click(function(event) {
+     $("#footer").hide();
+     $(".ans_result").hide();
+     $(".wrong_left_ul").hide();
+     $(".g_list_move").hide();
+     $(".g_topic").hide();
+      $("#header").hide();
+      $(".title-box").hide();
+       $(".wrong_top").hide();
+       $(".ans_news").hide();
+     $(".main").css("width","100%");
+      $(".main").css("margin-top","0px");
+       $(".g_list").css("padding","0px");
+      $(".wrong_right").css("width","100%");
+      $(".wrong_right").css("padding","0");
+     $(".g_list_main").css("width","100%");
+      window.print();
+       $("#footer").show();
+     $(".ans_result").show();
+     $(".wrong_left_ul").show();
+     $(".g_list_move").show();
+     $(".g_topic").show();
+      $("#header").show();
+      $(".title-box").show();
+       $(".wrong_top").show();
+       $(".ans_news").show();
+     $(".main").css("width","1200px");
+      $(".wrong_right").css("width","1000px");
+     $(".g_list_main").css("width","923px");
+      $(".main").css("margin-top","45px");
+       $(".g_list").css("padding","20px 0px 100px 0px");
+     $(".wrong_right").css("padding","43px 40px 100px 35px");
+     });
+$(".grade_admin_li").click(function(event) { 
+$(".g_font_div").show();
+$(".g_look").hide();
+});
+//班级级错题管理
+$(".c_wrong_list button").click(function(event) {
+  $(".c_font_div").hide();
+  $(".c_look").show();
+  console.log();
+  $(".wrong_top").html('<i class="c_back_font  iconfont" style="margin-right:10px;cursor: pointer;">&#xe61c;</i>'+$(this).parents("li").find('a').eq(0).html());
+ 
+});
+$(".wrong_top").on('click', '.c_back_font', function(event) {
+  
+$(".c_font_div").show();
+$(".c_look").hide();
+$(".wrong_top").html("班级错题集管理");
+
+});
+//查看
+$(".c_list_ul").on('click', '.c_list_body_ans', function(event) {
+    $(".c_ans01").html(" ");
+    $(".c_ans02").html(" ");
+    $(".layer").css("height",$(document).height());
+    $(".layer").show();
+    // $(".g_ans01").html($(this).attr("data-ans"));
+    // $(".g_ans02").html($(this).attr("data-anal"));
+    $(".c_ans_tc").show();
+
+});
+$(".c_ans_tc").on('click', 'button', function(event) {
+ $(".c_ans_tc").hide();
+ $(".layer").hide();
+});
+//打印
+$(".c_print").click(function(event) {
+     $("#footer").hide();
+     $(".ans_result").hide();
+     $(".wrong_left_ul").hide();
+     $(".c_list_move").hide();
+     $(".c_topic").hide();
+      $("#header").hide();
+      $(".title-box").hide();
+       $(".wrong_top").hide();
+       $(".ans_news").hide();
+     $(".main").css("width","100%");
+      $(".main").css("margin-top","0px");
+       $(".c_list").css("padding","0px");
+      $(".wrong_right").css("width","100%");
+      $(".wrong_right").css("padding","0");
+     $(".c_list_main").css("width","100%");
+      window.print();
+       $("#footer").show();
+     $(".ans_result").show();
+     $(".wrong_left_ul").show();
+     $(".c_list_move").show();
+     $(".c_topic").show();
+      $("#header").show();
+      $(".title-box").show();
+       $(".wrong_top").show();
+       $(".ans_news").show();
+     $(".main").css("width","1200px");
+      $(".wrong_right").css("width","1000px");
+     $(".c_list_main").css("width","923px");
+      $(".main").css("margin-top","45px");
+       $(".c_list").css("padding","20px 0px 100px 0px");
+     $(".wrong_right").css("padding","43px 40px 100px 35px");
+     });
+$(".class_admin_li").click(function(event) { 
+$(".c_font_div").show();
+$(".c_look").hide();
+});
+
+
+
+
+
+
+
 
 
 
