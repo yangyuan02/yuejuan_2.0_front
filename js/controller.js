@@ -688,8 +688,6 @@ function markxl01(c,num) {
             
         }
         });
-
-
         $(".end_page").click(function(event) {
             $(this).attr('id', 'disableClass');
             $(".next_page").attr('id', 'disableClass');
@@ -3910,13 +3908,17 @@ function study_q_bb_all() {
             $(".exam_z_101 a").removeAttr("href");
             var a = $(this).index();
             if (a == 0) {
+                $(".exam_z_101 button").show();
                 exam_z01();
-
+       
             };
-            if (a == 1) {
+            if (a == 1) { 
+                $(".exam_z_101 button").show() ;
                 exam_z02();
+              
             };
             if (a == 2) {
+                $(".exam_z_101 button").hide();
                 exam_z03();
             };
         });
