@@ -57,6 +57,7 @@ angular.module("myApp.controller", [])
             $.ajax({
                 type: "GET",
                 url: ajaxIp + "/api/v2/reports",
+                async:false,
                 headers: {
                     'Authorization': "Bearer " + isLogin
                 },
@@ -110,6 +111,7 @@ function markxl01(c,num) {
             $.ajax({
                 type: "GET",
                 url: ajaxIp + "/api/v2/reports",
+                async:false,
                 headers: {
                     'Authorization': "Bearer " + isLogin
                 },
@@ -586,7 +588,9 @@ function markxl01(c,num) {
         //page//
         $(".next_page").click(function(event) {
         if( $(".num_color").html()==$(".page_div").attr("total_page")){
-         
+            $(this).attr('id', 'disableClass');
+            $(".end_page").attr('id', 'disableClass');
+            // layer.msg('最后一页了',{time:700});
         }else {
           var a= $(".num_color").index();
             var page01=Number($(".page_div").attr("total_page"))+1;
@@ -594,7 +598,16 @@ function markxl01(c,num) {
             console.log( page01);
            $(".num_color").next().attr("class","num_color").siblings().removeAttr("class"); 
            var page=Number($(".num_color").html())+1;
-         
+           //样式 button
+         if( $(".num_color").html()==$(".page_div").attr("total_page")){
+            $(".next_page").attr('id', 'disableClass');
+            $(".end_page").attr('id', 'disableClass');
+            
+        }
+          if( $(".num_color").html()!==1){
+            $(".prev_page").removeAttr('id');
+            $(".start_page").removeAttr('id');
+        }
            if(page<page01){
            
            if(a>3){
@@ -615,12 +628,23 @@ function markxl01(c,num) {
         
         $(".prev_page").click(function(event) {
               if( $(".num_color").html()==1){
-         
+            $(".prev_page").attr('id', 'disableClass');
+            $(".start_page").attr('id', 'disableClass');
         }else {
             var a= $(".num_color").index();
            $(".num_color").prev().attr("class","num_color").siblings().removeAttr("class");
            var a_num=Number($(".num_color").html());
+            //样式 button
+         if( $(".num_color").html()!==$(".page_div").attr("total_page")){
+            $(".next_page").removeAttr('id');
+            $(".end_page").removeAttr('id');
             
+        }
+          if( $(".num_color").html()==1){
+            $(".prev_page").attr('id', 'disableClass');
+            $(".start_page").attr('id', 'disableClass');
+        }  
+    
            var page=a_num-1;
            if(a<1){
            if(a_num>1){
@@ -639,10 +663,11 @@ function markxl01(c,num) {
         }
     
         });
-
+        
         $(".start_page").click(function(event) {
            if( $(".num_color").html()==1){
-         
+           $(".prev_page").attr('id', 'disableClass');
+            $(".start_page").attr('id', 'disableClass');
         }else {
          $(".num_page button").eq(0).attr("class","num_color").siblings().removeAttr("class");
          var a= $(".num_page button").length;
@@ -654,11 +679,22 @@ function markxl01(c,num) {
           
             var num=parseInt($(".num_color").html());
             markxl01(mark_01_select_a,num);
+            if( $(".num_color").html()!==$(".page_div").attr("total_page")){
+            $(".start_page").removeAttr('id');
+            $(".prev_page").removeAttr('id');
+            
+        }
         }
         });
 
 
         $(".end_page").click(function(event) {
+            $(this).attr('id', 'disableClass');
+            $(".next_page").attr('id', 'disableClass');
+             if( $(".num_color").html()!==1){
+            $(".start_page").removeAttr('id');
+            $(".prev_page").removeAttr('id');
+        }
             if( $(".num_color").html()==$(".page_div").attr("total_page")){
          
         }else {
@@ -686,12 +722,29 @@ function markxl01(c,num) {
       if($(this).attr("class")!=="num_color"){
    
        $(this).attr("class","num_color").siblings().removeAttr("class");
+       if( $(".num_color").html()!==1){
+            $(".prev_page").removeAttr('id');
+            $(".start_page").removeAttr('id');
+        }
         var mark_01_select_a = $("mark_01_select").children('option:selected').attr("data-id");
             var num=parseInt($(".num_color").html());
             markxl01(mark_01_select_a,num);
       }
 
      });
+      if( $(".num_color").html()==1){
+            $(".prev_page").attr('id', 'disableClass');
+            $(".start_page").attr('id', 'disableClass');
+          
+            
+        }
+      if( $(".num_color").html()==$(".page_div").attr("total_page")){
+            $(".prev_page").attr('id', 'disableClass');
+            $(".start_page").attr('id', 'disableClass');
+            $(".end_page").attr('id', 'disableClass');
+            $(".next_page").attr('id', 'disableClass');
+            
+        }
 
     })
     // 考试状况

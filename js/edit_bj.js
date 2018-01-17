@@ -126,7 +126,7 @@ $.ajax({
          headers: { 'Authorization': "Bearer " + isLogin },
          success: function(data) {
          console.log(data);
-         alert("保存成功");
+         layer.msg('保存成功',{time:700});
           // window.location.reload();
          },
          error: function() {
@@ -167,6 +167,7 @@ var a=UE.getEditor('container02').getContentTxt();
          success: function(data) {
          console.log(data);
           // window.location.reload();
+           layer.msg('保存成功',{time:700});
 
          },
          error: function() {
@@ -207,7 +208,7 @@ var a=UE.getEditor('container03').getContent();
          success: function(data) {
          console.log(data);
          // window.location.reload();
-
+          layer.msg('保存成功',{time:700});
 
          },
          error: function() {
@@ -241,7 +242,7 @@ $(".dif_input button").click(function(event) {
          success: function(data) {
          console.log(data);
          // window.location.reload();
-
+        layer.msg('保存成功',{time:700});
          },
          error: function() {
 
@@ -604,7 +605,7 @@ $(".edit_li_div03_btn01").click(function(event) {
          success: function(data) {
          // console.log(data);
          // window.location.reload();
-         alert("保存成功");
+         layer.msg('保存成功',{time:700});
 
          },
          error: function() {
@@ -722,7 +723,7 @@ $.ajax({
          success: function(data) {
          console.log(data);
          // window.location.reload();
-         // alert("保存成功");
+         layer.msg('保存成功',{time:700});
 
          },
          error: function() {
@@ -906,7 +907,7 @@ $.ajax({
          success: function(data) {
          console.log(data);
          // window.location.reload();
-         alert("保存成功");
+         layer.msg('保存成功',{time:700});
 
          },
          error: function() {
@@ -944,7 +945,7 @@ $.ajax({
          success: function(data) {
          console.log(data);
          // window.location.reload();
-         alert("保存成功");
+         layer.msg('保存成功',{time:700});
          $(".edit_li_btn06_div").append('<a class="delete_'+data.id+'" style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" data-id="'+data.id+'"><i style="font-style:normal;">'+data.name+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
    
          },

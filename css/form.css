@@ -2493,6 +2493,12 @@ select{
     height: 40px;
     overflow: hidden;
 }
+#disableClass {
+    color: #999;
+    background-color: #fff;
+    border-color: #ddd;
+    cursor: not-allowed;
+}
 
 
 
