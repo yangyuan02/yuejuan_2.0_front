@@ -38,7 +38,9 @@ angular.module("myApp.controller", [])
             $("#mark_02_ul div").remove();
             var mark_01_select_a = $(this).children('option:selected').attr("data-id");
             // $(this).attr('a', mark_01_select_a);
-            markxl(mark_01_select_a);
+            var num=parseInt($(".num_color").html());
+            console.log(num);
+            markxl(mark_01_select_a,num);
 
         });
         // $(".mark_01_select option").eq(0).click(function(event) {
@@ -49,28 +51,43 @@ angular.module("myApp.controller", [])
 
 
         // 成绩生成下拉函数
-        markxl(null);
+        markxl(null,1);
 
-        function markxl(c) {
+        function markxl(c,num) {
             $.ajax({
                 type: "GET",
                 url: ajaxIp + "/api/v2/reports",
+                async:false,
                 headers: {
                     'Authorization': "Bearer " + isLogin
                 },
                 data: {
                     "subject_id": c,
+                    "total_page":num,
                 },
-                success: function(date) {
-                    console.log(date);
-                    for (var i = 0; i < date.length; i++) {
+                success: function(data) {
+                    console.log(data.data);
+                    console.log(data);
+                    $(".mark_02_ul").html(" ");
+                    $(".num_page").html(" ");
+                    $(".num_page").append('<button type="" class="num_color">1</button>');
+                    $(".page_div").attr("total_page",data.total_page);
+                    var page_num=Math.ceil(data.total_count/10);
+                      
+                   for(var num_i=1;num_i<page_num;num_i++) {
+                    if(num_i<5){
+                   
+                     $(".num_page").append('<button>'+(num_i+1)+'</button>');
+                    }
+                   }
+                    for (var i = 0; i < data.data.length; i++) {
 
-                        $(".mark_02_ul").append('<li data-id="' + date[i].exam_id + '"><span>' + date[i].name + '<i class="iconfont" style="margin-left:11px;cursor: pointer;">&#xe622;</i><i class="iconfont" style="margin-left:11px;cursor: pointer;display:none;">&#xe624;</i></span><div class="mark_li_01"></div></li>')
-                        var b = date[i].exam_subjects.length;
+                        $(".mark_02_ul").append('<li data-id="' + data.data[i].exam_id + '"><span>' + data.data[i].name + '<i class="iconfont" style="margin-left:11px;cursor: pointer;">&#xe622;</i><i class="iconfont" style="margin-left:11px;cursor: pointer;display:none;">&#xe624;</i></span><div class="mark_li_01"></div></li>')
+                        var b = data.data[i].exam_subjects.length;
 
                         for (var a = 0; a < b; a++) {
                             // console.log(i);
-                            $(".mark_02_ul div").eq(i).append('<ul><li>' + date[i].exam_subjects[a].name + '</li><li>' + date[i].exam_subjects[a].updated_at + '</li><li>' + date[i].exam_subjects[a].operator_id + '<button type="" data-id="' + date[i].exam_subjects[a].exam_subject_id + '" data-status="' + date[i].exam_subjects[a].status + '" data_a="1" data-sid="' + date[i].exam_subjects[a].subject_id + '">分析</button></li></ul>');
+                            $(".mark_02_ul div").eq(i).append('<ul><li>' + data.data[i].exam_subjects[a].name + '</li><li>' + data.data[i].exam_subjects[a].updated_at + '</li><li>' + data.data[i].exam_subjects[a].operator_id + '<button type="" data-id="' + data.data[i].exam_subjects[a].exam_subject_id + '" data-status="' + data.data[i].exam_subjects[a].status + '" data_a="1" data-sid="' + data.data[i].exam_subjects[a].subject_id + '">分析</button></li></ul>');
 
 
                             var status_btn = $(".mark_li_01 ul").eq(a).find("button").attr("data-status");
@@ -89,7 +106,51 @@ angular.module("myApp.controller", [])
                 }
             });
         }
+        //page
+function markxl01(c,num) {
+            $.ajax({
+                type: "GET",
+                url: ajaxIp + "/api/v2/reports",
+                async:false,
+                headers: {
+                    'Authorization': "Bearer " + isLogin
+                },
+                data: {
+                    "subject_id": c,
+                    "total_page":num,
+                },
+                success: function(data) {
+                    console.log(data.data);
+                    console.log(data);
+                    $(".mark_02_ul").html(" ");
+                
+                   
+                    for (var i = 0; i < data.data.length; i++) {
 
+                        $(".mark_02_ul").append('<li data-id="' + data.data[i].exam_id + '"><span>' + data.data[i].name + '<i class="iconfont" style="margin-left:11px;cursor: pointer;">&#xe622;</i><i class="iconfont" style="margin-left:11px;cursor: pointer;display:none;">&#xe624;</i></span><div class="mark_li_01"></div></li>')
+                        var b = data.data[i].exam_subjects.length;
+
+                        for (var a = 0; a < b; a++) {
+                            // console.log(i);
+                            $(".mark_02_ul div").eq(i).append('<ul><li>' + data.data[i].exam_subjects[a].name + '</li><li>' + data.data[i].exam_subjects[a].updated_at + '</li><li>' + data.data[i].exam_subjects[a].operator_id + '<button type="" data-id="' + data.data[i].exam_subjects[a].exam_subject_id + '" data-status="' + data.data[i].exam_subjects[a].status + '" data_a="1" data-sid="' + data.data[i].exam_subjects[a].subject_id + '">分析</button></li></ul>');
+
+
+                            var status_btn = $(".mark_li_01 ul").eq(a).find("button").attr("data-status");
+
+                            if (status_btn == "finished" || status_btn == "analyse" || status_btn == "analyseing" || status_btn == "analysed" || status_btn == "reanalyse") {
+                                $(".mark_li_01 ul").eq(a).find("button").show();
+                            } else {
+                                $(".mark_li_01 ul").eq(a).find("button").hide();
+                            }
+
+                        }
+                    }
+                },
+                error: function() {
+
+                }
+            });
+        }
 
         $(".mark_02_ul").on('click', 'span', function(event) {
             $(this).parent().find('div').toggle();
@@ -403,10 +464,10 @@ angular.module("myApp.controller", [])
      var a=$(this).val().replace(/[^0-9%]/g,'')
        $(this).val(a);
   });
- $("#ul_iLabel").on('keyup', '.level_01', function(event) {
-     var a=$(this).val().replace(/[^a-zA-Z+=0]/g,'')
-       $(this).val(a);
-  });
+ // $("#ul_iLabel").on('keyup', '.level_01', function(event) {
+ //     var a=$(this).val().replace(/[^a-zA-Z+=0]/g,'')
+ //       $(this).val(a);
+ //  });
  $(".mart_set_02").on('keyup', 'input', function(event) {
      var a=$(this).val().replace(/[^0-9]/g,'')
        $(this).val(a);
@@ -503,7 +564,7 @@ angular.module("myApp.controller", [])
         $(".mark_add").click(function(event) {
             /* Act on the event */
             var a = $(".mart_set_03").height();
-            if (a < 577) {
+            if (a < 607) {
                 $('.mart_set_03 ul').append('<li><input class="level_01"></input><input class="level_02"></input><button type="" class="iLabel">-</button></li>');
 
             }
@@ -524,7 +585,166 @@ angular.module("myApp.controller", [])
             }
           
         });
+        //page//
+        $(".next_page").click(function(event) {
+        if( $(".num_color").html()==$(".page_div").attr("total_page")){
+            $(this).attr('id', 'disableClass');
+            $(".end_page").attr('id', 'disableClass');
+            // layer.msg('最后一页了',{time:700});
+        }else {
+          var a= $(".num_color").index();
+            var page01=Number($(".page_div").attr("total_page"))+1;
+         
+            console.log( page01);
+           $(".num_color").next().attr("class","num_color").siblings().removeAttr("class"); 
+           var page=Number($(".num_color").html())+1;
+           //样式 button
+         if( $(".num_color").html()==$(".page_div").attr("total_page")){
+            $(".next_page").attr('id', 'disableClass');
+            $(".end_page").attr('id', 'disableClass');
+            
+        }
+          if( $(".num_color").html()!==1){
+            $(".prev_page").removeAttr('id');
+            $(".start_page").removeAttr('id');
+        }
+           if(page<page01){
+           
+           if(a>3){
+            for(var i=0;i<5;i++){
+                var b=page-4+i;
+                $(".num_page button").eq(i).html(b);
+            }
+           }
+      }
+          var mark_01_select_a = $("mark_01_select").children('option:selected').attr("data-id");
+          
+            var num=parseInt($(".num_color").html());
+            markxl01(mark_01_select_a,num);
+            // console.log("123");
+        }
+        
+        });
+        
+        $(".prev_page").click(function(event) {
+              if( $(".num_color").html()==1){
+            $(".prev_page").attr('id', 'disableClass');
+            $(".start_page").attr('id', 'disableClass');
+        }else {
+            var a= $(".num_color").index();
+           $(".num_color").prev().attr("class","num_color").siblings().removeAttr("class");
+           var a_num=Number($(".num_color").html());
+            //样式 button
+         if( $(".num_color").html()!==$(".page_div").attr("total_page")){
+            $(".next_page").removeAttr('id');
+            $(".end_page").removeAttr('id');
+            
+        }
+          if( $(".num_color").html()==1){
+            $(".prev_page").attr('id', 'disableClass');
+            $(".start_page").attr('id', 'disableClass');
+        }  
+    
+           var page=a_num-1;
+           if(a<1){
+           if(a_num>1){
+               for(var i=0;i<5;i++){
+                var b=page+i;
+                $(".num_page button").eq(i).html(b);
+            }
 
+           }
+       }
+           var mark_01_select_a = $("mark_01_select").children('option:selected').attr("data-id");
+          
+            var num=parseInt($(".num_color").html());
+
+            markxl01(mark_01_select_a,num);
+        }
+    
+        });
+        
+        $(".start_page").click(function(event) {
+            $(".prev_page").attr('id', 'disableClass');
+            $(".start_page").attr('id', 'disableClass');
+           if( $(".num_color").html()==1){
+            
+        }else {
+         $(".num_page button").eq(0).attr("class","num_color").siblings().removeAttr("class");
+         var a= $(".num_page button").length;
+         for(var i=0;i<a;i++){
+            var b=i+1;
+            $(".num_page button").eq(i).html(b);
+         }
+         var mark_01_select_a = $("mark_01_select").children('option:selected').attr("data-id");
+          
+            var num=parseInt($(".num_color").html());
+            markxl01(mark_01_select_a,num);
+            
+        }
+        if( $(".num_color").html()!==$(".page_div").attr("total_page")){
+            $(".end_page").removeAttr('id');
+            $(".next_page").removeAttr('id');
+            
+        }
+        });
+        $(".end_page").click(function(event) {
+            $(this).attr('id', 'disableClass');
+            $(".next_page").attr('id', 'disableClass');
+             if( $(".num_color").html()!==1){
+            $(".start_page").removeAttr('id');
+            $(".prev_page").removeAttr('id');
+        }
+            if( $(".num_color").html()==$(".page_div").attr("total_page")){
+         
+        }else {
+        var a= Number($(".num_page button").length)-1;
+         $(".num_page button").eq(a).attr("class","num_color").siblings().removeAttr("class");
+        var page =Number($(".page_div").attr("total_page"));
+         var a_long= Number($(".num_page button").length);
+          // console.log(a_long);
+         if(a_long>5||a_long==5){
+            // alert();
+         for(var i=0;i<a_long;i++){
+            var b=page-4+i;
+            console.log("123");
+            $(".num_page button").eq(i).html(b);
+         }
+     }
+         var mark_01_select_a = $("mark_01_select").children('option:selected').attr("data-id");
+            var num=parseInt($(".num_color").html());
+            markxl01(mark_01_select_a,num);
+
+        }
+
+        });
+      $(".num_page").on('click', 'button', function(event) {
+      if($(this).attr("class")!=="num_color"){
+   
+       $(this).attr("class","num_color").siblings().removeAttr("class");
+       if( $(".num_color").html()!==1){
+            $(".prev_page").removeAttr('id');
+            $(".start_page").removeAttr('id');
+        }
+        var mark_01_select_a = $("mark_01_select").children('option:selected').attr("data-id");
+            var num=parseInt($(".num_color").html());
+            markxl01(mark_01_select_a,num);
+      }
+
+     });
+      if( $(".num_color").html()==1){
+            $(".prev_page").attr('id', 'disableClass');
+            $(".start_page").attr('id', 'disableClass');
+          
+            
+        }
+      if( $(".num_color").html()==$(".page_div").attr("total_page")){
+            $(".prev_page").attr('id', 'disableClass');
+            $(".start_page").attr('id', 'disableClass');
+            $(".end_page").attr('id', 'disableClass');
+            $(".next_page").attr('id', 'disableClass');
+            
+        }
 
     })
     // 考试状况
@@ -3688,13 +3908,17 @@ function study_q_bb_all() {
             $(".exam_z_101 a").removeAttr("href");
             var a = $(this).index();
             if (a == 0) {
+                $(".exam_z_101 button").show();
                 exam_z01();
-
+       
             };
-            if (a == 1) {
+            if (a == 1) { 
+                $(".exam_z_101 button").show() ;
                 exam_z02();
+              
             };
             if (a == 2) {
+                $(".exam_z_101 button").hide();
                 exam_z03();
             };
         });
