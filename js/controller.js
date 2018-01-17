@@ -92,7 +92,7 @@ angular.module("myApp.controller", [])
 
                             var status_btn = $(".mark_li_01 ul").eq(a).find("button").attr("data-status");
 
-                            if (status_btn == "finished" || status_btn == "analyse" || status_btn == "analyseing" || status_btn == "analysed" || status_btn == "reanalyse") {
+                            if (status_btn == "finished" || status_btn == "analysed") {
                                 $(".mark_li_01 ul").eq(a).find("button").show();
                             } else {
                                 $(".mark_li_01 ul").eq(a).find("button").hide();
