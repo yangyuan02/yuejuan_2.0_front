@@ -1789,7 +1789,7 @@ function markxl01(c,num) {
         // 小题查看
         $(".study_q_05_01").on('click', 'span', function(event) {
 
-            // 切换页面
+            // 切换页面//
             $(".study_q_ck").show();
             $("#study_q_ck").hide();
             $(".xiaoti_mark02").hide();
