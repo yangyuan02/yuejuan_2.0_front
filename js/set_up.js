@@ -4090,7 +4090,7 @@ $(function() {
 			ii_num=Math.ceil(num/10);
 		}
 		$.jqPaginator('#exams-pagination', {
-	    totalPages: exam_info.total_page,
+	    totalPages: ii_num,
 	    visiblePages: 5,
 	    currentPage: 1,
 	    disableClass: 'disableClass',
