@@ -689,8 +689,12 @@ function markxl01(c,num) {
 
 
         $(".end_page").click(function(event) {
-             $(this).attr('id', 'disableClass');
+            $(this).attr('id', 'disableClass');
             $(".next_page").attr('id', 'disableClass');
+             if( $(".num_color").html()!==1){
+            $(".start_page").removeAttr('id');
+            $(".prev_page").removeAttr('id');
+        }
             if( $(".num_color").html()==$(".page_div").attr("total_page")){
          
         }else {
