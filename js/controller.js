@@ -665,9 +665,10 @@ function markxl01(c,num) {
         });
         
         $(".start_page").click(function(event) {
-           if( $(".num_color").html()==1){
-           $(".prev_page").attr('id', 'disableClass');
+            $(".prev_page").attr('id', 'disableClass');
             $(".start_page").attr('id', 'disableClass');
+           if( $(".num_color").html()==1){
+            
         }else {
          $(".num_page button").eq(0).attr("class","num_color").siblings().removeAttr("class");
          var a= $(".num_page button").length;
@@ -679,11 +680,12 @@ function markxl01(c,num) {
           
             var num=parseInt($(".num_color").html());
             markxl01(mark_01_select_a,num);
-            if( $(".num_color").html()!==$(".page_div").attr("total_page")){
-            $(".start_page").removeAttr('id');
-            $(".prev_page").removeAttr('id');
             
-        }
+        // }
+        if( $(".num_color").html()!==$(".page_div").attr("total_page")){
+            $(".end_page").removeAttr('id');
+            $(".next_page").removeAttr('id');
+            
         }
         });
 
