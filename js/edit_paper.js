@@ -748,7 +748,7 @@ $(".sub_sz_ul02").on('click', 'li', function(event) {
                   'exam_subject_id':exam_subject_id,
                   'item':a,
                   'name':b,
-                   'sort':a_num,
+                  'sort':a_num,
                   },
                 headers: {'Authorization': "Bearer " + isLogin},
                 success: function(data){
@@ -873,7 +873,7 @@ $(".sub_sz_ul02").on('click', 'li', function(event) {
           console.log(a);
           $.ajax({
                   type: "POST",
-                  url: ajaxIp+"/api/v2/answers/delete",
+                  url: ajaxIp+"/api/v2/question_banks/delete_answer",
                   data:{'id':a},
                   headers: {'Authorization': "Bearer " + isLogin},
                   success: function(data){
