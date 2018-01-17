@@ -287,7 +287,7 @@ function again_bang(){
                  
                     $(".sub_sz_ul02").append('<li data-name="'+data[i].answer.item+'" data-id="'+data[i].answer.id+'" data-sort="'+data[i].answer.sort+'" ><select data-name="'+data[i].answer.item+'" ><option>单选题</option><option>多选题</option><option>填空题</option><option>是非题</option><option>其他题</option><option>作文题</option></select><input type="" name="" value="'+data[i].answer.answer_name+'"><a class="all_score"></a><i class="iconfont" data-id="0">&#xe622;</i><div class="sub_sz_list" style="overflow: auto;"><button data-id="'+data[i].answer.id+'"  style="float: right;width: 50px;height: 25px;color: #31bc91;text-align: center;line-height: 25px;margin-right: 68px;margin-top: 10px;background: #ffffff;">保存</button></div></li>');
                   var qb_length=data[i].question_banks.length;
-                  console.log(data[2].question_banks.length);
+                  // console.log(data[2].question_banks.length);
                  if(data[i].answer.item=="单选题"||data[i].answer.item=="多选题"||data[i].answer.item==0||data[i].answer.item==5){
                  for(var q_b=0;q_b<qb_length;q_b++){
                   if(data[i].question_banks[q_b].score==undefined){
