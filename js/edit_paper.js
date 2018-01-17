@@ -284,10 +284,11 @@ function again_bang(){
                   // }else if(data[i].answer.item=="作文题"){
                   //    data[i].answer.item=5;
                   // }
-
+                 
                     $(".sub_sz_ul02").append('<li data-name="'+data[i].answer.item+'" data-id="'+data[i].answer.id+'" data-sort="'+data[i].answer.sort+'" ><select data-name="'+data[i].answer.item+'" ><option>单选题</option><option>多选题</option><option>填空题</option><option>是非题</option><option>其他题</option><option>作文题</option></select><input type="" name="" value="'+data[i].answer.answer_name+'"><a class="all_score"></a><i class="iconfont" data-id="0">&#xe622;</i><div class="sub_sz_list" style="overflow: auto;"><button data-id="'+data[i].answer.id+'"  style="float: right;width: 50px;height: 25px;color: #31bc91;text-align: center;line-height: 25px;margin-right: 68px;margin-top: 10px;background: #ffffff;">保存</button></div></li>');
                   var qb_length=data[i].question_banks.length;
-                 if(data[i].answer.item=="单选题"||data[i].answer.item=="多选题"){
+                  console.log(data[2].question_banks.length);
+                 if(data[i].answer.item=="单选题"||data[i].answer.item=="多选题"||data[i].answer.item==0||data[i].answer.item==5){
                  for(var q_b=0;q_b<qb_length;q_b++){
                   if(data[i].question_banks[q_b].score==undefined){
                     data[i].question_banks[q_b].score=0;
@@ -297,14 +298,14 @@ function again_bang(){
                     }
                   $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p data-id="'+data[i].question_banks[q_b].id+'" style="padding-left: 40px;box-sizing: border-box;" data-question="'+data[i].question_banks[q_b].question_bank_id+'"><a style="">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].sort+'"></a><a style="margin-left: 70px;">选项个数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].type_count+'"></a><a style="margin-left: 88px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;"  value="'+data[i].question_banks[q_b].score+'"></a></p>');
                  };
-                 }else if(data[i].answer.item=="填空题"||data[i].answer.item=="是非题"||data[i].answer.item=="其他题"){
+                 }else if(data[i].answer.item=="填空题"||data[i].answer.item=="是非题"||data[i].answer.item=="其他题"||data[i].answer.item==1||data[i].answer.item==2||data[i].answer.item==3){
                  for(var q_b=0;q_b<qb_length;q_b++){
                    if(data[i].question_banks[q_b].score==undefined){
                     data[i].question_banks[q_b].score=0;
                     }
                   $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p data-id="'+data[i].question_banks[q_b].id+'" data-question="'+data[i].question_banks[q_b].question_bank_id+'"><a style="margin-left: 40px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" disabled="disabled"  value="'+data[i].question_banks[q_b].sort+'"></a><a style="margin-left: 237px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].score+'"></a></p>');
                  }                       
-                }else if(data[i].answer.item=="作文题"){
+                }else if(data[i].answer.item=="作文题"||data[i].answer.item==4){
                   for(var q_b=0;q_b<qb_length;q_b++){
                     if(data[i].question_banks[q_b].score==undefined){
                     data[i].question_banks[q_b].score=0;
@@ -456,7 +457,7 @@ $(this).find('option').eq(item_num).attr("selected","selected");
 
       var p_length=$(this).parent().find("p").length;
       var a_num=[];
-      if(name=="单选题"||name=="多选题"){
+      if(name=="单选题"||name=="多选题"||name==0||name==5){
       for(var i=0;i<p_length;i++){
         var a={};      
         var score=parseInt($(this).parent().find("p").eq(i).find('input').eq(2).val());
@@ -475,7 +476,7 @@ $(this).find('option').eq(item_num).attr("selected","selected");
            a["id"]=id;
           a["sort"]=sort;
           a["num"]=sort;
-          a["answer_id"]=answer_id;
+          a["doc_answer_id"]=answer_id;
           a["exam_subject_id"]=exam_subject_id;
           a["count"]=count;
           a_num[i]=a;
@@ -497,7 +498,7 @@ $(this).find('option').eq(item_num).attr("selected","selected");
     
                  }
                });
-   }else if(name=="填空题"||name=="是非题"||name=="其他题"){
+   }else if(name=="填空题"||name=="是非题"||name=="其他题"||name==1||name==2||name==3){
      for(var i=0;i<p_length;i++){
         var a={};
     
@@ -515,7 +516,7 @@ $(this).find('option').eq(item_num).attr("selected","selected");
           a["id"]=id;
           a["sort"]=sort;
           a["num"]=sort;
-          a["answer_id"]=answer_id;
+          a["doc_answer_id"]=answer_id;
           a["exam_subject_id"]=exam_subject_id;
           a["count"]=count;
           a_num[i]=a;
@@ -539,7 +540,7 @@ $(this).find('option').eq(item_num).attr("selected","selected");
                });
 
 
-   }else if(name=="作文题"){
+   }else if(name=="作文题"||name==4){
     for(var i=0;i<p_length;i++){
         var a={};
      
@@ -569,7 +570,7 @@ $(this).find('option').eq(item_num).attr("selected","selected");
           a["id"]=id;
           a["sort"]=sort;
           a["num"]=sort;
-          a["answer_id"]=answer_id;
+          a["doc_answer_id"]=answer_id;
           a["exam_subject_id"]=exam_subject_id;
           a["count"]=count;
           a["template_format"]=template_format;
