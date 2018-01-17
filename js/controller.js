@@ -681,7 +681,7 @@ function markxl01(c,num) {
             var num=parseInt($(".num_color").html());
             markxl01(mark_01_select_a,num);
             
-        // }
+        }
         if( $(".num_color").html()!==$(".page_div").attr("total_page")){
             $(".end_page").removeAttr('id');
             $(".next_page").removeAttr('id');
