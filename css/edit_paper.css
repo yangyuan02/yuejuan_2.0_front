@@ -183,6 +183,11 @@ color:#5fa3ed;margin-right: 5px;margin-left: 5px;
 .sub_sz03 a:nth-of-type(4){
 color:#fb7d8a;margin-right: 5px;
 }
+.sub_sz03 a:nth-of-type(5){
+color:#fb7d8a;
+margin-left: 60px;
+font-size: 14px;
+}
 .sub_sz_p02{
 	padding:20px 30px 20px 0px;display: block;height: 75px;box-sizing: border-box;
 }

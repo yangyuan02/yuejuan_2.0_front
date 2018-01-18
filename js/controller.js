@@ -1847,44 +1847,50 @@ function markxl01(c,num) {
                 },
                 success: function(data) {
                     console.log(data);
+                     console.log(data.student_answer_setting_infos.A);
                     var da_ans=$(".study_q_ck_a2").attr("data_ans");
                     $(".xiaoti_mark").html(" ");
                     var x_zhe =[];
-                   for(var i=0;i<data.student_answer_setting_infos.length;i++){
-                    var jsons=data.student_answer_setting_infos[i];
-                     // var jsons=data.student_answer_setting_infos[i];
+                    // for(var i=0;i<data.student_answer_setting_infos.length;i++){
+                    var jsons=data.student_answer_setting_infos;
+                     // var jsons=data. console.log(data.student_answer_setting_infos);student_answer_setting_infos[i];
+
                     for(var key in jsons){
                        console.log(key);
                       
                        x_zhe.push(key);
                     }
-                }
+                // }
                  console.log(x_zhe);
+                   console.log(x_zhe.length);
                  //去掉为空的
                   var rem_null=[];
-                   var rem_null_num=0;
-                 for(var i=0;i<data.student_answer_setting_infos.length;i++){
-                    var jsons01=data.student_answer_setting_infos[i];
-                       console.log(jsons01);
+                 var rem_null_num=0;
+                 for(var i=0;i<x_zhe.length;i++){
+                    // var x_z=x_zhe[i];
+                    var jsons01=data.student_answer_setting_infos[x_zhe[i]];
+                   // alert(data.student_answer_setting_infos[x_zhe[0]]);
                        if(jsons01!==null){
 
                        rem_null[rem_null_num]=jsons01;
                        rem_null_num++;
                        }
+
                 }
+                
                 console.log(rem_null);
                         for (var i = 0; i <rem_null.length; i++) {
                             var a = x_zhe[i];
                             var tda_id = "x_" + a;
                             $(".xiaoti_mark").append('<tr id="' + tda_id + '"><td>' + a + '</td><td></td></tr>')
-                            var b = rem_null[i][a].length;
-                            console.log(rem_null[i][a]);
+                            var b = rem_null[i].length;
+                            console.log(rem_null[i]);
                             console.log(b);
                             for (var c = 0; c < b; c++) {
                                 if(x_zhe[i]==da_ans){
-                              $('#' + tda_id + ' td').eq(1).append('<a style="background:#fb7d8a;">' + rem_null[i][a][c].real_name + '</a>');
+                              $('#' + tda_id + ' td').eq(1).append('<a style="background:#fb7d8a;">' + rem_null[i][c].real_name + '</a>');
                             }else{
-                            $('#' + tda_id + ' td').eq(1).append('<a>' + rem_null[i][a][c].real_name + '</a>');
+                            $('#' + tda_id + ' td').eq(1).append('<a>' + rem_null[i][c].real_name + '</a>');
                             }
                         }
                         };

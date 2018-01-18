@@ -425,13 +425,14 @@ $(this).find('option').eq(item_num).attr("selected","selected");
         
         // console.log(list_score);
       }
-     $('.sub_sz_ul02 li').eq(a).find('button').parent().parent().find('.all_score').html(score);
+      $('.sub_sz_ul02 li').eq(a).find('button').parent().parent().find('.all_score').html(score);
     
 
      };
-
-
+     
       }
+ console.log(li_length);
+      
 
 
      };
