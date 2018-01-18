@@ -1849,6 +1849,8 @@ function markxl01(c,num) {
                     console.log(data);
                      console.log(data.student_answer_setting_infos.A);
                     var da_ans=$(".study_q_ck_a2").attr("data_ans");
+                    var da_ans01=da_ans.split(",");
+                    console.log(da_ans01);
                     $(".xiaoti_mark").html(" ");
                     var x_zhe =[];
                     // for(var i=0;i<data.student_answer_setting_infos.length;i++){
@@ -1875,6 +1877,10 @@ function markxl01(c,num) {
                        rem_null[rem_null_num]=jsons01;
                        rem_null_num++;
                        }
+                       //答案位置存入
+                       // for(var ans_w=0;ans_w<da_ans01=){
+
+                       // }
 
                 }
                 
@@ -1883,16 +1889,42 @@ function markxl01(c,num) {
                             var a = x_zhe[i];
                             var tda_id = "x_" + a;
                             $(".xiaoti_mark").append('<tr id="' + tda_id + '"><td>' + a + '</td><td></td></tr>')
+                            //  for(var a_i=0;a_i<da_ans01.length;a_i++){
+
+                            //     if(x_zhe[i]==da_ans01[a_i]){
+                            //          $('#' + tda_id + '').find('a').css("background","#fb7d8a");
+                            //          console.log(tda_id);
+                            //     }
+                            // }
                             var b = rem_null[i].length;
                             console.log(rem_null[i]);
                             console.log(b);
                             for (var c = 0; c < b; c++) {
-                                if(x_zhe[i]==da_ans){
-                              $('#' + tda_id + ' td').eq(1).append('<a style="background:#fb7d8a;">' + rem_null[i][c].real_name + '</a>');
-                            }else{
+                                // if(da_ans01==1){
+
+                                // }
+                                // var da_ans02=x_zhe[i]+"=="+da_ans
+                            //     for(var a_i=0;a_i<da_ans01.length;a_i++){
+
+                            //     if(x_zhe[i]==da_ans01[a_i]){
+                            //          // $('#' + tda_id + ' td').eq(1).html(" ");
+                            //   $('#' + tda_id + ' td').eq(1).append('<a style="background:#fb7d8a;">' + rem_null[i][c].real_name + '</a>');
+                            // }
+                            // else{
+                            //       // $('#' + tda_id + ' td').eq(1).html(" ");
                             $('#' + tda_id + ' td').eq(1).append('<a>' + rem_null[i][c].real_name + '</a>');
-                            }
+                            // }
+
+                            //     }
+                                
                         }
+                         for(var a_i=0;a_i<da_ans01.length;a_i++){
+
+                                if(x_zhe[i]==da_ans01[a_i]){
+                                     $('#' + tda_id + '').find('a').css("background","#fb7d8a");
+                                     console.log(tda_id);
+                                }
+                            }
                         };
                 },
                 error: function() {
