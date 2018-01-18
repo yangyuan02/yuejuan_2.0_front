@@ -137,7 +137,7 @@ function markxl01(c,num) {
 
                             var status_btn = $(".mark_li_01 ul").eq(a).find("button").attr("data-status");
 
-                            if (status_btn == "finished" || status_btn == "analyse" || status_btn == "analyseing" || status_btn == "analysed" || status_btn == "reanalyse") {
+                            if (status_btn == "finished" || status_btn == "analysed") {
                                 $(".mark_li_01 ul").eq(a).find("button").show();
                             } else {
                                 $(".mark_li_01 ul").eq(a).find("button").hide();
@@ -219,7 +219,7 @@ function markxl01(c,num) {
                 "exam_subject_id": sub_id1,
                 "pass": jg_mark,
                 "fine": yx_mark,
-                'level_type':level,
+                't[level_type]':level,
                 'absent':absent,
             };
             console.log(data_value);
