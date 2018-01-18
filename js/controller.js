@@ -92,7 +92,7 @@ angular.module("myApp.controller", [])
 
                             var status_btn = $(".mark_li_01 ul").eq(a).find("button").attr("data-status");
 
-                            if (status_btn == "finished" || status_btn == "analyse" || status_btn == "analyseing" || status_btn == "analysed" || status_btn == "reanalyse") {
+                            if (status_btn == "finished" || status_btn == "analysed") {
                                 $(".mark_li_01 ul").eq(a).find("button").show();
                             } else {
                                 $(".mark_li_01 ul").eq(a).find("button").hide();
@@ -665,9 +665,10 @@ function markxl01(c,num) {
         });
         
         $(".start_page").click(function(event) {
-           if( $(".num_color").html()==1){
-           $(".prev_page").attr('id', 'disableClass');
+            $(".prev_page").attr('id', 'disableClass');
             $(".start_page").attr('id', 'disableClass');
+           if( $(".num_color").html()==1){
+            
         }else {
          $(".num_page button").eq(0).attr("class","num_color").siblings().removeAttr("class");
          var a= $(".num_page button").length;
@@ -679,15 +680,14 @@ function markxl01(c,num) {
           
             var num=parseInt($(".num_color").html());
             markxl01(mark_01_select_a,num);
-            if( $(".num_color").html()!==$(".page_div").attr("total_page")){
-            $(".start_page").removeAttr('id');
-            $(".prev_page").removeAttr('id');
             
         }
+        if( $(".num_color").html()!==$(".page_div").attr("total_page")){
+            $(".end_page").removeAttr('id');
+            $(".next_page").removeAttr('id');
+            
         }
         });
-
-
         $(".end_page").click(function(event) {
             $(this).attr('id', 'disableClass');
             $(".next_page").attr('id', 'disableClass');
@@ -1789,7 +1789,7 @@ function markxl01(c,num) {
         // 小题查看
         $(".study_q_05_01").on('click', 'span', function(event) {
 
-            // 切换页面
+            // 切换页面//
             $(".study_q_ck").show();
             $("#study_q_ck").hide();
             $(".xiaoti_mark02").hide();
@@ -3908,13 +3908,17 @@ function study_q_bb_all() {
             $(".exam_z_101 a").removeAttr("href");
             var a = $(this).index();
             if (a == 0) {
+                $(".exam_z_101 button").show();
                 exam_z01();
-
+       
             };
-            if (a == 1) {
+            if (a == 1) { 
+                $(".exam_z_101 button").show() ;
                 exam_z02();
+              
             };
             if (a == 2) {
+                $(".exam_z_101 button").hide();
                 exam_z03();
             };
         });
