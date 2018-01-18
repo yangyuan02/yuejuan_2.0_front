@@ -168,7 +168,7 @@ function markxl01(c,num) {
         // 分析
          $(".mart_set_03_select").change(function(event) {
             var a = $(this).children('option:selected').attr("data-id");
-            // $(this).attr('data-id', a);
+            $(this).attr('data-id',a);
             // markxl(mark_01_select_a);
             // var b=$(this).attr('data-id');
             // alert(a);
@@ -219,7 +219,7 @@ function markxl01(c,num) {
                 "exam_subject_id": sub_id1,
                 "pass": jg_mark,
                 "fine": yx_mark,
-                't[level_type]':level,
+                'level_type':level,
                 'absent':absent,
             };
             console.log(data_value);
@@ -422,6 +422,7 @@ function markxl01(c,num) {
                    console.log(json);
                     if (data.error_code !== 500) {
                         // $(".tf_span").html(data.full_score);
+
                         $("#z_mark").val(data.full_score);
                         $("#jg_mark").val(data.pass);
                         $("#yx_mark").val(data.fine);
