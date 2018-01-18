@@ -87,15 +87,21 @@ angular.module("myApp.controller", [])
 
                         for (var a = 0; a < b; a++) {
                             // console.log(i);
-                            $(".mark_02_ul div").eq(i).append('<ul><li>' + data.data[i].exam_subjects[a].name + '</li><li>' + data.data[i].exam_subjects[a].updated_at + '</li><li>' + data.data[i].exam_subjects[a].operator_id + '<button type="" data-id="' + data.data[i].exam_subjects[a].exam_subject_id + '" data-status="' + data.data[i].exam_subjects[a].status + '" data_a="1" data-sid="' + data.data[i].exam_subjects[a].subject_id + '">分析</button></li></ul>');
+                            // $(".mark_02_ul div").eq(i).append('<ul><li>' + data.data[i].exam_subjects[a].name + '</li><li>' + data.data[i].exam_subjects[a].updated_at + '</li><li>' + data.data[i].exam_subjects[a].operator_id + '<button type="" data-id="' + data.data[i].exam_subjects[a].exam_subject_id + '" data-status="' + data.data[i].exam_subjects[a].status + '" data_a="1" data-sid="' + data.data[i].exam_subjects[a].subject_id + '">分析</button></li></ul>');
 
 
-                            var status_btn = $(".mark_li_01 ul").eq(a).find("button").attr("data-status");
-
+                            var status_btn = data.data[i].exam_subjects[a].status;
+                             console.log(status_btn);
                             if (status_btn == "finished" || status_btn == "analysed") {
-                                $(".mark_li_01 ul").eq(a).find("button").show();
+                                // $(".mark_li_01 ul").eq(a).find("button").show();
+                                 $(".mark_02_ul div").eq(i).append('<ul><li>' + data.data[i].exam_subjects[a].name + '</li><li>' + data.data[i].exam_subjects[a].updated_at + '</li><li>' + data.data[i].exam_subjects[a].operator_id + '<button type="" data-id="' + data.data[i].exam_subjects[a].exam_subject_id + '" data-status="' + data.data[i].exam_subjects[a].status + '" data_a="1" data-sid="' + data.data[i].exam_subjects[a].subject_id + '">分析</button></li></ul>');
+
+
                             } else {
-                                $(".mark_li_01 ul").eq(a).find("button").hide();
+                                // $(".mark_li_01 ul").eq(a).find("button").hide();
+                                 $(".mark_02_ul div").eq(i).append('<ul><li>' + data.data[i].exam_subjects[a].name + '</li><li>' + data.data[i].exam_subjects[a].updated_at + '</li><li>' + data.data[i].exam_subjects[a].operator_id + '<button type="" data-id="' + data.data[i].exam_subjects[a].exam_subject_id + '" data-status="' + data.data[i].exam_subjects[a].status + '" data_a="1" data-sid="' + data.data[i].exam_subjects[a].subject_id + '" style="display:none;">分析</button></li></ul>');
+
+
                             }
 
                         }
@@ -132,15 +138,28 @@ function markxl01(c,num) {
 
                         for (var a = 0; a < b; a++) {
                             // console.log(i);
-                            $(".mark_02_ul div").eq(i).append('<ul><li>' + data.data[i].exam_subjects[a].name + '</li><li>' + data.data[i].exam_subjects[a].updated_at + '</li><li>' + data.data[i].exam_subjects[a].operator_id + '<button type="" data-id="' + data.data[i].exam_subjects[a].exam_subject_id + '" data-status="' + data.data[i].exam_subjects[a].status + '" data_a="1" data-sid="' + data.data[i].exam_subjects[a].subject_id + '">分析</button></li></ul>');
+                            // $(".mark_02_ul div").eq(i).append('<ul><li>' + data.data[i].exam_subjects[a].name + '</li><li>' + data.data[i].exam_subjects[a].updated_at + '</li><li>' + data.data[i].exam_subjects[a].operator_id + '<button type="" data-id="' + data.data[i].exam_subjects[a].exam_subject_id + '" data-status="' + data.data[i].exam_subjects[a].status + '" data_a="1" data-sid="' + data.data[i].exam_subjects[a].subject_id + '">分析</button></li></ul>');
 
 
-                            var status_btn = $(".mark_li_01 ul").eq(a).find("button").attr("data-status");
+                            // var status_btn = $(".mark_li_01 ul").eq(a).find("button").attr("data-status");
 
+                            // if (status_btn == "finished" || status_btn == "analysed") {
+                            //     $(".mark_li_01 ul").eq(a).find("button").show();
+                            // } else {
+                            //     $(".mark_li_01 ul").eq(a).find("button").hide();
+                            // }
+                             var status_btn = data.data[i].exam_subjects[a].status;
+                             console.log(status_btn);
                             if (status_btn == "finished" || status_btn == "analysed") {
-                                $(".mark_li_01 ul").eq(a).find("button").show();
+                                // $(".mark_li_01 ul").eq(a).find("button").show();
+                                 $(".mark_02_ul div").eq(i).append('<ul><li>' + data.data[i].exam_subjects[a].name + '</li><li>' + data.data[i].exam_subjects[a].updated_at + '</li><li>' + data.data[i].exam_subjects[a].operator_id + '<button type="" data-id="' + data.data[i].exam_subjects[a].exam_subject_id + '" data-status="' + data.data[i].exam_subjects[a].status + '" data_a="1" data-sid="' + data.data[i].exam_subjects[a].subject_id + '">分析</button></li></ul>');
+
+
                             } else {
-                                $(".mark_li_01 ul").eq(a).find("button").hide();
+                                // $(".mark_li_01 ul").eq(a).find("button").hide();
+                                 $(".mark_02_ul div").eq(i).append('<ul><li>' + data.data[i].exam_subjects[a].name + '</li><li>' + data.data[i].exam_subjects[a].updated_at + '</li><li>' + data.data[i].exam_subjects[a].operator_id + '<button type="" data-id="' + data.data[i].exam_subjects[a].exam_subject_id + '" data-status="' + data.data[i].exam_subjects[a].status + '" data_a="1" data-sid="' + data.data[i].exam_subjects[a].subject_id + '" style="display:none;">分析</button></li></ul>');
+
+
                             }
 
                         }
