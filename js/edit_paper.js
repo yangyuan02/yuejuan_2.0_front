@@ -430,7 +430,8 @@ $(this).find('option').eq(item_num).attr("selected","selected");
     
 
      };
-     all_list_score=all_list_score+parseInt(list_score);
+     all_list_score=all_list_score+parseInt(score);
+     console.log(score);
       }
     $(".sub_score i").html(all_list_score);
     console.log(all_list_score);
