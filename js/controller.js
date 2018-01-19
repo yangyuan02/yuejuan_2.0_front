@@ -191,21 +191,21 @@ function markxl01(c,num) {
             // markxl(mark_01_select_a);
             // var b=$(this).attr('data-id');
             // alert(a);
-            if(a==2){
-             $("#ul_iLabel li").eq(0).find('.level_02').val("69");
-             $("#ul_iLabel li").eq(1).find('.level_02').val("62");
-             $("#ul_iLabel li").eq(2).find('.level_02').val("59");
-             $("#ul_iLabel li").eq(3).find('.level_02').val("55");
-             $("#ul_iLabel li").eq(4).find('.level_02').val("43");
+          //   if(a==2){
+          //    $("#ul_iLabel li").eq(0).find('.level_02').val("69");
+          //    $("#ul_iLabel li").eq(1).find('.level_02').val("62");
+          //    $("#ul_iLabel li").eq(2).find('.level_02').val("59");
+          //    $("#ul_iLabel li").eq(3).find('.level_02').val("55");
+          //    $("#ul_iLabel li").eq(4).find('.level_02').val("43");
             
-          }
-          if(a==1){
-            $("#ul_iLabel li").eq(0).find('.level_02').val("15%");
-             $("#ul_iLabel li").eq(1).find('.level_02').val("30%");
-             $("#ul_iLabel li").eq(2).find('.level_02').val("30%");
-             $("#ul_iLabel li").eq(3).find('.level_02').val("20%");
-             $("#ul_iLabel li").eq(4).find('.level_02').val("5%");         
-          }
+          // }
+          // if(a==1){
+          //   $("#ul_iLabel li").eq(0).find('.level_02').val("15%");
+          //    $("#ul_iLabel li").eq(1).find('.level_02').val("30%");
+          //    $("#ul_iLabel li").eq(2).find('.level_02').val("30%");
+          //    $("#ul_iLabel li").eq(3).find('.level_02').val("20%");
+          //    $("#ul_iLabel li").eq(4).find('.level_02').val("5%");         
+          // }
         });
         $(".btn_1").click(function(event) {
 
@@ -425,7 +425,10 @@ function markxl01(c,num) {
                     // if(isNaN(parseInt(data.column_value_6))){
                     //     console.log('1122');
                     // }
-                    
+                     if (data.error_code == 500) {
+                    $("#ul_iLabel").html(" ");
+                    $("#ul_iLabel").append('<li><input value="" class="level_01"><input value="" class="level_02"><button type="">-</button></li><li><input value="" class="level_01"><input value="" class="level_02"><button type="">-</button></li><li><input value="" class="level_01"><input value="" class="level_02"><button type="">-</button></li><li><input value="" class="level_01"><input value="" class="level_02"><button type="">-</button></li><li><input value="" class="level_01"><input value="" class="level_02"><button type="">-</button></li>');
+                    }
                     var b01 =["column_value_1","column_value_2","column_value_3","column_value_4","column_value_5","column_value_6", "column_value_7","column_value_8","column_value_9","column_value_10","column_value_11"];
                      var b02 =["column_name_1","column_name_2","column_name_3","column_name_4","column_name_5","column_name_6", "column_name_7","column_name_8","column_name_9","column_name_10","column_name_11"];
                     var json=[];
@@ -441,20 +444,46 @@ function markxl01(c,num) {
                    console.log(json);
                     if (data.error_code !== 500) {
                         // $(".tf_span").html(data.full_score);
-
+                         $("#ul_iLabel").html(" ");
+                         console.log(data.lenght);
+                        for(var i_li=0;i_li<data.lenght;i_li++){
+                          $("#ul_iLabel").append('<li><input value="" class="level_01"><input value="" class="level_02"><button type="">-</button></li>');  
+                        }
                         $("#z_mark").val(data.full_score);
                         $("#jg_mark").val(data.pass);
                         $("#yx_mark").val(data.fine);
-                        $("#ul_iLabel li").eq(0).find('.level_01').val(data.column_name_1);
-                        $("#ul_iLabel li").eq(0).find('.level_02').val(data.column_value_1);
-                        $("#ul_iLabel li").eq(1).find('.level_01').val(data.column_name_2);
-                        $("#ul_iLabel li").eq(1).find('.level_02').val(data.column_value_2);
-                        $("#ul_iLabel li").eq(2).find('.level_01').val(data.column_name_3);
-                        $("#ul_iLabel li").eq(2).find('.level_02').val(data.column_value_3);
-                        $("#ul_iLabel li").eq(3).find('.level_01').val(data.column_name_4);
-                        $("#ul_iLabel li").eq(3).find('.level_02').val(data.column_value_4);
-                        $("#ul_iLabel li").eq(4).find('.level_01').val(data.column_name_5);
-                        $("#ul_iLabel li").eq(4).find('.level_02').val(data.column_value_5);
+                        if(data.level_type==1){
+                         $(".mart_set_03_select option").eq(0).attr("selected","selected");
+                          for(var i_l=0;i_l<data.lenght;i_l++){
+                          $("#ul_iLabel li").eq(i_l).find('.level_01').val(data[b02[i_l]]);
+                          $("#ul_iLabel li").eq(i_l).find('.level_02').val(data[b01[i_l]]);
+                         }
+                        }else if(data.level_type==2){
+                         $(".mart_set_03_select option").eq(1).attr("selected","selected");
+                        
+                         for(var i_l=0;i_l<data.lenght;i_l++){
+                            var b02_s=data[b02[i_l]].split(",");
+                            var b01_s=data[b01[i_l]].split(",");
+                          $("#ul_iLabel li").eq(i_l).find('.level_01').val(b02_s[0]);
+                          $("#ul_iLabel li").eq(i_l).find('.level_02').val(b01_s[0]);
+                         }
+
+                        }
+                        // if(data.absent==true){
+                        //   console.log(data.absent);
+                        // }else{
+                        //      console.log("11111");
+                        // }
+                        // $("#ul_iLabel li").eq(0).find('.level_01').val(data["column_name_1"]);
+                        // $("#ul_iLabel li").eq(0).find('.level_02').val(data.column_value_1);
+                        // $("#ul_iLabel li").eq(1).find('.level_01').val(data["column_name_2"]);
+                        // $("#ul_iLabel li").eq(1).find('.level_02').val(data.column_value_2);
+                        // $("#ul_iLabel li").eq(2).find('.level_01').val(data.column_name_3);
+                        // $("#ul_iLabel li").eq(2).find('.level_02').val(data.column_value_3);
+                        // $("#ul_iLabel li").eq(3).find('.level_01').val(data.column_name_4);
+                        // $("#ul_iLabel li").eq(3).find('.level_02').val(data.column_value_4);
+                        // $("#ul_iLabel li").eq(4).find('.level_01').val(data.column_name_5);
+                        // $("#ul_iLabel li").eq(4).find('.level_02').val(data.column_value_5);
                         var b = [data.column_name_6, data.column_name_7, data.column_name_8, data.column_name_9, data.column_name_10, data.column_name_11];
                         var b1 = [data.column_value_6, data.column_value_7, data.column_value_8, data.column_value_9, data.column_value_10, data.column_value_11];
                         if (json.lenght < 12) {
