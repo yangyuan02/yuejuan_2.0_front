@@ -395,6 +395,7 @@ $(this).find('option').eq(item_num).attr("selected","selected");
                 
 });
      function all_score(){
+      var all_list_score=0;
       var li_length=$('.sub_sz_ul02 li').length;
       for(var a=0;a<li_length;a++){
         var p_length=$('.sub_sz_ul02 li').eq(a).find('button').parent().find("p").length;
@@ -423,15 +424,18 @@ $(this).find('option').eq(item_num).attr("selected","selected");
          
         }
         
-        // console.log(list_score);
+       
       }
-     $('.sub_sz_ul02 li').eq(a).find('button').parent().parent().find('.all_score').html(score);
+      $('.sub_sz_ul02 li').eq(a).find('button').parent().parent().find('.all_score').html(score);
     
 
      };
-
-
+     all_list_score=all_list_score+parseInt(list_score);
       }
+    $(".sub_score i").html(all_list_score);
+    console.log(all_list_score);
+    // console.log(li_length);
+      
 
 
      };
