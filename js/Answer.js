@@ -404,7 +404,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
 
         modelParam.push(param)
         window.localStorage.setItem(getUrlParam(url, 'examubjeId'), JSON.stringify(modelParam))
-        console.log(window.localStorage.getItem(getUrlParam(url, 'examubjeId')))
+        console.log(modelParam)
     }
     //确认添加
     $scope.btn1 = function () {
@@ -2117,6 +2117,11 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
 
         if (modelParam.length > 0) {
+            if(question_bank_id.length>0){//点击过了导入试卷
+                for(var i = 0;i < modelParam.length;i++){
+                    modelParam[i].answer_settings.question_bank_id = question_bank_id[i]
+                }
+            }
             $.ajax({//获取answer_id
                     type: "POST",
                     url: "api/v2/answers/batch_create",
@@ -2181,6 +2186,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         }
     }
     var getExamStatus = true
+    var question_bank_id = []
     $scope.importExam = function () {
         if(getExamStatus){
             $.ajax({
@@ -2202,6 +2208,8 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     for(var i = 0;i<data.data.length;i++){
                         (function (i) {
                             $timeout(function () {
+                                question_bank_id.push(data.data[i].question_bank_id)
+                                console.log(question_bank_id)
                                 setResult(data.data[i])
                                 $scope.btn1()
                             },i*1000)
