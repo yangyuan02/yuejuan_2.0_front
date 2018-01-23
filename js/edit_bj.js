@@ -72,6 +72,7 @@ $.ajax({
  $.ajax({
          type: "GET",
          url: ajaxIp + '/api/v2/question_banks/'+id+'',
+         async:false,
          data: {
              // 'id':id,
             
@@ -84,17 +85,30 @@ $.ajax({
          var c=data.difficulty_level;
          var d=data.analysis;
          var desc_length=data.desc.length;
-         console.log(b);
+         console.log(a);
          $(".edit_li_div03").attr("data-id",data.id);
          $(".edit_li_div03").attr("grade-id",data.grade_id);
-         UE.getEditor('container').setContent(''+a+'');
+       
+         UE.getEditor('container').addListener("ready", function () {
+      
+          UE.getEditor('container').setContent(a);
+
+         });
          //答案
          if(b!==undefined){
-           UE.getEditor('container02').setContent(''+b+'');
+          UE.getEditor('container02').addListener("ready", function () {
+      
+          UE.getEditor('container02').setContent(b);
+          
+           });
          }
          //解析
           if(d!==undefined){
-           UE.getEditor('container03').setContent(''+d+'');
+          UE.getEditor('container03').addListener("ready", function () {
+      
+          UE.getEditor('container03').setContent(d);
+
+         });
          }
          //难度
          if(c!==undefined){
