@@ -631,12 +631,10 @@ $.ajax({
              var num_color="#f7c07c";
                  }else if(a_rate>=0.6&&a_rate<0.8){
                 $(".class_topic_ever_ul li").eq(i).append('<a class="class_topic_ever" id="wrong_class_li'+data[i][i_1].question_bank_id+'"  style="background:#5fa3ed;">'+num+'</a>');
-             
-             var num_color="#5fa3ed";
+                  var num_color="#5fa3ed";
              }else if(a_rate>=0&&a_rate<0.6){
                 $(".class_topic_ever_ul li").eq(i).append('<a class="class_topic_ever" id="wrong_class_li'+data[i][i_1].question_bank_id+'"  style="background:#fb7d8a;">'+num+'</a>');
-             
-             var num_color="#fb7d8a";
+                var num_color="#fb7d8a";
              }
             //难度系数
               var difficulty_level=Number(data[i][i_1].difficulty_level);
@@ -1021,7 +1019,7 @@ $(".class_ans_tc").on('click', 'button', function(event) {
     	// $(".stu_choice_btn").hide();
      });
 //年级错题管理
-$(".g_wrong_list button").click(function(event) {
+$(".g_wrong_list").on('click', 'button', function(event) {
   $(".g_font_div").hide();
   $(".g_look").show();
   console.log();
@@ -1041,8 +1039,8 @@ $(".g_list_ul").on('click', '.g_list_body_ans', function(event) {
     $(".g_ans02").html(" ");
     $(".layer").css("height",$(document).height());
     $(".layer").show();
-    // $(".g_ans01").html($(this).attr("data-ans"));
-    // $(".g_ans02").html($(this).attr("data-anal"));
+    $(".g_ans01").html($(this).attr("data-ans"));
+    $(".g_ans02").html($(this).attr("data-ana"));
     $(".g_ans_tc").show();
 
 });
@@ -1089,13 +1087,7 @@ $(".g_font_div").show();
 $(".g_look").hide();
 });
 //班级级错题管理
-$(".c_wrong_list button").click(function(event) {
-  $(".c_font_div").hide();
-  $(".c_look").show();
-  console.log();
-  $(".wrong_top").html('<i class="c_back_font  iconfont" style="margin-right:10px;cursor: pointer;">&#xe61c;</i>'+$(this).parents("li").find('a').eq(0).html());
- 
-});
+
 $(".wrong_top").on('click', '.c_back_font', function(event) {
   
 $(".c_font_div").show();
@@ -1156,6 +1148,331 @@ $(".class_admin_li").click(function(event) {
 $(".c_font_div").show();
 $(".c_look").hide();
 });
+//考试错题集管理
+$.ajax({
+            type: "POST",
+            url: ajaxIp + '/api/v2/wrong_books/grade_books',
+            async: false,
+            data:{
+                'exam_id':null,
+                'subject_id':null,
+            },
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            success: function(data) {
+               
+
+               
+            },
+            error:function(){
+              console.log("11111111");
+              var data=[{ "id": 20,
+                       "title": "师大一中高二数学考试错题集",
+                        "count":14,
+                        "author":"王五",
+                        "created_at": "2018-01-22 13:01:13"},
+                        {"id":39,
+                       "title":"师大一中高二物理考试错题集",
+                        "count":10,
+                        "author": "王四",
+                        "created_at": "2018-01-20 13:01:13"}];
+              console.log(data);
+              for(var i=0;i<data.length;i++){
+                  $(".g_wrong_list").append('<li><a style="width: 32%;">'+data[i].title+'</a></a><a style="">'+data[i].count+'</a><a style="">'+data[i].author+'</a><a style="">'+data[i].created_at+'</a><a style=""><button>查看</button></a></li>');
+              }
+
+
+
+        },
+        });
+//查看
+$.ajax({
+            type: "POST",
+            url: ajaxIp + '/api/v2/wrong_books/book_questions',
+            async: false,
+            data:{
+                'id':null,
+            },
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            success: function(data) {
+               
+
+               
+            },
+            error:function(){
+              $(".g_topic_ever_box").html(" ");
+              console.log("22222");
+              var data=[{
+        "source": "",
+        "content": "<p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p>",
+        "analysis":"11111",
+        "answer": "B",
+        "scoring_rate": 0.4,
+        "average_score": 1,
+        "total_score": 2,
+        "question_bank_id": 1,
+        "classroom_id": 343,
+        "item": 0,
+        "exam_subject_id": 1024,
+        "school_id": 16,
+        "difficulty_level":0.2,
+        "tags":[
+                "集合的含义与表示",
+                "包含关系、子集与真子集"
+            ]
+      },{
+        "source": "",
+        "content": "<p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p>",
+        "analysis":"<p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p><p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p><p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p><p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p><p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p>",
+        "answer": "A",
+        "scoring_rate": 0.8,
+        "average_score": 1,
+        "total_score": 2,
+        "question_bank_id": 2,
+        "classroom_id": 343,
+        "item": 0,
+        "exam_subject_id": 1024,
+        "school_id": 16,
+        "difficulty_level":0.94,
+        "tags":[
+                "集合的含义与表示",     
+            ]
+      }];
+   console.log(data);           
+
+          for(var i=0;i<data.length;i++){
+            var tag="";
+            for(var i_tag=0;i_tag<data[i].tags.length;i_tag++){
+             tag=tag+data[i].tags[i_tag];
+            }
+            console.log(tag);
+            var s_rate=Number(data[i].scoring_rate)*100;
+             console.log(data[i].scoring_rate)
+          
+          //难度系数
+              var difficulty_level=Number(data[i].difficulty_level);
+              console.log(difficulty_level);
+              if(difficulty_level==0){
+                var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i>';
+              }else if(difficulty_level>=0.86){
+
+               var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i>';
+              
+              }else if(difficulty_level>=0.71&&difficulty_level<0.86){
+               var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i>';
+              
+              }else if(difficulty_level>=0.61&&difficulty_level<0.71){
+                 var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i>';
+              
+              }else if(difficulty_level>=0.41&&difficulty_level<0.61){
+                 var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i>';
+              
+              }else if(difficulty_level>0&&difficulty_level<0.41){
+                 var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i>';
+              
+              }
+              //小题上标(得分率)
+              var num =data[i].question_bank_id;
+              var a_rate=Number(data[i].scoring_rate);
+
+                if(num<10){
+                  var num='0'+Number(data[i].question_bank_id);
+                }   
+              if(a_rate>=0.86){
+               $(".g_topic_ever_box").append('<a class="grate_topic_ever" style="background:#31bc91;">'+num+'</a>');
+              
+              // var num_color="#31bc91";
+             }else if(a_rate>=0.8&&a_rate<0.95){
+                $(".g_topic_ever_box").append('<a class="grate_topic_ever"  style="background:#f7c07c;">'+num+'</a>');
+             
+             // var num_color="#f7c07c";
+                 }else if(a_rate>=0.6&&a_rate<0.8){
+                $(".g_topic_ever_box").append('<a class="grate_topic_ever"  style="background:#5fa3ed;">'+num+'</a>');
+                  // var num_color="#5fa3ed";
+             }else if(a_rate>=0&&a_rate<0.6){
+                $(".g_topic_ever_box").append('<a class="grate_topic_ever"  style="background:#fb7d8a;">'+num+'</a>');
+                // var num_color="#fb7d8a";
+             }
+
+              $(".g_list_ul").append('<div class="g_list_main"><div class="g_list_body">'+data[i].content+'</div><p class="g_list_lable"><a>年级得分率:<i style="font-style: normal;">'+s_rate+'%</i></a><a>年级平均分:<i style="font-style: normal;">'+data[i].average_score+'分</i></a><a>知识点:<i style="font-style: normal;">'+tag+'</i></a><a class="g_list_dif">难度系数:'+difficulty_body+'</a></p><div class="g_list_move"><a class="g_list_body_ans"  data-ans="'+data[i].answer+'"  data-ana="'+data[i].analysis+'"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a></div></div>');
+  
+          }
+
+        },
+        });
+        //班级错题集管理
+        $(".class_admin_li").click(function(event) {
+         $.ajax({
+            type: "POST",
+            url: ajaxIp + '/api/v2/wrong_books/class_books',
+            async: false,
+            data:{
+                'exam_id':null,
+                'subject_id':null,
+            },
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            success: function(data) {
+               
+
+               
+            },
+            error:function(){
+              console.log("11111111");
+              $(".c_wrong_list").html(" ");
+              var data=[{ "id": 20,
+                       "title": "师大一中高二数学考试错题集",
+                        "count":14,
+                        "author":"王五",
+                        "created_at": "2018-01-22 13:01:13"},
+                        {"id":39,
+                       "title":"师大一中高二物理考试错题集",
+                        "count":10,
+                        "author": "王四",
+                        "created_at": "2018-01-20 13:01:13"}];
+              console.log(data);
+              for(var i=0;i<data.length;i++){
+                  $(".c_wrong_list").append('<li><a style="width: 32%;">'+data[i].title+'</a></a><a style="">'+data[i].count+'</a><a style="">'+data[i].author+'</a><a style="">'+data[i].created_at+'</a><a style=""><button data-id="'+data[i].id+'">查看</button></a></li>');
+              }
+
+
+
+        },
+        });
+        });
+  $(".c_wrong_list").on('click', 'button', function(event) {
+  $(".c_font_div").hide();
+  $(".c_look").show();
+  
+  $(".wrong_top").html('<i class="c_back_font  iconfont" style="margin-right:10px;cursor: pointer;">&#xe61c;</i>'+$(this).parents("li").find('a').eq(0).html());
+ var id=$(this).attr("data-id");
+console.log(id);
+
+
+$.ajax({
+            type: "POST",
+            url: ajaxIp + '/api/v2/wrong_books/book_questions',
+            async: false,
+            data:{
+                'id':id,
+            },
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            success: function(data) {
+               
+
+               
+            },
+            error:function(){
+              $(".c_topic_ever_box").html(" ");
+              $(".c_list_ul").html(" ");
+              console.log("22222");
+              var data=[{
+        "source": "",
+        "content": "<p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p>",
+        "analysis":"11111",
+        "answer": "B",
+        "scoring_rate": 0.4,
+        "average_score": 1,
+        "total_score": 2,
+        "question_bank_id": 1,
+        "classroom_id": 343,
+        "item": 0,
+        "exam_subject_id": 1024,
+        "school_id": 16,
+        "difficulty_level":0.2,
+        "tags":[
+                "集合的含义与表示",
+                "包含关系、子集与真子集"
+            ]
+      },{
+        "source": "",
+        "content": "<p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p>",
+        "analysis":"<p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p><p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p><p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p><p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p><p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p>",
+        "answer": "A",
+        "scoring_rate": 0.8,
+        "average_score": 1,
+        "total_score": 2,
+        "question_bank_id": 2,
+        "classroom_id": 343,
+        "item": 0,
+        "exam_subject_id": 1024,
+        "school_id": 16,
+        "difficulty_level":0.94,
+        "tags":[
+                "集合的含义与表示",     
+            ]
+      }];
+   console.log(data);           
+
+          for(var i=0;i<data.length;i++){
+            var tag="";
+            for(var i_tag=0;i_tag<data[i].tags.length;i_tag++){
+             tag=tag+data[i].tags[i_tag];
+            }
+            console.log(tag);
+            var s_rate=Number(data[i].scoring_rate)*100;
+             console.log(data[i].scoring_rate)
+          
+          //难度系数
+              var difficulty_level=Number(data[i].difficulty_level);
+              console.log(difficulty_level);
+              if(difficulty_level==0){
+                var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i>';
+              }else if(difficulty_level>=0.86){
+
+               var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i>';
+              
+              }else if(difficulty_level>=0.71&&difficulty_level<0.86){
+               var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i>';
+              
+              }else if(difficulty_level>=0.61&&difficulty_level<0.71){
+                 var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i>';
+              
+              }else if(difficulty_level>=0.41&&difficulty_level<0.61){
+                 var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i>';
+              
+              }else if(difficulty_level>0&&difficulty_level<0.41){
+                 var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i>';
+              
+              }
+              //小题上标(得分率)
+              var num =data[i].question_bank_id;
+              var a_rate=Number(data[i].scoring_rate);
+
+                if(num<10){
+                  var num='0'+Number(data[i].question_bank_id);
+                }   
+              if(a_rate>=0.86){
+               $(".c_topic_ever_box").append('<a class="class_topic_ever" style="background:#31bc91;">'+num+'</a>');
+              
+              // var num_color="#31bc91";
+             }else if(a_rate>=0.8&&a_rate<0.95){
+                $(".c_topic_ever_box").append('<a class="class_topic_ever"  style="background:#f7c07c;">'+num+'</a>');
+             
+             // var num_color="#f7c07c";
+                 }else if(a_rate>=0.6&&a_rate<0.8){
+                $(".c_topic_ever_box").append('<a class="class_topic_ever"  style="background:#5fa3ed;">'+num+'</a>');
+                  // var num_color="#5fa3ed";
+             }else if(a_rate>=0&&a_rate<0.6){
+                $(".c_topic_ever_box").append('<a class="class_topic_ever"  style="background:#fb7d8a;">'+num+'</a>');
+                // var num_color="#fb7d8a";
+             }
+
+              $(".c_list_ul").append('<div class="g_list_main"><div class="g_list_body">'+data[i].content+'</div><p class="g_list_lable"><a>年级得分率:<i style="font-style: normal;">'+s_rate+'%</i></a><a>年级平均分:<i style="font-style: normal;">'+data[i].average_score+'分</i></a><a>知识点:<i style="font-style: normal;">'+tag+'</i></a><a class="g_list_dif">难度系数:'+difficulty_body+'</a></p><div class="g_list_move"><a class="g_list_body_ans"  data-ans="'+data[i].answer+'"  data-ana="'+data[i].analysis+'"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a></div></div>');
+  
+          }
+
+        },
+        });
+
+});
+     
 
 
 
