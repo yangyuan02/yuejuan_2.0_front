@@ -51,9 +51,10 @@ var height = $(window).height()-$('#header').height()-$('#footer').height()-180;
 //     }
 //   });
 $(".p_top a").click(function(event) {
-// $(this).attr('href', 'edit_paper?docx_id='+docx_id+'&exam_subject_id='+exam_subject_id+'&exam_name='+exam_name+'&subject_name='+subject_name+'&left_tab='+left_tab+'');
- history.go(-1);
-    return false;
+$(this).attr('href', 'edit_paper?docx_id='+docx_id+'&exam_subject_id='+exam_subject_id+'&exam_name='+exam_name+'&subject_name='+subject_name+'&_dc='+new Date().getTime()+'');
+ 
+ // history.go(-1);
+ //    return false;
 });
 
 $.ajax({
@@ -85,7 +86,9 @@ $.ajax({
          var c=data.difficulty_level;
          var d=data.analysis;
          var desc_length=data.desc.length;
-         console.log(a);
+         console.log(a.length);
+         console.log(typeof b);
+         console.log(!d);
          $(".edit_li_div03").attr("data-id",data.id);
          $(".edit_li_div03").attr("grade-id",data.grade_id);
        
@@ -95,21 +98,37 @@ $.ajax({
 
          });
          //答案
-         if(b!==undefined){
+         
           UE.getEditor('container02').addListener("ready", function () {
-      
-          UE.getEditor('container02').setContent(b);
-          
-           });
-         }
-         //解析
-          if(d!==undefined){
-          UE.getEditor('container03').addListener("ready", function () {
-      
-          UE.getEditor('container03').setContent(d);
+         if(b!==undefined){
+           if(!b){
 
+        }else{
+          UE.getEditor('container02').setContent(b);
+        }
+           }
+           });
+        
+         //解析
+         var d01=typeof d;
+          // if(!d){
+          // // alert(d);
+          // }else{
+          //   // alert();
+          // }
+          UE.getEditor('container03').addListener("ready", function () {
+            
+      if(d!==undefined){
+        // console.log("1111111111111");
+        if(!d){
+
+        }else{
+          UE.getEditor('container03').setContent(d);
+        }
+        
+     }
          });
-         }
+         
          //难度
          if(c!==undefined){
            $(".dif_input input").val(c);
