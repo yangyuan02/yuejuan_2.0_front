@@ -20,6 +20,7 @@
          } else {
              $(this).css("background", "#cccccc");
              $(".type_ever a").css("background", "#cccccc");
+             $(".type_ever a").attr('data-id', '0');
              $(this).attr('data-id', '0');
          }
      });
