@@ -1,4 +1,5 @@
 $(function(){
+  $.ajaxSetup({cache:false}); 
 	var isLogin = localStorage.getItem("token");
 	
 	var height = $(window).height()-$('#header').height()-$('#footer').height()-180;
