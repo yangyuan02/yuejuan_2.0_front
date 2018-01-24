@@ -403,7 +403,7 @@
              var num_color="#fb7d8a";
              }
 
-                $(".grade_list_ul").append('<li><div class="grade_list_main"><div class="grade_list_body">'+data[i].content+'</div><p class="grade_list_lable"><a>年级得分率:<i>'+scoring_rate+'</i></a><a>年级平均分:<i>'+data[i].average_score+'分</i></a><a>知识点:<i>'+tags+'</i></a><a class="grade_list_dif">难度系数:'+difficulty_body+'</a></p><div class="grade_list_move"><a class="grade_list_body_ans"  data-ans="'+data[i].answer+'"  data-anal="'+data[i].analysis+'"><i class="iconfont" style="margin-right:5px;">&#xe61e;</i>查看答案和解析</a><a  class="grade_list_move_a">移除</a></div><div class="grade_list_number"><p><i class="iconfont" style="font-size:45px;color:'+num_color+';">&#xe63f;</i><a>'+num+'</a></p></div><div class="grade_list_form">试题来源:<a>'+source+'</a></div></div></li>');
+                $(".grade_list_ul").append('<li><div class="grade_list_main"><div class="grade_list_body">'+data[i].content+'</div><p class="grade_list_lable"><a>年级得分率:<i>'+scoring_rate+'</i></a><a>年级平均分:<i>'+data[i].average_score+'分</i></a><a>知识点:<i>'+tags+'</i></a><a class="grade_list_dif">难度系数:'+difficulty_body+'</a></p><div class="grade_list_move"><a class="grade_list_body_ans"  data-id="'+i+'"><i class="iconfont" style="margin-right:5px;">&#xe61e;</i>查看答案和解析</a><a  class="grade_list_move_a">移除</a></div><div class="grade_list_number"><p><i class="iconfont" style="font-size:45px;color:'+num_color+';">&#xe63f;</i><a>'+num+'</a></p></div><div class="grade_list_form">试题来源:<a>'+source+'</a></div></div></li>');
               }
 
 
@@ -662,7 +662,7 @@ $.ajax({
               
               }   
                   
-                 $(".class_list_ul").append(' <li class="wrong_class_li'+data[i][i_1].question_bank_id+'" bank_id="'+data[i][i_1].question_bank_id+'" total_score="'+data[i][i_1].total_score+'"  average_score="'+data[i][i_1].average_score+'" scoring_rate="'+data[i][i_1].scoring_rate+'"  item="'+data[i][i_1].item+'" exam_subject_id="'+data[i][i_1].exam_subject_id+'"><div class="class_list_main"><div class="class_list_body">'+data[i][i_1].content+'</div><p class="class_list_lable"><a>年级得分率:<i>'+scoring_rate+'</i></a><a>年级平均分:<i>'+data[i][i_1].average_score+'分</i></a><a>知识点:<i>'+tags+'</i></a><a class="class_list_dif">难度系数:'+difficulty_body+'</a></p><div class="class_list_move"><a class="class_list_body_ans"   data-ans="'+data[i][i_1].answer+'"  data-anal="'+data[i][i_1].analysis+'"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a><a  class="class_list_move_a">移除</a></div><div class="class_list_number"><p><i class="iconfont" style="font-size:45px;color:'+num_color+';"></i><a>'+num+'</a></p></div><div class="class_list_form">试题来源:<a>'+source+'</a></div></div></li>');
+                 $(".class_list_ul").append(' <li class="wrong_class_li'+data[i][i_1].question_bank_id+'" bank_id="'+data[i][i_1].question_bank_id+'" total_score="'+data[i][i_1].total_score+'"  average_score="'+data[i][i_1].average_score+'" scoring_rate="'+data[i][i_1].scoring_rate+'"  item="'+data[i][i_1].item+'" exam_subject_id="'+data[i][i_1].exam_subject_id+'"><div class="class_list_main"><div class="class_list_body">'+data[i][i_1].content+'</div><p class="class_list_lable"><a>年级得分率:<i>'+scoring_rate+'</i></a><a>年级平均分:<i>'+data[i][i_1].average_score+'分</i></a><a>知识点:<i>'+tags+'</i></a><a class="class_list_dif">难度系数:'+difficulty_body+'</a></p><div class="class_list_move"><a class="class_list_body_ans"   data-id="'+i+'"  data-id01="'+i_1+'"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a><a  class="class_list_move_a">移除</a></div><div class="class_list_number"><p><i class="iconfont" style="font-size:45px;color:'+num_color+';"></i><a>'+num+'</a></p></div><div class="class_list_form">试题来源:<a>'+source+'</a></div></div></li>');
                   }
 
                }
@@ -677,6 +677,103 @@ $.ajax({
         });
 
 }
+function class_list_ans(num,num01){
+console.log($(".class_sur").attr("exam_id"));
+var exam_id=$(".class_sur").attr("exam_id");
+var exam_length=$(".class_sur").attr("exam_length");
+console.log(exam_id);
+if(exam_id!==undefined){
+var words = exam_id.split(',');
+}
+var word =[];
+for(var length=0;length<exam_length;length++){
+     word[length]=parseInt(words[length]);
+}
+console.log(word);
+//类型
+ var data_num=[];
+    if($(".class_sur").parent().prev().find('a').eq(0).attr("data-id")==1){
+    data_num[0]=0;
+    data_num[1]=5;
+    }
+    if($(".class_sur").parent().prev().find('a').eq(1).attr("data-id")==1){
+      
+      if(data_num.length==0){
+       data_num[0]=1;
+      }else{
+        data_num[data_num.length]=1;
+      }
+    
+    }
+    if($(".class_sur").parent().prev().find('a').eq(2).attr("data-id")==1){
+      if(data_num.length==0){
+       data_num[0]=2;
+      }else{
+        data_num[data_num.length]=2;
+      }
+    }
+    if($(".class_sur").parent().prev().find('a').eq(3).attr("data-id")==1){
+      if(data_num.length==0){
+       data_num[0]=3;
+      }else{
+        data_num[data_num.length]=3;
+      }
+    }
+    if($(".class_sur").parent().prev().find('a').eq(4).attr("data-id")==1){
+    if(data_num.length==0){
+       data_num[0]=4;
+      }else{
+        data_num[data_num.length]=4;
+      }
+    }
+   console.log(data_num);
+  var rate=$(".class_select_rate").attr("data-id");
+  var class_id=$(".class_select_class").attr("data-id");
+  var sub_id=$(".class_select_sub").attr("data-id");
+  if(class_id==undefined){
+    alert("班级不能为空");
+  }
+  if(sub_id==undefined){
+    alert("考试科目不能为空");
+  }
+   console.log(sub_id);
+   var sort=$(".class_sort").attr("data-id");
+$.ajax({
+            type: "POST",
+            url: ajaxIp + "/api/v2/wrong_questions/class_index",
+            async: false,
+            data:{
+                "exam_id":word,
+                "subject_id":sub_id,
+                "classroom_id":class_id,
+                "rate":rate,
+                "item":data_num,
+                 "sort":sort,
+        
+            },
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+             beforeSend: function(){
+                   $(".load-bg").show();
+                },
+            success: function(data) {
+                console.log(data);
+              $(".class_ans01").html(data[num][num01].answer);
+               $(".class_ans02").html(data[num][num01].analysis);
+               
+             
+            },
+            complete: function(){
+                   $(".load-bg").hide();
+                },
+            error:function(){
+                 // $(".load-bg").hide();
+            },
+        });
+
+}
+
 
  //     班级删除
  $(".class_list_ul").on('click', '.class_list_move_a', function(event) {
@@ -850,11 +947,93 @@ $(".grade_list_ul").on('click', '.grade_list_body_ans', function(event) {
     $(".grade_ans02").html(" ");
     $(".layer").css("height",$(document).height());
      $(".layer").show();
-    $(".grade_ans01").html($(this).attr("data-ans"));
-    $(".grade_ans02").html($(this).attr("data-anal"));
+    // $(".grade_ans01").html($(this).attr("data-ans"));
+    // $(".grade_ans02").html($(this).attr("data-anal"));
+    var num =parseInt($(this).attr("data-id"));
+    grade_list_ans(num);
+
  $(".grade_ans_tc").show();
 
 });
+ function grade_list_ans(num){
+     var rate=$(".grade_rate").attr("rate-id");
+    
+   var data_num=[];
+    if($(".grade_sur").parent().prev().find('a').eq(0).attr("data-id")==1){
+    data_num[0]=0;
+    data_num[1]=5;
+    }
+    if($(".grade_sur").parent().prev().find('a').eq(1).attr("data-id")==1){
+      
+      if(data_num.length==0){
+       data_num[0]=1;
+      }else{
+        data_num[data_num.length]=1;
+      }
+    
+    }
+    if($(".grade_sur").parent().prev().find('a').eq(2).attr("data-id")==1){
+      if(data_num.length==0){
+       data_num[0]=2;
+      }else{
+        data_num[data_num.length]=2;
+      }
+    }
+    if($(".grade_sur").parent().prev().find('a').eq(3).attr("data-id")==1){
+      if(data_num.length==0){
+       data_num[0]=3;
+      }else{
+        data_num[data_num.length]=3;
+      }
+    }
+    if($(".grade_sur").parent().prev().find('a').eq(4).attr("data-id")==1){
+    if(data_num.length==0){
+       data_num[0]=4;
+      }else{
+        data_num[data_num.length]=4;
+      }
+    }
+   console.log(data_num);
+   var sort =$(".grade_sort").attr("data-id");
+   var grade_exam=parseInt($(".grade_exam").attr("data-id"));
+   var grade_sub=parseInt($(".grade_sub").attr("data-id"));
+    console.log(grade_exam);
+     console.log(grade_sub);
+      $.ajax({
+            type: "POST",
+            url: ajaxIp + "/api/v2/wrong_questions/grade_index",
+            // async: false,
+            data:{
+                "exam_id":grade_exam,
+                 "subject_id":grade_sub,
+                 "item":data_num,
+                 "rate":rate,
+                  "sort":sort,
+            },
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            beforeSend: function(){
+                $(".load-bg").show();
+                },
+            success: function(data) {
+                console.log(data);
+               $(".grade_ans01").html(data[num].answer);
+               $(".grade_ans02").html(data[num].analysis);
+
+            },
+            complete: function(){
+
+                  $(".load-bg").hide();
+                },
+            error:function() {
+               $(".load-bg").hide();
+            },
+        });
+}
+
+
+
 $(".grade_ans_tc").on('click', 'button', function(event) {
  $(".grade_ans_tc").hide();
  $(".layer").hide();
@@ -865,8 +1044,11 @@ $(".class_list_ul").on('click', '.class_list_body_ans', function(event) {
     $(".class_ans02").html(" ");
     $(".layer").css("height",$(document).height());
     $(".layer").show();
-    $(".class_ans01").html($(this).attr("data-ans"));
-    $(".class_ans02").html($(this).attr("data-anal"));
+    // $(".class_ans01").html($(this).attr("data-ans"));
+    // $(".class_ans02").html($(this).attr("data-anal"));
+    var num =parseInt($(this).attr("data-id"));
+     var num01 =parseInt($(this).attr("data-id01"));
+    class_list_ans(num,num01);
     $(".class_ans_tc").show();
 
 });
