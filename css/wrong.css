@@ -1088,3 +1088,7 @@ z-index: 11;
 	display: inline-block;
     vertical-align: middle;
 }
+.class_list_body img{
+	display: inline-block;
+    vertical-align: middle;
+}

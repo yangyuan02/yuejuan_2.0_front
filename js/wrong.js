@@ -262,9 +262,7 @@
      });
      //年级 ajax  end
      //班级错题
-     $(".wrong_class_li").click(function(event) {
-         /* Act on the event */
-     });
+
      // var wrong=[{time:"最近一周",grade:[{id:11,name:"高一",},{id:12,name:"高二",}],class:[{id:11,name:"一",},{id:12,name:"二",}],subject:[{id:21,name:"数学",},{id:22,name:"英文",}]},
      // {time:"最近一月",grade:[{id:12,name:"高二",},{id:11,name:"高一",}],class:[{id:12,name:"二",},{id:11,name:"一",}],subject:[{id:45,name:"物理",},{id:46,name:"化学",}]}];
      // console.log(wrong);
@@ -482,6 +480,10 @@ $.ajax({
 $(".class_select_time").change(function(event) {
      near_exam();
 });
+ $(".wrong_class_li").click(function(event) {
+         /* Act on the event */
+         near_exam();
+     });
  function near_exam(){
   var time_type=$(".class_select_time").attr("data-id");
   var id=$(".class_select_grate").attr("data-id");
