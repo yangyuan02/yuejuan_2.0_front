@@ -53,7 +53,7 @@ function list_item(){
     async:false,
    	url: ajaxIp+"/api/v2/question_banks?docx_id="+docx_id+"",
   	dataType: "JSON",
-  	data:{'limit':null,'page':null},
+  	data:{'limit':200,'page':null},
   	headers: {'Authorization': "Bearer " + isLogin},
   	success: function(data){
   		console.log(data);
@@ -75,7 +75,7 @@ function list_item(){
           var pp='<p>'+data[i].content+'</p>';
         }
        
-  			$('#item-ul').append('<li class="items" data-id="'+data[i].sort+'"  data-grade="'+data[i].grade_id+'" item-id="'+data[i].id+'"><i class="item-op "><a href="javascript:;" class="save-btn right"><i class="iconfont">&#xe653;</i>保存</a><a href="javascript:;" class="look-detail right"  data-num="'+i+'"  data-id="'+data[i].id+'"><i class="iconfont">&#xe699;</i>查看解析</a></i><div class="item-cont editor-enabled" contenteditable="true" data-id="'+data[i].id+'">'+pp+'</div><ul class="bottom-btn"><li><a class="item-edit" data-num="'+i+'"  data-id="'+data[i].id+'"><i class="iconfont">&#xe614;</i>题干编辑</a></li><li><a href="javascript:;" class="item-seg"><i class="iconfont">&#xe636;</i>分割试题</a></li><li><a href="javascript:;" class="item-insert"><i class="iconfont">&#xe601;</i>题组插入</a></li><li><a href="javascript:;" class="item-merge"><i class="iconfont">&#xe689;</i>向下合并</a></li><li style="display:none;"><a href="javascript:;" class="grade-set"><i class="iconfont">&#xe630;</i>设定分指</a></li><li><a href="javascript:;" class="item-up"><i class="iconfont">&#xe631;</i>上移</a></li><li><a href="javascript:;" class="item-down"><i class="iconfont">&#xe607;</i>下移</a></li><li><a href="javascript:;" class="item-dele" data-num="'+i+'" data-id="'+data[i].id+'"><i class="iconfont">&#xe616;</i>删除</a></li><li><a href="javascript:;" class="determine bind-item" data-id="'+data[i].id+'">绑定题组</a></li></ul></li>');
+  			$('#item-ul').append('<li class="items" data-id="'+data[i].sort+'"  data-grade="'+data[i].grade_id+'" item-id="'+data[i].id+'"><i class="item-op "><a style="color: #666;">'+data[i].sort+'</a><a href="javascript:;" class="save-btn right"><i class="iconfont">&#xe653;</i>保存</a><a href="javascript:;" class="look-detail right"  data-num="'+i+'"  data-id="'+data[i].id+'"><i class="iconfont">&#xe699;</i>查看解析</a></i><div class="item-cont editor-enabled" contenteditable="true" data-id="'+data[i].id+'">'+pp+'</div><ul class="bottom-btn"><li><a class="item-edit" data-num="'+i+'"  data-id="'+data[i].id+'"><i class="iconfont">&#xe614;</i>题干编辑</a></li><li><a href="javascript:;" class="item-seg"><i class="iconfont">&#xe636;</i>分割试题</a></li><li><a href="javascript:;" class="item-insert"><i class="iconfont">&#xe601;</i>题组插入</a></li><li><a href="javascript:;" class="item-merge"><i class="iconfont">&#xe689;</i>向下合并</a></li><li style="display:none;"><a href="javascript:;" class="grade-set"><i class="iconfont">&#xe630;</i>设定分指</a></li><li><a href="javascript:;" class="item-up"><i class="iconfont">&#xe631;</i>上移</a></li><li><a href="javascript:;" class="item-down"><i class="iconfont">&#xe607;</i>下移</a></li><li><a href="javascript:;" class="item-dele" data-num="'+i+'" data-id="'+data[i].id+'"><i class="iconfont">&#xe616;</i>删除</a></li><li><a href="javascript:;" class="determine bind-item" data-id="'+data[i].id+'">绑定题组</a></li></ul></li>');
          
       
   		};
@@ -1395,17 +1395,20 @@ $("#item-ul").on('mouseup', 'p', function() {
        // var a =$("#item-ul .items").length-1;
       
       console.log(new_sort);
+      var new_sorts=parseInt(new_sort)+1;
+      console.log(new_sorts);
        $.ajax({
                   type: "POST",
                   async:false,
                   url: ajaxIp+"/api/v2/question_banks",
                   data:{'content':nw_ary[0],
                          'docx_id':docx_id,
-                         'sort':new_sort,
+                         'sort':new_sorts,
                          'grade_id':grade_id,
                   },
                   headers: {'Authorization': "Bearer " + isLogin},
-                  success: function(data){                  
+                  success: function(data){ 
+                  console.log(data);                 
                     // window.location.reload()
                      // $("#item-ul").html(" ");
                      //  list_item();
@@ -1424,6 +1427,7 @@ $("#item-ul").on('mouseup', 'p', function() {
                   headers: {'Authorization': "Bearer " + isLogin},
                   success: function(data){                   
                     // window.location.reload()
+                     console.log(data);  
                      $("#item-ul").html(" ");
                       list_item();
                   },
@@ -1431,6 +1435,7 @@ $("#item-ul").on('mouseup', 'p', function() {
     
                  }
                });
+
      //    for(var i=0;i<a;i++){
      //   var nub=i+1;
      //   $("#item-ul .items").eq(i).find('.item-edit').attr("data-a",i);
