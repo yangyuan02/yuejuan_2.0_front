@@ -110,8 +110,9 @@ function again_bang(){
                       if(item_id==data[i].question_bank_id){
                         // console.log(item_id);
                          $("#item-ul li").eq(i1).find('.bind-item').html("更换绑定");
+                         $("#item-ul li").eq(i1).find('.bind-item').css("background","#fb7d8a");
                           $("#item-ul li").eq(i1).find('.bind-item').attr("relation_id",data[i].id);
-                          $("#item-ul li").eq(i1).find('.bind-item').attr("answer_id",data[i].answer_id);
+                          $("#item-ul li").eq(i1).find('.bind-item').attr("answer_id",data[i].doc_answer_id);
                       }
                    }
                    }
@@ -162,6 +163,7 @@ function again_bang(){
                    $(".sub_bd02_ul01").html(" ");
                    // $(".sub_bd02_ul02").html(" ");
                     console.log(data);
+                     console.log(answer_id);
                     var a=data.length;
                     for(var i=0;i<a;i++){
                       if(answer_id==data[i].id){
