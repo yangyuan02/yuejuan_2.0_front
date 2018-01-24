@@ -825,8 +825,9 @@ $(".wrong_class_li").click(function(event) {
 });
  $(".class_select_grate").change(function(event) {
    var grade_id=$(this).children('option:selected').attr("data-id");
+$(this).attr("data-id",$(this).children('option:selected').attr("data-id"));
    grade_get_class(grade_id);
-
+    near_exam();
 
 
  });
