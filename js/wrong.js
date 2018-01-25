@@ -1069,7 +1069,7 @@ $(".class_ans_tc").on('click', 'button', function(event) {
          $(".wrong_main").children('div').eq(0).children('.grade_ans').hide();
          $(".wrong_main").children('div').eq(2).children('.per_ans').hide();
      });
-      //移除
+      //移除11
      $(".class_list_move_a").click(function(event) {
      	$(this).parent().parent().remove();
      });
