@@ -260,6 +260,9 @@
         $(this).attr("data-id",$(this).children('option:selected').attr("data-id"));
         console.log($(this).children('option:selected').attr("data-id"));
      });
+      $(".grade_select_top select").change(function(event) {
+        $(".grade_ans").hide();
+      });
      //年级 ajax  end
      //班级错题
 
@@ -934,6 +937,7 @@ $(this).attr("data-id",$(this).children('option:selected').attr("data-id"));
  //班级select
  $(".class_select_top select").change(function(event) {
     $(this).attr("data-id",$(this).children('option:selected').attr("data-id"));
+    $(".class_ans").hide();
 
  });
 $(".class_select_rate").change(function(event) {
