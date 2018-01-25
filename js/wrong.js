@@ -602,6 +602,7 @@ $.ajax({
             success: function(data) {
                 console.log(data);
                  $(".class_list_ul").html(" ");
+                 $(".class_topic_ever_ul").html(" ");
                  if(data.length!==0){
                   $(".class_sur").attr("school_id",data[0][0].school_id);
                  }
