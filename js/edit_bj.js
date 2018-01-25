@@ -27,7 +27,7 @@ var height = $(window).height()-$('#header').height()-$('#footer').height()-180;
   var exam_subject_id = getUrlParam(url,'exam_subject_id');
   var exam_name = getUrlParam(url,'exam_name');
   var subject_name = getUrlParam(url,'subject_name');
-   var grade_name = getUrlParam(url,'grade_name');
+  var grade_name = getUrlParam(url,'grade_name');
   // $(".edit_li_sub").html(subject_name);
   // $(".edit_li_grade").html(grade_name);
   // var left_tab = getUrlParam(url,'left_tab');
