@@ -51,10 +51,9 @@ var height = $(window).height()-$('#header').height()-$('#footer').height()-180;
 //     }
 //   });
 $(".p_top a").click(function(event) {
-$(this).attr('href', 'edit_paper?docx_id='+docx_id+'&exam_subject_id='+exam_subject_id+'&exam_name='+exam_name+'&subject_name='+subject_name+'&_dc='+new Date().getTime()+'');
- 
- // history.go(-1);
- //    return false;
+// $(this).attr('href', 'edit_paper?docx_id='+docx_id+'&exam_subject_id='+exam_subject_id+'&exam_name='+exam_name+'&subject_name='+subject_name+'&_dc='+new Date().getTime()+'');
+    history.go(-1);
+    return false;
 });
 
 $.ajax({
