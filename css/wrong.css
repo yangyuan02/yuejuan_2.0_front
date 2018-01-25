@@ -677,10 +677,10 @@ font-size: 14px;background: #ffffff;border: 1px solid #31bc91;color: #31bc91;box
 	display: none
 }*/
 .grade_ans01{
-	width: 540px;height: 120px;border: 1px solid #cccccc;
+	width: 540px;height: 120px;border: 1px solid #cccccc;overflow: auto;
 }
 .grade_ans02{
-	width: 540px;height: 120px;border: 1px solid #cccccc;
+	width: 540px;height: 120px;border: 1px solid #cccccc;overflow: auto;
 }
 .grade_ans_line{
 	height:1px;width: 540px;background: #cccccc;margin-top: 30px;margin-bottom: 20px;
