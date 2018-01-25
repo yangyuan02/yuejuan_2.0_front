@@ -460,7 +460,7 @@ function markxl01(c,num) {
                          }
                         }else if(data.level_type==2){
                          $(".mart_set_03_select option").eq(1).attr("selected","selected");
-                        
+
                          for(var i_l=0;i_l<data.lenght;i_l++){
                             var b02_s=data[b02[i_l]].split(",");
                             var b01_s=data[b01[i_l]].split(",");
@@ -468,6 +468,17 @@ function markxl01(c,num) {
                           $("#ul_iLabel li").eq(i_l).find('.level_02').val(b01_s[0]);
                          }
 
+                        }
+                        //判断缺考
+                         // console.log("111111");
+                         // console.log(data.absent);
+                        if(data.absent==true){
+                            $(".a_absent i").css("color","#31bc91");
+                            $(".a_absent i").attr("data-id","1");
+                          // console.log(data.absent);
+                        }else if(data.absent==false){
+                            $(".a_absent i").css("color","#666666");
+                            $(".a_absent i").attr("data-id","0");
                         }
                         // if(data.absent==true){
                         //   console.log(data.absent);
