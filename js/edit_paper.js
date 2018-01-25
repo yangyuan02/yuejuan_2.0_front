@@ -58,6 +58,7 @@ function list_item(){
   	headers: {'Authorization': "Bearer " + isLogin},
   	success: function(data){
   		console.log(data);
+      $(".mr20 a").html(data.length);
   		for (var i = 0; i < data.length; i++) {
         var nub=i+1;
   			// var pp='<p><a class="list_nub">'+nub+'.</a>'+data[i].content+'</p>';

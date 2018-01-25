@@ -756,6 +756,7 @@ width: 100%;height: 44px;line-height: 44px;background: #31bc91;font-size: 16px;c
     width: 100%;
     background: #999999;
     opacity: 0.5;
+    z-index: 1;
     display: none;
 }
 .class_ans01{
