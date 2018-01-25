@@ -37,6 +37,7 @@ $(function(){
   var exam_sub_name =exam_name+'&nbsp;&nbsp;('+subject_name+')'
   var storage=window.localStorage;
   storage.setItem("left_tab",left_tab);
+  console.log(exam_name,exam_sub_name)
   $(".exam_name").html(exam_sub_name);
   console.log(docx_id)
     console.log(left_tab)
@@ -51,7 +52,7 @@ function list_item(){
  	$.ajax({
    	type: "GET",
     async:false,
-   	url: ajaxIp+"/api/v2/question_banks?docx_id="+docx_id+"",
+   	url: ajaxIp+"/api/v2/question_banks?docx_id="+docx_id+"&now="+new Date().getTime()+"",
   	dataType: "JSON",
   	data:{'limit':200,'page':null},
   	headers: {'Authorization': "Bearer " + isLogin},
@@ -1314,7 +1315,7 @@ function save(id,main){
 $("#item-ul").on('click', '.look-detail', function(event) {
   var a=$(this).attr("data-num");
   var b=$(this).attr("data-id");
-  $(this).attr('href','edit_analysis?docx_id=' +docx_id+ '&number='+a+'&exam_subject_id='+exam_subject_id+'&id='+b+'');
+  $(this).attr('href','edit_analysis?docx_id=' +docx_id+ '&number='+a+'&exam_subject_id='+exam_subject_id+'&id='+b+'&exam_name='+exam_name+'&subject_name='+subject_name+'&grade_name='+grade_name+'');
 })
 //查看解析 end
 // $(document).on('click', '.item-seg',function() {

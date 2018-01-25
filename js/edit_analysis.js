@@ -46,8 +46,9 @@ var isLogin = localStorage.getItem("token");
 //     }
 //   });
 $(".main_back a").click(function(event) {
-$(this).attr('href', 'edit_paper?docx_id='+docx_id+'&exam_subject_id='+exam_subject_id+'');
-
+// $(this).attr('href', 'edit_paper?docx_id='+docx_id+'&exam_subject_id='+exam_subject_id+'');
+history.go(-1);
+    return false;
 });
 //获取题目内容，答案。。。
 $(".list_dif").html(" ");

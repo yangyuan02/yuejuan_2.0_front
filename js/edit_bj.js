@@ -51,10 +51,10 @@ var height = $(window).height()-$('#header').height()-$('#footer').height()-180;
 //     }
 //   });
 $(".p_top a").click(function(event) {
-$(this).attr('href', 'edit_paper?docx_id='+docx_id+'&exam_subject_id='+exam_subject_id+'&exam_name='+exam_name+'&subject_name='+subject_name+'&left_tab=word-import&_dc='+new Date().getTime()+'');
+// $(this).attr('href', 'edit_paper?docx_id='+docx_id+'&exam_subject_id='+exam_subject_id+'&exam_name='+exam_name+'&subject_name='+subject_name+'&_dc='+new Date().getTime()+'');
  
- // history.go(-1);
- //    return false;
+ history.go(-1);
+    return false;
 });
 
 $.ajax({
@@ -72,7 +72,7 @@ $.ajax({
 //获取题目内容，答案。。。
  $.ajax({
          type: "GET",
-         url: ajaxIp + '/api/v2/question_banks/'+id+'',
+         url: ajaxIp + '/api/v2/question_banks/'+id+'now='+new Date().getTime()+'',
          async:false,
          data: {
              // 'id':id,
