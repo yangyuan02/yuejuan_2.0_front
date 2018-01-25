@@ -478,7 +478,7 @@ function markxl01(c,num) {
                           // console.log(data.absent);
                         }else if(data.absent==false){
                             $(".a_absent i").css("color","#666666");
-                            $(".a_absent i").attr("data-id","0");
+                            $(".a_absent i").attr("data-id","2");
                         }
                         // if(data.absent==true){
                         //   console.log(data.absent);
@@ -636,12 +636,12 @@ function markxl01(c,num) {
         //缺考走读
         $(".miss_exam01").click(function(event) {
             var a=$(this).attr("data-id");
-            if(a==0){
+            if(a==2){
                 $(this).css("color","#31bc91");
                 $(this).attr("data-id","1");
             }else{
                 $(this).css("color","#666666");
-                $(this).attr("data-id","0");
+                $(this).attr("data-id","2");
             }
           
         });
