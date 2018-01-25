@@ -52,7 +52,7 @@ function list_item(){
  	$.ajax({
    	type: "GET",
     async:false,
-   	url: ajaxIp+"/api/v2/question_banks?docx_id="+docx_id+"",
+   	url: ajaxIp+"/api/v2/question_banks?docx_id="+docx_id+"&now="+new Date().getTime()+"",
   	dataType: "JSON",
   	data:{'limit':200,'page':null},
   	headers: {'Authorization': "Bearer " + isLogin},

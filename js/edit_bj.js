@@ -27,7 +27,7 @@ var height = $(window).height()-$('#header').height()-$('#footer').height()-180;
   var exam_subject_id = getUrlParam(url,'exam_subject_id');
   var exam_name = getUrlParam(url,'exam_name');
   var subject_name = getUrlParam(url,'subject_name');
-  var grade_name = getUrlParam(url,'grade_name');
+   var grade_name = getUrlParam(url,'grade_name');
   // $(".edit_li_sub").html(subject_name);
   // $(".edit_li_grade").html(grade_name);
   // var left_tab = getUrlParam(url,'left_tab');
@@ -52,7 +52,7 @@ var height = $(window).height()-$('#header').height()-$('#footer').height()-180;
 //   });
 $(".p_top a").click(function(event) {
 // $(this).attr('href', 'edit_paper?docx_id='+docx_id+'&exam_subject_id='+exam_subject_id+'&exam_name='+exam_name+'&subject_name='+subject_name+'&_dc='+new Date().getTime()+'');
-    history.go(-1);
+ history.go(-1);
     return false;
 });
 
@@ -71,7 +71,7 @@ $.ajax({
 //获取题目内容，答案。。。
  $.ajax({
          type: "GET",
-         url: ajaxIp + '/api/v2/question_banks/'+id+'',
+         url: ajaxIp + '/api/v2/question_banks/'+id+'now='+new Date().getTime()+'',
          async:false,
          data: {
              // 'id':id,
