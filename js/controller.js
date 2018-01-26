@@ -273,6 +273,11 @@ function markxl01(c,num) {
             $(".tf_zf a").html(data_value.full_score);
             $(".tf_jg a").html(data_value.pass);
             $(".tf_yx a").html(data_value.fine);
+            if(data_value.absent==1){
+               $(".tf_absent a").html("是");
+            }else if(data_value.absent==2){
+                $(".tf_absent a").html("否");
+            }
 
             $.ajax({
                 type: "POST",
