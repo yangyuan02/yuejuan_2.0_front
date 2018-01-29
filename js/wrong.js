@@ -386,10 +386,10 @@
               //考试来源
               var source=data[i].source;
               //序号
-              var num=Number(data[i].num);
-              if(num<10){
-                  var num='0'+Number(data[i].num);
-              }
+              var num=data[i].num;
+              // if(num<10){
+              //     var num='0'+Number(data[i].num);
+              // }
               //小题上标(得分率)
               var a_rate=Number(data[i].scoring_rate);
               if(a_rate>=0.86){
@@ -622,10 +622,10 @@ $.ajax({
                  //考试来源
                  var source=data[i][i_1].source;
                 //序号
-                var num=Number(data[i][i_1].num);
-                if(num<10){
-                  var num='0'+Number(data[i][i_1].num);
-                }   
+                var num=data[i][i_1].num;
+                // if(num<10){
+                //   var num='0'+Number(data[i][i_1].num);
+                // }   
               //小题上标(得分率)
               var a_rate=Number(data[i][i_1].scoring_rate);
               if(a_rate>=0.86){
