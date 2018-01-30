@@ -928,7 +928,7 @@ input:focus{
 .bindLine{
     position:absolute;
     width:1px;
-    height:1200px;
+    height:1190px;
     border-left:1px dashed #000;
     top:0px;
 }

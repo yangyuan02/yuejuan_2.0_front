@@ -1015,7 +1015,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $("#menu").css({"display": "none"})
         $(".Answer .A_L").css({"display": "none"})
         $(".Answer .A_B").css({"margin-top": 0, "margin-bottom": 0, "width": 1700})
-        $(".Answer .A_R").css({"border-width": 0})
+        // $(".Answer .A_R").css({"border-width": 0})
         $(".Answer .A_R .A_Rone").css({"border-color": "black"})
         window.print()
         $(".A_Nav").css({"display": "block"})
