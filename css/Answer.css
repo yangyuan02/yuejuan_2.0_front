@@ -116,7 +116,7 @@ body,html{width: 100%;height: 100%;} *{margin: 0;padding: 0;}  span{display: inl
 .Answer .A_R .A_Rone:nth-child(2n) .tips_t{
     top:0;
 }
-.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span b{border: 1px solid black;display:block;width: 14px;height:11px;line-height:11px;text-align: center;font-weight:normal;}
+.Answer .A_R .A_Rone .A_Rone_child table tbody tr td .q_c span b{border: 1px solid black;display:block;width: 14px;height:11px;line-height:11px;text-align: center;font-weight:normal;color:#666}
 /*顶部学生信息*/
 .Answer .student_info{
     margin-top:30px;
