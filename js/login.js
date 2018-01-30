@@ -15,6 +15,10 @@
   })
 
   $('.login-btn').on('click', function(){
+      if(window.navigator.userAgent.indexOf("MSIE")>=1){//是否为ie浏览器
+        alert("请下载谷歌浏览器或者360极速浏览器")
+        return false
+      }
     save();
     var password = $.base64.encode($("#login-pwd").val())
       $.ajax({
