@@ -273,6 +273,11 @@ function markxl01(c,num) {
             $(".tf_zf a").html(data_value.full_score);
             $(".tf_jg a").html(data_value.pass);
             $(".tf_yx a").html(data_value.fine);
+            if(data_value.absent==1){
+               $(".tf_absent a").html("是");
+            }else if(data_value.absent==2){
+                $(".tf_absent a").html("否");
+            }
 
             $.ajax({
                 type: "POST",
@@ -460,7 +465,7 @@ function markxl01(c,num) {
                          }
                         }else if(data.level_type==2){
                          $(".mart_set_03_select option").eq(1).attr("selected","selected");
-                        
+
                          for(var i_l=0;i_l<data.lenght;i_l++){
                             var b02_s=data[b02[i_l]].split(",");
                             var b01_s=data[b01[i_l]].split(",");
@@ -468,6 +473,17 @@ function markxl01(c,num) {
                           $("#ul_iLabel li").eq(i_l).find('.level_02').val(b01_s[0]);
                          }
 
+                        }
+                        //判断缺考
+                         // console.log("111111");
+                         // console.log(data.absent);
+                        if(data.absent==true){
+                            $(".a_absent i").css("color","#31bc91");
+                            $(".a_absent i").attr("data-id","1");
+                          // console.log(data.absent);
+                        }else if(data.absent==false){
+                            $(".a_absent i").css("color","#666666");
+                            $(".a_absent i").attr("data-id","2");
                         }
                         // if(data.absent==true){
                         //   console.log(data.absent);
@@ -625,12 +641,12 @@ function markxl01(c,num) {
         //缺考走读
         $(".miss_exam01").click(function(event) {
             var a=$(this).attr("data-id");
-            if(a==0){
+            if(a==2){
                 $(this).css("color","#31bc91");
                 $(this).attr("data-id","1");
             }else{
                 $(this).css("color","#666666");
-                $(this).attr("data-id","0");
+                $(this).attr("data-id","2");
             }
           
         });

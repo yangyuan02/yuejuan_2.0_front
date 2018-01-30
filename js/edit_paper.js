@@ -37,6 +37,7 @@ $(function(){
   var exam_sub_name =exam_name+'&nbsp;&nbsp;('+subject_name+')'
   var storage=window.localStorage;
   storage.setItem("left_tab",left_tab);
+  console.log(exam_name,exam_sub_name)
   $(".exam_name").html(exam_sub_name);
   console.log(docx_id)
     console.log(left_tab)
@@ -51,12 +52,13 @@ function list_item(){
  	$.ajax({
    	type: "GET",
     async:false,
-   	url: ajaxIp+"/api/v2/question_banks?docx_id="+docx_id+"",
+   	url: ajaxIp+"/api/v2/question_banks?docx_id="+docx_id+"&now="+new Date().getTime()+"",
   	dataType: "JSON",
-  	data:{'limit':null,'page':null},
+  	data:{'limit':200,'page':null},
   	headers: {'Authorization': "Bearer " + isLogin},
   	success: function(data){
   		console.log(data);
+      $(".mr20 a").html(data.length);
   		for (var i = 0; i < data.length; i++) {
         var nub=i+1;
   			// var pp='<p><a class="list_nub">'+nub+'.</a>'+data[i].content+'</p>';
@@ -75,7 +77,7 @@ function list_item(){
           var pp='<p>'+data[i].content+'</p>';
         }
        
-  			$('#item-ul').append('<li class="items" data-id="'+data[i].sort+'"  data-grade="'+data[i].grade_id+'" item-id="'+data[i].id+'"><i class="item-op "><a href="javascript:;" class="save-btn right"><i class="iconfont">&#xe653;</i>保存</a><a href="javascript:;" class="look-detail right"  data-num="'+i+'"  data-id="'+data[i].id+'"><i class="iconfont">&#xe699;</i>查看解析</a></i><div class="item-cont editor-enabled" contenteditable="true" data-id="'+data[i].id+'">'+pp+'</div><ul class="bottom-btn"><li><a class="item-edit" data-num="'+i+'"  data-id="'+data[i].id+'"><i class="iconfont">&#xe614;</i>题干编辑</a></li><li><a href="javascript:;" class="item-seg"><i class="iconfont">&#xe636;</i>分割试题</a></li><li><a href="javascript:;" class="item-insert"><i class="iconfont">&#xe601;</i>题组插入</a></li><li><a href="javascript:;" class="item-merge"><i class="iconfont">&#xe689;</i>向下合并</a></li><li style="display:none;"><a href="javascript:;" class="grade-set"><i class="iconfont">&#xe630;</i>设定分指</a></li><li><a href="javascript:;" class="item-up"><i class="iconfont">&#xe631;</i>上移</a></li><li><a href="javascript:;" class="item-down"><i class="iconfont">&#xe607;</i>下移</a></li><li><a href="javascript:;" class="item-dele" data-num="'+i+'" data-id="'+data[i].id+'"><i class="iconfont">&#xe616;</i>删除</a></li><li><a href="javascript:;" class="determine bind-item" data-id="'+data[i].id+'">绑定题组</a></li></ul></li>');
+  			$('#item-ul').append('<li class="items" data-id="'+data[i].sort+'"  data-grade="'+data[i].grade_id+'" item-id="'+data[i].id+'"><i class="item-op "><a style="color: #666;">'+data[i].sort+'</a><a href="javascript:;" class="save-btn right"><i class="iconfont">&#xe653;</i>保存</a><a href="javascript:;" class="look-detail right"  data-num="'+i+'"  data-id="'+data[i].id+'"><i class="iconfont">&#xe699;</i>查看解析</a></i><div class="item-cont editor-enabled" contenteditable="true" data-id="'+data[i].id+'">'+pp+'</div><ul class="bottom-btn"><li><a class="item-edit" data-num="'+i+'"  data-id="'+data[i].id+'"><i class="iconfont">&#xe614;</i>题干编辑</a></li><li><a href="javascript:;" class="item-seg"><i class="iconfont">&#xe636;</i>分割试题</a></li><li><a href="javascript:;" class="item-insert"><i class="iconfont">&#xe601;</i>题组插入</a></li><li><a href="javascript:;" class="item-merge"><i class="iconfont">&#xe689;</i>向下合并</a></li><li style="display:none;"><a href="javascript:;" class="grade-set"><i class="iconfont">&#xe630;</i>设定分指</a></li><li><a href="javascript:;" class="item-up"><i class="iconfont">&#xe631;</i>上移</a></li><li><a href="javascript:;" class="item-down"><i class="iconfont">&#xe607;</i>下移</a></li><li><a href="javascript:;" class="item-dele" data-num="'+i+'" data-id="'+data[i].id+'"><i class="iconfont">&#xe616;</i>删除</a></li><li><a href="javascript:;" class="determine bind-item" data-id="'+data[i].id+'">绑定题组</a></li></ul></li>');
          
       
   		};
@@ -288,32 +290,32 @@ function again_bang(){
                   //    data[i].answer.item=5;
                   // }
                  
-                    $(".sub_sz_ul02").append('<li data-name="'+data[i].answer.item+'" data-id="'+data[i].answer.id+'" data-sort="'+data[i].answer.sort+'" ><select data-name="'+data[i].answer.item+'" ><option>单选题</option><option>多选题</option><option>填空题</option><option>是非题</option><option>其他题</option><option>作文题</option></select><input type="" name="" value="'+data[i].answer.answer_name+'"><a class="all_score"></a><i class="iconfont" data-id="0">&#xe622;</i><div class="sub_sz_list" style="overflow: auto;"><button data-id="'+data[i].answer.id+'"  style="float: right;width: 50px;height: 25px;color: #31bc91;text-align: center;line-height: 25px;margin-right: 68px;margin-top: 10px;background: #ffffff;">保存</button></div></li>');
-                  var qb_length=data[i].question_banks.length;
+                    $(".sub_sz_ul02").append('<li data-name="'+data[i].answer.item+'" data-id="'+data[i].answer.id+'" data-sort="'+data[i].answer.num+'" ><select data-name="'+data[i].answer.item+'" ><option>单选题</option><option>多选题</option><option>填空题</option><option>是非题</option><option>其他题</option><option>作文题</option></select><input type="" name="" value="'+data[i].answer.answer_name+'"><a class="all_score"></a><i class="iconfont" data-id="0">&#xe622;</i><div class="sub_sz_list" style="overflow: auto;"><button data-id="'+data[i].answer.id+'"  style="float: right;width: 50px;height: 25px;color: #31bc91;text-align: center;line-height: 25px;margin-right: 68px;margin-top: 10px;background: #ffffff;">保存</button></div></li>');
+                  var qb_length=data[i].answer_settings.length;
                   // console.log(data[2].question_banks.length);
                  if(data[i].answer.item=="单选题"||data[i].answer.item=="多选题"||data[i].answer.item==0||data[i].answer.item==5){
                  for(var q_b=0;q_b<qb_length;q_b++){
-                  if(data[i].question_banks[q_b].score==undefined){
-                    data[i].question_banks[q_b].score=0;
+                  if(data[i].answer_settings[q_b].score==undefined){
+                    data[i].answer_settings[q_b].score=0;
                     }
-                    if(data[i].question_banks[q_b].type_count==undefined){
-                    data[i].question_banks[q_b].type_count=0;
+                    if(data[i].answer_settings[q_b].type_count==undefined){
+                    data[i].answer_settings[q_b].type_count=0;
                     }
-                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p data-id="'+data[i].question_banks[q_b].id+'" style="padding-left: 40px;box-sizing: border-box;" data-question="'+data[i].question_banks[q_b].question_bank_id+'"><a style="">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].sort+'"></a><a style="margin-left: 70px;">选项个数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].type_count+'"></a><a style="margin-left: 88px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;"  value="'+data[i].question_banks[q_b].score+'"></a></p>');
+                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p data-id="'+data[i].answer_settings[q_b].id+'" style="padding-left: 40px;box-sizing: border-box;" data-question="'+data[i].answer_settings[q_b].question_bank_id+'"><a style="">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].num+'"></a><a style="margin-left: 70px;">选项个数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].type_count+'"></a><a style="margin-left: 88px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;"  value="'+data[i].answer_settings[q_b].score+'"></a></p>');
                  };
                  }else if(data[i].answer.item=="填空题"||data[i].answer.item=="是非题"||data[i].answer.item=="其他题"||data[i].answer.item==1||data[i].answer.item==2||data[i].answer.item==3){
                  for(var q_b=0;q_b<qb_length;q_b++){
-                   if(data[i].question_banks[q_b].score==undefined){
-                    data[i].question_banks[q_b].score=0;
+                   if(data[i].answer_settings[q_b].score==undefined){
+                    data[i].answer_settings[q_b].score=0;
                     }
-                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p data-id="'+data[i].question_banks[q_b].id+'" data-question="'+data[i].question_banks[q_b].question_bank_id+'"><a style="margin-left: 40px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" disabled="disabled"  value="'+data[i].question_banks[q_b].sort+'"></a><a style="margin-left: 237px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].score+'"></a></p>');
+                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p data-id="'+data[i].answer_settings[q_b].id+'" data-question="'+data[i].answer_settings[q_b].question_bank_id+'"><a style="margin-left: 40px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" disabled="disabled"  value="'+data[i].answer_settings[q_b].num+'"></a><a style="margin-left: 237px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].score+'"></a></p>');
                  }                       
                 }else if(data[i].answer.item=="作文题"||data[i].answer.item==4){
                   for(var q_b=0;q_b<qb_length;q_b++){
-                    if(data[i].question_banks[q_b].score==undefined){
-                    data[i].question_banks[q_b].score=0;
+                    if(data[i].answer_settings[q_b].score==undefined){
+                    data[i].answer_settings[q_b].score=0;
                     }
-                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p data-id="'+data[i].question_banks[q_b].id+'" style="padding-left:10px;" data-question="'+data[i].question_banks[q_b].question_bank_id+'"><select name="" class="sub_sz_xz_select" data-id="'+data[i].question_banks[q_b].template_format+'"><option value="">方格</option><option value="">行线</option><option value="">间隔线</option></select><a style="margin-left: 50px;">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].sort+'"></a><a style="margin-left: 10pN">格数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].lattice_total+'"></a><a style="margin-left:60px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].score+'"></a></p>');
+                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p data-id="'+data[i].answer_settings[q_b].id+'" style="padding-left:10px;" data-question="'+data[i].answer_settings[q_b].question_bank_id+'"><select name="" class="sub_sz_xz_select" data-id="'+data[i].answer_settings[q_b].template_format+'"><option value="">方格</option><option value="">行线</option><option value="">间隔线</option></select><a style="margin-left: 50px;">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].num+'"></a><a style="margin-left: 10pN">格数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].lattice_total+'"></a><a style="margin-left:60px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].score+'"></a></p>');
                  
                  }
                  var p_se_length=$(".sub_sz_ul02 li").eq(i).find('button').parent().find("p").length;
@@ -362,7 +364,7 @@ function again_bang(){
                  $(".sub_sz_ul02 li").eq(i).children('select').find('option').eq(item_num).attr("selected","selected"); 
                 
                 }
-                // console.log(data[0].question_banks.length);                     
+                // console.log(data[0].answer_settings.length);                     
                   },
                 error: function(){
     
@@ -1314,7 +1316,7 @@ function save(id,main){
 $("#item-ul").on('click', '.look-detail', function(event) {
   var a=$(this).attr("data-num");
   var b=$(this).attr("data-id");
-  $(this).attr('href','edit_analysis?docx_id=' +docx_id+ '&number='+a+'&exam_subject_id='+exam_subject_id+'&id='+b+'');
+  $(this).attr('href','edit_analysis?docx_id=' +docx_id+ '&number='+a+'&exam_subject_id='+exam_subject_id+'&id='+b+'&exam_name='+exam_name+'&subject_name='+subject_name+'&grade_name='+grade_name+'');
 })
 //查看解析 end
 // $(document).on('click', '.item-seg',function() {
@@ -1395,17 +1397,20 @@ $("#item-ul").on('mouseup', 'p', function() {
        // var a =$("#item-ul .items").length-1;
       
       console.log(new_sort);
+      var new_sorts=parseInt(new_sort)+1;
+      console.log(new_sorts);
        $.ajax({
                   type: "POST",
                   async:false,
                   url: ajaxIp+"/api/v2/question_banks",
                   data:{'content':nw_ary[0],
                          'docx_id':docx_id,
-                         'sort':new_sort,
+                         'sort':new_sorts,
                          'grade_id':grade_id,
                   },
                   headers: {'Authorization': "Bearer " + isLogin},
-                  success: function(data){                  
+                  success: function(data){ 
+                  console.log(data);                 
                     // window.location.reload()
                      // $("#item-ul").html(" ");
                      //  list_item();
@@ -1424,6 +1429,7 @@ $("#item-ul").on('mouseup', 'p', function() {
                   headers: {'Authorization': "Bearer " + isLogin},
                   success: function(data){                   
                     // window.location.reload()
+                     console.log(data);  
                      $("#item-ul").html(" ");
                       list_item();
                   },
@@ -1431,6 +1437,7 @@ $("#item-ul").on('mouseup', 'p', function() {
     
                  }
                });
+
      //    for(var i=0;i<a;i++){
      //   var nub=i+1;
      //   $("#item-ul .items").eq(i).find('.item-edit').attr("data-a",i);
