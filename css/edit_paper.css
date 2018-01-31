@@ -546,7 +546,10 @@ font-size: 14px;*/
 .sort_num_div{
 	width: 300px;float: right;
 }
-
+.bind-item-content{
+    position:absolute;
+    right: 100px;	
+}
 
 
 

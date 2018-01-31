@@ -350,20 +350,24 @@ $(".edit_zs").on('click', 'li  i', function(event) {
              var subject_id=parseInt($(".edit_li_div03").attr("subject_id"));
           console.log(grade_id);
           $(".edit_li_div03").slideDown(500);
-    var version=$(".edit_li_div03_p02 select").children('option:selected').val();
-  if(version=="人教版"){
-   var type="standard_edition";
+   var version=$(".edit_li_div03_p02 select").children('option:selected').val();
+  if(version=="人教A版"){
+   var type="standard_edition_A";
   }else if(version=="沪教版"){
      var type="shanghai_edition";
+   }else if(version=="人教B版"){
+     var type="standard_edition_B";
    }
-          $.ajax({
+   console.log("11111");
+    console.log(type);
+    $.ajax({
          type: "GET",
          async:false,
          url: ajaxIp + "/api/v2/sync_knowledge_points",
          data: {
              'grade_id':grade_id,
              'subject_id': subject_id,
-              'version':type,
+            'version':type,
          },
          headers: { 'Authorization': "Bearer " + isLogin },
          success: function(data) {
@@ -451,10 +455,12 @@ $(".edit_zs").on('click', 'li  i', function(event) {
 
 $(".edit_li_div03_p02 select").change(function(event) {
   var version=$(this).children('option:selected').val();
-  if(version=="人教版"){
-   var type="standard_edition";
+  if(version=="人教A版"){
+   var type="standard_edition_A";
   }else if(version=="沪教版"){
      var type="shanghai_edition";
+   }else if(version=="人教B版"){
+     var type="standard_edition_B";
    }
     var grade_id=parseInt($(".edit_li_div03").attr("grade-id"));
              var subject_id=parseInt($(".edit_li_div03").attr("subject_id"));
