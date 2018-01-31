@@ -218,25 +218,25 @@ function again_bang(){
   $(".sub_bd_t").click(function(event) {                
 $(".sub_bd").hide();
 $(".layer").hide();
-// var a=[{answer_setting_id :1,
-// question_bank_id: 19},{answer_setting_id :2,
-// question_bank_id: 19}];
-// $.ajax({
-//                   type: "POST",
-//                   async: false,
-//                   url: ajaxIp+"/api/v2/question_banks/bind_answer",
-//                   data:{
-//                   'answer_settings':a,
-//                   },
-//                 headers: {'Authorization': "Bearer " + isLogin},
-//                 success: function(data){
+var a=[{id :1,
+question_bank_id: 32},{id :2,
+question_bank_id: 32}];
+$.ajax({
+                  type: "POST",
+                  async: false,
+                  url: ajaxIp+"/api/v2/question_banks/bind_answer",
+                  data:{
+                  'answer_settings':JSON.stringify(a),
+                  },
+                headers: {'Authorization': "Bearer " + isLogin},
+                success: function(data){
                   
                  
                   
-//                 },
-//                 error: function(){
-//                 }
-//               });
+                },
+                error: function(){
+                }
+              });
 
   
    });
