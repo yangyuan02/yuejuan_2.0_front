@@ -487,7 +487,7 @@ function ans_sort(a,b){
                     // window.location.reload()
                      $("#item-ul").html(" ");
                     list_item();
-                    // again_bang();
+                    // again_bang();11111
                   },
                 error: function(){
     
