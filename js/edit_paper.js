@@ -77,10 +77,11 @@ function list_item(){
           var pp='<p>'+data[i].content+'</p>';
         }
        
-  			$('#item-ul').append('<li class="items" data-id="'+data[i].sort+'"  data-grade="'+data[i].grade_id+'" item-id="'+data[i].id+'"><i class="item-op "><a style="color: #666;">'+data[i].sort+'</a><a href="javascript:;" class="save-btn right"><i class="iconfont">&#xe653;</i>保存</a><a href="javascript:;" class="look-detail right"  data-num="'+i+'"  data-id="'+data[i].id+'"><i class="iconfont">&#xe699;</i>查看解析</a></i><div class="item-cont editor-enabled" contenteditable="true" data-id="'+data[i].id+'">'+pp+'</div><ul class="bottom-btn"><li><a class="item-edit" data-num="'+i+'"  data-id="'+data[i].id+'"><i class="iconfont">&#xe614;</i>题干编辑</a></li><li><a href="javascript:;" class="item-seg"><i class="iconfont">&#xe636;</i>分割试题</a></li><li><a href="javascript:;" class="item-insert"><i class="iconfont">&#xe601;</i>题组插入</a></li><li><a href="javascript:;" class="item-merge"><i class="iconfont">&#xe689;</i>向下合并</a></li><li style="display:none;"><a href="javascript:;" class="grade-set"><i class="iconfont">&#xe630;</i>设定分指</a></li><li><a href="javascript:;" class="item-up"><i class="iconfont">&#xe631;</i>上移</a></li><li><a href="javascript:;" class="item-down"><i class="iconfont">&#xe607;</i>下移</a></li><li><a href="javascript:;" class="item-dele" data-num="'+i+'" data-id="'+data[i].id+'"><i class="iconfont">&#xe616;</i>删除</a></li><li><a href="javascript:;" class="determine bind-item" data-id="'+data[i].id+'">绑定题组</a></li></ul></li>');
+  			$('#item-ul').append('<li class="items" data-id="'+data[i].sort+'"  data-grade="'+data[i].grade_id+'" item-id="'+data[i].id+'"><i class="item-op "><a style="color: #666;">'+data[i].sort+'</a><a href="javascript:;" class="save-btn right"><i class="iconfont">&#xe653;</i>保存</a><a href="javascript:;" class="look-detail right"  data-num="'+i+'"  data-id="'+data[i].id+'"><i class="iconfont">&#xe699;</i>查看解析</a></i><div class="item-cont editor-enabled" contenteditable="true" data-id="'+data[i].id+'">'+pp+'</div><ul class="bottom-btn"><li><a class="item-edit" data-num="'+i+'"  data-id="'+data[i].id+'"><i class="iconfont">&#xe614;</i>题干编辑</a></li><li><a href="javascript:;" class="item-seg"><i class="iconfont">&#xe636;</i>分割试题</a></li><li><a href="javascript:;" class="item-insert"><i class="iconfont">&#xe601;</i>题目插入</a></li><li><a href="javascript:;" class="item-merge"><i class="iconfont">&#xe689;</i>向下合并</a></li><li style="display:none;"><a href="javascript:;" class="grade-set"><i class="iconfont">&#xe630;</i>设定分指</a></li><li><a href="javascript:;" class="item-up"><i class="iconfont">&#xe631;</i>上移</a></li><li><a href="javascript:;" class="item-down"><i class="iconfont">&#xe607;</i>下移</a></li><li><a href="javascript:;" class="item-dele" data-num="'+i+'" data-id="'+data[i].id+'"><i class="iconfont">&#xe616;</i>删除</a></li><li><a class="bind-item-content"></a><a href="javascript:;" class="determine bind-item" data-id="'+data[i].id+'">绑定题组</a></li></ul></li>');
          
       
   		};
+      again_bang();
     },
     error: function(){
     	
@@ -99,25 +100,53 @@ function again_bang(){
                   data:{'docx_id':docx_id},
                   headers: {'Authorization': "Bearer " + isLogin},
                   success: function(data){
-                   // var data('name', 'value')
                    console.log(data);
                    var data_length=data.length;
                    var a=$('#item-ul li').length;
-                   for(var i1=0;i1<a;i1++){
-                    var item_id=$("#item-ul li").eq(i1).attr("item-id");
-                   for(var i=0;i<data_length;i++){
-                     
                   
-                      
-                      if(item_id==data[i].question_bank_id){
-                        // console.log(item_id);
-                         $("#item-ul li").eq(i1).find('.bind-item').html("更换绑定");
-                         $("#item-ul li").eq(i1).find('.bind-item').css("background","#fb7d8a");
-                          $("#item-ul li").eq(i1).find('.bind-item').attr("relation_id",data[i].id);
-                          $("#item-ul li").eq(i1).find('.bind-item').attr("answer_id",data[i].doc_answer_id);
+                   for(var i=0;i<data_length;i++){
+                      if(data[i].answer_setting_num.length!==0){
+                         $("#item-ul").children('li').eq(i).find('.bind-item').html("更换绑定");
+                         $("#item-ul").children('li').eq(i).find('.bind-item').css("background","#fb7d8a");
+                         $("#item-ul").children('li').eq(i).find('.bind-item-content').html("已绑定：");
+                         //删除隐藏
+                         $("#item-ul").children('li').eq(i).find('.item-dele').hide();
+                         for(var i1=0;i1<data[i].answer_setting_num.length;i1++){
+                          var list_cont=data[i].answer_setting_num+","+'&nbsp';
+                          // 题组查看
+                          $('#look_id'+data[i].answer_setting_id[i1]+'').css("border","2px solid #fb7d8a");
+                          $('#look_id'+data[i].answer_setting_id[i1]+'').css("color","#fb7d8a");
+                           // 题组查看 end
+                          $("#item-ul").children('li').eq(i).find('.bind-item-content').append('<i style="font-style: normal;" data-id="'+data[i].answer_setting_id[i1]+'">'+data[i].answer_setting_num[i1]+',</i>')
+                          $('.list_a_'+data[i].answer_setting_num[i1]+'').attr("data-id","3");
+                          $('.list_a_'+data[i].answer_setting_num[i1]+'').css({
+                            background: '#31bc91',
+                            opacity: '0.5',
+                            cursor: 'not-allowed'
+                          });; 
+                         }  
+                         // $("#item-ul").children('li').eq(i).find('.bind-item').prev().html('已绑定：'+list_cont+'');
+                         
+                      }else{
+                           $("#item-ul").children('li').eq(i).find('.bind-item').html("绑定题目");
+                         $("#item-ul").children('li').eq(i).find('.bind-item').css("background-image","linear-gradient(to right,#44d971,#31bc92)");
+                         $("#item-ul").children('li').eq(i).find('.bind-item').prev().html(' ');
+                         $("#item-ul").children('li').eq(i).find('.item-dele').show();
                       }
+
                    }
-                   }
+                     
+                        // $("#item-ul li").eq(2).find('.bind-item').html("更换绑定");
+                        //  $("#item-ul li").eq(2).find('.bind-item').css("background","#fb7d8a");
+                      
+                      // if(item_id==data[i].question_bank_id){
+                      //   // console.log(item_id);
+                      //    $("#item-ul li").eq(i1).find('.bind-item').html("更换绑定");
+                      //    $("#item-ul li").eq(i1).find('.bind-item').css("background","#fb7d8a");
+                      //     $("#item-ul li").eq(i1).find('.bind-item').attr("relation_id",data[i].id);
+                      //     $("#item-ul li").eq(i1).find('.bind-item').attr("answer_id",data[i].doc_answer_id);
+                      // }
+                 
                   },
                 error: function(){
     
@@ -150,9 +179,43 @@ function again_bang(){
         $(this).addClass('sub_bd02_ul01_li').siblings().removeClass('sub_bd02_ul01_li');
         });
     $("#item-ul").on('click', '.bind-item', function(event) {
+      $(".list_i").html(" ");
        $(".sub_bd").show(); 
        $(".layer").css("height", $(document).height());
        $(".layer").show();
+       $(".sub_bd_t").attr('data-id', $(this).attr("data-id"));
+       var bank_id=$(this).attr("data-id");
+
+       if($(this).html()=="更换绑定"){
+        var i_lenght=$(this).prev().find('i').length;
+        console.log(i_lenght);
+        var a=[];
+       
+        for(var i=0;i<i_lenght;i++){
+        var b={};
+         b["id"]=$(this).prev().find('i').eq(i).attr("data-id");
+         b["question_bank_id"]=null;
+         a.push(b)
+        }
+        console.log(a);
+        $.ajax({
+                  type: "POST",
+                  async: false,
+                  url: ajaxIp+"/api/v2/question_banks/bind_answer",
+                  data:{
+                  'answer_settings':JSON.stringify(a),
+                  },
+                headers: {'Authorization': "Bearer " + isLogin},
+                success: function(data){
+                 // layer.msg('绑定成功',{time:700});
+                 // again_tizhu(); 
+                 again_bang();  
+                                 
+                },
+                error: function(){
+                }
+              });
+       }
         $.ajax({
                   type: "POST",
                   async: false,
@@ -169,8 +232,9 @@ function again_bang(){
                     $(".sub_bd02 select").append('<option value="">'+data[i].answer.answer_name+'</option>');
                   }
                   for(var i=0;i<data[0].answer_settings.length;i++){
-                    $(".sort_num_div").append('<a data-id="0" class="list_a_'+data[0].answer_settings[i].num+'" data_num="'+data[0].answer_settings[i].num+'">'+data[0].answer_settings[i].num+'<i class="iconfont" style="font-size: 12px;margin-left: 5px;"></i></a>');
+                    $(".sort_num_div").append('<a data-id="0" class="list_a_'+data[0].answer_settings[i].num+'" data_num="'+data[0].answer_settings[i].num+'" list_id="'+data[0].answer_settings[i].id+'">'+data[0].answer_settings[i].num+'<i class="iconfont" style="font-size: 12px;margin-left: 5px;"></i></a>');
                   }
+                  again_bang();
                 },
                 error: function(){
                 }
@@ -196,7 +260,7 @@ function again_bang(){
                     $(".sort_num_div").html(" ");
                     console.log(data[dex].answer_settings.length);
                   for(var i=0;i<data[dex].answer_settings.length;i++){
-                    $(".sort_num_div").append('<a data-id="0" class="list_a_'+data[dex].answer_settings[i].num+'" data_num="'+data[dex].answer_settings[i].num+'">'+data[dex].answer_settings[i].num+'<i class="iconfont" style="font-size: 12px;margin-left: 5px;"></i></a>');
+                    $(".sort_num_div").append('<a data-id="0" class="list_a_'+data[dex].answer_settings[i].num+'" data_num="'+data[dex].answer_settings[i].num+'" list_id="'+data[dex].answer_settings[i].id+'">'+data[dex].answer_settings[i].num+'<i class="iconfont" style="font-size: 12px;margin-left: 5px;"></i></a>');
                   }
                   var a=$(".list_i i").length;
                   for(var i=0;i<a;i++){
@@ -218,9 +282,16 @@ function again_bang(){
   $(".sub_bd_t").click(function(event) {                
 $(".sub_bd").hide();
 $(".layer").hide();
-var a=[{id :1,
-question_bank_id: 32},{id :2,
-question_bank_id: 32}];
+// again_bang();
+var a=[];
+
+for(var i=0;i<$(".list_i i").length;i++){
+ var b={};
+ b["id"]=$(".list_i i").eq(i).attr("data-id");
+ b["question_bank_id"]=$(this).attr("data-id");
+ a.push(b);
+}
+console.log(a);
 $.ajax({
                   type: "POST",
                   async: false,
@@ -230,9 +301,8 @@ $.ajax({
                   },
                 headers: {'Authorization': "Bearer " + isLogin},
                 success: function(data){
-                  
-                 
-                  
+                 layer.msg('绑定成功',{time:700});
+                 again_bang();                   
                 },
                 error: function(){
                 }
@@ -252,7 +322,7 @@ $.ajax({
     if(id==0){
     $(this).attr("data-id","1"); 
    $(this).css("background","#31bc91");
-  $(".list_i").append('<i id="'+class_id+'" style="font-style:normal;">'+num+'，</i>') 
+  $(".list_i").append('<i id="'+class_id+'" style="font-style:normal;" data-id="'+$(this).attr("list_id")+'">'+num+'，</i>') 
  }else if(id==1){
    $(this).attr("data-id","0"); 
    $(this).css("background","#cccccc");
@@ -260,9 +330,7 @@ $.ajax({
 
  }
   });
-var a=[{answer_setting_id :1,
-question_bank_id: 19},{answer_setting_id :2,
-question_bank_id: 19}]
+
     //题组设置
     function again_tizhu(){
       $.ajax({
@@ -286,7 +354,7 @@ question_bank_id: 19}]
                  var d_score=0;
                  for(var q_b=0;q_b<qb_length;q_b++){
                     d_score=d_score+Number(data[i].answer_settings[q_b].score);
-                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list').append('<p style="padding-left: 40px;box-sizing: border-box;"><a style="">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].num+'"></a><a style="margin-left: 70px;">选项个数<input disabled="disabled" style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].type_count+'"></a><a style="margin-left: 88px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;"  value="'+data[i].answer_settings[q_b].score+'" disabled="disabled"></a></p>');
+                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list').append('<p style="padding-left: 40px;box-sizing: border-box;"><a style="">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].num+'" id="look_id'+data[i].answer_settings[q_b].id+'"></a><a style="margin-left: 70px;">选项个数<input disabled="disabled" style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].type_count+'"></a><a style="margin-left: 88px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;"  value="'+data[i].answer_settings[q_b].score+'" disabled="disabled"></a></p>');
                  };
                  $(".sub_sz_ul02 li").eq(i).find('.all_score').html(d_score);
                  
@@ -318,6 +386,7 @@ question_bank_id: 19}]
                 }
                 console.log(all_mark);
                 $(".sub_score i").html(all_mark);
+                again_bang();
                  },
                 error: function(){
     
@@ -394,12 +463,37 @@ function ans_sort(a,b){
      $(".sub_sz").hide();
       $(".layer").hide();
    });
-  //题组插入
+  //题目插入
   $("#item-ul").on('click', '.item-insert', function(event) {
-       $(".title_in").show(); 
-       $(".layer").css("height", $(document).height());
-       $(".layer").show();
-
+       // $(".title_in").show(); 
+       // $(".layer").css("height", $(document).height());
+       // $(".layer").show();
+       var  grade_id=$(this).parents(".items").attr("data-grade");
+       var  sort=Number($(this).parents(".items").attr("data-id"))+0.5;
+       console.log(sort);
+      // console.log($(this).parents(".items").attr("data-grade"));
+       $.ajax({
+                  type: "POST",
+                  async:false,
+                  url: ajaxIp+"/api/v2/question_banks",
+                  data:{'content':null,
+                         'docx_id':docx_id,
+                         'sort':sort,
+                         'grade_id':grade_id,
+                  },
+                  headers: {'Authorization': "Bearer " + isLogin},
+                  success: function(data){ 
+                  console.log(data);                 
+                    // window.location.reload()
+                     $("#item-ul").html(" ");
+                    list_item();
+                    // again_bang();
+                  },
+                error: function(){
+    
+                 }
+               });
+       
      });
   $(".title_on").click(function(event) {
     var a=$(".title_in_p02 select").children('option:selected').html();
@@ -809,7 +903,7 @@ $("#item-ul").on('mouseup', 'p', function() {
        // var a =$("#item-ul .items").length-1;
       
       console.log(new_sort);
-      var new_sorts=parseInt(new_sort)+1;
+      var new_sorts=parseInt(new_sort)+0.5;
       console.log(new_sorts);
        $.ajax({
                   type: "POST",
