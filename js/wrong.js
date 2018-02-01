@@ -1210,6 +1210,78 @@ $(".class_ans_tc").on('click', 'button', function(event) {
     	// $(".stu_choice_btn").hide();
      });
 //年级错题管理
+$(".grade_admin_li").click(function(event) {
+  $.ajax({
+            type: "GET",
+            url: ajaxIp + "/api/v2/reports/exams",
+            async: false,
+            headers:{
+                'Authorization':"Bearer "+ isLogin
+            },
+            success: function(data) {
+            $(".g_wrong_admin_exam").html(" ");
+            $(".g_wrong_admin_sub").html(" ");
+            $(".g_wrong_admin_exam").attr("data-id",data[0].id);
+             $(".g_wrong_admin_sub").attr("data-id",data[0].subjects[0].subject_id);
+            for(var i=0;i<data.length;i++){
+               $(".g_wrong_admin_exam").append('<option value="" g-exam-id="'+data[i].id+'">'+data[i].name+'</option>');
+              
+
+
+            }
+            for(var i=0;i<data[0].subjects.length;i++){
+             $(".g_wrong_admin_sub").append('<option value="" g-exam-id="'+data[0].subjects[i].subject_id+'">'+data[0].subjects[i].name+'</option>');
+            }
+           
+             g_wrong_list();
+
+            },
+            error:function(){
+
+            },
+          })
+});
+ 
+ //年级管理考试选择
+$(".g_wrong_admin_exam").change(function(event) {
+  $(this).attr("data-id",$(this).find('option:selected').attr("g-exam-id"));
+  var a=$(this).find('option:selected').index();
+  console.log(a);
+ $.ajax({
+            type: "GET",
+            url: ajaxIp + "/api/v2/reports/exams",
+            async: false,
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            success: function(data) {
+            $(".g_wrong_admin_sub").html(" ");
+            $(".g_wrong_admin_sub").attr("data-id",data[a].subjects[0].subject_id);
+            for(var i=0;i<data[a].subjects.length;i++){
+             $(".g_wrong_admin_sub").append('<option value="" g-exam-id="'+data[a].subjects[i].subject_id+'">'+data[a].subjects[i].name+'</option>');
+            }
+           
+
+             g_wrong_list();
+            },
+            error:function(){
+
+            },
+          })
+});
+
+$(".g_wrong_admin_sub").change(function(event) {
+  $(this).attr("data-id",$(this).find('option:selected').attr("g-exam-id"));
+   g_wrong_list();
+});
+
+
+
+
+
+
+
+
 $(".g_wrong_list").on('click', 'button', function(event) {
   $(".g_font_div").hide();
   $(".g_look").show();
@@ -1230,8 +1302,28 @@ $(".g_list_ul").on('click', '.g_list_body_ans', function(event) {
     $(".g_ans02").html(" ");
     $(".layer").css("height",$(document).height());
     $(".layer").show();
-    $(".g_ans01").html($(this).attr("data-ans"));
-    $(".g_ans02").html($(this).attr("data-ana"));
+    // $(".g_ans01").html($(this).attr("data-ans"));
+    // $(".g_ans02").html($(this).attr("data-ana"));
+    var a=$(".wrong_top").attr("data-id");
+    var b=$(this).attr("data-id");
+  $.ajax({
+            type: "POST",
+            url: ajaxIp + '/api/v2/wrong_books/book_questions',
+            async: false,
+            data:{
+                'id':a,
+            },
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            success: function(data) {
+              $(".g_ans01").html(data[b].answer);
+             $(".g_ans02").html(data[b].analysis);
+            },
+            error:function(){
+
+            },
+          });
     $(".g_ans_tc").show();
 
 });
@@ -1277,7 +1369,10 @@ $(".grade_admin_li").click(function(event) {
 $(".g_font_div").show();
 $(".g_look").hide();
 });
-//班级级错题管理
+
+ 
+
+
 
 $(".wrong_top").on('click', '.c_back_font', function(event) {
   
@@ -1294,6 +1389,29 @@ $(".c_list_ul").on('click', '.c_list_body_ans', function(event) {
     $(".layer").show();
     // $(".g_ans01").html($(this).attr("data-ans"));
     // $(".g_ans02").html($(this).attr("data-anal"));
+  var a=$(".wrong_top").attr("data-id");
+  var b=$(this).attr("data-id");
+  $.ajax({
+            type: "POST",
+            url: ajaxIp + '/api/v2/wrong_books/book_questions',
+            async: false,
+            data:{
+                'id':a,
+            },
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            success: function(data) {
+              $(".c_ans01").html(data[b].answer);
+             $(".c_ans02").html(data[b].analysis);
+            },
+            error:function(){
+
+            },
+          });
+
+
+
     $(".c_ans_tc").show();
 
 });
@@ -1340,101 +1458,56 @@ $(".c_font_div").show();
 $(".c_look").hide();
 });
 //考试错题集管理
+function g_wrong_list(){
+  var exam_id=$(".g_wrong_admin_exam").attr("data-id");
+  var subject_id=$(".g_wrong_admin_sub").attr("data-id");
 $.ajax({
             type: "POST",
             url: ajaxIp + '/api/v2/wrong_books/grade_books',
             async: false,
             data:{
-                'exam_id':null,
-                'subject_id':null,
+                'exam_id':exam_id,
+                'subject_id':subject_id,
             },
             headers: {
                 'Authorization': "Bearer " + isLogin
             },
             success: function(data) {
-               
+              $(".g_wrong_list").html(" ");
+             for(var i=0;i<data.length;i++){
+                  $(".g_wrong_list").append('<li><a style="width: 32%;">'+data[i].title+'</a></a><a style="">'+data[i].count+'</a><a style="">'+data[i].author+'</a><a style="">'+data[i].created_at+'</a><a style=""><button data-id="'+data[i].id+'">查看</button></a></li>');
+              }
+  
 
                
             },
             error:function(){
-              console.log("11111111");
-              var data=[{ "id": 20,
-                       "title": "师大一中高二数学考试错题集",
-                        "count":14,
-                        "author":"王五",
-                        "created_at": "2018-01-22 13:01:13"},
-                        {"id":39,
-                       "title":"师大一中高二物理考试错题集",
-                        "count":10,
-                        "author": "王四",
-                        "created_at": "2018-01-20 13:01:13"}];
-              console.log(data);
-              for(var i=0;i<data.length;i++){
-                  $(".g_wrong_list").append('<li><a style="width: 32%;">'+data[i].title+'</a></a><a style="">'+data[i].count+'</a><a style="">'+data[i].author+'</a><a style="">'+data[i].created_at+'</a><a style=""><button>查看</button></a></li>');
-              }
-
-
-
+           
         },
         });
-//查看
+
+
+
+
+}
+
+  //查看
+$(".g_wrong_list").on('click', 'button', function(event) {
+var a=parseInt($(this).attr("data-id"));
+$(".wrong_top").attr("data-id",a);
 $.ajax({
             type: "POST",
             url: ajaxIp + '/api/v2/wrong_books/book_questions',
             async: false,
             data:{
-                'id':null,
+                'id':a,
             },
             headers: {
                 'Authorization': "Bearer " + isLogin
             },
             success: function(data) {
-               
-
-               
-            },
-            error:function(){
-              $(".g_topic_ever_box").html(" ");
-              console.log("22222");
-              var data=[{
-        "source": "",
-        "content": "<p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p>",
-        "analysis":"11111",
-        "answer": "B",
-        "scoring_rate": 0.4,
-        "average_score": 1,
-        "total_score": 2,
-        "question_bank_id": 1,
-        "classroom_id": 343,
-        "item": 0,
-        "exam_subject_id": 1024,
-        "school_id": 16,
-        "difficulty_level":0.2,
-        "tags":[
-                "集合的含义与表示",
-                "包含关系、子集与真子集"
-            ]
-      },{
-        "source": "",
-        "content": "<p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p>",
-        "analysis":"<p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p><p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p><p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p><p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p><p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p>",
-        "answer": "A",
-        "scoring_rate": 0.8,
-        "average_score": 1,
-        "total_score": 2,
-        "question_bank_id": 2,
-        "classroom_id": 343,
-        "item": 0,
-        "exam_subject_id": 1024,
-        "school_id": 16,
-        "difficulty_level":0.94,
-        "tags":[
-                "集合的含义与表示",     
-            ]
-      }];
-   console.log(data);           
-
-          for(var i=0;i<data.length;i++){
+            $(".g_topic_ever_box").html(" ");
+             for(var i=0;i<data.length;i++){
             var tag="";
             for(var i_tag=0;i_tag<data[i].tags.length;i_tag++){
              tag=tag+data[i].tags[i_tag];
@@ -1488,59 +1561,152 @@ $.ajax({
                 // var num_color="#fb7d8a";
              }
 
-              $(".g_list_ul").append('<div class="g_list_main"><div class="g_list_body">'+data[i].content+'</div><p class="g_list_lable"><a>年级得分率:<i style="font-style: normal;">'+s_rate+'%</i></a><a>年级平均分:<i style="font-style: normal;">'+data[i].average_score+'分</i></a><a>知识点:<i style="font-style: normal;">'+tag+'</i></a><a class="g_list_dif">难度系数:'+difficulty_body+'</a></p><div class="g_list_move"><a class="g_list_body_ans"  data-ans="'+data[i].answer+'"  data-ana="'+data[i].analysis+'"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a></div></div>');
+              $(".g_list_ul").append('<div class="g_list_main"><div class="g_list_body">'+data[i].content+'</div><p class="g_list_lable"><a>年级得分率:<i style="font-style: normal;">'+s_rate+'%</i></a><a>年级平均分:<i style="font-style: normal;">'+data[i].average_score+'分</i></a><a>知识点:<i style="font-style: normal;">'+tag+'</i></a><a class="g_list_dif">难度系数:'+difficulty_body+'</a></p><div class="g_list_move"><a class="g_list_body_ans"  data-id="'+i+'"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a></div></div>');
   
-          }
+          }   
 
+               
+            },
+            error:function(){
+             
         },
         });
-        //班级错题集管理
-        $(".class_admin_li").click(function(event) {
-         $.ajax({
+
+});
+
+//班级错题集管理
+
+$(".c_wrong_admin_exam").change(function(event) {
+  var a=$(this).children('option:selected').index();
+  $(this).attr("data-id",$(this).children('option:selected').attr("c-data-id"));
+  $.ajax({
+            type: "GET",
+            url: ajaxIp + "/api/v2/reports/exams",
+            async: false,
+            headers:{
+                'Authorization':"Bearer "+ isLogin
+            },
+            success: function(data) {
+            $(".c_wrong_admin_sub").html(" ");
+            $(".c_wrong_admin_grade").html(" ");
+            $(".c_wrong_admin_class").html(" ");
+
+             $(".c_wrong_admin_sub").attr("data-id",data[a].subjects[0].subject_id);
+             $(".c_wrong_admin_grade").attr("data-id",data[a].grade.grade_id);
+             $(".c_wrong_admin_class").attr("data-id",data[a].classrooms[0].classroom_id);
+            //  //考试
+            // for(var i=0;i<data.length;i++){
+            //    $(".c_wrong_admin_exam").append('<option value="" c-data-id="'+data[i].id+'">'+data[i].name+'</option>');
+            
+            // }
+            //科目
+            for(var i=0;i<data[a].subjects.length;i++){
+             $(".c_wrong_admin_sub").append('<option value="" c-data-id="'+data[a].subjects[i].subject_id+'">'+data[a].subjects[i].name+'</option>');
+            }
+            //年级
+            // for(var i=0;i<data[0].grade.length;i++){
+             $(".c_wrong_admin_grade").append('<option value="" c-data-id="'+data[a].grade.grade_id+'">'+data[a].grade.name+'</option>');
+            // }
+            //班级
+            for(var i=0;i<data[a].classrooms.length;i++){
+             $(".c_wrong_admin_class").append('<option value="" c-data-id="'+data[a].classrooms[i].classroom_id+'">'+data[a].classrooms[i].classroom_name+'</option>');
+            }
+             c_list();
+            },
+            error:function(){
+
+            },
+
+          });
+
+
+});
+$(".c_wrong_admin_top select").change(function(event) {
+
+ $(this).attr("data-id",$(this).children('option:selected').attr("c-data-id"));
+ c_list();
+
+
+});
+function c_list(){
+ var exam_id=$(".c_wrong_admin_exam").attr("data-id");
+ var subject_id=$(".c_wrong_admin_sub").attr("data-id");
+ $.ajax({
             type: "POST",
             url: ajaxIp + '/api/v2/wrong_books/class_books',
             async: false,
             data:{
-                'exam_id':null,
-                'subject_id':null,
+                'exam_id':exam_id,
+                'subject_id':subject_id,
             },
             headers: {
                 'Authorization': "Bearer " + isLogin
             },
             success: function(data) {
-               
-
-               
-            },
-            error:function(){
-              console.log("11111111");
-              $(".c_wrong_list").html(" ");
-              var data=[{ "id": 20,
-                       "title": "师大一中高二数学考试错题集",
-                        "count":14,
-                        "author":"王五",
-                        "created_at": "2018-01-22 13:01:13"},
-                        {"id":39,
-                       "title":"师大一中高二物理考试错题集",
-                        "count":10,
-                        "author": "王四",
-                        "created_at": "2018-01-20 13:01:13"}];
-              console.log(data);
+             $(".c_wrong_list").html(" ");
               for(var i=0;i<data.length;i++){
                   $(".c_wrong_list").append('<li><a style="width: 32%;">'+data[i].title+'</a></a><a style="">'+data[i].count+'</a><a style="">'+data[i].author+'</a><a style="">'+data[i].created_at+'</a><a style=""><button data-id="'+data[i].id+'">查看</button></a></li>');
               }
-
-
-
+               
+            },
+            error:function(){
+       
         },
         });
-        });
+}
+
+$(".class_admin_li").click(function(event) {
+ $.ajax({
+            type: "GET",
+            url: ajaxIp + "/api/v2/reports/exams",
+            async: false,
+            headers:{
+                'Authorization':"Bearer "+ isLogin
+            },
+            success: function(data) {
+
+              console.log(data);
+            $(".c_wrong_admin_exam").html(" ");
+            $(".c_wrong_admin_sub").html(" ");
+            $(".c_wrong_admin_grade").html(" ");
+            $(".c_wrong_admin_class").html(" ");
+            $(".c_wrong_admin_exam").attr("data-id",data[0].id);
+             $(".c_wrong_admin_sub").attr("data-id",data[0].subjects[0].subject_id);
+             $(".c_wrong_admin_grade").attr("data-id",data[0].grade.grade_id);
+             $(".c_wrong_admin_class").attr("data-id",data[0].classrooms[0].classroom_id);
+             //考试
+            for(var i=0;i<data.length;i++){
+               $(".c_wrong_admin_exam").append('<option value="" c-data-id="'+data[i].id+'">'+data[i].name+'</option>');
+            
+            }
+            //科目
+            for(var i=0;i<data[0].subjects.length;i++){
+             $(".c_wrong_admin_sub").append('<option value="" c-data-id="'+data[0].subjects[i].subject_id+'">'+data[0].subjects[i].name+'</option>');
+            }
+            //年级
+            // for(var i=0;i<data[0].grade.length;i++){
+             $(".c_wrong_admin_grade").append('<option value="" c-data-id="'+data[0].grade.grade_id+'">'+data[0].grade.name+'</option>');
+            // }
+            //班级
+            for(var i=0;i<data[0].classrooms.length;i++){
+             $(".c_wrong_admin_class").append('<option value="" c-data-id="'+data[0].classrooms[i].classroom_id+'">'+data[0].classrooms[i].classroom_name+'</option>');
+            }
+            //  g_wrong_list();
+             c_list();
+
+            },
+            error:function(){
+
+            },
+          })       
+
+});
   $(".c_wrong_list").on('click', 'button', function(event) {
   $(".c_font_div").hide();
-  $(".c_look").show();
-  
-  $(".wrong_top").html('<i class="c_back_font  iconfont" style="margin-right:10px;cursor: pointer;">&#xe61c;</i>'+$(this).parents("li").find('a').eq(0).html());
+  $(".c_look").show(); 
+$(".wrong_top").html('<i class="c_back_font  iconfont" style="margin-right:10px;cursor: pointer;">&#xe61c;</i>'+$(this).parents("li").find('a').eq(0).html());
  var id=$(this).attr("data-id");
+$(".wrong_top").attr("data-id",id);
 console.log(id);
 
 
@@ -1555,51 +1721,10 @@ $.ajax({
                 'Authorization': "Bearer " + isLogin
             },
             success: function(data) {
-               
-
-               
-            },
-            error:function(){
               $(".c_topic_ever_box").html(" ");
               $(".c_list_ul").html(" ");
-              console.log("22222");
-              var data=[{
-        "source": "",
-        "content": "<p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p>",
-        "analysis":"11111",
-        "answer": "B",
-        "scoring_rate": 0.4,
-        "average_score": 1,
-        "total_score": 2,
-        "question_bank_id": 1,
-        "classroom_id": 343,
-        "item": 0,
-        "exam_subject_id": 1024,
-        "school_id": 16,
-        "difficulty_level":0.2,
-        "tags":[
-                "集合的含义与表示",
-                "包含关系、子集与真子集"
-            ]
-      },{
-        "source": "",
-        "content": "<p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p>",
-        "analysis":"<p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p><p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p><p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p><p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p><p>1.一带电粒子射入一正点电荷的电场中，运动轨迹如图所示，粒子从A运动到B，则下列说法中正确的是 （ ）</p><p>A．粒子带正电B．粒子的动能一直变大</p><p>C．粒子的加速度先变小后变大</p><p>D．粒子在电场中的电势能先变小后变大</p>",
-        "answer": "A",
-        "scoring_rate": 0.8,
-        "average_score": 1,
-        "total_score": 2,
-        "question_bank_id": 2,
-        "classroom_id": 343,
-        "item": 0,
-        "exam_subject_id": 1024,
-        "school_id": 16,
-        "difficulty_level":0.94,
-        "tags":[
-                "集合的含义与表示",     
-            ]
-      }];
-   console.log(data);           
+            
+            console.log(data);           
 
           for(var i=0;i<data.length;i++){
             var tag="";
@@ -1654,11 +1779,15 @@ $.ajax({
                 $(".c_topic_ever_box").append('<a class="class_topic_ever"  style="background:#fb7d8a;">'+num+'</a>');
                 // var num_color="#fb7d8a";
              }
-
-              $(".c_list_ul").append('<div class="g_list_main"><div class="g_list_body">'+data[i].content+'</div><p class="g_list_lable"><a>年级得分率:<i style="font-style: normal;">'+s_rate+'%</i></a><a>年级平均分:<i style="font-style: normal;">'+data[i].average_score+'分</i></a><a>知识点:<i style="font-style: normal;">'+tag+'</i></a><a class="g_list_dif">难度系数:'+difficulty_body+'</a></p><div class="g_list_move"><a class="g_list_body_ans"  data-ans="'+data[i].answer+'"  data-ana="'+data[i].analysis+'"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a></div></div>');
+              $(".c_list_ul").append('<div class="c_list_main"><div class="c_list_body">'+data[i].content+'</div><p class="c_list_lable"><a>年级得分率:<i style="font-style: normal;">'+s_rate+'%</i></a><a>年级平均分:<i style="font-style: normal;">'+data[i].average_score+'分</i></a><a>知识点:<i style="font-style: normal;">'+tag+'</i></a><a class="c_list_dif">难度系数:'+difficulty_body+'</a></p><div class="c_list_move"><a class="c_list_body_ans" data-id="'+i+'"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a></div></div>');  
+            
+            }
   
-          }
 
+               
+            },
+            error:function(){
+            
         },
         });
 

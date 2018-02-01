@@ -363,14 +363,14 @@ $.ajax({
                   var t_score=0;
                  for(var q_b=0;q_b<qb_length;q_b++){
                    t_score=t_score+Number(data[i].answer_settings[q_b].score);
-                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list').append('<p><a style="margin-left: 40px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" disabled="disabled"  value="'+data[i].answer_settings[q_b].num+'"></a><a style="margin-left: 237px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].score+'" disabled="disabled"></a></p>');
+                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list').append('<p><a style="margin-left: 40px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" disabled="disabled"  value="'+data[i].answer_settings[q_b].num+'" id="look_id'+data[i].answer_settings[q_b].id+'"></a><a style="margin-left: 237px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].score+'" disabled="disabled"></a></p>');
                  }
                   $(".sub_sz_ul02 li").eq(i).find('.all_score').html(t_score);                      
                 }else if(data[i].answer.item=="作文题"||data[i].answer.item==4){
                   var x_score=0;
                   for(var q_b=0;q_b<qb_length;q_b++){
                      x_score=x_score+Number(data[i].answer_settings[q_b].score);
-                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list').append('<p style="padding-left:10px;"><a style="margin-left: 40px;">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].num+'"></a><a style="margin-left: 80px">数量<input disabled="disabled" style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].lattice_total+'"></a><a style="margin-left:70px;">分值<input disabled="disabled" style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].score+'"></a></p>');
+                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list').append('<p style="padding-left:10px;"><a style="margin-left: 40px;">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].num+'" id="look_id'+data[i].answer_settings[q_b].id+'"></a><a style="margin-left: 80px">数量<input disabled="disabled" style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].lattice_total+'"></a><a style="margin-left:70px;">分值<input disabled="disabled" style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].score+'"></a></p>');
                  
                  }
                 
