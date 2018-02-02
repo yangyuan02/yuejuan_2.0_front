@@ -2446,8 +2446,8 @@ color: #666666;
 /*<!-- 跨校对比分析  end-->*/
 select{
 	 outline: none;
-    border: 1px solid #ccc;
-    background: #fafafa;
+   /* border: 1px solid #ccc;*/
+   /* background: #fafafa;*/
 }
 .mark_num{
 	width: 60px;
