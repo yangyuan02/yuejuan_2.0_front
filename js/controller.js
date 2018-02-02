@@ -63,7 +63,7 @@ angular.module("myApp.controller", [])
                 },
                 data: {
                     "subject_id": c,
-                    "total_page":num,
+                    "page":num,
                 },
                 success: function(data) {
                     console.log(data.data);
@@ -122,8 +122,8 @@ function markxl01(c,num) {
                     'Authorization': "Bearer " + isLogin
                 },
                 data: {
-                    "subject_id": c,
-                    "total_page":num,
+                    "subject_id": null,
+                    "page":num,
                 },
                 success: function(data) {
                     console.log(data.data);
