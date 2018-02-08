@@ -118,8 +118,8 @@ function again_bang(){
                           $('#look_id'+data[i].answer_setting_id[i1]+'').css("color","#fb7d8a");
                            // 题组查看 end
                           $("#item-ul").children('li').eq(i).find('.bind-item-content').append('<i style="font-style: normal;" data-id="'+data[i].answer_setting_id[i1]+'">'+data[i].answer_setting_num[i1]+',</i>')
-                          $('.list_a_'+data[i].answer_setting_num[i1]+'').attr("data-id","3");
-                          $('.list_a_'+data[i].answer_setting_num[i1]+'').css({
+                          $('.list_a_'+data[i].answer_setting_id[i1]+'').attr("data-id","3");
+                          $('.list_a_'+data[i].answer_setting_id[i1]+'').css({
                             background: '#31bc91',
                             opacity: '0.5',
                             cursor: 'not-allowed'
@@ -232,7 +232,7 @@ function again_bang(){
                     $(".sub_bd02 select").append('<option value="">'+data[i].answer.answer_name+'</option>');
                   }
                   for(var i=0;i<data[0].answer_settings.length;i++){
-                    $(".sort_num_div").append('<a data-id="0" class="list_a_'+data[0].answer_settings[i].num+'" data_num="'+data[0].answer_settings[i].num+'" list_id="'+data[0].answer_settings[i].id+'">'+data[0].answer_settings[i].num+'<i class="iconfont" style="font-size: 12px;margin-left: 5px;"></i></a>');
+                    $(".sort_num_div").append('<a data-id="0" class="list_a_'+data[0].answer_settings[i].id+'" data_num="'+data[0].answer_settings[i].num+'" list_id="'+data[0].answer_settings[i].id+'">'+data[0].answer_settings[i].num+'<i class="iconfont" style="font-size: 12px;margin-left: 5px;"></i></a>');
                   }
                   again_bang();
                 },
@@ -260,13 +260,14 @@ function again_bang(){
                     $(".sort_num_div").html(" ");
                     console.log(data[dex].answer_settings.length);
                   for(var i=0;i<data[dex].answer_settings.length;i++){
-                    $(".sort_num_div").append('<a data-id="0" class="list_a_'+data[dex].answer_settings[i].num+'" data_num="'+data[dex].answer_settings[i].num+'" list_id="'+data[dex].answer_settings[i].id+'">'+data[dex].answer_settings[i].num+'<i class="iconfont" style="font-size: 12px;margin-left: 5px;"></i></a>');
+                    $(".sort_num_div").append('<a data-id="0" class="list_a_'+data[dex].answer_settings[i].id+'" data_num="'+data[dex].answer_settings[i].num+'" list_id="'+data[dex].answer_settings[i].id+'">'+data[dex].answer_settings[i].num+'<i class="iconfont" style="font-size: 12px;margin-left: 5px;"></i></a>');
                   }
                   var a=$(".list_i i").length;
                   for(var i=0;i<a;i++){
                     $('.'+$(".list_i i").eq(i).attr('id')+'').attr('data-id', '1');
                     $('.'+$(".list_i i").eq(i).attr('id')+'').css('background', '#31bc91');
                 }
+                 again_bang();
                 },
                 error: function(){
                 }
