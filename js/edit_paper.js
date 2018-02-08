@@ -77,10 +77,11 @@ function list_item(){
           var pp='<p>'+data[i].content+'</p>';
         }
        
-  			$('#item-ul').append('<li class="items" data-id="'+data[i].sort+'"  data-grade="'+data[i].grade_id+'" item-id="'+data[i].id+'"><i class="item-op "><a style="color: #666;">'+data[i].sort+'</a><a href="javascript:;" class="save-btn right"><i class="iconfont">&#xe653;</i>保存</a><a href="javascript:;" class="look-detail right"  data-num="'+i+'"  data-id="'+data[i].id+'"><i class="iconfont">&#xe699;</i>查看解析</a></i><div class="item-cont editor-enabled" contenteditable="true" data-id="'+data[i].id+'">'+pp+'</div><ul class="bottom-btn"><li><a class="item-edit" data-num="'+i+'"  data-id="'+data[i].id+'"><i class="iconfont">&#xe614;</i>题干编辑</a></li><li><a href="javascript:;" class="item-seg"><i class="iconfont">&#xe636;</i>分割试题</a></li><li><a href="javascript:;" class="item-insert"><i class="iconfont">&#xe601;</i>题组插入</a></li><li><a href="javascript:;" class="item-merge"><i class="iconfont">&#xe689;</i>向下合并</a></li><li style="display:none;"><a href="javascript:;" class="grade-set"><i class="iconfont">&#xe630;</i>设定分指</a></li><li><a href="javascript:;" class="item-up"><i class="iconfont">&#xe631;</i>上移</a></li><li><a href="javascript:;" class="item-down"><i class="iconfont">&#xe607;</i>下移</a></li><li><a href="javascript:;" class="item-dele" data-num="'+i+'" data-id="'+data[i].id+'"><i class="iconfont">&#xe616;</i>删除</a></li><li><a href="javascript:;" class="determine bind-item" data-id="'+data[i].id+'">绑定题组</a></li></ul></li>');
+  			$('#item-ul').append('<li class="items" data-id="'+data[i].sort+'"  data-grade="'+data[i].grade_id+'" item-id="'+data[i].id+'"><i class="item-op "><a style="color: #666;">'+data[i].sort+'</a><a href="javascript:;" class="save-btn right"><i class="iconfont">&#xe653;</i>保存</a><a href="javascript:;" class="look-detail right"  data-num="'+i+'"  data-id="'+data[i].id+'"><i class="iconfont">&#xe699;</i>查看解析</a></i><div class="item-cont editor-enabled" contenteditable="true" data-id="'+data[i].id+'">'+pp+'</div><ul class="bottom-btn"><li><a class="item-edit" data-num="'+i+'"  data-id="'+data[i].id+'"><i class="iconfont">&#xe614;</i>题干编辑</a></li><li><a href="javascript:;" class="item-seg"><i class="iconfont">&#xe636;</i>分割试题</a></li><li><a href="javascript:;" class="item-insert"><i class="iconfont">&#xe601;</i>题目插入</a></li><li><a href="javascript:;" class="item-merge"><i class="iconfont">&#xe689;</i>向下合并</a></li><li style="display:none;"><a href="javascript:;" class="grade-set"><i class="iconfont">&#xe630;</i>设定分指</a></li><li><a href="javascript:;" class="item-up"><i class="iconfont">&#xe631;</i>上移</a></li><li><a href="javascript:;" class="item-down"><i class="iconfont">&#xe607;</i>下移</a></li><li><a href="javascript:;" class="item-dele" data-num="'+i+'" data-id="'+data[i].id+'"><i class="iconfont">&#xe616;</i>删除</a></li><li><a class="bind-item-content"></a><a href="javascript:;" class="determine bind-item" data-id="'+data[i].id+'">绑定题组</a></li></ul></li>');
          
       
   		};
+      again_bang();
     },
     error: function(){
     	
@@ -99,25 +100,53 @@ function again_bang(){
                   data:{'docx_id':docx_id},
                   headers: {'Authorization': "Bearer " + isLogin},
                   success: function(data){
-                   // var data('name', 'value')
                    console.log(data);
                    var data_length=data.length;
                    var a=$('#item-ul li').length;
-                   for(var i1=0;i1<a;i1++){
-                    var item_id=$("#item-ul li").eq(i1).attr("item-id");
-                   for(var i=0;i<data_length;i++){
-                     
                   
-                      
-                      if(item_id==data[i].question_bank_id){
-                        // console.log(item_id);
-                         $("#item-ul li").eq(i1).find('.bind-item').html("更换绑定");
-                         $("#item-ul li").eq(i1).find('.bind-item').css("background","#fb7d8a");
-                          $("#item-ul li").eq(i1).find('.bind-item').attr("relation_id",data[i].id);
-                          $("#item-ul li").eq(i1).find('.bind-item').attr("answer_id",data[i].doc_answer_id);
+                   for(var i=0;i<data_length;i++){
+                      if(data[i].answer_setting_num.length!==0){
+                         $("#item-ul").children('li').eq(i).find('.bind-item').html("更换绑定");
+                         $("#item-ul").children('li').eq(i).find('.bind-item').css("background","#fb7d8a");
+                         $("#item-ul").children('li').eq(i).find('.bind-item-content').html("已绑定：");
+                         //删除隐藏
+                         $("#item-ul").children('li').eq(i).find('.item-dele').hide();
+                         for(var i1=0;i1<data[i].answer_setting_num.length;i1++){
+                          var list_cont=data[i].answer_setting_num+","+'&nbsp';
+                          // 题组查看
+                          $('#look_id'+data[i].answer_setting_id[i1]+'').css("border","2px solid #fb7d8a");
+                          $('#look_id'+data[i].answer_setting_id[i1]+'').css("color","#fb7d8a");
+                           // 题组查看 end
+                          $("#item-ul").children('li').eq(i).find('.bind-item-content').append('<i style="font-style: normal;" data-id="'+data[i].answer_setting_id[i1]+'">'+data[i].answer_setting_num[i1]+',</i>')
+                          $('.list_a_'+data[i].answer_setting_id[i1]+'').attr("data-id","3");
+                          $('.list_a_'+data[i].answer_setting_id[i1]+'').css({
+                            background: '#31bc91',
+                            opacity: '0.5',
+                            cursor: 'not-allowed'
+                          });; 
+                         }  
+                         // $("#item-ul").children('li').eq(i).find('.bind-item').prev().html('已绑定：'+list_cont+'');
+                         
+                      }else{
+                           $("#item-ul").children('li').eq(i).find('.bind-item').html("绑定题目");
+                         $("#item-ul").children('li').eq(i).find('.bind-item').css("background-image","linear-gradient(to right,#44d971,#31bc92)");
+                         $("#item-ul").children('li').eq(i).find('.bind-item').prev().html(' ');
+                         $("#item-ul").children('li').eq(i).find('.item-dele').show();
                       }
+
                    }
-                   }
+                     
+                        // $("#item-ul li").eq(2).find('.bind-item').html("更换绑定");
+                        //  $("#item-ul li").eq(2).find('.bind-item').css("background","#fb7d8a");
+                      
+                      // if(item_id==data[i].question_bank_id){
+                      //   // console.log(item_id);
+                      //    $("#item-ul li").eq(i1).find('.bind-item').html("更换绑定");
+                      //    $("#item-ul li").eq(i1).find('.bind-item').css("background","#fb7d8a");
+                      //     $("#item-ul li").eq(i1).find('.bind-item').attr("relation_id",data[i].id);
+                      //     $("#item-ul li").eq(i1).find('.bind-item').attr("answer_id",data[i].doc_answer_id);
+                      // }
+                 
                   },
                 error: function(){
     
@@ -150,116 +179,159 @@ function again_bang(){
         $(this).addClass('sub_bd02_ul01_li').siblings().removeClass('sub_bd02_ul01_li');
         });
     $("#item-ul").on('click', '.bind-item', function(event) {
-      $(".sub_bd_t").attr("data-answer"," ");
-      $(".sub_bd_t").attr("data-question"," ")
-       $(".sub_bd_t").attr("data-item"," ")
-      $(".sub_bd_t").attr("data-type",$(this).html());
-      $(".sub_bd_t").attr("relation_id",$(this).attr("relation_id"));
-      var answer_id=$(this).attr("answer_id");
-       $.ajax({
-                  type: "POST",
-                  url: ajaxIp+"/api/v2/answers/answers_for_exam_subject",
-                  data:{'exam_subject_id':exam_subject_id},
-                  headers: {'Authorization': "Bearer " + isLogin},
-                  success: function(data){
-                   $(".sub_bd02_ul01").html(" ");
-                   // $(".sub_bd02_ul02").html(" ");
-                    console.log(data);
-                     console.log(answer_id);
-                    var a=data.length;
-                    for(var i=0;i<a;i++){
-                      if(answer_id==data[i].id){
-                      $(".sub_bd02_ul01").append('<li class="sub_bd02_ul01_li" data-id="'+data[i].id+'" data-item="'+data[i].item+'"><a>'+data[i].name+'</a></li>');
-                      
-                      }else{
-                        $(".sub_bd02_ul01").append('<li  data-id="'+data[i].id+'" data-item="'+data[i].item+'"><a>'+data[i].name+'</a></li>');
-                      
-                      }
-                       
-                       // $(".sub_bd02_ul02").append('<li data-id="'+data[i].id+'" data-item="'+data[i].item+'"><i class="iconfont" style="">&#xe64b;</i></li>');
-                    
-                    }
-                  },
-                error: function(){
-    
-                 }
-               });
-       $(".sub_bd").attr("data-id",$(this).attr("data-id")); 
+      $(".list_i").html(" ");
        $(".sub_bd").show(); 
        $(".layer").css("height", $(document).height());
        $(".layer").show();
+       $(".sub_bd_t").attr('data-id', $(this).attr("data-id"));
+       var bank_id=$(this).attr("data-id");
+
+       if($(this).html()=="更换绑定"){
+        var i_lenght=$(this).prev().find('i').length;
+        console.log(i_lenght);
+        var a=[];
+       
+        for(var i=0;i<i_lenght;i++){
+        var b={};
+         b["id"]=$(this).prev().find('i').eq(i).attr("data-id");
+         b["question_bank_id"]=null;
+         a.push(b)
+        }
+        console.log(a);
+        $.ajax({
+                  type: "POST",
+                  async: false,
+                  url: ajaxIp+"/api/v2/question_banks/bind_answer",
+                  data:{
+                  'answer_settings':JSON.stringify(a),
+                  },
+                headers: {'Authorization': "Bearer " + isLogin},
+                success: function(data){
+                 // layer.msg('绑定成功',{time:700});
+                 // again_tizhu(); 
+                 again_bang();  
+                                 
+                },
+                error: function(){
+                }
+              });
+       }
+        $.ajax({
+                  type: "POST",
+                  async: false,
+                  url: ajaxIp+"/api/v2/question_banks/question_answers",
+                  data:{
+                  'exam_subject_id':exam_subject_id,
+                  },
+                headers: {'Authorization': "Bearer " + isLogin},
+                success: function(data){
+                  console.log(data);
+                   $(".sub_bd02 select").html(" ");
+                    $(".sort_num_div").html(" ");
+                  for(var i=0;i<data.length;i++){
+                    $(".sub_bd02 select").append('<option value="">'+data[i].answer.answer_name+'</option>');
+                  }
+                  for(var i=0;i<data[0].answer_settings.length;i++){
+                    $(".sort_num_div").append('<a data-id="0" class="list_a_'+data[0].answer_settings[i].id+'" data_num="'+data[0].answer_settings[i].num+'" list_id="'+data[0].answer_settings[i].id+'">'+data[0].answer_settings[i].num+'<i class="iconfont" style="font-size: 12px;margin-left: 5px;"></i></a>');
+                  }
+                  again_bang();
+                },
+                error: function(){
+                }
+              });
 
      });
+
+    $(".sub_bd02 select").change(function(event) {
+      /* Act on the event */
+      var dex=$(this).children('option:selected').index();
+      console.log(dex);
+ $.ajax({
+                  type: "POST",
+                  async: false,
+                  url: ajaxIp+"/api/v2/question_banks/question_answers",
+                  data:{
+                  'exam_subject_id':exam_subject_id,
+                  },
+                headers: {'Authorization': "Bearer " + isLogin},
+                success: function(data){
+                  
+                 
+                    $(".sort_num_div").html(" ");
+                    console.log(data[dex].answer_settings.length);
+                  for(var i=0;i<data[dex].answer_settings.length;i++){
+                    $(".sort_num_div").append('<a data-id="0" class="list_a_'+data[dex].answer_settings[i].id+'" data_num="'+data[dex].answer_settings[i].num+'" list_id="'+data[dex].answer_settings[i].id+'">'+data[dex].answer_settings[i].num+'<i class="iconfont" style="font-size: 12px;margin-left: 5px;"></i></a>');
+                  }
+                  var a=$(".list_i i").length;
+                  for(var i=0;i<a;i++){
+                    $('.'+$(".list_i i").eq(i).attr('id')+'').attr('data-id', '1');
+                    $('.'+$(".list_i i").eq(i).attr('id')+'').css('background', '#31bc91');
+                }
+                 again_bang();
+                },
+                error: function(){
+                }
+              });
+
+    });
+
    $(".sub_bd_p_div").click(function(event) {
       $(".sub_bd").hide();
       $(".layer").hide();
    });
    //绑定确定
-  $(".sub_bd_t").click(function(event) {
-      var a=parseInt($(".sub_bd_t").attr("data-answer"));
-      var b=parseInt($(".sub_bd_t").attr("data-question"));
-      var c=$(".sub_bd_t").attr("data-item");
-      var d=$(".sub_bd_t").attr("data-type");
-      var relation_id=$(".sub_bd_t").attr("relation_id");
-      if(d=="绑定题组"){
-      if(isNaN(a)){ //判断a是否等于nan只能用isNaN(a)；不能用a=NaN;
-           alert("请选择题组？");
-           }else{
-            $.ajax({
-                  type: "POST",
-                  url: ajaxIp+"/api/v2/question_banks/bind_answer",
-                  data:{'docx_id':docx_id,
-                  'answer_id':a,
-                  'question_bank_id':b,
-                  'exam_subject_id':exam_subject_id,
-                  'item':c,
-                },
-                headers: {'Authorization': "Bearer " + isLogin},
-                success: function(data){
-                  console.log(data);
-                   again_bang();
-                    
-                  },
-                error: function(){
-    
-                 }
-               });
-              $(".sub_bd").hide();
-              $(".layer").hide();
-      };
+  $(".sub_bd_t").click(function(event) {                
+$(".sub_bd").hide();
+$(".layer").hide();
+// again_bang();
+var a=[];
 
-      }else{
-      if(isNaN(a)){ //判断a是否等于nan只能用isNaN(a)；不能用a=NaN;
-           alert("请选择题组？");
-           }else{
-            $.ajax({
+for(var i=0;i<$(".list_i i").length;i++){
+ var b={};
+ b["id"]=$(".list_i i").eq(i).attr("data-id");
+ b["question_bank_id"]=$(this).attr("data-id");
+ a.push(b);
+}
+console.log(a);
+$.ajax({
                   type: "POST",
-                  url: ajaxIp+"/api/v2/question_banks/change_bind_answer",
-                  data:{'id':relation_id,
-                  'answer_id':a,
-                  'item':c,
-                },
+                  async: false,
+                  url: ajaxIp+"/api/v2/question_banks/bind_answer",
+                  data:{
+                  'answer_settings':JSON.stringify(a),
+                  },
                 headers: {'Authorization': "Bearer " + isLogin},
                 success: function(data){
-                  again_bang();
-                   
-                    
-                  },
+                 layer.msg('绑定成功',{time:700});
+                 again_bang();                   
+                },
                 error: function(){
-    
-                 }
-               });
-              $(".sub_bd").hide();
-              $(".layer").hide();
-      }
-      }
-      
+                }
+              });
+
+  
    });
    //绑定取消
   $(".sub_bd_f").click(function(event) {
       $(".sub_bd").hide();
       $(".layer").hide();
    });
+  $(".sort_num_div ").on('click', 'a', function(event) {
+    var id=$(this).attr("data-id");
+    var class_id=$(this).attr("class");
+    var num=$(this).attr("data_num");
+    if(id==0){
+    $(this).attr("data-id","1"); 
+   $(this).css("background","#31bc91");
+  $(".list_i").append('<i id="'+class_id+'" style="font-style:normal;" data-id="'+$(this).attr("list_id")+'">'+num+'，</i>') 
+ }else if(id==1){
+   $(this).attr("data-id","0"); 
+   $(this).css("background","#cccccc");
+   $('#'+$(this).attr("class")+'').remove();
+
+ }
+  });
+
     //题组设置
     function again_tizhu(){
       $.ajax({
@@ -274,98 +346,49 @@ function again_bang(){
                   console.log(data);
                   $(".sub_sz_ul02").html(" ");
                  var a=data.length;
-
+                   var  all_mark=0;
                  for(var i=0;i<a;i++){
-                  // if(data[i].answer.item=="单选题"){
-                  //   data[i].answer.item=0;
-                  // }else if(data[i].answer.item=="多选题"){
-                  //    data[i].answer.item=1;
-                  // }else if(data[i].answer.item=="填空题"){
-                  //    data[i].answer.item=2;
-                  // }else if(data[i].answer.item=="是非题"){
-                  //    data[i].answer.item=3;
-                  // }else if(data[i].answer.item=="其他题"){
-                  //    data[i].answer.item=4;
-                  // }else if(data[i].answer.item=="作文题"){
-                  //    data[i].answer.item=5;
-                  // }
-                 
-                    $(".sub_sz_ul02").append('<li data-name="'+data[i].answer.item+'" data-id="'+data[i].answer.id+'" data-sort="'+data[i].answer.num+'" ><select data-name="'+data[i].answer.item+'" ><option>单选题</option><option>多选题</option><option>填空题</option><option>是非题</option><option>其他题</option><option>作文题</option></select><input type="" name="" value="'+data[i].answer.answer_name+'"><a class="all_score"></a><i class="iconfont" data-id="0">&#xe622;</i><div class="sub_sz_list" style="overflow: auto;"><button data-id="'+data[i].answer.id+'"  style="float: right;width: 50px;height: 25px;color: #31bc91;text-align: center;line-height: 25px;margin-right: 68px;margin-top: 10px;background: #ffffff;">保存</button></div></li>');
+                    $(".sub_sz_ul02").append('<li><a>'+data[i].answer.item+'</a><a>'+data[i].answer.answer_name+'</a><a class="all_score"></a><i class="iconfont" data-id="0">&#xe622;</i><div class="sub_sz_list" style="overflow: auto;"></div></li>');
                   var qb_length=data[i].answer_settings.length;
-                  // console.log(data[2].question_banks.length);
+                
                  if(data[i].answer.item=="单选题"||data[i].answer.item=="多选题"||data[i].answer.item==0||data[i].answer.item==5){
+                 var d_score=0;
                  for(var q_b=0;q_b<qb_length;q_b++){
-                  if(data[i].answer_settings[q_b].score==undefined){
-                    data[i].answer_settings[q_b].score=0;
-                    }
-                    if(data[i].answer_settings[q_b].type_count==undefined){
-                    data[i].answer_settings[q_b].type_count=0;
-                    }
-                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p data-id="'+data[i].answer_settings[q_b].id+'" style="padding-left: 40px;box-sizing: border-box;" data-question="'+data[i].answer_settings[q_b].question_bank_id+'"><a style="">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].num+'"></a><a style="margin-left: 70px;">选项个数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].type_count+'"></a><a style="margin-left: 88px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;"  value="'+data[i].answer_settings[q_b].score+'"></a></p>');
+                    d_score=d_score+Number(data[i].answer_settings[q_b].score);
+                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list').append('<p style="padding-left: 40px;box-sizing: border-box;"><a style="">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].num+'" id="look_id'+data[i].answer_settings[q_b].id+'"></a><a style="margin-left: 70px;">选项个数<input disabled="disabled" style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].type_count+'"></a><a style="margin-left: 88px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;"  value="'+data[i].answer_settings[q_b].score+'" disabled="disabled"></a></p>');
                  };
+                 $(".sub_sz_ul02 li").eq(i).find('.all_score').html(d_score);
+                 
+
                  }else if(data[i].answer.item=="填空题"||data[i].answer.item=="是非题"||data[i].answer.item=="其他题"||data[i].answer.item==1||data[i].answer.item==2||data[i].answer.item==3){
+                  var t_score=0;
                  for(var q_b=0;q_b<qb_length;q_b++){
-                   if(data[i].answer_settings[q_b].score==undefined){
-                    data[i].answer_settings[q_b].score=0;
-                    }
-                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p data-id="'+data[i].answer_settings[q_b].id+'" data-question="'+data[i].answer_settings[q_b].question_bank_id+'"><a style="margin-left: 40px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" disabled="disabled"  value="'+data[i].answer_settings[q_b].num+'"></a><a style="margin-left: 237px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].score+'"></a></p>');
-                 }                       
+                   t_score=t_score+Number(data[i].answer_settings[q_b].score);
+                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list').append('<p><a style="margin-left: 40px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" disabled="disabled"  value="'+data[i].answer_settings[q_b].num+'" id="look_id'+data[i].answer_settings[q_b].id+'"></a><a style="margin-left: 237px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].score+'" disabled="disabled"></a></p>');
+                 }
+                  $(".sub_sz_ul02 li").eq(i).find('.all_score').html(t_score);                      
                 }else if(data[i].answer.item=="作文题"||data[i].answer.item==4){
+                  var x_score=0;
                   for(var q_b=0;q_b<qb_length;q_b++){
-                    if(data[i].answer_settings[q_b].score==undefined){
-                    data[i].answer_settings[q_b].score=0;
-                    }
-                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p data-id="'+data[i].answer_settings[q_b].id+'" style="padding-left:10px;" data-question="'+data[i].answer_settings[q_b].question_bank_id+'"><select name="" class="sub_sz_xz_select" data-id="'+data[i].answer_settings[q_b].template_format+'"><option value="">方格</option><option value="">行线</option><option value="">间隔线</option></select><a style="margin-left: 50px;">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].num+'"></a><a style="margin-left: 10pN">格数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].lattice_total+'"></a><a style="margin-left:60px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].score+'"></a></p>');
+                     x_score=x_score+Number(data[i].answer_settings[q_b].score);
+                  $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list').append('<p style="padding-left:10px;"><a style="margin-left: 40px;">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].num+'" id="look_id'+data[i].answer_settings[q_b].id+'"></a><a style="margin-left: 80px">数量<input disabled="disabled" style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].lattice_total+'"></a><a style="margin-left:70px;">分值<input disabled="disabled" style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].answer_settings[q_b].score+'"></a></p>');
                  
                  }
-                 var p_se_length=$(".sub_sz_ul02 li").eq(i).find('button').parent().find("p").length;
-                 console.log($(".sub_sz_ul02 li").eq(i).find('button').parent().find("p").length);
-
-                 console.log("zhao");
-                 for(var p_se=0;p_se<p_se_length;p_se++){
-                     var a_se=$(".sub_sz_ul02 li").eq(i).find('button').parent().find("p").eq(p_se).children('select').attr("data-id");
-                     if(a_se==1){
-                       var a_se01=0;
-                       $(".sub_sz_ul02 li").eq(i).find('button').parent().find("p").eq(p_se).children('select').find('option').eq(a_se01).attr("selected","selected");
-                     
-                     }else if(a_se==2){
-                       var a_se01=1;
-                       $(".sub_sz_ul02 li").eq(i).find('button').parent().find("p").eq(p_se).children('select').find('option').eq(a_se01).attr("selected","selected");
-                     
-                     }else if(a_se==3){
-                       var a_se01=2;
-                       $(".sub_sz_ul02 li").eq(i).find('button').parent().find("p").eq(p_se).children('select').find('option').eq(a_se01).attr("selected","selected");
-                     
-                     }
-                   
-
-                 } 
+                
+                  $(".sub_sz_ul02 li").eq(i).find('.all_score').html(x_score); 
+                
+                 
                 };
-                all_score();
-                // console.log("123456");
-                 // var num_a=$(".sub_sz_ul02 li").eq(i).children('select').find("option:selected").val();
-                 // console.log(num_a);
-                // $(".sub_sz_ul02 li").eq(i).children('select').find("option[text='多选题']").attr("selected",true);
-               
-                if(data[i].answer.item=="单选题"){
-                  var item_num=0;
-                   
-                  }else if(data[i].answer.item=="多选题"){
-                     var item_num=1;
-                  }else if(data[i].answer.item=="填空题"){
-                     var item_num=2;
-                  }else if(data[i].answer.item=="是非题"){
-                     var item_num=3;
-                  }else if(data[i].answer.item=="其他题"){
-                     var item_num=4;
-                  }else if(data[i].answer.item=="作文题"){
-                     var item_num=5;
-                  }
-                 $(".sub_sz_ul02 li").eq(i).children('select').find('option').eq(item_num).attr("selected","selected"); 
+                all_mark=all_mark+Number($(".sub_sz_ul02 li").eq(i).find('.all_score').html());
+                
+                
+                
                 
                 }
-                // console.log(data[0].answer_settings.length);                     
-                  },
+                console.log(all_mark);
+                $(".sub_score i").html(all_mark);
+                again_bang();
+                 },
                 error: function(){
     
                  }
@@ -379,525 +402,17 @@ function again_bang(){
       $(".layer").show();
        again_tizhu();
 
-   });
-$(".sub_sz_ul02").on('change', 'select', function(event) {
- var a=$(this).children('option:selected').val();
-     if(a=="单选题"){
-                  var item_num=0;
-                   
-                  }else if(a=="多选题"){
-                     var item_num=1;
-                  }else if(a=="填空题"){
-                     var item_num=2;
-                  }else if(a=="是非题"){
-                     var item_num=3;
-                  }else if(a=="其他题"){
-                     var item_num=4;
-                  }else if(a=="作文题"){
-                     var item_num=5;
-                  }
-$(this).find('option').eq(item_num).attr("selected","selected"); 
-                
-});
-     function all_score(){
-      var all_list_score=0;
-      var li_length=$('.sub_sz_ul02 li').length;
-      for(var a=0;a<li_length;a++){
-        var p_length=$('.sub_sz_ul02 li').eq(a).find('button').parent().find("p").length;
-       var li_name=$('.sub_sz_ul02 li').eq(a).attr("data-name");
-        var score=0;
-        if(li_name=="单选题"||li_name=="多选题"||li_name=="作文题"){
-      for(var i=0;i<p_length;i++){
-        var list_score=parseInt($('.sub_sz_ul02 li').eq(a).find('button').parent().find("p").eq(i).find('input').eq(2).val());
-        if(isNaN(list_score)){
-          score=score+0;
-        }else{
-         score=score+list_score;
-         
-        }
-        
-        // console.log(list_score);
-      }
-     $('.sub_sz_ul02 li').eq(a).find('button').parent().parent().find('.all_score').html(score);
-     }else if(li_name=="填空题"||li_name=="是非题"||li_name=="其他题"){
-     for(var i=0;i<p_length;i++){
-        var list_score=parseInt($('.sub_sz_ul02 li').eq(a).find('button').parent().find("p").eq(i).find('input').eq(1).val());
-        if(isNaN(list_score)){
-          score=score+0;
-        }else{
-         score=score+list_score;
-         
-        }
-        
-       
-      }
-      $('.sub_sz_ul02 li').eq(a).find('button').parent().parent().find('.all_score').html(score);
-    
-
-     };
-     all_list_score=all_list_score+parseInt(score);
-     console.log(score);
-      }
-    $(".sub_score i").html(all_list_score);
-    console.log(all_list_score);
-    // console.log(li_length);
-      
-
-
-     };
-
-
-     $(".sub_sz_ul02 ").on('click', 'button', function(event) {
-     //  console.log($(this).parent().find("p").length);
-     //  var p_length=$(this).parent().find("p").length;
-     //  var score=0;
-     //  for(var i=0;i<p_length;i++){
-     //      score=score+parseInt($(this).parent().find("p").eq(i).find('input').eq(2).val());
-     //  }
-     // $(this).parent().parent().find('.all_score').val(score);
-     //  console.log(score);
-       // console.log($(this).parent().find("p").eq(0).find('input').eq(2).val());
-        $(this).parent().prev().html('&#xe622;'); 
-        $(this).parent().prev().parent("li").removeClass('sub_i_li');
-        $(this).parent().prev().next('div').hide();
-        $(this).parent().prev().attr("data-id","0");
-       var name=$(this).parents('li').attr("data-name");
-      
-      all_score();
-
-      var p_length=$(this).parent().find("p").length;
-      var a_num=[];
-      if(name=="单选题"||name=="多选题"||name==0||name==5){
-      for(var i=0;i<p_length;i++){
-        var a={};      
-        var score=parseInt($(this).parent().find("p").eq(i).find('input').eq(2).val());
-        var type_count=parseInt($(this).parent().find("p").eq(i).find('input').eq(1).val());
-        var sort=parseInt($(this).parent().find("p").eq(i).find('input').eq(0).val());
-        var question_bank_id=parseInt($(this).parent().find("p").eq(i).attr("data-question"));
-        var id=parseInt($(this).parent().find("p").eq(i).attr("data-id"));
-        if(isNaN(id)){
-          id=null;
-        }
-        var answer_id=parseInt($(this).attr("data-id"));
-         var count=parseInt($(this).parent().find("p").length);
-          a["score"]=score;
-          a["type_count"]=type_count;
-          a["question_bank_id"]=question_bank_id;
-           a["id"]=id;
-          a["sort"]=sort;
-          a["num"]=sort;
-          a["doc_answer_id"]=answer_id;
-          a["exam_subject_id"]=exam_subject_id;
-          a["count"]=count;
-          a_num[i]=a;
-      }
-     console.log(a_num);
-    //   var a=[{'question_bank_id':73,'sort':7,'type_count':4,'score':2,'answer_id':2192,'exam_subject_id':516,'num':7,'count':3,},
-    // {'question_bank_id':74,'sort':8,'type_count':4,'score':2,'answer_id':2192,'exam_subject_id':516,'num':8,'count':3,}];
-    //  // console.log(a);
-     $.ajax({
-                  type: "POST",
-                  url: ajaxIp+"/api/v2/question_banks/save_answer_settings",
-                  data:{'answer_settings':JSON.stringify(a_num)},
-                  headers: {'Authorization': "Bearer " + isLogin},
-                  success: function(data){
-                     console.log(data);
-                     layer.msg('保存成功',{time:700});
-                  },
-                error: function(){
-    
-                 }
-               });
-   }else if(name=="填空题"||name=="是非题"||name=="其他题"||name==1||name==2||name==3){
-     for(var i=0;i<p_length;i++){
-        var a={};
-    
-        var score=parseInt($(this).parent().find("p").eq(i).find('input').eq(1).val());
-        var sort=parseInt($(this).parent().find("p").eq(i).find('input').eq(0).val());
-        var question_bank_id=parseInt($(this).parent().find("p").eq(i).attr("data-question"));
-        var id=parseInt($(this).parent().find("p").eq(i).attr("data-id"));
-        if(isNaN(id)){
-          id=null;
-        }
-        var answer_id=parseInt($(this).attr("data-id"));
-         var count=parseInt($(this).parent().find("p").length);
-          a["score"]=score;
-          a["question_bank_id"]=question_bank_id;
-          a["id"]=id;
-          a["sort"]=sort;
-          a["num"]=sort;
-          a["doc_answer_id"]=answer_id;
-          a["exam_subject_id"]=exam_subject_id;
-          a["count"]=count;
-          a_num[i]=a;
-      }
-     console.log(a_num);
-    //   var a=[{'question_bank_id':73,'sort':7,'type_count':4,'score':2,'answer_id':2192,'exam_subject_id':516,'num':7,'count':3,},
-    // {'question_bank_id':74,'sort':8,'type_count':4,'score':2,'answer_id':2192,'exam_subject_id':516,'num':8,'count':3,}];
-    //  // console.log(a);
-     $.ajax({
-                  type: "POST",
-                  url: ajaxIp+"/api/v2/question_banks/save_answer_settings",
-                  data:{'answer_settings':JSON.stringify(a_num)},
-                  headers: {'Authorization': "Bearer " + isLogin},
-                  success: function(data){
-                     console.log(data);
-                     layer.msg('保存成功',{time:700});
-                  },
-                error: function(){
-    
-                 }
-               });
-
-
-   }else if(name=="作文题"||name==4){
-    for(var i=0;i<p_length;i++){
-        var a={};
-     
-        var score=parseInt($(this).parent().find("p").eq(i).find('input').eq(2).val());
-        if(isNaN(score)){
-          score=0;
-        }
-        var template_format=$(this).parent().find("p").eq(i).find('select').children('option:selected').html();
-        if(template_format=="方格"){
-          template_format=1;
-        }else if(template_format=="行线"){
-          template_format=2;
-        }else if(template_format=="间隔线"){
-          template_format=3;
-        }
-        var sort=parseInt($(this).parent().find("p").eq(i).find('input').eq(0).val());
-        var lattice_total=parseInt($(this).parent().find("p").eq(i).find('input').eq(2).val());
-        var question_bank_id=parseInt($(this).parent().find("p").eq(i).attr("data-question"));
-        var id=parseInt($(this).parent().find("p").eq(i).attr("data-id"));
-        if(isNaN(id)){
-          id=null;
-        }
-        var answer_id=parseInt($(this).attr("data-id"));
-         var count=parseInt($(this).parent().find("p").length);
-          a["score"]=score;
-          a["question_bank_id"]=question_bank_id;
-          a["id"]=id;
-          a["sort"]=sort;
-          a["num"]=sort;
-          a["doc_answer_id"]=answer_id;
-          a["exam_subject_id"]=exam_subject_id;
-          a["count"]=count;
-          a["template_format"]=template_format;
-          a["lattice_total"]=lattice_total;
-          a_num[i]=a;
-      }
-     console.log(a_num);
-    //   var a=[{'question_bank_id':73,'sort':7,'type_count':4,'score':2,'answer_id':2192,'exam_subject_id':516,'num':7,'count':3,},
-    // {'question_bank_id':74,'sort':8,'type_count':4,'score':2,'answer_id':2192,'exam_subject_id':516,'num':8,'count':3,}];
-    //  // console.log(a);
-     $.ajax({
-                  type: "POST",
-                  url: ajaxIp+"/api/v2/question_banks/save_answer_settings",
-                  data:{'answer_settings':JSON.stringify(a_num)},
-                  headers: {'Authorization': "Bearer " + isLogin},
-                  success: function(data){
-                     console.log(data);
-                     layer.msg('保存成功',{time:700});
-                  },
-                error: function(){
-    
-                 }
-               });
-
-
-   }
-
-     });
-     $(".sub_sz_ul02 ").on('change', 'select', function(event) {
-      //alert();
-      var a=$(this).children('option:selected').html();
-      console.log($(this).children('option:selected').html());
-       if(a=="行线"){
-       $(this).next().next().find(".sub_sz_xz_i").html("行数");
-       }else if(a=="方格"){
-        $(this).next().next().find(".sub_sz_xz_i").html("格数");
-       }else if(a=="间隔线"){
-       $(this).next().next().find(".sub_sz_xz_i").html("单词数");
-       }
-
-     });
-//题组设置
-$(".sub_sz_ul02").on('click', 'li', function(event) {
+   });    
+  //题组查看设置
+    $(".sub_sz_ul02").on('click', 'li', function(event) {
           $(this).addClass('sub_li').siblings().removeClass('sub_li');
        
           
           $(".sub_sz_remove_t").attr("data-id",$(".sub_li").attr("data-id"))
         });
-        // 上移
-        $(".sub_top").click(function(event) {
-          // $(".sub_li").children('input').val($(".sub_li").children('input').val());
-          // alert($(".sub_li").children('input').val());
-          // var a=$(".sub_li").html();
-          // var b=$(".sub_li").prev().html();
-          // $(".sub_li").prev().html(a);
-          // $(".sub_li").html(b);
-          // $(".sub_li").prev().addClass('sub_li').siblings().removeClass('sub_li');
-        var a_change=[];
-        var a=$(".sub_li").attr("data-id");
-        var b=$(".sub_li").attr("data-sort");
-        var c=$(".sub_li").children('input').val();
-        var d=$(".sub_li").children('select').children('option:selected').val();
-        var a_1=$(".sub_li").prev().attr("data-id");
-        var b_1=$(".sub_li").prev().attr("data-sort");
-        var c_1=$(".sub_li").prev().children('input').val();
-        var d_1=$(".sub_li").prev().children('select').children('option:selected').val();
-        var a_change01={};
-        a_change01["id"]=a;
-        a_change01["sort"]=b_1;
-        a_change01["name"]=c;
-        a_change01["item"]=d;
        
-        var a_change02={};
-        a_change02["id"]=a_1;
-        a_change02["sort"]=b;
-        a_change02["name"]=c_1;
-        a_change02["item"]=d_1;
-        a_change[0]= a_change01;
-         a_change[1]= a_change02;
-        console.log(a_change);
-      $.ajax({
-                  type: "POST",
-                  async:false,
-                  url: ajaxIp+"/api/v2/answers/change_answers",
-                  data:{'answers':JSON.stringify(a_change)},
-                  headers: {'Authorization': "Bearer " + isLogin},
-                  success: function(data){
-                    again_tizhu();
-                  },
-                error: function(){
-    
-                 }
-               });
-          
-                    
-        });
-        // 下移
-        $(".sub_btm").click(function(event) {
-
-          // var a=$(".sub_li").html();
-          // var b=$(".sub_li").next().html();
-          // // var c_01=$(".sub_li").attr("data-id");
-          // // var c_02=$(".sub_li").next().attr("data-id");
-          // $(".sub_li").next().html(a);
-          // $(".sub_li").html(b);
-          //  $(".sub_li").next().addClass('sub_li').siblings().removeClass('sub_li');
-        var a_change=[];
-        var a=$(".sub_li").attr("data-id");
-        var b=$(".sub_li").attr("data-sort");
-        var c=$(".sub_li").children('input').val();
-        var d=$(".sub_li").children('select').children('option:selected').val();
-        var a_1=$(".sub_li").next().attr("data-id");
-        var b_1=$(".sub_li").next().attr("data-sort");
-        var c_1=$(".sub_li").next().children('input').val();
-        var d_1=$(".sub_li").next().children('select').children('option:selected').val();
-        var a_change01={};
-        a_change01["id"]=a;
-        a_change01["sort"]=b_1;
-        a_change01["name"]=c;
-        a_change01["item"]=d;
-       
-        var a_change02={};
-        a_change02["id"]=a_1;
-        a_change02["sort"]=b;
-        a_change02["name"]=c_1;
-        a_change02["item"]=d_1;
-        a_change[0]= a_change01;
-         a_change[1]= a_change02;
-        console.log(a_change);
-      $.ajax({
-                  type: "POST",
-                  async:false,
-                  url: ajaxIp+"/api/v2/answers/change_answers",
-                  data:{'answers':JSON.stringify(a_change)},
-                  headers: {'Authorization': "Bearer " + isLogin},
-                  success: function(data){
-                    again_tizhu();
-                  },
-                error: function(){
-    
-                 }
-               });
-          
-                    
       
-        });
-        //增加
-        $(".sub_add").click(function(event) {
-            var a="单选题";
-           var b=null;
-         $.ajax({
-                  type: "POST",
-                  async: false,
-                  url: ajaxIp+"/api/v2/answers/answers_for_exam_subject",
-                  data:{'exam_subject_id':exam_subject_id},
-                  headers: {'Authorization': "Bearer " + isLogin},
-                  success: function(data){
-                  
-                   
-                    var a_num=data.length+1;
-                    console.log(a_num);
-                   t_zhu(a_num,a,b);
-                   
-                  },
-                error: function(){
-    
-                 }
-               });
-        function t_zhu(a_num,a,b){
-       $.ajax({
-                  type: "POST",
-                  async: false,
-                  url: ajaxIp+"/api/v2/question_banks/add_answer",
-                  data:{
-                  'exam_subject_id':exam_subject_id,
-                  'item':a,
-                  'name':b,
-                  'sort':a_num,
-                  },
-                headers: {'Authorization': "Bearer " + isLogin},
-                success: function(data){
-                  console.log(data);
-                   
-                    
-                  },
-                error: function(){
-    
-                 }
-               });
-       }
-       //重新访问题组
-       again_tizhu();
 
-        });
-//重新访问题组
-// function again_tizhu(){
-//         $.ajax({
-//                   type: "POST",
-//                   async: false,
-//                   url: ajaxIp+"/api/v2/question_banks/question_answers",
-//                   data:{
-//                   'exam_subject_id':exam_subject_id,
-//                   },
-//                 headers: {'Authorization': "Bearer " + isLogin},
-//                 success: function(data){
-//                   console.log(data);
-//                   $(".sub_sz_ul02").html(" ");  
-//                  var a=data.length;
-          
-//                  for(var i=0;i<a;i++){
-                  
-//                     $(".sub_sz_ul02").append('<li data-name="'+data[i].answer.item+'" data-id="'+data[i].answer.id+'"  data-sort="'+data[i].answer.sort+'" ><select data-name="'+data[i].answer.item+'" ><option>单选题</option><option>多选题</option><option>填空题</option><option>是非题</option><option>其他题</option><option>作文题</option></select><input type="" name="" value="'+data[i].answer.answer_name+'"><a class="all_score"></a><i class="iconfont" data-id="0">&#xe622;</i><div class="sub_sz_list" style="overflow: auto;"><button data-id="'+data[i].answer.id+'"  style="float: right;width: 50px;height: 25px;color: #31bc91;text-align: center;line-height: 25px;margin-right: 68px;margin-top: 10px;">保存</button></div></li>');
-//                   var qb_length=data[i].question_banks.length;
-//                  if(data[i].answer.item=="单选题"||data[i].answer.item=="多选题"){
-//                  for(var q_b=0;q_b<qb_length;q_b++){
-//                   if(data[i].question_banks[q_b].score==undefined){
-//                     data[i].question_banks[q_b].score=0;
-//                     }
-//                     if(data[i].question_banks[q_b].type_count==undefined){
-//                     data[i].question_banks[q_b].type_count=0;
-//                     }
-//                   $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p data-id="'+data[i].question_banks[q_b].id+'" style="padding-left: 40px;box-sizing: border-box;" data-question="'+data[i].question_banks[q_b].question_bank_id+'"><a style="">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].sort+'"></a><a style="margin-left: 70px;">选项个数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].type_count+'"></a><a style="margin-left: 88px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;"  value="'+data[i].question_banks[q_b].score+'"></a></p>');
-//                  };
-//                  }else if(data[i].answer.item=="填空题"||data[i].answer.item=="是非题"||data[i].answer.item=="其他题"){
-//                  for(var q_b=0;q_b<qb_length;q_b++){
-//                    if(data[i].question_banks[q_b].score==undefined){
-//                     data[i].question_banks[q_b].score=0;
-//                     }
-//                   $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p data-id="'+data[i].question_banks[q_b].id+'" data-question="'+data[i].question_banks[q_b].question_bank_id+'"><a style="margin-left: 40px;">序号<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" disabled="disabled"  value="'+data[i].question_banks[q_b].sort+'"></a><a style="margin-left: 237px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].score+'"></a></p>');
-//                  }                       
-//                 }else if(data[i].answer.item=="作文题"){
-//                   for(var q_b=0;q_b<qb_length;q_b++){
-//                     if(data[i].question_banks[q_b].score==undefined){
-//                     data[i].question_banks[q_b].score=0;
-//                     }
-//                   $(".sub_sz_ul02 li").eq(i).find('.sub_sz_list button').before('<p data-id="'+data[i].question_banks[q_b].id+'" style="padding-left:10px;" data-question="'+data[i].question_banks[q_b].question_bank_id+'"><select name="" class="sub_sz_xz_select"><option value="">方格</option><option value="">行线</option><option value="">间隔线</option></select><a style="margin-left: 50px;">序号<input disabled="disabled"  style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].sort+'"></a><a style="margin-left: 10pN">格数<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].lattice_total+'"></a><a style="margin-left:60px;">分值<input style="width: 25px;height: 25px;border-radius: 2px;border: 1px solid #ccc;margin-left: 5px;text-align: center;" value="'+data[i].question_banks[q_b].score+'"></a></p>');
-//                  }
-//                  var p_se_length=$(".sub_sz_ul02 li").eq(i).find('button').parent().find("p").length;
-//                  console.log($(".sub_sz_ul02 li").eq(i).find('button').parent().find("p").length);
-
-//                  console.log("zhao");
-//                  for(var p_se=0;p_se<p_se_length;p_se++){
-//                      var a_se=$(".sub_sz_ul02 li").eq(i).find('button').parent().find("p").eq(p_se).children('select').attr("data-id");
-//                      if(a_se==1){
-//                        var a_se01=0;
-//                        $(".sub_sz_ul02 li").eq(i).find('button').parent().find("p").eq(p_se).children('select').find('option').eq(a_se01).attr("selected","selected");
-                     
-//                      }else if(a_se==2){
-//                        var a_se01=1;
-//                        $(".sub_sz_ul02 li").eq(i).find('button').parent().find("p").eq(p_se).children('select').find('option').eq(a_se01).attr("selected","selected");
-                     
-//                      }else if(a_se==3){
-//                        var a_se01=2;
-//                        $(".sub_sz_ul02 li").eq(i).find('button').parent().find("p").eq(p_se).children('select').find('option').eq(a_se01).attr("selected","selected");
-                     
-//                      }
-                   
-
-//                  }   
-//                 };
-//                 all_score();
-//                 if(data[i].answer.item=="单选题"){
-//                   var item_num=0;
-                   
-//                   }else if(data[i].answer.item=="多选题"){
-//                      var item_num=1;
-//                   }else if(data[i].answer.item=="填空题"){
-//                      var item_num=2;
-//                   }else if(data[i].answer.item=="是非题"){
-//                      var item_num=3;
-//                   }else if(data[i].answer.item=="其他题"){
-//                      var item_num=4;
-//                   }else if(data[i].answer.item=="作文题"){
-//                      var item_num=5;
-//                   }
-//                  $(".sub_sz_ul02 li").eq(i).children('select').find('option').eq(item_num).attr("selected","selected"); 
-                
-//                 }
-//                 // console.log(data[0].question_banks.length);                     
-//                   },
-//                 error: function(){
-    
-//                  }
-//                }); 
-// }
-        // 删除
-        $(".sub_hide").click(function(event) {
-          $(".sub_sz_remove").show();
-          $(".sub_sz_remove_p03 a").html($(".sub_li input").eq(1).val());
-          console.log($("#item-ul .items").length);
-
-        });
-        $(".sub_sz_remove_x").click(function(event) {
-          $(".sub_sz_remove").hide();
-        });
-        $(".sub_sz_remove_t").click(function(event) {
-          var a=$(".sub_li").attr("data-id");
-          $(".sub_li").remove();
-          $(".sub_sz_remove").hide();  
-          console.log(a);
-          $.ajax({
-                  type: "POST",
-                  url: ajaxIp+"/api/v2/question_banks/delete_answer",
-                  data:{'id':a},
-                  headers: {'Authorization': "Bearer " + isLogin},
-                  success: function(data){
-                   again_tizhu();
-                    // window.location.reload();
-                  },
-                error: function(){
-    
-                 }
-               });
-        });
-        $(".sub_sz_remove_f").click(function(event) {
-          $(".sub_sz_remove").hide();
-        });
         // 下拉
         $(".sub_sz_ul02").on('click', 'i', function(event) {
           
@@ -942,52 +457,44 @@ function ans_sort(a,b){
 
   $(".sub_t").click(function(event) {
      $(".sub_sz").hide();
-      $(".layer").hide();
-      var li_length=$(".sub_sz_ul02 li").length;
-      console.log($(".sub_sz_ul02 li").length);
-      var a_change=[];
-      for(var i=0;i<li_length;i++){
-        var a=$(".sub_sz_ul02 li").eq(i).attr("data-id");
-        var b=i+1;
-        console.log($(".sub_sz_ul02 li").eq(i).attr("data-id"));
-        // ans_sort(a,b);
-        
-        var c=$(".sub_sz_ul02 li").eq(i).children('input').val();
-        var d=$(".sub_sz_ul02 li").eq(i).children('select').children('option:selected').val();
-        var a_change01={};
-        a_change01["id"]=a;
-        a_change01["sort"]=b;
-        a_change01["name"]=c;
-        a_change01["item"]=d;
-        a_change[i]= a_change01;
-
-      }
-      console.log(a_change);
-      $.ajax({
-                  type: "POST",
-                  url: ajaxIp+"/api/v2/answers/change_answers",
-                  data:{'answers':JSON.stringify(a_change)},
-                  headers: {'Authorization': "Bearer " + isLogin},
-                  success: function(data){
-                     console.log(data);
-                  },
-                error: function(){
-    
-                 }
-               });
-     
+      $(".layer").hide();    
    });
   //取消
   $(".sub_f").click(function(event) {
      $(".sub_sz").hide();
       $(".layer").hide();
    });
-  //题组插入
+  //题目插入
   $("#item-ul").on('click', '.item-insert', function(event) {
-       $(".title_in").show(); 
-       $(".layer").css("height", $(document).height());
-       $(".layer").show();
-
+       // $(".title_in").show(); 
+       // $(".layer").css("height", $(document).height());
+       // $(".layer").show();
+       var  grade_id=$(this).parents(".items").attr("data-grade");
+       var  sort=Number($(this).parents(".items").attr("data-id"))+0.5;
+       console.log(sort);
+      // console.log($(this).parents(".items").attr("data-grade"));
+       $.ajax({
+                  type: "POST",
+                  async:false,
+                  url: ajaxIp+"/api/v2/question_banks",
+                  data:{'content':null,
+                         'docx_id':docx_id,
+                         'sort':sort,
+                         'grade_id':grade_id,
+                  },
+                  headers: {'Authorization': "Bearer " + isLogin},
+                  success: function(data){ 
+                  console.log(data);                 
+                    // window.location.reload()
+                     $("#item-ul").html(" ");
+                    list_item();
+                    // again_bang();11111
+                  },
+                error: function(){
+    
+                 }
+               });
+       
      });
   $(".title_on").click(function(event) {
     var a=$(".title_in_p02 select").children('option:selected').html();
@@ -1397,7 +904,7 @@ $("#item-ul").on('mouseup', 'p', function() {
        // var a =$("#item-ul .items").length-1;
       
       console.log(new_sort);
-      var new_sorts=parseInt(new_sort)+1;
+      var new_sorts=parseInt(new_sort)+0.5;
       console.log(new_sorts);
        $.ajax({
                   type: "POST",

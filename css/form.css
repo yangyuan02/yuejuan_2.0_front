@@ -2446,8 +2446,8 @@ color: #666666;
 /*<!-- 跨校对比分析  end-->*/
 select{
 	 outline: none;
-    border: 1px solid #ccc;
-    background: #fafafa;
+ /* border: 1px solid #ccc;*/
+ /* background: #fafafa;*/
 }
 .mark_num{
 	width: 60px;
@@ -2458,6 +2458,7 @@ select{
 .page {
  display: inline-block;
  margin: 0 auto;
+
 }
 .page li{
  float: left;
@@ -2472,9 +2473,10 @@ select{
 	margin: 5px;
 	border-radius:2px;
 	font-size: 12px;
+	background: #ffffff;
 }
 .num_color{
-   background: #31bc91;
+   background: #31bc91 !important;
    color:#ffffff !important; 
 }
 .page_div{
@@ -2499,6 +2501,5 @@ select{
     border-color: #ddd;
     cursor: not-allowed;
 }
-
 
 

@@ -1062,10 +1062,10 @@ z-index: 11;
 	color:#31bc91; 
 }
 .c_ans01{
-	width: 540px;height: 120px;border: 1px solid #cccccc;
+	width: 540px;height: 120px;border: 1px solid #cccccc;overflow: auto;
 }
 .c_ans02{
-	width: 540px;height: 120px;border: 1px solid #cccccc;
+	width: 540px;height: 120px;border: 1px solid #cccccc;overflow: auto;
 }
 .c_ans_line{
 	height:1px;width: 540px;background: #cccccc;margin-top: 30px;margin-bottom: 20px;
