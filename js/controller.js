@@ -62,7 +62,7 @@ angular.module("myApp.controller", [])
                     'Authorization': "Bearer " + isLogin
                 },
                 data: {
-                    "subject_id": c,
+                    "subject_id":c,
                     "page":num,
                 },
                 success: function(data) {
