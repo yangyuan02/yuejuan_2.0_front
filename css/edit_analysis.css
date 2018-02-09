@@ -133,9 +133,9 @@
 	background: #31bc91;
 	padding:4px 8px;
 }
-.main_content p img{
-    display: inline-block;
-    vertical-align: middle;
+.main_content img{
+    display:inline-block !important; 
+    vertical-align: middle !important;
 }
     
 
