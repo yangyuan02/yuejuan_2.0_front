@@ -1093,3 +1093,13 @@ z-index: 11;
 	display: inline-block;
     vertical-align: middle;
 }
+.c_list_body img{
+    display: inline-block;
+    vertical-align: middle;
+}
+.g_list_body img{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+

@@ -414,6 +414,7 @@
             complete: function(){
 
                   $(".load-bg").hide();
+
                 },
             error:function() {
                $(".load-bg").hide();
@@ -470,6 +471,7 @@ $.ajax({
             },
             success: function(data) {
                console.log(data);
+                layer.msg('生成成功',{time:700});
             },
             error: function(data) {
 
@@ -832,6 +834,7 @@ $(".class_make_wrong").click(function(event) {
             },
             success: function(data) {
                console.log(data);
+                layer.msg('生成成功',{time:700});
             },
             error: function(data) {
 
@@ -1779,7 +1782,7 @@ $.ajax({
                 $(".c_topic_ever_box").append('<a class="class_topic_ever"  style="background:#fb7d8a;">'+num+'</a>');
                 // var num_color="#fb7d8a";
              }
-              $(".c_list_ul").append('<li><div class="c_list_main"><div class="c_list_body">'+data[i].content+'</div><p class="c_list_lable"><a>年级得分率:<i style="font-style: normal;">'+s_rate+'%</i></a><a>年级平均分:<i style="font-style: normal;">'+data[i].average_score+'分</i></a><a>知识点:<i style="font-style: normal;">'+tag+'</i></a><a class="c_list_dif">难度系数:'+difficulty_body+'</a></p><div class="c_list_move"><a class="c_list_body_ans" data-id="'+i+'"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a></div></div></li>');  
+              $(".c_list_ul").append('<li><div class="c_list_main"><div class="c_list_body">'+data[i].content+'</div><p class="c_list_lable"><a>班级得分率:<i style="font-style: normal;">'+s_rate+'%</i></a><a>班级平均分:<i style="font-style: normal;">'+data[i].average_score+'分</i></a><a>知识点:<i style="font-style: normal;">'+tag+'</i></a><a class="c_list_dif">难度系数:'+difficulty_body+'</a></p><div class="c_list_move"><a class="c_list_body_ans" data-id="'+i+'"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a></div></div></li>');  
             
             }
   
