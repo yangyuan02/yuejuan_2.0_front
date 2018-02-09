@@ -335,10 +335,13 @@ $(".edit_zs").on('click', 'li  i', function(event) {
             $(".edit_li_div03_btn01").click(function(event) {
               /* Act on the event */
               $(".edit_li_div03").slideUp(500);
+              $(".edit_li_btn03").attr("data-id","0");
+
             });
             $(".edit_li_div03_btn02").click(function(event) {
               /* Act on the event */
               $(".edit_li_div03").slideUp(500);
+              $(".edit_li_btn03").attr("data-id","0");
             });
       $(".edit_li_btn03").click(function(event) {
               /* Act on the event */
@@ -695,7 +698,7 @@ $.ajax({
          headers: { 'Authorization': "Bearer " + isLogin },
          success: function(data) {
          console.log(data);
-       $(".neng_box_choose02").html(" ");
+        $(".neng_box_choose02").html(" ");
          // window.location.reload();
          for(var i=0;i<data.length;i++){
          $(".neng_box_choose02").append('<a id="nengli_choose'+data[i].id+'"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" data-id="'+data[i].id+'"><i>'+data[i].name+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
@@ -798,10 +801,12 @@ $(".nengl_quan").click(function(event) {
           $(".neng_btn01").click(function(event) {
             /* Act on the event */
             $(".nengli_box").slideUp(500);
+             $(".edit_li_btn04").attr("data-id","0");
           });
           $(".neng_btn02").click(function(event) {
             /* Act on the event */
             $(".nengli_box").slideUp(500);
+             $(".edit_li_btn04").attr("data-id","0");
           });
          //错因
     $(".edit_li_btn05").click(function(event) {
@@ -851,7 +856,7 @@ $(this).attr("data-id","1");
          success: function(data) {
          console.log(data);
          $(".wrong_z_02").html(" ");
-          $(".wrong_fz_02").html(" ");
+        $(".wrong_fz_02").html(" ");
          for(var i=0;i<data.z_reason_labels.length;i++){
          $(".wrong_z_02").append('<a id="wrong_choose'+data.z_reason_labels[i].id+'"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" data-id="0" num-id="'+data.z_reason_labels[i].id+'"><i style="font-style: normal;">'+data.z_reason_labels[i].name+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
          $('.wrong_choose'+data.z_reason_labels[i].id+'').css("background","#31bc92");
@@ -960,9 +965,11 @@ $.ajax({
  //           });
    $(".wrong_box_btn01").click(function(event) {
       $(".wrong_box").slideUp(500);
+       $(".edit_li_btn05").attr("data-id","0");
    });
    $(".wrong_box_btn02").click(function(event) {
       $(".wrong_box").slideUp(500);
+       $(".edit_li_btn05").attr("data-id","0");
    });
 //添加新标签
 $(".edit_li_btn06_add").click(function(event) {
