@@ -795,8 +795,48 @@ function markxl01(c,num) {
             var num=parseInt($(".num_color").html());
             markxl01(mark_01_select_a,num);
       }
+     if( $(".num_color").html()==1){
+            $(".prev_page").attr('id', 'disableClass');
+            $(".start_page").attr('id', 'disableClass');
+        if($(".num_color").html()!=$(".page_div").attr("total_page")){
+           $(".end_page").removeAttr('id');
+            $(".next_page").removeAttr('id');
+            $(".prev_page").attr('id', 'disableClass');
+            $(".start_page").attr('id', 'disableClass');
+        }else{
+            $(".prev_page").attr('id', 'disableClass');
+            $(".start_page").attr('id', 'disableClass');
+            $(".end_page").attr('id', 'disableClass');
+            $(".next_page").attr('id', 'disableClass');
+          
+        }
+          
+            
+        }
+      if( $(".num_color").html()==$(".page_div").attr("total_page")){
+        if($(".num_color").html()!=1){
+           $(".prev_page").removeAttr('id');
+            $(".start_page").removeAttr('id');
+            $(".end_page").attr('id', 'disableClass');
+            $(".next_page").attr('id', 'disableClass');
+        }else{
+           $(".prev_page").attr('id', 'disableClass');
+            $(".start_page").attr('id', 'disableClass');
+            $(".end_page").attr('id', 'disableClass');
+            $(".next_page").attr('id', 'disableClass');
 
+        }
+           
+            
+        }
+        if($(".num_color").html()!=1&&$(".num_color").html()!=$(".page_div").attr("total_page")){
+         $(".prev_page").removeAttr('id');
+         $(".start_page").removeAttr('id');
+         $(".end_page").removeAttr('id');
+         $(".next_page").removeAttr('id');
+        }
      });
+      // alert($(".num_color").html());
       if( $(".num_color").html()==1){
             $(".prev_page").attr('id', 'disableClass');
             $(".start_page").attr('id', 'disableClass');
