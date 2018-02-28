@@ -50,7 +50,7 @@
 
   $('.login-btn').on('click', function(){
 
-      if(IEVersion()==-1){//是否为ie浏览器
+      if(IEVersion()==0){//是否为ie浏览器
           alert("请下载谷歌浏览器或者360极速浏览器")
           return false
       }
