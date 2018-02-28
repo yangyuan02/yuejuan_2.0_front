@@ -37,7 +37,7 @@
          }
      }
 
-     if(IEVersion()==0){//是否为ie浏览器eeeaaaa
+     if(IEVersion()==0){//是否为ie浏览器eeeaaaaqqqq
          alert("请下载谷歌浏览器或者360极速浏览器")
          return false
      }
