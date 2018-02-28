@@ -27,7 +27,7 @@ var height = $(window).height()-$('#header').height()-$('#footer').height()-180;
   var exam_subject_id = getUrlParam(url,'exam_subject_id');
   var exam_name = getUrlParam(url,'exam_name');
   var subject_name = getUrlParam(url,'subject_name');
-  var grade_name = getUrlParam(url,'grade_name');
+   var grade_name = getUrlParam(url,'grade_name');
   // $(".edit_li_sub").html(subject_name);
   // $(".edit_li_grade").html(grade_name);
   // var left_tab = getUrlParam(url,'left_tab');
@@ -52,7 +52,8 @@ var height = $(window).height()-$('#header').height()-$('#footer').height()-180;
 //   });
 $(".p_top a").click(function(event) {
 // $(this).attr('href', 'edit_paper?docx_id='+docx_id+'&exam_subject_id='+exam_subject_id+'&exam_name='+exam_name+'&subject_name='+subject_name+'&_dc='+new Date().getTime()+'');
-    history.go(-1);
+ 
+ history.go(-1);
     return false;
 });
 
@@ -334,10 +335,13 @@ $(".edit_zs").on('click', 'li  i', function(event) {
             $(".edit_li_div03_btn01").click(function(event) {
               /* Act on the event */
               $(".edit_li_div03").slideUp(500);
+              $(".edit_li_btn03").attr("data-id","0");
+
             });
             $(".edit_li_div03_btn02").click(function(event) {
               /* Act on the event */
               $(".edit_li_div03").slideUp(500);
+              $(".edit_li_btn03").attr("data-id","0");
             });
       $(".edit_li_btn03").click(function(event) {
               /* Act on the event */
@@ -349,20 +353,24 @@ $(".edit_zs").on('click', 'li  i', function(event) {
              var subject_id=parseInt($(".edit_li_div03").attr("subject_id"));
           console.log(grade_id);
           $(".edit_li_div03").slideDown(500);
-    var version=$(".edit_li_div03_p02 select").children('option:selected').val();
-  if(version=="人教版"){
-   var type="standard_edition";
+   var version=$(".edit_li_div03_p02 select").children('option:selected').val();
+  if(version=="人教A版"){
+   var type="standard_edition_A";
   }else if(version=="沪教版"){
      var type="shanghai_edition";
+   }else if(version=="人教B版"){
+     var type="standard_edition_B";
    }
-          $.ajax({
+   console.log("11111");
+    console.log(type);
+    $.ajax({
          type: "GET",
          async:false,
          url: ajaxIp + "/api/v2/sync_knowledge_points",
          data: {
              'grade_id':grade_id,
              'subject_id': subject_id,
-              'version':type,
+            'version':type,
          },
          headers: { 'Authorization': "Bearer " + isLogin },
          success: function(data) {
@@ -450,10 +458,12 @@ $(".edit_zs").on('click', 'li  i', function(event) {
 
 $(".edit_li_div03_p02 select").change(function(event) {
   var version=$(this).children('option:selected').val();
-  if(version=="人教版"){
-   var type="standard_edition";
+  if(version=="人教A版"){
+   var type="standard_edition_A";
   }else if(version=="沪教版"){
      var type="shanghai_edition";
+   }else if(version=="人教B版"){
+     var type="standard_edition_B";
    }
     var grade_id=parseInt($(".edit_li_div03").attr("grade-id"));
              var subject_id=parseInt($(".edit_li_div03").attr("subject_id"));
@@ -688,7 +698,7 @@ $.ajax({
          headers: { 'Authorization': "Bearer " + isLogin },
          success: function(data) {
          console.log(data);
-       $(".neng_box_choose02").html(" ");
+        $(".neng_box_choose02").html(" ");
          // window.location.reload();
          for(var i=0;i<data.length;i++){
          $(".neng_box_choose02").append('<a id="nengli_choose'+data[i].id+'"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" data-id="'+data[i].id+'"><i>'+data[i].name+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
@@ -791,10 +801,12 @@ $(".nengl_quan").click(function(event) {
           $(".neng_btn01").click(function(event) {
             /* Act on the event */
             $(".nengli_box").slideUp(500);
+             $(".edit_li_btn04").attr("data-id","0");
           });
           $(".neng_btn02").click(function(event) {
             /* Act on the event */
             $(".nengli_box").slideUp(500);
+             $(".edit_li_btn04").attr("data-id","0");
           });
          //错因
     $(".edit_li_btn05").click(function(event) {
@@ -844,7 +856,7 @@ $(this).attr("data-id","1");
          success: function(data) {
          console.log(data);
          $(".wrong_z_02").html(" ");
-          $(".wrong_fz_02").html(" ");
+        $(".wrong_fz_02").html(" ");
          for(var i=0;i<data.z_reason_labels.length;i++){
          $(".wrong_z_02").append('<a id="wrong_choose'+data.z_reason_labels[i].id+'"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" data-id="0" num-id="'+data.z_reason_labels[i].id+'"><i style="font-style: normal;">'+data.z_reason_labels[i].name+'</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
          $('.wrong_choose'+data.z_reason_labels[i].id+'').css("background","#31bc92");
@@ -953,9 +965,11 @@ $.ajax({
  //           });
    $(".wrong_box_btn01").click(function(event) {
       $(".wrong_box").slideUp(500);
+       $(".edit_li_btn05").attr("data-id","0");
    });
    $(".wrong_box_btn02").click(function(event) {
       $(".wrong_box").slideUp(500);
+       $(".edit_li_btn05").attr("data-id","0");
    });
 //添加新标签
 $(".edit_li_btn06_add").click(function(event) {
