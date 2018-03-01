@@ -414,6 +414,7 @@
             complete: function(){
 
                   $(".load-bg").hide();
+
                 },
             error:function() {
                $(".load-bg").hide();
@@ -470,6 +471,7 @@ $.ajax({
             },
             success: function(data) {
                console.log(data);
+                layer.msg('生成成功',{time:700});
             },
             error: function(data) {
 
@@ -666,7 +668,7 @@ $.ajax({
               
               }   
                   
-                 $(".class_list_ul").append(' <li class="wrong_class_li'+data[i][i_1].question_bank_id+'" bank_id="'+data[i][i_1].question_bank_id+'" total_score="'+data[i][i_1].total_score+'"  average_score="'+data[i][i_1].average_score+'" scoring_rate="'+data[i][i_1].scoring_rate+'"  item="'+data[i][i_1].item+'" exam_subject_id="'+data[i][i_1].exam_subject_id+'"><div class="class_list_main"><div class="class_list_body">'+data[i][i_1].content+'</div><p class="class_list_lable"><a>年级得分率:<i>'+scoring_rate+'</i></a><a>年级平均分:<i>'+data[i][i_1].average_score+'分</i></a><a>知识点:<i>'+tags+'</i></a><a class="class_list_dif">难度系数:'+difficulty_body+'</a></p><div class="class_list_move"><a class="class_list_body_ans"   data-id="'+i+'"  data-id01="'+i_1+'"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a><a  class="class_list_move_a">移除</a></div><div class="class_list_number"><p><i class="iconfont" style="font-size:45px;color:'+num_color+';"></i><a>'+num+'</a></p></div><div class="class_list_form">试题来源:<a>'+source+'</a></div></div></li>');
+                 $(".class_list_ul").append(' <li class="wrong_class_li'+data[i][i_1].question_bank_id+'" bank_id="'+data[i][i_1].question_bank_id+'" total_score="'+data[i][i_1].total_score+'"  average_score="'+data[i][i_1].average_score+'" scoring_rate="'+data[i][i_1].scoring_rate+'"  item="'+data[i][i_1].item+'" exam_subject_id="'+data[i][i_1].exam_subject_id+'"><div class="class_list_main"><div class="class_list_body">'+data[i][i_1].content+'</div><p class="class_list_lable"><a>班级得分率:<i>'+scoring_rate+'</i></a><a>班级平均分:<i>'+data[i][i_1].average_score+'分</i></a><a>知识点:<i>'+tags+'</i></a><a class="class_list_dif">难度系数:'+difficulty_body+'</a></p><div class="class_list_move"><a class="class_list_body_ans"   data-id="'+i+'"  data-id01="'+i_1+'"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a><a  class="class_list_move_a">移除</a></div><div class="class_list_number"><p><i class="iconfont" style="font-size:45px;color:'+num_color+';"></i><a>'+num+'</a></p></div><div class="class_list_form">试题来源:<a>'+source+'</a></div></div></li>');
                   }
 
                }
@@ -832,6 +834,7 @@ $(".class_make_wrong").click(function(event) {
             },
             success: function(data) {
                console.log(data);
+                layer.msg('生成成功',{time:700});
             },
             error: function(data) {
 
@@ -1779,7 +1782,7 @@ $.ajax({
                 $(".c_topic_ever_box").append('<a class="class_topic_ever"  style="background:#fb7d8a;">'+num+'</a>');
                 // var num_color="#fb7d8a";
              }
-              $(".c_list_ul").append('<li><div class="c_list_main"><div class="c_list_body">'+data[i].content+'</div><p class="c_list_lable"><a>年级得分率:<i style="font-style: normal;">'+s_rate+'%</i></a><a>年级平均分:<i style="font-style: normal;">'+data[i].average_score+'分</i></a><a>知识点:<i style="font-style: normal;">'+tag+'</i></a><a class="c_list_dif">难度系数:'+difficulty_body+'</a></p><div class="c_list_move"><a class="c_list_body_ans" data-id="'+i+'"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a></div></div></li>');  
+              $(".c_list_ul").append('<li><div class="c_list_main"><div class="c_list_body">'+data[i].content+'</div><p class="c_list_lable"><a>班级得分率:<i style="font-style: normal;">'+s_rate+'%</i></a><a>班级平均分:<i style="font-style: normal;">'+data[i].average_score+'分</i></a><a>知识点:<i style="font-style: normal;">'+tag+'</i></a><a class="c_list_dif">难度系数:'+difficulty_body+'</a></p><div class="c_list_move"><a class="c_list_body_ans" data-id="'+i+'"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a></div></div></li>');  
             
             }
   

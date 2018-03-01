@@ -8,6 +8,40 @@
     window.location.href = "./index";
   }
 
+     function IEVersion() {
+         var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+         var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1; //判断是否IE<11浏览器
+         var isEdge = userAgent.indexOf("Edge") > -1 && !isIE; //判断是否IE的Edge浏览器
+         var isIE11 = userAgent.indexOf('Trident') > -1 && userAgent.indexOf("rv:11.0") > -1;
+         if(isIE) {
+             var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+             reIE.test(userAgent);
+             var fIEVersion = parseFloat(RegExp["$1"]);
+             if(fIEVersion == 7) {
+                 return 0;
+             } else if(fIEVersion == 8) {
+                 return 0;
+             } else if(fIEVersion == 9) {
+                 return 0;
+             } else if(fIEVersion == 10) {
+                 return 0;
+             } else {
+                 return 0;//IE版本<=7
+             }
+         } else if(isEdge) {
+             return 0;//edge
+         } else if(isIE11) {
+             return 0; //IE11
+         }else{
+             return -1;//不是ie浏览器
+         }
+     }
+
+     if(IEVersion()==0){//是否为ie浏览器eeeaaaaqqqq
+         alert("请下载谷歌浏览器或者360极速浏览器")
+         return false
+     }
+
   $(document).keyup(function(event){
       if(event.keyCode ==13){
         $(".login-btn").trigger("click");
@@ -15,10 +49,12 @@
   })
 
   $('.login-btn').on('click', function(){
-      if(window.navigator.userAgent.indexOf("MSIE")>=1){//是否为ie浏览器
-        alert("请下载谷歌浏览器或者360极速浏览器")
-        return false
+
+      if(IEVersion()==0){//是否为ie浏览器
+          alert("请下载谷歌浏览器或者360极速浏览器")
+          return false
       }
+
     save();
     var password = $.base64.encode($("#login-pwd").val())
       $.ajax({
