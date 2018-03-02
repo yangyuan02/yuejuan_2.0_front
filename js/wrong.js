@@ -393,20 +393,20 @@
               //小题上标(得分率)
               var a_rate=Number(data[i].scoring_rate);
               if(a_rate>=0.86){
-              $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#31bc91;" scoring_rate="'+data[i].scoring_rate+'" bank_id="'+data[i].question_bank_id+'" average_score="'+data[i].average_score+'" exam_subject_id="'+data[i].exam_subject_id+'" total_score="'+data[i].total_score+'" item="'+data[i].item+'" classroom_id="'+data[i].classroom_id+'">'+num+'</a>');
+              $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#31bc91;" scoring_rate="'+data[i].scoring_rate+'" bank_id="'+data[i].question_bank_id+'" average_score="'+data[i].average_score+'" exam_subject_id="'+data[i].exam_subject_id+'" total_score="'+data[i].total_score+'" item="'+data[i].item+'" classroom_id="'+data[i].classroom_id+'" href="#grade_list_move'+data[i].question_bank_id+'">'+num+'</a>');
               var num_color="#31bc91";
              }else if(a_rate>=0.8&&a_rate<0.95){
-               $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#f7c07c;" scoring_rate="'+data[i].scoring_rate+'" bank_id="'+data[i].question_bank_id+'" average_score="'+data[i].average_score+'" exam_subject_id="'+data[i].exam_subject_id+'" total_score="'+data[i].total_score+'" item="'+data[i].item+'" classroom_id="'+data[i].classroom_id+'">'+num+'</a>');
+               $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#f7c07c;" scoring_rate="'+data[i].scoring_rate+'" bank_id="'+data[i].question_bank_id+'" average_score="'+data[i].average_score+'" exam_subject_id="'+data[i].exam_subject_id+'" total_score="'+data[i].total_score+'" item="'+data[i].item+'" classroom_id="'+data[i].classroom_id+'" href="#grade_list_move'+data[i].question_bank_id+'">'+num+'</a>');
              var num_color="#f7c07c";
              }else if(a_rate>=0.6&&a_rate<0.8){
-               $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#5fa3ed;" scoring_rate="'+data[i].scoring_rate+'" bank_id="'+data[i].question_bank_id+'" average_score="'+data[i].average_score+'" exam_subject_id="'+data[i].exam_subject_id+'" total_score="'+data[i].total_score+'" item="'+data[i].item+'" classroom_id="'+data[i].classroom_id+'">'+num+'</a>');
+               $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#5fa3ed;" scoring_rate="'+data[i].scoring_rate+'" bank_id="'+data[i].question_bank_id+'" average_score="'+data[i].average_score+'" exam_subject_id="'+data[i].exam_subject_id+'" total_score="'+data[i].total_score+'" item="'+data[i].item+'" classroom_id="'+data[i].classroom_id+'" href="#grade_list_move'+data[i].question_bank_id+'">'+num+'</a>');
              var num_color="#5fa3ed";
              }else if(a_rate>=0&&a_rate<0.6){
-               $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#fb7d8a;" scoring_rate="'+data[i].scoring_rate+'" bank_id="'+data[i].question_bank_id+'" average_score="'+data[i].average_score+'" exam_subject_id="'+data[i].exam_subject_id+'" total_score="'+data[i].total_score+'" item="'+data[i].item+'" classroom_id="'+data[i].classroom_id+'">'+num+'</a>');
+               $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#fb7d8a;" scoring_rate="'+data[i].scoring_rate+'" bank_id="'+data[i].question_bank_id+'" average_score="'+data[i].average_score+'" exam_subject_id="'+data[i].exam_subject_id+'" total_score="'+data[i].total_score+'" item="'+data[i].item+'" classroom_id="'+data[i].classroom_id+'" href="#grade_list_move'+data[i].question_bank_id+'">'+num+'</a>');
              var num_color="#fb7d8a";
              }
 
-                $(".grade_list_ul").append('<li><div class="grade_list_main"><div class="grade_list_body">'+data[i].content+'</div><p class="grade_list_lable"><a>年级得分率:<i>'+scoring_rate+'</i></a><a>年级平均分:<i>'+data[i].average_score+'分</i></a><a>知识点:<i>'+tags+'</i></a><a class="grade_list_dif">难度系数:'+difficulty_body+'</a></p><div class="grade_list_move"><a class="grade_list_body_ans"  data-id="'+i+'"><i class="iconfont" style="margin-right:5px;">&#xe61e;</i>查看答案和解析</a><a  class="grade_list_move_a">移除</a></div><div class="grade_list_number"><p><i class="iconfont" style="font-size:45px;color:'+num_color+';">&#xe63f;</i><a>'+num+'</a></p></div><div class="grade_list_form">试题来源:<a>'+source+'</a></div></div></li>');
+                $(".grade_list_ul").append('<li id="grade_list_move'+data[i].question_bank_id+'"><div class="grade_list_main"><div class="grade_list_body">'+data[i].content+'</div><p class="grade_list_lable"><a>年级得分率:<i>'+scoring_rate+'</i></a><a>年级平均分:<i>'+data[i].average_score+'分</i></a><a>知识点:<i>'+tags+'</i></a><a class="grade_list_dif">难度系数:'+difficulty_body+'</a></p><div class="grade_list_move"><a class="grade_list_body_ans"  data-id="'+i+'"><i class="iconfont" style="margin-right:5px;">&#xe61e;</i>查看答案和解析</a><a  class="grade_list_move_a">移除</a></div><div class="grade_list_number"><p><i class="iconfont" style="font-size:45px;color:'+num_color+';">&#xe63f;</i><a>'+num+'</a></p></div><div class="grade_list_form">试题来源:<a>'+source+'</a></div></div></li>');
               }
 
 
@@ -483,6 +483,7 @@ $.ajax({
  
    //班级
 $(".class_select_time").change(function(event) {
+$(".class_select_time").attr("data-id",$(".class_select_time").children('option:selected').attr("data-id"));
      near_exam();
 });
  $(".wrong_class_li").click(function(event) {
@@ -492,6 +493,7 @@ $(".class_select_time").change(function(event) {
  function near_exam(){
   var time_type=$(".class_select_time").attr("data-id");
   var id=$(".class_select_grate").attr("data-id");
+  console.log(time_type);
   $.ajax({
             type: "POST",
             url: ajaxIp + "/api/v2/wrong_questions/lately_exams",
@@ -631,18 +633,18 @@ $.ajax({
               //小题上标(得分率)
               var a_rate=Number(data[i][i_1].scoring_rate);
               if(a_rate>=0.86){
-               $(".class_topic_ever_ul li").eq(i).append('<a class="class_topic_ever" id="wrong_class_li'+data[i][i_1].question_bank_id+'"  style="background:#31bc91;">'+num+'</a>');
+               $(".class_topic_ever_ul li").eq(i).append('<a class="class_topic_ever" id="wrong_class_li'+data[i][i_1].question_bank_id+'"  style="background:#31bc91;" href="#a_wrong_class_li'+data[i][i_1].question_bank_id+'">'+num+'</a>');
               
               var num_color="#31bc91";
              }else if(a_rate>=0.8&&a_rate<0.95){
-                $(".class_topic_ever_ul li").eq(i).append('<a class="class_topic_ever" id="wrong_class_li'+data[i][i_1].question_bank_id+'"  style="background:#f7c07c;">'+num+'</a>');
+                $(".class_topic_ever_ul li").eq(i).append('<a class="class_topic_ever" id="wrong_class_li'+data[i][i_1].question_bank_id+'"  style="background:#f7c07c;" href="#a_wrong_class_li'+data[i][i_1].question_bank_id+'">'+num+'</a>');
              
              var num_color="#f7c07c";
                  }else if(a_rate>=0.6&&a_rate<0.8){
-                $(".class_topic_ever_ul li").eq(i).append('<a class="class_topic_ever" id="wrong_class_li'+data[i][i_1].question_bank_id+'"  style="background:#5fa3ed;">'+num+'</a>');
+                $(".class_topic_ever_ul li").eq(i).append('<a class="class_topic_ever" id="wrong_class_li'+data[i][i_1].question_bank_id+'"  style="background:#5fa3ed;" href="#a_wrong_class_li'+data[i][i_1].question_bank_id+'">'+num+'</a>');
                   var num_color="#5fa3ed";
              }else if(a_rate>=0&&a_rate<0.6){
-                $(".class_topic_ever_ul li").eq(i).append('<a class="class_topic_ever" id="wrong_class_li'+data[i][i_1].question_bank_id+'"  style="background:#fb7d8a;">'+num+'</a>');
+                $(".class_topic_ever_ul li").eq(i).append('<a class="class_topic_ever" id="wrong_class_li'+data[i][i_1].question_bank_id+'"  style="background:#fb7d8a;" href="#a_wrong_class_li'+data[i][i_1].question_bank_id+'">'+num+'</a>');
                 var num_color="#fb7d8a";
              }
             //难度系数
@@ -667,8 +669,10 @@ $.ajax({
                  var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i>';
               
               }   
-                  
-                 $(".class_list_ul").append(' <li class="wrong_class_li'+data[i][i_1].question_bank_id+'" bank_id="'+data[i][i_1].question_bank_id+'" total_score="'+data[i][i_1].total_score+'"  average_score="'+data[i][i_1].average_score+'" scoring_rate="'+data[i][i_1].scoring_rate+'"  item="'+data[i][i_1].item+'" exam_subject_id="'+data[i][i_1].exam_subject_id+'"><div class="class_list_main"><div class="class_list_body">'+data[i][i_1].content+'</div><p class="class_list_lable"><a>班级得分率:<i>'+scoring_rate+'</i></a><a>班级平均分:<i>'+data[i][i_1].average_score+'分</i></a><a>知识点:<i>'+tags+'</i></a><a class="class_list_dif">难度系数:'+difficulty_body+'</a></p><div class="class_list_move"><a class="class_list_body_ans"   data-id="'+i+'"  data-id01="'+i_1+'"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a><a  class="class_list_move_a">移除</a></div><div class="class_list_number"><p><i class="iconfont" style="font-size:45px;color:'+num_color+';"></i><a>'+num+'</a></p></div><div class="class_list_form">试题来源:<a>'+source+'</a></div></div></li>');
+                  if(data[i][i_1].score_rate_difference==undefined){
+                    data[i][i_1].score_rate_difference=0;
+                  }
+                 $(".class_list_ul").append(' <li id="a_wrong_class_li'+data[i][i_1].question_bank_id+'" class="wrong_class_li'+data[i][i_1].question_bank_id+'" bank_id="'+data[i][i_1].question_bank_id+'" total_score="'+data[i][i_1].total_score+'"  average_score="'+data[i][i_1].average_score+'" scoring_rate="'+data[i][i_1].scoring_rate+'"  item="'+data[i][i_1].item+'" exam_subject_id="'+data[i][i_1].exam_subject_id+'"><div class="class_list_main"><div class="class_list_body">'+data[i][i_1].content+'</div><p class="class_list_lable"><a>班级得分率:<i>'+scoring_rate+'</i></a><a>班-级得分率差:<i>'+data[i][i_1].score_rate_difference+'</i></a><a>班级平均分:<i>'+data[i][i_1].average_score+'分</i></a><a>知识点:<i>'+tags+'</i></a><a class="class_list_dif">难度系数:'+difficulty_body+'</a></p><div class="class_list_move"><a class="class_list_body_ans"   data-id="'+i+'"  data-id01="'+i_1+'"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a><a  class="class_list_move_a">移除</a></div><div class="class_list_number"><p><i class="iconfont" style="font-size:45px;color:'+num_color+';"></i><a>'+num+'</a></p></div><div class="class_list_form">试题来源:<a>'+source+'</a></div></div></li>');
                   }
 
                }
@@ -1286,6 +1290,8 @@ $(".g_wrong_admin_sub").change(function(event) {
 
 
 $(".g_wrong_list").on('click', 'button', function(event) {
+   $(".g_list_ul").html(" ");
+  $(".g_topic_ever_box").html(" ");
   $(".g_font_div").hide();
   $(".g_look").show();
   console.log();
@@ -1462,6 +1468,7 @@ $(".c_look").hide();
 });
 //考试错题集管理
 function g_wrong_list(){
+ 
   var exam_id=$(".g_wrong_admin_exam").attr("data-id");
   var subject_id=$(".g_wrong_admin_sub").attr("data-id");
 $.ajax({
@@ -1549,22 +1556,22 @@ $.ajax({
                   var num='0'+Number(data[i].question_bank_id);
                 }   
               if(a_rate>=0.86){
-               $(".g_topic_ever_box").append('<a class="grate_topic_ever" style="background:#31bc91;">'+num+'</a>');
+               $(".g_topic_ever_box").append('<a class="grate_topic_ever" style="background:#31bc91;" href="#g_a'+data[i].question_bank_id+'">'+num+'</a>');
               
               // var num_color="#31bc91";
              }else if(a_rate>=0.8&&a_rate<0.95){
-                $(".g_topic_ever_box").append('<a class="grate_topic_ever"  style="background:#f7c07c;">'+num+'</a>');
+                $(".g_topic_ever_box").append('<a class="grate_topic_ever"  style="background:#f7c07c;" href="#g_a'+data[i].question_bank_id+'">'+num+'</a>');
              
              // var num_color="#f7c07c";
                  }else if(a_rate>=0.6&&a_rate<0.8){
-                $(".g_topic_ever_box").append('<a class="grate_topic_ever"  style="background:#5fa3ed;">'+num+'</a>');
+                $(".g_topic_ever_box").append('<a class="grate_topic_ever"  style="background:#5fa3ed;" href="#g_a'+data[i].question_bank_id+'">'+num+'</a>');
                   // var num_color="#5fa3ed";
              }else if(a_rate>=0&&a_rate<0.6){
-                $(".g_topic_ever_box").append('<a class="grate_topic_ever"  style="background:#fb7d8a;">'+num+'</a>');
+                $(".g_topic_ever_box").append('<a class="grate_topic_ever"  style="background:#fb7d8a;" href="#g_a'+data[i].question_bank_id+'">'+num+'</a>');
                 // var num_color="#fb7d8a";
              }
 
-              $(".g_list_ul").append('<li><div class="g_list_main"><div class="g_list_body">'+data[i].content+'</div><p class="g_list_lable"><a>年级得分率:<i style="font-style: normal;">'+s_rate+'%</i></a><a>年级平均分:<i style="font-style: normal;">'+data[i].average_score+'分</i></a><a>知识点:<i style="font-style: normal;">'+tag+'</i></a><a class="g_list_dif">难度系数:'+difficulty_body+'</a></p><div class="g_list_move"><a class="g_list_body_ans"  data-id="'+i+'"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a></div></div></li>');
+              $(".g_list_ul").append('<li id="g_a'+data[i].question_bank_id+'"><div class="g_list_main"><div class="g_list_body">'+data[i].content+'</div><p class="g_list_lable"><a>年级得分率:<i style="font-style: normal;">'+s_rate+'%</i></a><a>年级平均分:<i style="font-style: normal;">'+data[i].average_score+'分</i></a><a>知识点:<i style="font-style: normal;">'+tag+'</i></a><a class="g_list_dif">难度系数:'+difficulty_body+'</a></p><div class="g_list_move"><a class="g_list_body_ans"  data-id="'+i+'"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a></div></div></li>');
   
           }   
 
@@ -1705,6 +1712,8 @@ $(".class_admin_li").click(function(event) {
 
 });
   $(".c_wrong_list").on('click', 'button', function(event) {
+  $(".c_topic_ever_box").html(" ");
+  $(".c_list_ul").html(" ");
   $(".c_font_div").hide();
   $(".c_look").show(); 
 $(".wrong_top").html('<i class="c_back_font  iconfont" style="margin-right:10px;cursor: pointer;">&#xe61c;</i>'+$(this).parents("li").find('a').eq(0).html());
@@ -1768,21 +1777,21 @@ $.ajax({
                   var num='0'+Number(data[i].question_bank_id);
                 }   
               if(a_rate>=0.86){
-               $(".c_topic_ever_box").append('<a class="class_topic_ever" style="background:#31bc91;">'+num+'</a>');
+               $(".c_topic_ever_box").append('<a class="class_topic_ever" style="background:#31bc91;" href="#c_a'+data[i].question_bank_id+'">'+num+'</a>');
               
               // var num_color="#31bc91";
              }else if(a_rate>=0.8&&a_rate<0.95){
-                $(".c_topic_ever_box").append('<a class="class_topic_ever"  style="background:#f7c07c;">'+num+'</a>');
+                $(".c_topic_ever_box").append('<a class="class_topic_ever"  style="background:#f7c07c;" href="#c_a'+data[i].question_bank_id+'">'+num+'</a>');
              
              // var num_color="#f7c07c";
                  }else if(a_rate>=0.6&&a_rate<0.8){
-                $(".c_topic_ever_box").append('<a class="class_topic_ever"  style="background:#5fa3ed;">'+num+'</a>');
+                $(".c_topic_ever_box").append('<a class="class_topic_ever"  style="background:#5fa3ed;" href="#c_a'+data[i].question_bank_id+'">'+num+'</a>');
                   // var num_color="#5fa3ed";
              }else if(a_rate>=0&&a_rate<0.6){
-                $(".c_topic_ever_box").append('<a class="class_topic_ever"  style="background:#fb7d8a;">'+num+'</a>');
+                $(".c_topic_ever_box").append('<a class="class_topic_ever"  style="background:#fb7d8a;" href="#c_a'+data[i].question_bank_id+'">'+num+'</a>');
                 // var num_color="#fb7d8a";
              }
-              $(".c_list_ul").append('<li><div class="c_list_main"><div class="c_list_body">'+data[i].content+'</div><p class="c_list_lable"><a>班级得分率:<i style="font-style: normal;">'+s_rate+'%</i></a><a>班级平均分:<i style="font-style: normal;">'+data[i].average_score+'分</i></a><a>知识点:<i style="font-style: normal;">'+tag+'</i></a><a class="c_list_dif">难度系数:'+difficulty_body+'</a></p><div class="c_list_move"><a class="c_list_body_ans" data-id="'+i+'"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a></div></div></li>');  
+              $(".c_list_ul").append('<li id="c_a'+data[i].question_bank_id+'"><div class="c_list_main"><div class="c_list_body">'+data[i].content+'</div><p class="c_list_lable"><a>班级得分率:<i style="font-style: normal;">'+s_rate+'%</i></a><a>班级平均分:<i style="font-style: normal;">'+data[i].average_score+'分</i></a><a>知识点:<i style="font-style: normal;">'+tag+'</i></a><a class="c_list_dif">难度系数:'+difficulty_body+'</a></p><div class="c_list_move"><a class="c_list_body_ans" data-id="'+i+'"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a></div></div></li>');  
             
             }
   
