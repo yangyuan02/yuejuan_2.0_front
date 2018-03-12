@@ -3,6 +3,8 @@ var m1 = angular.module("answer", []);
 //设置控制器
 m1.controller("answer", function ($scope, $timeout, $http) {
 
+    $scope.marks = ['0','1','2','3','4','5','6','7','8','9','0','1','2','3','4','5','.5','']//打分框
+
     function getUrlParam(url, name) {//获取页面参数
         var pattern = new RegExp("[?&]" + name + "\=([^&]+)", "g");
         var matcher = pattern.exec(url);
