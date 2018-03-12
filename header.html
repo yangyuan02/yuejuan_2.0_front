@@ -1,0 +1,87 @@
+<input type="hidden" id="schools-name">
+<div class="navbar">
+	<div class="logo">
+		<a href="./index">
+			<img src="img/logo.png" alt="logo" height="35" width="auto" id="logo">
+		</a>
+	</div>
+	<ul class="">
+		<li>
+			<a style="border-left: 2px solid #32af82;" href="paper_generate">组卷</a>
+		</li>
+		<li>
+			<input type="hidden" id="mark-link">
+			<a href="marking" id="mark-top">阅卷</a>
+		</li>
+		<li>
+			<a href="form">报表</a>
+		</li>
+		<li>
+
+			<a href="wrong"  id="wrong">错题集</a>
+
+		</li>
+		<li>			<a href="optional" id="optional" style="display: block">3+3 选考</a>
+		</li>
+		<li>
+			<!-- <a style="border-right: 2px solid #32af82;" href="#">题库</a> -->
+		</li>
+	</ul>
+</div>
+<div class="nav-right">
+
+	<a class="news mouseover" href="message">
+		<i class="iconfont iconfont-size">&#xe615;</i>
+		消息
+		<span class="m-count"></span>
+	</a>
+	<input type="hidden" id="role-name">
+	<input type="hidden" id="school-name">
+	<a href="./set_up" class="supervise mouseover">
+		<i class="iconfont iconfont-size">&#xe617;</i>
+		管理
+	</a>
+
+	<div class="information">
+		<div class="longin-username iconfont"><span></span><img class="triangle-down" src="./img/triangle-down.png" alt="" width="8" height="auto"></div>
+		<div class="dropdown">
+			<ul>
+				<li>
+					<a href="./user_information">账户信息</a>
+				</li>
+				<li>
+					<a href="#" class="exit">退出登录</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<script>
+	$(document).on('click',function(){
+		$('.dropdown').hide();
+	});
+
+	$('.longin-username').on('click',function(){
+		$('.dropdown').toggle();
+		var userWidth = $('.longin-username').width();
+		$('.dropdown ul').width(userWidth);
+		return false;
+	});
+
+
+	$('.exit').on('click',function(){
+		localStorage.clear();
+		window.location.href = './login'
+	});
+		var cur_port = window.location.port;
+
+	if(cur_port==8899){
+		$('#logo').attr('src','img/logo8899.png');
+		$('#logo').css({
+			'height': 38+'px',
+			'position': 'relative',
+			'top': -2+'px'
+		});
+	}
+</script>

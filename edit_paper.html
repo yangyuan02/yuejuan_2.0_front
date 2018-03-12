@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit">
+	<title></title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/user_information.css">
+	<link rel="stylesheet" href="css/edit_paper.css">
+	<!-- <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.1.1/css/bootstrap.min.css"> -->
+	<script type="text/javascript" src='js/jquery.min.js'></script>
+	<script type="text/javascript" src='js/common.js'></script>
+	<script type="text/javascript" src='js/client.js'></script>
+	<script type="text/javascript" src='js/edit_paper.js'></script>
+	<script type="text/javascript" src='js/layer-v/layer/layer.js'></script>
+</head>
+<body>
+	<div id="wrap">
+		<div id='header'>
+
+		</div>
+
+		<div class="user-title">
+			<div class="user-title-back">
+				<i class="iconfont">&#xe618;</i>
+				当前位置：
+				<a href="index">首页</a>
+				>
+				<a href="set_up">管理</a>
+				>
+				<span>编辑试卷</span>
+			</div>
+			
+		</div>
+		<div class="content-box">
+			<div class="content edit-paper-cont">
+				<div class="title">
+					<a class="back"><i class="iconfont">&#xe61c;</i></a>
+					<span  class="exam_name"></span>
+					<span class="right mr20">共<a style="color:#2daa82 "></a>道</span>
+				</div>
+				<div class="operation-box">
+					<div class="op-btn right">
+						<div class="determine set-item">题组查看</div>
+						<div class="determine edit-save" style="display: none;">编辑保存</div>
+					</div>
+				</div>
+				<div class="item-group-box">
+					<!-- <div class="item-title">一、单项选择题（共12分，每题2分）</div> -->
+					<ul id="item-ul">
+						
+					</ul>
+					<div class="pagination-wrap">
+						<ul class="pagination" id="pagination"></ul>
+					</div>
+				</div>
+				
+				<!-- 弹出 -->
+			<div class="sub_sz">
+				<p class="sub_sz_p">题组查看<div class="sub_sz_p_div"><i class="iconfont" style="">&#xe61b;</i></div></p>
+				<div class="sub_sz01" >
+					<ul>
+						<li>题型</li>
+						<li>题组名称</li>
+						<li>分值</li>
+					</ul>
+				</div>
+				<div class="sub_sz02">
+				<ul class="sub_sz_ul02">
+					
+				</ul>
+			 </div>
+			 <div class="sub_sz03">
+			 
+			 <a class="sub_score">总分：<i class="iconfont"></i></a>
+			 </div>
+			 <p class="sub_sz_p02"><button  class="sub_t determine" type="">确定</button><button class="sub_f">取消</button></p>
+			 <div class="sub_sz_remove">
+			 	<p>删除题组</p>
+			 	<p>操作提示：</p>
+			 	<p class="sub_sz_remove_p03">你确定要删除<a style="color: #31bc91"></a>题组嘛 ？</p>
+			 	<p><i class="iconfont">&#xe63c;</i>删除后无法恢复</p>
+			 	 <p><button class="sub_sz_remove_f">取消</button><button  class="sub_sz_remove_t determine" type="">确定</button></p>
+			 	 <div class="sub_sz_remove_x"><i class="iconfont" style="">&#xe61b;</i></div>
+			 </div>
+			</div>
+			<!-- 上下移 -->
+			<script type="text/javascript">
+				
+			</script>
+			<div class="sub_bd">
+				<p class="sub_bd_p" style="">绑定小题<div class="sub_bd_p_div" style=""><i class="iconfont" style="">&#xe61b;</i></div></p>
+				<p class="sub_bd_p02">将小题绑定至指定本题</p>
+				<div class="sub_bd02">
+					<!-- <ul class="sub_bd02_ul01"> -->
+						<!-- <li><input value="一.单项选择题"></li> -->
+						<!-- <li ><input value="二.填空题" ></li>
+						<li><input value="三.判断题"></li>
+						<li><input value="四.计算题" ></li> -->
+						<!-- <li ><input value="五.写作"></li> -->
+				<!-- 	</ul>
+					<ul class="sub_bd02_ul02"> -->
+						<!-- <li><i class="iconfont" style="">&#xe64b;</i></li>
+						<li><i class="iconfont" style="">&#xe64b;</i></li>
+						<li ><i class="iconfont" style="">&#xe64b;</i></li>
+						<li><i class="iconfont" style="">&#xe64b;</i></li>
+						<li ><i class="iconfont" style="">&#xe64b;</i></li> -->
+					<!-- </ul> -->
+				<p style="margin-top:20px;">所有题型:<select style="width: 200px;height:30px;color: #666;outline: none;font-size: 14px;margin-left: 10px;">
+					<!-- <option value="">选择题</option>
+					<option value="">填空题</option> -->
+				</select>
+				</p>
+				
+				<div class="sort_num">
+				<font style="float: left;">所有题号:</font> 
+                <div  class="sort_num_div">
+               <!--  <font class="sort_num_font">全部</font> -->
+				<!-- <a data-id="0">12<i class="iconfont" style="font-size: 12px;margin-left: 5px;"></i></a>
+				<a data-id="0">13<i class="iconfont" style="font-size: 12px;margin-left: 5px;"></i></a>
+				<a data-id="0">14<i class="iconfont" style="font-size: 12px;margin-left: 5px;"></i></a>
+				<a data-id="0">15<i class="iconfont" style="font-size: 12px;margin-left: 5px;"></i></a>
+				<a data-id="0">16<i class="iconfont" style="font-size: 12px;margin-left: 5px;"></i></a>
+				<a data-id="0">17<i class="iconfont" style="font-size: 12px;margin-left: 5px;"></i></a>
+				<a data-id="0">18<i class="iconfont" style="font-size: 12px;margin-left: 5px;"></i></a> -->
+				</div>	
+				</div>
+
+				<p style="margin-top:20px;"><a>已选题号:</a>
+				<!-- <i>1，</i><i>2，</i><i>4，</i> -->
+                <a class="list_i"></a>
+				</p>
+				
+				</div>
+				<div class="sub_bd03">
+					<button  class="sub_bd_t determine" type="">绑定</button>
+					<button class="sub_bd_f">取消</button>
+				</div>
+			</div>
+			<!-- 题组插入 -->
+			<!-- <div class="title_in">
+				<p class="title_in_p01">插入题组</p>
+				<div class="title_in_div"><i class="iconfont">&#xe61b;</i></div>
+                <p class="title_in_p02">试题题型
+                <select name="">
+                	<option>单选题</option>
+                	<option>多选题</option>
+                	<option>填空题</option>
+                	<option>是非题</option>
+                	<option>其他题</option>
+                	<option>作文题</option>
+                </select></p>
+                <p class="title_in_p03">题组名称<input type="" placeholder="请输入题组名称,如单项选择题" name=""></p>
+                 <p class="title_in_p04"><button class="title_on determine" type="">确认添加</button><button type=""  class="title_off" >取消</button></p>
+			</div> -->
+			<!-- 题组插入end -->
+			<!-- 设定分值 -->
+			<div class="score_change">
+				<p class="score_change_p01">设定分值</p>
+                <div class="score_change_div"><i class="iconfont">&#xe61b;</i></div>
+                <p class="score_change_p03">分值<input type="" placeholder=""></p>
+                 <p class="score_change_p04"><button class="score_change_on determine" type="">保存</button><button type=""  class="score_change_off" >取消</button></p>
+			</div>
+			<!-- 设定分值end -->
+			<!-- 删除题目 -->
+			<div class="list_remover">
+				<p class="list_remover_p01">删除题目</p>
+                 <p class="list_remover_p02">删除后无法恢复，你确定删除吗？</p>
+                 <p class="list_remover_p04"><button class="list_remover_on determine" type="">删除</button><button type=""  class="list_remover_off" >取消</button></p>
+			</div>
+			<!-- 删除题目end -->
+			</div>
+			
+		</div>
+		
+
+		<div id="footer">
+
+		</div>
+		<!-- 遮罩层 -->
+    <div class="layer"></div>
+	</div>
+</body>
+</html>

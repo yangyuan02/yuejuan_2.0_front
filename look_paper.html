@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/jquery-ui.css">
+	<link rel="stylesheet" href="css/look_paper.css">
+	<script type="text/javascript" src='js/jquery.min.js'></script>
+	<script type="text/javascript" src='js/jquery-ui.min.js'></script>
+	<script type="text/javascript" src='js/common.js'></script>
+	<script type="text/javascript" src='js/client.js'></script>
+	<!--<script type="text/javascript" src='js/paper_generate.js'></script>-->
+	<script type="text/javascript" src='js/look_paper.js'></script>
+</head>
+<body>
+	<div id="wrap">
+		<div class="look-box">
+			<div class="common-width look-title">
+				<div class="title-subject con">
+					<i class="iconfont back">&#xe61c;</i>
+					<span id="test-name">sss</span>
+					<span id="sub-name">(<em>的点点滴滴</em>)</span>
+				</div>
+				<div class="page con">
+					<span>查看页码</span>
+					<!-- <a href="javascript:;" class="on">1</a>
+					<a href="javascript:;">2</a>
+					<a href="javascript:;">3</a> -->
+				</div>
+				<div class="total con">
+					<span>共<em id="num"></em>份试卷</span>
+					<a href="javascript:;" class="prev btn">上一份</a>
+					<input type="text" class="jump-input" value="1">
+					<a href="javascript:;"><i class="iconfont jump">&#xe61f;</i></a>
+					<a href="javascript:;" class="next btn">下一份</a>
+				</div>
+			</div>
+		</div>
+		<div class="paper-box">
+			<div class="common-width clear paper-cont">
+				<div class="left left-op">
+					<ul>
+						<li class="opp active">答题纸检查</li>
+						<li class="opp hide-sec">信息遮蔽设置</li>
+						<li class="opp has-bg">题组切割设置</li>
+						<li>
+							<a href="javascript:;" class="big" id="big"><i class="iconfont">&#xe620;</i></a>
+							<a href="javascript:;" class="small" id="small"><i class="iconfont">&#xe621;</i></a>
+						</li>
+					</ul>
+				</div>
+				<div class="right img-box">
+					<!-- <img src="http://192.168.1.127:8888/uploads/scanner/20170522151109220OU18T8/1495437095545.jpg"> -->
+					<!-- <div class="bg-img"></div> -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 选择题型题号 -->
+	<div class="modal-wrap" id="change-modal">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main">
+			<div class="modal-exit iconfont modal-exit-icon">&#xe61a;</div>
+			<div class="modal-title">选择题型</div>
+			<div class="modal-content">
+				<div class="mian-cont">
+					<div class="modal-type">
+						<div class="one">
+							<label class="left_name">所有题型</label>
+							<select id="type-list">
+								<!-- <option value="">hhh</option>
+								<option value="">hhh</option>
+								<option value="">hhh</option> -->
+							</select>
+						</div>
+						<div class="one">
+							<label class="left_name">所有题号</label>
+							<ul id="item-list">
+								<!-- <li>1</li>
+								<li class="on">2</li>
+								<li class="on">22</li> -->
+							</ul>
+						</div>
+						<div class="one all-section-box">
+							<label class="left_name">所有区域</label>
+							<ul id="all-section-list">
+								<!-- <li>1</li>
+								<li class="on">2</li>
+								<li class="on">22</li> -->
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine modal-exit" id="confirm-sub">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- 选择区域块 -->
+	<div class="modal-wrap" id="section-modal">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main" style="width: 765px;">
+			<div class="modal-exit iconfont modal-exit-icon">&#xe61a;</div>
+			<div class="modal-title">选择剪裁区域</div>
+			<div class="modal-content">
+				<div class="mian-cont">
+					<div class="modal-type">
+						<div class="one">
+							<!-- <label class="left_name">所有页数</label> -->
+							<ul id="num-list">
+								
+							</ul>
+						</div>
+						<!-- <div class="one">
+							<label class="left_name">所有区域</label>
+							<ul id="section-list">
+								<li>1</li>
+								<li class="on">2</li>
+								<li class="on">22</li>
+							</ul>
+						</div> -->
+					</div>
+				</div>
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine modal-exit" id="confirm-section">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="load-bg">
+		<div class="load-animate">
+			<img src="./img/load.jpg" alt="" width="200" height="200">
+			<p>正在切割中，请稍等...</p>
+		</div>
+	</div>
+</body>
+</html>
