@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit">
+	<title></title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/user_information.css">
+	<!-- <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.1.1/css/bootstrap.min.css"> -->
+	<script type="text/javascript" src='js/jquery.min.js'></script>
+	<script type="text/javascript" src='js/common.js'></script>
+	<script type="text/javascript" src='js/set_up.js'></script>
+	<script type="text/javascript" src='js/tableExport.js'></script>
+	<script type="text/javascript" src='js/jquery.base64.js'></script>
+	<script type="text/javascript" src='js/jqPaginator.js'></script>
+	<script type="text/javascript" src='js/jquery_barcode.js'></script>
+	<script type="text/javascript" src='js/client.js'></script>
+</head>
+<body>
+	<div id="wrap">
+		<div id='header'>
+
+		</div>
+
+		<div class="user-title">
+			<div class="user-title-back">
+				<i class="iconfont">&#xe618;</i>
+				当前位置：
+				<a href="index">首页</a>
+				>
+				<span>管理</span>
+			</div>
+			
+		</div>
+
+		<div class="content">
+			<div class="user-left">
+				<div class="user-information user-left-button">
+					教师管理
+				</div>
+				<div class="change-password user-left-button">
+					学生管理
+				</div>
+				<div class="temporary-student user-left-button">
+					临时学生管理
+				</div>
+				<div class="score-edit user-left-button">
+					成绩修改
+				</div>
+				<div class="score-import user-left-button">
+					成绩导入
+				</div>
+				<div class="word-import user-left-button">
+					WORD试卷管理
+				</div>
+			</div>
+			<div class="user-right user-information-right none">
+				<div class="table-tittle-name">教师列表
+					<div class="title-name-right"> 
+						<span class="batch-import iconfont" data-name="2">&#xe60c;&nbsp;批量导入</span>
+						<span class="Lead-in-teacher iconfont"><a target="_self">&#xe611;&nbsp;导出老师</a></span>
+						<span class="add-teacher iconfont">&#xe613;&nbsp;添加老师</span>
+					</div>
+				</div>
+				<div class="set-up-search">
+					<div class="set-select-wrap">
+						<div>年级</div>
+						<select name="" id="select-grade">
+							<option value="0">全部年级</option>
+						</select>
+					</div>
+					<div class="set-select-wrap">
+						<div>科目</div>
+						<select name="" id="select-sujects">
+							<option value="0">全部科目</option>
+						</select>
+					</div>
+					<div class="set-input-wrap">
+						<input class="search-input" type="text" placeholder="请输入姓名或者手机号">
+						<div class="search-button">搜索</div>
+					</div>
+				</div>
+				<table class="search-tabble teachers-tabble" cellpadding="0" cellspacing="0" style='border-collapse:collapse;margin-bottom: 15px'>
+					<thead>
+						<tr>
+							<th>姓名</th>
+							<th>年级科目</th>
+							<th>邮箱</th>
+							<th>手机号</th>
+							<th>权限</th>
+							<th colspan='3'>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+	
+					</tbody>
+				</table>
+
+				<div class="pagination-wrap">
+					<ul class="pagination" id="pagination"></ul>
+				</div>
+			
+			</div>
+
+			<div class="user-right user-change-password none">
+				<div class="table-tittle-name">学生列表
+					<div class="title-name-right"> 
+						<span class="batch-import iconfont" data-name="1">&#xe60c;&nbsp;批量导入</span>
+						<span class="Lead-in-student iconfont"><a target="_self">&#xe611;&nbsp;导出学生</a></span>
+						<span class="add-student iconfont">&#xe613;&nbsp;添加学生</span>
+						<span class="create-class iconfont">&#xe613;&nbsp;创建班级</span>
+					</div>
+				</div>
+				<div class="set-up-search">
+					<div class="set-select-wrap">
+						<div>年级</div>
+						<select name="" id="select-grade">
+							<option value="0">全部年级</option>
+						</select>
+					</div>
+					<div class="set-select-wrap">
+						<div>班级</div>
+						<select name="" id="select-sujects">
+							<option value="0">全部班级</option>
+						</select>
+					</div>
+					<div class="set-input-wrap">
+						<input class="student-search-input" type="text" placeholder="请输入学生姓名">
+						<div class="student-search-button iconfont" style="right: 208px;">&#xe610;</div>
+						<div class="student-supervise">班级管理</div>
+						<div class="export-bar-code determine">导出条形码</div>
+					</div>
+				</div>
+				<table class="search-tabble students-tabble" cellpadding="0" cellspacing="0" style='border-collapse:collapse;margin-bottom: 15px'>
+					<thead>
+						<tr>
+							<th>考试编号</th>
+							<th>姓名</th>
+							<th>身份证</th>
+							<th>性别</th>
+							<th>班级</th>
+							<th>参加班级统计</th>
+							<th>参加年级统计</th>
+							<th colspan='2'>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+	
+					</tbody>
+				</table>
+
+				<div class="pagination-wrap">
+					<ul class="pagination" id="students-pagination"></ul>
+				</div>
+				
+			</div>
+			<div class="user-right temporary-student-right none">
+				<div class="table-tittle-name">学生列表
+					<div class="title-name-right"> 
+						<span class="batch-import iconfont" data-name="1">&#xe60c;&nbsp;批量导入</span>
+						<span class="Lead-in-student iconfont"><a target="_self">&#xe611;&nbsp;导出学生</a></span>
+						<span class="add-student iconfont">&#xe613;&nbsp;添加学生</span>
+						<span class="create-class iconfont">&#xe613;&nbsp;创建班级</span>
+					</div>
+				</div>
+				<div class="set-up-search">
+					<div class="set-select-wrap">
+						<div>年级</div>
+						<select name="" id="select-grade">
+							<option value="0">全部年级</option>
+						</select>
+					</div>
+					<div class="set-select-wrap">
+						<div>班级</div>
+						<select name="" id="select-sujects">
+							<option value="0">全部班级</option>
+						</select>
+					</div>
+					<div class="set-input-wrap">
+						<input class="student-search-input" type="text" placeholder="请输入学生姓名">
+						<div class="student-search-button iconfont" style="right: 208px;">&#xe610;</div>
+						<div class="student-supervise">班级管理</div>
+						<div class="export-bar-code determine">导出条形码</div>
+					</div>
+				</div>
+				<table class="search-tabble students-tabble" cellpadding="0" cellspacing="0" style='border-collapse:collapse;margin-bottom: 15px'>
+					<thead>
+						<tr>
+							<th>考试编号</th>
+							<th>姓名</th>
+							<th>身份证</th>
+							<th>性别</th>
+							<th>班级</th>
+							<th>参加班级统计</th>
+							<th>参加年级统计</th>
+							<th colspan='2'>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+	
+					</tbody>
+				</table>
+
+				<div class="pagination-wrap">
+					<ul class="pagination" id="temporary-pagination"></ul>
+				</div>
+			</div>
+			<div class="user-right score-edit-right none">
+				<div class="table-tittle-name">成绩修改
+				</div>
+				<div class="set-up-search">
+					<div class="set-select-wrap">
+						<div>考试</div>
+						<select name="" id="select-exam">
+							<option value="0">考试1111</option>
+						</select>
+					</div>
+					<div class="set-select-wrap">
+						<div>科目</div>
+						<select name="" id="select-sujects">
+							<option value="0">所有科目</option>
+						</select>
+						<div class="dele-button determine">删除分数</div>
+					</div>
+					<div class="set-input-wrap">
+						<input id="search-num" class="search-input" type="text" placeholder="请输入考号">
+						<!-- <input class="student-search-input" type="text" placeholder="请输入学生姓名"> -->
+						<div class="student-search-button iconfont">&#xe610;</div>
+					</div>
+				</div>
+				<table class="search-tabble scores-tabble" cellpadding="0" cellspacing="0" style='border-collapse:collapse;margin-bottom: 15px'>
+					<thead>
+						<tr>
+							<th>考号</th>
+							<th>题组</th>
+							<th width="100">原评分人</th>
+							<th>原评分</th>
+							<th>最后评分</th>
+							<th width="100">最后操作者</th>
+							<th width="100">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+					<!-- 	<tr style="border-bottom:1px solid #ccc;">
+							<td>12773737373</td>
+							<td>一／选择题1-4</td>
+							<td>系统</td>
+							<td>1,2,1,0</td>
+							<td>1,2,1,1</td>
+							<td>管理员</td>
+							<td><a href="javascript:;" class="edit-btn"><i class="iconfont">&#xe614;</i>修改成绩</a></td>
+						</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+							<td>12773737373</td>
+							<td>一／选择题1-4</td>
+							<td>系统</td>
+							<td>1,2,1,0</td>
+							<td>1,2,1,1</td>
+							<td>管理员</td>
+							<td><a href="javascript:;" class="edit-btn"><i class="iconfont">&#xe614;</i>修改成绩</a></td>
+						</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+							<td>12773737373</td>
+							<td>一／选择题1-4</td>
+							<td>系统</td>
+							<td>1,2,1,0</td>
+							<td>1,2,1,1</td>
+							<td>管理员</td>
+							<td><a href="javascript:;" class="edit-btn"><i class="iconfont">&#xe614;</i>修改成绩</a></td>
+						</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+							<td>12773737373</td>
+							<td>一／选择题1-4</td>
+							<td>系统</td>
+							<td>1,2,1,0</td>
+							<td>1,2,1,1</td>
+							<td>管理员</td>
+							<td><a href="javascript:;" class="edit-btn"><i class="iconfont">&#xe614;</i>修改成绩</a></td>
+						</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+							<td>12773737373</td>
+							<td>一／选择题1-4</td>
+							<td>系统</td>
+							<td>1,2,1,0</td>
+							<td>1,2,1,1</td>
+							<td>管理员</td>
+							<td><a href="javascript:;" class="edit-btn"><i class="iconfont">&#xe614;</i>修改成绩</a></td>
+						</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+							<td>12773737373</td>
+							<td>一／选择题1-4</td>
+							<td>系统</td>
+							<td>1,2,1,0</td>
+							<td>1,2,1,1</td>
+							<td>管理员</td>
+							<td><a href="javascript:;" class="edit-btn"><i class="iconfont">&#xe614;</i>修改成绩</a></td>
+						</tr> -->
+					</tbody>
+				</table>
+			<!-- 	<div class="pagination-wrap">
+					<ul class="pagination" id="scores-pagination"></ul>
+				</div> -->
+			</div>
+			<div class="user-right score-import-right none">
+				<div class="table-tittle-name">成绩导入
+				</div>
+				<div class="set-up-search">
+					<div class="set-select-wrap">
+						<div>考试</div>
+						<select name="" id="select-exam">
+							<option value="0">考试1111</option>
+						</select>
+					</div>
+					<div class="set-select-wrap">
+						<div>科目</div>
+						<select name="" id="select-sujects">
+							<option value="0">所有科目</option>
+						</select>
+					</div>
+					<!-- <div class="look-paper-cont">
+					</div> -->
+					<div class="set-input-wrap">
+						<!-- <div class="look-button determine" style="display: none">查看试卷结构</div> -->
+						<input id="search-num" class="search-input" type="text" placeholder="请输入考试名称" style="margin:0 14px 0 10px">
+						<!-- <input class="student-search-input" type="text" placeholder="请输入学生姓名"> -->
+						<div class="student-search-button iconfont" style="right:100px">&#xe610;</div>
+						<div class="import-button determine">导入</div>
+					</div>
+				</div>
+				<table class="search-tabble scores-in-tabble" cellpadding="0" cellspacing="0" style='border-collapse:collapse;margin-bottom: 15px'>
+					<thead>
+						<tr>
+							<th>考试</th>
+							<th>科目</th>
+							<th colspan="3">总分值</th>
+							<th>最后处理时间</th>
+							<th>最后操作者</th>
+							<th>处理情况</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- <tr style="border-bottom:1px solid #ccc;">
+							<td>2017年9月入学考试成绩导入</td>
+							<td>语文</td>
+							<td colspan="2">
+								<a href="javascript:;" class="determine set">设置</a>
+								<a href="javascript:;" class="deal">处理</a>
+							</td>
+							<td>2017-09-12  10:20</td>
+							<td>管理员1</td>
+							<td><span class="no-deal">未处理</span></td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>2017年9月入学考试成绩导入</td>
+							<td>语文</td>
+							<td colspan="2">
+								<a href="javascript:;" class="determine set">设置</a>
+								<a href="javascript:;" class="deal">处理</a>
+							</td>
+							<td>2017-09-12  10:20</td>
+							<td>管理员1</td>
+							<td><span class="success-deal">处理成功</span></td>
+						</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+							<td>2017年9月入学考试成绩导入</td>
+							<td>语文</td>
+							<td colspan="2">
+								<a href="javascript:;" class="determine set">设置</a>
+								<a href="javascript:;" class="deal">处理</a>
+							</td>
+							<td>2017-09-12  10:20</td>
+							<td>管理员1</td>
+							<td><span class="no-deal">未处理</span></td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>2017年9月入学考试成绩导入</td>
+							<td>语文</td>
+							<td colspan="2">
+								<a href="javascript:;" class="determine set">设置</a>
+								<a href="javascript:;" class="deal">处理</a>
+							</td>
+							<td>2017-09-12  10:20</td>
+							<td>管理员1</td>
+							<td><span class="success-deal">处理成功</span></td>
+						</tr>
+							<tr style="border-bottom:1px solid #ccc;">
+							<td>2017年9月入学考试成绩导入</td>
+							<td>语文</td>
+							<td colspan="2">
+								<a href="javascript:;" class="determine set">设置</a>
+								<a href="javascript:;" class="deal">处理</a>
+							</td>
+							<td>2017-09-12  10:20</td>
+							<td>管理员1</td>
+							<td><span class="no-deal">未处理</span></td>
+						</tr>
+						<tr style="border-bottom:1px solid #ccc;">
+							<td>2017年9月入学考试成绩导入</td>
+							<td>语文</td>
+							<td colspan="2">
+								<a href="javascript:;" class="determine set">设置</a>
+								<a href="javascript:;" class="deal">处理</a>
+							</td>
+							<td>2017-09-12  10:20</td>
+							<td>管理员1</td>
+							<td><span class="success-deal">处理成功</span></td>
+						</tr> -->
+					</tbody>
+				</table>
+				<div class="pagination-wrap">
+					<ul class="pagination" id="scores-pagination"></ul>
+				</div>
+			</div>
+			<div class="user-right word-import-right none">
+				<div class="table-tittle-name">WORD试卷导入
+				</div>
+				<div class="set-up-search">
+					<div class="set-input-wrap">
+						<div class="import-word-button determine">导入试卷</div>
+					</div>
+				</div>
+				<table class="search-tabble words-in-tabble" cellpadding="0" cellspacing="0" style='border-collapse:collapse;margin-bottom: 15px'>
+					<thead>
+						<tr>
+							<th>考试名称</th>
+							<th>考试类型</th>
+							<th>年级</th>
+							<th>科目</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- <tr style="border-bottom:1px solid #ccc;">
+							<td>2017年9月高三物理入学考试</td>
+							<td>月考</td>
+							<td>高三</td>
+							<td>物理</td>
+							<td>
+								<ul class="word-operation">
+									<li>
+										<a href="javascript:;" class="a-btn look-btn look-paper-btn">
+											<i class="iconfont">&#xe61e;</i>编辑试卷
+										</a>
+									</li>
+									<li><a href="javascript:;" class="a-btn up-btn up-two-btn">
+										<i class="iconfont">&#xe6a7;</i>上传双细</a>
+									</li>
+									<li><a href="javascript:;" class="a-btn look-two-btn">
+										<i class="iconfont">&#xe66d;</i>查看双细</a>
+									</li>
+								</ul>
+								<ul class="word-operation">
+									<li><a href="javascript:;" class="a-btn up-btn up-answer-btn">
+										<i class="iconfont">&#xe632;</i>上传答案</a>
+									</li>
+									<li><a href="javascript:;" class="a-btn look-btn look-answer-btn">
+										<i class="iconfont">&#xe683;</i>查看答案</a>
+									</li>
+									<li><a href="javascript:;" class="a-btn dele-btn">
+										<i class="iconfont">&#xe616;</i>删除</a>
+									</li>
+								</ul>
+							</td>
+						</tr> -->
+					</tbody>
+				</table>
+				<div class="pagination-wrap">
+					<ul class="pagination" id="exams-pagination"></ul>
+				</div>
+			</div>
+		</div>
+
+		<div id="footer">
+
+		</div>
+
+	</div>
+
+	<div class="modal-wrap import-wrap">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main">
+			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
+			<div class="modal-title">导入</div>
+			<div class="modal-content" style="">
+					选择文件
+					<div id="upfile" onclick="inPath.click()">
+						未选择任何文件  
+					</div>
+					<input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" id="inPath" style="display:none">
+					<div style="color: #db4a4a;line-height: 60px;text-align: center;">请先点击：“教师（或学生）信息表格” <a class="table-template" style="color: #db4a4a;border: 1px solid #db4a4a">下载文件模板</a>，填入信息后再导入</div>
+				
+				<!-- <input type="file" id="inPath" style="display:none" onchange="upfile.value=this.value"> -->
+				<!-- <input type="file"> -->
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-wrap import-grade-wrap">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main">
+			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
+			<div class="modal-title">导入</div>
+			<div class="modal-content" style="">
+					选择文件
+					<div id="upfiles" onclick="inPaths.click()">
+						未选择任何文件  
+					</div>
+					<input enctype="multipart/form-data" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" id="inPaths" style="display:none">
+					<div style="color: #db4a4a;line-height: 60px;text-align: center;">请先点击：“学生成绩表格” <a class="table-template" style="color: #db4a4a;border: 1px solid #db4a4a">下载文件模板</a>，填入信息后再导入</div>
+				
+				<!-- <input type="file" id="inPath" style="display:none" onchange="upfile.value=this.value"> -->
+				<!-- <input type="file"> -->
+					<div class="set-box" style="max-height: 600px;overflow-y: auto;display: none">
+					<table class="set-table" style="width:100%">
+						<thead>
+							<tr>
+								<th>题号</th>
+								<th>设置题型</th>
+								<th>总分值</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- <tr>
+								<td width="88%">一、选择题</td>
+								<td>
+									<input type="text">
+								</td>
+							</tr>
+							<tr>
+								<td width="88%">一、选择题</td>
+								<td>
+									<input type="text">
+								</td>
+							</tr>
+							<tr>
+								<td width="88%">一、选择题</td>
+								<td>
+									<input type="text">
+								</td>
+							</tr>
+							<tr>
+								<td width="88%">一、选择题</td>
+								<td>
+									<input type="text">
+								</td>
+							</tr> -->
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal-wrap modal-wrap-small">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main modal-main-small">
+			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
+			<div class="modal-title"></div>
+			<div class="modal-content" style="text-align: left;">
+				<p style="text-align: left;font-size: 16px;font-weight: bold;padding-bottom: 10px;">操作提示：</p>
+				<div style="font-size: 16px;line-height: 16px;padding: 5px 0">您确认要<span class="small-type"></span> <span class="reset-password-name" style="color: #31bc91"></span> <span class="small-xxx"></span>吗？</div>
+				<p style="color: #db4a4a;line-height: 30px;text-align: left;" class="small-prompt"></p>
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine modal-exit">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal-wrap modal-wrap-student-info">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main">
+			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
+			<div class="modal-title"></div>
+			<div class="modal-content" style="text-align: left;">
+				<p style="text-align: left;font-size: 16px;font-weight: bold;padding-bottom: 10px;">学生信息：</p>
+				<label class="teachers-label mandatory" for="grade-name">所在年级</label>
+				<select name="" class="current-grade select-class-i">
+
+				</select>
+
+
+				<label class="teachers-label mandatory" for="class-name">所在班级</label>
+				<select name="" class="current-class select-class-i">
+
+				</select>
+
+				<label class="teachers-label" for="class-name">学&nbsp;籍&nbsp;号&nbsp;</label>
+				<input type="text" class="student-code input-class-i">
+
+				<label class="teachers-label mandatory" for="class-name">考试编号</label>
+				<input type="text" class="exam-no input-class-i">
+
+				<label class="teachers-label mandatory" for="class-name">学生姓名</label>
+				<input type="text" class="student-name input-class-i">
+
+				<label class="teachers-label" for="class-name">身份证号</label>
+				<input type="text" class="id-number input-class-i">
+
+				<label class="teachers-label" for="class-name">学生性别</label>
+				<select name="" class="student-gender select-class-i">
+					<option value="">选择性别</option>
+					<option value="男">男</option>
+					<option value="女">女</option>
+				</select>
+				<label class="teachers-label" for="class-name">学生邮箱</label>
+				<input type="text" class="student-email input-class-i">
+
+				<div class="student-radio">
+					<input type="checkbox" value="" class="student-radio-grade">&nbsp;&nbsp;<span>参加年级统计</span>&nbsp;&nbsp;
+					<input type="checkbox" value="" class="student-radio-class">&nbsp;&nbsp;<span>参加班级统计</span>&nbsp;&nbsp;	
+				</div>
+
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal-wrap modal-wrap-class">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main">
+			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
+			<div class="modal-title"></div>
+			<div class="modal-content" style="text-align: left;">
+				<p style="text-align: left;font-size: 16px;font-weight: bold;padding-bottom: 10px;">班级信息：</p>
+				<label class="teachers-label" for="grade-name">所在年级</label>
+				<select name="" id="add-class-grade">
+
+				</select>
+
+				<label class="teachers-label" for="class-name">班级名称</label>
+				<input type="text" id="class-name" class="teachers-input" value=''/>
+				<div style="color: red;text-align:center;margin-bottom: 10px;">多个班级名称用逗号分开（英文逗号‘,’）</div>
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine modal-exit">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal-wrap modal-wrap-class-management">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main">
+			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
+			<div class="modal-title"></div>
+			<div class="modal-content" style="text-align: left;">
+				<p style="text-align: left;font-size: 16px;font-weight: bold;padding-bottom: 10px;">班级信息：</p>
+				<label class="teachers-label" for="grade-name">年级选择</label>
+				<select name="" id="add-class-grade" class="select-class-i">
+
+				</select>
+				<br>
+				<label class="teachers-label" for="class-name">班级选择</label>
+				<select name="" id="del-class-name" class="select-class-i">
+
+				</select>
+				<br>
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button clear-students modal-exit">清空学生</div>
+					<div class="modal-bottom-button determine modal-exit">删除班级</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal-wrap teachers-propmt-wrap">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main">
+			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
+			<div class="modal-title">导入</div>
+			<div class="modal-content" style="padding: 21px 35px;">
+				<div class="first-div">
+					<p style="text-align: left;font-size: 16px;font-weight: bold;background: #fafafa;line-height: 24px;border-bottom:1px solid #ccc; padding:10px;">老师信息</p>
+						
+					<div class="teachers-input-wrap" style="padding:0 10px;margin-top: 30px;">
+						<label class="teachers-label" for="teachers-name">姓&nbsp;&nbsp;&nbsp;名</label>
+						<input type="text" id="teachers-name" class="teachers-input" value='王二高'/>
+					</div>
+					<div class="teachers-input-wrap" style="padding:0 10px">
+						<label class="teachers-label" for="teachers-email">邮&nbsp;&nbsp;&nbsp;箱</label>
+						<input type="text" id="teachers-email" class="teachers-input" value=''/>
+					</div>
+					<div class="teachers-input-wrap" style="padding:0 10px">
+						<label class="teachers-label" for="teachers-number">手机号</label>
+						<input type="text" id="teachers-number" class="teachers-input" value=''/>
+					</div>
+
+					<div class="teachers-input-wrap" style="padding: 0 10px;margin-bottom: 30px;">
+						<label class="teachers-label" for="teachers-role">角&nbsp;&nbsp;&nbsp;色</label>
+						<!-- <input type="text" id="teachers-role" class="teachers-input" value=''/> -->
+						<select id="teachers-role" class="teachers-input" style="width: 436px;">
+							<option value="">想</option>
+							<option value="">想</option>
+							<option value="">想</option>
+							<option value="">想</option>
+							<option value="">想</option>
+						</select>
+					</div>
+				</div>
+				<div class="first-div" style="margin-top: 30px;margin-bottom: 30px;">
+					<p style="text-align: left;font-size: 16px;font-weight: bold;background: #fafafa;line-height: 24px;border-bottom:1px solid #ccc; padding:10px;">任课情况</p>
+					<div class="add-list" style="border-bottom:1px solid #ccc;">
+						<div class="teachers-input-wrap" style="position: relative;height: 30px;margin-bottom: 10px;">
+							<label class="teachers-label" style="position: absolute;top: 4px;left: 8px;" for="teachers-grade">年&nbsp;&nbsp;&nbsp;级</label>
+							<select id="teachers-grade" class="teachers-grade" style="display: inline-block;width: 140px;height:30px;line-height: 30px;text-align: left; position: absolute;top: -3px;left: 60px;"></select>
+							<label class="teachers-label" style="position: absolute;top: 4px;left: 224px;" for="teachers-class">班&nbsp;&nbsp;&nbsp;级</label>
+							<select class="teachers-class" style="width: 140px; position: absolute;top: -3px;left:274px;height: 30px;line-height: 30px;">
+								<!-- <option>1班</option>
+								<option>1班</option>
+								<option>1班</option> -->
+							</select>
+						</div>
+
+						<div class="teachers-input-wrap" style="margin-bottom: 20px;">
+							<label class="teachers-label" for="teachers-subject" style="left:-24px">科&nbsp;&nbsp;&nbsp;目</label>
+							<!-- <input type="text" id="teachers-subject" class="teachers-input" value=''/> -->
+							<select id="teachers-subject" class="teachers-input teachers-subject" style="width: 356px;margin-left: -10px;">
+								<!-- <option value="">想</option>
+								<option value="">想</option>
+								<option value="">想</option>
+								<option value="">想</option>
+								<option value="">想</option> -->
+							</select>
+							<a href="javascript:" id="add-t" class="add-t"><i class="iconfont">&#xe61a;</i>添加</a>
+						</div>
+					</div>
+					<div class="add-cont">
+						<!-- <div class="add-list" style="border-bottom:1px solid #ccc;">
+							<div class="teachers-input-wrap" style="position: relative;height: 30px;margin-bottom: 10px;">
+								<label class="teachers-label" style="position: absolute;top: 4px;left: 8px;" for="teachers-grade">年&nbsp;&nbsp;&nbsp;级</label>
+								<select id="teachers-grade" class="teachers-grade" style="display: inline-block;width: 140px;height:30px;line-height: 30px;text-align: left; position: absolute;top: -3px;left: 60px;"></select>
+								<label class="teachers-label" style="position: absolute;top: 4px;left: 224px;" for="teachers-class">班&nbsp;&nbsp;&nbsp;级</label>
+								<select class="teachers-class" style="width: 140px; position: absolute;top: -3px;left:274px;height: 30px;line-height: 30px;">
+									<option>1班</option>
+									<option>1班</option>
+									<option>1班</option>
+								</select>
+							</div>
+
+							<div class="teachers-input-wrap" style="margin-bottom: 20px;">
+								<label class="teachers-label" for="teachers-subject" style="left:-24px">科&nbsp;&nbsp;&nbsp;目</label> -->
+								<!-- <input type="text" id="teachers-subject" class="teachers-input" value=''/> -->
+								<!-- <select id="teachers-subject" class="teachers-input teachers-subject" style="width: 356px;margin-left: -10px;">
+								</select>
+								<a href="javascript:'" id="dele-t"><i class="iconfont">&#xe616;</i>删除</a>
+							</div> -->
+						<!-- </div> -->
+					</div>
+				</div>
+				
+				
+				
+				
+				
+				
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine modal-exit">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 删除分数 -->
+	<div class="modal-wrap modal-wrap-dele">
+		<input type="hidden" id="dele-exam-id">
+		<input type="hidden" id="dele-sub-id">
+		<input type="hidden" id="dele-exam-no">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main modal-main-small">
+			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
+			<div class="modal-title"></div>
+			<div class="modal-content" style="text-align: left;">
+				<p style="text-align: left;font-size: 16px;font-weight: bold;padding-bottom: 10px;">操作提示：</p>
+				<div style="font-size: 16px;line-height: 16px;padding: 5px 0">您确认要删除当前科目学生的<span class="reset-password-name" style="color: #31bc91">所有分数</span>吗？</div>
+				<p style="color: #db4a4a;line-height: 30px;text-align: left;" class="small-prompt">
+					删除后无法恢复
+				</p>
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine modal-exit dele-gade">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 成绩修改 -->
+	<div class="modal-wrap edit-score-wrap">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main" style="width:765px">
+			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
+			<div class="modal-title"><span>客观题</span>（<em>得分模式</em>）</div>
+			<div class="modal-content" style="background:#f2f2f2">
+				<div class="edit-head">
+					<p class="edit-stu-num">考号：<span>12345678</span></p>
+					<p class="edit-item-name">题组：<span>：一、选择题（1-8）</span></p>
+					<div class="edit-input">
+						<a href="javascript:;" class="determine look-all-peper">查看全卷</a>
+					</div>
+				</div>
+				<div class="edit-answer">
+					<ul class="edit-ul">
+					<!-- 	<li>
+							<span>1</span>
+							<span>D</span>
+							<input type="text" class="answer-input">
+							<span>分</span>
+						</li>
+						<li>
+							<span>1</span>
+							<span>D</span>
+							<input type="text" class="answer-input">
+							<span>分</span>
+						</li>
+						<li>
+							<span>1</span>
+							<span>D</span>
+							<input type="text" class="answer-input">
+							<span>分</span>
+						</li>
+						<li>
+							<span>1</span>
+							<span>D</span>
+							<input type="text" class="answer-input">
+							<span>分</span>
+						</li>
+						<li>
+							<span>1</span>
+							<span>D</span>
+							<input type="text" class="answer-input">
+							<span>分</span>
+						</li>
+						<li>
+							<span>1</span>
+							<span>D</span>
+							<input type="text" class="answer-input">
+							<span>分</span>
+						</li>
+						<li>
+							<span>1</span>
+							<span>D</span>
+							<input type="text" class="answer-input">
+							<span>分</span>
+						</li> -->
+					</ul>
+				</div>
+				<div class="edit-item-img">
+					<!-- <img src=""> -->
+				</div>
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine modal-exit btn-edit">提交修改</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 查看全卷 -->
+	<div class="modal-wrap paper-all-wrap">
+		<div class="modal-shadow modal-exit-paper"></div>
+		<div class="modal-main" style="width:992px">
+			<div class="modal-exit-paper modal-exit-icon iconfont">&#xe61a;</div>
+		<!-- 	<div class="modal-title"><span>客观题</span>（<em>得分模式</em>）</div> -->
+			<div class="modal-content paper-box">
+				
+			</div>
+		</div>
+	</div>
+	<!-- 查看试卷结构 -->
+	<div class="modal-wrap look-score-wrap">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main" style="width:700px">
+			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
+			<div class="modal-title">查看试卷结构</div>
+			<div class="modal-content">
+				<div class="set-box" style="max-height: 600px;overflow-y: auto">
+					<table class="set-table" style="width:100%">
+						<thead>
+							<tr>
+								<th>题号</th>
+								<th>设置题型</th>
+								<th>总分值</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- <tr>
+								<td width="88%">一、选择题</td>
+								<td>
+									<input type="text">
+								</td>
+							</tr>
+							<tr>
+								<td width="88%">一、选择题</td>
+								<td>
+									<input type="text">
+								</td>
+							</tr>
+							<tr>
+								<td width="88%">一、选择题</td>
+								<td>
+									<input type="text">
+								</td>
+							</tr>
+							<tr>
+								<td width="88%">一、选择题</td>
+								<td>
+									<input type="text">
+								</td>
+							</tr> -->
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine modal-exit">保存</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 设置总分 -->
+	<div class="modal-wrap set-score-wrap">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main" style="width:700px">
+			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
+			<div class="modal-title">输入分值</div>
+			<div class="modal-content">
+				<div class="set-box" style="max-height: 600px;overflow-y: auto">
+					<table class="set-table" style="width:100%">
+						<thead>
+							<tr>
+								<th>题号</th>
+								<th>设置题型</th>
+								<th>总分值</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- <tr>
+								<td width="88%">一、选择题</td>
+								<td>
+									<input type="text">
+								</td>
+							</tr>
+							<tr>
+								<td width="88%">一、选择题</td>
+								<td>
+									<input type="text">
+								</td>
+							</tr>
+							<tr>
+								<td width="88%">一、选择题</td>
+								<td>
+									<input type="text">
+								</td>
+							</tr>
+							<tr>
+								<td width="88%">一、选择题</td>
+								<td>
+									<input type="text">
+								</td>
+							</tr> -->
+						</tbody>
+					</table>
+					<div class="paper-total-box">
+						<p class="paper-total"><span>总分：</span><span class="total-num"></span></p>
+					</div>
+				</div>
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine modal-exit">保存</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 删除导入的成绩 -->
+	<div class="modal-wrap modal-wrap-grade-dele">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main modal-main-small">
+			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
+			<div class="modal-title"></div>
+			<div class="modal-content" style="text-align: left;">
+				<p style="text-align: left;font-size: 16px;font-weight: bold;padding-bottom: 10px;">操作提示：</p>
+				<div style="font-size: 16px;line-height: 16px;padding: 5px 0">您确认要删除当前科目的<span class="reset-password-name" style="color: #31bc91">成绩</span>吗？</div>
+				<p style="color: #db4a4a;line-height: 30px;text-align: left;" class="small-prompt">
+					删除后无法恢复
+				</p>
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine modal-exit dele-gade">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 删除导入的试卷 -->
+	<div class="modal-wrap modal-wrap-paper-dele">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main modal-main-small">
+			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
+			<div class="modal-title"></div>
+			<div class="modal-content" style="text-align: left;">
+				<p style="text-align: left;font-size: 16px;font-weight: bold;padding-bottom: 10px;">操作提示：</p>
+				<div style="font-size: 16px;line-height: 16px;padding: 5px 0">您确认要删除当前科目的<span class="reset-password-name" style="color: #31bc91">信息</span>吗？</div>
+				<p style="color: #db4a4a;line-height: 30px;text-align: left;" class="small-prompt">
+					删除后无法恢复
+				</p>
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine modal-exit dele-paper">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 导入试卷 -->
+	<div class="modal-wrap import-word-wrap">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main" >
+			<div class="modal-exit modal-exit-icon iconfont">&#xe61a;</div>
+			<div class="modal-title">导入新考试</div>
+			<div class="modal-content" >
+				<div class="rows">
+					<label>类型</label>
+					<select id="paper-type" name="paper-type">
+						<option value="monthly" checked>月考</option>
+						<option value="unit">单元测试</option>
+						<option value="mid">期中考试</option>
+						<option value="final">期末考试</option>
+						<option value="joint">联考</option>
+						<option value="mock">模拟考</option>
+					</select>
+				</div>
+				<div class="rows">
+					<label>年级</label>
+					<select id="paper-grade" name="paper-grade">
+						<!-- <option value="高三" checked>高三</option>
+						<option value="高二">高二</option> -->
+					</select>
+				</div>
+				<div class="rows">
+					<label>科目</label>
+					<select id="paper-subject" name="paper-subject">
+						<!-- <option value="语文" checked>语文</option>
+						<option value="数学">数学</option> -->
+					</select>
+				</div>
+				
+				<div class="rows">
+					<label>选择文件</label>
+					<div id="upfilew" onclick="inPathw.click()">
+						未选择任何文件
+					</div>
+					<input enctype="multipart/form-data" type="file" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document" id="inPathw" style="display:none">
+				</div>
+				<div class="rows">
+					<label>绑定考试</label>
+					<select id="paper-exam" name="paper-exam">
+						<!-- <option value="期末考试1" checked>期末考试1</option>
+						<option value="期末考试二">期末考试二</option> -->
+					</select>
+				</div>
+				
+				<!-- <input type="file" id="inPath" style="display:none" onchange="upfile.value=this.value"> -->
+				<!-- <input type="file"> -->
+				
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">关闭</div>
+					<div class="modal-bottom-button determine import-word-btn">确定</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 判分提示框 -->
+	<div class="modal-wrap" id="i_two">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main" style="width:440px">
+			<div class="modal-exit iconfont modal-exit-icon">&#xe61a;</div>
+			<div class="modal-title">提示框</div>
+			<div class="modal-content">
+				<div class="mian-cont">
+					<div class="prompt alert alert-danger center" role="alert">
+		        您所给的分数不在规定范围内，请看清分值给分！
+		    	</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="load-bg">
+		<div class="load-animate">
+			<img src="./img/load.jpg" alt="" width="200" height="200">
+			<p>正在处理中，请稍等...</p>
+		</div>
+	</div>
+
+<iframe id="printfbarcode" name="printfbarcode" style="position: fixed; z-index: 2147483647; top: 0px; left: 0px; width: 100%; height: 100%; background-color: rgb(0, 0, 0); visibility: hidden;"></iframe>
+</body>
+<script>
+	// $('.Lead-in-teacher').on('click', function(){
+	// 	$('.search-tabble').tableExport({
+	// 	filename: 'table_%DD%-%MM%-%YY%',
+	// 	format: 'xls',
+	// 	// cols: '1,2,3,4'
+	// 	ignoreCols: '1,2,3'
+	// });
+	// })
+</script>
+</html>

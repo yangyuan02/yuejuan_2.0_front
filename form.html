@@ -1,0 +1,151 @@
+<DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="renderer" content="webkit">
+	<title></title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/form.css">
+   <script src="js/angular.min.js"></script>
+   <script src="js/angular-ui-router.min.js"></script>
+   <script src="js/app.js"></script>
+	<script type="text/javascript" src='js/jquery.min.js'></script>
+    <script type="text/javascript" src='js/client.js'></script> 
+	<script type="text/javascript"  src="js/echarts.js"></script>	
+	<script type="text/javascript" src='js/common.js'></script>
+	<script type="text/javascript" src='js/jquery-ui.min.js'></script>
+    <script src="js/controller.js"></script>
+   <!--  <script type="text/javascript" src='layer-v/layer/layer.js'></script> -->
+</head>
+<body>
+	<div id="wrap">
+		<div id='header'>
+
+		</div>
+		
+		<div class="title-box">
+			<div class="title common-width">
+				<p>
+					<i class="iconfont">&#xe618;</i>
+					当前位置：
+					<a href="index">首页</a>
+					>
+					<span style="color:#999">报表</span>
+                    >
+					<span id="index_span"></span>
+				</p>
+			</div>
+		</div>
+
+		<div class="content" style="padding-bottom: 50px;">
+
+       <div class="main">
+
+<div class="main_left">
+
+	<a ui-sref="form01" data-id="1">成绩生成</a>
+	<a ui-sref="form02">年级成绩概况</a>
+	<a ui-sref="form03">班级成绩概况</a>
+	<a ui-sref="form04" id="study_k_left">各科追踪分析</a>
+	<a ui-sref="form05" id="exam_z_left">试卷质量追踪</a>
+	<a ui-sref="form06" id="exam_h_left">班级横向分析</a>
+	<!-- <a ui-sref="form07" id="form_special">特殊报表（VIP）</a> -->
+	<a ui-sref="form08" id="sc_left">跨校对比分析</a>
+
+<div class="study_k_left">
+	<ul class="study_k_left_ul">
+		<li>学科综合分析</li>
+		<li>总分和总分排名</li>
+		<li>单科和单科等级</li>
+		<li>各科成绩名次</li>
+		<li>语数外综合名次</li>
+		<li>学生详细成绩单</li>
+		<li>各科详细成绩单</li>
+	</ul>	
+	</div>
+	<div class="exam_z_left">
+	<ul  class="exam_z_left_ul">
+		<li id="exam_z_left_1l">试卷命题和质量</li>
+		<li id="exam_z_left_2l">各科逐题质量分析</li>
+		<li id="exam_z_left_3l">难度系数变化图</li>	
+	</ul>	
+	</div>
+
+<div class="exam_h_left">
+	<ul class="exam_h_left_ul">
+		<li id="exam_h_left_1l">各班成绩整体对比</li>
+		<li id="exam_h_left_2l">班级等级分布</li>
+		<li id="exam_h_left_3l">总分分段对比</li>
+		<li id="exam_h_left_4l">名次各班分布</li>
+		<li id="exam_h_left_5l">班级等级比例</li>	
+		<li id="exam_h_left_6l">科目等级评估比例</li>
+	</ul>	
+	</div>
+	<!-- <div class="form_special">
+	<ul class="form_special_ul">
+		<li id="form_special_1l">各科学生调整分</li>
+	</ul>	
+	</div> -->
+<div class="sc_left">
+	<ul>
+		<li>区域横向综合对比</li>
+		<li>区域等级人数对比</li>
+	</ul>	
+	</div>
+
+
+
+    </div>
+<div class="main_right" id="main_right" ui-view="">
+
+</div>
+
+		</div>
+
+
+		</div>
+
+
+		<div id="footer">
+
+		</div>
+
+	</div>
+<!-- 遮罩层 -->
+<div class="mask_layer"> 
+</div>
+<!-- 查看答题卡 -->
+<div class="mask_layer02"> 
+</div>
+<div class="modal-wrap" id="i_two">
+    <div class="modal-shadow modal-exit"></div>
+    <div class="modal-main" style="width:440px;">
+      <div class="modal-exit iconfont modal-exit-icon">&#xe61a;</div>
+      <div class="modal-title">提示框</div>
+       <!-- 确定数据 -->
+      <div class="t_f">
+      <div class="t_f01">
+       <span class="tf_zf">总分：<a></a></span>
+       <span class="tf_jg">及格分：<a></a></span>
+       <span class="tf_yx">优秀分：<a></a></span>
+       <span class="tf_absent" style="font-size: 14px;">是否缺考：<a></a></span>
+       <span class="tf_dj01">等级：</span><span class="tf_dj"></span> </div>
+      <button type="" class="t_f_btn01 determine">确定分析</button>
+         <button type="" class="t_f_btn02 determine">取消分析</button>
+
+      </div>
+       <!-- 确定数据 -->
+      <div class="modal-content">
+        <div class="mian-cont">
+          <div class="prompt alert alert-danger center" role="alert">
+            <span></span>
+            <!-- <button class="fx_btn">分析状态</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

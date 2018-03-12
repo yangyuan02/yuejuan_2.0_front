@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/jquery-ui.css">
+	<link rel="stylesheet" href="css/marking.css">
+	<script type="text/javascript" src='js/jquery.min.js'></script>
+	<script type="text/javascript" src='js/common.js'></script>
+	<script type="text/javascript" src='js/jqPaginator.js'></script>
+	<script type="text/javascript" src='js/marking_control.js'></script>
+</head>
+<body>
+	<div id="wrap">
+		<div id='header'>
+
+		</div>
+		<div class="title-box">
+			<div class="title common-width">
+				<p>
+					<i class="iconfont">&#xe618;</i>
+					当前位置：
+					<a href="index">首页</a>
+					>
+					<a href="marking">阅卷</a>
+					>
+					<span>阅卷监控</span>
+				</p>
+			</div>
+		</div>
+		<div class="content-box">
+			<div class="content common-width">
+				<div class="marking-control-box marking-change-box">
+					<div class="marking-change-title">
+						阅卷监控
+					</div>
+					<div class="select-list">
+						<div class="one">
+							<label for="">考试学校</label>
+							<select id="select-school">
+								<!-- <option>请选择学校</option>
+								<option>全部学校</option> -->
+							</select>
+						</div>
+						<div class="one two">
+							<label for="">考试年级</label>
+							<select id="select-grade">
+								<option>请选择年级</option>
+							<!-- 	<option>全部学校</option> -->
+							</select>
+						</div>
+						<div class="one three">
+							<label for="">考试科目</label>
+							<select id="select-sub">
+								<option>请选择科目</option>
+								<!-- <option>全部学校</option> -->
+							</select>
+						</div>
+						<div class="one four">
+							<input type="text" placeholder="请输入考试名称" id="search-test">
+							<i class="iconfont search-test">&#xe610;</i>
+						</div>
+					</div>
+					<table class="test-list test-list2"  id="test-list" cellspacing="0" border="0" cellpadding="0">
+						<thead>
+							<tr>
+								<th>考试名称</th>
+								<th>考试年级</th>
+								<th>考试科目</th>
+								<th>题目总量</th>
+								<th>批阅进度</th>
+								<th>改卷模式</th>
+								<th>状态</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- <tr class="parent-tr">
+								<td class="test-name" width="320">2017年第四次测试</td>
+								<td class="test-grade">一年级</td>
+								<td class="test-subject">数学</td>
+								<td class="test-num">165</td>
+								<td class="test-on">
+								 <p class="num">50%</p>
+									<div class="bar">
+									    <div style="width: 50%;">
+									       
+									    </div>
+									</div>
+								</td>
+								<td class="test-model">
+									<select>
+										<option>得分模式</option>
+										<option>扣分模式</option>
+									</select>
+								</td>
+								<td class="test-status">
+									<div class="modify-paper determine">
+										<span class="text left ml13">改卷</span>
+										<span class="cir right"></span>
+									</div>
+									<div class="modify-paper stop-paper">
+										<span class="cir left"></span>
+										<span class="text right mr13">暂停</span>
+									</div>
+								</td>
+								<td class="test2-operation">
+									<a href="#">查看进度<i class="iconfont">&#xe623;</i></a>
+								</td>
+							</tr> -->
+
+						</tbody>
+					</table>
+					<div class="pagination-wrap">
+						<ul class="pagination" id="pagination"></ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="progress-box none">
+			<div class="content common-width">
+				<div class="marking-control-box marking-change-box">
+					<div class="marking-change-title">
+						<a href="javascript:;" class="back-pre"><i class="iconfont">&#xe61c;</i></a>
+						<span class="test-pro-name">上海考试</span>
+					</div>
+					<table class="test-list test-pro-list"  id="test-pro-list" cellspacing="0" border="0" cellpadding="0">
+						<thead>
+							<tr>
+								<th>题组</th>
+								<th>试卷数量</th>
+								<th>阅卷人数</th>
+								<th>平均分</th>
+								<th>阅卷进度</th>
+								<th>操作</th>
+								<th>多评人数</th>
+								<th>多评误差</th>
+								<th>阅卷老师</th>
+								<th>审核老师</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- <tr class="parent-tr">
+								<td class="item-name" width="200">2017年第四次测试</td>
+								<td class="item-count">120</td>
+								<td class="item-people">3</td>
+								<td class="item-averge">165</td>
+								<td class="test-on">
+								 <p class="num">50%</p>
+									<div class="bar">
+									    <div style="width: 50%;">
+									       
+									    </div>
+									</div>
+								</td>
+								<td class="test-operation">
+									<a href="javascript:;">批阅详情<i class="iconfont"></i></a>
+								</td>
+								<td class="more-count">
+									<input type="text">
+								</td>
+								<td class="more-error">
+									<input type="text">
+								</td>
+								<td class="look-teacher">
+									<span class="look-num">2</span>
+									<a href="javascript:;">添加</a>
+								</td>
+								<td class="check-teacher">
+									<span class="check-num">2</span>
+									<a href="javascript:;">添加</a>
+								</td>
+							</tr>
+							<tr class="child-tr none">
+								<td colspan="10" style="text-align: center">
+									<div class="child-box">
+										<ul class="child-title">
+											<li>阅卷老师</li>
+											<li>所在学校</li>
+											<li>批改数量</li>
+											<li>批阅速度</li>
+											<li>平均分</li>
+										</ul>
+										<ul class="child-cont">
+											<li>
+												<div class="teacher-name">张三丰</div>
+												<div class="school-name">上海十大</div>
+												<div class="on-num">1</div>
+												<div class="on-speed">1/min</div>
+												<div class="on-averge">5</div>
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tr> -->
+						</tbody>
+					</table>
+					<div class="pagination-wrap">
+						<ul class="pagination" id="pagination-progress"></ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+
+		</div>
+
+	</div>
+
+
+
+	<!-- 选择添加老师 -->
+	<div class="modal-wrap" id="teacher-modal">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main">
+			<div class="modal-exit iconfont modal-exit-icon">&#xe61a;</div>
+			<div class="modal-title">选择老师</div>
+			<div class="modal-content">
+				<div class="mian-cont">
+					<div class="select-row">
+						<div class="one">
+							<label>考试年级</label>
+							<select id="change-grade">
+								<!-- <option>六年级</option>
+								<option>七年级</option>
+								<option>八年级</option> -->
+							</select>
+						</div>
+						<div class="one two">
+							<label>考试科目</label>
+							<select id="change-subject">
+								<!-- <option>语文</option>
+								<option>数学</option>
+								<option>英语</option> -->
+							</select>
+						</div>
+						<div class="one three">
+							<input type="text" placeholder="请输入老师姓名" id="search-teacher">
+							<i class="iconfont search-teacher">&#xe610;</i>
+						</div>
+					</div>
+					<div class="teacher-content clear">
+						<div class="left teacher-left">
+							<div class="teacher-title">
+								<h6>教师列表</h6>
+								<div class="all-box">
+									<!-- <span>全选</span>
+									<div class="check_box">
+				          	<input type="checkbox" value="" id="all-teacher" class="" name="">
+				          	<label for="all-teacher" class="show_school"></label>
+				        	</div> -->
+								</div>
+							</div>
+							<ul class="teacher-left-list">
+								<!-- <li class="clear">
+									<span class="left">王二@上海师大附中</span>
+									<div class="check_box right">
+				          	<input type="checkbox" value="" id="teacher1" class="" name="teacher-name">
+				          	<label for="teacher1"></label>
+				        	</div>
+								</li>
+								<li class="clear">
+									<span class="left">王二@上海师大附中</span>
+									<div class="check_box right">
+				          	<input type="checkbox" value="" id="teacher2" class="" name="teacher-name">
+				          	<label for="teacher2"></label>
+				        	</div>
+								</li>
+								<li class="clear">
+									<span class="left">王二@上海师大附中</span>
+									<div class="check_box right">
+				          	<input type="checkbox" value="" id="teacher3" class="" name="teacher-name">
+				          	<label for="teacher3"></label>
+				        	</div>
+								</li>
+								<li class="clear">
+									<span class="left">王二@上海师大附中</span>
+									<div class="check_box right">
+				          	<input type="checkbox" value="" id="teacher4" class="" name="teacher-name">
+				          	<label for="teacher4"></label>
+				        	</div>
+								</li>
+								<li class="clear">
+									<span class="left">王二@上海师大附中</span>
+									<div class="check_box right">
+				          	<input type="checkbox" value="" id="teacher5" class="" name="teacher-name">
+				          	<label for="teacher5"></label>
+				        	</div>
+								</li>
+								<li class="clear">
+									<span class="left">王二@上海师大附中</span>
+									<div class="check_box right">
+				          	<input type="checkbox" value="" id="teacher6" class="" name="teacher-name">
+				          	<label for="teacher6"></label>
+				        	</div>
+								</li>
+								<li class="clear">
+									<span class="left">王二@上海师大附中</span>
+									<div class="check_box right">
+				          	<input type="checkbox" value="" id="teacher7" class="" name="teacher-name">
+				          	<label for="teacher7"></label>
+				        	</div>
+								</li>
+								<li class="clear">
+									<span class="left">王二@上海师大附中</span>
+									<div class="check_box right">
+				          	<input type="checkbox" value="" id="teacher8" class="" name="teacher-name">
+				          	<label for="teacher8"></label>
+				        	</div>
+								</li>
+								<li class="clear">
+									<span class="left">王二@上海师大附中</span>
+									<div class="check_box right">
+				          	<input type="checkbox" value="" id="teacher9" class="" name="teacher-name">
+				          	<label for="teacher9"></label>
+				        	</div>
+								</li> -->
+							</ul>
+						</div>
+						<div class="right teacher-right">
+							<div class="teacher-title">
+								<h6>已选择老师</h6>
+							</div>
+							<ul class="teacher-right-list">
+								<!-- <li>
+									<span>王二毛</span>
+									<i class="iconfont">&#xe61b;</i>
+								</li>
+								<li>
+									<span>王二毛</span>
+									<i class="iconfont">&#xe61b;</i>
+								</li>
+								<li>
+									<span>王二毛</span>
+									<i class="iconfont">&#xe61b;</i>
+								</li>
+								<li>
+									<span>王二毛</span>
+									<i class="iconfont">&#xe61b;</i>
+								</li>
+								<li>
+									<span>王二毛</span>
+									<i class="iconfont">&#xe61b;</i>
+								</li>
+								<li>
+									<span>王二毛</span>
+									<i class="iconfont">&#xe61b;</i>
+								</li>
+								<li>
+									<span>王二毛</span>
+									<i class="iconfont">&#xe61b;</i>
+								</li>
+								<li>
+									<span>王二毛</span>
+									<i class="iconfont">&#xe61b;</i>
+								</li> -->
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit">取消</div>
+					<div class="modal-bottom-button determine modal-exit confirm-teacher">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- 解锁试卷 -->
+	<div class="modal-wrap" id="key-paper">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main" style="width:765px">
+			<div class="modal-exit iconfont modal-exit-icon key-closed">&#xe61a;</div>
+			<div class="modal-title">解锁试卷</div>
+			<div class="modal-content">
+				<div class="mian-cont" style="min-height: 120px;">
+					<p style="color:#fd97a3;line-height: 120px;">请确定老师没有在批改试卷，该操作将解锁所有被锁定的试卷，如果老师正在批改试卷，分数无效，请慎重！</p>
+				</div>
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit key-closed">取消</div>
+					<div class="modal-bottom-button determine modal-exit confirm-key">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 清空题组 -->
+	<div class="modal-wrap" id="clear-paper">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main" style="width:765px">
+			<div class="modal-exit iconfont modal-exit-icon key-closed">&#xe61a;</div>
+			<div class="modal-title">清空题组</div>
+			<div class="modal-content">
+				<div class="mian-cont" style="min-height: 120px;">
+					<!-- <input type="hidden" id="text-name">
+					<input type="hidden" id="text-id">
+					<input type="hidden" id="text-s-id"> -->
+					<p style="color:#fd97a3;line-height: 120px;text-align: center">请确定要清空题组，清空后无法恢复，请慎重！</p>
+				</div>
+				<div class="modal-bottom">
+					<div class="modal-bottom-button modal-exit key-closed">取消</div>
+					<div class="modal-bottom-button determine modal-exit clear-key">确认</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- 判分提示框 -->
+	<div class="modal-wrap" id="i_two">
+		<div class="modal-shadow modal-exit"></div>
+		<div class="modal-main" style="width:440px">
+			<div class="modal-exit iconfont modal-exit-icon">&#xe61a;</div>
+			<div class="modal-title">提示框</div>
+			<div class="modal-content">
+				<div class="mian-cont">
+					<div class="prompt alert alert-danger center" role="alert">
+		       <!--  您所给的分数不在规定范围内，请看清分值给分！ -->
+		    	</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
