@@ -1249,3 +1249,23 @@ width: 25px;
     line-height: 25px;
     margin-left: 15px;
 }
+/*个人错题集管理*/
+.per_select_top{
+	height: 57px;font-size:14px;line-height: 57px;color: #999999;
+}
+.per_select_top select{
+	width: 100px;height: 30px;margin-left: 10px;color: #666666;font-size: 14px;outline: none;
+}
+.per_wrong_admin_students{
+	overflow: hidden;border:1px solid #cccccc;padding:10px 0px 20px 0px;cursor:pointer;
+	display: none;border-radius: 5px;
+}
+.per_wrong_admin_students a{
+display:block;width:70px;height:32px;line-height: 32px;background:#f5f5f5;border:1px solid #cccccc;text-align:center;color:#333333;float: left;margin-left: 10px;margin-top: 10px;font-size: 14px;
+}
+.per_wrong_admin_students_p01{
+	margin-left: 10px;
+    color: #cccccc;
+    font-size: 14px;
+
+}

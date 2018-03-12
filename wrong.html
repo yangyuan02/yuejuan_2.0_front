@@ -37,6 +37,7 @@
 						<li class="wrong_per_li">学生错题集</li>
 						<li class="grade_admin_li">考试错题集管理</li>
 						<li class="class_admin_li">班级错题集管理</li>
+						<li class="per_admin_li">个人错题集管理</li>
 					</ul>
 				</div>
 				<div class="wrong_right">
@@ -45,7 +46,7 @@
 					<div class="wrong_main">
 					<!-- 考试错题集模块 --> 
 					<!-- 年级级错题本-->
-					<div style="display:block;">
+					<div style="display:none;">
 					<p class="grade_select_top">
 					   <a>考试<select class="grade_exam">
 						<!-- <option value="">上海市一中期中考试</option> -->
@@ -699,9 +700,34 @@
 					</div>
 					<!-- list end	 -->	
 					</div>
-					<!-- 班级错题本管理 end-->
-					</div>
 					
+					
+					</div>
+					<!-- 班级错题本管理 end-->
+					<!-- 个人错题本管理-->
+					<div class="per_wrong_admin" style="min-height: 300px;">
+                     <p class="per_select_top">
+					   <a>考试
+					   <select class="per_exam" style="width:220px;">
+						<option value="">上海闵行一中</option>
+						
+						
+					   </select> </a>
+                
+					   <a style="margin-left: 35px;"> 班级<select class="per_class">
+						
+						<option value="">1班</option>
+					   </select></a>
+					   <a style="margin-left: 35px;" >考试科目<select class="per_sub">
+						<option value="">数学</option>
+					   </select></a>
+					</p>
+					<div class="per_wrong_admin_students" style="display: block;">
+			              <p class="per_wrong_admin_students_p01">重点学生追踪错题集</p>
+			            <p class="per_wrong_admin_students_p02"><a style="color: rgb(255, 255, 255); background: rgb(49, 188, 145);">张一帆</a><a style="color: rgb(51, 51, 51); background: rgb(245, 245, 245);">王晓</a></p>
+                           </div>
+					</div>
+					<!--个人错题本管理 end-->
 				</div>
 			</div>
 		</div>
