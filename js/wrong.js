@@ -8,6 +8,7 @@
          $(".wrong_top").html($(this).html());
          $(".wrong_main").children('div').eq(a).show().siblings().hide();
          // $(".wrong_main").children('div').eq(a).show().siblings().children('.ans').hide();
+     
      });
      //全部题型
      $(".type_all").click(function(event) {
@@ -194,10 +195,7 @@
        $(".per_list").css("padding","20px 0px 100px 0px");
      $(".wrong_right").css("padding","43px 40px 100px 35px");
      });
-     // $(".grate_wrong_make").click(function(event) {
-     // 	var a = $(".grade_list").children('div').eq(1).find('.grade_list_number a').html("18");
-     // 	alert(a);
-     // });
+     
      // 考试ajax
      $.ajax({
             type: "GET",
