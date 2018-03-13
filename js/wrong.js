@@ -282,6 +282,10 @@
       });
     $(".grade_sur").click(function(event) {
     grade_list();
+    console.log($(".grate_topic a").length);
+    // if(){
+
+    // }
     });
  // 考试生成错题本
   function grade_list(){
@@ -331,7 +335,7 @@
       $.ajax({
             type: "POST",
             url: ajaxIp + "/api/v2/wrong_questions/grade_index",
-            // async: false,
+            async: false,
             data:{
                 "exam_id":grade_exam,
                  "subject_id":grade_sub,
@@ -406,7 +410,7 @@
 
                 $(".grade_list_ul").append('<li id="grade_list_move'+data[i].question_bank_id+'"><div class="grade_list_main"><div class="grade_list_body">'+data[i].content+'</div><p class="grade_list_lable"><a>年级得分率:<i>'+scoring_rate+'</i></a><a>年级平均分:<i>'+data[i].average_score+'分</i></a><a>知识点:<i>'+tags+'</i></a><a class="grade_list_dif">难度系数:'+difficulty_body+'</a></p><div class="grade_list_move"><a class="grade_list_body_ans"  data-id="'+i+'"><i class="iconfont" style="margin-right:5px;">&#xe61e;</i>查看答案和解析</a><a  class="grade_list_move_a">移除</a></div><div class="grade_list_number"><p><i class="iconfont" style="font-size:45px;color:'+num_color+';">&#xe63f;</i><a>'+num+'</a></p></div><div class="grade_list_form">试题来源:<a>'+source+'</a></div></div></li>');
               }
-
+             $(".grate_topic_ever_box").append('<div style="margin-top: 10px;color: #ccc;clear: both;"><i class="iconfont" style="font-size: 14px;color: #31bc91;margin-right: 5px;">&#xe646;</i>小提示：点击题号可以定位到相应题目</div>');
 
             },
             complete: function(){
@@ -727,6 +731,8 @@ $.ajax({
                   }
 
                // }
+                $(".class_topic_ever_box").append('<div style="margin-top: 10px;color: #ccc;clear: both;"><i class="iconfont" style="font-size: 14px;color: #31bc91;margin-right: 5px;">&#xe646;</i>小提示：点击题号可以定位到相应题目</div>');
+
              
             },
             complete: function(){
@@ -1535,7 +1541,7 @@ $.ajax({
              for(var i=0;i<data.length;i++){
                   $(".g_wrong_list").append('<li><a style="width: 32%;" class="g_wrong_list_name" data-id="'+data[i].id+'">'+data[i].title+'</a></a><a style="">'+data[i].count+'</a><a style="">'+data[i].author+'</a><a style="">'+data[i].created_at+'</a><a style=""><button data-id="'+data[i].id+'" class="g_wrong_list_look">查看</button><button data-id="'+data[i].id+'" class="g_wrong_list_rem" style="color: #fb7d8a;border-color: #fb7d8a;">删除</button></a></li>');
               }
-  
+            
 
                
             },
@@ -1623,7 +1629,8 @@ $.ajax({
   
           }   
 
-               
+            $(".g_topic_ever_box").append('<div style="margin-top: 10px;color: #ccc;clear: both;"><i class="iconfont" style="font-size: 14px;color: #31bc91;margin-right: 5px;">&#xe646;</i>小提示：点击题号可以定位到相应题目</div>');
+   
             },
             error:function(){
              
@@ -1846,6 +1853,7 @@ $.ajax({
             
             }
   
+           $(".c_topic_ever_box").append('<div style="margin-top: 10px;color: #ccc;clear: both;"><i class="iconfont" style="font-size: 14px;color: #31bc91;margin-right: 5px;">&#xe646;</i>小提示：点击题号可以定位到相应题目</div>');
 
                
             },
@@ -2022,11 +2030,60 @@ $.ajax({
   
 });
 // $(".layer").show();
-//
+//个人错题本管理
+$(".p_print").click(function(event) {
+     $(".wrong_left_ul").hide();
+     $("#header").hide();
+     $(".title-box").hide();
+      $(".ans_result").hide();
+       $(".wrong_top").hide();
+        $(".ans_news").hide();
+       $(".p_topic_ever_box_par").hide();
+       $(".p_list_body_ans").hide();
+       $("#footer").hide();
+        $(".p_list_main").css("width","100%");
+         $(".main").css("width","100%");
+          $(".main").css("margin-top","0px");
+        $(".wrong_right").css("width","100%");
+         $(".content").css("padding-bottom","0px");
+      window.print();
+      $(".wrong_left_ul").show();
+     $("#header").show();
+     $(".title-box").show();
+      $(".ans_result").show();
+       $(".wrong_top").show();
+        $(".ans_news").show();
+       $(".p_topic_ever_box_par").show();
+       $(".p_list_body_ans").show();
+       $("#footer").show();
+       $(".p_list_main").css("width","923px");
+         $(".main").css("width","1200px");
+          $(".main").css("margin-top","45px");
+        $(".wrong_right").css("width","1000px");
+         $(".content").css("padding-bottom","100px");
+      
+     });
+     
 
 
-
-
+$(".per_wrong_admin_students_p02").on('click', 'a', function(event){
+      $(this).css("color","#ffffff").siblings().css("color","#333333");
+      $(this).css("background","#31bc91").siblings().css("background","#f5f5f5");
+     });
+// 删除
+$(".per_wrong_list").on('click', '.per_wrong_list_rem', function(event) {
+ $(this).parents('li').remove();
+});
+$(".per_wrong_list").on('click', '.per_wrong_list_look', function(event) {
+ $(".per_wrong_admin_main_box").hide();
+ $(".per_wrong_list_look_box").show();
+ $(".wrong_top").html('<i class="c_back_font  iconfont" style="margin-right:10px;cursor: pointer;"></i>'+$(this).parents('li').find('.p_wrong_list_name').html()+'');
+});
+$(".wrong_top").on('click', 'i', function(event) {
+ $(".per_wrong_admin_main_box").show();
+ $(".per_wrong_list_look_box").hide();
+ $(".wrong_top").html('个人错题集管理');
+});
 
 
 
