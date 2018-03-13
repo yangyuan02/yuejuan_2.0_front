@@ -8,6 +8,7 @@
          $(".wrong_top").html($(this).html());
          $(".wrong_main").children('div').eq(a).show().siblings().hide();
          // $(".wrong_main").children('div').eq(a).show().siblings().children('.ans').hide();
+     
      });
      //全部题型
      $(".type_all").click(function(event) {
@@ -194,10 +195,7 @@
        $(".per_list").css("padding","20px 0px 100px 0px");
      $(".wrong_right").css("padding","43px 40px 100px 35px");
      });
-     // $(".grate_wrong_make").click(function(event) {
-     // 	var a = $(".grade_list").children('div').eq(1).find('.grade_list_number a').html("18");
-     // 	alert(a);
-     // });
+     
      // 考试ajax
      $.ajax({
             type: "GET",
@@ -284,6 +282,10 @@
       });
     $(".grade_sur").click(function(event) {
     grade_list();
+    console.log($(".grate_topic a").length);
+    // if(){
+
+    // }
     });
  // 考试生成错题本
   function grade_list(){
@@ -333,7 +335,7 @@
       $.ajax({
             type: "POST",
             url: ajaxIp + "/api/v2/wrong_questions/grade_index",
-            // async: false,
+            async: false,
             data:{
                 "exam_id":grade_exam,
                  "subject_id":grade_sub,
@@ -408,7 +410,7 @@
 
                 $(".grade_list_ul").append('<li id="grade_list_move'+data[i].question_bank_id+'"><div class="grade_list_main"><div class="grade_list_body">'+data[i].content+'</div><p class="grade_list_lable"><a>年级得分率:<i>'+scoring_rate+'</i></a><a>年级平均分:<i>'+data[i].average_score+'分</i></a><a>知识点:<i>'+tags+'</i></a><a class="grade_list_dif">难度系数:'+difficulty_body+'</a></p><div class="grade_list_move"><a class="grade_list_body_ans"  data-id="'+i+'"><i class="iconfont" style="margin-right:5px;">&#xe61e;</i>查看答案和解析</a><a  class="grade_list_move_a">移除</a></div><div class="grade_list_number"><p><i class="iconfont" style="font-size:45px;color:'+num_color+';">&#xe63f;</i><a>'+num+'</a></p></div><div class="grade_list_form">试题来源:<a>'+source+'</a></div></div></li>');
               }
-
+             $(".grate_topic_ever_box").append('<div style="margin-top: 10px;color: #ccc;clear: both;"><i class="iconfont" style="font-size: 14px;color: #31bc91;margin-right: 5px;">&#xe646;</i>小提示：点击题号可以定位到相应题目</div>');
 
             },
             complete: function(){
@@ -481,64 +483,117 @@ $.ajax({
 
 });
  
-   //班级
-$(".class_select_time").change(function(event) {
-$(".class_select_time").attr("data-id",$(".class_select_time").children('option:selected').attr("data-id"));
-     near_exam();
-});
- $(".wrong_class_li").click(function(event) {
-         /* Act on the event */
-         near_exam();
-     });
- function near_exam(){
-  var time_type=$(".class_select_time").attr("data-id");
-  var id=$(".class_select_grate").attr("data-id");
-  console.log(time_type);
-  $.ajax({
-            type: "POST",
-            url: ajaxIp + "/api/v2/wrong_questions/lately_exams",
+   //班级错题集
+$(".wrong_left_ul li").eq(1).click(function(event){
+   $.ajax({
+            type: "GET",
+            url: ajaxIp + "/api/v2/reports/exams",
             async: false,
-            data:{
-                "time_type":time_type,
-                 "grade_id":id,
-        
-            },
-            headers: {
-                'Authorization': "Bearer " + isLogin
+            headers:{
+                'Authorization':"Bearer "+ isLogin
             },
             success: function(data) {
-                $(".class_sur").attr("exam_id"," ");
-                $(".class_sur").attr("exam_length"," ");
-                var exam_id=[];
-                for(var i=0;i<data.length;i++){
-                 exam_id[i]=data[i].id;
-                }
-                $(".class_sur").attr("exam_id",exam_id);
-                $(".class_sur").attr("exam_length",exam_id.length);
-              
+            console.log("1122");
+             console.log(data);
+             // 班级考试
+             $(".class_exam").html(" ");
+             $(".class_class").html(" ");
+             $(".class_sub").html(" ");
+             $(".class_exam").attr("data-id",data[0].id);
+             $(".class_class").attr("data-id",data[0].classrooms[0].classroom_id);
+             $(".class_sub").attr("data-id",data[0].subjects[0].subject_id);
+             for(var i=0;i<data.length;i++){
+             $(".class_exam").append('<option data-id="'+data[i].id+'">'+data[i].name+'</option>');
+
+             }
+          for(var a=0;a<data[0].classrooms.length;a++){
+             $(".class_class").append('<option data-id="'+data[0].classrooms[a].classroom_id+'">'+data[0].classrooms[a].classroom_name+'</option>');
+             }
+            for(var b=0;b<data[0].subjects.length;b++){
+             $(".class_sub").append('<option data-id="'+data[0].subjects[b].subject_id+'">'+data[0].subjects[b].name+'</option>');
+             }
+           
+
+        $(".class_exam").change(function(event) {
+              $(".class_class").html(" ");
+              $(".class_sub").html(" ");
+
+            var index=$(this).children('option:selected').index();
+             $(".class_class").attr("data-id",data[index].classrooms[0].classroom_id);
+             $(".class_sub").attr("data-id",data[index].subjects[0].subject_id);
+          for(var a=0;a<data[index].classrooms.length;a++){
+             $(".class_class").append('<option data-id="'+data[index].classrooms[a].classroom_id+'">'+data[index].classrooms[a].classroom_name+'</option>');
+             }
+            for(var b=0;b<data[index].subjects.length;b++){
+             $(".class_sub").append('<option data-id="'+data[index].subjects[b].subject_id+'">'+data[index].subjects[b].name+'</option>');
+             }
+            });
+
             },
             error:function(){
 
             },
-        });
- }    
+          })
+
+
+ });
+// $(".class_select_time").change(function(event) {
+// $(".class_select_time").attr("data-id",$(".class_select_time").children('option:selected').attr("data-id"));
+//      near_exam();
+// });
+//  $(".wrong_class_li").click(function(event) {
+//          /* Act on the event */
+//          near_exam();
+//      });
+//  function near_exam(){
+//   var time_type=$(".class_select_time").attr("data-id");
+//   var id=$(".class_select_grate").attr("data-id");
+//   console.log(time_type);
+//   $.ajax({
+//             type: "POST",
+//             url: ajaxIp + "/api/v2/wrong_questions/lately_exams",
+//             async: false,
+//             data:{
+//                 "time_type":time_type,
+//                  "grade_id":id,
+        
+//             },
+//             headers: {
+//                 'Authorization': "Bearer " + isLogin
+//             },
+//             success: function(data) {
+//                 $(".class_sur").attr("exam_id"," ");
+//                 $(".class_sur").attr("exam_length"," ");
+//                 var exam_id=[];
+//                 for(var i=0;i<data.length;i++){
+//                  exam_id[i]=data[i].id;
+//                 }
+//                 $(".class_sur").attr("exam_id",exam_id);
+//                 $(".class_sur").attr("exam_length",exam_id.length);
+              
+//             },
+//             error:function(){
+
+//             },
+//         });
+//  }    
 
 $(".class_sur").click(function(event) {
   class_list();
 })
 function class_list(){
-console.log($(".class_sur").attr("exam_id"));
-var exam_id=$(".class_sur").attr("exam_id");
-var exam_length=$(".class_sur").attr("exam_length");
-console.log(exam_id);
-if(exam_id!==undefined){
-var words = exam_id.split(',');
-}
-var word =[];
-for(var length=0;length<exam_length;length++){
-     word[length]=parseInt(words[length]);
-}
-console.log(word);
+// console.log($(".class_sur").attr("exam_id"));
+// var exam_id=$(".class_sur").attr("exam_id");
+// var exam_length=$(".class_sur").attr("exam_length");
+// console.log(exam_id);
+// if(exam_id!==undefined){
+// var words = exam_id.split(',');
+// }
+var word =$(".class_exam").attr("data-id");
+// for(var length=0;length<exam_length;length++){
+//      word[length]=parseInt(words[length]);
+// }
+// console.log(word);
 //类型
  var data_num=[];
     if($(".class_sur").parent().prev().find('a').eq(0).attr("data-id")==1){
@@ -577,14 +632,14 @@ console.log(word);
     }
    console.log(data_num);
   var rate=$(".class_select_rate").attr("data-id");
-  var class_id=$(".class_select_class").attr("data-id");
-  var sub_id=$(".class_select_sub").attr("data-id");
-  if(class_id==undefined){
-    alert("班级不能为空");
-  }
-  if(sub_id==undefined){
-    alert("考试科目不能为空");
-  }
+  var class_id=$(".class_class").attr("data-id");
+  var sub_id=$(".class_sub").attr("data-id");
+  // if(class_id==undefined){
+  //   alert("班级不能为空");
+  // }
+  // if(sub_id==undefined){
+  //   alert("考试科目不能为空");
+  // }
    console.log(sub_id);
    var sort=$(".class_sort").attr("data-id");
 $.ajax({
@@ -597,7 +652,7 @@ $.ajax({
                 "classroom_id":class_id,
                 "rate":rate,
                 "item":data_num,
-                 "sort":sort,
+                "sort":sort,
         
             },
             headers: {
@@ -609,46 +664,46 @@ $.ajax({
             success: function(data) {
                 console.log(data);
                  $(".class_list_ul").html(" ");
-                 $(".class_topic_ever_ul").html(" ");
-                 if(data.length!==0){
-                  $(".class_sur").attr("school_id",data[0][0].school_id);
-                 }
+                 $(".class_topic_ever_box").html(" ");
+                 // if(data.length!==0){
+                 //  $(".class_sur").attr("school_id",data[0][0].school_id);
+                 // }
                 
                for(var i=0;i<data.length;i++){
-                $(".class_topic_ever_ul").append('<li><p>'+data[i][i].source+'</p></li>')
-                 for(var i_1=0;i_1<data[i].length;i_1++){
+                // $(".class_topic_ever_ul").append('<li><p>'+data[i].source+'</p></li>')
+                 // for(var i_1=0;i_1<data.length;i_1++){
                     //  console.log(i_1);
                     // console.log(data[i][i_1].content);
-                var scoring_rate=Math.floor(data[i][i_1].scoring_rate*100)+"%";
+                var scoring_rate=Math.floor(data[i].scoring_rate*100)+"%";
 
                  //知识点 
-                 var tags=data[i][i_1].tags;
+                 var tags=data[i].tags;
                  //考试来源
-                 var source=data[i][i_1].source;
+                 var source=data[i].source;
                 //序号
-                var num=data[i][i_1].num;
+                var num=data[i].num;
                 // if(num<10){
                 //   var num='0'+Number(data[i][i_1].num);
                 // }   
               //小题上标(得分率)
-              var a_rate=Number(data[i][i_1].scoring_rate);
+              var a_rate=Number(data[i].scoring_rate);
               if(a_rate>=0.86){
-               $(".class_topic_ever_ul li").eq(i).append('<a class="class_topic_ever" id="wrong_class_li'+data[i][i_1].question_bank_id+'"  style="background:#31bc91;" href="#a_wrong_class_li'+data[i][i_1].question_bank_id+'">'+num+'</a>');
+               $(".class_topic_ever_box").append('<a class="class_topic_ever" id="wrong_class_li'+data[i].question_bank_id+'"  style="background:#31bc91;" href="#a_wrong_class_li'+data[i].question_bank_id+'">'+num+'</a>');
               
               var num_color="#31bc91";
              }else if(a_rate>=0.8&&a_rate<0.95){
-                $(".class_topic_ever_ul li").eq(i).append('<a class="class_topic_ever" id="wrong_class_li'+data[i][i_1].question_bank_id+'"  style="background:#f7c07c;" href="#a_wrong_class_li'+data[i][i_1].question_bank_id+'">'+num+'</a>');
+                $(".class_topic_ever_box").append('<a class="class_topic_ever" id="wrong_class_li'+data[i].question_bank_id+'"  style="background:#f7c07c;" href="#a_wrong_class_li'+data[i].question_bank_id+'">'+num+'</a>');
              
              var num_color="#f7c07c";
                  }else if(a_rate>=0.6&&a_rate<0.8){
-                $(".class_topic_ever_ul li").eq(i).append('<a class="class_topic_ever" id="wrong_class_li'+data[i][i_1].question_bank_id+'"  style="background:#5fa3ed;" href="#a_wrong_class_li'+data[i][i_1].question_bank_id+'">'+num+'</a>');
+                $(".class_topic_ever_box").append('<a class="class_topic_ever" id="wrong_class_li'+data[i].question_bank_id+'"  style="background:#5fa3ed;" href="#a_wrong_class_li'+data[i].question_bank_id+'">'+num+'</a>');
                   var num_color="#5fa3ed";
              }else if(a_rate>=0&&a_rate<0.6){
-                $(".class_topic_ever_ul li").eq(i).append('<a class="class_topic_ever" id="wrong_class_li'+data[i][i_1].question_bank_id+'"  style="background:#fb7d8a;" href="#a_wrong_class_li'+data[i][i_1].question_bank_id+'">'+num+'</a>');
+                $(".class_topic_ever_box").append('<a class="class_topic_ever" id="wrong_class_li'+data[i].question_bank_id+'"  style="background:#fb7d8a;" href="#a_wrong_class_li'+data[i].question_bank_id+'">'+num+'</a>');
                 var num_color="#fb7d8a";
              }
             //难度系数
-              var difficulty_level=Number(data[i][i_1].difficulty_level);
+              var difficulty_level=Number(data[i].difficulty_level);
               console.log(difficulty_level);
               if(difficulty_level==0){
                 var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i>';
@@ -669,13 +724,15 @@ $.ajax({
                  var difficulty_body='<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i>';
               
               }   
-                  if(data[i][i_1].score_rate_difference==undefined){
-                    data[i][i_1].score_rate_difference=0;
+                  if(data[i].score_rate_difference==undefined){
+                    data[i].score_rate_difference=0;
                   }
-                 $(".class_list_ul").append(' <li id="a_wrong_class_li'+data[i][i_1].question_bank_id+'" class="wrong_class_li'+data[i][i_1].question_bank_id+'" bank_id="'+data[i][i_1].question_bank_id+'" total_score="'+data[i][i_1].total_score+'"  average_score="'+data[i][i_1].average_score+'" scoring_rate="'+data[i][i_1].scoring_rate+'"  item="'+data[i][i_1].item+'" exam_subject_id="'+data[i][i_1].exam_subject_id+'"><div class="class_list_main"><div class="class_list_body">'+data[i][i_1].content+'</div><p class="class_list_lable"><a>班级得分率:<i>'+scoring_rate+'</i></a><a>班-级得分率差:<i>'+data[i][i_1].score_rate_difference+'</i></a><a>班级平均分:<i>'+data[i][i_1].average_score+'分</i></a><a>知识点:<i>'+tags+'</i></a><a class="class_list_dif">难度系数:'+difficulty_body+'</a></p><div class="class_list_move"><a class="class_list_body_ans"   data-id="'+i+'"  data-id01="'+i_1+'"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a><a  class="class_list_move_a">移除</a></div><div class="class_list_number"><p><i class="iconfont" style="font-size:45px;color:'+num_color+';"></i><a>'+num+'</a></p></div><div class="class_list_form">试题来源:<a>'+source+'</a></div></div></li>');
+                 $(".class_list_ul").append(' <li id="a_wrong_class_li'+data[i].question_bank_id+'" class="wrong_class_li'+data[i].question_bank_id+'" bank_id="'+data[i].question_bank_id+'" total_score="'+data[i].total_score+'"  average_score="'+data[i].average_score+'" scoring_rate="'+data[i].scoring_rate+'"  item="'+data[i].item+'" exam_subject_id="'+data[i].exam_subject_id+'"><div class="class_list_main"><div class="class_list_body">'+data[i].content+'</div><p class="class_list_lable"><a>班级得分率:<i>'+scoring_rate+'</i></a><a>班-级得分率差:<i>'+Math.round(parseFloat(data[i].score_rate_difference)*100)/100+'</i></a><a>班级平均分:<i>'+data[i].average_score+'分</i></a><a>知识点:<i>'+tags+'</i></a><a class="class_list_dif">难度系数:'+difficulty_body+'</a></p><div class="class_list_move"><a class="class_list_body_ans"   data-id="'+i+'"  data-id01="'+i+'"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a><a  class="class_list_move_a">移除</a></div><div class="class_list_number"><p><i class="iconfont" style="font-size:45px;color:'+num_color+';"></i><a>'+num+'</a></p></div><div class="class_list_form">试题来源:<a>'+source+'</a></div></div></li>');
                   }
 
-               }
+               // }
+                $(".class_topic_ever_box").append('<div style="margin-top: 10px;color: #ccc;clear: both;"><i class="iconfont" style="font-size: 14px;color: #31bc91;margin-right: 5px;">&#xe646;</i>小提示：点击题号可以定位到相应题目</div>');
+
              
             },
             complete: function(){
@@ -688,18 +745,11 @@ $.ajax({
 
 }
 function class_list_ans(num,num01){
-console.log($(".class_sur").attr("exam_id"));
-var exam_id=$(".class_sur").attr("exam_id");
-var exam_length=$(".class_sur").attr("exam_length");
-console.log(exam_id);
-if(exam_id!==undefined){
-var words = exam_id.split(',');
-}
-var word =[];
-for(var length=0;length<exam_length;length++){
-     word[length]=parseInt(words[length]);
-}
-console.log(word);
+var word =$(".class_exam").attr("data-id");
+// for(var length=0;length<exam_length;length++){
+//      word[length]=parseInt(words[length]);
+// }
+// console.log(word);
 //类型
  var data_num=[];
     if($(".class_sur").parent().prev().find('a').eq(0).attr("data-id")==1){
@@ -738,14 +788,14 @@ console.log(word);
     }
    console.log(data_num);
   var rate=$(".class_select_rate").attr("data-id");
-  var class_id=$(".class_select_class").attr("data-id");
-  var sub_id=$(".class_select_sub").attr("data-id");
-  if(class_id==undefined){
-    alert("班级不能为空");
-  }
-  if(sub_id==undefined){
-    alert("考试科目不能为空");
-  }
+  var class_id=$(".class_class").attr("data-id");
+  var sub_id=$(".class_sub").attr("data-id");
+  // if(class_id==undefined){
+  //   alert("班级不能为空");
+  // }
+  // if(sub_id==undefined){
+  //   alert("考试科目不能为空");
+  // }
    console.log(sub_id);
    var sort=$(".class_sort").attr("data-id");
 $.ajax({
@@ -758,7 +808,7 @@ $.ajax({
                 "classroom_id":class_id,
                 "rate":rate,
                 "item":data_num,
-                 "sort":sort,
+                "sort":sort,
         
             },
             headers: {
@@ -769,8 +819,8 @@ $.ajax({
                 },
             success: function(data) {
                 console.log(data);
-              $(".class_ans01").html(data[num][num01].answer);
-               $(".class_ans02").html(data[num][num01].analysis);
+              $(".class_ans01").html(data[num].answer);
+               $(".class_ans02").html(data[num].analysis);
                
              
             },
@@ -815,12 +865,11 @@ $(".class_make_wrong").click(function(event) {
 
     }
     var exam_subject_id=$(".class_list_ul li").eq(0).attr("exam_subject_id");
-    var title01=$(".class_select_time").children('option:selected').text();
-    var title02=$(".class_select_grate").children('option:selected').text();
-    var title03=$(".class_select_class").children('option:selected').text();
-    var title04=$(".class_select_sub").children('option:selected').text();
-    var title05=$(".class_select_rate").children('option:selected').text();
-    var title=title01+"-"+title02+"-"+title03+"-"+title04+"-"+title05;
+    var title01=$(".class_exam").children('option:selected').text();
+    var title02=$(".class_class").children('option:selected').text();
+    var title03=$(".class_sub").children('option:selected').text();
+    var title04=$(".class_select_rate").children('option:selected').text();
+    var title=title01+"-"+title02+"-"+title03+"-"+title04;
     console.log(title);
     console.log(class_wrongs);
     $.ajax({
@@ -849,96 +898,97 @@ $(".class_make_wrong").click(function(event) {
 });
 
 //班级年级
-$.ajax({
-            type: "GET",
-            url: ajaxIp + "/api/v2/commons/school_grades",
-            async: false,
-            headers: {
-                'Authorization': "Bearer " + isLogin
-            },
-            success: function(data) {
-                console.log(data);
-                 $(".class_select_grate").html(" ");
-                  $(".class_select_grade").attr("data-id"," ");
-                 if(data.length!==0){
-                 $(".class_select_grate").attr("data-id",data[0].id);
-                for(var i=0;i<data.length;i++){
-                   $(".class_select_grate").append('<option value="" data-id='+data[i].id+'>'+data[i].name+'</option>');
-                }
-            }
-            },
-            error:function(){
+// $.ajax({
+//             type: "GET",
+//             url: ajaxIp + "/api/v2/commons/school_grades",
+//             async: false,
+//             headers: {
+//                 'Authorization': "Bearer " + isLogin
+//             },
+//             success: function(data) {
+//                 console.log(data);
+//                  $(".class_select_grate").html(" ");
+//                   $(".class_select_grade").attr("data-id"," ");
+//                  if(data.length!==0){
+//                  $(".class_select_grate").attr("data-id",data[0].id);
+//                 for(var i=0;i<data.length;i++){
+//                    $(".class_select_grate").append('<option value="" data-id='+data[i].id+'>'+data[i].name+'</option>');
+//                 }
+//             }
+//             },
+//             error:function(){
 
-            },
-        });
-function grade_get_class(grade_id){
-$.ajax({
-            type: "GET",
-            url: ajaxIp + '/api/v2/commons/'+grade_id+'/grade_classrooms',
-            async: false,
-            headers: {
-                'Authorization': "Bearer " + isLogin
-            },
-            success: function(data) {
-                console.log(data);
-                 $(".class_select_class").html(" ");
-                  $(".class_select_class").attr("data-id"," ");
-                 if(data.length!==0){
-                 $(".class_select_class").attr("data-id",data[0].id);
-                 for(var i=0;i<data.length;i++){
-                   $(".class_select_class").append('<option value="" data-id='+data[i].id+'>'+data[i].name+'</option>');
-                 }
-               }
-            },
-            error:function(){
+//             },
+//         });
+// function grade_get_class(grade_id){
+// $.ajax({
+//             type: "GET",
+//             url: ajaxIp + '/api/v2/commons/'+grade_id+'/grade_classrooms',
+//             async: false,
+//             headers: {
+//                 'Authorization': "Bearer " + isLogin
+//             },
+//             success: function(data) {
+//                 console.log(data);
+//                  $(".class_select_class").html(" ");
+//                   $(".class_select_class").attr("data-id"," ");
+//                  if(data.length!==0){
+//                  $(".class_select_class").attr("data-id",data[0].id);
+//                  for(var i=0;i<data.length;i++){
+//                    $(".class_select_class").append('<option value="" data-id='+data[i].id+'>'+data[i].name+'</option>');
+//                  }
+//                }
+//             },
+//             error:function(){
 
-            },
-        });
+//             },
+//         });
 
-$.ajax({
-            type: "GET",
-            url: ajaxIp + '/api/v2/commons/grade_subjects',
-            async: false,
-            data:{
-                'grade_id':grade_id,
-            },
-            headers: {
-                'Authorization': "Bearer " + isLogin
-            },
-            success: function(data) {
-                console.log(data);
-                $(".class_select_sub").attr("data-id"," ");
-                 $(".class_select_sub").html(" ");
-                 if(data.length!==0){
-                 $(".class_select_sub").attr("data-id",data[0].id);
-                 for(var i=0;i<data.length;i++){
-                   $(".class_select_sub").append('<option value="" data-id='+data[i].id+'>'+data[i].name+'</option>');
-                 }
-             }
+// $.ajax({
+//             type: "GET",
+//             url: ajaxIp + '/api/v2/commons/grade_subjects',
+//             async: false,
+//             data:{
+//                 'grade_id':grade_id,
+//             },
+//             headers: {
+//                 'Authorization': "Bearer " + isLogin
+//             },
+//             success: function(data) {
+//                 console.log(data);
+//                 $(".class_select_sub").attr("data-id"," ");
+//                  $(".class_select_sub").html(" ");
+//                  if(data.length!==0){
+//                  $(".class_select_sub").attr("data-id",data[0].id);
+//                  for(var i=0;i<data.length;i++){
+//                    $(".class_select_sub").append('<option value="" data-id='+data[i].id+'>'+data[i].name+'</option>');
+//                  }
+//              }
                
-            },
-            error:function(){
+//             },
+//             error:function(){
 
-            },
-        });
+//             },
+//         });
 
 
-};
+// };
+
 //根据班级获取年级
-$(".wrong_class_li").click(function(event) {
-   var grade_id=$(".class_select_grate").children('option:selected').attr("data-id");
-   grade_get_class(grade_id);
-   near_exam();
+// $(".wrong_class_li").click(function(event) {
+//    var grade_id=$(".class_select_grate").children('option:selected').attr("data-id");
+//    // grade_get_class(grade_id);
+//    near_exam();
 
-});
- $(".class_select_grate").change(function(event) {
-   var grade_id=$(this).children('option:selected').attr("data-id");
-$(this).attr("data-id",$(this).children('option:selected').attr("data-id"));
-   grade_get_class(grade_id);
-    near_exam();
+// });
+//  $(".class_select_grate").change(function(event) {
+//    var grade_id=$(this).children('option:selected').attr("data-id");
+// $(this).attr("data-id",$(this).children('option:selected').attr("data-id"));
+//    // grade_get_class(grade_id);
+//     near_exam();
 
 
- });
+//  });
 
 
  //班级select
@@ -1152,15 +1202,19 @@ $(".class_ans_tc").on('click', 'button', function(event) {
        	}
 
        });
-        //生成变式训练
-        $(".per_make_change").click(function(event) {
-        $(".per_list_ans_train_top01").show();
-         $(".per_list_ans_train_01").show();
+        $(".wrong_per_li").click(function(event) {
+           // Act on the event
+           $(".per_ans").hide();
         });
+        //生成变式训练
+        // $(".per_make_change").click(function(event) {
+        // $(".per_list_ans_train_top01").show();
+        //  $(".per_list_ans_train_01").show();
+        // });
      //重点追踪学生
      $(".students_key_box_p02").on('click', 'a', function(event){
-      $(this).css("border-color","#31bc91").siblings().css("border-color","#cccccc");
-      $(this).css("background","#ffffff").siblings().css("background","#f5f5f5");
+      $(this).css("color","#ffffff").siblings().css("color","#333333");
+      $(this).css("background","#31bc91").siblings().css("background","#f5f5f5");
      });
      $(".stu_wrong_tc_ul li").click(function(event) {
          var a = $(this).attr("data-id");
@@ -1289,7 +1343,7 @@ $(".g_wrong_admin_sub").change(function(event) {
 
 
 
-$(".g_wrong_list").on('click', 'button', function(event) {
+$(".g_wrong_list").on('click', '.g_wrong_list_look', function(event) {
    $(".g_list_ul").html(" ");
   $(".g_topic_ever_box").html(" ");
   $(".g_font_div").hide();
@@ -1485,9 +1539,9 @@ $.ajax({
             success: function(data) {
               $(".g_wrong_list").html(" ");
              for(var i=0;i<data.length;i++){
-                  $(".g_wrong_list").append('<li><a style="width: 32%;">'+data[i].title+'</a></a><a style="">'+data[i].count+'</a><a style="">'+data[i].author+'</a><a style="">'+data[i].created_at+'</a><a style=""><button data-id="'+data[i].id+'">查看</button></a></li>');
+                  $(".g_wrong_list").append('<li><a style="width: 32%;" class="g_wrong_list_name" data-id="'+data[i].id+'">'+data[i].title+'</a></a><a style="">'+data[i].count+'</a><a style="">'+data[i].author+'</a><a style="">'+data[i].created_at+'</a><a style=""><button data-id="'+data[i].id+'" class="g_wrong_list_look">查看</button><button data-id="'+data[i].id+'" class="g_wrong_list_rem" style="color: #fb7d8a;border-color: #fb7d8a;">删除</button></a></li>');
               }
-  
+            
 
                
             },
@@ -1502,7 +1556,7 @@ $.ajax({
 }
 
   //查看
-$(".g_wrong_list").on('click', 'button', function(event) {
+$(".g_wrong_list").on('click', '.g_wrong_list_look', function(event) {
 var a=parseInt($(this).attr("data-id"));
 $(".wrong_top").attr("data-id",a);
 $.ajax({
@@ -1523,8 +1577,8 @@ $.ajax({
              tag=tag+data[i].tags[i_tag];
             }
             console.log(tag);
-            var s_rate=Number(data[i].scoring_rate)*100;
-             console.log(data[i].scoring_rate)
+            var s_rate=Math.round(Number(data[i].scoring_rate)*100);
+            console.log(data[i].scoring_rate)
           
           //难度系数
               var difficulty_level=Number(data[i].difficulty_level);
@@ -1575,7 +1629,8 @@ $.ajax({
   
           }   
 
-               
+            $(".g_topic_ever_box").append('<div style="margin-top: 10px;color: #ccc;clear: both;"><i class="iconfont" style="font-size: 14px;color: #31bc91;margin-right: 5px;">&#xe646;</i>小提示：点击题号可以定位到相应题目</div>');
+   
             },
             error:function(){
              
@@ -1648,6 +1703,8 @@ function c_list(){
             data:{
                 'exam_id':exam_id,
                 'subject_id':subject_id,
+                'classroom_id':156,
+
             },
             headers: {
                 'Authorization': "Bearer " + isLogin
@@ -1655,7 +1712,7 @@ function c_list(){
             success: function(data) {
              $(".c_wrong_list").html(" ");
               for(var i=0;i<data.length;i++){
-                  $(".c_wrong_list").append('<li><a style="width: 32%;">'+data[i].title+'</a></a><a style="">'+data[i].count+'</a><a style="">'+data[i].author+'</a><a style="">'+data[i].created_at+'</a><a style=""><button data-id="'+data[i].id+'">查看</button></a></li>');
+                  $(".c_wrong_list").append('<li><a data-id="'+data[i].id+'" style="width: 32%;" class="c_wrong_list_name">'+data[i].title+'</a></a><a style="">'+data[i].count+'</a><a style="">'+data[i].author+'</a><a style="">'+data[i].created_at+'</a><a style=""><button data-id="'+data[i].id+'" class="c_wrong_list_look">查看</button><button style="color: #fb7d8a;border-color:#fb7d8a;" class="c_wrong_list_rem" data-id="'+data[i].id+'">删除</button></a></li>');
               }
                
             },
@@ -1664,6 +1721,7 @@ function c_list(){
         },
         });
 }
+
 
 $(".class_admin_li").click(function(event) {
  $.ajax({
@@ -1711,7 +1769,7 @@ $(".class_admin_li").click(function(event) {
           })       
 
 });
-  $(".c_wrong_list").on('click', 'button', function(event) {
+  $(".c_wrong_list").on('click', '.c_wrong_list_look', function(event) {
   $(".c_topic_ever_box").html(" ");
   $(".c_list_ul").html(" ");
   $(".c_font_div").hide();
@@ -1744,7 +1802,7 @@ $.ajax({
              tag=tag+data[i].tags[i_tag];
             }
             console.log(tag);
-            var s_rate=Number(data[i].scoring_rate)*100;
+            var s_rate=Math.round(Number(data[i].scoring_rate)*100);
              console.log(data[i].scoring_rate)
           
           //难度系数
@@ -1795,6 +1853,7 @@ $.ajax({
             
             }
   
+           $(".c_topic_ever_box").append('<div style="margin-top: 10px;color: #ccc;clear: both;"><i class="iconfont" style="font-size: 14px;color: #31bc91;margin-right: 5px;">&#xe646;</i>小提示：点击题号可以定位到相应题目</div>');
 
                
             },
@@ -1804,16 +1863,230 @@ $.ajax({
         });
 
 });
+
+// $.ajax({
+//             type: "POST",
+//             url: ajaxIp + '/api/v2/wrong_books/delete',
+//             async: false,
+//             data:{
+//                 'id':7,
+//                 // 'title':"何俊111",
+//             },
+//             headers: {
+//                 'Authorization': "Bearer " + isLogin
+//             },
+//             success: function(data) {
+//              console.log(data);
+//              },
+//              error:function() {
+//                /* Act on the event */
+//              }
+//            });
+            
+
+$(".c_wrong_list").on('click', '.c_wrong_list_name', function(event) {
+$(".layer").css("height",$(document).height());
+$(".layer").show();
+$(".c_wrong_change_name").show();
+$(".c_wrong_change_name_input").val($(this).html());
+$(".c_wrong_change_name_t").attr("data-id",$(this).attr("data-id"));
+});
+
+$(".c_wrong_change_name_t").click(function(event) {
+  $(".layer").hide();
+$(".c_wrong_change_name").hide();
+var title=$(".c_wrong_change_name_input").val();
+var id=$(this).attr("data-id");
+console.log(title.length);
+if(title.length==0){
+  alert("名称不能为空");
+}else{
+$.ajax({
+            type: "POST",
+            url: ajaxIp + '/api/v2/wrong_books/update_title',
+            async: false,
+            data:{
+                'id':id,
+                'title':title,
+            },
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            success: function(data) {
+             console.log(data);
+             c_list();
+             },
+             error:function() {
+               /* Act on the event */
+             }
+           });
+}
+
+});
+$(".c_wrong_change_name_f").click(function(event) {
+  $(".layer").hide();
+$(".c_wrong_change_name").hide();
+});
+$(".c_wrong_change_name_back").click(function(event) {
+  $(".layer").hide();
+$(".c_wrong_change_name").hide();
+});
+// 班级删除
+$(".c_wrong_list").on('click', '.c_wrong_list_rem', function(event) {
+var id=$(this).attr("data-id");
+$.ajax({
+            type: "POST",
+            url: ajaxIp + '/api/v2/wrong_books/delete',
+            async: false,
+            data:{
+                'id':id,
+              
+            },
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            success: function(data) {
+             console.log(data);
+             c_list();
+             layer.msg('删除成功',{time:700});
+             },
+             error:function() {
+               /* Act on the event */
+             }
+           });
+  
+});
+//年级管理
+$(".g_wrong_list").on('click', '.g_wrong_list_name', function(event) {
+$(".layer").css("height",$(document).height());
+$(".layer").show();
+$(".g_wrong_change_name").show();
+$(".g_wrong_change_name_input").val($(this).html());
+$(".g_wrong_change_name_t").attr("data-id",$(this).attr("data-id"));
+});
+
+$(".g_wrong_change_name_t").click(function(event) {
+  $(".layer").hide();
+$(".g_wrong_change_name").hide();
+var title=$(".g_wrong_change_name_input").val();
+var id=$(this).attr("data-id");
+console.log(title.length);
+if(title.length==0){
+  alert("名称不能为空");
+}else{
+$.ajax({
+            type: "POST",
+            url: ajaxIp + '/api/v2/wrong_books/update_title',
+            async: false,
+            data:{
+                'id':id,
+                'title':title,
+            },
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            success: function(data) {
+             console.log(data);
+              g_wrong_list();
+             },
+             error:function() {
+               /* Act on the event */
+             }
+           });
+}
+
+});
+$(".g_wrong_change_name_f").click(function(event) {
+  $(".layer").hide();
+$(".g_wrong_change_name").hide();
+});
+$(".g_wrong_change_name_back").click(function(event) {
+  $(".layer").hide();
+$(".g_wrong_change_name").hide();
+});
+// 年级删除
+$(".g_wrong_list").on('click', '.g_wrong_list_rem', function(event) {
+var id=$(this).attr("data-id");
+$.ajax({
+            type: "POST",
+            url: ajaxIp + '/api/v2/wrong_books/delete',
+            async: false,
+            data:{
+                'id':id,
+              
+            },
+            headers: {
+                'Authorization': "Bearer " + isLogin
+            },
+            success: function(data) {
+             console.log(data);
+            g_wrong_list();
+            layer.msg('删除成功',{time:700});
+             },
+             error:function() {
+               /* Act on the event */
+             }
+           });
+  
+});
+// $(".layer").show();
+//个人错题本管理
+$(".p_print").click(function(event) {
+     $(".wrong_left_ul").hide();
+     $("#header").hide();
+     $(".title-box").hide();
+      $(".ans_result").hide();
+       $(".wrong_top").hide();
+        $(".ans_news").hide();
+       $(".p_topic_ever_box_par").hide();
+       $(".p_list_body_ans").hide();
+       $("#footer").hide();
+        $(".p_list_main").css("width","100%");
+         $(".main").css("width","100%");
+          $(".main").css("margin-top","0px");
+        $(".wrong_right").css("width","100%");
+         $(".content").css("padding-bottom","0px");
+      window.print();
+      $(".wrong_left_ul").show();
+     $("#header").show();
+     $(".title-box").show();
+      $(".ans_result").show();
+       $(".wrong_top").show();
+        $(".ans_news").show();
+       $(".p_topic_ever_box_par").show();
+       $(".p_list_body_ans").show();
+       $("#footer").show();
+       $(".p_list_main").css("width","923px");
+         $(".main").css("width","1200px");
+          $(".main").css("margin-top","45px");
+        $(".wrong_right").css("width","1000px");
+         $(".content").css("padding-bottom","100px");
+      
+     });
      
 
 
-
-
-
-
-
+$(".per_wrong_admin_students_p02").on('click', 'a', function(event){
+      $(this).css("color","#ffffff").siblings().css("color","#333333");
+      $(this).css("background","#31bc91").siblings().css("background","#f5f5f5");
+     });
+// 删除
+$(".per_wrong_list").on('click', '.per_wrong_list_rem', function(event) {
+ $(this).parents('li').remove();
+});
+$(".per_wrong_list").on('click', '.per_wrong_list_look', function(event) {
+ $(".per_wrong_admin_main_box").hide();
+ $(".per_wrong_list_look_box").show();
+ $(".wrong_top").html('<i class="c_back_font  iconfont" style="margin-right:10px;cursor: pointer;"></i>'+$(this).parents('li').find('.p_wrong_list_name').html()+'');
+});
+$(".wrong_top").on('click', 'i', function(event) {
+ $(".per_wrong_admin_main_box").show();
+ $(".per_wrong_list_look_box").hide();
+ $(".wrong_top").html('个人错题集管理');
+});
 
 
 
 
  })
+
