@@ -77,27 +77,27 @@
                 <div class="group_menu">
                     <h3>添加题组</h3>
                     <ul>
-                        <li>选择题</li>
-                        <li>判断题</li>
-                        <li>填空题</li>
-                        <li>作文题</li>
-                        <li>其他题</li>
+                        <li ng-click="showQuestioModel(0)">选择题</li>
+                        <li ng-click="showQuestioModel(1)">判断题</li>
+                        <li ng-click="showQuestioModel(2)">填空题</li>
+                        <li ng-click="showQuestioModel(3)">作文题</li>
+                        <li ng-click="showQuestioModel(4)">其他题</li>
                     </ul>
                     <div class="sub_menu">
                         <div class="sub_title">
                             <h4>添加题组</h4>
-                            <span>x</span>
+                            <span ng-click="cloesQuestionMode()">x</span>
                         </div>
                         <div class="sub_content">
                             <div class="meun_list">
                                 <span>题组名称</span>
                                 <input type="text" placeholder="请输入题组名称">
                             </div>
-                            <div class="meun_list">
+                            <div class="meun_list" ng-show="showIndex==0||showIndex==1||showIndex==2||showIndex==4">
                                 <span>试题数量</span>
                                 <input type="text" placeholder="请输入试题数量">
                             </div>
-                            <div class="meun_list">
+                            <div class="meun_list" ng-show="showIndex==0">
                                 <span>试题类型</span>
                                 <div class="question_type">
                                     <input type="radio" name="type">
@@ -106,15 +106,23 @@
                                     <span>多选题</span>
                                 </div>
                             </div>
-                            <div class="meun_list">
+                            <div class="meun_list" ng-show="showIndex==3">
+                                <span>试题总分</span>
+                                <input type="text" placeholder="请输入题组总分">
+                            </div>
+                            <div class="meun_list" ng-show="showIndex==3">
+                                <span>作文格数</span>
+                                <input type="text" placeholder="请输入作文总格数">
+                            </div>
+                            <div class="meun_list" ng-show="showIndex==0||showIndex==1||showIndex==2||showIndex==3||showIndex==4">
                                 <span>起始序号</span>
                                 <input type="text" placeholder="请输入起始序号">
                             </div>
-                            <div class="meun_list">
+                            <div class="meun_list" ng-show="showIndex==0||showIndex==1||showIndex==2||showIndex==4">
                                 <span>每题分值</span>
                                 <input type="text" placeholder="请输入每题分值">
                             </div>
-                            <div class="meun_list">
+                            <div class="meun_list" ng-show="showIndex==0">
                                 <span>选项个数</span>
                                 <input type="text" placeholder="请输入选项个数">
                             </div>
@@ -127,7 +135,6 @@
                 <div class="group_menu">
                     <h3>模板设置</h3>
                     <ul>
-                        <li>导入试卷</li>
                         <li>导入模板</li>
                         <li>另存为模板</li>
                     </ul>
@@ -323,6 +330,10 @@
                                     <div class="question_title">
                                         <p>阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题</p>
                                     </div>
+                                    <!-- 打分框 -->
+                                    <div class="mark clear" ng-if="item.type!=0">
+                                        <span ng-repeat="mark in marks track by $index" ng-bind="mark"></span>
+                                    </div>
                                     <!-- 选择题/判断题 -->
                                     <div class="question_0 clear common" ng-if="item.type==0">
                                         <div class="xuze clear">
@@ -402,10 +413,10 @@
                                                 <span>A</span>
                                             </div>
                                         </div>
+                                        <!-- 一个小题 -->
                                         <div class="xuze clear">
-                                            <!-- 一个小题 -->
-                                            <div class="number">01</div>
                                             <!-- 序号 -->
+                                            <div class="number">01</div>
                                             <div class="xuze_item clear">
                                                 <span>A</span>
                                                 <span>A</span>
@@ -416,12 +427,36 @@
                                     </div>
                                     <!-- 填空题 -->
                                     <div class="question_1 common" ng-if="item.type==1">
-                                        <!-- 打分框 -->
-                                        <div class="mark">
-                                            <span ng-repeat="mark in marks track by $index" ng-bind="mark"></span>
+                                        <!-- 一个小题 -->
+                                        <div class="tiankong">
+                                            <!-- 序号 -->
+                                            <div class="error_laber"></div>
+                                            <!--错题标记框-->
+                                            <div class="number">01</div>
+                                            <div class="tikong_item">
+                                                <p>这是一个填空题__________ , _____________________________________________</p>
+                                            </div>
                                         </div>
-                                        填空题
+                                        <div class="tiankong">
+                                            <!-- 序号 -->
+                                            <div class="error_laber"></div>
+                                            <!--错题标记框-->
+                                            <div class="number">01</div>
+                                            <div class="tikong_item">
+                                                <p>这是一个填空题__________ , _____________________________________________</p>
+                                            </div>
+                                        </div>
+                                        <div class="tiankong">
+                                            <!-- 序号 -->
+                                            <div class="error_laber"></div>
+                                            <!--错题标记框-->
+                                            <div class="number">01</div>
+                                            <div class="tikong_item">
+                                                <p>这是一个填空题__________ , _____________________________________________</p>
+                                            </div>
+                                        </div>
                                     </div>
+
                                     <!-- 作文题 -->
                                     <div class="question_2 common" ng-if="item.type==2">
                                         作文题

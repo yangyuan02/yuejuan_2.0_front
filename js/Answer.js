@@ -22,10 +22,25 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         }
         return items;
     }
+
     var isLogin = localStorage.getItem("token"); //token
 
     var examubjeId = getUrlParam(window.location,'examubjeId') //examubjeId
 
+    $scope.model = {} //弹窗数据
+    /** 
+     * 点击添加题组
+    */
+    $scope.showQuestioModel = function(index){
+        $scope.showIndex = index
+        $(".sub_menu").css({"display":"block"})
+    }
+    /** 
+     * 关闭添加题组弹窗
+    */
+    $scope.cloesQuestionMode = function(){
+        $(".sub_menu").css({"display":"none"})
+    }
 
     $scope.data = {} //整个页面数据
     $scope.data.pages = [{},{},{},{}] //多少页数
