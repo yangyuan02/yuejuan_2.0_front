@@ -2084,8 +2084,52 @@ $(".wrong_top").on('click', 'i', function(event) {
  $(".per_wrong_list_look_box").hide();
  $(".wrong_top").html('个人错题集管理');
 });
-
-
+//弹出修改框
+$(".per_wrong_list").on('click', '.p_wrong_list_name', function(event) {
+$(".layer").css("height",$(document).height());
+$(".layer").show();
+$(".p_wrong_change_name").show();
+// $(".c_wrong_change_name_input").val($(this).html());
+// $(".c_wrong_change_name_t").attr("data-id",$(this).attr("data-id"));
+});
+//个人错题集名字修改框
+$(".p_wrong_change_name_t").click(function(event) {
+  $(".p_wrong_change_name").hide();
+  $(".layer").hide();
+  $(".p_wrong_list_name").html($(".p_wrong_change_name_input").val());
+});
+$(".p_wrong_change_name_f").click(function(event) {
+  $(".p_wrong_change_name").hide();
+  $(".layer").hide();
+  
+});
+$(".p_wrong_change_name_back").click(function(event) {
+  $(".p_wrong_change_name").hide();
+  $(".layer").hide();
+});
+$(".p_list_main_analy_show i").click(function(event) {
+  var a=$(this).attr("data-id");
+  if(a==0){
+  $(this).attr("data-id","1");
+  $(this).html('&#xe622;');
+  $(".p_list_main_analy").slideDown(500);
+ }else if(a==1){
+  $(this).attr("data-id","0");
+   $(this).html('&#xe624;');
+  $(".p_list_main_analy").slideUp(500);
+ }
+});
+//查看答案
+$(".p_list_body_ans").click(function(event) {
+$(".layer").css("height",$(document).height());
+$(".layer").show();
+  $(".p_ans_tc").show();
+});
+$(".p_ans_tc button").click(function(event) {
+$(".layer").css("height",$(document).height());
+$(".layer").hide();
+$(".p_ans_tc").hide();
+});
 
 
  })
