@@ -711,7 +711,7 @@
 					<!-- 班级错题本管理 end-->
 					<!-- 个人错题本管理-->
 					<div class="per_wrong_admin" style="min-height: 300px;display: none;">
-					<div class="per_wrong_admin_main_box" style="display: block;">
+					<div class="per_wrong_admin_main_box" style="">
                      <p class="per_select_top">
 					   <a>考试
 					   <select class="per_exam" style="width:220px;">
@@ -756,10 +756,21 @@
 					    </li>
 					   	</ul>
 					   </div>
+					   <!-- 个人错题本修改名字弹出框 -->
+					     <div class="p_wrong_change_name">
+					     <p>修改错题本名称</p>
+					     <a style="display: block;margin:20px 0px 10px 75px;">错题本名称</a>
+					   	<input class="p_wrong_change_name_input" type="" name="">
+					   	<a style="display:block;margin:40px 0px 0px 110px;"><button type="" class="p_wrong_change_name_f">取消</button><button type="" class="p_wrong_change_name_t determine">确定</button></a>
+					   	<div class="p_wrong_change_name_back">
+					   	<i class="iconfont" style=""></i>	
+					   	</div>
+					    </div>
+					    <!-- 个人错题本修改名字弹出框end-->
                       </div>
 
 					  <!--  个人错题集查看 -->
-                       <div class="per_wrong_list_look_box" style="display: none;">
+                       <div class="per_wrong_list_look_box" style="display:none;">
                        	<div class="ans_result" style="margin-top: 20px;">
 						<p>
 						<a class="know_01">0.95-1 完全掌握<i></i></a>
@@ -779,6 +790,10 @@
 						<a class="p_wrong_make"><button type="" class="determine" style="width: 94px;margin-right: 10px;display:none;">生成变式训练</button><i class="iconfont" style="color:#31bc91;display: inline-block;margin-top: 5px;"></i></a>
 						<button type="" class="p_print">打印</button>
 						</div>
+
+
+
+						
                       
 					</div>
 					<!-- 11 -->
@@ -788,6 +803,16 @@
 							<img src="img/per.png" alt="" style="width: 100%">
 								
 						</div>
+                      <div class="p_list_move"><a class="p_list_body_ans"><i class="iconfont" style="margin-right:5px;"></i>查看答案和解析</a>
+                      <!--   <a class="p_list_move_a">移除</a> -->
+                        </div>
+
+                         <div class="p_list_number"><p><i class="iconfont" style="font-size:45px;color:#fb7d8a;"></i><a>21</a></p></div>
+                         <div class="p_list_form">试题来源:<a>2017年11月期中考试</a></div>
+
+
+						<p class="p_list_main_analy_show"><i class="iconfont" style="" data-id="0">&#xe624;</i></p>
+						<div class="p_list_main_analy">
                         <p class="p_list_lable" style="margin-top: 10px;">21(2)<a>个人得分率:<i>0%</i></a>
                         <a>班级得分率:<i>30%</i></a>
                         <a>年级得分率:<i>35%</i></a><a>知识点:<i>液体的压强</i></a><a class="p_list_dif">难度系数:
@@ -806,12 +831,7 @@
                         <i class="iconfont" style="margin-left:2px;"></i>
                         <i class="iconfont" style="margin-left:2px;"></i></a>
                         </p>
-                        <div class="p_list_move"><a class="p_list_body_ans"><i class="iconfont" style="margin-right:5px;"></i>查看答案和解析</a>
-                      <!--   <a class="p_list_move_a">移除</a> -->
-                        </div>
-
-                         <div class="p_list_number"><p><i class="iconfont" style="font-size:45px;color:#fb7d8a;"></i><a>21</a></p></div>
-                         <div class="p_list_form">试题来源:<a>2017年11月期中考试</a></div>
+                       
                          <div class="p_list_ans"><p class="per_list_ans_top" style="color: #ccc">你的错误解答:</p>
                         <p class="per_list_ans_top">(2)不同柱形容器内液体对底部的压强变化量越大</p>
                         <p class="per_list_ans_top">(3)14800帕</p>
@@ -837,6 +857,8 @@
 
 								<p>D．粒子在电场中的电势能先变小后变大</p> -->
                           </div>
+
+                          </div>
 						</div>
 					
 					</div>
@@ -846,12 +868,25 @@
                        </div>
                        </div>
                     <!--   查看 结束 -->
+                     <!-- 查看答案 -->
+					<div  class="p_ans_tc">
+					<p class="p_ans_top">查看答案和解析</p>
+					<div style="padding-left: 30px;box-sizing: border-box;">	
+						<p class="p_ans_style">解答</p>
+						<div class="p_ans01"></div>
+						<p class="p_ans_line"></p>
+						<p class="p_ans_style">分析</p>
+						<div class="p_ans02"></div>
+						</div>
+						<button class="determine">确认</button>
+					</div>
+					<!-- 查看答案 -->
 
 					</div>
 					<!--个人错题本管理 end-->
 				</div>
 			</div>
-		</div>
+		<!-- </div> -->
         <!-- 遮罩层 -->
         <div class="layer"></div>
 
