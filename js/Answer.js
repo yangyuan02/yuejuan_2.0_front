@@ -74,16 +74,33 @@ m1.controller("answer", function ($scope, $timeout, $http) {
      * 序列化为html模板格式
     */
     $scope.formatTemplateHtml = function(){
-        var htmlObj = {}
-        if($scope.model.type==1){//单选选择题
-            
+        $scope.model.arrStartnNmber = [] //小题序号数组
+        $scope.model.itemscoreS = [] //小题分值数组
+        $scope.model.totalCores = parseInt($scope.model.number) * parseInt($scope.model.itemscore)//总分数
+
+        if($scope.model.type == 0){//单选选择题
+            $scope.model.options = options.slice(0,$scope.model.count)
         }
+
+        if($scope.model.type == 1){//判断题
+            $scope.model.options = ['T','F']
+        }
+
+        if($scope.model.type == 3){//作文题
+            $scope.model.number = 1
+            $scope.model.totalCores = parseInt($scope.model.w_totalscore)
+        }
+
+        for (var i = 0; i < parseInt($scope.model.number); i++) {
+            $scope.model.arrStartnNmber.push(i + parseInt($scope.model.startnumber));
+            $scope.model.itemscoreS.push(parseInt($scope.model.type==3?$scope.model.w_totalscore:$scope.model.itemscore))
+        }
+        console.log($scope.model)
     }
     /**
      *添加按钮
      */
     $scope.add = function(){
-        console.log($scope.model)
         $scope.formatTemplateHtml()
         $scope.cloesQuestionMode()
     }
