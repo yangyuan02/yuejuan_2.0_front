@@ -141,6 +141,9 @@ header .tool .save .btn_save,header .tool .save .btn_cloes{
     align-items: center;
     margin-top:10px;
 }
+.main .left_menu .group_menu .sub_menu .sub_content .zuo > span{
+    align-self: flex-start; 
+}
 .main .left_menu .group_menu .sub_menu .sub_content .meun_list .question_type{
     display: flex;
     width:270px;
@@ -152,7 +155,7 @@ header .tool .save .btn_save,header .tool .save .btn_cloes{
 .main .left_menu .group_menu .sub_menu .sub_content .meun_list .question_type span:nth-child(2){
     padding-right:40px;
 }
-.main .left_menu .group_menu .sub_menu .sub_content .meun_list input{
+.main .left_menu .group_menu .sub_menu .sub_content .meun_list input[type='text']{
     width: 260px;
     height: 30px;
     border: 1px solid #eee;
@@ -179,6 +182,54 @@ header .tool .save .btn_save,header .tool .save .btn_cloes{
     color:#fff;
 }
 
+.main .left_menu .group_menu .sub_menu .sub_content .zuo .writ_format{
+    width: 268px;
+}
+.main .left_menu .group_menu .sub_menu .sub_content .zuo .writ_format .formatItme{
+    text-align:left;
+    display: flex;
+    align-items: center;
+    height:40px;
+}
+.main .left_menu .group_menu .sub_menu .sub_content .zuo .writ_format .formatItme .mg{
+    margin:0px 10px;
+}
+.main .left_menu .group_menu .sub_menu .sub_content .zuo .writ_format .formatItme:nth-of-type(2) span:last-child{
+    display: inline-block;
+    width: 80px;
+    border-top: 1px solid black;
+}
+.main .left_menu .group_menu .sub_menu .sub_content .zuo .writ_format .formatItme:nth-of-type(3) span:last-child{
+    display: inline-block;
+    width: 80px;
+    border-top: 1px dashed black;
+}
+.main .left_menu .group_menu .sub_menu .sub_content .zuo .writ_format .formatItme .matrix{
+    width: 77px;
+    height: 28px;
+    border: 1px solid black;
+    float: left;
+}
+.main .left_menu .group_menu .sub_menu .sub_content .zuo .writ_format .formatItme .matrix_item{
+    width: 15px;
+    height: 13px;
+    border: 1px solid black;
+    float: left;
+    border-left: 0;
+    border-top: 0;
+}
+.main .left_menu .group_menu .sub_menu .sub_content .zuo .writ_format .formatItme .matrix_item:nth-of-type(6),
+.main .left_menu .group_menu .sub_menu .sub_content .zuo .writ_format .formatItme .matrix_item:nth-of-type(7),
+.main .left_menu .group_menu .sub_menu .sub_content .zuo .writ_format .formatItme .matrix_item:nth-of-type(8),
+.main .left_menu .group_menu .sub_menu .sub_content .zuo .writ_format .formatItme .matrix_item:nth-of-type(9),
+.main .left_menu .group_menu .sub_menu .sub_content .zuo .writ_format .formatItme .matrix_item:nth-of-type(10)
+{
+    border-bottom:0;
+}
+.main .left_menu .group_menu .sub_menu .sub_content .zuo .writ_format .formatItme .matrix_item:nth-of-type(5),
+.main .left_menu .group_menu .sub_menu .sub_content .zuo .writ_format .formatItme .matrix_item:nth-of-type(10){
+    border-right:0;
+}
 /* 试卷主体部分 */
 .main{
     width:1852px;
