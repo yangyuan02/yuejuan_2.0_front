@@ -6,8 +6,22 @@ m1.controller("answer", function ($scope, $timeout, $http) {
     $scope.marks = ['0','1','2','3','4','5','6','7','8','9','0','1','2','3','4','5','.5','']//打分框
     
     var options = ['A','B','C','D','E','F','G','H','I','J','K','H']
+    
+    var isLogin = localStorage.getItem("token"); //token
 
-    function getUrlParam(url, name) {//获取页面参数
+    var examubjeId = getUrlParam(window.location,'examubjeId') //examubjeId
+
+    $scope.model = {} //弹窗数据
+
+    $scope.data = {} //整个页面数据
+    $scope.data.pages = [{},{},{},{}] //多少页数
+    $scope.data.pages[0].pageA = []
+    $scope.data.pages[0].pageB = []
+    /*******************************************************************全局变量 */
+    /**
+     * 获取url参数
+     */
+    function getUrlParam(url, name) {
         var pattern = new RegExp("[?&]" + name + "\=([^&]+)", "g");
         var matcher = pattern.exec(url);
         var items = null;
@@ -25,13 +39,8 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         return items;
     }
 
-    var isLogin = localStorage.getItem("token"); //token
-
-    var examubjeId = getUrlParam(window.location,'examubjeId') //examubjeId
-
-    $scope.model = {} //弹窗数据
     /** 
-     * 点击添加题组
+     * 点击显示题组弹窗
     */
     $scope.showQuestioModel = function(index){
         $scope.model = {}
@@ -45,6 +54,12 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         $scope.model.type = index
         $(".sub_menu").css({"display":"block"})
     }
+    /** 
+     * 关闭添加题组弹窗
+    */
+    $scope.cloesQuestionMode = function(){
+        $(".sub_menu").css({"display":"none"})
+    }
     /**
      * 切换/单选题/多选题/作文格式
      * @param {*} index 
@@ -56,25 +71,23 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         $scope.model.isradio = index
     }
     /** 
-     * 关闭添加题组弹窗
+     * 序列化为html模板格式
     */
-    $scope.cloesQuestionMode = function(){
-        $(".sub_menu").css({"display":"none"})
+    $scope.formatTemplateHtml = function(){
+        var htmlObj = {}
+        if($scope.model.type==1){//单选选择题
+            
+        }
     }
     /**
      *添加按钮
      */
     $scope.add = function(){
         console.log($scope.model)
+        $scope.formatTemplateHtml()
         $scope.cloesQuestionMode()
     }
-    $scope.data = {} //整个页面数据
-    $scope.data.pages = [{},{},{},{}] //多少页数
-    $scope.data.pages[0].pageA = []
-    $scope.data.pages[0].pageB = []
-
-
-    console.log($scope.data)
+    
     /** 打印*/
     $scope.print = function(){
         window.print()
