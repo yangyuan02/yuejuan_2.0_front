@@ -295,7 +295,7 @@ $(function() {
             var subject_id = parseInt($(".edit_li_div03").attr("subject_id"));
             console.log(grade_id);
             $(".edit_li_div03").slideDown(500);
-            var version = $(".edit_li_div03_p02 select").children('option:selected').val();
+            var version = $(".edit_li_div03_p02_ban select").children('option:selected').val();
             if (version == "人教A版") {
                 var type = "standard_edition_A";
             } else if (version == "沪教版") {
@@ -303,6 +303,8 @@ $(function() {
             } else if (version == "人教B版") {
                 var type = "standard_edition_B";
             }
+            var versions = $(".edit_li_div03_p02_mo select").children('option:selected').val();
+            
             console.log("11111");
             console.log(type);
             $.ajax({
@@ -312,7 +314,8 @@ $(function() {
                 data: {
                     'grade_id': grade_id,
                     'subject_id': subject_id,
-                    'version': type,
+                    'version':type,
+                    's_type':versions,
                 },
                 headers: { 'Authorization': "Bearer " + isLogin },
                 success: function(data) {
@@ -389,7 +392,7 @@ $(function() {
     });
 
     $(".edit_li_div03_p02 select").change(function(event) {
-        var version = $(this).children('option:selected').val();
+        var version = $(".edit_li_div03_p02_ban select").children('option:selected').val();
         if (version == "人教A版") {
             var type = "standard_edition_A";
         } else if (version == "沪教版") {
@@ -397,6 +400,7 @@ $(function() {
         } else if (version == "人教B版") {
             var type = "standard_edition_B";
         }
+         var versions = $(".edit_li_div03_p02_mo select").children('option:selected').val();
         var grade_id = parseInt($(".edit_li_div03").attr("grade-id"));
         var subject_id = parseInt($(".edit_li_div03").attr("subject_id"));
         console.log(grade_id);
@@ -410,6 +414,7 @@ $(function() {
                 'grade_id': grade_id,
                 'subject_id': subject_id,
                 'version': type,
+                 's_type':versions,
             },
             headers: { 'Authorization': "Bearer " + isLogin },
             success: function(data) {
