@@ -6,7 +6,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
     $scope.marks = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '1', '2', '3', '4', '5', '.5', '']//打分框
 
     var options = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'H']
-    
+
     $scope.countScore = 0 //总分
     var isLogin = localStorage.getItem("token"); //token
 
@@ -42,14 +42,14 @@ m1.controller("answer", function ($scope, $timeout, $http) {
     /** 
     *获取答题卡内容 
     */
-    $scope.getAnswer = function(){
+    $scope.getAnswer = function () {
         $.ajax({
-            type:"GET",
-            url:"/api/v2/answer_regions/basic_info_region",
-            headers: {'Authorization': "Bearer " + isLogin},
-            data: {'exam_subject_id':examubjeId},
+            type: "GET",
+            url: "/api/v2/answer_regions/basic_info_region",
+            headers: { 'Authorization': "Bearer " + isLogin },
+            data: { 'exam_subject_id': examubjeId },
             async: false,
-            success:function(data){
+            success: function (data) {
                 console.log(data)
             }
         })
@@ -102,7 +102,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
             $scope.model.options = ['T', 'F']
             $scope.model.count = 2
         }
-        if($scope.model.type == 2){//填空题
+        if ($scope.model.type == 2) {//填空题
             $scope.model.count = 1
         }
         if ($scope.model.type == 3) {//作文题
@@ -111,7 +111,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
             $scope.model.itemscore = parseInt($scope.model.w_totalscore)
             $scope.model.totalCores = parseInt($scope.model.w_totalscore)
         }
-        if($scope.model.type == 4){//其他题
+        if ($scope.model.type == 4) {//其他题
             $scope.model.count = 1
         }
         for (var i = 0; i < parseInt($scope.model.number); i++) {
@@ -150,8 +150,14 @@ m1.controller("answer", function ($scope, $timeout, $http) {
     /** 
     *计算分数 
     */
-    $scope.count = function(){
+    $scope.count = function () {
         $scope.countScore += $scope.model.totalCores
+    }
+    /** 
+    *计算是否换行 
+    */
+    $scope.isLine = function () {
+
     }
     /**
      *添加按钮
@@ -165,8 +171,14 @@ m1.controller("answer", function ($scope, $timeout, $http) {
     /** 
     *聚焦题组
     */
-    $scope.questionFocus = function(index){
+    $scope.questionFocus = function (index) {
         $scope.FocusIndex = index
+    }
+    /**
+    *设置选择题/多选题/判断题答案 
+    */
+    $scope.setItemAnswer = function () {
+
     }
     /** 打印*/
     $scope.print = function () {
