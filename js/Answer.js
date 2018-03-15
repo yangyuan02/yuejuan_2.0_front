@@ -6,7 +6,8 @@ m1.controller("answer", function ($scope, $timeout, $http) {
     $scope.marks = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '1', '2', '3', '4', '5', '.5', '']//打分框
 
     var options = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'H']
-
+    
+    $scope.countScore = 0 //总分
     var isLogin = localStorage.getItem("token"); //token
 
     var examubjeId = getUrlParam(window.location, 'examubjeId') //examubjeId
