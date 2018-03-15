@@ -1856,6 +1856,16 @@
      $(".per_wrong_admin_students_p02").on('click', 'a', function(event) {
          $(this).css("color", "#ffffff").siblings().css("color", "#333333");
          $(this).css("background", "#31bc91").siblings().css("background", "#f5f5f5");
+         
+         if($(this).html()=="马龙"){
+            $(".per_wrong_list").html(" ");
+           $(".per_wrong_list").append('<li><a style="width: 32%;" class="p_wrong_list_name">马龙高二化学考试错题集</a><a style="">1</a><a style="">赵老师</a><a style="">2017.10.28</a><a style=""><button class="per_wrong_list_look">查看</button><button class="per_wrong_list_rem">删除</button></a></li>');
+         
+         }else if($(this).html()=="张学良"){
+           $(".per_wrong_list").html(" ");
+           $(".per_wrong_list").append('<li><a style="width: 32%;" class="p_wrong_list_name">张学良高二化学考试错题集</a><a style="">1</a><a style="">王老师</a><a style="">2017.11.20</a><a style=""><button class="per_wrong_list_look">查看</button><button class="per_wrong_list_rem">删除</button></a></li>');
+         
+         }
      });
      // 删除
      $(".per_wrong_list").on('click', '.per_wrong_list_rem', function(event) {
