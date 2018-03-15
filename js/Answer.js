@@ -31,7 +31,8 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         },
         pages: [//最外层page页
             {
-                list: [{}, {}]
+                listA: [{}, {}],
+                listB: [{}, {}],
             }
         ]
     }
@@ -69,10 +70,26 @@ m1.controller("answer", function ($scope, $timeout, $http) {
             async: false,
             success: function (data) {
                 console.log(data)
+                if (data.code == 200) {
+                    $scope.data = data.message
+                }
             }
         })
     }
+    /** 
+    *生成考号 
+    */
+    $scope.creatExamNum = function (number) {
+        $scope.examNum = []
+        for (var i = 0; i < number; i++) {
+            $scope.examNum.push(i)
+        }
+    }
+    /***********************************************************初始化部分 */
     $scope.getAnswer()
+
+    $scope.creatExamNum($scope.data.student.examNumber)
+    /************************************************************初始化部分 */
     /** 
      * 点击显示题组弹窗
     */
