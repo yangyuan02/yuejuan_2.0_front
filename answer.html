@@ -18,7 +18,7 @@
             <div class="total_score">
                 <div class="info">
                     <span>总分:</span>
-                    <span ng-bind="countScore">0</span>
+                    <span ng-bind="data.countScore">0</span>
                     <span>分</span>
                 </div>
                 <div class="print iconfont" ng-click="print()">&#xe688;</div>
@@ -65,8 +65,8 @@
                     </ul>
                 </div>
                 <div class="save">
-                    <div class="btn_save">保存</div>
-                    <div class="btn_cloes">X</div>
+                    <div class="btn_save" ng-click="save()">保存</div>
+                    <div class="btn_cloes" ng-click="closeWindow()">X</div>
                 </div>
             </div>
         </header>

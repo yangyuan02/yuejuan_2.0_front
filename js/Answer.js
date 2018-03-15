@@ -7,17 +7,35 @@ m1.controller("answer", function ($scope, $timeout, $http) {
 
     var options = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'H']
 
-    $scope.countScore = 0 //总分
     var isLogin = localStorage.getItem("token"); //token
 
     var examubjeId = getUrlParam(window.location, 'examubjeId') //examubjeId
 
     $scope.model = {} //弹窗数据
     var modelParam = [] //请求参数数组
-    $scope.data = {} //整个页面数据
-    $scope.data.pages = [{}, {}, {}, {}] //多少页数
-    $scope.data.pages[0].pageA = []
-    $scope.data.pages[0].pageB = []
+
+    $scope.data = {
+        countScore: 0,//总分
+        state: {
+            examType: 0,//考试类型
+            recogniType: 0,//识别类型
+            isBorder: 0,//是否有边框
+            readType: 0,//阅卷类型
+            isScore: 0,//隐藏分数
+            printType: 0//打印类型
+        },
+        student: {
+            examNumber: 8,//考号位数
+            isInfoBox: 0,//考号是否在顶部
+            isInfoBar: 0//学生填写区域是否在顶部
+        },
+        pages: [//最外层page页
+            {
+                list: [{}, {}]
+            }
+        ]
+    }
+
     /*******************************************************************全局变量 */
     /**
      * 获取url参数
@@ -151,7 +169,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
     *计算分数 
     */
     $scope.count = function () {
-        $scope.countScore += $scope.model.totalCores
+        $scope.data.countScore += $scope.model.totalCores
     }
     /** 
     *计算是否换行 
@@ -167,6 +185,27 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         $scope.createParam()
         $scope.count()
         $scope.cloesQuestionMode()
+    }
+    /**
+    *保存 
+    */
+    $scope.save = function () {
+        console.log(111)
+    }
+    /**
+    *关闭答题卡窗口 
+    */
+    $scope.closeWindow = function () {
+        if (modelParam.length > 0) {
+            var r = confirm("请保存答题卡")
+            if (r) {
+                $scope.save()
+            } else {
+                window.location.href = 'paper_generate'
+            }
+        } else {
+            window.location.href = 'paper_generate'
+        }
     }
     /** 
     *聚焦题组
