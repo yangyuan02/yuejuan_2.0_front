@@ -12,7 +12,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
     var examubjeId = getUrlParam(window.location, 'examubjeId') //examubjeId
 
     $scope.model = {} //弹窗数据
-
+    var modelParam = [] //请求参数数组
     $scope.data = {} //整个页面数据
     $scope.data.pages = [{}, {}, {}, {}] //多少页数
     $scope.data.pages[0].pageA = []
@@ -127,7 +127,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         param.answer.name = $scope.model.name//题组名称
 
         modelParam.push(param)
-        window.localStorage.setItem(getUrlParam(url, 'examubjeId'), JSON.stringify(modelParam))
+        window.localStorage.setItem(examubjeId, JSON.stringify(modelParam))
         console.log(modelParam)
     }
     /**
