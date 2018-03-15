@@ -456,6 +456,9 @@ header .tool .save .btn_save,header .tool .save .btn_cloes{
     margin-top:4px;
     padding:4px 8px;
 }
+.main .content .page .content_pages .paper > .item .question.focus{
+    border-color:#31bc91
+}
 .main .content .page .content_pages .paper > .item .question .question_title{
     margin-bottom:4px;
 }

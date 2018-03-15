@@ -369,7 +369,7 @@
                                     </div>
                                 </div>
                                 <!-- 题型开始 -->
-                                <div class="question" ng-repeat="item in [{type:0},{type:1},{type:2},{type:3}]">
+                                <div class="question" ng-repeat="item in [{type:0},{type:1},{type:2},{type:3}]" ng-click="questionFocus($index)" ng-class="{focus:$index==FocusIndex}">
                                     <!-- 公共标题 -->
                                     <div class="question_title">
                                         <p>阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题</p>

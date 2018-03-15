@@ -38,7 +38,22 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         }
         return items;
     }
-
+    /** 
+    *获取答题卡内容 
+    */
+    $scope.getAnswer = function(){
+        $.ajax({
+            type:"GET",
+            url:"/api/v2/answer_regions/basic_info_region",
+            headers: {'Authorization': "Bearer " + isLogin},
+            data: {'exam_subject_id':examubjeId},
+            async: false,
+            success:function(data){
+                console.log(data)
+            }
+        })
+    }
+    $scope.getAnswer()
     /** 
      * 点击显示题组弹窗
     */
@@ -91,6 +106,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         }
         if ($scope.model.type == 3) {//作文题
             $scope.model.number = 1
+            $scope.model.count = 1
             $scope.model.itemscore = parseInt($scope.model.w_totalscore)
             $scope.model.totalCores = parseInt($scope.model.w_totalscore)
         }
@@ -116,11 +132,11 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         param.answer_settings.score = $scope.model.itemscore//每题分值 panduan
         param.answer_settings.type_count = $scope.model.count //选项个数 panduan
 
-        if (data.type == 4) {
-            param.answer_settings.template_format = data.articleType//作文模版格式 panduan
-            param.answer_settings.lattice_columns = data.row//格子列数 panduan
-            param.answer_settings.lattice_total = data.plaid//格子总数 panduan
-        }
+        // if (data.type == 4) {
+        //     param.answer_settings.template_format = data.articleType//作文模版格式 panduan
+        //     param.answer_settings.lattice_columns = data.row//格子列数 panduan
+        //     param.answer_settings.lattice_total = data.plaid//格子总数 panduan
+        // }
 
         param.answer.exam_subject_id = examubjeId//考试科目id
         param.answer.item = Q_type[$scope.model.type]//试题类型
@@ -130,15 +146,27 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         window.localStorage.setItem(examubjeId, JSON.stringify(modelParam))
         console.log(modelParam)
     }
+    /** 
+    *计算分数 
+    */
+    $scope.count = function(){
+        $scope.countScore += $scope.model.totalCores
+    }
     /**
      *添加按钮
      */
     $scope.add = function () {
         $scope.formatTemplateHtml()
-        // $scope.createParam()
+        $scope.createParam()
+        $scope.count()
         $scope.cloesQuestionMode()
     }
-
+    /** 
+    *聚焦题组
+    */
+    $scope.questionFocus = function(index){
+        $scope.FocusIndex = index
+    }
     /** 打印*/
     $scope.print = function () {
         window.print()
