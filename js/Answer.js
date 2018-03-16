@@ -132,7 +132,6 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         if ($scope.model.type == 0) {//单选选择题/多项选择题
             $scope.model.options = options.slice(0, $scope.model.count)
         }
-
         if ($scope.model.type == 1) {//判断题
             $scope.model.options = ['T', 'F']
             $scope.model.count = 2
@@ -148,6 +147,9 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         }
         if ($scope.model.type == 4) {//其他题
             $scope.model.count = 1
+        }
+        if ($scope.model.type == 5) {//多选题
+            $scope.model.options = options.slice(0, $scope.model.count)
         }
         for (var i = 0; i < parseInt($scope.model.number); i++) {
             $scope.model.arrStartnNmber.push(i + parseInt($scope.model.startnumber));
@@ -235,7 +237,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
     /** 
     *聚焦题组
     */
-    $scope.questionFocus = function (index,ou) {
+    $scope.questionFocus = function (index) {
         $scope.FocusIndex = index
     }
     /**

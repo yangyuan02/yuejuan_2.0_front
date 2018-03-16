@@ -236,16 +236,7 @@
                                         </div>
                                         <div class="candidate_daub">
                                             <ul ng-repeat="item in examNum">
-                                                <li>0</li>
-                                                <li>1</li>
-                                                <li>2</li>
-                                                <li>3</li>
-                                                <li>4</li>
-                                                <li>5</li>
-                                                <li>6</li>
-                                                <li>7</li>
-                                                <li>8</li>
-                                                <li>9</li>
+                                                <li ng-repeat="item in [0,1,2,3,4,5,6,7,8,9]" ng-bind="item"></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -278,108 +269,29 @@
                                     </div>
                                 </div>
                                 <!-- 题型开始 -->
-                                <div class="question" ng-repeat="item in page.listA" ng-init="questionIndex=$index" ng-click="questionFocus(questionIndex)" ng-class="{focus:questionIndex==FocusIndex}">
+                                <div class="question" ng-repeat="item in page.listA" ng-init="questionIndex=$index" ng-click="questionFocus(questionIndex)"
+                                    ng-class="{focus:questionIndex==FocusIndex}">
                                     <!-- 公共标题 -->
                                     <div class="question_title">
-                                        <p>阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题</p>
+                                        <p ng-bind="item.name"></p>
                                     </div>
                                     <!-- 打分框 -->
-                                    <div class="mark clear" ng-if="item.type!=0">
+                                    <div class="mark clear" ng-if="item.type!=0&&item.type!=1&&item.type!=5">
                                         <span ng-repeat="mark in marks track by $index" ng-bind="mark"></span>
                                     </div>
-                                    <!-- 选择题/判断题 -->
-                                    <div class="question_0 clear common" ng-if="item.type==0">
-                                        <div class="xuze clear">
+                                    <!-- 选择题/判断题/多选题 -->
+                                    <div class="question_0 clear common" ng-if="item.type==0||item.type==1||item.type==5">
+                                        <div class="xuze clear" ng-repeat="child_q in item.arrStartnNmber track by $index">
                                             <!-- 一个小题 -->
-                                            <div class="number">01</div>
+                                            <div class="number" ng-bind="child_q<10?'0'+child_q:child_q">01</div>
                                             <!-- 序号 -->
                                             <div class="xuze_item clear">
-                                                <span>A</span>
-                                                <span>A</span>
-                                                <span>A</span>
-                                                <span>A</span>
-                                            </div>
-                                        </div>
-                                        <div class="xuze clear">
-                                            <!-- 一个小题 -->
-                                            <div class="number">01</div>
-                                            <!-- 序号 -->
-                                            <div class="xuze_item clear">
-                                                <span>A</span>
-                                                <span>A</span>
-                                                <span>A</span>
-                                                <span>A</span>
-                                            </div>
-                                        </div>
-                                        <div class="xuze clear">
-                                            <!-- 一个小题 -->
-                                            <div class="number">01</div>
-                                            <!-- 序号 -->
-                                            <div class="xuze_item clear">
-                                                <span>A</span>
-                                                <span>A</span>
-                                                <span>A</span>
-                                                <span>A</span>
-                                            </div>
-                                        </div>
-                                        <div class="xuze clear">
-                                            <!-- 一个小题 -->
-                                            <div class="number">01</div>
-                                            <!-- 序号 -->
-                                            <div class="xuze_item clear">
-                                                <span>A</span>
-                                                <span>A</span>
-                                                <span>A</span>
-                                                <span>A</span>
-                                            </div>
-                                        </div>
-                                        <div class="xuze clear">
-                                            <!-- 一个小题 -->
-                                            <div class="number">01</div>
-                                            <!-- 序号 -->
-                                            <div class="xuze_item clear">
-                                                <span>A</span>
-                                                <span>A</span>
-                                                <span>A</span>
-                                                <span>A</span>
-                                            </div>
-                                        </div>
-                                        <div class="xuze clear">
-                                            <!-- 一个小题 -->
-                                            <div class="number">01</div>
-                                            <!-- 序号 -->
-                                            <div class="xuze_item clear">
-                                                <span>A</span>
-                                                <span>A</span>
-                                                <span>A</span>
-                                                <span>A</span>
-                                            </div>
-                                        </div>
-                                        <div class="xuze clear">
-                                            <!-- 一个小题 -->
-                                            <div class="number">01</div>
-                                            <!-- 序号 -->
-                                            <div class="xuze_item clear">
-                                                <span>A</span>
-                                                <span>A</span>
-                                                <span>A</span>
-                                                <span>A</span>
-                                            </div>
-                                        </div>
-                                        <!-- 一个小题 -->
-                                        <div class="xuze clear">
-                                            <!-- 序号 -->
-                                            <div class="number">01</div>
-                                            <div class="xuze_item clear">
-                                                <span>A</span>
-                                                <span>A</span>
-                                                <span>A</span>
-                                                <span>A</span>
+                                                <span ng-repeat="option in item.options" ng-bind="option"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- 填空题 -->
-                                    <div class="question_1 common" ng-if="item.type==1">
+                                    <div class="question_1 common" ng-if="item.type==2">
                                         <!-- 一个小题 -->
                                         <div class="tiankong">
                                             <!-- 序号 -->
@@ -411,11 +323,11 @@
                                     </div>
 
                                     <!-- 作文题 -->
-                                    <div class="question_2 common" ng-if="item.type==2">
+                                    <div class="question_2 common" ng-if="item.type==3">
                                         作文题
                                     </div>
                                     <!-- 其他题 -->
-                                    <div class="question_3 common" ng-if="item.type==3">
+                                    <div class="question_3 common" ng-if="item.type==4">
                                         其他题
                                     </div>
                                 </div>
