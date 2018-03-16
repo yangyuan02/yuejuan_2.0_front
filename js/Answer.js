@@ -15,6 +15,10 @@ m1.controller("answer", function ($scope, $timeout, $http) {
     var modelParam = [] //请求参数数组
 
     $scope.data = {
+        subject: {//项目信息
+            name: window.localStorage.getItem("test_name") + window.localStorage.getItem("subjectname"),
+            examId:examubjeId
+        },
         countScore: 0,//总分
         state: {
             examType: 0,//考试类型
