@@ -17,7 +17,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
     $scope.data = {
         subject: {//项目信息
             name: window.localStorage.getItem("test_name") + window.localStorage.getItem("subjectname"),
-            examId:examubjeId
+            examId: examubjeId
         },
         countScore: 0,//总分
         state: {
@@ -189,9 +189,18 @@ m1.controller("answer", function ($scope, $timeout, $http) {
 
     }
     /**
-    *插入哪一个数据 
+    *是否生成一个page页
     */
-    $scope.insertData = function () {
+    $scope.insertPageData = function () {
+        $scope.data.pages.push({
+            listA: [],
+            listB: [],
+        })
+    }
+    /**
+    *插入题组
+    */
+    $scope.insertQuesTionData = function () {
         $scope.data.pages[0].listA.push($scope.model)
         console.log($scope.data)
     }
@@ -212,7 +221,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
      */
     $scope.add = function () {
         $scope.formatTemplateHtml()
-        $scope.insertData()
+        $scope.insertQuesTionData()
         $scope.createParam()
         $scope.count()
         $scope.cloesQuestionMode()
