@@ -186,7 +186,7 @@
             </div>
             <!-- 主体部分 -->
             <div class="content">
-                <div class="page" ng-repeat="page in data.pages">
+                <div class="page" ng-repeat="page in data.pages" ng-init="pageIndex = $index">
                     <!-- 定位点开始 -->
                     <div class="point">
                         <span></span>
@@ -221,10 +221,10 @@
                         <!-- 试卷AB面盒子 -->
                         <div class="paper">
                             <div class="paper_A item">
-                                <div class="paper_title {{$index==0?'':'notice_t'}}">{{$index==0?'2017学年第一学期七年级期末试卷语文试卷答题纸':'请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效'}}</div>
+                                <div class="paper_title {{pageIndex==0?'':'notice_t'}}">{{pageIndex==0?'2017学年第一学期七年级期末试卷语文试卷答题纸':'请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效'}}</div>
                                 <div class="notice">请在各题的答题区域作答,超出黑色矩形边框限定区域的答案无效</div>
                                 <!-- 学生填图区域 -->
-                                <div class="student_daub" ng-if="$index==0">
+                                <div class="student_daub" ng-if="pageIndex==0">
                                     <div class="student_daub_l">
                                         <div class="candidate_wei">
                                             考生号
@@ -278,7 +278,7 @@
                                     </div>
                                 </div>
                                 <!-- 题型开始 -->
-                                <div class="question" ng-repeat="item in page.listA" ng-click="questionFocus($index)" ng-class="{focus:$index==FocusIndex}">
+                                <div class="question" ng-repeat="item in page.listA" ng-init="questionIndex=$index" ng-click="questionFocus(questionIndex)" ng-class="{focus:questionIndex==FocusIndex}">
                                     <!-- 公共标题 -->
                                     <div class="question_title">
                                         <p>阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题阅读下下文，完成15-18题</p>

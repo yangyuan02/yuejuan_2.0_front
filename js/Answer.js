@@ -31,10 +31,6 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         },
         pages: [//最外层page页
             {
-                listA: [{type:0}, {type:1},{type:2}],
-                listB: [],
-            },
-            {
                 listA: [],
                 listB: [],
             }
@@ -184,7 +180,14 @@ m1.controller("answer", function ($scope, $timeout, $http) {
 
         modelParam.push(param)
         window.localStorage.setItem(examubjeId, JSON.stringify(modelParam))
-        console.log(modelParam)
+
+    }
+    /**
+    *插入哪一个数据 
+    */
+    $scope.insertData = function () {
+        $scope.data.pages[0].listA.push($scope.model)
+        console.log($scope.data)
     }
     /** 
     *计算分数 
@@ -203,6 +206,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
      */
     $scope.add = function () {
         $scope.formatTemplateHtml()
+        $scope.insertData()
         $scope.createParam()
         $scope.count()
         $scope.cloesQuestionMode()
@@ -231,7 +235,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
     /** 
     *聚焦题组
     */
-    $scope.questionFocus = function (index) {
+    $scope.questionFocus = function (index,ou) {
         $scope.FocusIndex = index
     }
     /**
