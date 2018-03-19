@@ -27,39 +27,33 @@
                 <div class="tool_list">
                     <ul>
                         <li>
-                            <select name="" id="">
-                                <option value="">普通考试</option>
-                                <option value="">特殊考试</option>
+                            <select ng-init="selectedName1 = ['普通考试', '特殊考试'][data.state.examType]" ng-model="selectedName1" ng-options="x for x in ['普通考试', '特殊考试']"
+                                ng-change="toolbar('examType')">
                             </select>
                         </li>
                         <li>
-                            <select name="" id="">
-                                <option value="">识别考号</option>
-                                <option value="">识别条码</option>
+                            <select ng-init="selectedName2 = ['识别考号', '识别条码'][data.state.recogniType]" ng-model="selectedName2" ng-options="x for x in ['识别考号', '识别条码']"
+                                ng-change="toolbar('recogniType')">
                             </select>
                         </li>
                         <li>
-                            <select name="" id="">
-                                <option value="">有边框</option>
-                                <option value="">无边框</option>
+                            <select ng-init="selectedName3 = ['有边框', '无边框'][data.state.isBorder]" ng-model="selectedName3" ng-options="x for x in ['有边框', '无边框']"
+                                ng-change="toolbar('isBorder')">
                             </select>
                         </li>
                         <li>
-                            <select name="" id="">
-                                <option value="">手工阅卷</option>
-                                <option value="">网络阅卷</option>
+                            <select ng-init="selectedName4 = ['网络阅卷','手工阅卷'][data.state.readType]" ng-model="selectedName4" ng-options="x for x in ['网络阅卷','手工阅卷']"
+                                ng-change="toolbar('readType')">
                             </select>
                         </li>
                         <li>
-                            <select name="" id="">
-                                <option value="">隐藏分数</option>
-                                <option value="">显示分数</option>
+                            <select ng-init="selectedName5 = ['隐藏分数', '显示分数'][data.state.isScore]" ng-model="selectedName5" ng-options="x for x in ['隐藏分数', '显示分数']"
+                                ng-change="toolbar('isScore')">
                             </select>
                         </li>
                         <li>
-                            <select name="" id="">
-                                <option value="">单面打印</option>
-                                <option value="">双面打印</option>
+                            <select ng-init="selectedName6 = ['单面打印', '双面打印'][data.state.printType]" ng-model="selectedName6" ng-options="x for x in ['单面打印', '双面打印']"
+                                ng-change="toolbar('printType')">
                             </select>
                         </li>
                     </ul>

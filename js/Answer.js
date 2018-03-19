@@ -21,12 +21,12 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         },
         countScore: 0,//总分
         state: {
-            examType: 0,//考试类型
-            recogniType: 0,//识别类型
-            isBorder: 0,//是否有边框
-            readType: 0,//阅卷类型
-            isScore: 0,//隐藏分数
-            printType: 0//打印类型
+            examType: 0,//考试类型 默认普通考试
+            recogniType: 0,//识别类型 默认识别考号
+            isBorder: 0,//是否有边框 默认有边框
+            readType: 0,//阅卷类型 默认网络阅卷
+            isScore: 0,//隐藏分数 默认隐藏分数
+            printType: 0//打印类型 默认单面打印
         },
         student: {
             examNumber: 8,//考号位数
@@ -40,7 +40,16 @@ m1.controller("answer", function ($scope, $timeout, $http) {
             }
         ]
     }
+    /**
+     * toolbar工具栏功能
+     */
+    $scope.toolbar = function (type) {
 
+        $scope.data.state[type] = $scope.data.state[type] == 0 ? 1 : 0
+
+        console.log($scope.data)
+
+    }
     /*******************************************************************全局变量 */
     /**
      * 获取url参数
@@ -149,13 +158,13 @@ m1.controller("answer", function ($scope, $timeout, $http) {
             $scope.model.itemscore = parseInt($scope.model.w_totalscore)
             $scope.model.totalCores = parseInt($scope.model.w_totalscore)
 
-            if($scope.model.isradio==3){//作文格
+            if ($scope.model.isradio == 3) {//作文格
 
             }
-            if($scope.model.isradio==4 || $scope.model.isradio==5){//英语横线
+            if ($scope.model.isradio == 4 || $scope.model.isradio == 5) {//英语横线
                 var data = $scope.model.linenumber || $scope.model.wordnumber
                 $scope.model.repeatLine = []
-                for(var i = 0;i<data;i++){
+                for (var i = 0; i < data; i++) {
                     $scope.model.repeatLine.push(i)
                 }
             }
@@ -268,7 +277,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
     *设置选择题/多选题/判断题答案 
     */
     $scope.setItemAnswer = function () {
-        
+
     }
     /** 打印*/
     $scope.print = function () {
