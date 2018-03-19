@@ -323,8 +323,21 @@
                                     </div>
 
                                     <!-- 作文题 -->
-                                    <div class="question_2 common" ng-if="item.type==3">
-                                        作文题
+                                    <div class="question_2 clear common" ng-if="item.type==3">
+                                        <!-- 作文方格 -->
+                                        <div class="grid" ng-if="item.isradio==3">
+                                            111
+                                        </div>
+                                        <!-- 外语横线 -->
+                                        <div class="line" ng-if="item.isradio==4">
+                                            <div class="line_item" ng-repeat="line in item.repeatLine"></div>
+                                        </div>
+                                        <!-- 单词间隔线 -->
+                                        <div class="word" ng-if="item.isradio==5">
+                                            <div class="word_item" ng-repeat="word in item.repeatLine" ng-init="wordindex=$index">
+                                                <span ng-if="wordindex==49 || wordindex==59" ng-bind="wordindex+1"></span>
+                                            </div>
+                                        </div>
                                     </div>
                                     <!-- 其他题 -->
                                     <div class="question_3 common" ng-if="item.type==4">

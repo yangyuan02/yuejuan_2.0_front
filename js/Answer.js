@@ -148,6 +148,17 @@ m1.controller("answer", function ($scope, $timeout, $http) {
             $scope.model.count = 1
             $scope.model.itemscore = parseInt($scope.model.w_totalscore)
             $scope.model.totalCores = parseInt($scope.model.w_totalscore)
+
+            if($scope.model.isradio==3){//作文格
+
+            }
+            if($scope.model.isradio==4 || $scope.model.isradio==5){//英语横线
+                var data = $scope.model.linenumber || $scope.model.wordnumber
+                $scope.model.repeatLine = []
+                for(var i = 0;i<data;i++){
+                    $scope.model.repeatLine.push(i)
+                }
+            }
         }
         if ($scope.model.type == 4) {//其他题
             $scope.model.count = 1
@@ -257,7 +268,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
     *设置选择题/多选题/判断题答案 
     */
     $scope.setItemAnswer = function () {
-
+        
     }
     /** 打印*/
     $scope.print = function () {
