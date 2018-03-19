@@ -275,13 +275,13 @@
                                     <div class="question_title">
                                         <p ng-bind="item.name"></p>
                                     </div>
-                                    <!-- 打分框 -->
-                                    <div class="mark clear" ng-if="item.type!=0&&item.type!=1&&item.type!=5">
+                                    <!-- 打分框排除/单选择/判断题/多选题/其他题 -->
+                                    <div class="mark clear" ng-if="item.type!=0&&item.type!=1&&item.type!=5&&item.type!=4">
                                         <span ng-repeat="mark in marks track by $index" ng-bind="mark"></span>
                                     </div>
                                     <!-- 选择题/判断题/多选题 -->
                                     <div class="question_0 clear common" ng-if="item.type==0||item.type==1||item.type==5">
-                                        <div class="xuze clear" ng-repeat="child_q in item.arrStartnNmber track by $index">
+                                        <div class="xuze clear" ng-repeat="child_q in item.arrStartnNmber track by $index" ng-init="itemIndex=$index">
                                             <!-- 一个小题 -->
                                             <div class="number" ng-bind="child_q<10?'0'+child_q:child_q">01</div>
                                             <!-- 序号 -->
@@ -328,7 +328,19 @@
                                     </div>
                                     <!-- 其他题 -->
                                     <div class="question_3 common" ng-if="item.type==4">
-                                        其他题
+                                        <div class="other" ng-repeat="child_q in item.arrStartnNmber track by $index" ng-init="itemIndex=$index">
+                                            <!--其他题头部-->
+                                            <div class="other_header">
+                                                <div class="number" ng-bind="child_q<10?'0'+child_q+'、':child_q+'、'"></div>
+                                                <div class="score">({{item.itemscoreS[itemIndex]}}分)</div>
+                                                <!-- 打分框 -->
+                                                <div class="mark clear" ng-if="item.type!=0&&item.type!=1&&item.type!=5">
+                                                    <span ng-repeat="mark in marks track by $index" ng-bind="mark"></span>
+                                                </div>
+                                            </div>
+                                            <!--其他题内容-->
+                                            <div class="other_body"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

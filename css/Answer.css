@@ -520,3 +520,13 @@ header .tool .save .btn_save,header .tool .save .btn_cloes{
     text-align: center;
     margin-right:10px;
 }
+/* 其他题 */
+.main .content .page .content_pages .paper > .item .question .question_3 .other .other_body{
+    height:150px;
+}
+.main .content .page .content_pages .paper > .item .question .question_3 .other .other_header .number{
+    float: left;
+}
+.main .content .page .content_pages .paper > .item .question .question_3 .other .other_header .score{
+    float: left;
+}
