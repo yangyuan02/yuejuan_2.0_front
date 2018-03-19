@@ -381,7 +381,7 @@
                          var num_color = "#fb7d8a";
                      }
 
-                     $(".grade_list_ul").append('<li id="grade_list_move' + data[i].question_bank_id + '"><div class="grade_list_main"><div class="grade_list_body">' + data[i].content + '</div><p class="grade_list_lable"><a>年级得分率:<i>' + scoring_rate + '</i></a><a>年级平均分:<i>' + data[i].average_score + '分</i></a><a>知识点:<i>' + tags + '</i></a><a class="grade_list_dif">难度系数:' + difficulty_body + '</a></p><div class="grade_list_move"><a class="grade_list_body_ans"  data-id="' + i + '"><i class="iconfont" style="margin-right:5px;">&#xe61e;</i>查看答案和解析</a><a  class="grade_list_move_a">移除</a></div><div class="grade_list_number"><p><i class="iconfont" style="font-size:45px;color:' + num_color + ';">&#xe63f;</i><a>' + num + '</a></p></div><div class="grade_list_form">试题来源:<a>' + source + '</a></div></div></li>');
+                     $(".grade_list_ul").append('<li id="grade_list_move' + data[i].question_bank_id + '"><div class="grade_list_main"><div class="grade_list_body">' + data[i].content + '</div><p class="grade_list_lable"><a>年级得分率:<i>' + scoring_rate + '</i></a><a>年级平均分:<i>' + data[i].average_score + '分</i></a><a>知识点:<i>' + tags + '</i></a><a class="grade_list_dif">难度系数:' + difficulty_body + '（实测难度：）</a></p><div class="grade_list_move"><a class="grade_list_body_ans"  data-id="' + i + '"><i class="iconfont" style="margin-right:5px;">&#xe61e;</i>查看答案和解析</a><a  class="grade_list_move_a">移除</a></div><div class="grade_list_number"><p><i class="iconfont" style="font-size:45px;color:' + num_color + ';">&#xe63f;</i><a>' + num + '</a></p></div><div class="grade_list_form">试题来源:<a>' + source + '</a></div></div></li>');
                  }
                  $(".grate_topic_ever_box").append('<div style="margin-top: 10px;color: #ccc;clear: both;"><i class="iconfont" style="font-size: 14px;color: #31bc91;margin-right: 5px;">&#xe646;</i>小提示：点击题号可以定位到相应题目</div>');
 
@@ -640,7 +640,7 @@
                      if (data[i].score_rate_difference == undefined) {
                          data[i].score_rate_difference = 0;
                      }
-                     $(".class_list_ul").append(' <li id="a_wrong_class_li' + data[i].question_bank_id + '" class="wrong_class_li' + data[i].question_bank_id + '" bank_id="' + data[i].question_bank_id + '" total_score="' + data[i].total_score + '"  average_score="' + data[i].average_score + '" scoring_rate="' + data[i].scoring_rate + '"  item="' + data[i].item + '" exam_subject_id="' + data[i].exam_subject_id + '"><div class="class_list_main"><div class="class_list_body">' + data[i].content + '</div><p class="class_list_lable"><a>班级得分率:<i>' + scoring_rate + '</i></a><a>班-级得分率差:<i>' + Math.round(parseFloat(data[i].score_rate_difference) * 100) / 100 + '</i></a><a>班级平均分:<i>' + data[i].average_score + '分</i></a><a>知识点:<i>' + tags + '</i></a><a class="class_list_dif">难度系数:' + difficulty_body + '</a></p><div class="class_list_move"><a class="class_list_body_ans"   data-id="' + i + '"  data-id01="' + i + '"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a><a  class="class_list_move_a">移除</a></div><div class="class_list_number"><p><i class="iconfont" style="font-size:45px;color:' + num_color + ';"></i><a>' + num + '</a></p></div><div class="class_list_form">试题来源:<a>' + source + '</a></div></div></li>');
+                     $(".class_list_ul").append(' <li id="a_wrong_class_li' + data[i].question_bank_id + '" class="wrong_class_li' + data[i].question_bank_id + '" bank_id="' + data[i].question_bank_id + '" total_score="' + data[i].total_score + '"  average_score="' + data[i].average_score + '" scoring_rate="' + data[i].scoring_rate + '"  item="' + data[i].item + '" exam_subject_id="' + data[i].exam_subject_id + '"><div class="class_list_main"><div class="class_list_body">' + data[i].content + '</div><p class="class_list_lable"><a>班级得分率:<i>' + scoring_rate + '</i></a><a>班-级得分率差:<i>' + Math.round(parseFloat(data[i].score_rate_difference) * 100) / 100 + '</i></a><a>班级平均分:<i>' + data[i].average_score + '分</i></a><a>知识点:<i>' + tags + '</i></a><a class="class_list_dif">难度系数:' + difficulty_body + '（实测难度：）</a></p><div class="class_list_move"><a class="class_list_body_ans"   data-id="' + i + '"  data-id01="' + i + '"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a><a  class="class_list_move_a">移除</a></div><div class="class_list_number"><p><i class="iconfont" style="font-size:45px;color:' + num_color + ';"></i><a>' + num + '</a></p></div><div class="class_list_form">试题来源:<a>' + source + '</a></div></div></li>');
                  }
 
                  // }
@@ -1433,7 +1433,7 @@
 
                      }
 
-                     $(".g_list_ul").append('<li id="g_a' + data[i].question_bank_id + '"><div class="g_list_main"><div class="g_list_body">' + data[i].content + '</div><p class="g_list_lable"><a>年级得分率:<i style="font-style: normal;">' + s_rate + '%</i></a><a>年级平均分:<i style="font-style: normal;">' + data[i].average_score + '分</i></a><a>知识点:<i style="font-style: normal;">' + tag + '</i></a><a class="g_list_dif">难度系数:' + difficulty_body + '</a></p><div class="g_list_move"><a class="g_list_body_ans"  data-id="' + i + '"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a></div></div></li>');
+                     $(".g_list_ul").append('<li id="g_a' + data[i].question_bank_id + '"><div class="g_list_main"><div class="g_list_body">' + data[i].content + '</div><p class="g_list_lable"><a>年级得分率:<i style="font-style: normal;">' + s_rate + '%</i></a><a>年级平均分:<i style="font-style: normal;">' + data[i].average_score + '分</i></a><a>知识点:<i style="font-style: normal;">' + tag + '</i></a><a class="g_list_dif">难度系数:' + difficulty_body + '（实测难度：）</a></p><div class="g_list_move"><a class="g_list_body_ans"  data-id="' + i + '"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a></div></div></li>');
 
                  }
 
@@ -1654,7 +1654,7 @@
                          $(".c_topic_ever_box").append('<a class="class_topic_ever"  style="background:#fb7d8a;" href="#c_a' + data[i].question_bank_id + '">' + num + '</a>');
                          // var num_color="#fb7d8a";
                      }
-                     $(".c_list_ul").append('<li id="c_a' + data[i].question_bank_id + '"><div class="c_list_main"><div class="c_list_body">' + data[i].content + '</div><p class="c_list_lable"><a>班级得分率:<i style="font-style: normal;">' + s_rate + '%</i></a><a>班级平均分:<i style="font-style: normal;">' + data[i].average_score + '分</i></a><a>知识点:<i style="font-style: normal;">' + tag + '</i></a><a class="c_list_dif">难度系数:' + difficulty_body + '</a></p><div class="c_list_move"><a class="c_list_body_ans" data-id="' + i + '"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a></div></div></li>');
+                     $(".c_list_ul").append('<li id="c_a' + data[i].question_bank_id + '"><div class="c_list_main"><div class="c_list_body">' + data[i].content + '</div><p class="c_list_lable"><a>班级得分率:<i style="font-style: normal;">' + s_rate + '%</i></a><a>班级平均分:<i style="font-style: normal;">' + data[i].average_score + '分</i></a><a>知识点:<i style="font-style: normal;">' + tag + '</i></a><a class="c_list_dif">难度系数:' + difficulty_body + '（实测难度：）</a></p><div class="c_list_move"><a class="c_list_body_ans" data-id="' + i + '"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a></div></div></li>');
 
                  }
 
@@ -1833,6 +1833,7 @@
          $(".main").css("margin-top", "0px");
          $(".wrong_right").css("width", "100%");
          $(".content").css("padding-bottom", "0px");
+         $(".p_list_main_analy_show").hide();
          window.print();
          $(".wrong_left_ul").show();
          $("#header").show();
@@ -1848,6 +1849,7 @@
          $(".main").css("margin-top", "45px");
          $(".wrong_right").css("width", "1000px");
          $(".content").css("padding-bottom", "100px");
+         $(".p_list_main_analy_show").show();
 
      });
 
