@@ -261,6 +261,26 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         }
     }
     /**
+     * 获取条形码
+     */
+    function getBarCode(){
+        var itme_obj = {}
+        itme_obj.answer_mode = 6
+        itme_obj.current_page = 1
+        itme_obj.no = 0
+        itme_obj.score = 0
+        itme_obj.string = "条形码学号"
+        itme_obj.block_width = 0
+        itme_obj.block_height = 0
+        itme_obj.num_question = 0
+        itme_obj.num_of_option = 0
+        itme_obj.region_rect_x = $(".code_box_dashed").offset().left - getPoint().left
+        itme_obj.region_rect_y = $(".code_box_dashed").offset().top - getPoint().top
+        itme_obj.region_rect_width = $(".code_box_dashed").outerWidth()
+        itme_obj.region_rect_height = $(".code_box_dashed").outerHeight()
+        return itme_obj
+    }
+    /**
      * 获取学号学生信息/信息栏位于顶部
      */
     function getStudentInfo() {
@@ -313,6 +333,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
     *保存 
     */
     $scope.save = function () {
+        console.log(getBarCode())
         console.log(getStudentInfo())
     }
     /**
