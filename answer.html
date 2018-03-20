@@ -263,7 +263,7 @@
                                     </div>
                                 </div>
                                 <!-- 题型开始 -->
-                                <div class="question" ng-repeat="item in page.listA" ng-init="questionIndex=$index" ng-click="questionFocus(questionIndex)"
+                                <div class="question {{data.state.isBorder==1?'noIsborder':''}}" ng-repeat="item in page.listA" ng-init="questionIndex=$index" ng-click="questionFocus(questionIndex)"
                                     ng-class="{focus:questionIndex==FocusIndex}">
                                     <!-- 公共标题 -->
                                     <div class="question_title">

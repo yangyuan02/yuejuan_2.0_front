@@ -457,7 +457,7 @@ header .tool .save .btn_save,header .tool .save .btn_cloes{
     padding:4px 8px;
 }
 .main .content .page .content_pages .paper > .item .question.focus{
-    border-color:#31bc91
+    border:1px solid #31bc91!important;
 }
 .main .content .page .content_pages .paper > .item .question .question_title{
     margin-bottom:4px;
@@ -548,4 +548,8 @@ header .tool .save .btn_save,header .tool .save .btn_cloes{
 }
 .main .content .page .content_pages .paper > .item .question .question_3 .other .other_header .score{
     float: left;
+}
+/* 工具栏上面样式 */
+.noIsborder{
+    border:none !important;
 }

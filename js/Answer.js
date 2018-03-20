@@ -36,7 +36,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         pages: [//最外层page页
             {
                 listA: [],
-                listB: [],
+                listB: []
             }
         ]
     }
