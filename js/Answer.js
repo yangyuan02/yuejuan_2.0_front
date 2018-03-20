@@ -159,7 +159,11 @@ m1.controller("answer", function ($scope, $timeout, $http) {
             $scope.model.totalCores = parseInt($scope.model.w_totalscore)
 
             if ($scope.model.isradio == 3) {//作文格
-
+                $scope.model.repeatLine = []
+                var line = Math.floor($scope.model.gridnumber / 22)
+                for (var i = 0; i < line; i++) {
+                    $scope.model.repeatLine.push(i)
+                }
             }
             if ($scope.model.isradio == 4 || $scope.model.isradio == 5) {//英语横线
                 var data = $scope.model.linenumber || $scope.model.wordnumber

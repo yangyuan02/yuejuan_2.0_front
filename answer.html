@@ -180,7 +180,7 @@
             </div>
             <!-- 主体部分 -->
             <div class="content">
-                <div class="page" ng-repeat="page in data.pages" ng-init="pageIndex = $index">
+                <div class="page" ng-repeat="page in data.pages track by $index" ng-init="pageIndex = $index">
                     <!-- 定位点开始 -->
                     <div class="point">
                         <span></span>
@@ -225,12 +225,12 @@
                                         </div>
                                         <div class="candidate_write">
                                             <ul>
-                                                <li ng-repeat="item in examNum" ng-style="{width:100/examNum.length+'%'}"></li>
+                                                <li ng-repeat="item in examNum track by $index" ng-style="{width:100/examNum.length+'%'}"></li>
                                             </ul>
                                         </div>
                                         <div class="candidate_daub">
-                                            <ul ng-repeat="item in examNum">
-                                                <li ng-repeat="item in [0,1,2,3,4,5,6,7,8,9]" ng-bind="item"></li>
+                                            <ul ng-repeat="item in examNum track by $index">
+                                                <li ng-repeat="item in [0,1,2,3,4,5,6,7,8,9] track by $index" ng-bind="item"></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -263,8 +263,8 @@
                                     </div>
                                 </div>
                                 <!-- 题型开始 -->
-                                <div class="question {{data.state.isBorder==1?'noIsborder':''}}" ng-repeat="item in page.listA" ng-init="questionIndex=$index" ng-click="questionFocus(questionIndex)"
-                                    ng-class="{focus:questionIndex==FocusIndex}">
+                                <div class="question {{data.state.isBorder==1?'noIsborder':''}}" ng-repeat="item in page.listA track by $index" ng-init="questionIndex=$index"
+                                    ng-click="questionFocus(questionIndex)" ng-class="{focus:questionIndex==FocusIndex}">
                                     <!-- 公共标题 -->
                                     <div class="question_title">
                                         <p ng-bind="item.name"></p>
@@ -280,7 +280,7 @@
                                             <div class="number" ng-bind="child_q<10?'0'+child_q:child_q">01</div>
                                             <!-- 序号 -->
                                             <div class="xuze_item clear">
-                                                <span ng-repeat="option in item.options" ng-bind="option"></span>
+                                                <span ng-repeat="option in item.options track by $index" ng-bind="option"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -320,15 +320,17 @@
                                     <div class="question_2 clear common" ng-if="item.type==3">
                                         <!-- 作文方格 -->
                                         <div class="grid" ng-if="item.isradio==3">
-                                            111
+                                            <div class="line_grid clear" ng-repeat="word in item.repeatLine track by $index">
+                                                <div class="grid_item" ng-repeat="word in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21] track by $index"></div>
+                                            </div>
                                         </div>
                                         <!-- 外语横线 -->
                                         <div class="line" ng-if="item.isradio==4">
-                                            <div class="line_item" ng-repeat="line in item.repeatLine"></div>
+                                            <div class="line_item" ng-repeat="line in item.repeatLine track by $index"></div>
                                         </div>
                                         <!-- 单词间隔线 -->
                                         <div class="word" ng-if="item.isradio==5">
-                                            <div class="word_item" ng-repeat="word in item.repeatLine" ng-init="wordindex=$index">
+                                            <div class="word_item" ng-repeat="word in item.repeatLine track by $index" ng-init="wordindex=$index">
                                                 <span ng-if="wordindex==49 || wordindex==59" ng-bind="wordindex+1"></span>
                                             </div>
                                         </div>
