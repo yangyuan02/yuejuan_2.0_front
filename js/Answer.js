@@ -254,16 +254,16 @@ m1.controller("answer", function ($scope, $timeout, $http) {
     /**
      * 获取参考点位置坐标
      */
-    var getPoint = function(){
+    var getPoint = function () {
         return {
-            left:$(".content").find(".page").eq(0).find(".point").eq(0).find("span").eq(0).offset().left+15,
-            top:$(".content").find(".page").eq(0).find(".point").eq(0).find("span").eq(0).offset().top+15
+            left: $(".content").find(".page").eq(0).find(".point").eq(0).find("span").eq(0).offset().left + 15,
+            top: $(".content").find(".page").eq(0).find(".point").eq(0).find("span").eq(0).offset().top + 15
         }
     }
     /**
      * 获取条形码
      */
-    function getBarCode(){
+    function getBarCode() {
         var itme_obj = {}
         itme_obj.answer_mode = 6
         itme_obj.current_page = 1
@@ -291,7 +291,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         studentRegionRect.region_rect_y = parseInt(studentInfo.offset().top - getPoint().top)
         studentRegionRect.region_rect_width = studentInfo.width()
         studentRegionRect.region_rect_height = studentInfo.height()
-        var ulP =$(".candidate_daub")
+        var ulP = $(".candidate_daub")
         var ulItem = ulP.find("ul"), ulLen = ulItem.length
         var len;
         var fristPost = []//第一个itme坐标
@@ -328,6 +328,18 @@ m1.controller("answer", function ($scope, $timeout, $http) {
             }
         }
         return itme_obj
+    }
+    /**
+     * 获取单选题/多选题/判断题/第一个选项A坐标
+     * @param {题组索引} index 
+     */
+    function getItemPost(index) {
+        var fristPost = []
+        var dom = $(".question").eq(index).find(".xuze")
+        dom.each(function (i) {
+            fristPost.push($(this).find("span").eq(0).offset())
+        })
+        return fristPost
     }
     /**
     *保存 
