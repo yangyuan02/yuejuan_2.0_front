@@ -250,11 +250,70 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         $scope.count()
         $scope.cloesQuestionMode()
     }
+    /************************************************计算坐标部分****************************************** */
+    /**
+     * 获取参考点位置坐标
+     */
+    var getPoint = function(){
+        return {
+            left:$(".content").find(".page").eq(0).find(".point").eq(0).find("span").eq(0).offset().left+15,
+            top:$(".content").find(".page").eq(0).find(".point").eq(0).find("span").eq(0).offset().top+15
+        }
+    }
+    /**
+     * 获取学号学生信息/信息栏位于顶部
+     */
+    function getStudentInfo() {
+        var itme_obj = {}
+        var studentRegionRect = {}//学号区域信息
+        var studentInfo = $(".student_daub_l")
+        studentRegionRect.region_rect_x = parseInt(studentInfo.offset().left - getPoint().left)
+        studentRegionRect.region_rect_y = parseInt(studentInfo.offset().top - getPoint().top)
+        studentRegionRect.region_rect_width = studentInfo.width()
+        studentRegionRect.region_rect_height = studentInfo.height()
+        var ulP =$(".candidate_daub")
+        var ulItem = ulP.find("ul"), ulLen = ulItem.length
+        var len;
+        var fristPost = []//第一个itme坐标
+        ulItem.each(function () {
+            fristPost.push($(this).find("li").eq(0).offset())
+            len = $(this).find("li").length
+        })
+        itme_obj.answer_mode = 3
+        itme_obj.current_page = 1
+        itme_obj.no = 0
+        itme_obj.score = 0
+        itme_obj.string = "学号"
+        itme_obj.count = ulLen
+        itme_obj.block_width = 18
+        itme_obj.block_height = 12
+        itme_obj.num_question = parseInt(ulLen)
+        itme_obj.num_of_option = parseInt(len)
+        itme_obj.region_rect_x = studentRegionRect.region_rect_x - 10 //扩大客户端可视范围
+        itme_obj.region_rect_y = 10 //扩大客户端可视范围
+        itme_obj.region_rect_width = 698
+        itme_obj.region_rect_height = studentRegionRect.region_rect_height + 8 + 180//框选个人信息框
+        itme_obj.question = []
+        for (var i = 1; i <= ulLen; i++) {
+            var a = {}
+            a.no = i.toString()
+            a.option = []
+            itme_obj.question.push(a)
+            for (var j = 1; j <= len; j++) {
+                var b = {}
+                b.no = j
+                b.option_point_x = parseInt(fristPost[i - 1].left + 9 - getPoint().left)
+                b.option_point_y = parseInt(fristPost[i - 1].top + 6 + (12 + 7) * (j - 1) - getPoint().top)//12+7是元素高度+margin值
+                itme_obj.question[i - 1].option.push(b)
+            }
+        }
+        return itme_obj
+    }
     /**
     *保存 
     */
     $scope.save = function () {
-        console.log(111)
+        console.log(getStudentInfo())
     }
     /**
     *关闭答题卡窗口 
