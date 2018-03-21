@@ -441,7 +441,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
             itme_obj.string = obj[i - 1].name//大题标题
             itme_obj.answer_id = answer_id[i - 1].answers.answer_id//题组ID
             itme_obj.answer_mode = answerModeType(obj[i - 1].type)//题目类型
-            itme_obj.current_page =  obj[i - 1].current_page//当前页面
+            itme_obj.current_page = obj[i - 1].current_page//当前页面
             itme_obj.num_question = obj[i - 1].number//题目数量
             if (obj[i - 1].type != 4 || obj[i - 1].type != 3) { //其他题/作文题
                 itme_obj.region_rect_x = regionRect(i - 1).region_rect_x + 8//题组区域的X坐标
@@ -460,7 +460,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
                 itme_obj.block_height = 11//选项高度
                 itme_obj.answer_count = 1//答案个数
                 itme_obj.num_of_option = parseInt(obj[i - 1].itemNumber)//选项个数
-            } else if (obj[i - 1].type == 3) {//填空题
+            } else if (obj[i - 1].type == 2) {//填空题
                 itme_obj.block_width = 23//选项宽度
                 itme_obj.block_height = 12//选项高度
                 itme_obj.score_rect_x = fillScoreRect(i - 1).score_rect_x//打分框区域的x坐标
@@ -468,7 +468,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
                 itme_obj.score_rect_width = fillScoreRect(i - 1).score_rect_width//打分框区域的宽度
                 itme_obj.score_rect_height = fillScoreRect(i - 1).score_rect_height//打分框区域的高度
                 itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page) //打分框坐标
-            } else if (obj[i - 1].type == 5) {//其他题
+            } else if (obj[i - 1].type == 4) {//其他题
                 itme_obj.block_width = 23//选项宽度
                 itme_obj.block_height = 12//选项高度
                 // itme_obj.score_rect_options = otherFillScoreRect(i - 1, obj[i - 1].current_page)//打分框区域的x坐标
