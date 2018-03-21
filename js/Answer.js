@@ -342,11 +342,236 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         return fristPost
     }
     /**
+     * @param qNumer  小题个数
+     * @param answerNumber 小题选项个数
+     * @param Answerindex  $scope.listObj的索引
+     * @param answerModeType 题目类型
+     * @param itemCores 每小题分数
+     * @param current_page 当前页面
+     * @param startNo 起始序号
+     * @returns {Array}
+     */
+    function getQuestion(qNumer, answerNumber, Answerindex, answerModeType, itemCores, current_page, startNo) {//获取每个小题目
+        var question = []
+        var qNumer = parseInt(qNumer)
+        var answerNumber = parseInt(answerNumber)//选项个数
+        // var dot = $(".position_TL span").eq(1).offset();
+        // dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
+        var item_w = 16, itemMarginLeft = 10;
+        for (var i = 1; i <= qNumer; i++) {//循环每个小题
+            var itme_obj = {}
+            itme_obj.no = startNo[i - 1].toString()//起始序号客户端显示小题
+            itme_obj.one_score = parseInt(itemCores[i - 1])//小题分值
+            itme_obj.answer_setting_id = answer_id[Answerindex].answers.settings[i - 1].setting_id//小题id
+            itme_obj.option = []
+            if (answerModeType == 5) {
+                itme_obj.region_rect_x = otherFillScoreRect(Answerindex, current_page)[i - 1].score_rect_x
+                itme_obj.region_rect_y = otherFillScoreRect(Answerindex, current_page)[i - 1].score_rect_y - 30
+                itme_obj.region_rect_height = otherFillScoreHeight(Answerindex, current_page)[i - 1]
+                itme_obj.region_rect_width = 698 - 14
+                var start = (i - 1) * 17
+                var end = start + 17
+                itme_obj.score_options = fillScoreOptions(Answerindex, 5, current_page).slice(start, end)
+            }
+            if (answerModeType == 4) {
+                itme_obj.region_rect_x = regionRect(Answerindex).region_rect_x + 8//题组区域的X坐标
+                itme_obj.region_rect_y = regionRect(Answerindex).region_rect_y - 1200 * (current_page - 1) + 8//题组区域的Y坐标
+                itme_obj.region_rect_height = 100
+                itme_obj.region_rect_width = 698 - 14
+                itme_obj.score_options = fillScoreOptions(Answerindex, 4, current_page)
+            }
+            question.push(itme_obj)
+        }
+        for (var i = 0; i < question.length; i++) {
+
+            for (var j = 1; j <= answerNumber; j++) {
+                var itme_obj = {}
+                itme_obj.no = j//小题序号
+                if (answerModeType == 1 || answerModeType == 2 || answerModeType == 6) {//单选题/多选题/判断题
+                    itme_obj.option_point_x = getItemPost(Answerindex)[i].left + 7 + (item_w + itemMarginLeft) * (j - 1) - getPoint().left//选项框中心点x坐标
+                    itme_obj.option_point_y = getItemPost(Answerindex)[i].top + 6 - getPoint().top - 1200 * (current_page - 1)//同行option_point_y都是一样的 选项框中心点y坐标
+                } else if (answerModeType == 3) {
+                    itme_obj.option_point_x = getFillPost(Answerindex)[i].left + 11.5 - getPoint().left
+                    itme_obj.option_point_y = getFillPost(Answerindex)[i].top + 6 - getPoint().top - 1200 * (current_page - 1)
+                }
+                question[i].option.push(itme_obj)
+            }
+        }
+        return question
+    }
+    /**
+     * 循环题型数组
+     * @param {所有题型数组} obj 
+     */
+    function getBigQuestion(obj) {
+        var BigQuestion = []
+        for (var i = 1; i <= obj.length; i++) {
+            var itme_obj = {}
+            itme_obj.no = i//大题编号
+            itme_obj.total_score = parseInt(obj[i - 1].totalCores)//答题总分
+            itme_obj.string = obj[i - 1].name//大题标题
+            itme_obj.answer_id = answer_id[i - 1].answers.answer_id//题组ID
+            itme_obj.answer_mode = answerModeType(obj[i - 1].type)//题目类型
+            itme_obj.current_page = obj[i - 1].current_page//当前页面
+            itme_obj.num_question = obj[i - 1].numbel//题目数量
+            if (obj[i - 1].type != 5 || obj[i - 1].type != 4) {
+                itme_obj.region_rect_x = regionRect(i - 1).region_rect_x + 8//题组区域的X坐标
+                itme_obj.region_rect_y = regionRect(i - 1).region_rect_y - 1200 * (itme_obj.current_page - 1) + 8//题组区域的Y坐标
+                itme_obj.region_rect_width = 698 - 14//题组区域的宽度
+            }
+            if (obj[i - 1].type == 4) {//作文题
+                // itme_obj.region_rect_height = 100//题组区域的高度
+            } else {
+                if (obj[i - 1].type != 5) {
+                    itme_obj.region_rect_height = regionRect(i - 1).region_rect_height - 8//题组区域的高度
+                }
+            }
+            if (obj[i - 1].type == 1 || obj[i - 1].type == 6 || obj[i - 1].type == 2) {//单选题/多选题/判断题
+                itme_obj.block_width = 14//选项宽度
+                itme_obj.block_height = 11//选项高度
+                itme_obj.answer_count = 1//答案个数
+                itme_obj.num_of_option = parseInt(obj[i - 1].itemNumber)//选项个数
+            } else if (obj[i - 1].type == 3) {//填空题
+                itme_obj.block_width = 23//选项宽度
+                itme_obj.block_height = 12//选项高度
+                itme_obj.score_rect_x = fillScoreRect(i - 1).score_rect_x//打分框区域的x坐标
+                itme_obj.score_rect_y = fillScoreRect(i - 1).score_rect_y - 1200 * (itme_obj.current_page - 1)//打分框区域的y坐标
+                itme_obj.score_rect_width = fillScoreRect(i - 1).score_rect_width//打分框区域的宽度
+                itme_obj.score_rect_height = fillScoreRect(i - 1).score_rect_height//打分框区域的高度
+                itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page) //打分框坐标
+            } else if (obj[i - 1].type == 5) {//其他题
+                itme_obj.block_width = 23//选项宽度
+                itme_obj.block_height = 12//选项高度
+                // itme_obj.score_rect_options = otherFillScoreRect(i - 1, obj[i - 1].current_page)//打分框区域的x坐标
+                itme_obj.score_rect_width = 690//打分框区域的宽度
+                itme_obj.score_rect_height = 30//打分框区域的高度
+                // itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page)
+            } else {//作文题
+                itme_obj.block_width = 23//选项宽度
+                itme_obj.block_height = 12//选项高度
+                itme_obj.score_rect_width = 690//打分框区域的宽度
+                itme_obj.score_rect_height = 20//打分框区域的高度
+                // itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page)
+            }
+            BigQuestion.push(itme_obj)
+        }
+        for (var i = 0; i < BigQuestion.length; i++) {
+            if (obj[i].type == 5 || obj[i].type == 4) {
+                BigQuestion[i].questions = getQuestion(obj[i].numbel, obj[i].itemNumber, i, obj[i].type, obj[i].itemCoresArr, obj[i].current_page, obj[i].no)
+            } else {
+                BigQuestion[i].question = getQuestion(obj[i].numbel, obj[i].itemNumber, i, obj[i].type, obj[i].itemCoresArr, obj[i].current_page, obj[i].no)
+            }
+        }
+
+        $scope.data.state.recogniType == 0 ? BigQuestion.push(getStudentInfo()) : BigQuestion.push(getBarCode())  //识别考号/识别条码
+
+        return BigQuestion
+    }
+    /** 
+    *获取四个锚点坐标 
+    */
+    function getPostDot() {
+        var anchor = {}
+        var relativePost = $(".page").eq(0).offset()//相对点
+
+        var dot1 = $(".content").find(".page").eq(0).find(".point").eq(0).find("span").eq(0).offset()
+        var dot2 = $(".content").find(".page").eq(0).find(".point").eq(2).find("span").eq(0).offset();
+        var dot3 = $(".content").find(".page").eq(0).find(".point").eq(1).find("span").eq(0).offset();
+        var dot4 = $(".content").find(".page").eq(0).find(".point").eq(3).find("span").eq(0).offset();
+
+        anchor.LeftTopX = $scope.data.state.examType == 0 ? parseInt(dot1.left + 15 - relativePost.left) : 0 //特殊考试的时候锚点为0
+        anchor.LeftTopY = $scope.data.state.examType == 0 ? parseInt(dot1.top + 15 - relativePost.top) : 0
+        anchor.RightTopX = $scope.data.state.examType == 0 ? parseInt(dot2.left + 15 - relativePost.left) : 0
+        anchor.RightTopY = $scope.data.state.examType == 0 ? parseInt(dot2.top + 15 - relativePost.top) : 0
+        anchor.LeftBottomX = $scope.data.state.examType == 0 ? parseInt(dot3.left + 15 - relativePost.left) : 0
+        anchor.LeftBottomY = $scope.data.state.examType == 0 ? parseInt(dot3.top + 15 - relativePost.top) : 0
+        anchor.RightBottomX = $scope.data.state.examType == 0 ? parseInt(dot4.left + 15 - relativePost.left) : 0
+        anchor.RightBottomY = $scope.data.state.examType == 0 ? parseInt(dot4.top + 15 - relativePost.top) : 0
+        return anchor
+    }
+    /**
     *保存 
     */
-    $scope.save = function () {
-        console.log(getBarCode())
-        console.log(getStudentInfo())
+    $scope.save = function () {//保存模板
+        if ($scope.data.pages[0].listA.length <= 0) {
+            alert("请添加题组")
+            return
+        }
+        function bindRegion() {
+            var answer_ids = []
+            for (var i = 0; i < answer_id.length; i++) {
+                answer_ids.push(answer_id[i].answers.answer_id)
+            }
+            console.log(getBigQuestion(allPagePost()))
+            if ($scope.paperType == 0) {//手工阅卷
+                var allP = getBigQuestion(allPagePost())
+            } else {
+                var allP = filtrAnswerMode(getBigQuestion(allPagePost()))
+            }
+            $.ajax({
+                type: "POST",
+                url: "/api/v2/answer_regions",
+                headers: { 'Authorization': "Bearer " + isLogin },
+                async: false,
+                data: {
+                    'answer_region[exam_subject_id]': examubjeId,//科目ID
+                    'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
+                    'answer_region[region_info]': JSON.stringify(allP),//所有坐标信息
+                    'answer_region[basic_info_region]': JSON.stringify(allList()),//存储页面题目
+                    'page': $(".A_R").length
+                },
+                success: function (data) {//绑定题组以便刷新后删除没用的
+                    var TemplateId = data.message
+                    var bindData = new FormData()
+                    bindData.append('exam_subject_id', examubjeId)
+                    bindData.append('answer_region_id', TemplateId)
+                    bindData.append('answer_ids', answer_ids.join(","))
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/v2/answer_region_binds",
+                        headers: { 'Authorization': "Bearer " + isLogin },
+                        async: false,
+                        data: bindData,
+                        processData: false,  // 不处理数据
+                        contentType: false,   // 不设置内容类型
+                        success: function (data) {
+                            alert("保存成功")
+                            modelParam.length = 0
+                            console.log(data)
+                            $("#menu").hide()
+                        }
+                    }
+                    )
+                }
+            }
+            )
+        }
+
+        if (modelParam.length > 0) {
+            if (question_bank_id.length > 0) {//点击过了导入试卷
+                for (var i = 0; i < modelParam.length; i++) {
+                    modelParam[i].answer_settings.question_bank_id = question_bank_id[i]
+                }
+            }
+            $.ajax({//获取answer_id
+                type: "POST",
+                url: "api/v2/answers/batch_create",
+                headers: { 'Authorization': "Bearer " + isLogin },
+                data: { "answers": JSON.stringify(modelParam) },
+                async: false,
+                success: function (data) {
+                    console.log(data)
+                    answer_id = data
+                    bindRegion()
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            }
+            )
+        } else {
+            bindRegion()
+        }
     }
     /**
     *关闭答题卡窗口 
