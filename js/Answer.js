@@ -12,7 +12,9 @@ m1.controller("answer", function ($scope, $timeout, $http) {
     var examubjeId = getUrlParam(window.location, 'examubjeId') //examubjeId
 
     $scope.model = {} //弹窗数据
+
     var modelParam = [] //请求参数数组
+    var answer_id = [] //全局answerId
 
     $scope.data = {
         subject: {//项目信息
@@ -38,7 +40,8 @@ m1.controller("answer", function ($scope, $timeout, $http) {
                 listA: [],
                 listB: []
             }
-        ]
+        ],
+        list: []//所有的页面数据
     }
     /**
      * toolbar工具栏功能
@@ -142,6 +145,8 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         $scope.model.itemscoreS = [] //小题分值数组
         $scope.model.totalCores = parseInt($scope.model.number) * parseInt($scope.model.itemscore)//总分数
 
+        $scope.model.current_page = 1  //这个值需要后期调整
+
         if ($scope.model.type == 0) {//单选选择题/多项选择题
             $scope.model.options = options.slice(0, $scope.model.count)
         }
@@ -226,6 +231,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
     */
     $scope.insertQuesTionData = function () {
         $scope.data.pages[0].listA.push($scope.model)
+        $scope.data.list.push($scope.model)
         console.log($scope.data)
     }
     /** 
@@ -342,13 +348,36 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         return fristPost
     }
     /**
+     * 添加修改 answerModeType
+     * @param {题目类型} type 
+     */
+    function answerModeType(type) {
+        var answerModeType;
+        if (type == 0) {//单选题
+            answerModeType = 0
+        }
+        if (type == 5) {//多选题
+            answerModeType = 1
+        }
+        if (type == 1) {//是非题
+            answerModeType = 2
+        }
+        if (type == 2) {//分数框-填空题
+            answerModeType = 5
+        }
+        if (type == 3 || type == 4) {//分数框（解答题写作题,其他题）
+            answerModeType = 4
+        }
+        return answerModeType
+    }
+    /**
      * @param qNumer  小题个数
      * @param answerNumber 小题选项个数
      * @param Answerindex  $scope.listObj的索引
      * @param answerModeType 题目类型
-     * @param itemCores 每小题分数
+     * @param itemCores 数组 每小题分数
      * @param current_page 当前页面
-     * @param startNo 起始序号
+     * @param startNo 起始序号数组
      * @returns {Array}
      */
     function getQuestion(qNumer, answerNumber, Answerindex, answerModeType, itemCores, current_page, startNo) {//获取每个小题目
@@ -364,7 +393,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
             itme_obj.one_score = parseInt(itemCores[i - 1])//小题分值
             itme_obj.answer_setting_id = answer_id[Answerindex].answers.settings[i - 1].setting_id//小题id
             itme_obj.option = []
-            if (answerModeType == 5) {
+            if (answerModeType == 4) {
                 itme_obj.region_rect_x = otherFillScoreRect(Answerindex, current_page)[i - 1].score_rect_x
                 itme_obj.region_rect_y = otherFillScoreRect(Answerindex, current_page)[i - 1].score_rect_y - 30
                 itme_obj.region_rect_height = otherFillScoreHeight(Answerindex, current_page)[i - 1]
@@ -373,7 +402,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
                 var end = start + 17
                 itme_obj.score_options = fillScoreOptions(Answerindex, 5, current_page).slice(start, end)
             }
-            if (answerModeType == 4) {
+            if (answerModeType == 3) {
                 itme_obj.region_rect_x = regionRect(Answerindex).region_rect_x + 8//题组区域的X坐标
                 itme_obj.region_rect_y = regionRect(Answerindex).region_rect_y - 1200 * (current_page - 1) + 8//题组区域的Y坐标
                 itme_obj.region_rect_height = 100
@@ -387,7 +416,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
             for (var j = 1; j <= answerNumber; j++) {
                 var itme_obj = {}
                 itme_obj.no = j//小题序号
-                if (answerModeType == 1 || answerModeType == 2 || answerModeType == 6) {//单选题/多选题/判断题
+                if (answerModeType == 0 || answerModeType == 5 || answerModeType == 1) {//单选题/多选题/判断题
                     itme_obj.option_point_x = getItemPost(Answerindex)[i].left + 7 + (item_w + itemMarginLeft) * (j - 1) - getPoint().left//选项框中心点x坐标
                     itme_obj.option_point_y = getItemPost(Answerindex)[i].top + 6 - getPoint().top - 1200 * (current_page - 1)//同行option_point_y都是一样的 选项框中心点y坐标
                 } else if (answerModeType == 3) {
@@ -412,21 +441,21 @@ m1.controller("answer", function ($scope, $timeout, $http) {
             itme_obj.string = obj[i - 1].name//大题标题
             itme_obj.answer_id = answer_id[i - 1].answers.answer_id//题组ID
             itme_obj.answer_mode = answerModeType(obj[i - 1].type)//题目类型
-            itme_obj.current_page = obj[i - 1].current_page//当前页面
-            itme_obj.num_question = obj[i - 1].numbel//题目数量
-            if (obj[i - 1].type != 5 || obj[i - 1].type != 4) {
+            itme_obj.current_page =  obj[i - 1].current_page//当前页面
+            itme_obj.num_question = obj[i - 1].number//题目数量
+            if (obj[i - 1].type != 4 || obj[i - 1].type != 3) { //其他题/作文题
                 itme_obj.region_rect_x = regionRect(i - 1).region_rect_x + 8//题组区域的X坐标
                 itme_obj.region_rect_y = regionRect(i - 1).region_rect_y - 1200 * (itme_obj.current_page - 1) + 8//题组区域的Y坐标
                 itme_obj.region_rect_width = 698 - 14//题组区域的宽度
             }
-            if (obj[i - 1].type == 4) {//作文题
+            if (obj[i - 1].type == 3) {//作文题
                 // itme_obj.region_rect_height = 100//题组区域的高度
             } else {
-                if (obj[i - 1].type != 5) {
+                if (obj[i - 1].type != 4) {
                     itme_obj.region_rect_height = regionRect(i - 1).region_rect_height - 8//题组区域的高度
                 }
             }
-            if (obj[i - 1].type == 1 || obj[i - 1].type == 6 || obj[i - 1].type == 2) {//单选题/多选题/判断题
+            if (obj[i - 1].type == 0 || obj[i - 1].type == 5 || obj[i - 1].type == 1) {//单选题/多选题/判断题
                 itme_obj.block_width = 14//选项宽度
                 itme_obj.block_height = 11//选项高度
                 itme_obj.answer_count = 1//答案个数
@@ -457,9 +486,9 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         }
         for (var i = 0; i < BigQuestion.length; i++) {
             if (obj[i].type == 5 || obj[i].type == 4) {
-                BigQuestion[i].questions = getQuestion(obj[i].numbel, obj[i].itemNumber, i, obj[i].type, obj[i].itemCoresArr, obj[i].current_page, obj[i].no)
+                BigQuestion[i].questions = getQuestion(obj[i].number, obj[i].count, i, obj[i].type, obj[i].itemscoreS, obj[i].current_page, obj[i].arrStartnNmber)
             } else {
-                BigQuestion[i].question = getQuestion(obj[i].numbel, obj[i].itemNumber, i, obj[i].type, obj[i].itemCoresArr, obj[i].current_page, obj[i].no)
+                BigQuestion[i].question = getQuestion(obj[i].number, obj[i].count, i, obj[i].type, obj[i].itemscoreS, obj[i].current_page, obj[i].arrStartnNmber)
             }
         }
 
@@ -490,6 +519,16 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         return anchor
     }
     /**
+     * 
+     * @param {过滤手工阅卷} arr 
+     */
+    function filtrAnswerMode(arr) {
+        var filtrAnswer = arr.filter(function (ele) {
+            return ele.answer_mode == 0 || ele.answer_mode == 1 || ele.answer_mode == 2 || ele.answer_mode == 3 || ele.answer_mode == 6
+        })
+        return filtrAnswer
+    }
+    /**
     *保存 
     */
     $scope.save = function () {//保存模板
@@ -502,11 +541,10 @@ m1.controller("answer", function ($scope, $timeout, $http) {
             for (var i = 0; i < answer_id.length; i++) {
                 answer_ids.push(answer_id[i].answers.answer_id)
             }
-            console.log(getBigQuestion(allPagePost()))
-            if ($scope.paperType == 0) {//手工阅卷
-                var allP = getBigQuestion(allPagePost())
+            if ($scope.data.state.readType == 0) {//网络阅卷、只有选择题、多选题、判断题坐标
+                var allP = filtrAnswerMode(getBigQuestion($scope.data.list))
             } else {
-                var allP = filtrAnswerMode(getBigQuestion(allPagePost()))
+                var allP = getBigQuestion($scope.data.list)
             }
             $.ajax({
                 type: "POST",
@@ -517,8 +555,8 @@ m1.controller("answer", function ($scope, $timeout, $http) {
                     'answer_region[exam_subject_id]': examubjeId,//科目ID
                     'answer_region[anchor]': JSON.stringify(getPostDot()),//四个锚点
                     'answer_region[region_info]': JSON.stringify(allP),//所有坐标信息
-                    'answer_region[basic_info_region]': JSON.stringify(allList()),//存储页面题目
-                    'page': $(".A_R").length
+                    'answer_region[basic_info_region]': JSON.stringify($scope.data),//存储页面题目
+                    'page': $(".page").length
                 },
                 success: function (data) {//绑定题组以便刷新后删除没用的
                     var TemplateId = data.message
@@ -548,11 +586,6 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         }
 
         if (modelParam.length > 0) {
-            if (question_bank_id.length > 0) {//点击过了导入试卷
-                for (var i = 0; i < modelParam.length; i++) {
-                    modelParam[i].answer_settings.question_bank_id = question_bank_id[i]
-                }
-            }
             $.ajax({//获取answer_id
                 type: "POST",
                 url: "api/v2/answers/batch_create",
