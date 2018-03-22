@@ -14,7 +14,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
     $scope.model = {} //弹窗数据
 
     var modelParam = [] //请求参数数组
-    var answer_id = [] //全局answerId
+
 
     $scope.data = {
         subject: {//项目信息
@@ -348,6 +348,18 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         return fristPost
     }
     /**
+     * 获取题组区域左上角顶点位置和题组高度宽度
+     * @param {题组索引} index 
+     */
+    function regionRect(index) {
+        var regionRect = {}
+        var dom = $(".question").eq(index).offset()
+        regionRect.region_rect_x = parseInt(dom.left - getPoint().left)
+        regionRect.region_rect_y = parseInt(dom.top - getPoint().top)
+        regionRect.region_rect_height = $(".question").eq(index).height()   
+        return regionRect
+    }
+    /**
      * 添加修改 answerModeType
      * @param {题目类型} type 
      */
@@ -391,7 +403,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
             var itme_obj = {}
             itme_obj.no = startNo[i - 1].toString()//起始序号客户端显示小题
             itme_obj.one_score = parseInt(itemCores[i - 1])//小题分值
-            itme_obj.answer_setting_id = answer_id[Answerindex].answers.settings[i - 1].setting_id//小题id
+            itme_obj.answer_setting_id = $scope.data.answer_id[Answerindex].answers.settings[i - 1].setting_id//小题id
             itme_obj.option = []
             if (answerModeType == 4) {
                 itme_obj.region_rect_x = otherFillScoreRect(Answerindex, current_page)[i - 1].score_rect_x
@@ -439,53 +451,64 @@ m1.controller("answer", function ($scope, $timeout, $http) {
             itme_obj.no = i//大题编号
             itme_obj.total_score = parseInt(obj[i - 1].totalCores)//答题总分
             itme_obj.string = obj[i - 1].name//大题标题
-            itme_obj.answer_id = answer_id[i - 1].answers.answer_id//题组ID
+            itme_obj.answer_id = $scope.data.answer_id[i - 1].answers.answer_id//题组ID
             itme_obj.answer_mode = answerModeType(obj[i - 1].type)//题目类型
             itme_obj.current_page = obj[i - 1].current_page//当前页面
             itme_obj.num_question = obj[i - 1].number//题目数量
-            if (obj[i - 1].type != 4 || obj[i - 1].type != 3) { //其他题/作文题
-                itme_obj.region_rect_x = regionRect(i - 1).region_rect_x + 8//题组区域的X坐标
-                itme_obj.region_rect_y = regionRect(i - 1).region_rect_y - 1200 * (itme_obj.current_page - 1) + 8//题组区域的Y坐标
-                itme_obj.region_rect_width = 698 - 14//题组区域的宽度
-            }
-            if (obj[i - 1].type == 3) {//作文题
-                // itme_obj.region_rect_height = 100//题组区域的高度
-            } else {
-                if (obj[i - 1].type != 4) {
-                    itme_obj.region_rect_height = regionRect(i - 1).region_rect_height - 8//题组区域的高度
-                }
-            }
+
             if (obj[i - 1].type == 0 || obj[i - 1].type == 5 || obj[i - 1].type == 1) {//单选题/多选题/判断题
                 itme_obj.block_width = 14//选项宽度
-                itme_obj.block_height = 11//选项高度
+                itme_obj.block_height = 12//选项高度
                 itme_obj.answer_count = 1//答案个数
-                itme_obj.num_of_option = parseInt(obj[i - 1].itemNumber)//选项个数
-            } else if (obj[i - 1].type == 2) {//填空题
-                itme_obj.block_width = 23//选项宽度
-                itme_obj.block_height = 12//选项高度
-                itme_obj.score_rect_x = fillScoreRect(i - 1).score_rect_x//打分框区域的x坐标
-                itme_obj.score_rect_y = fillScoreRect(i - 1).score_rect_y - 1200 * (itme_obj.current_page - 1)//打分框区域的y坐标
-                itme_obj.score_rect_width = fillScoreRect(i - 1).score_rect_width//打分框区域的宽度
-                itme_obj.score_rect_height = fillScoreRect(i - 1).score_rect_height//打分框区域的高度
-                itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page) //打分框坐标
-            } else if (obj[i - 1].type == 4) {//其他题
-                itme_obj.block_width = 23//选项宽度
-                itme_obj.block_height = 12//选项高度
-                // itme_obj.score_rect_options = otherFillScoreRect(i - 1, obj[i - 1].current_page)//打分框区域的x坐标
-                itme_obj.score_rect_width = 690//打分框区域的宽度
-                itme_obj.score_rect_height = 30//打分框区域的高度
-                // itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page)
-            } else {//作文题
-                itme_obj.block_width = 23//选项宽度
-                itme_obj.block_height = 12//选项高度
-                itme_obj.score_rect_width = 690//打分框区域的宽度
-                itme_obj.score_rect_height = 20//打分框区域的高度
-                // itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page)
+                itme_obj.num_of_option = parseInt(obj[i - 1].count)//选项个数
+                itme_obj.region_rect_height = regionRect(i - 1).region_rect_height - 8//题组区域的高度
             }
+
+
+
+            // if (obj[i - 1].type != 4 || obj[i - 1].type != 3) { //其他题/作文题
+            //     itme_obj.region_rect_x = regionRect(i - 1).region_rect_x + 8//题组区域的X坐标
+            //     itme_obj.region_rect_y = regionRect(i - 1).region_rect_y - 1200 * (itme_obj.current_page - 1) + 8//题组区域的Y坐标
+            //     itme_obj.region_rect_width = 698 - 14//题组区域的宽度
+            // }
+            // if (obj[i - 1].type == 3) {//作文题
+            //     // itme_obj.region_rect_height = 100//题组区域的高度
+            // } else {
+            //     if (obj[i - 1].type != 4) {
+            //         itme_obj.region_rect_height = regionRect(i - 1).region_rect_height - 8//题组区域的高度
+            //     }
+            // }
+            // if (obj[i - 1].type == 0 || obj[i - 1].type == 5 || obj[i - 1].type == 1) {//单选题/多选题/判断题
+            //     itme_obj.block_width = 14//选项宽度
+            //     itme_obj.block_height = 11//选项高度
+            //     itme_obj.answer_count = 1//答案个数
+            //     itme_obj.num_of_option = parseInt(obj[i - 1].itemNumber)//选项个数
+            // } else if (obj[i - 1].type == 2) {//填空题
+            //     itme_obj.block_width = 23//选项宽度
+            //     itme_obj.block_height = 12//选项高度
+            //     itme_obj.score_rect_x = fillScoreRect(i - 1).score_rect_x//打分框区域的x坐标
+            //     itme_obj.score_rect_y = fillScoreRect(i - 1).score_rect_y - 1200 * (itme_obj.current_page - 1)//打分框区域的y坐标
+            //     itme_obj.score_rect_width = fillScoreRect(i - 1).score_rect_width//打分框区域的宽度
+            //     itme_obj.score_rect_height = fillScoreRect(i - 1).score_rect_height//打分框区域的高度
+            //     itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page) //打分框坐标
+            // } else if (obj[i - 1].type == 4) {//其他题
+            //     itme_obj.block_width = 23//选项宽度
+            //     itme_obj.block_height = 12//选项高度
+            //     // itme_obj.score_rect_options = otherFillScoreRect(i - 1, obj[i - 1].current_page)//打分框区域的x坐标
+            //     itme_obj.score_rect_width = 690//打分框区域的宽度
+            //     itme_obj.score_rect_height = 30//打分框区域的高度
+            //     // itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page)
+            // } else {//作文题
+            //     itme_obj.block_width = 23//选项宽度
+            //     itme_obj.block_height = 12//选项高度
+            //     itme_obj.score_rect_width = 690//打分框区域的宽度
+            //     itme_obj.score_rect_height = 20//打分框区域的高度
+            //     // itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page)
+            // }
             BigQuestion.push(itme_obj)
         }
         for (var i = 0; i < BigQuestion.length; i++) {
-            if (obj[i].type == 5 || obj[i].type == 4) {
+            if (obj[i].type == 4 || obj[i].type == 3) {
                 BigQuestion[i].questions = getQuestion(obj[i].number, obj[i].count, i, obj[i].type, obj[i].itemscoreS, obj[i].current_page, obj[i].arrStartnNmber)
             } else {
                 BigQuestion[i].question = getQuestion(obj[i].number, obj[i].count, i, obj[i].type, obj[i].itemscoreS, obj[i].current_page, obj[i].arrStartnNmber)
@@ -538,8 +561,8 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         }
         function bindRegion() {
             var answer_ids = []
-            for (var i = 0; i < answer_id.length; i++) {
-                answer_ids.push(answer_id[i].answers.answer_id)
+            for (var i = 0; i < $scope.data.answer_id.length; i++) {
+                answer_ids.push($scope.data.answer_id[i].answers.answer_id)
             }
             if ($scope.data.state.readType == 0) {//网络阅卷、只有选择题、多选题、判断题坐标
                 var allP = filtrAnswerMode(getBigQuestion($scope.data.list))
@@ -594,7 +617,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
                 async: false,
                 success: function (data) {
                     console.log(data)
-                    answer_id = data
+                    $scope.data.answer_id = data
                     bindRegion()
                 },
                 error: function (data) {
