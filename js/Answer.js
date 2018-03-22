@@ -461,7 +461,6 @@ m1.controller("answer", function ($scope, $timeout, $http) {
                 itme_obj.block_height = 12//选项高度
                 itme_obj.answer_count = 1//答案个数
                 itme_obj.num_of_option = parseInt(obj[i - 1].count)//选项个数
-                itme_obj.region_rect_height = regionRect(i - 1).region_rect_height - 8//题组区域的高度
             }
 
             if (obj[i - 1].type == 2) {//填空题
@@ -479,7 +478,6 @@ m1.controller("answer", function ($scope, $timeout, $http) {
                 //     itme_obj.block_height = 12//选项高度
                 //     itme_obj.score_rect_width = 690//打分框区域的宽度
                 //     itme_obj.score_rect_height = 20//打分框区域的高度
-                //     // itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page)
             }
 
             if (obj[i - 1].type == 4) {//其他题
@@ -488,20 +486,18 @@ m1.controller("answer", function ($scope, $timeout, $http) {
                 //     // itme_obj.score_rect_options = otherFillScoreRect(i - 1, obj[i - 1].current_page)//打分框区域的x坐标
                 //     itme_obj.score_rect_width = 690//打分框区域的宽度
                 //     itme_obj.score_rect_height = 30//打分框区域的高度
-                //     // itme_obj.score_options = fillScoreOptions(i - 1, obj[i - 1].type, obj[i - 1].current_page)
             }
 
-
             if (obj[i - 1].type != 4 || obj[i - 1].type != 3) { //其他题/作文题
-                // itme_obj.region_rect_x = regionRect(i - 1).region_rect_x + 8//题组区域的X坐标
-                // itme_obj.region_rect_y = regionRect(i - 1).region_rect_y - 1200 * (itme_obj.current_page - 1) + 8//题组区域的Y坐标
-                // itme_obj.region_rect_width = 698 - 14//题组区域的宽度
+                itme_obj.region_rect_x = regionRect(i - 1).region_rect_x + 8//题组区域的X坐标
+                itme_obj.region_rect_y = regionRect(i - 1).region_rect_y - 1200 * (itme_obj.current_page - 1) + 8//题组区域的Y坐标
+                itme_obj.region_rect_width = 698 - 14//题组区域的宽度
             }
 
             if (obj[i - 1].type != 4) {
-                //         itme_obj.region_rect_height = regionRect(i - 1).region_rect_height - 8//题组区域的高度
+                itme_obj.region_rect_height = regionRect(i - 1).region_rect_height - 8//题组区域的高度
             }
-            
+
             BigQuestion.push(itme_obj)
         }
         for (var i = 0; i < BigQuestion.length; i++) {
