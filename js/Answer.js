@@ -360,12 +360,12 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         return regionRect
     }
     /**获取17个打分框坐标 */
-    function fillScoreOptions(index,current_page) {
+    function fillScoreOptions(index, current_page) {
         var fillScoreOptions = []
         var makrin = []
 
         var dom = $(".question").eq(index).find(".mark").find("span")
-        
+
         dom.each(function () {
             fillScoreOptions.push($(this).offset())
         })
@@ -377,6 +377,32 @@ m1.controller("answer", function ($scope, $timeout, $http) {
             makrin.push(obj)
         }
         return makrin
+    }
+    /**
+     * 获得其他题小题左上角坐标和小题高度
+     * @param {*} index 
+     * @param {*} current_page 
+     */
+    function otherFillScoreRect(index, current_page) {
+        var otherScoreRect = []
+        var otherListDom = []
+        var dom = $(".question").eq(index).find(".other")
+        dom.each(function () {
+            otherListDom.push({
+                left: $(this).offset().left,
+                top: $(this).offset().top,
+                height: $(this).height()
+            })
+        })
+        for (var i = 1; i <= dom.length; i++) {
+            var scoreRect = {}
+            scoreRect.no = i
+            scoreRect.score_rect_x = otherListDom[i - 1].left - getPoint().left
+            scoreRect.score_rect_y = otherListDom[i - 1].top - getPoint().top - 1200 * (current_page - 1)
+            scoreRect.score_height = otherListDom[i - 1].height
+            otherScoreRect.push(scoreRect)
+        }
+        return otherScoreRect
     }
     /**
      * 添加修改 answerModeType
@@ -415,8 +441,6 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         var question = []
         var qNumer = parseInt(qNumer)
         var answerNumber = parseInt(answerNumber)//选项个数
-        // var dot = $(".position_TL span").eq(1).offset();
-        // dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
         var item_w = 16, itemMarginLeft = 10;
         for (var i = 1; i <= qNumer; i++) {//循环每个小题
             var itme_obj = {}
@@ -427,18 +451,18 @@ m1.controller("answer", function ($scope, $timeout, $http) {
             if (answerModeType == 4) {//其他题
                 itme_obj.region_rect_x = otherFillScoreRect(Answerindex, current_page)[i - 1].score_rect_x
                 itme_obj.region_rect_y = otherFillScoreRect(Answerindex, current_page)[i - 1].score_rect_y - 30
-                itme_obj.region_rect_height = otherFillScoreHeight(Answerindex, current_page)[i - 1]
+                itme_obj.region_rect_height = otherFillScoreRect(Answerindex, current_page)[i - 1].score_height
                 itme_obj.region_rect_width = 698 - 14
                 var start = (i - 1) * 17
                 var end = start + 17
-                itme_obj.score_options = fillScoreOptions(Answerindex,current_page).slice(start, end)
+                itme_obj.score_options = fillScoreOptions(Answerindex, current_page).slice(start, end)
             }
             if (answerModeType == 3) {//作文题
                 itme_obj.region_rect_x = regionRect(Answerindex).region_rect_x + 8//题组区域的X坐标
                 itme_obj.region_rect_y = regionRect(Answerindex).region_rect_y - 1200 * (current_page - 1) + 8//题组区域的Y坐标
                 itme_obj.region_rect_height = 100
                 itme_obj.region_rect_width = 698 - 14
-                itme_obj.score_options = fillScoreOptions(Answerindex,current_page)
+                itme_obj.score_options = fillScoreOptions(Answerindex, current_page)
             }
             question.push(itme_obj)
         }
@@ -500,11 +524,10 @@ m1.controller("answer", function ($scope, $timeout, $http) {
             }
 
             if (obj[i - 1].type == 4) {//其他题
-                //     itme_obj.block_width = 23//选项宽度
-                //     itme_obj.block_height = 12//选项高度
-                //     // itme_obj.score_rect_options = otherFillScoreRect(i - 1, obj[i - 1].current_page)//打分框区域的x坐标
-                //     itme_obj.score_rect_width = 690//打分框区域的宽度
-                //     itme_obj.score_rect_height = 30//打分框区域的高度
+                itme_obj.block_width = 22//选项宽度
+                itme_obj.block_height = 12//选项高度
+                itme_obj.score_rect_width = 690//打分框区域的宽度
+                itme_obj.score_rect_height = 30//打分框区域的高度
             }
 
             if (obj[i - 1].type != 4 || obj[i - 1].type != 3) { //其他题/作文题
