@@ -571,3 +571,25 @@ header .tool .save .btn_save,header .tool .save .btn_cloes{
 .noIsborder{
     border:none !important;
 }
+/*右击菜单功能*/
+#menu{
+    width:200px;
+    height:auto;
+    background:#fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    border:1px solid #eeeeee;
+    position: absolute;
+    z-index: 1000;
+    display:none;
+}
+#menu ul li{
+    height: 32px;
+    line-height: 32px;
+    text-align: left;
+    font-size: 14px;
+    padding-left:24px;
+    cursor:pointer;
+}
+#menu ul li:hover{
+    background:#e1e1e1;
+}

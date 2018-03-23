@@ -346,6 +346,24 @@
                 </div>
             </div>
         </div>
+        <!-- 弹窗、右键部分 -->
+        <!-- 右键菜单部分 -->
+        <div id="menu" style="display: block; left: 649px; top: 415px;">
+            <ul>
+                <li class="meun_navbar" ng-click="dayin()">打印</li>
+                <li class="meun_navbar" ng-click="showCandNumer()">设置考号</li>
+                <li class="meun_navbar" ng-click="showVertical()">设置行间距</li>
+                <li class="meun_navbar" ng-click="showModel('pic_box')">插入图片</li>
+                <li class="meun_navbar" ng-click="showModel('setGroupHeigh')" />修改题组高度</li>
+                <li class="meun_navbar" ng-click="setFillQuestion()">修改填空题</li>
+                <li class="meun_navbar" ng-click="toggleLineType()">虚实线转换</li>
+                <li class="meun_navbar" ng-click="toggleLineDisplay()">分割线显示切换</li>
+                <li class="meun_navbar" ng-click="getImgFormat()">设置图片格式</li>
+                <li class="meun_navbar" ng-click="setInfoLocation()">信息栏位于左侧</li>
+                <li class="meun_navbar" ng-click="setInfoBox()">信息框位于左侧</li>
+                <li class="meun_navbar" ng-click="save()">保存排版</li>
+            </ul>
+        </div>
     </div>
 
     <script src="js/Answer.js" type="text/javascript" charset="utf-8"></script>

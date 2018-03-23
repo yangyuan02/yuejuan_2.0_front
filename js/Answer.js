@@ -695,6 +695,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
             window.location.href = 'paper_generate'
         }
     }
+    /*****************************************************右键部分******************************************* */
     /** 
     *聚焦题组
     */
