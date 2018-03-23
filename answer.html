@@ -287,29 +287,12 @@
                                     <!-- 填空题 -->
                                     <div class="question_1 clear common" ng-if="item.type==2">
                                         <!-- 一个小题 -->
-                                        <div class="tiankong">
+                                        <div class="tiankong" ng-repeat="child_q in item.arrStartnNmber track by $index" ng-init="itemIndex=$index">
                                             <!-- 序号 -->
                                             <div class="error_laber" ng-hide="data.state.readType==0"></div>
                                             <!--错题标记框-->
-                                            <div class="number">01</div>
-                                            <div class="tikong_item">
-                                                <p>这是一个填空题__________ , _____________________________________________</p>
-                                            </div>
-                                        </div>
-                                        <div class="tiankong">
-                                            <!-- 序号 -->
-                                            <div class="error_laber" ng-hide="data.state.readType==0"></div>
-                                            <!--错题标记框-->
-                                            <div class="number">01</div>
-                                            <div class="tikong_item">
-                                                <p>这是一个填空题__________ , _____________________________________________</p>
-                                            </div>
-                                        </div>
-                                        <div class="tiankong">
-                                            <!-- 序号 -->
-                                            <div class="error_laber" ng-hide="data.state.readType==0"></div>
-                                            <!--错题标记框-->
-                                            <div class="number">01</div>
+                                            <div class="number" ng-bind="child_q<10?'0'+child_q+'、':child_q+'、'"></div>
+                                            <div class="score" ng-hide="data.state.isScore==0">({{item.itemscoreS[itemIndex]}}分)</div>
                                             <div class="tikong_item">
                                                 <p>这是一个填空题__________ , _____________________________________________</p>
                                             </div>
@@ -341,7 +324,7 @@
                                             <!--其他题头部-->
                                             <div class="other_header">
                                                 <div class="number" ng-bind="child_q<10?'0'+child_q+'、':child_q+'、'"></div>
-                                                <div class="score">({{item.itemscoreS[itemIndex]}}分)</div>
+                                                <div class="score" ng-hide="data.state.isScore==0">({{item.itemscoreS[itemIndex]}}分)</div>
                                                 <!-- 打分框 -->
                                                 <div class="mark clear" ng-if="item.type!=0&&item.type!=1&&item.type!=5" ng-hide="data.state.readType==0">
                                                     <span ng-repeat="mark in marks track by $index" ng-bind="mark"></span>

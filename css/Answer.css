@@ -559,8 +559,9 @@ header .tool .save .btn_save,header .tool .save .btn_cloes{
 .main .content .page .content_pages .paper > .item .question .question_3 .other .other_header .number{
     float: left;
 }
-.main .content .page .content_pages .paper > .item .question .question_3 .other .other_header .score{
+.main .content .page .content_pages .paper > .item .question .common .score{
     float: left;
+    margin-right:4px;
 }
 /* 工具栏上面样式 */
 .noIsborder{
