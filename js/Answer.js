@@ -147,7 +147,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
 
         $scope.model.current_page = 1  //这个值需要后期调整
 
-        if ($scope.model.type == 0) {//单选选择题/多项选择题
+        if ($scope.model.type == 0) {//单选选择题
             $scope.model.options = options.slice(0, $scope.model.count)
         }
         if ($scope.model.type == 1) {//判断题
@@ -170,7 +170,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
                     $scope.model.repeatLine.push(i)
                 }
             }
-            if ($scope.model.isradio == 4 || $scope.model.isradio == 5) {//英语横线
+            if ($scope.model.isradio == 4 || $scope.model.isradio == 5) {//英语横线/单词间隔
                 var data = $scope.model.linenumber || $scope.model.wordnumber
                 $scope.model.repeatLine = []
                 for (var i = 0; i < data; i++) {
@@ -183,6 +183,22 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         }
         if ($scope.model.type == 5) {//多选题
             $scope.model.options = options.slice(0, $scope.model.count)
+        }
+
+        if ($scope.model.type == 0 || $scope.model.type == 1 || $scope.model.type == 5) {//设置选择题宽度
+            if ($scope.model.count <= 5) {
+                $scope.model.StyleWidth = {
+                    "width": "25%"
+                }
+            } else if ($scope.model.count > 5 && $scope.model.count <= 11) {
+                $scope.model.StyleWidth = {
+                    "width": "50%"
+                }
+            } else {
+                $scope.model.StyleWidth = {
+                    "width": "100%"
+                }
+            }
         }
         for (var i = 0; i < parseInt($scope.model.number); i++) {
             $scope.model.arrStartnNmber.push(i + parseInt($scope.model.startnumber));
@@ -203,11 +219,11 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         param.answer_settings.score = $scope.model.itemscore//每题分值 panduan
         param.answer_settings.type_count = $scope.model.count //选项个数 panduan
 
-        // if (data.type == 4) {
-        //     param.answer_settings.template_format = data.articleType//作文模版格式 panduan
-        //     param.answer_settings.lattice_columns = data.row//格子列数 panduan
-        //     param.answer_settings.lattice_total = data.plaid//格子总数 panduan
-        // }
+        if ($scope.model.type == 3) {
+            param.answer_settings.template_format = $scope.model.isradio//作文模版格式 panduan
+            param.answer_settings.lattice_columns = $scope.model.repeatLine.length//格子列数 panduan
+            param.answer_settings.lattice_total = $scope.model.gridnumber//格子总数 panduan
+        }
 
         param.answer.exam_subject_id = examubjeId//考试科目id
         param.answer.item = Q_type[$scope.model.type]//试题类型

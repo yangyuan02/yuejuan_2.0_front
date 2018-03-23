@@ -275,7 +275,7 @@
                                     </div>
                                     <!-- 选择题/判断题/多选题 -->
                                     <div class="question_0 clear common" ng-if="item.type==0||item.type==1||item.type==5">
-                                        <div class="xuze clear" ng-repeat="child_q in item.arrStartnNmber track by $index" ng-init="itemIndex=$index">
+                                        <div class="xuze clear" ng-repeat="child_q in item.arrStartnNmber track by $index" ng-init="itemIndex=$index" ng-style="item.StyleWidth">
                                             <!-- 一个小题 -->
                                             <div class="number" ng-bind="child_q<10?'0'+child_q:child_q">01</div>
                                             <!-- 序号 -->
