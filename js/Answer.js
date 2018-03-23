@@ -3,7 +3,7 @@ var m1 = angular.module("answer", []);
 //设置控制器
 m1.controller("answer", function ($scope, $timeout, $http) {
 
-    $scope.marks = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '1', '2', '3', '4', '5', '.5', '']//打分框
+    $scope.marks = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '1', '2', '3', '4', '5', '.5', '']//打分框
 
     var options = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'H']
 
@@ -359,6 +359,25 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         regionRect.region_rect_height = $(".question").eq(index).height()
         return regionRect
     }
+    /**获取17个打分框坐标 */
+    function fillScoreOptions(index,current_page) {
+        var fillScoreOptions = []
+        var makrin = []
+
+        var dom = $(".question").eq(index).find(".mark").find("span")
+        
+        dom.each(function () {
+            fillScoreOptions.push($(this).offset())
+        })
+        for (var i = 1; i <= fillScoreOptions.length; i++) {
+            var obj = {}
+            obj.no = i
+            obj.option_point_x = fillScoreOptions[i - 1].left + 11.5 - getPoint().left
+            obj.option_point_y = fillScoreOptions[i - 1].top + 6 - getPoint().top - 1200 * (current_page - 1)
+            makrin.push(obj)
+        }
+        return makrin
+    }
     /**
      * 添加修改 answerModeType
      * @param {题目类型} type 
@@ -405,21 +424,21 @@ m1.controller("answer", function ($scope, $timeout, $http) {
             itme_obj.one_score = parseInt(itemCores[i - 1])//小题分值
             itme_obj.answer_setting_id = $scope.data.answer_id[Answerindex].answers.settings[i - 1].setting_id//小题id
             itme_obj.option = []
-            if (answerModeType == 4) {
+            if (answerModeType == 4) {//其他题
                 itme_obj.region_rect_x = otherFillScoreRect(Answerindex, current_page)[i - 1].score_rect_x
                 itme_obj.region_rect_y = otherFillScoreRect(Answerindex, current_page)[i - 1].score_rect_y - 30
                 itme_obj.region_rect_height = otherFillScoreHeight(Answerindex, current_page)[i - 1]
                 itme_obj.region_rect_width = 698 - 14
                 var start = (i - 1) * 17
                 var end = start + 17
-                itme_obj.score_options = fillScoreOptions(Answerindex, 5, current_page).slice(start, end)
+                itme_obj.score_options = fillScoreOptions(Answerindex,current_page).slice(start, end)
             }
-            if (answerModeType == 3) {
+            if (answerModeType == 3) {//作文题
                 itme_obj.region_rect_x = regionRect(Answerindex).region_rect_x + 8//题组区域的X坐标
                 itme_obj.region_rect_y = regionRect(Answerindex).region_rect_y - 1200 * (current_page - 1) + 8//题组区域的Y坐标
                 itme_obj.region_rect_height = 100
                 itme_obj.region_rect_width = 698 - 14
-                itme_obj.score_options = fillScoreOptions(Answerindex, 4, current_page)
+                itme_obj.score_options = fillScoreOptions(Answerindex,current_page)
             }
             question.push(itme_obj)
         }
@@ -431,7 +450,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
                 if (answerModeType == 0 || answerModeType == 5 || answerModeType == 1) {//单选题/多选题/判断题
                     itme_obj.option_point_x = getItemPost(Answerindex)[i].left + 7 + (item_w + itemMarginLeft) * (j - 1) - getPoint().left//选项框中心点x坐标
                     itme_obj.option_point_y = getItemPost(Answerindex)[i].top + 6 - getPoint().top - 1200 * (current_page - 1)//同行option_point_y都是一样的 选项框中心点y坐标
-                } else if (answerModeType == 3) {
+                } else if (answerModeType == 2) {//填空题
                     itme_obj.option_point_x = getFillPost(Answerindex)[i].left + 11.5 - getPoint().left
                     itme_obj.option_point_y = getFillPost(Answerindex)[i].top + 6 - getPoint().top - 1200 * (current_page - 1)
                 }
@@ -474,10 +493,10 @@ m1.controller("answer", function ($scope, $timeout, $http) {
             }
 
             if (obj[i - 1].type == 3) {//作文题
-                //     itme_obj.block_width = 23//选项宽度
-                //     itme_obj.block_height = 12//选项高度
-                //     itme_obj.score_rect_width = 690//打分框区域的宽度
-                //     itme_obj.score_rect_height = 20//打分框区域的高度
+                itme_obj.block_width = 22//选项宽度
+                itme_obj.block_height = 12//选项高度
+                itme_obj.score_rect_width = 690//打分框区域的宽度
+                itme_obj.score_rect_height = 20//打分框区域的高度
             }
 
             if (obj[i - 1].type == 4) {//其他题
