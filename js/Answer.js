@@ -32,8 +32,8 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         },
         student: {
             examNumber: 8,//考号位数
-            isInfoBox: 0,//考号是否在顶部
-            isInfoBar: 0//学生填写区域是否在顶部
+            isInfoBox: 0,//考号是否在顶部 填图部分
+            isInfoBar: 0//学生填写区域是否在顶部 手写部分
         },
         pages: [//最外层page页
             {

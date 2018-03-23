@@ -298,6 +298,10 @@ header .tool .save .btn_save,header .tool .save .btn_cloes{
     align-items: flex-end;
     padding-left:138px;
 }
+/* 信息栏位于顶部的时候双面打印 */
+.main .content .page .content_pages .student_hand.top_even{
+    padding-left:870px;
+}
 .main .content .page .content_pages .student_hand .erwei{
     margin-right:60px;
 }

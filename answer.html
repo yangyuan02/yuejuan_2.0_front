@@ -201,7 +201,7 @@
                     <!-- 切割区域开始 -->
                     <div class="content_pages">
                         <!-- 学校/班级/姓名/座位号区域 -->
-                        <div class="student_hand">
+                        <div class="student_hand {{data.state.printType == 1 && (pageIndex+1) % 2 == 0 && data.student.isInfoBar == 0 ?'top_even':''}}">
                             <div class="erwei">
                                 <img src="../img/erwei.jpg" alt="">
                             </div>
