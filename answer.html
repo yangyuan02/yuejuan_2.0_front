@@ -270,7 +270,7 @@
                                         <p ng-bind="item.name"></p>
                                     </div>
                                     <!-- 打分框排除/单选择/判断题/多选题/其他题 -->
-                                    <div class="mark clear" ng-if="item.type!=0&&item.type!=1&&item.type!=5&&item.type!=4">
+                                    <div class="mark clear" ng-if="item.type!=0&&item.type!=1&&item.type!=5&&item.type!=4" ng-hide="data.state.readType==0">
                                         <span ng-repeat="mark in marks track by $index" ng-bind="mark"></span>
                                     </div>
                                     <!-- 选择题/判断题/多选题 -->
@@ -289,7 +289,7 @@
                                         <!-- 一个小题 -->
                                         <div class="tiankong">
                                             <!-- 序号 -->
-                                            <div class="error_laber"></div>
+                                            <div class="error_laber" ng-hide="data.state.readType==0"></div>
                                             <!--错题标记框-->
                                             <div class="number">01</div>
                                             <div class="tikong_item">
@@ -298,7 +298,7 @@
                                         </div>
                                         <div class="tiankong">
                                             <!-- 序号 -->
-                                            <div class="error_laber"></div>
+                                            <div class="error_laber" ng-hide="data.state.readType==0"></div>
                                             <!--错题标记框-->
                                             <div class="number">01</div>
                                             <div class="tikong_item">
@@ -307,7 +307,7 @@
                                         </div>
                                         <div class="tiankong">
                                             <!-- 序号 -->
-                                            <div class="error_laber"></div>
+                                            <div class="error_laber" ng-hide="data.state.readType==0"></div>
                                             <!--错题标记框-->
                                             <div class="number">01</div>
                                             <div class="tikong_item">
@@ -343,7 +343,7 @@
                                                 <div class="number" ng-bind="child_q<10?'0'+child_q+'、':child_q+'、'"></div>
                                                 <div class="score">({{item.itemscoreS[itemIndex]}}分)</div>
                                                 <!-- 打分框 -->
-                                                <div class="mark clear" ng-if="item.type!=0&&item.type!=1&&item.type!=5">
+                                                <div class="mark clear" ng-if="item.type!=0&&item.type!=1&&item.type!=5" ng-hide="data.state.readType==0">
                                                     <span ng-repeat="mark in marks track by $index" ng-bind="mark"></span>
                                                 </div>
                                             </div>
