@@ -701,6 +701,20 @@ m1.controller("answer", function ($scope, $timeout, $http) {
     */
     $scope.questionFocus = function (index) {
         $scope.FocusIndex = index
+        console.log($scope.FocusIndex)
+    }
+    /**
+     * 显示弹窗
+     * @param {弹窗的class} id 
+     */
+    $scope.showDialog = function (id) {
+        $("."+id).show()
+    }
+    /**
+    *设置考号 
+    */
+    $scope.setCandNumber = function(){
+        $scope.creatExamNum($scope.data.student.examNumber)
     }
     /**
     *设置选择题/多选题/判断题答案 

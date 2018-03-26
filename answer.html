@@ -350,19 +350,33 @@
         <!-- 右键菜单部分 -->
         <div id="menu" style="display: block; left: 649px; top: 415px;">
             <ul>
-                <li class="meun_navbar" ng-click="dayin()">打印</li>
-                <li class="meun_navbar" ng-click="showCandNumer()">设置考号</li>
-                <li class="meun_navbar" ng-click="showVertical()">设置行间距</li>
-                <li class="meun_navbar" ng-click="showModel('pic_box')">插入图片</li>
-                <li class="meun_navbar" ng-click="showModel('setGroupHeigh')" />修改题组高度</li>
-                <li class="meun_navbar" ng-click="setFillQuestion()">修改填空题</li>
-                <li class="meun_navbar" ng-click="toggleLineType()">虚实线转换</li>
-                <li class="meun_navbar" ng-click="toggleLineDisplay()">分割线显示切换</li>
-                <li class="meun_navbar" ng-click="getImgFormat()">设置图片格式</li>
+                <li class="meun_navbar" ng-click="print()">打印</li>
+                <li class="meun_navbar" ng-click="showDialog('cand_box')">设置考号</li>
+                <li class="meun_navbar" ng-click="showVertical()" ng-show="FocusIndex==2||FocusIndex==3">设置行间距</li>
+                <li class="meun_navbar" ng-click="showModel('pic_box')" ng-show="FocusIndex==4">插入图片</li>
+                <li class="meun_navbar" ng-click="showModel('setGroupHeigh')" ng-show="FocusIndex==4">修改题组高度</li>
+                <li class="meun_navbar" ng-click="setFillQuestion()" ng-show="FocusIndex==2">修改填空题</li>
+                <li class="meun_navbar" ng-click="toggleLineType()" ng-show="FocusIndex==4">虚实线转换</li>
+                <li class="meun_navbar" ng-click="toggleLineDisplay()" ng-show="FocusIndex==4">分割线显示切换</li>
+                <li class="meun_navbar" ng-click="getImgFormat()" ng-show="FocusIndex==4">设置图片格式</li>
                 <li class="meun_navbar" ng-click="setInfoLocation()">信息栏位于左侧</li>
                 <li class="meun_navbar" ng-click="setInfoBox()">信息框位于左侧</li>
                 <li class="meun_navbar" ng-click="save()">保存排版</li>
             </ul>
+        </div>
+        <!-- 设置考号弹窗 -->
+        <div class="cand common_box cand_box">
+            <div class="cand_title">设置考号信息框</div>
+            <div class="cand_con clear">
+                <p class="fl">考号长度</p>
+                <p class="fl">
+                    <input type="text" ng-model="data.student.examNumber" autofocus="autofocus">
+                </p>
+            </div>
+            <div class="cand_btn">
+                <a ng-click="setCandNumber()">确定</a>
+            </div>
+            <div class="cand_close" ng-click="closeCand()">x</div>
         </div>
     </div>
 
