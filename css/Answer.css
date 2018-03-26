@@ -5,8 +5,7 @@ div{
 .clear{zoom:1}
 .fl{float: left;}
 input:focus {
-    padding-left: 6px;
-    border: 1px solid #31bc91;
+    border: 1px solid #31bc91!important;
 }
 /* 打印样式 */
 @media print{
@@ -643,6 +642,8 @@ header .tool .save .btn_save,header .tool .save .btn_cloes{
     height: 30px;
     line-height: 30px;
     width: 226px;
+    border: 1px solid #ccc;
+    padding-left: 6px;
 }
 .cand .cand_btn a {
     padding: 6px 18px;

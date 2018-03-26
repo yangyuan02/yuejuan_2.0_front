@@ -172,6 +172,9 @@ m1.controller("answer", function ($scope, $timeout, $http) {
             }
             if ($scope.model.isradio == 4 || $scope.model.isradio == 5) {//英语横线/单词间隔
                 var data = $scope.model.linenumber || $scope.model.wordnumber
+                $scope.model.objStyle = {
+                    "height": "35px"
+                }
                 $scope.model.repeatLine = []
                 for (var i = 0; i < data; i++) {
                     $scope.model.repeatLine.push(i)
@@ -697,24 +700,64 @@ m1.controller("answer", function ($scope, $timeout, $http) {
     }
     /*****************************************************右键部分******************************************* */
     /** 
-    *聚焦题组
+    *聚焦题组获取信息
     */
-    $scope.questionFocus = function (index) {
-        $scope.FocusIndex = index
-        console.log($scope.FocusIndex)
+    $scope.questionFocus = function (pageIndex, questionIndex, type) {
+        $scope.FocusIndex = questionIndex
+        $scope.showMenuFlag = true
+        $scope.pageIndex = pageIndex
+        $scope.questionIndex = questionIndex
+        $scope.type = type
+        $scope.linespac = parseInt($scope.data.pages[$scope.pageIndex][$scope.type][$scope.questionIndex].objStyle.height)//行间距
+        console.log($scope.pageIndex, $scope.questionIndex, type)
     }
+    /** 
+     * 定义弹窗右键
+    */
+    var menu = document.getElementById("menu")
+    document.addEventListener("contextmenu", function (event) {
+        event.preventDefault()
+        if (event.target.className.toLowerCase() == 'meun_navbar') {
+            return
+        }
+        if ($scope.showMenuFlag) {
+            menu.style.display = 'block'
+            menu.style.left = event.pageX + "px";
+            menu.style.top = event.pageY + "px";
+        }
+    }, false)
+    menu.addEventListener("click", function (evevt) {
+        evevt.stopPropagation()
+    }, false)
+    window.addEventListener("click", function (event) {
+        menu.style.display = 'none'
+    }, false)
     /**
      * 显示弹窗
      * @param {弹窗的class} id 
      */
     $scope.showDialog = function (id) {
-        $("."+id).show()
+        $("." + id).show()
+        $("#menu").hide()
+    }
+    /**
+    *关闭弹窗 
+    */
+    $scope.closeDialog = function () {
+        $(".common_box").hide()
     }
     /**
     *设置考号 
     */
-    $scope.setCandNumber = function(){
+    $scope.setCandNumber = function () {
         $scope.creatExamNum($scope.data.student.examNumber)
+        $scope.closeDialog()
+    }
+    /**
+     * 设置行间距
+     */
+    $scope.setLineSpac = function () {
+        $scope.data.pages[$scope.pageIndex][$scope.type][$scope.questionIndex].objStyle.height = $scope.linespac + 'px'
     }
     /**
     *设置选择题/多选题/判断题答案 
@@ -725,8 +768,7 @@ m1.controller("answer", function ($scope, $timeout, $http) {
     /** 打印*/
     $scope.print = function () {
         window.print()
+        $("#menu").hide()
     }
 
 })
-
-
