@@ -188,10 +188,10 @@ m1.controller("answer", function ($scope, $timeout, $http) {
             for (var i = 0; i < parseInt($scope.model.number); i++) {
                 height.push(150)
                 var img = {
-                    "width": "50px",
-                    "height": "50px",
-                    "top": "15px",
-                    "left": "20px"
+                    // "width": "50px",
+                    // "height": "50px",
+                    // "top": "15px",
+                    // "left": "20px"
                 }
                 imgs.push(img)
             }
@@ -785,11 +785,45 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         $scope.closeDialog()
     }
     /**
-    *修改填空题高度
+    *修改其他题高度
     */
     $scope.setOtherHeight = function () {
         $scope.data.pages[$scope.pageIndex][$scope.type][$scope.questionIndex].objStyle.height = $scope.otherHeightmodel.split(/[,，]/)
         $scope.closeDialog()
+    }
+    /**
+     * 插入图片
+     */
+    var eleFile = document.getElementById("imgOne")
+    $scope.insertPic = function () {
+        var formdata = new FormData()
+        var file = eleFile.files[0]
+        formdata.append("figures[]figure", file)
+        $.ajax({
+            type: "POST",
+            headers: { 'Authorization': "Bearer " + isLogin },
+            url: "/api/v2/answer_regions/subject_image",
+            async: false,
+            data: formdata,
+            processData: false,  // 不处理数据
+            contentType: false,   // 不设置内容类型
+            success: function (data) {
+                $scope.data.pages[$scope.pageIndex][$scope.type][$scope.questionIndex].objStyle.imgs[$scope.img_no - 1].url = data[0].figure
+                $scope.data.pages[$scope.pageIndex][$scope.type][$scope.questionIndex].objStyle.imgs[$scope.img_no - 1].top = 10
+                $scope.data.pages[$scope.pageIndex][$scope.type][$scope.questionIndex].objStyle.imgs[$scope.img_no - 1].left = 0
+                $scope.data.pages[$scope.pageIndex][$scope.type][$scope.questionIndex].objStyle.imgs[$scope.img_no - 1].height = 140
+                $scope.data.pages[$scope.pageIndex][$scope.type][$scope.questionIndex].objStyle.imgs[$scope.img_no - 1].width = 'auto'
+                $scope.closeDialog()
+            },
+
+        })
+    }
+    /**
+     * 获取图片索引
+     * @param {图片索引} index 
+     */
+    $scope.selectImg = function(index){
+        $scope.imgIndex = index
     }
     /**
     *设置选择题/多选题/判断题答案 
