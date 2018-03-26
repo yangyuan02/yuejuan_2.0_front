@@ -183,6 +183,22 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         }
         if ($scope.model.type == 4) {//其他题
             $scope.model.count = 1
+            var height = []
+            var imgs = []
+            for (var i = 0; i < parseInt($scope.model.number); i++) {
+                height.push(150)
+                var img = {
+                    "width": "50px",
+                    "height": "50px",
+                    "top": "15px",
+                    "left": "20px"
+                }
+                imgs.push(img)
+            }
+            $scope.model.objStyle = {
+                height: height,
+                imgs: imgs
+            }
         }
         if ($scope.model.type == 5) {//多选题
             $scope.model.options = options.slice(0, $scope.model.count)
@@ -708,7 +724,15 @@ m1.controller("answer", function ($scope, $timeout, $http) {
         $scope.pageIndex = pageIndex
         $scope.questionIndex = questionIndex
         $scope.type = type
-        $scope.linespac = parseInt($scope.data.pages[$scope.pageIndex][$scope.type][$scope.questionIndex].objStyle.height)//行间距
+        $scope.quesType = $scope.data.pages[$scope.pageIndex][$scope.type][$scope.questionIndex].type
+        console.log($scope.quesType)
+        if ($scope.quesType == 3) {//作文题
+            $scope.linespac = parseInt($scope.data.pages[$scope.pageIndex][$scope.type][$scope.questionIndex].objStyle.height)//行间距
+        }
+        if ($scope.quesType == 4) {//其他题
+            $scope.otherHeight = $scope.data.pages[$scope.pageIndex][$scope.type][$scope.questionIndex].objStyle.height
+        }
+
         console.log($scope.pageIndex, $scope.questionIndex, type)
     }
     /** 
@@ -758,6 +782,14 @@ m1.controller("answer", function ($scope, $timeout, $http) {
      */
     $scope.setLineSpac = function () {
         $scope.data.pages[$scope.pageIndex][$scope.type][$scope.questionIndex].objStyle.height = $scope.linespac + 'px'
+        $scope.closeDialog()
+    }
+    /**
+    *修改填空题高度
+    */
+    $scope.setOtherHeight = function () {
+        $scope.data.pages[$scope.pageIndex][$scope.type][$scope.questionIndex].objStyle.height = $scope.otherHeightmodel.split(/[,，]/)
+        $scope.closeDialog()
     }
     /**
     *设置选择题/多选题/判断题答案 
