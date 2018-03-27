@@ -368,20 +368,20 @@
                      //小题上标(得分率)
                      var a_rate = Number(data[i].scoring_rate);
                      if (a_rate >= 0.86) {
-                         $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#31bc91;" scoring_rate="' + data[i].scoring_rate + '" bank_id="' + data[i].question_bank_id + '" average_score="' + data[i].average_score + '" exam_subject_id="' + data[i].exam_subject_id + '" total_score="' + data[i].total_score + '" item="' + data[i].item + '" classroom_id="' + data[i].classroom_id + '" href="#grade_list_move' + data[i].question_bank_id + '">' + num + '</a>');
+                         $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#31bc91;" scoring_rate="' + data[i].scoring_rate + '" bank_id="' + data[i].question_bank_id + '" average_score="' + data[i].average_score + '" exam_subject_id="' + data[i].exam_subject_id + '" total_score="' + data[i].total_score + '" item="' + data[i].item + '" classroom_id="' + data[i].classroom_id + '" href="#grade_list_move' + data[i].question_bank_id + '" difficulty_id="' + data[i].difficulty+ '">' + num + '</a>');
                          var num_color = "#31bc91";
                      } else if (a_rate >= 0.8 && a_rate < 0.95) {
-                         $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#f7c07c;" scoring_rate="' + data[i].scoring_rate + '" bank_id="' + data[i].question_bank_id + '" average_score="' + data[i].average_score + '" exam_subject_id="' + data[i].exam_subject_id + '" total_score="' + data[i].total_score + '" item="' + data[i].item + '" classroom_id="' + data[i].classroom_id + '" href="#grade_list_move' + data[i].question_bank_id + '">' + num + '</a>');
+                         $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#f7c07c;" scoring_rate="' + data[i].scoring_rate + '" bank_id="' + data[i].question_bank_id + '" average_score="' + data[i].average_score + '" exam_subject_id="' + data[i].exam_subject_id + '" total_score="' + data[i].total_score + '" item="' + data[i].item + '" classroom_id="' + data[i].classroom_id + '" href="#grade_list_move' + data[i].question_bank_id + '" difficulty_id="' + data[i].difficulty+ '">' + num + '</a>');
                          var num_color = "#f7c07c";
                      } else if (a_rate >= 0.6 && a_rate < 0.8) {
-                         $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#5fa3ed;" scoring_rate="' + data[i].scoring_rate + '" bank_id="' + data[i].question_bank_id + '" average_score="' + data[i].average_score + '" exam_subject_id="' + data[i].exam_subject_id + '" total_score="' + data[i].total_score + '" item="' + data[i].item + '" classroom_id="' + data[i].classroom_id + '" href="#grade_list_move' + data[i].question_bank_id + '">' + num + '</a>');
+                         $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#5fa3ed;" scoring_rate="' + data[i].scoring_rate + '" bank_id="' + data[i].question_bank_id + '" average_score="' + data[i].average_score + '" exam_subject_id="' + data[i].exam_subject_id + '" total_score="' + data[i].total_score + '" item="' + data[i].item + '" classroom_id="' + data[i].classroom_id + '" href="#grade_list_move' + data[i].question_bank_id + '" difficulty_id="' + data[i].difficulty+ '">' + num + '</a>');
                          var num_color = "#5fa3ed";
                      } else if (a_rate >= 0 && a_rate < 0.6) {
-                         $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#fb7d8a;" scoring_rate="' + data[i].scoring_rate + '" bank_id="' + data[i].question_bank_id + '" average_score="' + data[i].average_score + '" exam_subject_id="' + data[i].exam_subject_id + '" total_score="' + data[i].total_score + '" item="' + data[i].item + '" classroom_id="' + data[i].classroom_id + '" href="#grade_list_move' + data[i].question_bank_id + '">' + num + '</a>');
+                         $(".grate_topic_ever_box").append('<a class="grate_topic_ever" style="background:#fb7d8a;" scoring_rate="' + data[i].scoring_rate + '" bank_id="' + data[i].question_bank_id + '" average_score="' + data[i].average_score + '" exam_subject_id="' + data[i].exam_subject_id + '" total_score="' + data[i].total_score + '" item="' + data[i].item + '" classroom_id="' + data[i].classroom_id + '" href="#grade_list_move' + data[i].question_bank_id + '" difficulty_id="' + data[i].difficulty+ '">' + num + '</a>');
                          var num_color = "#fb7d8a";
                      }
 
-                     $(".grade_list_ul").append('<li id="grade_list_move' + data[i].question_bank_id + '"><div class="grade_list_main"><div class="grade_list_body">' + data[i].content + '</div><p class="grade_list_lable"><a>年级得分率:<i>' + scoring_rate + '</i></a><a>年级平均分:<i>' + data[i].average_score + '分</i></a><a>知识点:<i>' + tags + '</i></a><a class="grade_list_dif">难度系数:' + difficulty_body + '</a></p><div class="grade_list_move"><a class="grade_list_body_ans"  data-id="' + i + '"><i class="iconfont" style="margin-right:5px;">&#xe61e;</i>查看答案和解析</a><a  class="grade_list_move_a">移除</a></div><div class="grade_list_number"><p><i class="iconfont" style="font-size:45px;color:' + num_color + ';">&#xe63f;</i><a>' + num + '</a></p></div><div class="grade_list_form">试题来源:<a>' + source + '</a></div></div></li>');
+                     $(".grade_list_ul").append('<li id="grade_list_move' + data[i].question_bank_id + '"><div class="grade_list_main"><div class="grade_list_body">' + data[i].content + '</div><p class="grade_list_lable"><a>年级得分率:<i>' + scoring_rate + '</i></a><a>年级平均分:<i>' + data[i].average_score + '分</i></a><a>知识点:<i>' + tags + '</i></a><a class="grade_list_dif">难度系数:' + difficulty_body + '（实测难度：'+data[i].difficulty+'）</a></p><div class="grade_list_move"><a class="grade_list_body_ans"  data-id="' + i + '"><i class="iconfont" style="margin-right:5px;">&#xe61e;</i>查看答案和解析</a><a  class="grade_list_move_a">移除</a></div><div class="grade_list_number"><p><i class="iconfont" style="font-size:45px;color:' + num_color + ';">&#xe63f;</i><a>' + num + '</a></p></div><div class="grade_list_form">试题来源:<a>' + source + '</a></div></div></li>');
                  }
                  $(".grate_topic_ever_box").append('<div style="margin-top: 10px;color: #ccc;clear: both;"><i class="iconfont" style="font-size: 14px;color: #31bc91;margin-right: 5px;">&#xe646;</i>小提示：点击题号可以定位到相应题目</div>');
 
@@ -420,6 +420,7 @@
              grade_wrong["item"] = $(".grate_topic_ever_box a").eq(i).attr("item");
              grade_wrong["question_bank_id"] = $(".grate_topic_ever_box a").eq(i).attr("bank_id");
              grade_wrong["classroom_id"] = $(".grate_topic_ever_box a").eq(i).attr("classroom_id");
+              grade_wrong["difficulty"] = $(".grate_topic_ever_box a").eq(i).attr("difficulty_id");
 
              grade_wrongs[i] = grade_wrong;
          }
@@ -640,7 +641,7 @@
                      if (data[i].score_rate_difference == undefined) {
                          data[i].score_rate_difference = 0;
                      }
-                     $(".class_list_ul").append(' <li id="a_wrong_class_li' + data[i].question_bank_id + '" class="wrong_class_li' + data[i].question_bank_id + '" bank_id="' + data[i].question_bank_id + '" total_score="' + data[i].total_score + '"  average_score="' + data[i].average_score + '" scoring_rate="' + data[i].scoring_rate + '"  item="' + data[i].item + '" exam_subject_id="' + data[i].exam_subject_id + '"><div class="class_list_main"><div class="class_list_body">' + data[i].content + '</div><p class="class_list_lable"><a>班级得分率:<i>' + scoring_rate + '</i></a><a>班-级得分率差:<i>' + Math.round(parseFloat(data[i].score_rate_difference) * 100) / 100 + '</i></a><a>班级平均分:<i>' + data[i].average_score + '分</i></a><a>知识点:<i>' + tags + '</i></a><a class="class_list_dif">难度系数:' + difficulty_body + '</a></p><div class="class_list_move"><a class="class_list_body_ans"   data-id="' + i + '"  data-id01="' + i + '"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a><a  class="class_list_move_a">移除</a></div><div class="class_list_number"><p><i class="iconfont" style="font-size:45px;color:' + num_color + ';"></i><a>' + num + '</a></p></div><div class="class_list_form">试题来源:<a>' + source + '</a></div></div></li>');
+                     $(".class_list_ul").append(' <li id="a_wrong_class_li' + data[i].question_bank_id + '" class="wrong_class_li' + data[i].question_bank_id + '" bank_id="' + data[i].question_bank_id + '" total_score="' + data[i].total_score + '"  average_score="' + data[i].average_score + '" scoring_rate="' + data[i].scoring_rate + '"  item="' + data[i].item + '" exam_subject_id="'+data[i].exam_subject_id+'" difficulty_id="' +data[i].difficulty+'"><div class="class_list_main"><div class="class_list_body">' + data[i].content + '</div><p class="class_list_lable"><a>班级得分率:<i>' + scoring_rate + '</i></a><a>班-级得分率差:<i>' + Math.round(parseFloat(data[i].score_rate_difference) * 100) / 100 + '</i></a><a>班级平均分:<i>' + data[i].average_score + '分</i></a><a>知识点:<i>' + tags + '</i></a><a class="class_list_dif">难度系数:' + difficulty_body + '（实测难度：'+data[i].difficulty+'）</a></p><div class="class_list_move"><a class="class_list_body_ans"   data-id="' + i + '"  data-id01="' + i + '"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a><a  class="class_list_move_a">移除</a></div><div class="class_list_number"><p><i class="iconfont" style="font-size:45px;color:' + num_color + ';"></i><a>' + num + '</a></p></div><div class="class_list_form">试题来源:<a>' + source + '</a></div></div></li>');
                  }
 
                  // }
@@ -766,7 +767,7 @@
              class_wrong["average_score"] = $(".class_list_ul li").eq(li).attr("average_score");
              class_wrong["total_score"] = $(".class_list_ul li").eq(li).attr("total_score");
              class_wrong["scoring_rate"] = $(".class_list_ul li").eq(li).attr("scoring_rate");
-
+             class_wrong["difficulty"] = $(".class_list_ul li").eq(li).attr("difficulty_id");
              class_wrongs[li] = class_wrong;
 
          }
@@ -962,8 +963,261 @@
      });
 
      //学生错题
+    //获得考试科目
+      $(".wrong_per_li").click(function(event) {
+         $.ajax({
+             type: "GET",
+             url: ajaxIp + "/api/v2/reports/exams",
+             async: false,
+             headers: {
+                 'Authorization': "Bearer " + isLogin
+             },
+             success: function(data) {
+                 $(".per_time").html(" ");
+                 $(".per_sub").html(" ");
+                 for (var i = 0; i < data.length; i++) {
+                     $(".per_time").append('<option value=""  data-id="' + data[i].id + '">' + data[i].name + '</option>');
+
+
+
+                 }
+                 for (var i = 0; i < data[0].subjects.length; i++) {
+                     $(".per_sub").append('<option value="" data-id="' + data[0].subjects[i].subject_id + '">' + data[0].subjects[i].name + '</option>');
+                 }
+              
+
+             },
+             error: function() {
+
+             },
+         })
+});
+
+    $(".per_time").change(function(event) { 
+     $.ajax({
+             type: "GET",
+             url: ajaxIp + "/api/v2/reports/exams",
+             async: false,
+             headers: {
+                 'Authorization': "Bearer " + isLogin
+             },
+             success: function(data) {
+                 $(".per_sub").html(" "); 
+                 var a=parseInt($(".per_time").children('option:selected').index());
+                 for (var i = 0; i < data[a].subjects.length; i++) {
+
+                     $(".per_sub").append('<option value="" data-id="' + data[a].subjects[i].subject_id + '">' + data[a].subjects[i].name + '</option>');
+                }
+             },
+             error: function() {
+
+             },
+          })
+            
+            });
+   //per个人list
+   function per_list() {
+
+         var word = $(".per_time").attr("data-id");
+         //类型
+         var data_num = [];
+         if ($(".per_sur").parent().prev().find('a').eq(0).attr("data-id") == 1) {
+             data_num[0] = 0;
+             data_num[1] = 5;
+         }
+         if ($(".per_sur").parent().prev().find('a').eq(1).attr("data-id") == 1) {
+
+             if (data_num.length == 0) {
+                 data_num[0] = 1;
+             } else {
+                 data_num[data_num.length] = 1;
+             }
+
+         }
+         if ($(".per_sur").parent().prev().find('a').eq(2).attr("data-id") == 1) {
+             if (data_num.length == 0) {
+                 data_num[0] = 2;
+             } else {
+                 data_num[data_num.length] = 2;
+             }
+         }
+         if ($(".per_sur").parent().prev().find('a').eq(3).attr("data-id") == 1) {
+             if (data_num.length == 0) {
+                 data_num[0] = 3;
+             } else {
+                 data_num[data_num.length] = 3;
+             }
+         }
+         if ($(".per_sur").parent().prev().find('a').eq(4).attr("data-id") == 1) {
+             if (data_num.length == 0) {
+                 data_num[0] = 4;
+             } else {
+                 data_num[data_num.length] = 4;
+             }
+         }
+         console.log(data_num);
+         var exam_id = $(".per_time").children('option:selected').attr("data-id");
+         var sub_id = $(".per_sub").children('option:selected').attr("data-id");
+         var rate = parseInt($(".per_sort").children('option:selected').val());
+          var student_id = parseInt($(".students_key_box_p02_choose").attr("data-id"));
+         console.log(sub_id);
+         $.ajax({
+             type: "POST",
+             url: ajaxIp + "/api/v2/wrong_questions/student_index",
+             async: false,
+             data: {
+                "exam_id":exam_id,
+                "subject_id":sub_id,
+                 "item":data_num,
+                 "rate":rate,
+                 "student_info_id": student_id,
+             },
+             headers: {
+                 'Authorization': "Bearer " + isLogin
+             },
+             beforeSend: function() {
+                 $(".load-bg").show();
+             },
+             success: function(data) {
+                 console.log(data);
+                 $(".per_list_ul").html(" ");
+                 $(".per_topic_ever_box").html(" ");
+
+                 for (var i = 0; i < data.length; i++) {
+
+                     var scoring_rate = Math.floor(data[i].scoring_rate * 100) + "%";
+
+                     //知识点 
+                     var tags = data[i].tags;
+                     //考试来源
+                     var source = data[i].source;
+                     //序号
+                     var num = data[i].num;
+
+                     //小题上标(得分率)
+                     var a_rate = Number(data[i].scoring_rate);
+                     if (a_rate >= 0.86) {
+                         $(".per_topic_ever_box").append('<a class="class_topic_ever" id="wrong_class_li' + data[i].question_bank_id + '"  style="background:#31bc91;" href="#a_wrong_class_li' + data[i].question_bank_id + '">' + num + '</a>');
+
+                         var num_color = "#31bc91";
+                     } else if (a_rate >= 0.8 && a_rate < 0.95) {
+                         $(".per_topic_ever_box").append('<a class="class_topic_ever" id="wrong_class_li' + data[i].question_bank_id + '"  style="background:#f7c07c;" href="#a_wrong_class_li' + data[i].question_bank_id + '">' + num + '</a>');
+
+                         var num_color = "#f7c07c";
+                     } else if (a_rate >= 0.6 && a_rate < 0.8) {
+                         $(".per_topic_ever_box").append('<a class="class_topic_ever" id="wrong_class_li' + data[i].question_bank_id + '"  style="background:#5fa3ed;" href="#a_wrong_class_li' + data[i].question_bank_id + '">' + num + '</a>');
+                         var num_color = "#5fa3ed";
+                     } else if (a_rate >= 0 && a_rate < 0.6) {
+                         $(".per_topic_ever_box").append('<a class="class_topic_ever" id="wrong_class_li' + data[i].question_bank_id + '"  style="background:#fb7d8a;" href="#a_wrong_class_li' + data[i].question_bank_id + '">' + num + '</a>');
+                         var num_color = "#fb7d8a";
+                     }
+                     //难度系数
+                     var difficulty_level = Number(data[i].difficulty_level);
+                     console.log(difficulty_level);
+                     if (difficulty_level == 0) {
+                         var difficulty_body = '<i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i>';
+                     } else if (difficulty_level >= 0.86) {
+
+                         var difficulty_body = '<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i>';
+
+                     } else if (difficulty_level >= 0.71 && difficulty_level < 0.86) {
+                         var difficulty_body = '<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i>';
+
+                     } else if (difficulty_level >= 0.61 && difficulty_level < 0.71) {
+                         var difficulty_body = '<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i>';
+
+                     } else if (difficulty_level >= 0.41 && difficulty_level < 0.61) {
+                         var difficulty_body = '<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe639;</i>';
+
+                     } else if (difficulty_level > 0 && difficulty_level < 0.41) {
+                         var difficulty_body = '<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i>';
+
+                     }
+                     if (data[i].score_rate_difference == undefined) {
+                         data[i].score_rate_difference = 0;
+                     }
+                     $(".per_list_ul").append('<li><div class="per_list_main" style=""><div class="per_list_body">'+data[i].content+'</div><p class="per_list_lable"><a>个人得分率:<i>'+data[i].scoring_rate+'</i></a><a>班-年级得分率差:<i>'+data[i].scoring_rate_difference+'</i></a><a>知识点:<i>'+data[i].tags+'</i></a><a class="per_list_dif">难度系数:'+difficulty_body+'(实测难度:'+data[i].difficulty+')</a></p><div class="per_list_move"><a class="per_list_body_ans"><i class="iconfont" style="margin-right:5px;"></i>查看答案和解析</a><a class="per_list_move_a">移除</a></div><div class="per_list_number"><p><i class="iconfont" style="font-size:45px;color:'+num_color+';"></i><a>'+num+'</a></p></div><div class="per_list_form">试题来源:<a>'+data[i].source+'</a></div><div class="per_list_ans"><p class="per_list_ans_top">你的错误解答:</p></div><p class="per_list_ans_be_top">错因CT:</p><div class="per_list_ans_be"><p class="per_list_ans_be01">智力因素 Z :<a>基础不实 、方法不牢</a></p> <p class="per_list_ans_be02">非智力因素 FZ :<a>审题错误</a></p></div><p class="per_list_ans_train_top">错题重练:</p><div class="per_list_ans_train"><p>请在此区域内纠正错题，并归纳解题心得。</p></div><p class="per_list_ans_train_top01">变式训练:</p><div class="per_list_ans_train_01"></div></div></li>');
+                 }
+
+                 // }
+                 $(".per_topic_ever_box").append('<div style="margin-top: 10px;color: #ccc;clear: both;"><i class="iconfont" style="font-size: 14px;color: #31bc91;margin-right: 5px;">&#xe646;</i>小提示：点击题号可以定位到相应题目</div>');
+
+
+             },
+             complete: function() {
+                 $(".load-bg").hide();
+             },
+             error: function() {
+                 // $(".load-bg").hide();
+             },
+         });
+
+     }
+         
+
+
+
+          $(".stu_wrong_tc_sub").change(function(event) {
+           per_g_class()
+          });
+          function per_g_class(){
+           var id=parseInt($(".stu_wrong_tc_sub").children('option:selected').attr("data-id"));
+          $.ajax({
+             type: "GET",
+             url: ajaxIp + '/api/v2/commons/'+id+'/grade_classrooms',
+             async:false,
+             data: {
+               
+             },
+             headers: {
+                 'Authorization': "Bearer " + isLogin
+             },
+             success: function(data) {
+                  $(".stu_wrong_tc_class").html(" ");
+                 for(var i=0;i<data.length;i++){
+                 $(".stu_wrong_tc_class").append('<option data-id='+data[i].id+'>'+data[i].name+'</option>');
+             }
+             },
+             error: function() {
+             },
+         });
+          }
+        //获得学生
+        function students(){
+
+        var id=parseInt($(".stu_wrong_tc_sub").children('option:selected').attr("data-id"));
+         var class_id=parseInt($(".stu_wrong_tc_class").children('option:selected').attr("data-id"));
+          $.ajax({
+             type: "GET",
+             url: ajaxIp + '/api/v2/students',
+             async:false,
+             data: {
+                "grade_id":id,
+                "classroom_id":class_id
+             },
+             headers: {
+                 'Authorization': "Bearer " + isLogin
+             },
+             success: function(data) {
+                console.log(data.students);
+                  $(".stu_wrong_tc_ul").html(" ");
+                  $(".search_ul").html(" ");
+                 for(var i=0;i<data.students.length;i++){
+                 $(".stu_wrong_tc_ul").append('<li class="stu_'+data.students[i].id+'" data-id="0"><a data-id="'+data.students[i].id+'">'+data.students[i].real_name+'</a><i class="iconfont">&#xe64b;</i></li>');
+                $(".search_ul").append('<li search_id="'+i+'">'+data.students[i].real_name+'</li>')
+             }
+             stu_gain_list()
+             },
+             error: function() {
+             },
+             })
+        }
+        $(".stu_wrong_tc_select select").change(function(event) {
+          students();
+        });
      $(".per_sur").click(function(event) {
          $(".per_ans").slideDown('1000');
+         per_list();
      });
      //移除
      $(".per_list_move_a").click(function(event) {
@@ -982,25 +1236,6 @@
          // $(".stu_choice_btn").show();
 
      });
-     // $(".per_topic_ever_top")
-
-     //       function xiang(a,b){
-     //         $('.'+a+'').click(function(event) {
-     //         var a=$(this).attr("data-id");
-     //         if(a==0){
-     //            $('.'+b+'').slideDown('1000');
-     //            $('.'+a+' i').html("&#xe606;")
-     //            $(this).attr("data-id","1");
-     //         }else{
-     //             $('.'+b+'').slideUp('1000');
-     //            $('.'+a+' i').html("&#xe605;")
-     //            $(this).attr("data-id","0");
-     //         }
-
-     //        });
-     //       }
-     //       
-     // xiang("per_topic_ever_top","per_topic_ever_ul");
      $(".per_topic_ever_top").click(function(event) {
          var a = $(this).attr("data-id");
          if (a == 0) {
@@ -1025,15 +1260,16 @@
      // });
      //重点追踪学生
      $(".students_key_box_p02").on('click', 'a', function(event) {
+        $(this).addClass('students_key_box_p02_choose').siblings().removeClass();
          $(this).css("color", "#ffffff").siblings().css("color", "#333333");
          $(this).css("background", "#31bc91").siblings().css("background", "#f5f5f5");
      });
-     $(".stu_wrong_tc_ul li").click(function(event) {
+     $(".stu_wrong_tc_ul").on('click', 'li', function(event) {
          var a = $(this).attr("data-id");
          if (a == 0) {
              $(this).children('i').addClass('stu_wrong_tc_i');
              $(this).attr("data-id", "1");
-             $(".choice_stu").append('<a id="' + $(this).attr("class") + '"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;">' + $(this).children('a').html() + '<i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
+             $(".choice_stus").append('<a id="' + $(this).attr("class") + '"  data-id="'+$(this).children('a').attr("data-id")+'"style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;"><i style="font-style: normal;">' + $(this).children('a').html() + '</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
          } else {
              $(this).children('i').removeClass('stu_wrong_tc_i');
              $(this).attr("data-id", "0");
@@ -1041,7 +1277,7 @@
          }
          $(".choice_all").removeClass('stu_wrong_tc_i');
      });
-     $(".choice_stu").on('click', 'a', function(event) {
+     $(".choice_stus").on('click', 'a', function(event) {
          // alert();
          $(this).remove();
          $('.' + $(this).attr("id") + '').children('i').removeClass('stu_wrong_tc_i');
@@ -1055,32 +1291,190 @@
              $(this).attr("data-id", "1");
              $(".stu_wrong_tc_ul li").attr("data-id", "1");
              $(".stu_wrong_tc_ul li").children('i').addClass('stu_wrong_tc_i');
-             for (var i = 0; i < 3; i++) {
-                 $(".choice_stu").append('<a id="' + $(".stu_wrong_tc_ul li").eq(i).attr("class") + '"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;">' + $(".stu_wrong_tc_ul li").eq(i).children('a').html() + '<i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
+             for (var i = 0; i < $(".stu_wrong_tc_ul li").length; i++) {
+                 $(".choice_stus").append('<a id="' + $(".stu_wrong_tc_ul li").eq(i).attr("class") + '"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;"><i style="font-style: normal;">' + $(".stu_wrong_tc_ul li").eq(i).children('a').html() + '</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>');
              }
          } else {
              $(this).removeClass('stu_wrong_tc_i');
              $(this).attr("data-id", "0");
              $(".stu_wrong_tc_ul li").attr("data-id", "0");
              $(".stu_wrong_tc_ul li").children('i').removeClass('stu_wrong_tc_i');
-             $(".choice_stu a").remove();
+             $(".choice_stus a").remove();
          }
      });
-     $(".stu_wrong_tc_btn button").click(function(event) {
+     $(".stu_wrong_tc_button_back").click(function(event) {
          $(".stu_wrong_tc").hide();
+         $(".layer").hide();
      });
      $(".wrong_back_x").click(function(event) {
          $(".stu_wrong_tc").hide();
+         $(".layer").hide();
      });
      $(".stu_choice_btn").click(function(event) {
          $(".stu_wrong_tc").show();
-     });
+        $(".layer").css("height", $(document).height());
+         $(".layer").show();
+         //获得年级
+         $.ajax({
+             type: "GET",
+             url: ajaxIp + "/api/v2/commons/school_grades",
+            async:false,
+             headers: {
+                 'Authorization': "Bearer " + isLogin
+             },
+             success: function(data) {
+                // console.log("zhao");
+                 console.log(data);
+                  $(".stu_wrong_tc_sub").html(" ");
+                 for(var i=0;i<data.length;i++){
+                 $(".stu_wrong_tc_sub").append('<option data-id='+data[i].id+'>'+data[i].name+'</option>');
+             }
+             per_g_class();
+             students();
+             },
+             error: function() {
+             },
+         });
 
+     });
+//获得重点追踪学生
+function stu_gain(){
+       var id=parseInt($(".stu_wrong_tc_sub").children('option:selected').attr("data-id"));
+       var class_id=parseInt($(".stu_wrong_tc_class").children('option:selected').attr("data-id"));
+           $.ajax({
+             type: "POST",
+             url: ajaxIp + '/api/v2/wrong_questions/get_wrong_students',
+             async:false,
+             data: {
+                "grade_id":id,
+                "classroom_id":class_id
+             },
+             headers: {
+                 'Authorization': "Bearer " + isLogin
+             },
+
+             success: function(data) {
+                $(".students_key_box_p02").html(" ");
+                console.log(data);
+                console.log(data.result.students);
+                for(var a in data.result.students){
+                   console.log(a);
+                 $(".students_key_box_p02").append('<a style="color: rgb(51, 51, 51); background: rgb(245, 245, 245);" data-id="'+a+'">'+data.result.students[a]+'</a>')
+                }
+                 $(".students_key_box_p02 a").eq(0).addClass('students_key_box_p02_choose');
+                $(".students_key_box_p02 a").eq(0).css("color","rgb(255, 255, 255)");
+                $(".students_key_box_p02 a").eq(0).css("background","rgb(49, 188, 145)")
+             },
+             error: function() {
+             },
+             })
+      }
+function stu_gain_list(){
+       var id=parseInt($(".stu_wrong_tc_sub").children('option:selected').attr("data-id"));
+       var class_id=parseInt($(".stu_wrong_tc_class").children('option:selected').attr("data-id"));
+           $.ajax({
+             type: "POST",
+             url: ajaxIp + '/api/v2/wrong_questions/get_wrong_students',
+             async:false,
+             data: {
+                "grade_id":id,
+                "classroom_id":class_id
+             },
+             headers: {
+                 'Authorization': "Bearer " + isLogin
+             },
+
+             success: function(data) {
+                $(".choice_stus").html(" ");
+                console.log(data);
+                console.log(data.result.students);
+                for(var a in data.result.students){
+                   console.log(a);
+                 $(".choice_stus").append('<a id="stu_' +a+ '"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" data-id="'+a+'"><i style="font-style: normal;">' +data.result.students[a]+ '</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>')
+                $('.stu_'+a+'').attr("data-id","1");
+                $('.stu_'+a+' i').addClass('stu_wrong_tc_i');
+                }
+    
+             },
+             error: function() {
+             },
+             })
+      }
+   $(".search_input").keyup(function() {
+        var me = $(this),
+            v = me.val().replace(/^\s+\s+$/g, "");
+        var trs = $(".search_ul").find("li");
+        if (v == "") {
+            trs.filter(":hidden").show();
+            $(".search_div").hide();
+        } else {
+            $(".search_div").show();
+            trs.hide().filter(":contains('" + me.val() + "')").show();
+        }
+    });
+     $(".search_ul").on('click', 'li', function(event) {
+         $(".search_input").val($(this).html());
+         $(".search_input").attr("scroll-id",$(this).attr("search_id"));
+         $(".search_div").hide();
+     });
+     $(".stu_wrong_tc_input i").click(function(event) {
+        var a_num = $(".search_input").attr("scroll-id");
+        var container = $('.stu_wrong_tc_div'),
+            scrollTo = $('.' + $(".stu_wrong_tc_ul").children('li').eq(a_num).attr("class") + '');
+
+        container.scrollTop(
+            scrollTo.offset().top - container.offset().top + container.scrollTop()
+        )
+
+
+        container.animate({
+            scrollTop: scrollTo.offset().top - container.offset().top + container.scrollTop()
+        })
+    });
      $(".stu_wrong_tc_button_sure").click(function(event) {
-         $(".students_key").show();
+         var a=$(".choice_stus a").length;
+         var stus={};
+         for(var i=0;i<a;i++){
+            var b=parseInt($(".choice_stus a").eq(i).attr("data-id"));
+           stus[b]=$(".choice_stus a").eq(i).children('i').eq(0).html();       
+           // stu[1]=$(".choice_stus a").eq(i).children('i').eq(0).html();
+           // stus[i]=stu;
+         }
+         console.log(stus);
+         if(a==0){
+         layer.msg('请选择学生', { time: 700 });
+         }else{
+         var id=parseInt($(".stu_wrong_tc_sub").children('option:selected').attr("data-id"));
+         var class_id=parseInt($(".stu_wrong_tc_class").children('option:selected').attr("data-id"));
+          $.ajax({
+             type: "POST",
+             url: ajaxIp + "/api/v2/wrong_questions/save_wrong_students",
+             async: false,
+             data: {
+                'grade_id':id,
+                'classroom_id':class_id,
+                'students':JSON.stringify(stus),
+             },
+             headers: {
+                 'Authorization': "Bearer " + isLogin
+             },
+             success: function(data) {
+            console.log(data);
+           
+             },
+             error: function() {
+
+             },
+         })
+          $(".stu_wrong_tc").hide();
+           $(".layer").hide();
+         
+           $(".students_key").show();
          $(".students_key_box").show();
          $(".per_sur_a").show();
-         // $(".stu_choice_btn").hide();
+          stu_gain();
+          }
+        
      });
      //年级错题管理
      $(".grade_admin_li").click(function(event) {
@@ -1433,7 +1827,7 @@
 
                      }
 
-                     $(".g_list_ul").append('<li id="g_a' + data[i].question_bank_id + '"><div class="g_list_main"><div class="g_list_body">' + data[i].content + '</div><p class="g_list_lable"><a>年级得分率:<i style="font-style: normal;">' + s_rate + '%</i></a><a>年级平均分:<i style="font-style: normal;">' + data[i].average_score + '分</i></a><a>知识点:<i style="font-style: normal;">' + tag + '</i></a><a class="g_list_dif">难度系数:' + difficulty_body + '</a></p><div class="g_list_move"><a class="g_list_body_ans"  data-id="' + i + '"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a></div></div></li>');
+                     $(".g_list_ul").append('<li id="g_a' + data[i].question_bank_id + '"><div class="g_list_main"><div class="g_list_body">' + data[i].content + '</div><p class="g_list_lable"><a>年级得分率:<i style="font-style: normal;">' + s_rate + '%</i></a><a>年级平均分:<i style="font-style: normal;">' + data[i].average_score + '分</i></a><a>知识点:<i style="font-style: normal;">' + tag + '</i></a><a class="g_list_dif">难度系数:' + difficulty_body + '（实测难度：'+data[i].difficulty+'）</a></p><div class="g_list_move"><a class="g_list_body_ans"  data-id="' + i + '"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a></div></div></li>');
 
                  }
 
@@ -1654,7 +2048,7 @@
                          $(".c_topic_ever_box").append('<a class="class_topic_ever"  style="background:#fb7d8a;" href="#c_a' + data[i].question_bank_id + '">' + num + '</a>');
                          // var num_color="#fb7d8a";
                      }
-                     $(".c_list_ul").append('<li id="c_a' + data[i].question_bank_id + '"><div class="c_list_main"><div class="c_list_body">' + data[i].content + '</div><p class="c_list_lable"><a>班级得分率:<i style="font-style: normal;">' + s_rate + '%</i></a><a>班级平均分:<i style="font-style: normal;">' + data[i].average_score + '分</i></a><a>知识点:<i style="font-style: normal;">' + tag + '</i></a><a class="c_list_dif">难度系数:' + difficulty_body + '</a></p><div class="c_list_move"><a class="c_list_body_ans" data-id="' + i + '"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a></div></div></li>');
+                     $(".c_list_ul").append('<li id="c_a' + data[i].question_bank_id + '"><div class="c_list_main"><div class="c_list_body">' + data[i].content + '</div><p class="c_list_lable"><a>班级得分率:<i style="font-style: normal;">' + s_rate + '%</i></a><a>班级平均分:<i style="font-style: normal;">' + data[i].average_score + '分</i></a><a>知识点:<i style="font-style: normal;">' + tag + '</i></a><a class="c_list_dif">难度系数:' + difficulty_body + '（实测难度：'+data[i].difficulty+'）</a></p><div class="c_list_move"><a class="c_list_body_ans" data-id="' + i + '"><i class="iconfont" style="margin-right:10px;"></i>查看答案和解析</a></div></div></li>');
 
                  }
 
@@ -1833,6 +2227,7 @@
          $(".main").css("margin-top", "0px");
          $(".wrong_right").css("width", "100%");
          $(".content").css("padding-bottom", "0px");
+         $(".p_list_main_analy_show").hide();
          window.print();
          $(".wrong_left_ul").show();
          $("#header").show();
@@ -1848,6 +2243,7 @@
          $(".main").css("margin-top", "45px");
          $(".wrong_right").css("width", "1000px");
          $(".content").css("padding-bottom", "100px");
+         $(".p_list_main_analy_show").show();
 
      });
 
@@ -1856,6 +2252,16 @@
      $(".per_wrong_admin_students_p02").on('click', 'a', function(event) {
          $(this).css("color", "#ffffff").siblings().css("color", "#333333");
          $(this).css("background", "#31bc91").siblings().css("background", "#f5f5f5");
+         
+         if($(this).html()=="马龙"){
+            $(".per_wrong_list").html(" ");
+           $(".per_wrong_list").append('<li><a style="width: 32%;" class="p_wrong_list_name">马龙高二化学考试错题集</a><a style="">1</a><a style="">赵老师</a><a style="">2017.10.28</a><a style=""><button class="per_wrong_list_look">查看</button><button class="per_wrong_list_rem">删除</button></a></li>');
+         
+         }else if($(this).html()=="张学良"){
+           $(".per_wrong_list").html(" ");
+           $(".per_wrong_list").append('<li><a style="width: 32%;" class="p_wrong_list_name">张学良高二化学考试错题集</a><a style="">1</a><a style="">王老师</a><a style="">2017.11.20</a><a style=""><button class="per_wrong_list_look">查看</button><button class="per_wrong_list_rem">删除</button></a></li>');
+         
+         }
      });
      // 删除
      $(".per_wrong_list").on('click', '.per_wrong_list_rem', function(event) {
@@ -1876,8 +2282,6 @@
          $(".layer").css("height", $(document).height());
          $(".layer").show();
          $(".p_wrong_change_name").show();
-         // $(".c_wrong_change_name_input").val($(this).html());
-         // $(".c_wrong_change_name_t").attr("data-id",$(this).attr("data-id"));
      });
      //个人错题集名字修改框
      $(".p_wrong_change_name_t").click(function(event) {
