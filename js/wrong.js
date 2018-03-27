@@ -1058,13 +1058,38 @@
          console.log(data_num);
          var exam_id = $(".per_time").children('option:selected').attr("data-id");
          var sub_id = $(".per_sub").children('option:selected').attr("data-id");
-         var rate = parseInt($(".per_sort").children('option:selected').val());
+         var rate =$(".per_sort").children('option:selected').val();
           var student_id = parseInt($(".students_key_box_p02_choose").attr("data-id"));
-         console.log(sub_id);
+         console.log($(".per_sort").children('option:selected').val());
+          console.log(sub_id);
          $.ajax({
              type: "POST",
+             url: ajaxIp + '/api/v2/wrong_questions/generate_student_wrong_questions',
+             async:false,
+             data: {
+               "exam_id":exam_id,
+               "subject_id":sub_id,
+               "student_info_id": student_id,
+             },
+             headers: {
+                 'Authorization': "Bearer " + isLogin
+             },
+             beforeSend: function() {
+                 $(".load-bg").show();
+                  $(".layer").show();
+             },
+             success: function(data) {
+           
+             },
+             error: function() {
+             },
+         });
+setTimeout(time,5000);
+function time(){
+  $.ajax({
+             type: "POST",
              url: ajaxIp + "/api/v2/wrong_questions/student_index",
-             async: false,
+             async:false,
              data: {
                 "exam_id":exam_id,
                 "subject_id":sub_id,
@@ -1136,7 +1161,7 @@
                      if (data[i].score_rate_difference == undefined) {
                          data[i].score_rate_difference = 0;
                      }
-                     $(".per_list_ul").append('<li><div class="per_list_main" style=""><div class="per_list_body">'+data[i].content+'</div><p class="per_list_lable"><a>个人得分率:<i>'+data[i].scoring_rate+'</i></a><a>班-年级得分率差:<i>'+data[i].scoring_rate_difference+'</i></a><a>知识点:<i>'+data[i].tags+'</i></a><a class="per_list_dif">难度系数:'+difficulty_body+'(实测难度:'+data[i].difficulty+')</a></p><div class="per_list_move"><a class="per_list_body_ans"><i class="iconfont" style="margin-right:5px;"></i>查看答案和解析</a><a class="per_list_move_a">移除</a></div><div class="per_list_number"><p><i class="iconfont" style="font-size:45px;color:'+num_color+';"></i><a>'+num+'</a></p></div><div class="per_list_form">试题来源:<a>'+data[i].source+'</a></div><div class="per_list_ans"><p class="per_list_ans_top">你的错误解答:</p></div><p class="per_list_ans_be_top">错因CT:</p><div class="per_list_ans_be"><p class="per_list_ans_be01">智力因素 Z :<a>基础不实 、方法不牢</a></p> <p class="per_list_ans_be02">非智力因素 FZ :<a>审题错误</a></p></div><p class="per_list_ans_train_top">错题重练:</p><div class="per_list_ans_train"><p>请在此区域内纠正错题，并归纳解题心得。</p></div><p class="per_list_ans_train_top01">变式训练:</p><div class="per_list_ans_train_01"></div></div></li>');
+                     $(".per_list_ul").append('<li><div class="per_list_main" style=""><div class="per_list_body">'+data[i].content+'</div><p class="per_list_lable"><a>个人得分率:<i>'+data[i].scoring_rate+'</i></a><a>班-年级得分率差:<i>'+data[i].scoring_rate_difference+'</i></a><a>知识点:<i>'+data[i].tags+'</i></a><a class="per_list_dif">难度系数:'+difficulty_body+'(实测难度:'+data[i].difficulty+')</a></p><div class="per_list_move"><a class="per_list_body_ans"><i class="iconfont" style="margin-right:5px;"></i>查看答案和解析</a><a class="per_list_move_a">移除</a></div><div class="per_list_number"><p><i class="iconfont" style="font-size:45px;color:'+num_color+';"></i><a>'+num+'</a></p></div><div class="per_list_form">试题来源:<a>'+data[i].source+'</a></div><div class="per_list_ans"><p class="per_list_ans_top">你的错误解答:</p></div><p class="per_list_ans_be_top">错因CT:</p><div class="per_list_ans_be"><p class="per_list_ans_be01">智力因素 Z :</p> <p class="per_list_ans_be02">非智力因素 FZ :</p></div><p class="per_list_ans_train_top">错题重练:</p><div class="per_list_ans_train"><p>请在此区域内纠正错题，并归纳解题心得。</p></div><p class="per_list_ans_train_top01">变式训练:</p><div class="per_list_ans_train_01"></div></div></li>');
                  }
 
                  // }
@@ -1146,11 +1171,14 @@
              },
              complete: function() {
                  $(".load-bg").hide();
+                 $(".layer").hide();
              },
              error: function() {
                  // $(".load-bg").hide();
              },
          });
+         }
+         
 
      }
     // 个人select
