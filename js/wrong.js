@@ -1153,7 +1153,11 @@
          });
 
      }
-         
+    // 个人select
+     $(".per_wrong_select select").change(function(event) {
+       $(".per_ans").hide();
+       $(".per_list_ul").html(" ");
+     });     
 
 
 
@@ -1355,8 +1359,9 @@ function stu_gain(){
 
              success: function(data) {
                 $(".students_key_box_p02").html(" ");
-                console.log(data);
+                console.log(data.result);
                 console.log(data.result.students);
+
                 for(var a in data.result.students){
                    console.log(a);
                  $(".students_key_box_p02").append('<a style="color: rgb(51, 51, 51); background: rgb(245, 245, 245);" data-id="'+a+'">'+data.result.students[a]+'</a>')
@@ -1386,15 +1391,16 @@ function stu_gain_list(){
 
              success: function(data) {
                 $(".choice_stus").html(" ");
-                console.log(data);
-                console.log(data.result.students);
+                console.log(data.result);
+                // console.log(data.result.students);
+                if(data.result!==null){            
                 for(var a in data.result.students){
                    console.log(a);
                  $(".choice_stus").append('<a id="stu_' +a+ '"  style="background: #31bc91;color: #f5f5f5;margin: 10px;display:inline-block;line-height: 30px;padding: 0px 7px;float:left;" data-id="'+a+'"><i style="font-style: normal;">' +data.result.students[a]+ '</i><i class="iconfont" style="font-size: 12px;margin-left: 5px;">&#xe61b;</i></a>')
                 $('.stu_'+a+'').attr("data-id","1");
                 $('.stu_'+a+' i').addClass('stu_wrong_tc_i');
                 }
-    
+             }
              },
              error: function() {
              },
