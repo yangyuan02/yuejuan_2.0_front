@@ -1161,7 +1161,7 @@ function time(){
                      if (data[i].score_rate_difference == undefined) {
                          data[i].score_rate_difference = 0;
                      }
-                     $(".per_list_ul").append('<li id="a_wrong_class_li'+data[i].question_bank_id+'" data-id="'+data[i].question_bank_id+'"><div class="per_list_main" style=""><div class="per_list_body">'+data[i].content+'</div><p class="per_list_lable"><a>个人得分率:<i>'+data[i].scoring_rate+'%</i></a><a>班-年级得分率差:<i>'+data[i].scoring_rate_difference+'</i></a><a>知识点:<i>'+data[i].tags+'</i></a><a class="per_list_dif">难度系数:'+difficulty_body+'(实测难度:'+data[i].difficulty+')</a></p><div class="per_list_move"><a class="per_list_body_ans" data-id="'+i+'"><i class="iconfont" style="margin-right:5px;"></i>查看答案和解析</a><a class="per_list_move_a">移除</a></div><div class="per_list_number"><p><i class="iconfont" style="font-size:45px;color:'+num_color+';"></i><a>'+num+'</a></p></div><div class="per_list_form">试题来源:<a>'+data[i].source+'</a></div><div class="per_list_ans"><p class="per_list_ans_top">你的错误解答:</p></div><p class="per_list_ans_be_top">错因CT:</p><div class="per_list_ans_be"><p class="per_list_ans_be01">智力因素 Z :</p> <p class="per_list_ans_be02">非智力因素 FZ :</p></div><p class="per_list_ans_train_top">错题重练:</p><div class="per_list_ans_train"><p>请在此区域内纠正错题，并归纳解题心得。</p></div><p class="per_list_ans_train_top01">变式训练:</p><div class="per_list_ans_train_01"></div></div></li>');
+                     $(".per_list_ul").append('<li><div class="per_list_main" style=""><div class="per_list_body">'+data[i].content+'</div><p class="per_list_lable"><a>个人得分率:<i>'+data[i].scoring_rate+'</i></a><a>班-年级得分率差:<i>'+data[i].scoring_rate_difference+'</i></a><a>知识点:<i>'+data[i].tags+'</i></a><a class="per_list_dif">难度系数:'+difficulty_body+'(实测难度:'+data[i].difficulty+')</a></p><div class="per_list_move"><a class="per_list_body_ans"><i class="iconfont" style="margin-right:5px;"></i>查看答案和解析</a><a class="per_list_move_a">移除</a></div><div class="per_list_number"><p><i class="iconfont" style="font-size:45px;color:'+num_color+';"></i><a>'+num+'</a></p></div><div class="per_list_form">试题来源:<a>'+data[i].source+'</a></div><div class="per_list_ans"><p class="per_list_ans_top">你的错误解答:</p></div><p class="per_list_ans_be_top">错因CT:</p><div class="per_list_ans_be"><p class="per_list_ans_be01">智力因素 Z :</p> <p class="per_list_ans_be02">非智力因素 FZ :</p></div><p class="per_list_ans_train_top">错题重练:</p><div class="per_list_ans_train"><p>请在此区域内纠正错题，并归纳解题心得。</p></div><p class="per_list_ans_train_top01">变式训练:</p><div class="per_list_ans_train_01"></div></div></li>');
                  }
 
                  // }
@@ -1181,101 +1181,13 @@ function time(){
          
 
      }
-     function per_list_ans(a) {
-
-         var word = $(".per_time").attr("data-id");
-         //类型
-         var data_num = [];
-         if ($(".per_sur").parent().prev().find('a').eq(0).attr("data-id") == 1) {
-             data_num[0] = 0;
-             data_num[1] = 5;
-         }
-         if ($(".per_sur").parent().prev().find('a').eq(1).attr("data-id") == 1) {
-
-             if (data_num.length == 0) {
-                 data_num[0] = 1;
-             } else {
-                 data_num[data_num.length] = 1;
-             }
-
-         }
-         if ($(".per_sur").parent().prev().find('a').eq(2).attr("data-id") == 1) {
-             if (data_num.length == 0) {
-                 data_num[0] = 2;
-             } else {
-                 data_num[data_num.length] = 2;
-             }
-         }
-         if ($(".per_sur").parent().prev().find('a').eq(3).attr("data-id") == 1) {
-             if (data_num.length == 0) {
-                 data_num[0] = 3;
-             } else {
-                 data_num[data_num.length] = 3;
-             }
-         }
-         if ($(".per_sur").parent().prev().find('a').eq(4).attr("data-id") == 1) {
-             if (data_num.length == 0) {
-                 data_num[0] = 4;
-             } else {
-                 data_num[data_num.length] = 4;
-             }
-         }
-         console.log(data_num);
-         var exam_id = $(".per_time").children('option:selected').attr("data-id");
-         var sub_id = $(".per_sub").children('option:selected').attr("data-id");
-         var rate =$(".per_sort").children('option:selected').val();
-          var student_id = parseInt($(".students_key_box_p02_choose").attr("data-id"));
-         console.log($(".per_sort").children('option:selected').val());
-          console.log(sub_id);
-  $.ajax({
-             type: "POST",
-             url: ajaxIp + "/api/v2/wrong_questions/student_index",
-             async:false,
-             data: {
-                "exam_id":exam_id,
-                "subject_id":sub_id,
-                 "item":data_num,
-                 "rate":rate,
-                 "student_info_id": student_id,
-             },
-             headers: {
-                 'Authorization': "Bearer " + isLogin
-             },
-             success: function(data) {
-              $(".per_ans01").html(data[a].answer);
-              $(".per_ans02").html(data[a].analysis);
-             },
-             error: function() {
-                 // $(".load-bg").hide();
-             },
-         });
-         }
-         
     // 个人select
      $(".per_wrong_select select").change(function(event) {
        $(".per_ans").hide();
        $(".per_list_ul").html(" ");
-        $(".per_topic_ever_box").html(" ");
      });     
-   // 个人移除
-   $(".per_list_ul").on('click', '.per_list_move_a', function(event) {
-    $(this).parents("li").remove();
-    $('#wrong_class_li'+$(this).parents("li").attr("data-id")+'') .remove();   
-   });
 
-   $(".per_list_ul").on('click', '.per_list_body_ans', function(event) {
-    $(".per_ans01").html(" ");
-    $(".per_ans02").html(" ");
-   var a=parseInt($(this).attr("data-id"));
-    per_list_ans(a);
-    $(".layer").css("height", $(document).height());
-    $(".layer").show();
-    $(".per_ans_tc").show();
-   });
-   $(".per_ans_tc button").click(function(event) {
-     $(".layer").hide();
-    $(".per_ans_tc").hide();
-   });
+
 
           $(".stu_wrong_tc_sub").change(function(event) {
            per_g_class()
