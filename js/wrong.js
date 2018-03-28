@@ -1063,6 +1063,34 @@
           var sort=$(".per_sort").children('option:selected').val()
          console.log($(".per_sort").children('option:selected').val());
           console.log(sub_id);
+$.ajax({
+             type: "POST",
+             url: ajaxIp + "/api/v2/wrong_questions/student_index",
+             async:false,
+             data: {
+                "exam_id":exam_id,
+                "subject_id":sub_id,
+                 "item":data_num,
+                 "rate":rate,
+                 "student_info_id": student_id,
+             },
+             headers: {
+                 'Authorization': "Bearer " + isLogin
+             },
+             success: function(data) {
+              if(data.length !==0){
+               time();
+              }else{
+               mark_time();
+              }
+              console.log(data.length);
+             },
+             error: function() {
+                 // $(".load-bg").hide();
+             },
+         });
+
+        function mark_time(){
          $.ajax({
              type: "POST",
              url: ajaxIp + '/api/v2/wrong_questions/generate_student_wrong_questions',
@@ -1080,12 +1108,13 @@
                   $(".layer").show();
              },
              success: function(data) {
-           
+                setTimeout(time,5000);
              },
              error: function() {
              },
          });
-setTimeout(time,5000);
+     }
+// 
 function time(){
   $.ajax({
              type: "POST",
@@ -1366,6 +1395,7 @@ function time(){
      // });
      //重点追踪学生
      $(".students_key_box_p02").on('click', 'a', function(event) {
+        $(".per_ans").hide();
         $(this).addClass('students_key_box_p02_choose').siblings().removeClass();
          $(this).css("color", "#ffffff").siblings().css("color", "#333333");
          $(this).css("background", "#31bc91").siblings().css("background", "#f5f5f5");

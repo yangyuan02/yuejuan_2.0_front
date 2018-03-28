@@ -867,7 +867,7 @@ body {
 
 .per_list_body {
     width: 700px;
-    height: 165px;
+    min-height: 165px;
     margin-top: 25px;
     margin-left: 40px;
     font-size: 14px;
