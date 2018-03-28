@@ -1058,8 +1058,9 @@
          console.log(data_num);
          var exam_id = $(".per_time").children('option:selected').attr("data-id");
          var sub_id = $(".per_sub").children('option:selected').attr("data-id");
-         var rate =$(".per_sort").children('option:selected').val();
+         var rate =$(".per_rate").children('option:selected').val();
           var student_id = parseInt($(".students_key_box_p02_choose").attr("data-id"));
+          var sort=$(".per_sort").children('option:selected').val()
          console.log($(".per_sort").children('option:selected').val());
           console.log(sub_id);
          $.ajax({
@@ -1096,6 +1097,7 @@ function time(){
                  "item":data_num,
                  "rate":rate,
                  "student_info_id": student_id,
+                 "sort":sort,
              },
              headers: {
                  'Authorization': "Bearer " + isLogin
@@ -1181,6 +1183,10 @@ function time(){
          
 
      }
+
+     $(".per_sort").change(function(event) {
+        per_list();
+     });
      function per_list_ans(a) {
 
          var word = $(".per_time").attr("data-id");
@@ -2368,7 +2374,32 @@ function stu_gain_list(){
          $(".p_list_main_analy_show").show();
 
      });
+// 个人错题集
+$(".per_admin_li").click(function(event) {
+ $.ajax({
+             type: "POST",
+             url: ajaxIp + '/api/v2/wrong_books/student_books',
+             async: false,
+             data: {
+                 'exam_id': 390,
+                 'subject_id':14,
+                 'classroom_id': 155,
 
+             },
+             headers: {
+                 'Authorization': "Bearer " + isLogin
+             },
+             success: function(data) {
+                 console.log(data);
+               
+             },
+             error: function() {
+                 /* Act on the event */
+             }
+         });
+
+
+});
 
 
      $(".per_wrong_admin_students_p02").on('click', 'a', function(event) {
