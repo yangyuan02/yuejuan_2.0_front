@@ -2375,31 +2375,31 @@ function stu_gain_list(){
 
      });
 // 个人错题集
-$(".per_admin_li").click(function(event) {
- $.ajax({
-             type: "POST",
-             url: ajaxIp + '/api/v2/wrong_books/student_books',
-             async: false,
-             data: {
-                 'exam_id': 390,
-                 'subject_id':14,
-                 'classroom_id': 155,
+// $(".per_admin_li").click(function(event) {
+//  $.ajax({
+//              type: "POST",
+//              url: ajaxIp + '/api/v2/wrong_books/student_books',
+//              async: false,
+//              data: {
+//                  'exam_id': 390,
+//                  'subject_id':14,
+//                  'classroom_id': 155,
 
-             },
-             headers: {
-                 'Authorization': "Bearer " + isLogin
-             },
-             success: function(data) {
-                 console.log(data);
+//              },
+//              headers: {
+//                  'Authorization': "Bearer " + isLogin
+//              },
+//              success: function(data) {
+//                  console.log(data);
                
-             },
-             error: function() {
-                 /* Act on the event */
-             }
-         });
+//              },
+//              error: function() {
+//                  /* Act on the event */
+//              }
+//          });
 
 
-});
+// });
 
 
      $(".per_wrong_admin_students_p02").on('click', 'a', function(event) {
