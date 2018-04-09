@@ -803,7 +803,6 @@
 
 
      });
-
      //班级select
      $(".class_select_top select").change(function(event) {
          $(this).attr("data-id", $(this).children('option:selected').attr("data-id"));
@@ -1189,10 +1188,19 @@ function time(){
                          var difficulty_body = '<i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i><i class="iconfont" style="margin-left:2px;">&#xe600;</i>';
 
                      }
+
                      if (data[i].score_rate_difference == undefined) {
                          data[i].score_rate_difference = 0;
                      }
-                     $(".per_list_ul").append('<li><div class="per_list_main" style=""><div class="per_list_body">'+data[i].content+'</div><p class="per_list_lable"><a>个人得分率:<i>'+data[i].scoring_rate+'</i></a><a>班-年级得分率差:<i>'+data[i].scoring_rate_difference+'</i></a><a>知识点:<i>'+data[i].tags+'</i></a><a class="per_list_dif">难度系数:'+difficulty_body+'(实测难度:'+data[i].difficulty+')</a></p><div class="per_list_move"><a class="per_list_body_ans"><i class="iconfont" style="margin-right:5px;"></i>查看答案和解析</a><a class="per_list_move_a">移除</a></div><div class="per_list_number"><p><i class="iconfont" style="font-size:45px;color:'+num_color+';"></i><a>'+num+'</a></p></div><div class="per_list_form">试题来源:<a>'+data[i].source+'</a></div><div class="per_list_ans"><p class="per_list_ans_top">你的错误解答:</p></div><p class="per_list_ans_be_top">错因CT:</p><div class="per_list_ans_be"><p class="per_list_ans_be01">智力因素 Z :</p> <p class="per_list_ans_be02">非智力因素 FZ :</p></div><p class="per_list_ans_train_top">错题重练:</p><div class="per_list_ans_train"><p>请在此区域内纠正错题，并归纳解题心得。</p></div><p class="per_list_ans_train_top01">变式训练:</p><div class="per_list_ans_train_01"></div></div></li>');
+                     $(".per_list_ul").append('<li  bank_id="'+data[i].question_bank_id+'" item="'+data[i].item+'" exam_subject_id="'+data[i].exam_subject_id+'" scoring_rate="'+data[i].scoring_rate+'" difficulty="'+data[i].difficulty+'" scoring_rate_difference="'+data[i].scoring_rate_difference+'"   average_score="'+data[i].average_score+'" total_score="'+data[i].total_score+'"><div class="per_list_main" style=""><div class="per_list_body">'+data[i].content+'</div><p class="per_list_lable"><a>个人得分率:<i>'+data[i].scoring_rate+'</i></a><a>班-年级得分率差:<i>'+data[i].scoring_rate_difference+'</i></a><a>知识点:<i>'+data[i].tags+'</i></a><a class="per_list_dif">难度系数:'+difficulty_body+'(实测难度:'+data[i].difficulty+')</a></p><div class="per_list_move"><a class="per_list_body_ans"><i class="iconfont" style="margin-right:5px;"></i>查看答案和解析</a><a class="per_list_move_a">移除</a></div><div class="per_list_number"><p><i class="iconfont" style="font-size:45px;color:'+num_color+';"></i><a>'+num+'</a></p></div><div class="per_list_form">试题来源:<a>'+data[i].source+'</a></div><div class="per_list_ans"><p class="per_list_ans_top">你的错误解答:</p></div><p class="per_list_ans_be_top">错因CT:</p><div class="per_list_ans_be"><p class="per_list_ans_be01">智力因素 Z :</p> <p class="per_list_ans_be02">非智力因素 FZ :</p></div><p class="per_list_ans_train_top">错题重练:</p><div class="per_list_ans_train"><p>请在此区域内纠正错题，并归纳解题心得。</p></div><p class="per_list_ans_train_top01">变式训练:</p><div class="per_list_ans_train_01"></div></div></li>');
+                     for(var cf=0;cf<data[i].ct_fz.length;cf++){
+                       $(".per_list_ul li").eq(i).find('.per_list_ans_be02').append('<a>'+data[i].ct_fz[cf]+'</a>');
+                     
+                     }
+                     for(var ct=0;ct<data[i].ct_z.length;ct++){
+                       $(".per_list_ul li").eq(i).find('.per_list_ans_be01').append('<a>'+data[i].ct_z[ct]+'</a>');
+                     
+                     }
                  }
 
                  // }
@@ -1500,7 +1508,10 @@ function stu_gain(){
                 }
                  $(".students_key_box_p02 a").eq(0).addClass('students_key_box_p02_choose');
                 $(".students_key_box_p02 a").eq(0).css("color","rgb(255, 255, 255)");
-                $(".students_key_box_p02 a").eq(0).css("background","rgb(49, 188, 145)")
+                $(".students_key_box_p02 a").eq(0).css("background","rgb(49, 188, 145)");
+                $(".per_make_wrong").attr("school_id",data.result.school_id);
+                $(".per_make_wrong").attr("grade_id",data.result.grade_id);
+                $(".per_make_wrong").attr("classroom_id",data.result.classroom_id);
              },
              error: function() {
              },
@@ -1538,6 +1549,64 @@ function stu_gain_list(){
              },
              })
       }
+
+      ///生成学生错题本
+      $(".per_make_wrong").click(function(event) {
+         var li_long = $(".per_list_ul li").length;
+         var school_id = $(this).attr("school_id");
+         var grade_id = $(this).attr("grade_id");
+         var classroom_id = $(this).attr("classroom_id");
+         var subject_id = $(".per_sub").children('option:selected').attr("data-id");
+         var per_wrongs = [];
+         for (var li = 0; li < li_long; li++) {
+             var per_wrong = {};
+             per_wrong["school_id"] = school_id;
+             per_wrong["grade_id"] = grade_id;
+             per_wrong["classroom_id"] = classroom_id;
+             per_wrong["subject_id"] = subject_id;
+             per_wrong["question_bank_id"] = $(".per_list_ul li").eq(li).attr("bank_id");
+             per_wrong["item"] = $(".per_list_ul li").eq(li).attr("item");
+             per_wrong["exam_subject_id"] = $(".per_list_ul li").eq(li).attr("exam_subject_id");
+             per_wrong["average_score"] = $(".per_list_ul li").eq(li).attr("average_score");
+             per_wrong["total_score"] = $(".per_list_ul li").eq(li).attr("total_score");
+             per_wrong["scoring_rate"] = $(".per_list_ul li").eq(li).attr("scoring_rate");
+             per_wrong["difficulty"] = $(".per_list_ul li").eq(li).attr("difficulty");
+             per_wrongs[li] =per_wrong;
+
+         }
+         var student_id=$(".students_key_box_p02_choose").attr("data-id");
+         var exam_subject_id = $(".per_list_ul li").eq(0).attr("exam_subject_id");
+         var title01 = $(".students_key_box_p02_choose").html();
+         var title02 = $(".per_sub").children('option:selected').text();
+         var title03 = $(".per_rate").children('option:selected').text();
+         var title = title01 + "-" + title03;
+         console.log(title);
+         console.log(per_wrongs);
+         $.ajax({
+             type: "POST",
+             url: ajaxIp + "/api/v2/wrong_questions",
+             async: false,
+             data: {
+                 "wrong_questions": JSON.stringify(per_wrongs),
+                 "type": "student",
+                 "title": title,
+                 "exam_subject_id": exam_subject_id,
+                 "classroom_id": classroom_id,
+                 "student_info_id": student_id,
+             },
+             headers: {
+                 'Authorization': "Bearer " + isLogin
+             },
+             success: function(data) {
+                 console.log(data);
+                 layer.msg('生成成功', { time: 700 });
+             },
+             error: function(data) {
+
+             },
+         })
+ 
+});
    $(".search_input").keyup(function() {
         var me = $(this),
             v = me.val().replace(/^\s+\s+$/g, "");
@@ -1614,6 +1683,10 @@ function stu_gain_list(){
           stu_gain();
           }
         
+     });
+     $(".per_off").click(function(event) {
+       $(".per_ans").hide();
+
      });
      //年级错题管理
      $(".grade_admin_li").click(function(event) {

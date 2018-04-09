@@ -956,7 +956,7 @@ body {
 
 .per_list_ans_be {
     width: 860px;
-    height: 130px;
+    min-height: 130px;
     border: 1px solid #cccccc;
     padding: 25px 20px;
     box-sizing: border-box;
@@ -975,6 +975,7 @@ body {
     padding: 5px 10px 5px 10px;
     color: #f5f5f5;
     margin-left: 10px;
+     margin-bottom: 10px;
 }
 
 .per_list_ans_be02 a {
@@ -983,6 +984,7 @@ body {
     padding: 5px 10px 5px 10px;
     color: #f5f5f5;
     margin-left: 10px;
+    margin-bottom: 10px;
 }
 
 .per_list_ans_train_top {
