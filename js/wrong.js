@@ -2458,7 +2458,7 @@
          $(".p_list_main_analy_show").show();
 
      });
-     // 个人错题集
+     // 个人错题1集
      $(".per_admin_li").click(function(event) {
          $(".per_wrong_list_look_box").hide();
          $(".per_wrong_admin_main_box").show();
