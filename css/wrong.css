@@ -2415,3 +2415,6 @@ z-index: 11;
     color: #31bc91;
     background: #f5f5f5;
 }
+.p_student_color{
+    color: rgb(255, 255, 255) !important; background: rgb(49, 188, 145) !important;
+}
