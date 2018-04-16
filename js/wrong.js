@@ -975,13 +975,13 @@
                  $(".per_time").html(" ");
                  $(".per_sub").html(" ");
                  for (var i = 0; i < data.length; i++) {
-                     $(".per_time").append('<option value=""  data-id="' + data[i].id + '">' + data[i].name + '</option>');
+                     $(".per_time").append('<option value="' + data[i].name + '"  data-id="' + data[i].id + '">' + data[i].name + '</option>');
 
 
 
                  }
                  for (var i = 0; i < data[0].subjects.length; i++) {
-                     $(".per_sub").append('<option value="" data-id="' + data[0].subjects[i].subject_id + '">' + data[0].subjects[i].name + '</option>');
+                     $(".per_sub").append('<option value="' + data[0].subjects[i].name + '" data-id="' + data[0].subjects[i].subject_id + '">' + data[0].subjects[i].name + '</option>');
                  }
 
 
@@ -1005,7 +1005,7 @@
                  var a = parseInt($(".per_time").children('option:selected').index());
                  for (var i = 0; i < data[a].subjects.length; i++) {
 
-                     $(".per_sub").append('<option value="" data-id="' + data[a].subjects[i].subject_id + '">' + data[a].subjects[i].name + '</option>');
+                     $(".per_sub").append('<option value="' + data[a].subjects[i].name + '" data-id="' + data[a].subjects[i].subject_id + '">' + data[a].subjects[i].name + '</option>');
                  }
              },
              error: function() {
@@ -1112,7 +1112,7 @@
                  error: function() {},
              });
          }
-         // 
+         // 个人学生错题列表
          function time() {
              var classroom_id = $(".per_wrong_make").attr("classroom_id");
              $.ajax({
@@ -1193,7 +1193,20 @@
                          if (data[i].score_rate_difference == undefined) {
                              data[i].score_rate_difference = 0;
                          }
-                         $(".per_list_ul").append('<li  bank_id="' + data[i].question_bank_id + '" item="' + data[i].item + '" exam_subject_id="' + data[i].exam_subject_id + '" scoring_rate="' + data[i].scoring_rate + '" difficulty="' + data[i].difficulty + '" scoring_rate_difference="' + data[i].scoring_rate_difference + '"   average_score="' + data[i].average_score + '" total_score="' + data[i].total_score + '"><div class="per_list_main" style=""><div class="per_list_body">' + data[i].content + '</div><p class="per_list_lable"><a>个人得分率:<i>' + data[i].scoring_rate + '</i></a><a>班-年级得分率差:<i>' + data[i].scoring_rate_difference + '</i></a><a>知识点:<i>' + data[i].tags + '</i></a><a class="per_list_dif">难度系数:' + difficulty_body + '(实测难度:' + data[i].difficulty + ')</a></p><div class="per_list_move"><a class="per_list_body_ans"><i class="iconfont" style="margin-right:5px;"></i>查看答案和解析</a><a class="per_list_move_a">移除</a></div><div class="per_list_number"><p><i class="iconfont" style="font-size:45px;color:' + num_color + ';"></i><a>' + num + '</a></p></div><div class="per_list_form">试题来源:<a>' + data[i].source + '</a></div><div class="per_list_ans"><p class="per_list_ans_top">你的错误解答:</p></div><p class="per_list_ans_be_top">错因CT:</p><div class="per_list_ans_be"><p class="per_list_ans_be01">智力因素 Z :</p> <p class="per_list_ans_be02">非智力因素 FZ :</p></div><p class="per_list_ans_train_top">错题重练:</p><div class="per_list_ans_train"><p>请在此区域内纠正错题，并归纳解题心得。</p></div><p class="per_list_ans_train_top01">变式训练:</p><div class="per_list_ans_train_01"></div></div></li>');
+                         var wrong_answer="";
+                         var wrong_main="";
+                          if(data[i].wrong_image.length ==0){
+                           wrong_answer=data[i].wrong_answer
+                           answer_main=data[i].wrong_answer
+                           console.log(answer_main);
+                          }else{
+                            for(var w=0;w<data[i].wrong_image.length;w++){
+                            wrong_image=wrong_image+","+data[i].wrong_image[w]
+                            wrong_main=wrong_main+'<p><a href="'+ data[i].wrong_image[w1] +'"></a></p>'
+                          }
+                          }
+                         
+                         $(".per_list_ul").append('<li  bank_id="' + data[i].question_bank_id + '" item="' + data[i].item + '" exam_subject_id="' + data[i].exam_subject_id + '" scoring_rate="' + data[i].scoring_rate + '" difficulty="' + data[i].difficulty + '" scoring_rate_difference="' + data[i].scoring_rate_difference + '"   average_score="' + data[i].average_score + '" total_score="' + data[i].total_score + '" wrong_answer="' + data[i].answer + '" wrong_image="' + wrong_image + '"  ct_z="' + data[i].ct_z + '"  ct_fz="' + data[i].ct_fz + '"><div class="per_list_main" style=""><div class="per_list_body">' + data[i].content + '</div><p class="per_list_lable"><a>个人得分率:<i>' + data[i].scoring_rate + '</i></a><a>班-年级得分率差:<i>' + data[i].scoring_rate_difference + '</i></a><a>知识点:<i>' + data[i].tags + '</i></a><a class="per_list_dif">难度系数:' + difficulty_body + '(实测难度:' + data[i].difficulty + ')</a></p><div class="per_list_move"><a class="per_list_body_ans"><i class="iconfont" style="margin-right:5px;"></i>查看答案和解析</a><a class="per_list_move_a">移除</a></div><div class="per_list_number"><p><i class="iconfont" style="font-size:45px;color:' + num_color + ';"></i><a>' + num + '</a></p></div><div class="per_list_form">试题来源:<a>' + data[i].source + '</a></div><div class="per_list_ans"><p class="per_list_ans_top">你的错误解答:</p>'+answer_main+'</div><p class="per_list_ans_be_top">错因CT:</p><div class="per_list_ans_be"><p class="per_list_ans_be01">智力因素 Z :</p> <p class="per_list_ans_be02">非智力因素 FZ :</p></div><p class="per_list_ans_train_top">错题重练:</p><div class="per_list_ans_train"><p>请在此区域内纠正错题，并归纳解题心得。</p></div><p class="per_list_ans_train_top01">变式训练:</p><div class="per_list_ans_train_01"></div></div></li>');
                          for (var cf = 0; cf < data[i].ct_fz.length; cf++) {
                              $(".per_list_ul li").eq(i).find('.per_list_ans_be02').append('<a>' + data[i].ct_fz[cf] + '</a>');
 
@@ -1364,8 +1377,12 @@
          per_list();
      });
      //移除
-     $(".per_list_move_a").click(function(event) {
+     $(".per_list_ul").on('click', '.per_list_move_a', function(event) {
+        var index =$(this).parent().parent().index();
          $(this).parent().parent().remove();
+         console.log(index)
+         $(".per_topic_ever_box a").eq(index).remove();
+         
      });
      $(".wrong_left_ul li").eq(2).click(function(event) {
          $(".wrong_main").children('div').eq(0).children('.grade_ans').hide();
@@ -1559,6 +1576,9 @@
          var per_wrongs = [];
          for (var li = 0; li < li_long; li++) {
              var per_wrong = {};
+            var ct_z=$(".per_list_ul li").eq(li).attr("ct_z").split(",");
+            var ct_fz=$(".per_list_ul li").eq(li).attr("ct_fz").split(",");
+            var wrong_image=$(".per_list_ul li").eq(li).attr("wrong_image").split(",");
              per_wrong["school_id"] = school_id;
              per_wrong["grade_id"] = grade_id;
              per_wrong["classroom_id"] = classroom_id;
@@ -1570,16 +1590,22 @@
              per_wrong["total_score"] = $(".per_list_ul li").eq(li).attr("total_score");
              per_wrong["scoring_rate"] = $(".per_list_ul li").eq(li).attr("scoring_rate");
              per_wrong["difficulty"] = $(".per_list_ul li").eq(li).attr("difficulty");
+             per_wrong["scoring_rate_difference"] = $(".per_list_ul li").eq(li).attr("scoring_rate_difference");
+             per_wrong["wrong_answer"] = $(".per_list_ul li").eq(li).attr("wrong_answer");
+            per_wrong["wrong_image"] =wrong_image;
+            per_wrong["ct_z"] = ct_z;
+            per_wrong["ct_fz"] =ct_fz;
              per_wrongs[li] = per_wrong;
 
          }
          var student_id = $(".students_key_box_p02_choose").attr("data-id");
          var exam_subject_id = $(".per_list_ul li").eq(0).attr("exam_subject_id");
          var title01 = $(".students_key_box_p02_choose").html();
-         var title02 = $(".per_sub").children('option:selected').text();
+         var title02 = $(".per_sub").children('option:selected').val();
          var title03 = $(".per_rate").children('option:selected').text();
-         var title = title01 + "-" + title03;
+         var title = title01 + "-"+title02+"-"+ title03;
          console.log(title);
+         console.log(title02);
          console.log(per_wrongs);
          $.ajax({
              type: "POST",
@@ -1666,8 +1692,7 @@
                      'Authorization': "Bearer " + isLogin
                  },
                  success: function(data) {
-                     console.log(data);
-
+                    console.log(data);
                  },
                  error: function() {
 
@@ -2440,6 +2465,7 @@
          $(".wrong_right").css("width", "100%");
          $(".content").css("padding-bottom", "0px");
          $(".p_list_main_analy_show").hide();
+         $(".p_list_ul .p_list_main_analy").show()
          window.print();
          $(".wrong_left_ul").show();
          $("#header").show();
@@ -2456,6 +2482,7 @@
          $(".wrong_right").css("width", "1000px");
          $(".content").css("padding-bottom", "100px");
          $(".p_list_main_analy_show").show();
+         $(".p_list_ul .p_list_main_analy").hide()
 
      });
      // 个人错题1集
@@ -2480,7 +2507,7 @@
                      $(".per_class").append('<option data-id="' + data[0].classrooms[a].classroom_id + '">' + data[0].classrooms[a].classroom_name + '</option>')
                  }
                  for (var b = 0; b < data[0].subjects.length; b++) {
-                     $(".per_sub").append('<option data-id="' + data[0].subjects[b].subject_id + '">' + data[0].subjects[b].name + '</option>')
+                     $(".per_sub").append('<option data-id="' + data[0].subjects[b].subject_id + '" value="'+data[0].subjects[b].name+'">' + data[0].subjects[b].name + '</option>')
                  }
                  p_students();
              },
@@ -2582,7 +2609,7 @@
                      $(".per_class").append('<option data-id="' + data[index].classrooms[a].classroom_id + '">' + data[index].classrooms[a].classroom_name + '</option>')
                  }
                  for (var i = 0; i < data[index].subjects.length; i++) {
-                     $(".per_sub").append('<option data-id="' + data[index].subjects[i].subject_id + '">' + data[index].subjects[i].name + '</option>')
+                     $(".per_sub").append('<option data-id="' + data[index].subjects[i].subject_id + '" value="'+data[index].subjects[i].name+'">' + data[index].subjects[i].name + '</option>')
                  }
              },
              error: function() {
@@ -2692,7 +2719,24 @@
                          $(".p_topic_ever_box").append('<a class="class_topic_ever"  style="background:#fb7d8a;" href="#p_a' + data[i].question_bank_id + '">' + num + '</a>');
 
                      }
-                     $(".p_list_ul").append('<li id="p_a' + data[i].question_bank_id + '"><div class="p_list_main" style=""><div class="p_list_body">' + data[i].content + '</div><div class="p_list_move"><a class="p_list_body_ans" data-in="' + i + '" data-id="' + id + '"><i class="iconfont" style="margin-right:5px;"></i>查看答案和解析</a></div><div class="p_list_number"><p><i class="iconfont" style="font-size:45px;color:#fb7d8a;"></i><a>' + num + '</a></p></div><div class="p_list_form">试题来源:<a>' + data[i].source + '</a></div><p class="p_list_main_analy_show"><i class="iconfont" style="" data-id="0">&#xe624;</i></p><div class="p_list_main_analy"><p class="p_list_lable" style="margin-top: 10px;">2<a>个人得分率:<i>' + a_rate + '</i></a><a>班-年级得分率差<i>' + data[i].scoring_rate_difference + '</i></a><a>知识点:' + tag + '</a><a class="p_list_dif">难度系数:' + difficulty_body + '（实测难度：' + data[i].difficulty + '）</a></p><div class="p_list_ans"><p class="per_list_ans_top" style="color: #ccc">你的错误解答:</p><p class="per_list_ans_top"></p></div><p class="p_list_ans_be_top">错因CT:</p><div class="p_list_ans_be"><p class="p_list_ans_be01">智力因素 Z :</p><p class="p_list_ans_be02">非智力因素 FZ :<a></a></p></div><p class="p_list_ans_train_top">错题重练:</p><div class="p_list_ans_train"><p>请在此区域内纠正错题，并归纳解题心得。</p></div><p class="p_list_ans_train_top01">变式训练:</p><div class="p_list_ans_train_01"></div></div></div>');
+                     var answer_main=""
+                     if(data[i].wrong_image==0){
+                        answer_main=answer_main
+                     }else{
+                        var answer_main=""
+                        for(var w=0;w<data[i].wrong_image.length;w++){
+                             answer_main=answer_main+'<a href="'+data[i].wrong_image[w]+'"></a>'
+                        }
+                     }
+
+                     $(".p_list_ul").append('<li id="p_a' + data[i].question_bank_id + '"><div class="p_list_main" style=""><div class="p_list_body">' + data[i].content + '</div><div class="p_list_move"><a class="p_list_body_ans" data-in="' + i + '" data-id="' + id + '"><i class="iconfont" style="margin-right:5px;"></i>查看答案和解析</a></div><div class="p_list_number"><p><i class="iconfont" style="font-size:45px;color:#fb7d8a;"></i><a>' + num + '</a></p></div><div class="p_list_form">试题来源:<a>' + data[i].source + '</a></div><p class="p_list_main_analy_show"><i class="iconfont" style="" data-id="0">&#xe624;</i></p><div class="p_list_main_analy"><p class="p_list_lable" style="margin-top: 10px;"><a>个人得分率:<i>' + a_rate + '</i></a><a>班-年级得分率差<i>' + data[i].scoring_rate_difference + '</i></a><a>知识点:' + tag + '</a><a class="p_list_dif">难度系数:' + difficulty_body + '（实测难度：' + data[i].difficulty + '）</a></p><div class="p_list_ans"><p class="per_list_ans_top" style="color: #ccc">你的错误解答:</p><p class="per_list_ans_top">'+answer_main+'</p></div><p class="p_list_ans_be_top">错因CT:</p><div class="p_list_ans_be"><p class="p_list_ans_be01">智力因素 Z :</p><p class="p_list_ans_be02">非智力因素 FZ :</p></div><p class="p_list_ans_train_top">错题重练:</p><div class="p_list_ans_train"><p>请在此区域内纠正错题，并归纳解题心得。</p></div><p class="p_list_ans_train_top01">变式训练:</p><div class="p_list_ans_train_01"></div></div></div>');
+                     for (var cf = 0; cf < data[i].ct_fz.length; cf++) {
+                             $(".p_list_ul li").eq(i).find('.p_list_ans_be02').append('<a>' + data[i].ct_fz[cf] + '</a>');
+
+                         }
+                         for (var ct = 0; ct < data[i].ct_z.length; ct++) {
+                             $(".p_list_ul li").eq(i).find('.p_list_ans_be01').append('<a>' + data[i].ct_z[ct] + '</a>');
+                         }
                  }
 
                  $(".p_topic_ever_box").append('<div style="margin-top: 10px;color: #ccc;clear: both;"><i class="iconfont" style="font-size: 14px;color: #31bc91;margin-right: 5px;">&#xe646;</i>小提示：点击题号可以定位到相应题目</div>');
