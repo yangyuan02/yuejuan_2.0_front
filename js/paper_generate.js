@@ -43,8 +43,6 @@ $(function() {
 	}
 
 
-	// show_test_cont(local_id);
-	// localStorage.removeItem("test_local_id");
 	function show_list(exam_list,list_page) {
 		console.log(exam_list)
 		var a = exam_list.length;
@@ -55,17 +53,12 @@ $(function() {
 				var arr = '<li data-page="'+list_page+'" class="exam-' + exam_list[i].id + '" data-id=' + exam_list[i].id + '><h6 class="name">' + exam_list[i].name + '</h6><p class="time">' + exam_list[i].created_at + '</p></li>'
 				$('.list-ul').append(arr);
 				// 判断没有选中的列表，默认第一个选中，并显示详情
-				// var first_id = $('.list-ul li').eq(0).data('id');
-				// console.log(first_id)
 				if (!$('.list-ul li').hasClass('active') && !local_id ) {
 					$('.list-ul li').eq(0).addClass('active');
 					console.log(local_id)
 					show_test_cont($('.list-ul li').eq(0).data('id'),$('.list-ul li').eq(0).attr('data-page'));
 					window.localStorage.setItem("exam_id",exam_list[0].id)//考试id
 				}
-				// else{
-				// 	show_test_cont(local_id,list_page)
-				// }
 			};
 		};
 		console.log(local_id,back_page);
@@ -80,7 +73,6 @@ $(function() {
 			};
 		}
 		localStorage.removeItem("test_local_id");
-		// show_test_cont($('.list-ul li').eq(0).data('id'));
 	}
 
 
@@ -116,8 +108,6 @@ $(function() {
 		$('#test-title').attr('data-page', data_page);
 		$('.test-name').val(detail_data.name); //考试名称
 		$('.test-name').attr('data-id', test_id);
-		// $('.test-grade').val(detail_data.grade.name); //考试班级
-		// $('.test-grade').attr('data-id', detail_data.grade.id);
 		$('.range').val(detail_data.range); //查看范围
 		var x = detail_data.exam_type;
 		switch (x){
@@ -143,17 +133,6 @@ $(function() {
 		$('.grade-type').val(x); //考试类型
 		// 班级信息
 
-		// $('#show-class').html('');
-		// var classrooms_length = detail_data.exam_classrooms.length;
-		// for (var i = 0; i < classrooms_length; i++) {
-		// 	var class_arr = '<li class="on">' + detail_data.exam_classrooms[i].name + '<i class="iconfont">&#xe619;</i></li>';
-		// 	$('#show-class').append(class_arr);
-		// };
-		// 科目信息
-		// detail_data.subjects.name;
-		// $('#modal-list').html('');
-		// var all_grade = '<li><div class="check-box"><input type="checkbox" value="0" id="modal-all" class="check" name="modal-subject"><label for="modal-all">全部</label></div></li>' ;
-		// $('#modal-list').append(all_grade);
 		$('.subject-list tbody').html('');
 		on_checked = [];
 		var subjects_length = detail_data.subjects.length;
@@ -166,30 +145,19 @@ $(function() {
 			if(c_id==detail_data.subjects[i].customer_id || detail_data.is_modify){
 				console.log(i)
 				$('.tr-'+i+'').find('.operation').show();
-				// $('.tr-'+i+'').siblings('tr').find('.operation').html('');
-				// if(i>=0){
 					$('#operation-th').show();
-				// }
 			}else{
 				console.log(i)
 				$('.tr-'+i+'').find('.operation').html('');
-				// $('#operation-th').hide();
 			}
 
 		};
 		// 考试角色判断是否有权限操作修改删除功能
 		console.log(!detail_data.is_modify)
 		if (!detail_data.is_modify) {
-			// $('.dele').hide();
-			// $('#edit').hide();
-			// $('#new-create').hide();
-			// $('#operation-th').hide();
-			// $('.operation').hide();
 			$('.request-school').hide();
 			$('#dele-test').hide();
 		} else {
-			// $('.operation').show();
-			// $('#operation-th').show();
 			$('.request-school').show();
 			$('#dele-test').show();
 		}
@@ -230,7 +198,6 @@ $(function() {
 		$('.teacher-set').hide();
 		$('.second-new').show();
 		$(this).addClass('active').siblings().removeClass('active');
-		// console.log($(this).data('id'));
 		show_test_cont($(this).data('id'),$(this).attr('data-page'));
 	})
 		// 搜索考试
@@ -273,10 +240,8 @@ $(function() {
 		var sum = this.scrollHeight;
 		var total = $(this).scrollTop() + $(this).height();
 		var compare = total*list_page;
-		// console.log(sum,total,compare)
 		if (sum <= total && total<=compare) {
 			list_page++;
-			// console.log(list_page);
 			first_list(list_page);
 		}
 	});
@@ -377,7 +342,6 @@ $(function() {
 			headers: {
 				'Authorization': "Bearer " + isLogin
 			},
-			// data:{'grade_id':show_grade_id},
 			dataType: "JSON",
 			type: "get",
 			success: function(data) {
@@ -460,22 +424,11 @@ $(function() {
 	// 提交新建考试表单
 	$('#submit').on('click', function() {
 		var school_name = $('input[name="school"]').val();
-		// var test_grade = $('#test-grade').find("option:selected").data('id');
 		var test_range = $('#test-range').val();
 
 		var exam_type = $('#test-type').val();
-		// var test_class = $('#grade').find("input[type='checkbox']:checked").length;
 		var test_subject = $('#subject').find("input[type='checkbox']:checked").length;
-		// var class_arr = [];
 		var sub_arr = [];
-		// for (var i = 0; i < test_class; i++) {
-		// 	class_arr.push($($('#grade').find("input[type='checkbox']:checked")[i]).data('id'));
-		// };
-		// // console.log(class_arr)
-		// if ($('#grade').find('#all').is(':checked')) {
-		// 	class_arr.shift();
-		// 	class_arr;
-		// }
 		for (var i = 0; i < test_subject; i++) {
 			sub_arr.push($($('#subject').find("input[type='checkbox']:checked")[i]).data('id'));
 		};
@@ -492,13 +445,10 @@ $(function() {
 		if (school_name && test_range && test_subject != 0 && exam_type) {
 			var test_json = {
 					'name': school_name,
-					// 'grade_id': test_grade,
 					'range': test_range,
-					// 'exam_classrooms': class_arr,
 					'subjects': sub_arr,
 					'exam_type': exam_type
 				}
-				// console.log(test_json);
 			$.ajax({
 				url: ajaxIp + "/api/v2/exams",
 				headers: {
@@ -549,7 +499,6 @@ $(function() {
 		var subject_json = {
 			'subjects': sub_arr
 		};
-		// console.log(subject_json);
 		var grade_data_id = $('.test-grade').attr('data-id');
 		var test_id = $('.test-name').attr('data-id');
 		$.ajax({
@@ -591,8 +540,6 @@ $(function() {
 
 	$('body').on('click', 'input[name="check"]', function() {
 		var $graBox = $("input[name='check']");
-		// $graBox.length=$("input[name='check']").length;
-		// console.log($("input[name='check']:checked").length,$graBox.length);
 		$("#all").prop("checked", $graBox.length == $("input[name='check']:checked").length ? true : false);
 	});
 
@@ -642,11 +589,7 @@ $(function() {
 				'name': new_name
 			},
 			success: function(data) {
-				// console.log(data);
-				// $('.list-ul').html('');
-				// list_page = 1;
-				// first_list();
-				show_test_cont(test_id);
+				// show_test_cont(test_id);
 			},
 			error: function() {
 				// alert('请稍后从新尝试登录或者联系管理员');
@@ -686,7 +629,6 @@ $(function() {
 		$('.modal-main').animate({
 			'top': '50%',
 			'opacity': 1,
-			// 'width': '765px'
 		}, 500);
 		$('.modal-shadow').animate({
 			'opacity': .3
@@ -907,7 +849,6 @@ $(function() {
 			},
 			type: "DELETE",
 			success: function(data) {
-				// console.log(data);
 				var test_id = $('.test-name').attr('data-id');
 				show_test_cont(test_id);
 			},
@@ -944,7 +885,6 @@ $(function() {
 			},
 			type: "DELETE",
 			success: function(data) {
-				// console.log(data);
 				$('.list-ul').html('');
 				list_page = 1;
 				first_list(list_page);
@@ -999,14 +939,6 @@ $(function() {
 			}
 		});
 	}
-	// function show_html_item(item_group,data_teacher){
-	// 	console.log(item_group);
-	// 	console.log(data_teacher)
-	// 	var item_length = item_group.length;
-	// 	for (var i = 0; i < item_length; i++) {
-	// 		console.log(item_group[i].id);
-	// 	};
-	// }
 	// 显示当前科目考试的审核老师
 	function show_check_teacher(exam_id, exam_subject_id) {
 		$('.look-table tbody').html('');
@@ -1049,8 +981,6 @@ $(function() {
 			$('.look-table tbody').append(item_li);
 			console.log(arr_num, i, j);
 			for (var z = 0; z < arr_num.length; z++) {
-				// console.log(data_teacher[arr_num[z]].name);
-				// console.log(data_teacher[arr_num[z]].type);
 				var li_cont = '<li class="on" answer-id="' + data_teacher[arr_num[z]].answer_id + '"><span data-id="' + data_teacher[arr_num[z]].id + '">' + data_teacher[arr_num[z]].name + '</span></li>'; //<i class="iconfont">&#xe61b;</i>
 				// 判断是否为阅卷老师
 				if (data_teacher[arr_num[z]].type == 'examination') {
@@ -1142,7 +1072,6 @@ $(function() {
 			for (var z = 0; z < is_all.length; z++) {
 				if(is_extra==$(is_all[z]).attr('value')){
 					$(is_all[z]).attr('selected', true);
-					// get_student_grade(is_extra);
 				}
 			};
 
@@ -1247,7 +1176,6 @@ $(function() {
 				$('#student-modal #change-student-grade').append(option_name);
 			};
 			$('#student-modal #change-student-grade').attr('data-id', info[0].id);
-			// show_modal_subject(modal_grade[0].id);
 		}
  	}
 
@@ -1309,8 +1237,6 @@ $(function() {
 
 	$('body').on('click', 'input[name="student-name"]', function() {
 		var $graBox = $("input[name='student-name']");
-		// $graBox.length=$("input[name='student-name']").length;
-		// console.log($("input[name='student-name']:checked").length,$graBox.length);
 		$("#student-modal #all-student").prop("checked", $graBox.length == $("input[name='student-name']:checked").length ? true : false);
 		var this_text = $(this).parents('li').find('.student-name').text();
 		var this_id = $(this).parents('li').find('.student-name').data('id');
@@ -1335,9 +1261,6 @@ $(function() {
   // 合并考试
   $('body').on('click', 'input[name="exam-name"]', function() {
 		var $graBox = $("input[name='exam-name']");
-		// $graBox.length=$("input[name='exam-name']").length;
-		// console.log($("input[name='exam-name']:checked").length,$graBox.length);
-		// $("#merge-exam-modal #all-student").prop("checked", $graBox.length == $("input[name='exam-name']:checked").length ? true : false);
 		var this_text = $(this).parents('li').find('.exam-name').text();
 		var this_id = $(this).parents('li').find('.exam-name').data('id');
 		var exam_subject_id = $(this).parents('li').find('.exam-name').attr('exam_subject_id');
@@ -1384,7 +1307,6 @@ $(function() {
 				$(student_left_li[i]).find('input').prop('checked', false);
 			};
 		};
-		// $('body').find('#student-modal #all-student').prop('checked', false);
 		$(this).parent().remove();
 	});
 
@@ -1398,10 +1320,7 @@ $(function() {
 		for (var i = 0; i < student_info_length; i++) {
 			classroom_ids.push(parseInt($(student_info[i]).find('span').eq(0).attr('data-id')));
 		};
-		// var data_value = {'exam_id':exam_id,'classroom_ids':classroom_ids};
 		add_student_info(exam_id,classroom_ids);
-		// console.log(exam_id)
-		// show_test_cont(exam_id);
 	});
 
 	function add_student_info(id,value){
@@ -1506,7 +1425,6 @@ $(function() {
 		};
 	}
 
-	// var teachr_list_page = 1;
 	function request_teacher(grade_id, subject_id) {
 		if (grade_id == undefined && subject_id == undefined) {
 			$.ajax({
@@ -1533,7 +1451,6 @@ $(function() {
 			});
 		} else {
 			console.log(grade_id, subject_id)
-				// teachr_list_page=1
 			$.ajax({
 				url: ajaxIp + "/api/v2/teachers",
 				headers: {
@@ -1715,8 +1632,6 @@ $(function() {
 
 	$('body').on('click', 'input[name="teacher-name"]', function() {
 		var $graBox = $("input[name='teacher-name']");
-		// $graBox.length=$("input[name='teacher-name']").length;
-		// console.log($("input[name='teacher-name']:checked").length,$graBox.length);
 		$("#teacher-modal #all-teacher").prop("checked", $graBox.length == $("input[name='teacher-name']:checked").length ? true : false);
 		var this_text = $(this).parents('li').find('.teacher-name').text();
 		var this_id = $(this).parents('li').find('.teacher-name').data('id');

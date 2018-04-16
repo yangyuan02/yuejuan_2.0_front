@@ -1,7 +1,6 @@
 $(function(){
 	var height = $(window).height()-$('#header').height()-$('#footer').height()-180;
 	$('.message-box').css({
-		// 'height': height,
 		'min-height': height
 	});
 	var isLogin = localStorage.getItem("token");
@@ -28,9 +27,6 @@ $(function(){
 	// 显示消息
 	function show_info(detail_info){
 		var detail_length = detail_info.length;
-		// if (detail_length) {
-		// 	$('.m-count').show();
-		// };
 		$('.message-list').html('');
 		console.log(cur_port)
 		var limg;
