@@ -19,12 +19,10 @@ $(function() {
 	}
 
 	var school_id;
-	// var school_grades_array = [];
 	var isTrueFalse = true;
 	var isAdd = true;
 	var isStudent = true;
 	selectALl(null,null);
-	// students_selectALl(null,null);
 	selectGrades('.user-information-right');
 	selectGrades('.user-change-password');
 	selectGrades('.temporary-student-right');
@@ -49,7 +47,6 @@ $(function() {
 			batch_export('.user-information-right',["grade_id",grade_id]);
 		}
 	})
-	// batch_export('.user-information-right',null);
 
 	// 导出学生
 	$('.user-change-password .Lead-in-student a').click(function(){
@@ -75,7 +72,6 @@ $(function() {
 			batch_export('.user-change-password',["grade_id",grade_id]);
 		}
 	})
-	// batch_export('.user-change-password',null);
 
 		// 导出临时学生
 	$('.temporary-student-right .Lead-in-student a').click(function(){
@@ -101,8 +97,6 @@ $(function() {
 			batch_export('.temporary-student-right',["grade_id",grade_id]);
 		}
 	})
-	// batch_export('.temporary-student-right',null);
-	// schoolGrades();
 	$('#inPath').change(function(){
 		inputFlileName()
 	})
@@ -354,7 +348,6 @@ $(function() {
 		}
 		var iDiv = $('<div data-url='+file+'></div>')
 		iDiv.text(fileName);
-		// iDiv.data('url',file);
 		iDiv.css({'display':'inline-block','color':'#666','background':'#dcf5f0','padding':'0 10px','height':'26px','border-radius':'2px','margin-right':'5px'});
 		$('#upfile').append(iDiv);
 
@@ -488,13 +481,10 @@ $(function() {
 
 	$('.user-information-right #select-grade').change(function(){
 		if($(this).val()!=0){
-			// $('.user-information-right #select-sujects').html('<option value="0">全部科目</option>');
 			selectSubjects($(this).val());
 			selectALl(["grade_id",$(this).val()]);
-			// batch_export('.user-information-right',["grade_id",$(this).val()]);
 		}else{
 			selectALl(null,null);
-			// batch_export('.user-information-right',null);
 			$('.user-information-right #select-sujects').html('<option value="0">全部科目</option>');
 		}
 
@@ -506,10 +496,8 @@ $(function() {
 			$('.user-change-password #select-sujects').html('<option value="0">全部班级</option>');
 			studentSelectSubjects($(this).val(),'.user-change-password');
 			students_selectALl(["grade_id",$(this).val()]);
-			// batch_export('.user-change-password',["grade_id",$(this).val()]);
 		}else{
 			students_selectALl(null,null);
-			// batch_export('.user-change-password',null);
 			$('.user-change-password #select-sujects').html('<option value="0">全部班级</option>');
 		}
 
@@ -525,10 +513,8 @@ $(function() {
 				"grade_id",$(this).val(),
 			]
 			students_selectALl(iData);
-			// batch_export('.temporary-student-right',["grade_id",$(this).val()]);
 		}else{
 			students_selectALl(["is_extra",true]);
-			// batch_export('.temporary-student-right',null);
 			$('.temporary-student-right #select-sujects').html('<option value="0">全部班级</option>');
 		}
 
@@ -541,12 +527,10 @@ $(function() {
 				"subject_id",$(this).val(),
 			]
 			selectALl(iData);
-			// batch_export('.user-information-right',iData);
 		}else if($(this).val()==0 && $('.user-information-right #select-grade').val()!=0){
 			$('.user-information-right #select-sujects').html('<option value="0">全部科目</option>');
 			selectSubjects($('.user-information-right #select-grade').val());
 			selectALl(["grade_id",$('.user-information-right #select-grade').val()]);
-			// batch_export('.user-information-right',["grade_id",$('.user-information-right #select-grade').val()]);
 		}
 	});
 
@@ -557,12 +541,10 @@ $(function() {
 				"classroom_id",$(this).val(),
 			]
 			students_selectALl(iData);
-			// batch_export('.user-change-password',iData);
 		}else if($(this).val()==0 && $('.user-change-password #select-grade').val()!=0){
 			$('.user-change-password #select-sujects').html('<option value="0">全部年级</option>');
 			studentSelectSubjects($('.user-change-password #select-grade').val(),'.user-change-password');
 			students_selectALl(["grade_id",$('.user-change-password #select-grade').val()]);
-			// batch_export('.user-change-password',["grade_id",$('.user-change-password #select-grade').val()]);
 		}
 	});
 
@@ -574,8 +556,6 @@ $(function() {
 				"classroom_id",$(this).val(),
 			]
 			students_selectALl(iData);
-			// batch_export('.temporary-student-right',["grade_id",$('.temporary-student-right #select-grade').val(),
-				// "classroom_id",$(this).val()]);
 		}else if($(this).val()==0 && $('.temporary-student-right #select-grade').val()!=0){
 			$('.temporary-student-right #select-sujects').html('<option value="0">全部年级</option>');
 			studentSelectSubjects($('.temporary-student-right #select-grade').val(),'.temporary-student-right');
@@ -584,7 +564,6 @@ $(function() {
 				"grade_id",$('.temporary-student-right #select-grade').val(),
 			]
 			students_selectALl(iData);
-			// batch_export('.temporary-student-right',["grade_id",$('.temporary-student-right #select-grade').val()]);
 		}
 	});
 
@@ -894,14 +873,11 @@ $(function() {
 
 
 	function selectGrades(name){
-		// console.log(1)
 		var is_extra;
 		if(name=='.user-change-password'){
-			// console.log('xuesheng1');
 			is_extra = false;
 		}
 		if(name=='.temporary-student-right'){
-			// console.log('xuesheng2');
 			is_extra = true;
 		}
 
@@ -928,7 +904,6 @@ $(function() {
 		$(name+' #select-grade').html('<option value="0">全部年级</option>');
 		for (var i = 0; i < data.length; i++) {
 			var iOption = '<option value="'+data[i].id+'">'+data[i].name+'</option>'
-			// console.log(i)
 			$(name+' #select-grade').append(iOption);
 		}
 	}
@@ -962,7 +937,6 @@ $(function() {
 	    		console.log(data)
 	    		console.log(111111111111111)
 	  			selectSubjectsList(data , name);
-	  			// selectSubjectsList(data , '.temporary-student-right');
 
 	        },
 	        error: function(){
@@ -987,20 +961,10 @@ $(function() {
 				$(name+' #select-sujects').append(iOption);
 			}
 		}
-
-		// if(name == '.temporary-student-right'){
-		// 	for (var i = 0; i < data.length; i++) {
-		// 		var iOption = '<option value="'+data[i].id+'">'+data[i].name+'('+data[i].count+')</option>'
-		// 		$(name+' #select-sujects').append(iOption);
-		// 	}
-		// }
-
 	}
 
 
  	function teachers_list(data){
- 		// school_id = data[0].school.id;
- 		// console.log(school_id)
  		console.log(data)
  		$('.teachers-tabble tbody').html('');
  		for (var i = 0; i < data.length; i++) {
@@ -1104,10 +1068,6 @@ $(function() {
 			$('.teachers-propmt-wrap').show();
 
 			$('.teachers-propmt-wrap .modal-title').text('编辑老师信息');
-			// $('.teachers-propmt-wrap .small-prompt').text('删除后无法恢复');
-			// $('.teachers-propmt-wrap .small-xxx').text('');
-			// $('.reset-password-name').text($(this).data('name'));
-			// $('.first-div .add-list .teachers-grade').html('')
 
 			var thisId = $(this).data('id')
 			var iDataGrades;
@@ -1123,9 +1083,6 @@ $(function() {
 					$('.teachers-propmt-wrap #teachers-email').val(data.email);
 					$('.teachers-propmt-wrap #teachers-number').val(data.phone);
 					$('.teachers-propmt-wrap #teachers-role').val(data.role);
-					// $('.teachers-propmt-wrap #teachers-subject').val(data.subject.name);
-					// $('.teachers-propmt-wrap #teachers-grade').val(data.teacher_subjects[0].name);
-					// console.log(data.grades.name+'11111111111111111')
 					iDataGrades = data.teacher_subjects;
 					defaultRole = data.role;
 					$('.first-div > .add-list .teachers-grade').html('')
@@ -1308,13 +1265,10 @@ $(function() {
 						    		var child_qq;
 										for (var qq = 0; qq < data.length; qq++) {
 											if(gg_id==data[qq].id){
-												// console.log(gg_id,data[qq].id,qq)
 												child_qq = '<option value="'+data[qq].id+'" selected>'+data[qq].name+'</option>';
 											}else{
-												// console.log(qq)
 												child_qq = '<option value="'+data[qq].id+'">'+data[qq].name+'</option>';
 											}
-											// console.log(child_qq,rr)
 
 											$('.first-div .add-cont .add-list-'+rr+'').find('.teachers-grade').append(child_qq);
 										};
@@ -1346,7 +1300,6 @@ $(function() {
 						  					iOption_s= '<option value="'+data[jj].id+'">'+data[jj].name+'</option>';
 						  				}
 						  				console.log(iOption_s,rr)
-						  				// console.log($('.first-div .add-cont .add-list-'+rr+''))
 						  				$('.first-div .add-cont .add-list-'+rr+'').find('.teachers-subject').append(iOption_s);
 						  			}
 						      },
@@ -1402,9 +1355,6 @@ $(function() {
 			  					iOption_s+= '<option value="'+data[i]+'">'+data[i]+'</option>';
 			  				}
 
-			  				// $(iOption_s).attr('id', data.id);
-			  				// $(iOption_s).attr('value', data.name);
-			  				// $(iOption_s).text(data.name);
 			  			}
 			  			$('#teachers-role').html(iOption_s);
 			        },
@@ -1437,10 +1387,6 @@ $(function() {
 		    	success: function(data){
 						console.log(data)
 						$this.parents('.add-list').siblings('.add-cont').children('.add-list-'+(l_length+1)+'').find('.teachers-grade').html('');
-					// var thisDiv='<div class="allNew">全部<i class="iconfont gradesname" style="position:absolute;right:10px;top:0;">&#xe619;</i></div>';
-		    		// for (var i = 0; i < data.length; i++) {
-    				// 	thisDiv+='<div class="newTeacher newTea" data-id="'+data[i].id+'">'+data[i].name+'<i class="iconfont gradesname" style="position:absolute;right:10px;top:0;">&#xe619;</i></div>'
-		    		// }
 		    		for (var i = 0; i < data.length; i++) {
 		    			var thisDiv = '<option value="'+data[i].id+'">'+data[i].name+'</option>';
 		    			$this.parents('.add-list').siblings('.add-cont').children('.add-list-'+(l_length+1)+'').find('.teachers-grade').append(thisDiv);
@@ -1487,7 +1433,6 @@ $(function() {
 				        }
 				    });
 
-	    			// $('.newTeacher').on('click' , function(){
 	    			$('.add-list .teachers-grade').on('change' , function(){
 	    				var grade_ids = $(this).val();
 	    				console.log(grade_ids)
@@ -1503,7 +1448,6 @@ $(function() {
 				    		console.log(data);
 				    		console.log(class_info.html())
 				    		class_info.html('');
-				    		// $('.teachers-propmt-wrap .add-list .teachers-class').html('');
 				  			for (var i = 0; i < data.length; i++) {
 								var iOption = '<option value="'+data[i].id+'">'+data[i].name+'（'+data[i].count+'）</option>'
 								class_info.append(iOption);
@@ -1526,14 +1470,10 @@ $(function() {
 				    	success: function(data){
 				    		console.log(data)
 				    		var iOption_s;
-				    		// console.log(subject_info.html())
 			    			subject_info.html('');
 				  			for (var i = 0; i < data.length; i++) {
 				  					iOption_s+= '<option value="'+data[i].id+'">'+data[i].name+'</option>';
 
-				  				// $(iOption_s).attr('id', data.id);
-				  				// $(iOption_s).attr('value', data.name);
-				  				// $(iOption_s).text(data.name);
 				  			}
 				  			subject_info.html(iOption_s);
 				        },
@@ -1561,17 +1501,6 @@ $(function() {
 			var teachers_email = $('.teachers-propmt-wrap #teachers-email').val();
 			var teachers_number = $('.teachers-propmt-wrap #teachers-number').val();
 			var teachers_role = $('.teachers-propmt-wrap #teachers-role').val();
-			// var teachers_subject = $('.teachers-propmt-wrap #teachers-subject').val();
-			// var i_grade_ids = [];
-			// if($('#teachers-grade .newBack').length==0){
-			// 	for (var i = 0; i < $('.newTeacherBack').length; i++) {
-			// 		i_grade_ids[i] = $($('.newTeacherBack')[i]).data('id');
-			// 	}
-			// }else{
-			// 	for (var i = 1; i < $('.newTeacherBack').length; i++) {
-			// 		i_grade_ids[i-1] = $($('.newTeacherBack')[i]).data('id');
-			// 	}
-			// }
 			var teacher_subjects=[];
 			var all_id_info = $(this).parents('.teachers-propmt-wrap').find('.add-list');
 			for (var ll = 0; ll < all_id_info.length; ll++) {
@@ -1583,7 +1512,6 @@ $(function() {
 				teacher_subjects.push(obj);
 				JSON.stringify(teacher_subjects)
 			};
-			// grade_ids = i_grade_ids.join(',');
 			var iDatas = {
 				'phone':teachers_number,
 				'real_name':teachers_name,
@@ -1637,8 +1565,6 @@ $(function() {
 						'real_name':teachers_name,
 						'email':teachers_email,
 						'customer_role':teachers_role,
-						// 'grade_ids':i_grade_ids,
-						// 'subject_id':teachers_subject,
 						'teacher_subjects':JSON.stringify(teacher_subjects),
 			    	},
 			    	success: function(data){
@@ -1670,15 +1596,9 @@ $(function() {
  	}
 
  	function students_list(data){
- 		// school_id = data[0].school.id;
- 		// console.log(school_id)
  		console.log(data)
  		$('.students-tabble tbody').html('');
  		for (var i = 0; i < data.length; i++) {
- 		// 	var iGreads = [];
-			// for (var j = 0; j < data[i].grades.length; j++) {
-			// 	iGreads[j] =data[i].grades[j].name
-			// }
 
 			var iTr = '<tr style="border-bottom:1px solid #ccc;"><td>'+data[i].exam_no+'</td><td>'+data[i].real_name+'</td><td style="">'+(data[i].id_card_no==undefined?"":data[i].id_card_no)+'</td><td>'+(data[i].gender==undefined?"":data[i].gender)+'</td><td>'+(data[i].classroom==undefined?"":data[i].classroom.name)+'</td><td>'+(data[i].is_classroom_count?"是":"否")+'</td><td>'+(data[i].is_grade_count?"是":"否")+'</td><td class="table-modify"><span class="iconfont table-span" data-id="'+data[i].id+'">&#xe614;&nbsp;修改</span></td><td class="table-delete iconfont"><span class="iconfont table-span" data-id="'+data[i].id+'" data-name="'+data[i].real_name+'">&#xe616;&nbsp;删除</span></td></tr>'
  			$('.students-tabble tbody').append(iTr)
@@ -2029,9 +1949,6 @@ $(function() {
 						for (var i = 0; i < data.length; i++) {
 							iOption_s+= '<option value="'+data[i]+'">'+data[i]+'</option>';
 
-							// $(iOption_s).attr('id', data.id);
-							// $(iOption_s).attr('value', data.name);
-							// $(iOption_s).text(data.name);
 						}
 						$('#teachers-role').html(iOption_s);
 				},
@@ -2050,10 +1967,6 @@ $(function() {
 		    	success: function(data){
 					console.log(data)
 					$('.teachers-propmt-wrap .add-list .teachers-grade').html('');
-					// var thisDiv='<div class="allNew">全部<i class="iconfont gradesname" style="position:absolute;right:10px;top:0;">&#xe619;</i></div>';
-		    		// for (var i = 0; i < data.length; i++) {
-    				// 	thisDiv+='<div class="newTeacher newTea" data-id="'+data[i].id+'">'+data[i].name+'<i class="iconfont gradesname" style="position:absolute;right:10px;top:0;">&#xe619;</i></div>'
-		    		// }
 		    		for (var i = 0; i < data.length; i++) {
 		    			var thisDiv = '<option value="'+data[i].id+'">'+data[i].name+'</option>';
 		    			$('.add-list .teachers-grade').append(thisDiv);
@@ -2072,9 +1985,6 @@ $(function() {
 					  			for (var i = 0; i < data.length; i++) {
 					  					iOption_s+= '<option value="'+data[i].id+'">'+data[i].name+'</option>';
 
-					  				// $(iOption_s).attr('id', data.id);
-					  				// $(iOption_s).attr('value', data.name);
-					  				// $(iOption_s).text(data.name);
 					  			}
 					  			$('.add-list .teachers-subject').html(iOption_s);
 					        },
@@ -2108,29 +2018,6 @@ $(function() {
 	    			$('.add-list .teachers-grade').on('change' , function(){
 	    				var grade_ids = $(this).val();
 	    				console.log(grade_ids)
-		    // 			$(this).toggleClass('newTeacherBack');
-		    // 			if($('.newTeacherBack').length == (data.length)){
-						// 	$('.allNew').addClass('newBack');
-		    // 				$('.allNew').removeClass('newTeacherBack');
-
-		    // 			}else{
-		    // 				$('.allNew').removeClass('newBack');
-		    // 				// $('.allNew').removeClass('newTeacherBack');
-
-		    // 			}
-					 //    var grade_ids = [];
-						// if($('#teachers-grade .newBack').length==0){
-						// 	for (var i = 0; i < $('.newTeacherBack').length; i++) {
-						// 		grade_ids[i] = $($('.newTeacherBack')[i]).attr('data-id');
-						// 	}
-						// }else{
-						// 	for (var i = 0; i < $('.newTeacherBack').length; i++) {
-						// 		grade_ids[i] = $($('.newTeacherBack')[i]).attr('data-id');
-						// 	}
-						// }
-
-
-						// grade_ids = grade_ids.join(',');
 				    var class_info = $(this).parent().find('.teachers-class');
 						$.ajax({
 				     	type: "GET",
@@ -2141,7 +2028,6 @@ $(function() {
 				    		console.log(data);
 				    		console.log(class_info.html())
 				    		class_info.html('');
-				    		// $('.teachers-propmt-wrap .add-list .teachers-class').html('');
 				  			for (var i = 0; i < data.length; i++) {
 								var iOption = '<option value="'+data[i].id+'">'+data[i].name+'（'+data[i].count+'）</option>'
 								class_info.append(iOption);
@@ -2164,14 +2050,10 @@ $(function() {
 					    	success: function(data){
 					    		console.log(data)
 					    		var iOption_s;
-					    		// console.log(subject_info.html())
 				    			subject_info.html('');
 					  			for (var i = 0; i < data.length; i++) {
 					  					iOption_s+= '<option value="'+data[i].id+'">'+data[i].name+'</option>';
 
-					  				// $(iOption_s).attr('id', data.id);
-					  				// $(iOption_s).attr('value', data.name);
-					  				// $(iOption_s).text(data.name);
 					  			}
 					  			subject_info.html(iOption_s);
 					        },
@@ -2182,55 +2064,6 @@ $(function() {
 					        }
 					    });
 		    		})
-						// $('.allNew').on('click' , function(){
-				  //   			$(this).toggleClass('newBack');
-				  //   			if($(this).hasClass('newBack')){
-						// 				for (var i = 0; i < $('.newTea').length; i++) {
-						// 					$($('.newTea')[i]).addClass('newTeacherBack');
-						// 				}
-				  //   			}else{
-						// 				for (var i = 0; i < $('.newTea').length; i++) {
-						// 					$($('.newTea')[i]).removeClass('newTeacherBack');
-						// 				}
-				  //   			}
-
-				  //   			var grade_ids = [];
-						// 		if($('#teachers-grade .newBack').length==0){
-						// 			for (var i = 0; i < $('.newTeacherBack').length; i++) {
-						// 				grade_ids[i] = $($('.newTeacherBack')[i]).data('id');
-						// 			}
-						// 		}else{
-						// 			for (var i = 0; i < $('.newTeacherBack').length; i++) {
-						// 				grade_ids[i] = $($('.newTeacherBack')[i]).data('id');
-						// 			}
-						// 		}
-						// 		grade_ids = grade_ids.join(',');
-						// 		console.log(grade_ids)
-				  //   			$.ajax({
-						// 	     	type: "GET",
-						// 	     	url: ajaxIp+"/api/v2/teachers/find_subject_by_grade",
-						// 	    	dataType: "JSON",
-						// 	    	headers: {'Authorization': "Bearer " + isLogin},
-						// 	    	data:{grade_ids},
-						// 	    	success: function(data){
-						// 	    		console.log(data)
-						// 	    		var iOption_s='';
-						// 	  			for (var i = 0; i < data.length; i++) {
-						// 	  					iOption_s+= '<option value="'+data[i].id+'">'+data[i].name+'</option>';
-
-						// 	  				// $(iOption_s).attr('id', data.id);
-						// 	  				// $(iOption_s).attr('value', data.name);
-						// 	  				// $(iOption_s).text(data.name);
-						// 	  			}
-						// 	  			$('#teachers-subject').html(iOption_s);
-						// 	        },
-						// 	        error: function(){
-						// 	        	// alert('请稍后从新尝试登录或者联系管理员');
-						// 	        	// localStorage.clear();
-						// 	        	// window.location.href = './login'
-						// 	        }
-						// 	    });
-				  //   		})
 
 				}
 		    })
@@ -2457,11 +2290,9 @@ $(function() {
   	$('.user-right').eq(index).show().siblings('.user-right').hide();
   	if($(this).hasClass('temporary-student')){
   		students_selectALl(["is_extra",true]);
-  		// batch_export('.temporary-student-right',null);
   	}
   	if($(this).hasClass('change-password')){
   		students_selectALl(["is_extra",false]);
-  		// batch_export('.user-change-password',null)
   	}
   	if($(this).hasClass('word-import')){
   		get_all_word_exam();
@@ -2477,19 +2308,6 @@ $(function() {
   	}
   });
 
-	// $('.user-information').on('click', function(){
-	// 	$('.change-password').removeClass('user-on');
-	// 	$('.user-information').addClass('user-on');
-	// 	$('.user-information-right').show();
-	// 	$('.user-change-password').hide();
-	// })
-
-	// $('.change-password').on('click', function(){
-	// 	$('.change-password').addClass('user-on');
-	// 	$('.user-information').removeClass('user-on');
-	// 	$('.user-information-right').hide();
-	// 	$('.user-change-password').show();
-	// })
 
 
 	$('.export-bar-code').on('click' , function(){
@@ -2503,7 +2321,6 @@ $(function() {
 		
 		var gg=$(this).parents('.set-up-search').find('#select-grade  option:selected').text();
 		var ss=$(this).parents('.set-up-search').find('#select-sujects  option:selected').text().substr(0,2);
-		// alert(ss);
 		document.title = $('#school-name').val()+gg+ss;
 		printBarcode(is_extra,gg,ss);
 	})
@@ -2549,20 +2366,6 @@ $(function() {
 	    }
 	    //获取用户
 	    if (grade_id != 0 && classroom_id != 0){
-	      // $.ajax({
-	      //   url: "<%= get_print_students_system_manage_students_path %>",
-	      //   data: JSON.stringify({grade_id: grade_id, classroom_id: classroom_id}),
-	      //   type: "POST",
-	      //   dataType: "json",
-	      //   contentType: 'application/json; charset=UTF-8',
-	      //   success: function(data){
-	      //    if(data.alert != ""){
-	      //     alert(data.alert);
-	      //     return;
-	      //    }else{
-	      //       createCode(0, data.students);
-	      //     }
-	      //   }
 	    	$.ajax({
 		     	type: "GET",
 		     	url: ajaxIp+"/api/v2/students/student_barcode",
@@ -2601,7 +2404,6 @@ $(function() {
 	        pageDIV.style['margin-left']="auto";
 	        pageDIV.style['margin-right']="auto";
 	        pageDIV.style['margin-top']="0px";
-	        // pageDIV.style['border']="1px solid #31bc91";
 	        if(i<list.length-1)
 	          pageDIV.style.pageBreakAfter="always";
 	        var bmp=document.createElement('div');
@@ -3213,7 +3015,6 @@ $(function() {
 					  success: function(data){
 					  	console.log(data);
 					  	show_grade_info(data);
-					  	// page_test_list(data.total_count,page_data_info);
 					  },
 					  error: function(){
 					      // alert('请稍后从新尝试登录或者联系管理员');
@@ -3318,14 +3119,6 @@ $(function() {
 	})
 
 	// 查看试卷结构
-	// $('body').on('click','.look-button',function(){
-	// 	$('.look-score-wrap .modal-main').animate({'top': '50%','opacity': 1},500);
-	// 	$('.look-score-wrap .modal-shadow').animate({'opacity': 0.3},500);
-	// 	$('.look-score-wrap').show();
-	// 	var exam_id = $('.score-import-right #select-exam').attr('data-id');
-	// 	var subject_id = $('.score-import-right #select-sujects').attr('data-id');
-	// 	get_score_info(exam_id,subject_id)
-	// })
 
 	function get_score_info(e_id,s_id){
 		$.ajax({
@@ -3368,7 +3161,6 @@ $(function() {
 	$('.score-import-right .student-search-button').click(function(){
 		$('.score-import-right #search-num').change();
 	})
-	// var look_infos;
 
 	// 导入成绩按钮
 	$('.import-button').click(function(){
@@ -3438,8 +3230,6 @@ $(function() {
 		   	url: ajaxIp+"/api/v2/import_student_scores/import_excel",
 		  	dataType: "JSON",
 		  	data: formData,
-		  	// data:({'exam_id':e_id,'subject_id':s_id,'import_score':formData}),
-		  	// data: formData,
 		  	headers: {'Authorization': "Bearer " + isLogin},
 		  	processData : false,
 				contentType : false,
@@ -3527,7 +3317,6 @@ $(function() {
 		$('.set-score-wrap .set-table tbody').html('');
 		$('.set-score-wrap .set-table').attr('data-id',import_score_id);
 		var total_num = $('.set-score-wrap').find('.total-num');
-		// total_num.text('');
 		var num=0;
 		for (var i = 0; i < item.length; i++) {
 			var set_li = '<tr class="parent-tr item-tr-'+i+'" data-id="'+item[i].answer_id+'"><td width="50%">'+item[i].answer_name+'<a href="javascript:;"><i class="iconfont bottom">&#xe622;</i><i class="iconfont up none">&#xe624;</i></a></td><td width="30%"><select name="" class="set-select"><option value="单选题">单选题</option><option value="多选题">多选题</option><option value="填空题">填空题</option><option value="是非题">是非题</option><option value="作文题">作文题</option><option value="其他题">其他题</option></select></td><td width="20%"><span data-id="'+item[i].answer_id+'">'+item[i].score+'</span></td></tr><tr class="child-tr none"><td colspan="3"><div class="child-box"><ul class="child-title"><li style="width:50%">题号</li><li style="width:30%">&nbsp;</li><li style="width:20%">总分值</li></ul><ul class="child-cont"></ul></div></td></tr>'
@@ -3559,7 +3348,6 @@ $(function() {
 			$(this).children('.bottom').removeClass('none');
 		}
 		var child_tr = $(this).parents('.parent-tr').next('.child-tr');
-		// child_tr.toggle();
 		if(child_tr.hasClass('none')){
 			child_tr.removeClass('none');
 			child_tr.siblings('.child-tr').addClass('none');
@@ -3605,15 +3393,6 @@ $(function() {
 		};
 	}
 
-// [{
-// 	answer_id: 1,
-// 	item: ‘单选题’,
-// 	answer_settings: [{
-// 		answer_setting_id: 1,
-// 		num: ‘2-1’,
-// 		score: ‘2.0’
-// 	}]
-// }]
 
 
   // 设置题组总分
@@ -3970,7 +3749,6 @@ $(function() {
 	      }
 	    });
 		}else{
-			// batch_export('.user-information-right',null);
 			$('.import-word-wrap #paper-subject').html('<option value="0">全部科目</option>');
 		}
 	});
@@ -4063,11 +3841,6 @@ $(function() {
 	  	headers: {'Authorization': "Bearer " + isLogin},
 	  	success: function(data){
 	  		console.log(data);
-	  		// for (var i = 0; i < data.length; i++) {
-	  		// 	var pp='<p>'+data[i].content+'</p>';
-	  		// 	$('.word-import-right').append(pp);
-
-	  		// };
 	  		word_exam_list(data);
       },
       error: function(){
@@ -4171,7 +3944,6 @@ $(function() {
   			}
       },
       error: function(){
-      	// alert();
       }
     });
 	});

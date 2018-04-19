@@ -295,13 +295,11 @@ $(document).ready(function () {
 		    var pos=o.lastIndexOf("\\");
 		    return o.substring(pos+1);
 		}
-		// $(name).prev().find('div').length
 		if($(name).prev().find('div').length==0){
 			$(name).prev().html('');
 		}
 		var iDiv = $('<div data-url='+file+'></div>')
 		iDiv.text(fileName);
-		// iDiv.data('url',file);
 		iDiv.css({'display':'inline-block','color':'#666','background':'#dcf5f0','padding':'0 10px','height':'26px','border-radius':'2px','margin-right':'5px'});
 		$(name).prev().append(iDiv);
 	}
@@ -627,11 +625,7 @@ $(document).ready(function () {
 		$('.modal-course-wrap').find('#select-subjects').css({
 			'opacity': 0.5,
 		});
-		// $('.modal-course-wrap').find('#select-grade').val(info.grade_id);
-		// $('.modal-course-wrap').find('#select-subjects').val(info.subject_id);
-		// $('.modal-course-wrap').find('#select-teachers').val(info.teacher_info_id);
 		$('.modal-course-wrap').find('.student-code').val(info.amount);
-		// console.log($('.modal-course-wrap').find('#select-grade').html());
 		console.log(info.grade_id)
 		console.log(info.subject_id)
 		console.log(info.teacher_info_id)
@@ -1139,8 +1133,6 @@ $(document).ready(function () {
 
 			// 显示班级课程
 			$('.tr_'+student_info[i].id+'').find('.all_change_course ul').html('');
-			// console.log(student_info[i].classroom_courses)
-			// console.log(student_info[i].student_courses)
 			var classroom_info =student_info[i].classroom_courses;
 			var classroom_checked_info =student_info[i].student_courses;
 			for (var j = 0; j < classroom_info.length; j++) {
@@ -1153,7 +1145,6 @@ $(document).ready(function () {
 													'</li>';
 				$('.tr_'+student_info[i].id+'').find('.all_change_course ul').append(c_children);
 				for (var z = 0; z < classroom_checked_info.length; z++) {
-					// console.log(classroom_checked_info[z].id)
 					if(classroom_checked_info[z].id==classroom_info[j].id){
 						$('.tr_'+student_info[i].id+'').find('.all_change_course ul').find('.li_'+j+' input').attr('checked',true);
 					}
@@ -1208,8 +1199,6 @@ $(document).ready(function () {
 			$('.modal-wrap-course-change').attr('classroom-id',class_value);
 			$('.modal-wrap-course-change #course-left-list').html('');
 			$('.modal-wrap-course-change #course-right-list').html('');
-			// $('.modal-wrap-course-change #course-right-list').html('');
-			// $('.modal-wrap-course-change #course-left-list li');
  		}
  	});
 
@@ -1283,9 +1272,6 @@ $(document).ready(function () {
 	// 点击科目
   $('body').on('click', 'input[name="exam-name"]', function() {
 		var $graBox = $("input[name='exam-name']");
-		// $graBox.length=$("input[name='exam-name']").length;
-		// console.log($("input[name='exam-name']:checked").length,$graBox.length);
-		// $("#merge-exam-modal #all-student").prop("checked", $graBox.length == $("input[name='exam-name']:checked").length ? true : false);
 		var this_text = $(this).parents('li').find('.exam-name').text();
 		var this_id = $(this).parents('li').find('.exam-name').data('id');
 		if (this.checked) {

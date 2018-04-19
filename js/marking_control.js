@@ -24,7 +24,6 @@ $(function(){
 		  data:page_data,
 		  success: function(data){
 		  	console.log(data);
-		  	// show_test_info(data);
 		  	var f_info = data;
 		  	page_test_list(data.total_count,page_data_info,f_info);
 		  },
@@ -78,7 +77,6 @@ $(function(){
 					  success: function(data){
 					  	console.log(data);
 					  	show_test_info(data);
-					  	// page_test_list(data.total_count,page_data_info);
 					  },
 					  error: function(){
 					      // alert('请稍后从新尝试登录或者联系管理员');
@@ -297,8 +295,6 @@ $(function(){
 		  data:{'id': exam_id,'correct_pattern':select_value},
 		  success: function(data){
 		  	console.log(data)
-		  	// $(this).attr('value', select_value);
-		  	// $(this).attr("disabled","disabled");
 		  	edit_info(select_value,exam_id);
 		  },
 		  error: function(){
@@ -358,7 +354,6 @@ $(function(){
 		console.log(status)
 		$.ajax({
 		  type: "POST",
-		  // async:false,
 		  url: ajaxIp+"/api/v2/exam_subjects/change_correct_status",
 		  headers: {'Authorization': "Bearer " + isLogin},
 		  data:{'id': exam_id,'status':status},
@@ -381,14 +376,6 @@ $(function(){
 			var list_id = $(list_cont[i]).find('.test-name').attr('data-id');
 			if(id==list_id){
 				$(list_cont[i]).find('.test-status-select').attr('value', status);
-				// if(status==0){
-				// 	$(list_cont[i]).find('.stop-paper').show();
-				// 	$(list_cont[i]).find('.on').hide();
-				// }
-				// if(status==1){
-				// 	$(list_cont[i]).find('.stop-paper').hide();
-				// 	$(list_cont[i]).find('.on').show();
-				// }
 			}
 		};
 	}
@@ -417,7 +404,6 @@ $(function(){
 			data:page_data,
 		  success: function(data){
 		  	console.log(data);
-		  	// show_progress_info(data,name);
 		  	page_item_info(data.total_count,id,name,exam_id);
 		  },
 		  error: function(){
@@ -513,19 +499,14 @@ $(function(){
 				$('#reviewed-'+i+' ul').append(reviewed_li);
 			};
 			var par_id = $('.pr-'+i+'');
-			// get_section_info(progress_info.answers[i].answer_id,par_id);
 				$(par_id).after('');
 				var select_info = progress_info.answers[i].answer_section_crops;
 				var select_info_length = select_info.length;
-				// console.log(progress_info.answers[i].answer_section_crops)
 				for (var m = select_info_length-1; m >= 0; m--) {
 					var child_tr = '<tr class="child-trs child-trs-'+m+'" style="background:#fafafa" answer-id="'+select_info[m].answer_id+'" answers="'+select_info[m].answer_setting_ids+'"><td colspan="5" data-id="'+select_info[m].id+'"><a class="key-answer" href="javascript:;"><i class="iconfont">&#xe62a;</i>解锁试卷</a><a class="clear-items" style="display:none" href="javascript:;"><i class="iconfont">&#xe616;</i>清空题组</a>'+select_info[m].name+'</td><td colspan="5" class="test-operation"><a href="javascript:;"><span>批阅详情</span><i class="iconfont bottom">&#xe622;</i><i class="iconfont up none">&#xe624;</i></a></td></tr><tr class="child-tr none"><td colspan="10" style="text-align: center"><div class="child-box"><ul class="child-title"><li>阅卷老师</li><li>所在学校</li><li>批改数量</li><li>批阅速度</li><li>平均分</li></ul><ul class="child-cont"></ul></div></td></tr>';
 					$(par_id).after(child_tr);
-					// var par_id = $('.child-trs-'+i+'');
-					// console.log(par_id)
 					// 根据用户身份判断是否可以清空题组权限
 					var role_name = $('#role-name').val();
-					// console.log(role_name)
 					if(role_name=="超级管理员"){
 						$('.clear-items').show();
 					}
@@ -869,8 +850,6 @@ $(function(){
 
 	$('body').on('click', 'input[name="teacher-name"]', function() {
 		var $graBox = $("input[name='teacher-name']");
-		// $graBox.length=$("input[name='teacher-name']").length;
-		// console.log($("input[name='teacher-name']:checked").length,$graBox.length);
 		$("#all-teacher").prop("checked", $graBox.length == $("input[name='teacher-name']:checked").length ? true : false);
 		var this_text = $(this).parents('li').find('.teacher-name').text();
 		var this_id = $(this).parents('li').find('.teacher-name').data('id');
@@ -1128,12 +1107,6 @@ $(function(){
 		var id = $(this).parent().attr('data-id');
 		$('.modal-content').attr('data-id',id);
 		console.log(id)
-		// var exam_name = $('.test-pro-name').text();
-		// var exam_subject_id = $('.test-pro-name').attr('data-id');
-		// var exam_id = $('.test-pro-name').attr('exam-id');
-		// $('#text-name').val(exam_name);
-		// $('#text-id').val(exam_id);
-		// $('#text-s-id').val(exam_subject_id);
 	});
 
 
@@ -1143,7 +1116,6 @@ $(function(){
 		var exam_name = $('.test-pro-name').text();
 		var exam_subject_id = $('.test-pro-name').attr('data-id');
 		var exam_id = $('.test-pro-name').attr('exam-id');
-		// console.log(exam_name,exam_subject_id,exam_id)
 		$.ajax({
 		  type: "POST",
 		  url: ajaxIp+"/api/v2/section_crops/"+section_crop_id+"/redis_clear",
