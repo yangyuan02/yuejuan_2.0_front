@@ -161,7 +161,7 @@ $(function() {
 
         $(".edit_li_div01").slideUp(500);
 
-        var a = UE.getEditor('container02').getContentTxt();
+        var a = UE.getEditor('container02').getContent();
 
         $.ajax({
             type: "POST",
