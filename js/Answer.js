@@ -571,10 +571,22 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         itme_obj.block_height = 0
         itme_obj.num_question = 0
         itme_obj.num_of_option = 0
-        itme_obj.region_rect_x = $(".DataCode").offset().left - dot.left
-        itme_obj.region_rect_y = $(".DataCode").offset().top - dot.top
-        itme_obj.region_rect_width = $(".DataCode").outerWidth()
-        itme_obj.region_rect_height = $(".DataCode").outerHeight()
+
+        if($scope.infoBox==0){
+
+            itme_obj.region_rect_x = 1650
+            itme_obj.region_rect_y = 640
+            itme_obj.region_rect_width = 578
+            itme_obj.region_rect_height = 216
+
+        }else{
+            itme_obj.region_rect_x = 160
+            itme_obj.region_rect_y = 1300
+            itme_obj.region_rect_width = 400
+            itme_obj.region_rect_height = 200
+        } 
+        
+
         return itme_obj
     }
     function getStudentInfo() {//获取学号学生信息
