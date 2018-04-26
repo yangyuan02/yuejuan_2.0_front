@@ -685,7 +685,45 @@ body {
     top: -15px;
     right: -10px;
 }
-
+.grade_wrong_back_x {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 1px solid #31bc92;
+    text-align: center;
+    line-height: 25px;
+    color: #31bc92;
+    background: #f5f5f5;
+    position: absolute;
+    top: -15px;
+    right: -10px;
+}
+.class_wrong_back_x {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 1px solid #31bc92;
+    text-align: center;
+    line-height: 25px;
+    color: #31bc92;
+    background: #f5f5f5;
+    position: absolute;
+    top: -15px;
+    right: -10px;
+}
+.per_wrong_back_x {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 1px solid #31bc92;
+    text-align: center;
+    line-height: 25px;
+    color: #31bc92;
+    background: #f5f5f5;
+    position: absolute;
+    top: -15px;
+    right: -10px;
+}
 .stu_wrong_tc_select {
     width: 100%;
     height: 62px;
@@ -2485,4 +2523,18 @@ z-index: 11;
     display: none;
     z-index: 11;
 }
-
+.p_list_top{
+    color: #666666;
+    font-size: 16px;
+    padding-top: 10px;
+}
+.c_list_top{
+    color: #666666;
+    font-size: 16px;
+    padding-top: 10px;
+}
+.g_list_top{
+    color: #666666;
+    font-size: 16px;
+    padding-top: 10px;
+}

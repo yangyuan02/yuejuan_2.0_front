@@ -102,7 +102,7 @@
                                     <div style="float: right;">
                                         <a class="grate_wrong_make">
                                             <button type="" class="grade_make_wrong determine">生成错题本</button><i class="iconfont">&#xe622;</i></a>
-                                        <button type="" class="grade_print">打印</button>
+                                        <!-- <button type="" class="grade_print">打印</button> -->
                                     </div>
                                 </div>
                                 <!-- 错题列表 -->
@@ -112,7 +112,7 @@
                                 </div>
                                 <!-- 查看答案 -->
                                 <div class="grade_ans_tc">
-                                    <p class="grade_ans_top">查看答案和解析</p>
+                                    <p class="grade_ans_top">查看答案和解析<div class="grade_wrong_back_x"><i class="iconfont" style=""></i></div></p>
                                     <div style="padding-left: 30px;box-sizing: border-box;">
                                         <p class="grade_ans_style">答案</p>
                                         <div class="grade_ans01"></div>
@@ -154,10 +154,10 @@
                                 <a data-id="1" class="type_all">全部<i class="iconfont" style="font-size: 10px;margin-left: 5px;">&#xe619;</i></a>
                                 <i class="type_ever">
                     <a data-id="1" style="">选择题<i class="iconfont">&#xe619;</i></a>
-                                <a data-id="1" style="">判断题<i class="iconfont">&#xe619;</i></a>
                                 <a data-id="1" style="">填空题<i class="iconfont">&#xe619;</i></a>
-                                <a data-id="1" style="">作文题<i class="iconfont">&#xe619;</i></a>
-                                <a data-id="1" style="">其他题<i class="iconfont">&#xe619;</i></a></i>
+                                <a data-id="1" style="">判断题<i class="iconfont">&#xe619;</i></a>
+                                <a data-id="1" style="">其他题<i class="iconfont">&#xe619;</i></a>
+                                <a data-id="1" style="">作文题<i class="iconfont">&#xe619;</i></a></i>
                                 <a data-id="1" style="float: right;">
                                     <button class="class_off" type="">取消</button>
                                     <button type="" style="margin-left:20px;font-size: 14px;" class="class_sur determine">确定</button>
@@ -190,7 +190,7 @@
                                         <div style="float: right;">
                                             <a style="float: right;margin-top:10px;cursor: pointer;">
                                                 <button type="" class="class_make_wrong determine">生成错题本</button><i class="iconfont" style="color: #31bc91;margin: 0px 0px 0px 10px;font-size: 16px;">&#xe622;</i></a>
-                                            <button class="class_print" type="">打印</button>
+                                           <!--  <button class="class_print" type="">打印</button> -->
                                         </div>
                                     </p>
                                 </div>
@@ -200,7 +200,7 @@
                                     </ul>
                                     <!-- 班级查看答案 -->
                                     <div class="class_ans_tc">
-                                        <p class="class_ans_top">查看答案和解析</p>
+                                        <p class="class_ans_top">查看答案和解析<div class="class_wrong_back_x"><i class="iconfont" style=""></i></div></p>
                                         <div style="padding-left: 30px;box-sizing: border-box;">
                                             <p class="class_ans_style">答案</p>
                                             <div class="class_ans01"></div>
@@ -218,11 +218,6 @@
                         <!-- 班级错题本 end-->
                         <!-- 学生错题本-->
                         <div style="position: relative;display:none;">
-                            <p class="students_key"><i></i>重点追踪学生 </p>
-                            <div class="students_key_box">
-                                <p class="students_key_box_p01"><i>上海中学</i><i>高一</i><i>2班</i>学生错题追踪</p>
-                                <p class="students_key_box_p02"></p>
-                            </div>
                             <p class="per_wrong_select">
                                 <a>考试<select class="per_time" style="width: 220px;">
                     
@@ -242,14 +237,19 @@
                                     <button type="" class="stu_choice_btn determine">学生筛选</button>
                                 </a>
                             </p>
+                             <p class="students_key"><i></i>重点追踪学生 </p>
+                            <div class="students_key_box">
+                                <p class="students_key_box_p01"><i>上海中学</i><i>高一</i><i>2班</i>学生错题追踪</p>
+                                <p class="students_key_box_p02"></p>
+                            </div>
                             <p class="q_type">类型
                                 <a data-id="1" class="type_all">全部<i class="iconfont" style="font-size: 10px;margin-left: 5px;">&#xe619;</i></a>
                                 <i class="type_ever">
-                    <a data-id="1" style="">选择题<i class="iconfont">&#xe619;</i></a>
-                                <a data-id="1" style="">判断题<i class="iconfont">&#xe619;</i></a>
+                               <a data-id="1" style="">选择题<i class="iconfont">&#xe619;</i></a>
                                 <a data-id="1" style="">填空题<i class="iconfont">&#xe619;</i></a>
-                                <a data-id="1" style="">作文题<i class="iconfont">&#xe619;</i></a>
-                                <a data-id="1" style="">其他题<i class="iconfont">&#xe619;</i></a></i>
+                                <a data-id="1" style="">判断题<i class="iconfont">&#xe619;</i></a>
+                                <a data-id="1" style="">其他题<i class="iconfont">&#xe619;</i></a>
+                                <a data-id="1" style="">作文题<i class="iconfont">&#xe619;</i></a></i>
                                 <a data-id="1" style="float: right;" class="per_sur_a">
                                     <button class="per_off" type="">取消</button>
                                     <button type="" style="margin-left:20px;font-size: 14px;" class="per_sur determine">确定</button>
@@ -281,7 +281,7 @@
                                         <div class="per_topic_ever_box">
                                         </div>
                                         <div style="float: right;padding-top:10px;box-sizing:border-box;">
-                                            <button class="per_print" type="">打印</button>
+                                            <!-- <button class="per_print" type="">打印</button> -->
                                             <button class="per_make_change" type="">生成变式训练</button>
                                             <a class="per_wrong_make">
                                                 <button type="" class="determine per_make_wrong">生成错题本</button><i class="iconfont" style="">&#xe622;</i></a>
@@ -296,7 +296,7 @@
                                 <!--   个人错题list end-->
                                  <!-- 班级查看答案 -->
                                     <div class="per_ans_tc">
-                                        <p class="per_ans_top">查看答案和解析</p>
+                                        <p class="per_ans_top">查看答案和解析<div class="per_wrong_back_x"><i class="iconfont" style=""></i></div></p>
                                         <div style="padding-left: 30px;box-sizing: border-box;">
                                             <p class="per_ans_style">答案</p>
                                             <div class="per_ans01"></div>
@@ -409,6 +409,7 @@
                                     <p></p>
                                 </div>
                                 <!--  list -->
+                                 <p class="g_list_top"></p>
                                 <div class="g_list">
                                     <ul class="g_list_ul">
                                     </ul>
@@ -496,6 +497,7 @@
                                     <p></p>
                                 </div>
                                 <!--  list -->
+                                <p class="c_list_top"></p>
                                 <div class="c_list">
                                     <ul class="c_list_ul">
                                     </ul>
@@ -587,6 +589,7 @@
                                     </div>
                                 </div>
                                 <!-- 11 -->
+                                <p class="p_list_top"></p>
                                 <div class="p_list">
                                     <ul class="p_list_ul">
                                     </ul>
