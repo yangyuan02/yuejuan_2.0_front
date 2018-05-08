@@ -4012,7 +4012,7 @@ $(function() {
 	  	data: formData,
 	  	headers: {'Authorization': "Bearer " + isLogin},
 	  	processData : false,
-			contentType : false,
+		contentType : false,
 	  	beforeSend:function(){
 					console.log("正在进行，请稍候");
 			},

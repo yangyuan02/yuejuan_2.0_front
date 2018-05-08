@@ -2665,8 +2665,8 @@
      $(".per_wrong_list").on('click', '.per_wrong_list_look', function(event) {
          $(".per_wrong_admin_main_box").hide();
          $(".per_wrong_list_look_box").show();
-         $(".wrong_top").html('<i class="c_back_font  iconfont" style="margin-right:10px;cursor: pointer;"></i>' + $(this).parents('li').find('.p_wrong_list_name').html() + '');
-         $(".p_list_top").html($(this).parents('li').find('.p_wrong_list_name').html());
+         $(".wrong_top").html('<i class="c_back_font  iconfont" style="margin-right:10px;cursor: pointer;"></i>' + $(".per_class").children('option:selected').html()+'-'+$(this).parents('li').find('.p_wrong_list_name').html() +'');
+         $(".p_list_top").html($(".per_class").children('option:selected').html()+'-'+$(".p_student_color").html()+'-'+$(".per_sub").children('option:selected').html());
          var id = $(this).parents('li').find(".p_wrong_list_name").attr("data-id");
          $.ajax({
              type: "POST",
