@@ -209,11 +209,15 @@ $(function() {
                 console.log(data);
                 $(".sub_bd02 select").html(" ");
                 $(".sort_num_div").html(" ");
+                $(".contact_sub_bd02 select").html(" ");
+                $(".contact_sort_num_div").html(" ");
                 for (var i = 0; i < data.length; i++) {
                     $(".sub_bd02 select").append('<option value="">' + data[i].answer.answer_name + '</option>');
+                    $(".contact_sub_bd02 select").append('<option value="">' + data[i].answer.answer_name + '</option>');
                 }
                 for (var i = 0; i < data[0].answer_settings.length; i++) {
                     $(".sort_num_div").append('<a data-id="0" class="list_a_' + data[0].answer_settings[i].id + '" data_num="' + data[0].answer_settings[i].num + '" list_id="' + data[0].answer_settings[i].id + '">' + data[0].answer_settings[i].num + '<i class="iconfont" style="font-size: 12px;margin-left: 5px;"></i></a>');
+                    $(".contact_sort_num_div").append('<a data-id="0" class="contact_list_a_' + data[0].answer_settings[i].id + '" data_num="' + data[0].answer_settings[i].num + '" list_id="' + data[0].answer_settings[i].id + '">' + data[0].answer_settings[i].num + '<i class="iconfont" style="font-size: 12px;margin-left: 5px;"></i></a>');
                 }
                 again_bang();
             },
@@ -223,7 +227,6 @@ $(function() {
     });
 
     $(".sub_bd02 select").change(function(event) {
-        /* Act on the event */
         var dex = $(this).children('option:selected').index();
         console.log(dex);
         $.ajax({
@@ -253,7 +256,36 @@ $(function() {
         });
 
     });
+    $(".contact_sub_bd02 select").change(function(event) {
+        var dex = $(this).children('option:selected').index();
+        console.log(dex);
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: ajaxIp + "/api/v2/question_banks/question_answers",
+            data: {
+                'exam_subject_id': exam_subject_id,
+            },
+            headers: { 'Authorization': "Bearer " + isLogin },
+            success: function(data) {
 
+
+                $(".contact_sort_num_div").html(" ");
+                console.log(data[dex].answer_settings.length);
+                for (var i = 0; i < data[dex].answer_settings.length; i++) {
+                    $(".contact_sort_num_div").append('<a data-id="0" class="contact_list_a_' + data[dex].answer_settings[i].id + '" data_num="' + data[dex].answer_settings[i].num + '" list_id="' + data[dex].answer_settings[i].id + '">' + data[dex].answer_settings[i].num + '<i class="iconfont" style="font-size: 12px;margin-left: 5px;"></i></a>');
+                }
+                var a = $(".contact_list_i i").length;
+                for (var i = 0; i < a; i++) {
+                    $('.' + $(".contact_list_i i").eq(i).attr('id') + '').attr('data-id', '1');
+                    $('.' + $(".contact_list_i i").eq(i).attr('id') + '').css('background', '#31bc91');
+                }
+                again_bang();
+            },
+            error: function() {}
+        });
+
+    });
     $(".sub_bd_p_div").click(function(event) {
         $(".sub_bd").hide();
         $(".layer").hide();
@@ -309,7 +341,21 @@ $(function() {
 
         }
     });
+    $(".contact_sort_num_div ").on('click', 'a', function(event) {
+        var id = $(this).attr("data-id");
+        var class_id = $(this).attr("class");
+        var num = $(this).attr("data_num");
+        if (id == 0) {
+            $(this).attr("data-id", "1");
+            $(this).css("background", "#31bc91");
+            $(".contact_list_i").append('<i id="contact' + class_id + '" style="font-style:normal;" data-id="' + $(this).attr("list_id") + '">' + num + '，</i>')
+        } else if (id == 1) {
+            $(this).attr("data-id", "0");
+            $(this).css("background", "#cccccc");
+            $('#contact' + $(this).attr("class") + '').remove();
 
+        }
+    });
     //题组设置
     function again_tizhu() {
         $.ajax({
@@ -931,7 +977,16 @@ $(function() {
         return html.replace(/\/web1\/ckupload\/quessIImage/gi, 'quessIImage');
     }
 
-
+  $(".list_lian").click(function(event) {
+    var a=$(this).html()
+     if(a=="未关联"){
+      $(this).html("已关联")
+      $(this).css("background","#5fa3ed")
+     }else{
+       $(this).html("未关联")
+      $(this).css("background","#f7c07c") 
+     }
+  });
 
 
 

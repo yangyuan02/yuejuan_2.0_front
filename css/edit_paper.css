@@ -365,7 +365,13 @@
     font-size: 14px;
     color: #666;
 }
-
+.contact_sub_bd02 {
+    /*margin-left:115px;*/
+    overflow: hidden;
+    padding-left: 30px;
+    font-size: 14px;
+    color: #666;
+}
 .sub_bd03 {
     width: 366px;
     height: 62px;
@@ -776,6 +782,20 @@
     overflow: auto;
     margin-top: 20px;
 }
+.contact_sort_num a {
+    background: #cccccc;
+    color: #f5f5f5;
+    margin: 0px 10px 10px 10px;
+    display: inline-block;
+    line-height: 25px;
+    padding: 0px 10px;
+    float: left;
+}
+
+.contact_sort_num {
+    overflow: auto;
+    margin-top: 20px;
+}
 
 .sort_num_font {
     background: #cccccc;
@@ -791,8 +811,23 @@
     width: 300px;
     float: right;
 }
-
+.contact_sort_num_div {
+    width: 300px;
+    float: right;
+}
 .bind-item-content {
     position: absolute;
     right: 100px;
+}
+.list_lian{
+    width: 60px;
+   color: #fff;
+    cursor: pointer;
+    background: #f7c07c;
+}
+.contact_top{
+    border-top: 1px solid #ccc;
+    width: 366px;
+    margin: 0 auto;
+    margin-top: 20px;
 }
