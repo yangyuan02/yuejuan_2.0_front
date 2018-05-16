@@ -48,6 +48,21 @@ m1.controller("demo", function ($scope, $timeout, $http) {
     $scope.discernList = ['识别考号', '识别条码'];
     $scope.examType= 0
     $scope.examList = ['普通考试', '特殊考试'];
+    $scope.barInfo = {
+        region_rect_x:0,
+        region_rect_y:0,
+        region_rect_width:0,
+        region_rect_height:0,
+        answer_mode : 6,
+        current_page : 1,
+        no : 0,
+        score : 0,
+        string : "条形码学号",
+        block_width : 0,
+        block_height : 0,
+        num_question : 0,
+        num_of_option : 0 
+    }
     $scope.result = {};//弹出框保存
     var modelParam = []//存储请求参数
     var answer_id = []//大题answer_id
@@ -75,6 +90,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                     $scope.infoBox = data.message.infoBox ? data.message.infoBox : 0
                     $scope.discernType = data.message.discernType ? data.message.discernType : 0
                     $scope.examType = data.message.examType ? data.message.examType : 0
+                    $scope.barInfo = data.message.barInfo ? data.message.barInfo : {}
                     $scope.leftcardNum = data.message.leftcardNum ? data.message.leftcardNum : 0
                     $scope.showTableLineTyep = data.message.showTableLineTyep ? data.message.showTableLineTyep : 0
                     $scope.myDayinType = data.message.myDayinType ? data.message.myDayinType : 0
@@ -557,38 +573,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             no: '', one: '', two: '', thr: '',
         };
     };
-    function getBarCode(){//获取条形码
-        var itme_obj = {}
-        var studentRegionRect = {}//学号区域信息
-        var dot = $(".position_TL span").eq(1).offset();
-        dot.left = dot.left + 15, dot.top = dot.top + 15//定标点
-        itme_obj.answer_mode = 6
-        itme_obj.current_page = 1
-        itme_obj.no = 0
-        itme_obj.score = 0
-        itme_obj.string = "条形码学号"
-        itme_obj.block_width = 0
-        itme_obj.block_height = 0
-        itme_obj.num_question = 0
-        itme_obj.num_of_option = 0
-
-        if($scope.infoBox==0){
-
-            itme_obj.region_rect_x = 1650
-            itme_obj.region_rect_y = 640
-            itme_obj.region_rect_width = 578
-            itme_obj.region_rect_height = 216
-
-        }else{
-            itme_obj.region_rect_x = 160
-            itme_obj.region_rect_y = 1300
-            itme_obj.region_rect_width = 400
-            itme_obj.region_rect_height = 200
-        } 
-        
-
-        return itme_obj
-    }
+    
     function getStudentInfo() {//获取学号学生信息
         var itme_obj = {}
         var studentRegionRect = {}//学号区域信息
@@ -870,7 +855,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
             }
         }
 
-        $scope.discernType == 0 ? BigQuestion.push(getStudentInfo()) : BigQuestion.push(getBarCode())  //识别考号/识别条码
+        $scope.discernType == 0 ? BigQuestion.push(getStudentInfo()) : BigQuestion.push($scope.barInfo)  //识别考号/识别条码
 
         return BigQuestion
     }
@@ -925,6 +910,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         allList.paperType = $scope.paperType
         allList.infoLocation = $scope.infoLocation
         allList.infoBox = $scope.infoBox
+        allList.barInfo = $scope.barInfo
         allList.leftcardNum = $scope.leftcardNum
         allList.showTableLineTyep = $scope.showTableLineTyep
         allList.myDayinType = $scope.myDayinType
@@ -1760,6 +1746,7 @@ m1.controller("demo", function ($scope, $timeout, $http) {
                 $scope.paperType = data.paperType ? data.paperType : 0
                 $scope.infoLocation = data.infoLocation ? data.infoLocation : 0
                 $scope.infoBox = data.infoBox ? data.infoBox : 0
+                $scope.barInfo = data.barInfo ? data.barInfo : {}
                 $scope.leftcardNum = data.leftcardNum ? data.leftcardNum : 0
                 $scope.showTableLineTyep = data.showTableLineTyep ? data.showTableLineTyep : 0
                 $scope.myDayinType = data.myDayinType ? data.myDayinType : 0
@@ -1860,6 +1847,18 @@ m1.controller("demo", function ($scope, $timeout, $http) {
         $(".cand_box").show()
         $("#menu").hide()
         $scope.candlen = $scope.infoBox==0?$scope.candNumber.length:$scope.leftcardNum.length
+    }
+    /**
+     * 设置条码位置
+     */
+    $scope.showBar = function(){
+        console.log(111)
+        $(".cand_bar").show()
+        $("#menu").hide()
+    }
+    $scope.setBar = function(obj){
+        console.log(obj)
+        $(".cand").hide()
     }
     $scope.setCandNumber = function (candlen) {
         var result = []

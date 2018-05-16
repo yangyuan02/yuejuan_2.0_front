@@ -1364,6 +1364,7 @@
         <ul>
             <li class="meun_navbar" ng-click="dayin()">打印</li>
             <li class="meun_navbar" ng-click="showCandNumer()" ng-show="tabParentIndex==-1">设置考号</li>
+            <li class="meun_navbar" ng-click="showBar()" ng-show="tabParentIndex==-1&&discernType==1">设置条码</li>
             <li class="meun_navbar"
                 ng-show="((meunType==5&&meunOtherisradio==4)||(meunType==4&&meunArticleType!=1)||meunType==3)&&tabParentIndex!=-1"
                 ng-click="showVertical()">设置行间距
@@ -1407,6 +1408,21 @@
         <div class="cand_close" ng-click="closeCand()">x</div>
     </div>
     <!--设置考号弹窗结束-->
+    <!--设置条码位置弹窗开始-->
+    <div class="cand cand_bar" style="width:410px;">
+        <div class="cand_title">设置条码位置信息</div>
+        <div class="cand_con clearfix">
+            <p>
+                <span style="margin-right:5px;">x&nbsp;&nbsp;<input type="number" ng-model="barInfo.region_rect_x" style="width: 50px"></span>
+                <span style="margin-right:5px;">y&nbsp;&nbsp;<input type="number" ng-model="barInfo.region_rect_y" style="width: 50px"></span>
+                <span style="margin-right:5px;">w&nbsp;&nbsp;<input type="number" ng-model="barInfo.region_rect_width" style="width: 50px"></span>
+                <span style="margin-right:5px;">h&nbsp;&nbsp;<input type="number" ng-model="barInfo.region_rect_height" style="width: 50px"></span>
+            </p>
+        </div>
+        <div class="cand_btn"><a ng-click="setBar(barInfo)">确定</a></div>
+        <div class="cand_close" ng-click="closeCand()">x</div>
+    </div>
+    <!--设置条码位置结束-->
     <!--设置插入图片弹窗开始-->
     <div class="cand pic_box">
         <div class="cand_title">添加图片</div>
